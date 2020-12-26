@@ -1,5 +1,5 @@
 --[[┎───────────────────────────────────
-	┃ Various model tweaks
+	┃ get rid of the ugly stock parts
 ────┸───────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL remove multitool ugly parts.pak',
