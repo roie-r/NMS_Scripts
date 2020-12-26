@@ -1,6 +1,7 @@
 --[[┎──────────────────────────────────────────────────────────
 	┃ Hide lower-right HUD notification popups
-	┃ Hide HUD bounding black lines; Hide cinematic black bars
+	┃ Hide HUD bounding black lines
+	┃ Hide cinematic black bars
 ────┸──────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_UI hide notifications & bars.pak',
