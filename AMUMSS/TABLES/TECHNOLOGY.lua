@@ -3,7 +3,7 @@
 	┃ Enable ship-tech for bioship _ share tech between vehicle & mech
 	┃ Increase stat value (bonus) for selected items
 	┃ changes to weapon upgrades projectile color
-	┃ Change mech terrain editor fuel to metal - same as the multitool
+	┃ Change mech terrain editor fuel to ferrite - same as the multitool
 ────┸────────────────────────────────────────────────────────────────--]]
 Tech_Charge = {
 	dat = {
