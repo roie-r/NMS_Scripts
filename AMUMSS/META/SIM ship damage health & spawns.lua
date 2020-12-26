@@ -1,5 +1,5 @@
 --[[┎────────────────────────────────────────────────────────────
-	┃ Increase number of attackers in bounty and pirate missions
+	┃ Increase number of attackers for bounty and pirate missions
 	┃ Reduce number of planet flybys and outpost visits
 	┃ Increase enemy and NPC ships total health and damage
 ────┸────────────────────────────────────────────────────────--]]
