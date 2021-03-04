@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC DEBUG.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.13',
+	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= 'U',
 	MODIFICATIONS 		= {{
@@ -17,7 +17,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SkipPlanetDiscoverOnBoot',			true}, -- ??
 					{'AllowSavingOnAbandonedFreighters',	true},
 					{'DisableSaveSlotSorting',				true},
-					{'DisableProfanityFilter', 				true},
+					-- {'DisableProfanityFilter', 				true},
 					{'MultiplePlayerFreightersInASystem',	true},
 
 					-- {'EnableBaseMovingOption',				true},

@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC UI.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.13',
+	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= 'TO USE',
 	MODIFICATIONS 		= {{
@@ -23,17 +23,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TakeoffFuelMessageTime',					-3},	-- 5
 					{'ShipOverheatSwitchMessageWait',			-0.9},	-- 0.9
 					{'ShipOverheatSwitchMessageTime',			-1.6},	-- 1.6
+
 					{'NotificationsResourceExtractHintCount',	-1000},	-- 1500
 					{'NotificationStaminaHintDistanceWalked',	-8000},	-- 10000
-					{'NotificationMinVisibleTime',				-1},	-- 3
+					{'NotificationMinVisibleTime',				-1},		-- 3
+					-- {'NotificationHazardSafeThreshold',		0.2},	-- 0.2
+					-- {'NotificationHazardTimer',				6},		-- 6
 					{'NotificationInteractHintStartTime',		99999},	-- 1800
 					{'NotificationBuildHintStartTime',			99999},	-- 31
 					{'NotificationJetpackTime',					99999},	-- 1.3
 					{'NotificationShieldTime',					99999},	-- 3.5
 					{'NotificationShipBoostTime',				99999},	-- 15.5
 					{'NotificationShipBoostTimeVR',				99999},	-- 30
+					-- {'NotificationCantFireTime',				4},		-- 4
+					-- {'NotificationDangerTime',				8},		-- 8
 					{'NotificationScanTime',					-300},	-- 600
 					{'NotificationScanTimeCutoff',				-14000},-- 20000
+					-- {'NotificationMessageCycleTime',			4},		-- 4
 					{'NotificationMaxPageHintTime',				-10},	-- 20
 					{'NotificationShipJumpMinTime',				99999},	-- 2
 					{'NotificationShipJumpReminderTime',		99999},	-- 300
@@ -41,11 +47,26 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NotificationShipBoostMinTime',			99999},	-- 5
 					{'NotificationShipBoostReminderTime',		99999},	-- 300
 					{'NotificationShipBoostReminderTimeTutorial',99999},-- 10
+					-- {'LandNotifySpeedThreshold',				0.65},	-- 0.65
+					-- {'LandNotifyHeightThreshold',			50},	-- 50
+					-- {'LandNotifyTimeThreshold',				10},	-- 10
+					-- {'NotificationTimeBeforeHeridiumMarker',	30},	-- 30
 					{'NotificationUrgentMessageTime',			-10},	-- 22
+					-- {'NotificationGoToSpaceStationWait',		5},		-- 5
+					-- {'NotificationMonolithMissionWait',		1200},	-- 1200
+					-- {'NotificationFinalMissionWait',			300},	-- 300
+					-- {'NotificationWaypointReachDistance',	50},	-- 50
+					-- {'NotificationBridgeReachDistance',		10},	-- 10
+					-- {'NotificationDiscoveryIdleTime',		2400},	-- 2400
+					-- {'NotificationInfoIdleTime',				2400},	-- 2400
+					-- {'NotificationNewTechIdleTime',			1200},	-- 1200
+					-- {'NotificationScanEventMissionIdleTime',	1200},	-- 1200
+					-- {'NotificationDeviceIdleTime',			600},	-- 600
 					{'NotificationMissionHintTime',				-10},	-- 21
 					{'NotificationMissionHintTimeCritical',		-24},	-- 60
 					{'NotificationMissionHintTimeSecondary',	-7},	-- 15
 					{'MessageNotificationTime',					-4}, 	-- 12
+
 					{'FrontendConfirmTimeMouseMultiplier',		5.5},	-- 0.5
 					{'FrontendConfirmTimeFast',					-0.3},	-- 0.35
 					{'FrontendConfirmTime',						-0.6},	-- 0.7
@@ -56,8 +77,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'DiscoverPlanetTotalTime',					-5}, 	-- 10
 					{'DiscoverPlanetMessageWait',				-1}, 	-- 1
 					{'DiscoverPlanetMessageTime',				-4}, 	-- 7
-					{'TextChatMaxDisplayTime',					-50},	-- 60
-					{'TextChatStayBigAfterTextInput',			-12}, 	-- 15
+					{'TextChatMaxDisplayTime',					-45},	-- 60
+					{'TextChatStayBigAfterTextInput',			-10}, 	-- 15
 					{'TargetParallaxMouseMultiplier',			-0.36} 	-- 0.36
 				}
 			},
