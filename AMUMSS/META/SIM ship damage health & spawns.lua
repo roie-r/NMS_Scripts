@@ -1,5 +1,5 @@
 --[[┎────────────────────────────────────────────────────────────
-	┃ Increase number of attackers for bounty and pirate missions
+	┃ Increase number of attackers in bounty and pirate missions
 	┃ Reduce number of planet flybys and outpost visits
 	┃ Increase enemy and NPC ships total health and damage
 ────┸────────────────────────────────────────────────────────--]]
@@ -132,7 +132,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship damage + health + spawns.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.13',
+	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
