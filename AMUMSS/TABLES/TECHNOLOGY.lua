@@ -3,7 +3,7 @@
 	┃ Enable ship-tech for bioship _ share tech between vehicle & mech
 	┃ Increase stat value (bonus) for selected items
 	┃ changes to weapon upgrades projectile color
-	┃ Change mech terrain editor fuel to ferrite - same as the multitool
+	┃ Change mech terrain editor fuel to metal - same as the multitool
 ────┸────────────────────────────────────────────────────────────────--]]
 Tech_Charge = {
 	dat = {
@@ -121,7 +121,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.13',
+	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
