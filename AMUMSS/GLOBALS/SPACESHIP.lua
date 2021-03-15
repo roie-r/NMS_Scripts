@@ -34,11 +34,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ShieldRechargeMinHitTime',		2},		-- 3
 					{'ShieldRechargeRate',				-3},	-- 6
 					{'SurvivalTakeOffCostMultiplier',	-0.8},	-- 2
+					{'PlayerFreighterClearSpaceRadius',	-800},	-- 3000
 					{"MiniWarpLinesNum",				-4},	-- 4
 					{'HitAsteroidDamage',				30000},	-- 10000
 					{'LootAttractDistance',				240},	-- 120
 					{'LootCollectDistance',				32},	-- 20
 					{'DockingRotateSpeed',				-0.3},	-- 1
+					{'MiniWarpShakeStrength',			-1},	-- 2
 					{'MiniWarpSpeed',					6000},	-- 30000
 					{'MiniWarpStoppingMarginPlanet',	1000},	-- 5000
 					{'LaunchThrustersRegenTimePeriod',	-360}	-- 1440

@@ -1,12 +1,12 @@
---[[┎───────────────────────────────────
-	┃ Various model tweaks
-────┸───────────────────────────────--]]
+--[[┎───────────────────────────────────────────────
+	┃ remove unwanted parts from mmultitool
+	┃ scale multitool apperance
+────┸───────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL remove multitool ugly parts.pak',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
-	MOD_DESCRIPTION		= 'X',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

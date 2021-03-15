@@ -7,7 +7,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
-	MOD_DESCRIPTION		= 'U',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -29,9 +28,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MinFade',							25},	-- 30
 					{'CreatureRidingMedMinSize',		-2},	-- 5
 					{'CreatureRidingLargeMinSize',		-4},	-- 12
-					{'CreatureRidingHugeMinSize',		-8},	-- 20					
+					{'CreatureRidingHugeMinSize',		-8},	-- 20
 					{'TurnRadiusMultiplier',			-0.2},	-- 1
-					{'PetMaxTurnRad',					-0.3},	-- 1					
+					{'PetMaxTurnRad',					-0.3},	-- 1
 				}
 			},
 			{

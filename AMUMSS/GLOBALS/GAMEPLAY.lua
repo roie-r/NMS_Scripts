@@ -7,7 +7,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '3.22',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
-	MOD_DESCRIPTION		= 'U',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -31,9 +30,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxDronesLowSurvival',				-1},	-- 1
 					{'ShipInteractRadius',					800},	-- 50
 					{'ZoomFindBuildingRange',				400},	-- 600
-					{'TorchFoV',							-36},	-- 100
-					{'TorchStrength',						1},		-- 4
-					{'TorchOffsetY',						-0.3},	-- 0.5
+					{'TorchFoV',							-32},	-- 100
+					{'TorchStrength',						0.5},	-- 4
+					{'TorchDimFoV',							3},		-- 65
+					{'TorchDimStrength',					0.5},	-- 1.5
+					{'TorchOffsetY',						-0.2},	-- 0.5
 					{'TorchOffsetZ',						-0.4},	-- -0.2
 					{'LightStrength',						1}		-- 1	(build menu item light)
 				}
