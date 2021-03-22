@@ -40,12 +40,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = 'TorchColour',
 				VALUE_CHANGE_TABLE 	= {
-					{'R',			-0.08},	-- 0.95
-					{'G',			-0.1},	-- 0.993
-					{'B',			0.01}	-- 0.944
+					{'R',			0.92},	-- 0.95
+					{'G',			0.9},	-- 0.993
+					{'B',			0.96}	-- 0.944
 				}
 			},
 			{

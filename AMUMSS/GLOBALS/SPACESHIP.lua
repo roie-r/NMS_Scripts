@@ -29,7 +29,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'LandingPushNoseUpFactor',			-0.16},	-- 0.15
 					{'DefaultTrailInitialSpeed',		160},	-- 200
 					{'DefaultTrailMinForwardSpeed',		50},	-- 45
-					{'PulseDrivePlanetApproachHeight',	3000},	-- 6000
+					{'PulseDrivePlanetApproachHeight',	2000},	-- 6000
 					{'ContrailDefaultAlpha',			-0.4},	-- 0.4
 					{'ShieldRechargeMinHitTime',		2},		-- 3
 					{'ShieldRechargeRate',				-3},	-- 6
@@ -43,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MiniWarpShakeStrength',			-1},	-- 2
 					{'MiniWarpSpeed',					6000},	-- 30000
 					{'MiniWarpStoppingMarginPlanet',	1000},	-- 5000
-					{'LaunchThrustersRegenTimePeriod',	-360}	-- 1440
+					-- {'LaunchThrustersRegenTimePeriod',	-360}	-- 1440
 				}
 			},
 			{

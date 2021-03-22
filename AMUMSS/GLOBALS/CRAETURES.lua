@@ -30,21 +30,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'CreatureRidingLargeMinSize',		-4},	-- 12
 					{'CreatureRidingHugeMinSize',		-8},	-- 20
 					{'TurnRadiusMultiplier',			-0.2},	-- 1
-					{'PetMaxTurnRad',					-0.3},	-- 1
+					{'PetMaxTurnRad',					-0.3}	-- 1
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
-				INTEGER_TO_FLOAT	= 'FORCE',
 				VALUE_CHANGE_TABLE 	= {
 					{'CreatureHarvestAmountSmall',		2}, 	-- 1
 					{'CreatureHarvestAmountMed',		2}, 	-- 1
 					{'CreatureHarvestAmountLarge',		2}, 	-- 2
-					{'CreatureHarvestAmountHuge',		1.5},	-- 3
+					{'CreatureHarvestAmountHuge',		2},		-- 3
 					{'PetGrowthTime',					0.5},	-- 1209600 (14d)
 					{'PetIncubationTime',				0.33},	-- 86400 (24h)
 					{'PetEggLayingInterval',			0.5},	-- 86400
-					{'PetEggFirstEggDelay',				0.5},	-- 86400
+					{'PetEggFirstEggDelay',				0.5}	-- 86400
 				}
 			}
 		}

@@ -17,10 +17,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'UnknownBuildingRange',				 200},	-- 600
 					{'MaxShipScanBuildings',				 1},	-- 2
 					{'MinRadiusForBases',					 50},	-- 300
-					{'MaxRadiusForBases',				 	 1600},	-- 1000
+					{'MaxRadiusForPlanetBases',			 	 1000},	-- 1000
 					{'BaseRadiusExtension',					 20},	-- 50
-					{'MaximumPipeSegmentLength',			 600},	-- 400
-					{'BuildingPlacementMaxConnectionLength', 800}	-- 200
+					-- {'MaximumPipeSegmentLength',			 600},	-- 400
+					{'BuildingPlacementMaxConnectionLength', 1000}	-- 200
 				}
 			}
 		}
