@@ -1,7 +1,6 @@
 # avoid files and folders
-*/__start_BUILD.lnk
-
-# **/*.txt
+**/*.lnk
+**/*.txt
 
 .vscode/**
 _TEST/_random_TEST.lua
