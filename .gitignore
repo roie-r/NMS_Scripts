@@ -1,6 +1,6 @@
 # avoid files and folders
-.lnk
-.txt
+*.lnk
+*.txt
 
 .vscode/
 _TEST/_random_TEST.lua
