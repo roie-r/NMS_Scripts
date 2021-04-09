@@ -136,13 +136,30 @@ Req_Substance = {
 	end
 }
 
-P_Requirements = {
+Prod_Requirements = {
 	Cargo_Bulkhead = { -- (FREI_INV_TOKEN)
 		{'CASING',		'Product', 60},  -- plating
 		{'COMPOUND6',	'Product', 3},	 -- cryo pump
 		{'FARMPROD5',	'Product', 5}	 -- poly fibre
-	}
+	},
+	Build = function(tbl)
+		local exml = '<Property name="Requirements">'
+		for i=1, #tbl do exml = exml .. AddNewCraftPart(tbl[i]) end
+		return exml .. '</Property>'
+	end
 }
+
+function AddNewCraftPart(x)
+	return [[
+		<Property value="GcTechnologyRequirement.xml">
+			<Property name="ID" value="]] .. x[1] .. [[" />
+			<Property name="InventoryType" value="GcInventoryType.xml">
+				<Property name="InventoryType" value="]] .. x[2] .. [[" />
+			</Property>
+			<Property name="Amount" value="]] .. x[3] .. [[" />
+		</Property>
+	]]
+end
 
 function BuildExmlChangeTable(tbl)
 	local T = {}
@@ -150,37 +167,21 @@ function BuildExmlChangeTable(tbl)
 	return T
 end
 
-function BuildRequirements(lst)
-	local exml = '<Property name="Requirements">'
-	for i=1, #lst do exml = exml .. AddNewCraftPart(lst[i]) end
-	return exml .. '</Property>'
-end
-
-function AddNewCraftPart(lst)
-	return [[
-		<Property value="GcTechnologyRequirement.xml">
-			<Property name="ID" value="]] .. lst[1] .. [[" />
-			<Property name="InventoryType" value="GcInventoryType.xml">
-				<Property name="InventoryType" value="]] .. lst[2] .. [[" />
-			</Property>
-			<Property name="Amount" value="]] .. lst[3] .. [[" />
-		</Property>
-	]]
-end
+Source_Table_Product = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Product,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(K_Icons)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Product,
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'FRIG_BOOST_SPD'},
@@ -239,20 +240,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'FREI_INV_TOKEN'},
-				ADD					= BuildRequirements(P_Requirements.Cargo_Bulkhead)
+				-- ADD					= BuildRequirements(Prod_Requirements.Cargo_Bulkhead)
+				ADD					= Prod_Requirements.Build(Prod_Requirements.Cargo_Bulkhead)
 			}
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Product,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Stack_Mult)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Product,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(K_Icons_Color)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Product,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Req_Substance)
 	}
 }}}}

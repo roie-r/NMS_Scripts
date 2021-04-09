@@ -8,7 +8,7 @@
 ────┸────────────────────────────────────────────────────────────────--]]
 Tech_Upgrade_Stat = {
 	dat = {
-		{'UP_SMG',			'Weapon_Projectile_Damage',			'+',	1,		1},		-- 2, 3
+		{'UP_SMG',			'Weapon_Projectile_Damage',			'+',	1,		1},		-- 2, 	3
 		{'UP_SMG',			'Weapon_Projectile_Rate',			'-',	0.1,	0.1},	-- 1.1, 1.15
 		{'UP_JETBOOST',		'Suit_Jetpack_Tank',				'*',	1.4,	1.4},
 		{'UP_JETBOOST',		'Suit_Jetpack_Refill',				'*',	1.6,	1.6},
@@ -38,15 +38,17 @@ function BuildExmlChangeTable(tbl)
 	return T
 end
 
+Source_Table_Proc_Tech = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE.MBIN'
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROCEDURAL TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Proc_Tech,
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'ALL',
@@ -65,7 +67,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Proc_Tech,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Tech_Upgrade_Stat)
 	}
 }}}}

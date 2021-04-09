@@ -4,11 +4,10 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
 							Remove gunk (rusted metal) from cargo crate
-							Allow to collect items while in the mech
 							Remove space dust and plasma
 							Reduce space speed lines for thrust and pulse
 							shorter freighter landing tractor range
@@ -38,22 +37,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'GcMaintenanceComponentData.xml',
 				REMOVE				= 'SECTION'
-			}
-		}
-	},
-	{
-		-- Allow to collect items while in the mech
-		MBIN_FILE_SOURCE	= {
-			'MODELS\PLANETS\BIOMES\COMMON\INTERACTIVEFLORA\COMMODITYPLANT\ENTITIES\COMMODITY.ENTITY.MBIN',
-			'MODELS\PLANETS\BIOMES\COMMON\INTERACTIVEFLORA\FUELPLANT\ENTITIES\FUELPLANT.ENTITY.MBIN',
-			'MODELS\PLANETS\BIOMES\COMMON\INTERACTIVEFLORA\TECHPLANT\ENTITIES\TECHPLANT.ENTITY.MBIN',
-			'MODELS\PLANETS\CREATURES\FISH\CLAM\ENTITIES\PEARL.ENTITY.MBIN',
-		},
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'CanCollectInMech', true}
-				}
 			}
 		}
 	},
@@ -123,7 +106,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		-- mech walking speed animation increase (adjusted for higher speed in vehicle globals)
+		-- mech walking speed animation increase (adjusted for faster speed in vehicle globals)
 		MBIN_FILE_SOURCE	= 'MODELS\COMMON\VEHICLES\MECH_SUIT\MECH_SUIT\ENTITIES\MECH.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -198,24 +181,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-		-- Exotic horizontal wing
-		MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\S-CLASS\ROYALPARTS\WINGS\WINGS_A\ENTITIES\WINGS_A.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Anim', 'TAKEOFF'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FrameEnd',	150}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Anim', 'LANDING'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FrameStart',	30}
-				}
-			}
-		}
-	},
+	-- {
+	-- 	-- Exotic horizontal wing
+	-- 	MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\S-CLASS\ROYALPARTS\WINGS\WINGS_A\ENTITIES\WINGS_A.ENTITY.MBIN',
+	-- 	EXML_CHANGE_TABLE	= {
+	-- 		{
+	-- 			SPECIAL_KEY_WORDS	= {'Anim', 'TAKEOFF'},
+	-- 			VALUE_CHANGE_TABLE 	= {
+	-- 				{'FrameEnd',	150}
+	-- 			}
+	-- 		},
+	-- 		{
+	-- 			SPECIAL_KEY_WORDS	= {'Anim', 'LANDING'},
+	-- 			VALUE_CHANGE_TABLE 	= {
+	-- 				{'FrameStart',	30}
+	-- 			}
+	-- 		}
+	-- 	}
+	-- },
 	{
 		-- remove resource crates at portals
 		MBIN_FILE_SOURCE	= 'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PORTAL\PORTAL.SCENE.MBIN',

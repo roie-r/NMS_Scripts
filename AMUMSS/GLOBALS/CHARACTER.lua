@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CHARACTER.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -21,7 +21,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
 					{'TimeNotOnGroundToUseFallingCamera',	64},	-- 0.2
-					{'TimeFallingUntilPanic',				128},	-- 0.8
+					{'TimeFallingUntilPanic',				640},	-- 0.8
 					{'SlopeAngleForUphillClimb',			15},	-- 30
 					{'SlopeAngleForDownhillClimb',			15},	-- 30
 					{'SlopeAngleForSlide',					10},	-- 45

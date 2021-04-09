@@ -129,15 +129,17 @@ function BuildExmlChangeTable(tbl)
 	return T
 end
 
+Source_Exp_Spawn_Table = 'METADATA\SIMULATION\SCENE\EXPERIENCESPAWNTABLE.MBIN'
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship damage + health + spawns.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\SIMULATION\SCENE\EXPERIENCESPAWNTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Exp_Spawn_Table,
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'ALL',
@@ -149,11 +151,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\SIMULATION\SCENE\EXPERIENCESPAWNTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Exp_Spawn_Table,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Bounty_Spawn_Count)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\SIMULATION\SCENE\EXPERIENCESPAWNTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Exp_Spawn_Table,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Pirate_Spawn_Count)
 	},
 	{

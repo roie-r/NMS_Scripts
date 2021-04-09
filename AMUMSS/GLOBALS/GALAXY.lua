@@ -5,19 +5,19 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GALAXY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCGALAXYGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'MarkerLabel', 'UI_GALAXYMAP_MARKER_BHOLE'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Icon','TEXTURES/UI/HUD/ICONS/MISSIONS/MISSION.BLACKHOLE.DDS'}
-				}
-			},
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'MarkerLabel', 'UI_GALAXYMAP_MARKER_BHOLE'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Icon','TEXTURES/UI/HUD/ICONS/MISSIONS/MISSION.BLACKHOLE.DDS'}
+				-- }
+			-- },
 			{
 				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = {'SolarSystemParameters', 'PlanetParameters'},
@@ -46,7 +46,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
-				PRECEDING_KEY_WORDS = {'BaseStarColours', 'Yellow'},
+				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Yellow'},
 				VALUE_CHANGE_TABLE	= {
 					{'R',			0.98},	-- 1
 					{'G',			0.788},	-- 0.813
@@ -56,7 +56,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
-				PRECEDING_KEY_WORDS = {'BaseStarColours', 'Green'},
+				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Green'},
 				VALUE_CHANGE_TABLE	= {
 					{'R',			0.144},	-- 0.245
 					{'G',			0.74},	-- 0.937
@@ -66,7 +66,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
-				PRECEDING_KEY_WORDS = {'BaseStarColours', 'Blue'},
+				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Blue'},
 				VALUE_CHANGE_TABLE	= {
 					{'R',			0.096},	-- 0.296
 					{'G',			0.321},	-- 0.17
@@ -76,7 +76,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
-				PRECEDING_KEY_WORDS = {'BaseStarColours', 'Red'},
+				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Red'},
 				VALUE_CHANGE_TABLE	= {
 					{'R',			0.988},	-- 0.947
 					{'G',			0.16},	-- 0.17

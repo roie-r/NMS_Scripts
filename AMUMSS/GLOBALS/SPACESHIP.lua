@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SPACESHIP.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -43,7 +43,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MiniWarpShakeStrength',			-1},	-- 2
 					{'MiniWarpSpeed',					6000},	-- 30000
 					{'MiniWarpStoppingMarginPlanet',	1000},	-- 5000
-					-- {'LaunchThrustersRegenTimePeriod',	-360}	-- 1440
 				}
 			},
 			{

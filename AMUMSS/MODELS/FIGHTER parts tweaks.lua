@@ -42,12 +42,12 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL fighter parts tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		-- metal-tipped overhead tail fin
+		-- metal-tipped overhead tail fin & no contrail
 		MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\FIGHTERS\ACCESSORIES\ACCA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -56,6 +56,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'Value',		'MODELS\COMMON\SPACECRAFT\FIGHTERS\COCKPIT\COCKPIT_F\COCKPTF\SECONDARY2.MATERIAL.MBIN'},
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Contrail1'},
+				REMOVE				= 'SECTION'
 			}
 		}
 	},

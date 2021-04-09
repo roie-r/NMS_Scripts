@@ -4,9 +4,10 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
+							Replace the creature-scanned icon
 							Faster screen text
 							Disable ship weapons overheat warning
 							Remove spawn chance of random cargo drops
@@ -15,6 +16,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							better cloud map  ]],
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{
+		-- replace the creature-scanned icon
+		MBIN_FILE_SOURCE	= 'METADATA\UI\HUD\SCANNERICONS.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS = 'CreatureDiscovered',
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/HUD/CREATURE.SCANNED2.DDS'}
+				}
+			}
+		}
+	},
 	{
 		-- Faster screen text
 		MBIN_FILE_SOURCE	= 'METADATA\UI\SPECIALTEXTPUNCTUATIONDELAYDATA.MBIN',

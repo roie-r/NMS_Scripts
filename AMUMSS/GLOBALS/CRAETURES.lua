@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CRAETURES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -29,8 +29,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'CreatureRidingMedMinSize',		-2},	-- 5
 					{'CreatureRidingLargeMinSize',		-4},	-- 12
 					{'CreatureRidingHugeMinSize',		-8},	-- 20
+					{'RideSpeedSlow', 					0.7},	-- 0.5
+					{'RideSpeedFast',					1},		-- 2
 					{'TurnRadiusMultiplier',			-0.2},	-- 1
-					{'PetMaxTurnRad',					-0.3}	-- 1
+					{'PetMaxTurnRad',					-0.3},	-- 1
+					{'PetMaxSizeOffPlanet',				0.5},	-- 1
+					{'PetTeleportDistOnPlanet',			-30},	-- 150
 				}
 			},
 			{

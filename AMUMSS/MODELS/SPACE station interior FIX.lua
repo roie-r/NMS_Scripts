@@ -1,10 +1,10 @@
---[[┎─────────────────────────────────────
-	┃ space station interior LOD increase
-────┸─────────────────────────────────--]]
+--[[┎─────────────────────────────────────────────────
+	┃ space station interior LOD increase; mod by Lo2k
+────┸─────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL station interior FIX.pak',
-	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	MOD_AUTHOR			= 'Lo2k, lMonk',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

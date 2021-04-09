@@ -1,7 +1,7 @@
 --[[┎────────────────────────────────────────────────────────────
 	┃ General tweaks to building parts
 	┃ Set beacon and summon garage as the default of their group
-────┸────────────────────────────────────────────────────────--]]
+────┸──────────────────────────────────────────────────────────]]
 Build_On_Freighter = {
 	dat = {
 		'NPCVEHICLETERM',
@@ -74,15 +74,17 @@ function BuildExmlChangeTable(tbl)
 	return T
 end
 
+Source_Table_Basebuild = 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN'
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Basebuild,
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'ALL',
@@ -179,15 +181,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Basebuild,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Build_On_Freighter)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Basebuild,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Build_Above_Water)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN',
+		MBIN_FILE_SOURCE	= Source_Table_Basebuild,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Decoration_Type)
 	}
 }}}}

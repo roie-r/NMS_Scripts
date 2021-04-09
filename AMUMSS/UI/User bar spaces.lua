@@ -2,9 +2,9 @@
 	┃ Increase spaces in user bar menu to make room for large numbers
 ────┸──────────────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_UI uesr bar more space.pak',
+	MOD_FILENAME 		= '__UI uesr bar more space.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_UI ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

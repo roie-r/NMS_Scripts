@@ -1,12 +1,11 @@
 --[[┎──────────────────────────────────────────────────────────
 	┃ Disable storm weather filters
-	┃ Enable frozen biome as photo mode filter
 	┃ remove screen filter from scanning and surveying binocs
 ────┸──────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META screen filters.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.22',
+	NMS_VERSION			= '3.35',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
