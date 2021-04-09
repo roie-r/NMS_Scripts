@@ -1,0 +1,10 @@
+# avoid files and folders
+.lnk
+.txt
+
+.vscode/
+_TEST/_random_TEST.lua
+Collection/
+Published/
+
+_TEMPLATE.lua
