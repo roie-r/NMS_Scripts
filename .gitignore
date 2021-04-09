@@ -1,10 +1,10 @@
 # avoid files and folders
-*.lnk
-*.txt
+**.lnk
+**.txt
 
-.vscode/
+.vscode/**
 _TEST/_random_TEST.lua
-Collection/
-Published/
+Collection/*
+Published/*
 
 _TEMPLATE.lua
