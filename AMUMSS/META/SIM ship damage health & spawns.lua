@@ -120,7 +120,7 @@ Projectile_Damage = {
 	end
 }
 
-function BuildExmlChangeTable(tbl)
+local function BuildExmlChangeTable(tbl)
 	local T = {}
 	for i = 1, #tbl.dat do
 		local T2 = tbl.Get(tbl.dat[i])
@@ -134,7 +134,7 @@ Source_Exp_Spawn_Table = 'METADATA\SIMULATION\SCENE\EXPERIENCESPAWNTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship damage + health + spawns.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

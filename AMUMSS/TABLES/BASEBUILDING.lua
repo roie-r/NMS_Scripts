@@ -56,7 +56,7 @@ Decoration_Type = {
 		{'ID',		'BASE_TOYJELLY',	nil,	0},
 		{'ID',		'BASE_TOYCORE',		nil,	0},
 		{'ID',		'HEATER',			nil,	0},
-		{'Value',	'GLITCH',			'ALL',	2}
+		-- {'Value',	'GLITCH',			'ALL',	2}
 	},
 	Get = function(x)
 		return {
@@ -68,7 +68,7 @@ Decoration_Type = {
 	end
 }
 
-function BuildExmlChangeTable(tbl)
+local function BuildExmlChangeTable(tbl)
 	local T = {}
 	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
 	return T
@@ -79,7 +79,7 @@ Source_Table_Basebuild = 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -121,14 +121,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'SUMMON_GARAGE'},
-				VALUE_CHANGE_TABLE 	= {
-					{'CanPickUp',			true},
-					{'EditsTerrain',		false},
-					{'CloseMenuAfterBuild',	true}
-				}
-			},
-			{
 				SPECIAL_KEY_WORDS	= {'ID', 'WATERBUBBLE'},
 				VALUE_CHANGE_TABLE 	= {
 					{'CanPickUp',			true},
@@ -136,6 +128,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'EditsTerrain',		false},
 					{'CloseMenuAfterBuild',	true},
 					{'Value',				'PLANET_TECH'}
+				}
+			},
+			{
+				REPLACE_TYPE 		= 'ALL',
+				SPECIAL_KEY_WORDS	= {'Value', 'GLITCH'},
+				SECTION_UP			= 2,
+				VALUE_CHANGE_TABLE 	= {
+					{'BaseBuildingDecorationType', 'SurfaceNormal'},
+					{'BuildableOnPlanet',			false}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'SUMMON_GARAGE'},
+				VALUE_CHANGE_TABLE 	= {
+					{'CanPickUp',			true},
+					{'EditsTerrain',		false},
+					{'CloseMenuAfterBuild',	true}
 				}
 			},
 			{

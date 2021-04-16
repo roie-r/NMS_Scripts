@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SKY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -75,12 +75,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = 'SpaceSkyMin',
 				VALUE_CHANGE_TABLE 	= {
-					{'SpaceFogMax',			-0.37},	-- 0.7
-					{'SpaceFogPlanetMax',	0.12}	-- 0
+					{'SpaceFogMax',			0.44},	-- 0.7
+					{'SpaceFogPlanetMax',	0.5}	-- 0
 				}
 			},
 			{
@@ -88,8 +87,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = 'SpaceSkyMax',
 				VALUE_CHANGE_TABLE 	= {
-					{'SpaceFogMax',			-0.33},	-- 0.7
-					{'SpaceFogPlanetMax',	0.16}	-- 0
+					{'SpaceFogMax',			0.52},	-- 0.7
+					{'SpaceFogPlanetMax',	0.54}	-- 0
 				}
 			}
 		}

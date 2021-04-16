@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC VEHICLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -62,8 +62,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'BIKE'},
 				VALUE_CHANGE_TABLE 	= {
 					{'VehicleJumpAirControlForce', 	40},	-- 100
-					{'VehicleLinearDampingAerial',	-0.02},	-- 0.05
-					{'VehicleAngularDampingAerial',	-0.4}	-- 1
+					{'VehicleLinearDampingAerial',	-0.015},-- 0.05
+					{'VehicleAngularDampingAerial',	-0.25}	-- 1
 				}
 			},
 			{
@@ -91,7 +91,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'VehicleJumpAirControlForce', 	30},	-- 75
 					{'VehicleLinearDampingAerial',	-0.01},	-- 0.05
-					{'VehicleAngularDampingAerial',	-0.3},	-- 1
+					{'VehicleAngularDampingAerial',	-0.2},	-- 1
 					{'VehicleLinearDampingWater',	-1.5},	-- 3.5
 					{'VehicleAngularDampingWater',	-8}		-- 20
 				}

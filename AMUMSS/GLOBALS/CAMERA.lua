@@ -1,6 +1,4 @@
 --[[┎──────────────────────────────────────────
-	┃ 		ALWAYS EXCLUDED FROM BATCH
-	┠──────────────────────────────────────────
 	┃ camera POV tweaks for vehicles and ships
 	┃ Remove auto-centering; photomode tweaks
 	┃ Decrease caemra shake for various events
@@ -16,12 +14,12 @@ Cam_Follow = {
 		{'MechFollowCam',		0,		1.8,	0,		6,		6,		1.2,	1.4,	0},
 		{'MechShootCam',		0,		0.3,	0,		3,		4,		0.3,	0.4,	0},
 		{'MechJetpackCam',		0.4,	0.65,	0,		5,		5,		0,		2,		0},
-		{'SpaceshipFollowCam',	0,		3.2,	-3.2,	-2,		-4,		2,		2,		130},
-		{'DropshipFollowCam',	0,		2,		-1.5,	-2,		-4,		2,		2,		130},
-		{'ShuttleFollowCam',	0,		0.2,	0,		2,		0,		1,		0,		130},
-		{'RoyalShipFollowCam',	0,		1.4,	-8,		4,		-4,		1,		1,		130},
-		{'ScienceShipFollowCam',0,		2.6,	-2,		5,		6,		2,		1,		130},
-		{'AlienShipFollowCam',	0,		-0.2,	-4,		0,		0,		-0.2,	-2,		130}
+		{'SpaceshipFollowCam',	0,		3.2,	-3.2,	-2,		-4,		2,		2,		160},
+		{'DropshipFollowCam',	0,		2,		-1.5,	-2,		-4,		2,		2,		160},
+		{'ShuttleFollowCam',	0,		0.2,	0,		2,		0,		1,		0,		160},
+		{'RoyalShipFollowCam',	0,		1.4,	-8,		4,		-4,		1,		1,		160},
+		{'ScienceShipFollowCam',0,		2.6,	-2,		5,		6,		2,		1,		160},
+		{'AlienShipFollowCam',	0,		-0.2,	-4,		0,		0,		-0.2,	-2,		160}
 	},
 	Get = function(x)
 		return {
@@ -67,7 +65,7 @@ Shake_Strength_Mult = {
 	end
 }
 
-function BuildExmlChangeTable(tbl)
+local function BuildExmlChangeTable(tbl)
 	local T = {}
 	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
 	return T
@@ -78,7 +76,7 @@ Source_Global_Camera = 'GCCAMERAGLOBALS.GLOBAL.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -99,22 +97,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'VehicleExitFlashTime',					-0.3},	-- 0.8
-					{'VehicleExitFlashStrength',				-0.3},	-- 0.8
-					{'BinocularFlashTime',						-0.12},	-- 0.24
-					{'BinocularFlashStrength',					-0.5},	-- 0.9
-					{'InteractionHeadHeightDefault',			-0.15},	-- 1.65
-					{'PhotoModeVelocitySmoothTime',				0.3},	-- 0.5
-					{'PhotoModeMoveSpeed',						5},		-- 11
-					{'PhotoModeTurnSpeed',						-30},	-- 60
-					{'PhotoModeMaxDistance',					1000},	-- 150
-					{'PhotoModeMaxDistanceSpace',				5000},	-- 200
-					{'PhotoModeRollSpeed',						-10},	-- 45
-					{'BuildingModeMaxDistance',					1600},	-- 60
-					{'ModelViewMouseRotateSpeed',				-0.4},	-- 1.6	-- inventory models
-					{'ModelViewMouseRotateSnapStrength',		-0.56},	-- 0.94
-					{'BobAmountAbandFreighter',					-0.02},	-- 0.1
-					{'FirstPersonCamHeight',					-0.04},	-- 0.85
+					{'VehicleExitFlashTime',			-0.3},	-- 0.8
+					{'VehicleExitFlashStrength',		-0.3},	-- 0.8
+					{'BinocularFlashTime',				-0.12},	-- 0.24
+					{'BinocularFlashStrength',			-0.5},	-- 0.9
+					{'InteractionHeadHeightDefault',	-0.15},	-- 1.65
+					{'PhotoModeVelocitySmoothTime',		0.3},	-- 0.5
+					{'PhotoModeMoveSpeed',				5},		-- 11
+					{'PhotoModeTurnSpeed',				-30},	-- 60
+					{'PhotoModeMaxDistance',			1000},	-- 150
+					{'PhotoModeMaxDistanceSpace',		5000},	-- 200
+					{'PhotoModeRollSpeed',				-10},	-- 45
+					{'BuildingModeMaxDistance',			1600},	-- 60
+					{'ModelViewMouseRotateSpeed',		-0.4},	-- 1.6	-- inventory models
+					{'ModelViewMouseRotateSnapStrength',-0.56},	-- 0.94
+					{'BobAmountAbandFreighter',			-0.02},	-- 0.1
+					{'FirstPersonCamHeight',			-0.04},	-- 0.85
 				}
 			},
 			{

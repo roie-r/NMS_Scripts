@@ -3,7 +3,7 @@
 	┃ Vykeen monolith accepts Effigy instead of dagger
 	┃ Add freighter cargo bulkhead to freighter tech tree
 ────┸────────────────────────────────────────────────--]]
-function NewItemTreeNode(id)
+local function NewItemTreeNode(id)
 	return [[
 		<Property value="GcUnlockableItemTreeNode.xml">
 			<Property name="Unlockable" value="]] .. id .. [[" />
@@ -15,7 +15,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

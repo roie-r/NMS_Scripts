@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC UI.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -29,17 +29,31 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NotificationBuildHintStartTime',			99999},	-- 31
 					{'NotificationJetpackTime',					99999},	-- 1.3
 					{'NotificationShieldTime',					99999},	-- 3.5
-					{'NotificationShipBoostTime',				99999},	-- 15.5
-					{'NotificationShipBoostTimeVR',				99999},	-- 30
+					-- {'NotificationShipBoostTime',				99999},	-- 15.5
+					-- {'NotificationShipBoostTimeVR',				99999},	-- 30
+
+					{'NotificationShipBoostTime',				-1},
+					{'NotificationShipBoostTimeVR',				-1},
+
 					{'NotificationScanTime',					-300},	-- 600
 					{'NotificationScanTimeCutoff',				-14000},-- 20000
 					{'NotificationMaxPageHintTime',				-10},	-- 20
-					{'NotificationShipJumpMinTime',				99999},	-- 2
-					{'NotificationShipJumpReminderTime',		99999},	-- 300
-					{'NotificationShipJumpReminderTutorial',	99999},	-- 10
-					{'NotificationShipBoostMinTime',			99999},	-- 5
-					{'NotificationShipBoostReminderTime',		99999},	-- 300
-					{'NotificationShipBoostReminderTimeTutorial',99999},-- 10
+					-- {'NotificationShipJumpMinTime',				99999},	-- 2
+					-- {'NotificationShipJumpReminderTime',		99999},	-- 300
+					-- {'NotificationShipJumpReminderTutorial',	99999},	-- 10
+
+					{'NotificationShipJumpMinTime',				-1},
+					{'NotificationShipJumpReminderTime',		-1},
+					{'NotificationShipJumpReminderTutorial',	-1},
+
+					-- {'NotificationShipBoostMinTime',			99999},	-- 5
+					-- {'NotificationShipBoostReminderTime',		99999},	-- 300
+					-- {'NotificationShipBoostReminderTimeTutorial',99999},-- 10
+
+					{'NotificationShipBoostMinTime',			-1},
+					{'NotificationShipBoostReminderTime',		-1},
+					{'NotificationShipBoostReminderTimeTutorial',-1},
+
 					{'NotificationUrgentMessageTime',			-10},	-- 22
 					{'NotificationMissionHintTime',				-10},	-- 21
 					{'NotificationMissionHintTimeCritical',		-24},	-- 60

@@ -8,34 +8,22 @@
 ────┸────────────────────────────────────────────────────────────────────────--]]
 Stack_Mult = {
 	dat = {
-		{'CASING',				8},
-		{'JELLY',				4},
-		{'STORM_CRYSTAL',		2},
-		{'ALLOY7',				2},
-		{'ALLOY8',				2},
-		{'FRIGATE_FUEL_1',		4},
-		{'FRIGATE_FUEL_2',		4},
-		{'FRIGATE_FUEL_3',		4},
-		{'REACTION1',			2},
-		{'REACTION2',			2},
-		{'REACTION3',			2},
-		{'ULTRAPROD1',			8},
-		{'ULTRAPROD2',			8},
-		{'BASE_ENGINEORB',		2},
-		{'BASE_BEAMSTONE',		2},
-		{'BASE_BUBBLECLUS',		2},
-		{'BASE_MEDGEOMETR',		2},
-		{'BASE_SHARD',			2},
-		{'BASE_STARJOINT',		2},
-		{'BASE_BONEGARDEN',		2},
-		{'BASE_CONTOURPOD',		2},
-		{'BASE_HYDROPOD',		2},
-		{'BASE_SHELLWHITE',		2},
-		{'BASE_WEIRDCUBE',		2}
+		{'CRAFTPROD_SUB', 				6},
+		{'FUELGEL_SUB', 				16},
+		{'FOOD_INGREDIENT_SUB', 		40},
+		{'FOOD_COOKED_SUB',				40},
+		{'LAUNCHFUEL_SUB',				4},
+		{'UI_STORMCRYSTAL_SUB',			2},
+		{'UI_ALLOY_COMPLEX_SUBTITLE',	2},
+		{'UI_REACTION_SUBTITLE',		2},
+		{'UI_ULTRAPROD_SUBTITLE',		8},
+		{'BLD_GLITCHPROP_SUBTITLE',		2}
 	},
 	Get = function(x)
 		return {
-			SPECIAL_KEY_WORDS	= {'Id', x[1]},
+			REPLACE_TYPE 		= 'ALL',
+			SPECIAL_KEY_WORDS	= {'Value', x[1]},
+			SECTION_UP			= 1,
 			VALUE_CHANGE_TABLE 	= { {'StackMultiplier',	x[2]} }
 		}
 	end
@@ -161,7 +149,7 @@ function AddNewCraftPart(x)
 	]]
 end
 
-function BuildExmlChangeTable(tbl)
+local function BuildExmlChangeTable(tbl)
 	local T = {}
 	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
 	return T
@@ -172,7 +160,7 @@ Source_Table_Product = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -240,7 +228,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'FREI_INV_TOKEN'},
-				-- ADD					= BuildRequirements(Prod_Requirements.Cargo_Bulkhead)
 				ADD					= Prod_Requirements.Build(Prod_Requirements.Cargo_Bulkhead)
 			}
 		}
