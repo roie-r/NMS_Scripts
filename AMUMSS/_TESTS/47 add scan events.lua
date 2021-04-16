@@ -10,7 +10,7 @@
 -- 	</Property>
 -- ]]
 
-function GetScanEvent(Name)
+local function GetScanEvent(Name)
 	return [[
 	<Property value="GcScanEventData.xml">
 		<Property name="Name" value="]] .. string.upper(Name) .. [[" />
@@ -182,7 +182,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER	= {
 	MOD_FILENAME	= '___TEST 47 add scan events.pak',
 	MOD_AUTHOR			= 'Bladehawke',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MOD_DESCRIPTION		= [[
 							Allows you to find good base sites with Secure Sites planetary maps.
 							These sites have a base computer in the centre of a fairly large flat

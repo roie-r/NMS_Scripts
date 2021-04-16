@@ -3,9 +3,9 @@
 ────┸──────────────────────────────────────────────────────────--]]
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TEST 17 crate drop and wordstones rarity.pak',
+	MOD_FILENAME 		= '___TEST 17 crate drop and wordstones rarity.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -20,7 +20,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'MaxHeight',	-1}
 				}
-			},			
+			},
 			{
 				MATH_OPERATION 		= '*',
 				VALUE_MATCH			= 0.02,
@@ -29,11 +29,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS 	= {'Filename', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/RUINPARTS/WORDSTONE.SCENE.MBIN'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'Coverage',		0.1},
-					{'FlatDensity',		0.01},
-					{'SlopeDensity',	0.01},
+					{'Coverage',		0.2},
+					{'FlatDensity',		0.05},
+					{'SlopeDensity',	0.05},
 				}
-			},			
+			},
 			{
 				SPECIAL_KEY_WORDS 	= {'Filename', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/RUINPARTS/WORDSTONE.SCENE.MBIN'},
 				SECTION_UP			= 1,

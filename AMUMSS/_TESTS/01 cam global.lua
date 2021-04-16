@@ -65,16 +65,16 @@ Shake_Strength_Mult = {
 	end
 }
 
-function BuildExmlChangeTable(tbl)
+local function BuildExmlChangeTable(tbl)
 	local T = {}
 	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
 	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TEST 1 GC CAMERA.pak',
+	MOD_FILENAME 		= '___TEST 1 GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

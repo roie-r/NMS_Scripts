@@ -38,17 +38,17 @@ for i = 1,#ID_LIST do
 	table.insert(Add_To_Table, section)
 end
 
-function BuildExmlChangeTable(func, lst)
+local function BuildExmlChangeTable(func, lst)
 	local T = {}
 	for i = 1, #lst do table.insert(T, func(lst[i])) end
 	return T
 end
 
-function AddToExmlChangeTable(T, func, lst)
+local function AddToExmlChangeTable(T, func, lst)
 	for i = 1, #lst do table.insert(T, func(lst[i])) end
 end
 
-function GetTechCharge(x)
+local function GetTechCharge(x)
 	return {
 		MATH_OPERATION 		= '*',
 		SPECIAL_KEY_WORDS	= {'ID', x[1]},
@@ -56,7 +56,7 @@ function GetTechCharge(x)
 	}
 end
 
-function GetIconColor(x)
+local function GetIconColor(x)
 	return {
 		REPLACE_TYPE 		= x[7],
 		INTEGER_TO_FLOAT	= 'FORCE',
@@ -69,7 +69,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '___TEST 44 generate table sections.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

@@ -2,8 +2,8 @@
 	┃ Insert new light object to MBIN
 ────┸──────────────────────────────────────────────────--]]
 
-function InsertNewLight(T_New)
-	-- the function accepts new values (examples below) and takes the rest from the local table
+local function InsertNewLight(T_New)
+	-- the local function accepts new values (examples below) and takes the rest from the local table
 	-- values from T_New will overwrite the defaults in T
 	local T = {
 		name = 'Light9',
@@ -96,9 +96,9 @@ function InsertNewLight(T_New)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '___TEST 08 inset new light.pak',
+	MOD_FILENAME 		= '___TEST 08 insert new light.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

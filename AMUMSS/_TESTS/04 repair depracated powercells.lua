@@ -26,7 +26,7 @@ Add_Charge_Item = {
 	end
 }
 
-function BuildExmlChangeTable(tbl)
+local function BuildExmlChangeTable(tbl)
 	local T = {}
 	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
 	return T
@@ -43,13 +43,13 @@ P_Requirements = {
 	}
 }
 
-function BuildRequirements(lst)
+local function BuildRequirements(lst)
 	local text = '<Property name="Requirements">'
 	for i=1, #lst do text = text .. AddNewCraftPart(lst[i]) end
 	return text .. '</Property>'
 end
 
-function AddNewCraftPart(lst)
+local function AddNewCraftPart(lst)
 	return [[
 		<Property value="GcTechnologyRequirement.xml">
 			<Property name="ID" value="]] .. lst[1] .. [[" />
@@ -64,7 +64,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 03 restore powercells.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.35',
+	NMS_VERSION			= '3.37',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
