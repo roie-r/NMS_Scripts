@@ -1,5 +1,5 @@
 --[[┎──────────────────────────────────────────────────────────
-	┃ Add hazard protection to beacon and signal booster tech
+	┃ Add hazard protection to beacon and cooker tech
 ────┸──────────────────────────────────────────────────────--]]
 Protection_Radius = 8
 
@@ -69,8 +69,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= {
-			'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\TECH\SIGNALSCANNER.SCENE.MBIN',
 			'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\TECH\BEACON.SCENE.MBIN',
+			'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\TECH\COOKER.SCENE.MBIN',
 		},
 		EXML_CHANGE_TABLE	= {
 			{

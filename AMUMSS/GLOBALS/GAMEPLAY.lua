@@ -16,8 +16,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				VALUE_CHANGE_TABLE 	= {
+					{'ShipScanPlanetRechargeMultiplier',	-0.4},	-- 1
+					{'ShipScanSpaceRechargeMultiplier',		-0.1},	-- 0.3
 					{'OverheatGenerosity',					0.05},	-- 1.05
-					{'SurveyMaxDistance',					300},	-- 400
+					{'SurveyMaxDistance',					200},	-- 400
 					{'BinocMinScanTime',					-1.1},	-- 3.9
 					{'BinocScanTime',						-1.1},	-- 3.9
 					{'BinocCreatureScanTime',				-1},	-- 3.2
@@ -26,7 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'AggressiveSentinelProbability',		-0.08},	-- 0.13
 					{'AggressiveSentinelProbabilitySurvival',-0.06},-- 0.13
 					{'LowSentinelProbability',				0.15},	-- 0.55
-					{'LowSentinelProbabilitySurvival',		0.4},	-- 0.25
+					{'LowSentinelProbabilitySurvival',		0.3},	-- 0.25
 					{'MaxDronesLowSurvival',				-1},	-- 1
 					{'ShipInteractRadius',					800},	-- 50
 					{'ZoomFindBuildingRange',				400},	-- 600

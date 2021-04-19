@@ -184,8 +184,8 @@ local function AddNewScanEvent(name)
 		<Property name="SolarSystemAttributes" value="GcScanEventSolarSystemLookup.xml">
 			<Property name="UseStarType" value="False" />
 			<Property name="UseWealth" value="False" />
-			<Property name="Usetrading" value="False" />
-			<Property name="Userace" value="GcAlienRace.xml">
+			<Property name="UseTrading" value="False" />
+			<Property name="UseRace" value="GcAlienRace.xml">
 				<Property name="AlienRace" value="None" />
 			</Property>
 			<Property name="UseAnomaly" value="GcGalaxyStarAnomaly.xml">
@@ -208,6 +208,7 @@ local function AddNewScanEvent(name)
 			<Property name="AllowUnsafeMatches" value="False" />
 			<Property name="NeverAllowEmpty" value="False" />
 			<Property name="NeverAllowAbandoned" value="False" />
+			<Property name="RequireUndiscovered" value="False" />
 			<Property name="NeedsWaterPlanet" value="False" />
 			<Property name="NeedsExtremeSentinelPlanet" value="False" />
 			<Property name="NeverAllowExtremeSentinelPlanet" value="False" />
@@ -231,8 +232,8 @@ local function AddNewScanEvent(name)
 		<Property name="SolarSystemAttributesFallback" value="GcScanEventSolarSystemLookup.xml">
 			<Property name="UseStarType" value="False" />
 			<Property name="UseWealth" value="False" />
-			<Property name="Usetrading" value="False" />
-			<Property name="Userace" value="GcAlienRace.xml">
+			<Property name="UseTrading" value="False" />
+			<Property name="UseRace" value="GcAlienRace.xml">
 				<Property name="AlienRace" value="None" />
 			</Property>
 			<Property name="UseAnomaly" value="GcGalaxyStarAnomaly.xml">
@@ -255,6 +256,7 @@ local function AddNewScanEvent(name)
 			<Property name="AllowUnsafeMatches" value="False" />
 			<Property name="NeverAllowEmpty" value="False" />
 			<Property name="NeverAllowAbandoned" value="False" />
+			<Property name="RequireUndiscovered" value="False" />
 			<Property name="NeedsWaterPlanet" value="False" />
 			<Property name="NeedsExtremeSentinelPlanet" value="False" />
 			<Property name="NeverAllowExtremeSentinelPlanet" value="False" />
@@ -318,8 +320,7 @@ local function AddNewScanEvent(name)
 				<Property name="Samplers" />
 			</Property>
 		</Property>
-	</Property>
-	]]
+	</Property>]]
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {

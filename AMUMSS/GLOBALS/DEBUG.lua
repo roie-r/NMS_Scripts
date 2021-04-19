@@ -13,8 +13,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
+					{'SkipIntro',							true},
+					{'SkipLogos',							true},
 					{'SkipPlanetDiscoverOnBoot',			true}, -- ??
 					{'AllowSavingOnAbandonedFreighters',	true},
+					{'CanLeaveDialogs',						true},
 					{'DisableSaveSlotSorting',				true},
 					-- {'DisableProfanityFilter', 				true},
 					{'MultiplePlayerFreightersInASystem',	true},

@@ -16,11 +16,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'UnknownBuildingRange',				 200},	-- 600
 					{'MaxShipScanBuildings',				 1},	-- 2
-					{'MinRadiusForBases',					 50},	-- 300
+					-- {'MinRadiusForBases',					 -220},	-- 300
+					{'MinRadiusForBases',					 2000},	-- 300
 					{'MaxRadiusForPlanetBases',			 	 1000},	-- 1000
 					{'BaseRadiusExtension',					 20},	-- 50
 					-- {'MaximumPipeSegmentLength',			 600},	-- 400
-					{'BuildingPlacementMaxConnectionLength', 1000}	-- 200
+					{'BuildingPlacementMaxConnectionLength', 1200}	-- 200
 				}
 			}
 		}

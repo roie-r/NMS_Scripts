@@ -18,7 +18,9 @@ Tech_Upgrade_Stat = {
 		{'UT_FR_HYP_NAME',	'Freighter_Hyperdrive_JumpDistance','*',	24,		24},
 		{'AP_PULSEDRIVE', 	'Ship_Boost',						'+',	0.11,	0.11},	-- 1.05, 1.15
 		{'AP_PULSEDRIVE', 	'Ship_BoostManeuverability',		'+',	0.13,	0.11},	-- 1.05, 1.12
-		{'AP_PULSEDRIVE', 	'Ship_Maneuverability',				'+',	0.048,	0.05}	-- 1.005
+		{'AP_PULSEDRIVE', 	'Ship_Maneuverability',				'+',	0.048,	0.05},	-- 1.005
+		-- {'UP_EXOSUB', 		'Vehicle_EngineTopSpeed',			'*',	3,		3},
+		-- {'UP_EXOSUB', 		'Vehicle_SubBoostSpeed',			'*',	3,		3},
 	},
 	Get = function(x)
 		return {

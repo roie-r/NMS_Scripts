@@ -8,16 +8,16 @@ mult  = 1.2
 
 Plant_Harvest = {
 	dat = {
-		{'FOOD_P_ALL1',		f_min,	f_min * mult},	-- Heptaploid Wheat
-		{'FOOD_P_ALL2',		f_min,	f_min * mult},	-- Sweetroot
-		{'FOOD_P_ALL3',		f_min,	f_min * mult},	-- Pulpy Roots
-		{'FOOD_P_HOTWILD',	f_min,	f_min * mult},	-- Fireberry
-		{'FOOD_P_RADWILD',	f_min,	f_min * mult},	-- Grahberry
-		{'FOOD_P_DUSTWILD',	f_min,	f_min * mult},	-- Aloe Flesh
-		{'FOOD_P_COLDWILD',	f_min,	f_min * mult},	-- Frozen Tubers
-		{'FOOD_P_TOXWILD',	f_min,	f_min * mult},	-- Jade Peas
-		{'FOOD_P_LUSHWILD',	f_min,	f_min * mult},	-- Impulse Beans
-		{'FOOD_P_GLITCH',	f_min,	f_min * mult},	-- Hexaberry
+		{'DE_COOK_ALL1',	f_min,	f_min * mult},	-- Heptaploid Wheat
+		{'DE_COOK_ALL2',	f_min,	f_min * mult},	-- Sweetroot
+		{'DE_COOK_ALL3',	f_min,	f_min * mult},	-- Pulpy Roots
+		{'DE_COOK_HOT',		f_min,	f_min * mult},	-- Fireberry
+		{'DE_COOK_RAD',		f_min,	f_min * mult},	-- Grahberry
+		{'DE_COOK_DUST',	f_min,	f_min * mult},	-- Aloe Flesh
+		{'DE_COOK_COLD',	f_min,	f_min * mult},	-- Frozen Tubers
+		{'DE_COOK_TOX',		f_min,	f_min * mult},	-- Jade Peas
+		{'DE_COOK_LUSH',	f_min,	f_min * mult},	-- Impulse Beans
+		{'DE_COOK_WEIRD',	f_min,	f_min * mult},	-- Hexaberry
 		{'WILD_SCORCHED',	w_min,	w_min * mult},	-- Solanium
 		{'WILD_RADIO',		w_min,	w_min * mult},	-- Gamma Root
 		{'WILD_BARREN',		w_min,	w_min * mult},	-- Cactus Flesh
@@ -42,20 +42,21 @@ end
 
 local function AddRewardItem(id, min, max, chance)
 	return [[
-		<Property value="GcRewardTableItem.xml">
-			<Property name="PercentageChance" value="]] .. chance .. [[" />
-			<Property name="Reward" value="GcRewardSpecificProduct.xml">
-				<Property name="Default" value="GcDefaultMissionProductEnum.xml">
-					<Property name="DefaultProductType" value="None" />
-				</Property>
-				<Property name="Id" value="]] .. id .. [[" />
-				<Property name="AmountMin" value="]] .. min .. [[" />
-				<Property name="AmountMax" value="]] .. max .. [[" />
-				<Property name="ForceSpecialMessage" value="False" />
+	<Property value="GcRewardTableItem.xml">
+		<Property name="PercentageChance" value="]] .. chance .. [[" />
+		<Property name="Reward" value="GcRewardSpecificProduct.xml">
+			<Property name="Default" value="GcDefaultMissionProductEnum.xml">
+				<Property name="DefaultProductType" value="None" />
 			</Property>
-			<Property name="LabelID" value="" />
+			<Property name="ID" value="]] .. id .. [[" />
+			<Property name="AmountMin" value="]] .. min .. [[" />
+			<Property name="AmountMax" value="]] .. max .. [[" />
+			<Property name="ForceSpecialMessage" value="False" />
+			<Property name="HideInSeasonRewards" value="False" />
+			<Property name="Silent" value="False" />
 		</Property>
-	]]
+		<Property name="LabelID" value="" />
+	</Property>]]
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
@@ -69,9 +70,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\REWARDTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Id', 'POLICELOOT', 'Id', 'FRIG_BOOST_TRA'},
+				SPECIAL_KEY_WORDS	= {'Id', 'POLICELOOT', 'ID', 'FRIG_BOOST_TRA'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Id',			'FRIG_BOOST_SPD'}
+					{'ID',			'FRIG_BOOST_SPD'}
 				}
 			},
 			{

@@ -122,13 +122,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'METADATA\UI\BOOTLOGOPC.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
+				REPLACE_TYPE 		= 'ALL',
+				PRECEDING_KEY_WORDS = 'NMSString0x100.xml',
 				VALUE_CHANGE_TABLE 	= {
-					{'Texture1',		''},
-					{'Texture1',		''},
-					{'DisplayTime1',	0},
-					{'DisplayTime2',	0},
-					{'DisplayTime3',	0},
-					{'DisplayTime4',	0}
+					{'Value',		''}
+				}
+			},
+			{
+				REPLACE_TYPE 		= 'ALL',
+				MATH_OPERATION 		= '*',
+				PRECEDING_KEY_WORDS = 'DisplayTime',
+				VALUE_CHANGE_TABLE 	= {
+					{'IGNORE',		0}
 				}
 			}
 		}
