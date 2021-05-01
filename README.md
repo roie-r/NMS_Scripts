@@ -1,1 +1,1 @@
-My personal-use mods collection. Some of changes are my own, others were taken from other mods and incorporated in my personal scripts.
+My personal-use collection. Some are my own, others were picked from other mods and incorporated in my scripts.
