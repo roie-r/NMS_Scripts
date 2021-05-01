@@ -64,7 +64,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 03 restore powercells.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

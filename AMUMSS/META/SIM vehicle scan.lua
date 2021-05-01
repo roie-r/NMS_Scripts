@@ -3,8 +3,6 @@
 	┃ ancient plaque, remote terminal, secure facility, distress signals
 	┃ and underwater targets to the exocraft scanner.
 	┃ Make exocraft scanner tech available to the mech.
-	┠───────────────────────────────────────────────────────────────────────
-	┃ Rebuild vehicle scanner table
 ────┸───────────────────────────────────────────────────────────────────--]]
 Scan_Table = {
 	dat = {
@@ -15,7 +13,7 @@ Scan_Table = {
 			icon = 'QUICKMENU/BUILDINGS.DEPOT.DDS'
 		},
 		{
-			name = 'SUB_RADAR_SCAN_RUIN',
+			name = 'VEHICLE_BUILDING_DEPOT',
 			scan = {'DEPOT', 'TERMINAL'},
 			tech = 'MECH_SCAN',
 			icon = 'QUICKMENU/BUILDINGS.DEPOT.DDS'
@@ -128,9 +126,8 @@ Scan_Table = {
 		for i = 1, #lst do
 			exml = exml .. [[
 				<Property value="NMSString0x20.xml">
-					<Property name="Value" value="]] .. lst[i] .. [[" />
-				</Property>
-			]]
+					<Property name="Value" value="]]  .. lst[i] .. [[" />
+				</Property>]]
 		end
 		return exml .. '</Property>'
 	end
@@ -326,7 +323,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META sym vehicle scan.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

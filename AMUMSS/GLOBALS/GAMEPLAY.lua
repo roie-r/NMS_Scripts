@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -38,7 +38,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TorchDimStrength',					0.5},	-- 1.5
 					{'TorchOffsetY',						-0.2},	-- 0.5
 					{'TorchOffsetZ',						-0.4},	-- -0.2
-					{'LightStrength',						1}		-- 1	(build menu item light)
+					{'LightStrength',						1}		-- 1 (build selected item light)
 				}
 			},
 			{

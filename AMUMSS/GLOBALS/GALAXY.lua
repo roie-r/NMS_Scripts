@@ -5,19 +5,13 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GALAXY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCGALAXYGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'MarkerLabel', 'UI_GALAXYMAP_MARKER_BHOLE'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Icon','TEXTURES/UI/HUD/ICONS/MISSIONS/MISSION.BLACKHOLE.DDS'}
-				-- }
-			-- },
 			{
 				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = {'SolarSystemParameters', 'PlanetParameters'},

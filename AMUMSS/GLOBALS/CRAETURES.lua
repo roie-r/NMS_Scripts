@@ -1,11 +1,14 @@
 --[[┎────────────────────────────────────────────────────────────────
-	┃ Decrease hostile predator chance; increase creature distance
-	┃ Increase harvet yield;
+	┃ Decrease hostile predator chance
+	┃ Increase creature remain distance
+	┃ Increase pet stamina, ride speed, decrease ride turn radius
+	┃ Increase harvest yield
+	┃ Decrase pet incubation & grow times
 ────┸────────────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CRAETURES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

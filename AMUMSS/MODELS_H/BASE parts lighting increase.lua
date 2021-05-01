@@ -6,9 +6,9 @@ Wall_Light_Mult		= 2
 Stand_Light_Mult	= 6
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL parts light intensity.pak',
+	MOD_FILENAME 		= '__MODEL_H parts light intensity.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

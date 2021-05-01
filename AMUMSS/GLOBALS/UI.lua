@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC UI.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -25,40 +25,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NotificationsResourceExtractHintCount',	-1000},	-- 1500
 					{'NotificationStaminaHintDistanceWalked',	-8000},	-- 10000
 					{'NotificationMinVisibleTime',				-1},	-- 3
-					{'NotificationInteractHintStartTime',		99999},	-- 1800
-					{'NotificationBuildHintStartTime',			99999},	-- 31
-					{'NotificationJetpackTime',					99999},	-- 1.3
-					{'NotificationShieldTime',					99999},	-- 3.5
-					-- {'NotificationShipBoostTime',				99999},	-- 15.5
-					-- {'NotificationShipBoostTimeVR',				99999},	-- 30
-
-					{'NotificationShipBoostTime',				-1},
-					{'NotificationShipBoostTimeVR',				-1},
-
+					{'NotificationInteractHintStartTime',		9999},	-- 1800
+					{'NotificationBuildHintStartTime',			9999},	-- 31
+					{'NotificationJetpackTime',					9999},	-- 1.3
+					{'NotificationShieldTime',					9999},	-- 3.5
 					{'NotificationScanTime',					-300},	-- 600
 					{'NotificationScanTimeCutoff',				-14000},-- 20000
-					{'NotificationMaxPageHintTime',				-10},	-- 20
-					-- {'NotificationShipJumpMinTime',				99999},	-- 2
-					-- {'NotificationShipJumpReminderTime',		99999},	-- 300
-					-- {'NotificationShipJumpReminderTutorial',	99999},	-- 10
-
-					{'NotificationShipJumpMinTime',				-1},
-					{'NotificationShipJumpReminderTime',		-1},
-					{'NotificationShipJumpReminderTutorial',	-1},
-
-					-- {'NotificationShipBoostMinTime',			99999},	-- 5
-					-- {'NotificationShipBoostReminderTime',		99999},	-- 300
-					-- {'NotificationShipBoostReminderTimeTutorial',99999},-- 10
-
-					{'NotificationShipBoostMinTime',			-1},
-					{'NotificationShipBoostReminderTime',		-1},
-					{'NotificationShipBoostReminderTimeTutorial',-1},
+					-- {'NotificationMaxPageHintTime',				-15},	-- 20
+					
+					{'NotificationShipBoostTime',				9999},	-- 15.5
+					{'NotificationShipBoostTimeVR',				9999},	-- 30
+					{'NotificationShipJumpMinTime',				-2},	-- 2
+					{'NotificationShipJumpReminderTime',		9999},	-- 300
+					{'NotificationShipJumpReminderTutorial',	9999},	-- 10
+					{'NotificationShipBoostMinTime',			-5},	-- 5
+					{'NotificationShipBoostReminderTime',		9999},	-- 300
+					{'NotificationShipBoostReminderTimeTutorial',9999},	-- 10
 
 					{'NotificationUrgentMessageTime',			-10},	-- 22
 					{'NotificationMissionHintTime',				-10},	-- 21
 					{'NotificationMissionHintTimeCritical',		-24},	-- 60
-					{'NotificationMissionHintTimeSecondary',	-7},	-- 15
-					{'MessageNotificationTime',					-4}, 	-- 12
+					{'NotificationMissionHintTimeSecondary',	-8},	-- 15
+					{'MessageNotificationTime',					-9}, 	-- 12	??
 					{'FrontendConfirmTimeMouseMultiplier',		5.5},	-- 0.5
 					{'FrontendConfirmTimeFast',					-0.3},	-- 0.35
 					{'FrontendConfirmTime',						-0.6},	-- 0.7

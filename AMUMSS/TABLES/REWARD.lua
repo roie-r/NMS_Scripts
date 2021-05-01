@@ -62,7 +62,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -76,13 +76,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Id', 'PIRATELOOT'},
-				PRECEDING_KEY_WORDS = 'List',
+				SPECIAL_KEY_WORDS	= {'Id', 'PIRATELOOT', 'ID', 'STELLAR2'},
+				SECTION_UP			= 1,
+				REPLACE_TYPE		= 'ADDAFTERSECTION',
 				ADD					= AddRewardItem('ALLOY2', 1, 1, 30)
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_HARD'},
-				PRECEDING_KEY_WORDS = 'List',
+				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_HARD', 'ID', 'STELLAR2'},
+				SECTION_UP			= 1,
+				REPLACE_TYPE		= 'ADDAFTERSECTION',
 				ADD					= AddRewardItem('ALLOY2', 1, 1, 30)
 			}
 		}

@@ -1,11 +1,12 @@
 --[[┎──────────────────────────────────────────────────────────
 	┃ Decrease storms occurance chance
-	┃ Remove all fog and dust in airless biome
+	┃ non-damaging storms in lush biomes
+	┃ Remove all fog and dust in airless biomes
 ────┸──────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META Decrease storm chance_No airless fog.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,7 +18,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\FIRESTORMWEATHER.MBIN',
 			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\GRAVITYSTORMWEATHER.MBIN',
 			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\GREENWEATHER.MBIN',
-			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\HUMIDWEATHER.MBIN',
+			-- 'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\HUMIDWEATHER.MBIN',
 			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\LAVAWEATHER.MBIN',
 			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\RADIOACTIVE.MBIN',
 			'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\RAINWEATHER.MBIN',
@@ -35,6 +36,48 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'LowStormsChance',		0.7},
 					{'HighStormsChance',	0.6},
 					{'ExtremeWeatherChance',0.4}
+				}
+			}
+		}
+	},
+	{
+		-- non-damaging storms in lush biomes
+		MBIN_FILE_SOURCE	= 'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\HUMIDWEATHER.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				MATH_OPERATION 		= '*',
+				INTEGER_TO_FLOAT	= 'FORCE',
+				VALUE_CHANGE_TABLE 	= {
+					{'LowStormsChance',		0.7},
+					{'HighStormsChance',	0.6},
+					{'ExtremeWeatherChance',0.4}
+				}
+			},
+			-- {
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'OverrideTemperature', false}
+				-- }
+			-- },
+			{
+				REPLACE_TYPE 		= 'ALL',
+				MATH_OPERATION 		= '+',
+				VALUE_MATCH			= 90,
+				VALUE_MATCH_OPTIONS = '>',
+				PRECEDING_KEY_WORDS = 'Storm',
+				VALUE_CHANGE_TABLE 	= {
+					{'Normal',		-55},
+					{'Extreme',		-76},
+				}
+			},
+			{
+				REPLACE_TYPE 		= 'ALL',
+				MATH_OPERATION 		= '+',
+				VALUE_MATCH			= 9,
+				VALUE_MATCH_OPTIONS = '>=',
+				PRECEDING_KEY_WORDS = 'Night',
+				VALUE_CHANGE_TABLE 	= {
+					{'Normal',		-7},
+					{'Extreme',		-12},
 				}
 			}
 		}

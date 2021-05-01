@@ -19,8 +19,6 @@ Tech_Upgrade_Stat = {
 		{'AP_PULSEDRIVE', 	'Ship_Boost',						'+',	0.11,	0.11},	-- 1.05, 1.15
 		{'AP_PULSEDRIVE', 	'Ship_BoostManeuverability',		'+',	0.13,	0.11},	-- 1.05, 1.12
 		{'AP_PULSEDRIVE', 	'Ship_Maneuverability',				'+',	0.048,	0.05},	-- 1.005
-		-- {'UP_EXOSUB', 		'Vehicle_EngineTopSpeed',			'*',	3,		3},
-		-- {'UP_EXOSUB', 		'Vehicle_SubBoostSpeed',			'*',	3,		3},
 	},
 	Get = function(x)
 		return {
@@ -45,7 +43,7 @@ Source_Table_Proc_Tech = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPROCEDURALTECHNO
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROCEDURAL TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

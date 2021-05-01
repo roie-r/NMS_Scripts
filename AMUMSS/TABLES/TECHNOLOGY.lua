@@ -76,13 +76,13 @@ Projectile_Upgrade_Colour = {
 
 Stat_Bonus = {
 	dat = {
-		{'UT_SCAN',			'Weapon_Scan_Radius',					'*',	2.2},	-- 1.1
+		{'UT_SCAN',			'Weapon_Scan_Radius',					'*',	1.6},	-- 1.1
 		{'SHIP_TELEPORT',	'Ship_Teleport',						'*',	32},	-- 100
 		{'SHIPROCKETS',		'Ship_Weapons_Guns_Damage',				'*',	1.6},	-- 4500
 		{'UT_ROCKETS',		'Ship_Weapons_Guns_CoolTime',			'*',	0.5},	-- 0.8
 		{'VEHICLE_GRIP1',	'Vehicle_Grip',							'+',	-0.4},	-- 3
 		{'VEHICLE_GRIP1',	'Vehicle_SkidGrip',						'+',	0.22},	-- 0.66
-		{'MECH_GUN',		'Vehicle_GunDamage',					'+',	160},	-- 340
+		{'MECH_GUN',		'Vehicle_GunDamage',					'+',	260},	-- 340
 		{'MECH_ENGINE',		'Vehicle_EngineFuelUse',				'+',	0.5},	-- 0.5
 		{'MECH_FUEL',		'Vehicle_EngineFuelUse',				'+',	0.07},	-- 0.8
 		{'F_HYPERDRIVE',	'Freighter_Hyperdrive_JumpDistance',	'*',	10},	-- 100
@@ -123,7 +123,7 @@ Source_Table_Tech = 'METADATA\REALITY\TABLES\NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -150,6 +150,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'ID', 'MECH_FUEL'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Chargeable',	false},
+					{'Core',		false}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'HYPERDRIVE'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Core',		false}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'SHIPSHIELD'},
+				VALUE_CHANGE_TABLE 	= {
 					{'Core',		false}
 				}
 			},

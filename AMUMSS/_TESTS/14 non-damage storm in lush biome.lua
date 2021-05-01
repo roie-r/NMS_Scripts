@@ -1,40 +1,41 @@
 --[[┎──────────────────────────────────────────────────────────────────
-	┃ Increase spaces in user bar menu to make room for large numbers
+	┃ non-damaging storms in lush biomes
 ────┸──────────────────────────────────────────────────────────────--]]
+
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__UI uesr bar more space.pak',
+	MOD_FILENAME 		= '___TEST 14 non-damaging storm on lush biome.pak',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '3.38',
-	MOD_BATCHNAME		= '_UI ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'UI\COMPONENTS\USERBAR.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA\SIMULATION\SOLARSYSTEM\WEATHER\HUMIDWEATHER.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'GRP_UNITS'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Width',		210}
+					{'OverrideTemperature', false}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'UNITS'},
+				REPLACE_TYPE 		= 'ALL',
+				MATH_OPERATION 		= '+',
+				VALUE_MATCH			= 90,
+				VALUE_MATCH_OPTIONS = '>',
+				PRECEDING_KEY_WORDS = 'Storm',
 				VALUE_CHANGE_TABLE 	= {
-					{'Width',		176}
+					{'Normal',		-55},
+					{'Extreme',		-86},
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'GRP_TECH'},
+				REPLACE_TYPE 		= 'ALL',
+				MATH_OPERATION 		= '+',
+				VALUE_MATCH			= 9,
+				VALUE_MATCH_OPTIONS = '>=',
+				PRECEDING_KEY_WORDS = 'Night',
 				VALUE_CHANGE_TABLE 	= {
-					{'PositionX',	210},
-					{'Width',		152}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'ID', 'GRP_SPEC'},
-				VALUE_CHANGE_TABLE 	= {
-					{'PositionX',	0},
-					{'Width',		152}
+					{'Normal',		-7},
+					{'Extreme',		-19},
 				}
 			}
 		}

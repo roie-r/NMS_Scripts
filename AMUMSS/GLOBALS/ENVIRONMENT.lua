@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -20,7 +20,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'CreatureFadeTime',		-0.7},	-- 1.5
 					{'FloraFadeTimeMin',		-0.2},	-- 0.6
 					{'FloraFadeTimeMax',		-1},	-- 2.25
-					{'AnimationScale',			-36},	-- 50
+					-- {'AnimationScale',			-36},	-- 50 (clouds speed)
 				}
 			},
 			{

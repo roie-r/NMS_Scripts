@@ -15,9 +15,9 @@ Uniform_Values = [[
 ]]
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL clean ship HUD map.pak',
+	MOD_FILENAME 		= '__MODEL_H clean ship HUD map.pak',
 	MOD_AUTHOR			= 'Lo2k; script by lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

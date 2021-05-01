@@ -16,9 +16,7 @@ Build_On_Freighter = {
 	Get = function(x)
 		return {
 			SPECIAL_KEY_WORDS	= {'ID', x},
-			VALUE_CHANGE_TABLE 	= {
-				{'BuildableOnFreighter', true}
-			}
+			VALUE_CHANGE_TABLE 	= { {'BuildableOnFreighter', true} }
 		}
 	end
 }
@@ -35,7 +33,6 @@ Build_Above_Water = {
 		'CORRIDORX_WATER',
 		'CORRIDORV_WATER',
 		'BASE_BARNACLE',
-		'WATERBUBBLE',
 		'GARAGE_SUB'
 	},
 	Get = function(x)
@@ -48,21 +45,18 @@ Build_Above_Water = {
 
 Decoration_Type = {
 	dat = {
-		{'ID',		'BASE_WPLANT1',		nil,	0},
-		{'ID',		'BASE_WPLANT2',		nil,	0},
-		{'ID',		'BASE_WPLANT3',		nil,	0},
-		{'ID',		'BASE_TOYCUBE',		nil,	0},
-		{'ID',		'BASE_TOYSPHERE',	nil,	0},
-		{'ID',		'BASE_TOYJELLY',	nil,	0},
-		{'ID',		'BASE_TOYCORE',		nil,	0},
-		{'ID',		'HEATER',			nil,	0},
-		-- {'Value',	'GLITCH',			'ALL',	2}
+		'BASE_WPLANT1',
+		'BASE_WPLANT2',
+		'BASE_WPLANT3',
+		'BASE_TOYCUBE',
+		'BASE_TOYSPHERE',
+		'BASE_TOYJELLY',
+		'BASE_TOYCORE',
+		'HEATER',
 	},
 	Get = function(x)
 		return {
-			REPLACE_TYPE 		= x[3],
-			SPECIAL_KEY_WORDS	= {x[1], x[2]},
-			SECTION_UP			= x[4],
+			SPECIAL_KEY_WORDS	= {'ID', x},
 			VALUE_CHANGE_TABLE 	= { {'BaseBuildingDecorationType', 'SurfaceNormal'} }
 		}
 	end
@@ -79,7 +73,7 @@ Source_Table_Basebuild = 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -123,8 +117,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'WATERBUBBLE'},
 				VALUE_CHANGE_TABLE 	= {
-					{'CanPickUp',			true},
-					{'BuildableOnPlanet',	true},
+					-- {'CanPickUp',			true},
+					{'BuildableAboveWater',	true},
 					{'EditsTerrain',		false},
 					{'CloseMenuAfterBuild',	true},
 					{'Value',				'PLANET_TECH'}
@@ -136,7 +130,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP			= 2,
 				VALUE_CHANGE_TABLE 	= {
 					{'BaseBuildingDecorationType', 'SurfaceNormal'},
-					{'BuildableOnPlanet',			false}
+					{'BuildableOnPlanet',	false}
 				}
 			},
 			{
@@ -162,9 +156,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'U_PORTALLINE'},
+				SPECIAL_KEY_WORDS	= {'ID', 'U_PORTALLINE', 'Value', 'UTILITY_TECH'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		'UTILITY_POWER'}
+					{'Value', 'UTILITY_POWER'}
 				}
 			},
 			{

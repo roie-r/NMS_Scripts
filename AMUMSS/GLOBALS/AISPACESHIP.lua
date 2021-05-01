@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC AISPACESHIP.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,20 +15,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					-- {'FillUpOutposts',		true},
-					{'FreighterIgnorePlayer',	true},
 					{'TradeRouteMaxNum',		0}
 				}
 			},
 			{
 				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'DockWaitMinTime',			4},		-- 20
-					{'DockWaitMaxTime',			4},		-- 60
-					{'FlybyCloseOdds',			-15},	-- 20
-					{'FreighterSpawnRate',		-25},	-- 40
-					{'MaxNumFreighters',		-3},	-- 12
-					{'TradeRouteFlickerFreq',	-10},	-- 10
-					{'TradeRouteFlickerAmp',	-0.01}	-- 0.01
+					{'MinimumCircleTimeBeforeLanding',		11},	-- 5
+					{'MinimumTimeBetweenOutpostLandings',	2},		-- 3
+					{'DockWaitMinTime',						4},		-- 20
+					{'DockWaitMaxTime',						-4},	-- 60
+					-- {'FlybyCloseOdds',						-15},	-- 20
+					{'FreighterSpawnRate',					-15},	-- 40
+					{'MaxNumFreighters',					-3},	-- 12
+					{'TradeRouteFlickerFreq',				-10},	-- 10
+					{'TradeRouteFlickerAmp',				-0.01}	-- 0.01
 				}
 			},
 			{

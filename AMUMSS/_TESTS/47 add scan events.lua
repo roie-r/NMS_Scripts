@@ -182,7 +182,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER	= {
 	MOD_FILENAME	= '___TEST 47 add scan events.pak',
 	MOD_AUTHOR			= 'Bladehawke',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_DESCRIPTION		= [[
 							Allows you to find good base sites with Secure Sites planetary maps.
 							These sites have a base computer in the centre of a fairly large flat

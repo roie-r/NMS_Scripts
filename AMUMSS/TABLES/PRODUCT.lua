@@ -13,6 +13,7 @@ Stack_Mult = {
 		{'FOOD_INGREDIENT_SUB', 		40},
 		{'FOOD_COOKED_SUB',				40},
 		{'LAUNCHFUEL_SUB',				4},
+		{'UI_REPAIR_KIT_SUB',			4},
 		{'UI_STORMCRYSTAL_SUB',			2},
 		{'UI_ALLOY_COMPLEX_SUBTITLE',	2},
 		{'UI_REACTION_SUBTITLE',		2},
@@ -67,8 +68,8 @@ K_Icons_Color = {
 		{'Id',		'OXYPROD3',						0,	0.54,	0.26,	0.26,	nil},
 		{'Id',		'STORM_CRYSTAL',				0,	0.54,	0.26,	0.26,	nil},
 		{'Id',		'VENTGEM',						0,	0.54,	0.26,	0.26,	nil},
-		{'Id',		'SUMMON_GARAGE',				0,	0.05,	0.24,	0.32,	nil},
-		{'Value',	'FRIG_BOOST_SUB',				1,	0.11,	0.18,	0.26,	'ALL'},
+		{'Id',		'SUMMON_GARAGE',				0,	0.04,	0.18,	0.26,	nil},
+		{'Value',	'FRIG_BOOST_SUB',				1,	0.46,	0.52,	0.58,	'ALL'},
 		{'Value',	'UI_ALLOY_SIMPLE_SUBTITLE',		1,	0.18,	0.25,	0.62, 	'ALL'},
 		{'Value',	'UI_ALLOY_COMPLEX_SUBTITLE',	1,	0.18,	0.25,	0.62, 	'ALL'},
 		{'Value',	'UI_REACTION_SUBTITLE',			1,	0.86,	0.66,	0.18,	'ALL'},
@@ -160,7 +161,7 @@ Source_Table_Product = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

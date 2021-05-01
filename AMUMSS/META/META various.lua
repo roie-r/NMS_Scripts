@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
 							Replace the creature-scanned icon
@@ -121,13 +121,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		-- remove startup logo splash
 		MBIN_FILE_SOURCE	= 'METADATA\UI\BOOTLOGOPC.MBIN',
 		EXML_CHANGE_TABLE	= {
-			{
-				REPLACE_TYPE 		= 'ALL',
-				PRECEDING_KEY_WORDS = 'NMSString0x100.xml',
-				VALUE_CHANGE_TABLE 	= {
-					{'Value',		''}
-				}
-			},
+			-- {
+			-- 	REPLACE_TYPE 		= 'ALL',
+			-- 	PRECEDING_KEY_WORDS = 'Textures',
+			-- 	VALUE_CHANGE_TABLE 	= {
+			-- 		{'Value',		''}
+			-- 	}
+			-- },
 			{
 				REPLACE_TYPE 		= 'ALL',
 				MATH_OPERATION 		= '*',

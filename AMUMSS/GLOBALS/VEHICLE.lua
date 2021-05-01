@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC VEHICLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.37',
+	NMS_VERSION			= '3.38',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -27,7 +27,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MechJetpackMaxUpSpeed',		8},		-- 20
 					{'MechJetpackFallForce',		-28},	-- 80
 					{'MechTitanFallCameraShakeDist',-34},	-- 80
-					{'MechLandCameraShakeDist',		-16}	-- 40
+					{'MechLandCameraShakeDist',		-16},	-- 40
+					{'SubmarineEjectRadius',		-1.8},	-- 1.8
+					{'SubmarineEjectDownOffset',	3}		-- -2
+
 				}
 			},
 			{
@@ -61,6 +64,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'Name', 'BIKE'},
 				VALUE_CHANGE_TABLE 	= {
+					{'VehicleGravity',				0.5},	-- 17.5
+					{'VehicleGravityWater',			-2},	-- 17.5
 					{'VehicleJumpAirControlForce', 	40},	-- 100
 					{'VehicleLinearDampingAerial',	-0.015},-- 0.05
 					{'VehicleAngularDampingAerial',	-0.25}	-- 1
@@ -72,7 +77,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'MED_BUGGY'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TopSpeedForward', 			1},		-- 16
-					{'TopSpeedReverse', 			2}		-- 8
+					{'TopSpeedReverse', 			2},		-- 8
+					{'VehicleGravity',				6},		-- 20
+					{'VehicleGravityWater',			4}		-- 8
 				}
 			},
 			{
@@ -80,6 +87,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'Name', 'TRUCK'},
 				VALUE_CHANGE_TABLE 	= {
+					{'TopSpeedForward', 			2},		-- 12
+					{'TopSpeedReverse', 			2},		-- 8
+					{'VehicleGravity',				10},	-- 20
+					{'VehicleGravityWater',			6},		-- 8
 					{'VehicleLinearDampingWater',	-1.5},	-- 3.5
 					{'VehicleAngularDampingWater',	-8}		-- 20
 				}
@@ -89,6 +100,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'Name', 'WHEELEDBIKE'},
 				VALUE_CHANGE_TABLE 	= {
+					{'VehicleGravity',				2},		-- 20
+					{'VehicleGravityWater',			2},		-- 8
 					{'VehicleJumpAirControlForce', 	30},	-- 75
 					{'VehicleLinearDampingAerial',	-0.01},	-- 0.05
 					{'VehicleAngularDampingAerial',	-0.2},	-- 1
@@ -100,8 +113,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				SPECIAL_KEY_WORDS	= {'Name', 'SUBMARINE'},
 				VALUE_CHANGE_TABLE 	= {
-					{'UnderwaterEngineFalloff', 	-0.4},	-- 0.7
-					{'TopSpeedForward', 			0},		-- 15
+					{'UnderwaterEnginePower',		2},		-- 6
+					{'UnderwaterEngineMaxSpeed',	7},		-- 15
+					{'UnderwaterEngineFalloff', 	-0.5},	-- 0.7
+					{'TopSpeedForward', 			7},		-- 15
+					{'VehicleGravity',				-5},	-- 30
+					{'VehicleGravityWater',			-1},	-- 17.5
 				}
 			},
 			{
