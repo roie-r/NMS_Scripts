@@ -7,7 +7,7 @@
 
 Collection_Radius = 22
 
-Inetraction_Entity_EXML = '<?xml ' .. [[
+Inetraction_Entity_EXML = '<?xml '..[[
 	version="1.0" encoding="utf-8"?>
 	<Data template="TkAttachmentData">
 		<Property name="Components">
@@ -217,7 +217,7 @@ Inetraction_Entity_EXML = '<?xml ' .. [[
 								</Property>
 								<Property name="Action">
 									<Property value="GcHarvestPlantAction.xml">
-										<Property name="Radius" value="]] .. Collection_Radius .. [[" />
+										<Property name="Radius" value="]]..Collection_Radius..[[" />
 									</Property>
 									<Property value="GcPlayAnimAction.xml">
 										<Property name="Anim" value="ON" />
@@ -334,7 +334,7 @@ Object_Interaction = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 13 add base plant harvester.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

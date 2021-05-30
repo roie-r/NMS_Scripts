@@ -11,7 +11,7 @@ Tail_Scales = {
 	Get = function(x)
 		return {
 			INTEGER_TO_FLOAT	= 'FORCE',
-			SPECIAL_KEY_WORDS	= {'Name', '_Acc_A' .. x},
+			SPECIAL_KEY_WORDS	= {'Name', '_Acc_A'..x},
 			VALUE_CHANGE_TABLE 	= {
 				{'ScaleX',		0.88},
 				{'ScaleY',		0.68},
@@ -31,7 +31,7 @@ local function BuildExmlChangeTable_DeleteContrail(x, y)
 	local T = {}
 	for i = x, y do
 		local section = {
-			SPECIAL_KEY_WORDS	= {'Name', 'Contrail' .. i},
+			SPECIAL_KEY_WORDS	= {'Name', 'Contrail'..i},
 			REMOVE				= 'SECTION'
 		}
 		table.insert(T, section)
@@ -42,7 +42,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL fighter parts tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

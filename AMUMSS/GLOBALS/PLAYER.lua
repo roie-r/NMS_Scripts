@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC PLAYER.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,9 +15,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				VALUE_CHANGE_TABLE 	= {
-					{'SummonArcRange',					120},	-- 40
-					{'GroundWalkSpeedLowG',				0.6},	-- 1.6
-					{'GroundRunSpeedLowG',				1.2},	-- 3.5
+					{'SummonArcRange',					160},	-- 40
+					{'GroundWalkSpeedLowG',				1.2},	-- 1.6
+					{'GroundRunSpeedLowG',				1.8},	-- 3.5
 					{'JetpackDrainHorizontalFactor',	-0.8},	-- 2.5
 					{'MeleeBoostAirForce',				0.4},	-- 3
 					{'RocketBootsDoubleTapTime',		0.05},	-- 0.2
@@ -36,8 +36,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ShieldRechargeMinTimeSinceDamage',-20},	-- 30
 					{'ReloadButtonHoldTimeToHolster',	-0.1},	-- 0.5
 					{'StaminaRate',						-0.06},	-- 0.1 (pet ride stamina)
-					{'MaxFallSpeed',					18}, 	-- 30
-					{'MaxBuildHeight',					1000} 	-- 64
+					{'MaxFallSpeed',					26}, 	-- 30
+					{'MaxBuildHeight',					1000}, 	-- 64
+					{'AutoAimMaxAngle',					-10}, 	-- 30
 				}
 			}
 		}

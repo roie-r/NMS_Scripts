@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC UI.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -20,6 +20,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'FreighterLeaderIconDistance',				-3000},	-- 10000
 					{'WantedDetectMinTimeout',					-2},	-- 5
 					{'TakeoffFuelMessageTime',					-3},	-- 5
+					{'HUDMarkerDistanceOrTimeDistance',			29000},	-- 1250
 					{'ShipOverheatSwitchMessageWait',			-0.9},	-- 0.9
 					{'ShipOverheatSwitchMessageTime',			-1.6},	-- 1.6
 					{'NotificationsResourceExtractHintCount',	-1000},	-- 1500
@@ -31,8 +32,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NotificationShieldTime',					9999},	-- 3.5
 					{'NotificationScanTime',					-300},	-- 600
 					{'NotificationScanTimeCutoff',				-14000},-- 20000
-					-- {'NotificationMaxPageHintTime',				-15},	-- 20
-					
+
 					{'NotificationShipBoostTime',				9999},	-- 15.5
 					{'NotificationShipBoostTimeVR',				9999},	-- 30
 					{'NotificationShipJumpMinTime',				-2},	-- 2

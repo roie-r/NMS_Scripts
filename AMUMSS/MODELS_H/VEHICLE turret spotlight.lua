@@ -1,7 +1,7 @@
 --[[┎───────────────────────────────────
 	┃ Add spotlight to exocraft turret
 ────┸───────────────────────────────--]]
-LightStats = { fov=62, lum=92000.0, r=0.88, g=0.94, b=0.98 }
+LightStats = { fov=62, lum=94000.0, r=0.92, g=0.94, b=0.98 }
 
 Turret_Spotlight = [[
 	<Property value="TkSceneNodeData.xml">
@@ -23,7 +23,7 @@ Turret_Spotlight = [[
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="FOV"/>
 				<Property name="AltID" value=""/>
-				<Property name="Value" value="]] .. LightStats.fov .. [["/>
+				<Property name="Value" value="]]..LightStats.fov..[["/>
 			</Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="FALLOFF"/>
@@ -33,22 +33,22 @@ Turret_Spotlight = [[
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="INTENSITY"/>
 				<Property name="AltID" value=""/>
-				<Property name="Value" value="]] .. LightStats.lum .. [["/>
+				<Property name="Value" value="]]..LightStats.lum..[["/>
 			</Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="COL_R"/>
 				<Property name="AltID" value=""/>
-				<Property name="Value" value="]] .. LightStats.r .. [["/>
+				<Property name="Value" value="]]..LightStats.r..[["/>
 			</Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="COL_G"/>
 				<Property name="AltID" value=""/>
-				<Property name="Value" value="]] .. LightStats.g .. [["/>
+				<Property name="Value" value="]]..LightStats.g..[["/>
 			</Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="COL_B"/>
 				<Property name="AltID" value=""/>
-				<Property name="Value" value="]] .. LightStats.b .. [["/>
+				<Property name="Value" value="]]..LightStats.b..[["/>
 			</Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="COOKIE_IDX" />
@@ -73,7 +73,7 @@ Turret_Spotlight = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H vehicle spotlight.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

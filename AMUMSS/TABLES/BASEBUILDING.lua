@@ -1,6 +1,8 @@
 --[[┎────────────────────────────────────────────────────────────
-	┃ General tweaks to building parts
+	┃ General changes to building parts
 	┃ Set beacon and summon garage as the default of their group
+	┃ Increase power generation and storage
+	┃ Build menu tweaks - change defaults & remove unneeded
 ────┸──────────────────────────────────────────────────────────]]
 Build_On_Freighter = {
 	dat = {
@@ -45,6 +47,11 @@ Build_Above_Water = {
 
 Decoration_Type = {
 	dat = {
+		'BUILDBEACON',
+		'BUILDLIGHT',
+		'BUILDLIGHT2',
+		'BUILDLIGHT3',
+		'SUMMON_GARAGE',
 		'BASE_WPLANT1',
 		'BASE_WPLANT2',
 		'BASE_WPLANT3',
@@ -73,7 +80,7 @@ Source_Table_Basebuild = 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -83,17 +90,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				REPLACE_TYPE 		= 'ALL',
 				VALUE_CHANGE_TABLE 	= {
-					{'CheckPlaceholderCollision',	false},
 					{'CanChangeColour',				true},
 					{'CanChangeMaterial',			true},
 					{'CanRotate3D',					true},
-					{'CanScale',					true}
+					{'CanScale',					true},
+					{'CheckPlaceholderCollision',	false},
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'BUILD_REFINER3'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RegionLimit',			8}
+					{'RegionLimit',			0}
 				}
 			},
 			{
@@ -117,7 +124,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'WATERBUBBLE'},
 				VALUE_CHANGE_TABLE 	= {
-					-- {'CanPickUp',			true},
 					{'BuildableAboveWater',	true},
 					{'EditsTerrain',		false},
 					{'CloseMenuAfterBuild',	true},
@@ -153,6 +159,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'InactiveModel',
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/SIGNALSCANNER/SIGNALSCANNER_LOD.SCENE.MBIN'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'U_SOLAR_S'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Rate',				80},	-- 50
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'U_BIOGENERATOR'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Storage',				6000},	-- 3600
+					{'DependentRateRate',	80},	-- 50
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'U_BATTERY_S'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Storage',				80000},	-- 45000
 				}
 			},
 			{

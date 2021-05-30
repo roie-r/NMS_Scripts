@@ -29,50 +29,50 @@ local function InsertNewLight(T_New)
 
 	return [[
 		<Property value="TkSceneNodeData.xml">
-			<Property name="Name" value="]] .. T.name .. [[" />
-			<Property name="NameHash" value="]] .. T.hash .. [[" />
+			<Property name="Name" value="]]..T.name..[[" />
+			<Property name="NameHash" value="]]..T.hash..[[" />
 			<Property name="Type" value="LIGHT" />
 			<Property name="Transform" value="TkTransformData.xml">
-				<Property name="TransX" value="]] .. T.tx .. [[" />
-				<Property name="TransY" value="]] .. T.ty .. [[" />
-				<Property name="TransZ" value="]] .. T.tz .. [[" />
-				<Property name="RotX" value="]] .. T.rx .. [[" />
-				<Property name="RotY" value="]] .. T.ry .. [[" />
-				<Property name="RotZ" value="]] .. T.rz .. [[" />
-				<Property name="ScaleX" value="]] .. T.sx .. [[" />
-				<Property name="ScaleY" value="]] .. T.sy .. [[" />
-				<Property name="ScaleZ" value="]] .. T.sz .. [[" />
+				<Property name="TransX" value="]]..T.tx..[[" />
+				<Property name="TransY" value="]]..T.ty..[[" />
+				<Property name="TransZ" value="]]..T.tz..[[" />
+				<Property name="RotX" value="]]..T.rx..[[" />
+				<Property name="RotY" value="]]..T.ry..[[" />
+				<Property name="RotZ" value="]]..T.rz..[[" />
+				<Property name="ScaleX" value="]]..T.sx..[[" />
+				<Property name="ScaleY" value="]]..T.sy..[[" />
+				<Property name="ScaleZ" value="]]..T.sz..[[" />
 			</Property>
 			<Property name="Attributes">
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="FOV" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.fov .. [[" />
+					<Property name="Value" value="]]..T.fov..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="FALLOFF" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.fall .. [[" />
+					<Property name="Value" value="]]..T.fall..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="INTENSITY" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.ints .. [[" />
+					<Property name="Value" value="]]..T.ints..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="COL_R" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.r .. [[" />
+					<Property name="Value" value="]]..T.r..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="COL_G" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.g .. [[" />
+					<Property name="Value" value="]]..T.g..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="COL_B" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.b .. [[" />
+					<Property name="Value" value="]]..T.b..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="COOKIE_IDX" />
@@ -82,7 +82,7 @@ local function InsertNewLight(T_New)
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="VOLUMETRIC" />
 					<Property name="AltID" value="" />
-					<Property name="Value" value="]] .. T.vol .. [[" />
+					<Property name="Value" value="]]..T.vol..[[" />
 				</Property>
 				<Property value="TkSceneNodeAttributeData.xml">
 					<Property name="Name" value="MATERIAL" />
@@ -98,7 +98,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 08 insert new light.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

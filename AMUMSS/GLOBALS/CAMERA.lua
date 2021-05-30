@@ -5,21 +5,24 @@
 ────┸──────────────────────────────────────--]]
 Cam_Follow = {
 	dat = {
-	--	PRECEDING_KEY			OffsetX	OffsetY	OffsetZ	BackMin	BackMax	UpMin	UpMax	LookStick
-		{'BuggyFollowCam',		0,		-0.2,	-0.7,	1,		2,		1,		1,		0},
-		{'SubmarineFollowCam',	0,		3.3,	-2.5,	5,		5,		3,		4,		0},
-		{'BikeFollowCam',		0,		0.01,	-0.4,	0,		2,		0.2,	0,		0},
-		{'WheeledBikeFollowCam',0,		0.4,	-0.7,	0,		-7,		0,		1,		0},
-		{'TruckFollowCam',		0,		2.6,	-2,		4,		4,		2.5,	2.25,	0},
-		{'MechFollowCam',		0,		1.8,	0,		6,		6,		1.2,	1.4,	0},
-		{'MechShootCam',		0,		0.3,	0,		3,		4,		0.3,	0.4,	0},
-		{'MechJetpackCam',		0.4,	0.65,	0,		5,		5,		0,		2,		0},
-		{'SpaceshipFollowCam',	0,		3.2,	-3.2,	-2,		-4,		2,		2,		160},
-		{'DropshipFollowCam',	0,		2,		-1.5,	-2,		-4,		2,		2,		160},
-		{'ShuttleFollowCam',	0,		0.2,	-1,		1,		-1,		1,		0,		160},
-		{'RoyalShipFollowCam',	0,		1.4,	-8,		4,		-4,		1,		1,		160},
-		{'ScienceShipFollowCam',0,		2,		-2,		5,		6,		2,		1,		160},
-		{'AlienShipFollowCam',	0,		-0.2,	-4,		0,		0,		-0.2,	-2,		160}
+	--	PRECEDING_KEY				OffsetX	OffsetY	OffsetZ	BackMin	BackMax	UpMin	UpMax	LookStick
+		{'CharacterRideCamMedium',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8,	0},
+		{'CharacterRideCamLarge',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8,	0},
+		{'CharacterRideCamHuge',	2.5,	0.6,	1.2,	-15,	-14,	0.6,	0.8,	0},
+		{'BuggyFollowCam',			0,		-0.2,	-0.7,	1,		2,		1,		1,		0},
+		{'SubmarineFollowCam',		0,		3.3,	-2.5,	5,		5,		3,		4,		0},
+		{'BikeFollowCam',			0,		0.01,	-0.4,	0,		2,		0.2,	0,		0},
+		{'WheeledBikeFollowCam',	0,		0.4,	-0.7,	0,		-7,		0,		1,		0},
+		{'TruckFollowCam',			0,		2.6,	-2,		4,		4,		2.5,	2.25,	0},
+		{'MechFollowCam',			0,		1.8,	0,		6,		6,		1.2,	1.4,	0},
+		{'MechShootCam',			0,		0.3,	0,		3,		4,		0.3,	0.4,	0},
+		{'MechJetpackCam',			0.4,	0.65,	0,		5,		5,		0,		2,		0},
+		{'SpaceshipFollowCam',		0,		3.2,	-3.2,	-2,		-4,		2,		2,		160},
+		{'DropshipFollowCam',		0,		1.8,	-3.8,	-2,		-4,		1.8,	1.8,	160},
+		{'ShuttleFollowCam',		0,		0.2,	-1,		1,		-1,		1,		0,		160},
+		{'RoyalShipFollowCam',		0,		1.4,	-8,		4,		-4,		1,		1,		160},
+		{'ScienceShipFollowCam',	0,		2,		-2,		5,		6,		2,		1,		160},
+		{'AlienShipFollowCam',		0,		-0.2,	-4,		0,		0,		-0.2,	-2,		160}
 	},
 	Get = function(x)
 		return {
@@ -76,7 +79,7 @@ Source_Global_Camera = 'GCCAMERAGLOBALS.GLOBAL.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -112,7 +115,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ModelViewMouseRotateSpeed',		-0.4},	-- 1.6	-- inventory models
 					{'ModelViewMouseRotateSnapStrength',-0.56},	-- 0.94
 					{'BobAmountAbandFreighter',			-0.02},	-- 0.1
-					{'FirstPersonCamHeight',			-0.04},	-- 0.85
+					{'FirstPersonCamHeight',			-0.06},	-- 0.85
 				}
 			},
 			{

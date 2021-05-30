@@ -47,7 +47,8 @@ K_Icons = {
 		{'FOOD_M_CRAB',		'TEXTURES/UI/FRONTEND/ICONS/KETAROS/PRODUCT.MEATCHUNKY.DDS'},
 		{'SUMMON_GARAGE',	'TEXTURES/UI/FRONTEND/ICONS/BUILDABLE/BUILDABLE.SIGNAL.DDS'},
 		{'PRODFUEL2',		'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.OXYGENGEL2.DDS'},
-		{'SHIPCHARGE',		'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.SHIPCHARGE.DDS'}
+		{'SHIPCHARGE',		'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.SHIPCHARGE.DDS'},
+		{'SUIT_INV_TOKEN',	'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.PROCFREIGHTER.CREW.DDS'}
 	},
 	Get = function(x)
 		return {
@@ -88,39 +89,70 @@ K_Icons_Color = {
 
 Req_Substance = {
 	dat = {
-		{'M_WALL',			'LAND1',	'LAND3'},
-		{'M_WALL_H',		'FUEL1',	'LAND3'},
-		{'M_WALL_Q',		'LAND1',	'LAND3'},
-		{'M_WALL_Q_H',		'FUEL1',	'LAND3'},
-		{'M_WALLDIAGONAL',	'LAND1',	'LAND3'},
-		{'M_WALL_WINDOW',	'LAND1',	'LAND3'},
-		{'M_SDOOR',			'LAND1',	'LAND3'},
-		{'M_DOOR',			'LAND1',	'LAND3'},
-		{'M_DOOR_H',		'FUEL1',	'LAND3'},
-		{'M_GDOOR',			'FUEL1',	'LAND3'},
-		{'M_GDOOR_D',		'FUEL1',	'LAND3'},
-		{'M_DOORWINDOW',	'LAND1',	'LAND3'},
-		{'M_FLOOR',			'LAND1',	'LAND3'},
-		{'M_TRIFLOOR',		'LAND1',	'LAND3'},
-		{'M_TRIFLOOR_Q',	'LAND1',	'LAND3'},
-		{'M_GFLOOR',		'LAND1',	'LAND3'},
-		{'M_FLOOR_Q',		'LAND1',	'LAND3'},
-		{'M_RAMP',			'LAND1',	'LAND3'},
-		{'M_RAMP_H',		'LAND1',	'LAND3'},
-		{'M_ROOF',			'LAND1',	'LAND3'},
-		{'M_ROOF_M',		'FUEL1',	'LAND3'},
-		{'M_ROOF_M',		'LAND1',	'LAND2'},
-		{'M_ROOF_C',		'FUEL1',	'LAND3'},
-		{'M_ROOF_C',		'LAND1',	'LAND2'},
-		{'M_ROOF_IC',		'FUEL1',	'LAND3'},
-		{'M_ROOF_IC',		'LAND1',	'LAND2'},
-		{'M_ARCH',			'LAND1',	'LAND3'},
-		{'M_ARCH_H',		'LAND1',	'LAND3'}
+		'C_WALL',
+		'C_WALL_H',
+		'C_WALL_Q',
+		'C_WALL_Q_H',
+		'C_WALLDIAGONAL',
+		'C_WALL_WINDOW',
+		'C_SDOOR',
+		'C_DOOR',
+		'C_DOOR_H',
+		'C_GDOOR',
+		'C_GDOOR_D',
+		'C_DOORWINDOW',
+		'C_DOORWINDOW',
+		'C_FLOOR',
+		'C_TRIFLOOR',
+		'C_TRIFLOOR_Q',
+		'C_GFLOOR',
+		'C_FLOOR_Q',
+		'C_RAMP',
+		'C_RAMP',
+		'C_RAMP_H',
+		'C_RAMP_H',
+		'C_ROOF',
+		'C_ROOF_M',
+		'C_ROOF_C',
+		'C_ROOF_IC',
+		'C_ROOF_IC',
+		'C_ARCH',
+		'C_ARCH_H',
+		'M_WALL',
+		'M_WALL_H',
+		'M_WALL_Q',
+		'M_WALL_Q_H',
+		'M_WALLDIAGONAL',
+		'M_WALL_WINDOW',
+		'M_SDOOR',
+		'M_DOOR',
+		'M_DOOR_H',
+		'M_GDOOR',
+		'M_GDOOR_D',
+		'M_DOORWINDOW',
+		'M_FLOOR',
+		'M_TRIFLOOR',
+		'M_TRIFLOOR_Q',
+		'M_GFLOOR',
+		'M_FLOOR_Q',
+		'M_RAMP',
+		'M_RAMP_H',
+		'M_ROOF',
+		'M_ROOF_M',
+		'M_ROOF_M',
+		'M_ROOF_C',
+		'M_ROOF_C',
+		'M_ROOF_IC',
+		'M_ROOF_IC',
+		'M_ARCH',
+		'M_ARCH_H',
 	},
 	Get = function(x)
+		S = {C = 'LAND2', M = 'LAND3'}
 		return {
-			SPECIAL_KEY_WORDS	= {'Id', x[1], 'ID', x[2]},
-			VALUE_CHANGE_TABLE 	= { {'ID',	x[3]} }
+			SPECIAL_KEY_WORDS	= {'Id', x},
+			PRECEDING_KEY_WORDS = 'Requirements',
+			VALUE_CHANGE_TABLE 	= { {'ID', S[string.sub(x, 1, 1)]} }
 		}
 	end
 }
@@ -133,21 +165,20 @@ Prod_Requirements = {
 	},
 	Build = function(tbl)
 		local exml = '<Property name="Requirements">'
-		for i=1, #tbl do exml = exml .. AddNewCraftPart(tbl[i]) end
-		return exml .. '</Property>'
+		for i=1, #tbl do exml = exml..AddNewCraftPart(tbl[i]) end
+		return exml..'</Property>'
 	end
 }
 
 function AddNewCraftPart(x)
 	return [[
-		<Property value="GcTechnologyRequirement.xml">
-			<Property name="ID" value="]] .. x[1] .. [[" />
-			<Property name="InventoryType" value="GcInventoryType.xml">
-				<Property name="InventoryType" value="]] .. x[2] .. [[" />
-			</Property>
-			<Property name="Amount" value="]] .. x[3] .. [[" />
+	<Property value="GcTechnologyRequirement.xml">
+		<Property name="ID" value="]]..x[1]..[[" />
+		<Property name="InventoryType" value="GcInventoryType.xml">
+			<Property name="InventoryType" value="]]..x[2]..[[" />
 		</Property>
-	]]
+		<Property name="Amount" value="]]..x[3]..[[" />
+	</Property>]]
 end
 
 local function BuildExmlChangeTable(tbl)
@@ -161,7 +192,7 @@ Source_Table_Product = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPRODUCTTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -16,7 +16,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				VALUE_CHANGE_TABLE 	= {
-					{'ShipScanPlanetRechargeMultiplier',	-0.4},	-- 1
+					-- {'WarpsBetweenBattles',					-4},	-- 5
+					-- {'HoursBetweenBattles',					-3},	-- 3
+
+					{'ShipScanPlanetRechargeMultiplier',	-0.5},	-- 1
 					{'ShipScanSpaceRechargeMultiplier',		-0.1},	-- 0.3
 					{'OverheatGenerosity',					0.05},	-- 1.05
 					{'SurveyMaxDistance',					200},	-- 400
@@ -53,21 +56,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = 'ToolScan',
 				VALUE_CHANGE_TABLE 	= {
-					{'ChargeTime',	-10}	-- 30
+					{'ChargeTime',	-18}	-- 30
 				}
 			},
 			{
 				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = 'ToolScanHardMode',
 				VALUE_CHANGE_TABLE 	= {
-					{'ChargeTime',	-55}	-- 90
-				}
-			},
-			{
-				MATH_OPERATION 		= '+',
-				PRECEDING_KEY_WORDS = 'ShipScan',
-				VALUE_CHANGE_TABLE 	= {
-					{'ChargeTime',	-3}		-- 10
+					{'ChargeTime',	-60}	-- 90
 				}
 			},
 			{

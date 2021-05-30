@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SPACESHIP.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -32,7 +32,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'PulseDrivePlanetApproachHeight',	2000},	-- 6000
 					{'ContrailDefaultAlpha',			-0.4},	-- 0.4
 					{'ShieldRechargeMinHitTime',		2},		-- 3
-					{'ShieldRechargeRate',				-3},	-- 6
+					{'ShieldRechargeRate',				-2},	-- 6
 					{'SurvivalTakeOffCostMultiplier',	-0.8},	-- 2
 					{'PlayerFreighterClearSpaceRadius',	-800},	-- 3000
 					{"MiniWarpLinesNum",				-4},	-- 4

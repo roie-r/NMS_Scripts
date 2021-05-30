@@ -6,7 +6,7 @@
 	┃ Increase bioship pulse upgrades - higher speed and manauverability
 	┃ Increase chance for better -and more stats in X-class upgrades
 ────┸────────────────────────────────────────────────────────────────--]]
-Tech_Upgrade_Stat = {
+Upgrade_Stats = {
 	dat = {
 		{'UP_SMG',			'Weapon_Projectile_Damage',			'+',	1,		1},		-- 2, 	3
 		{'UP_SMG',			'Weapon_Projectile_Rate',			'-',	0.1,	0.1},	-- 1.1, 1.15
@@ -43,7 +43,7 @@ Source_Table_Proc_Tech = 'METADATA\REALITY\TABLES\NMS_REALITY_GCPROCEDURALTECHNO
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROCEDURAL TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -68,6 +68,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Proc_Tech,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Tech_Upgrade_Stat)
+		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Upgrade_Stats)
 	}
 }}}}

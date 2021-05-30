@@ -7,7 +7,7 @@ local function BuildExmlChangeTable(id1, id2, multiplier)
 	for i = id1, id2 do
 		local section = {
 			MATH_OPERATION 		= '*',
-			SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_' .. i},
+			SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_'..i},
 			VALUE_CHANGE_TABLE 	= { {'TimeToMake',	multiplier} }
 		}
 		table.insert(T, section)
@@ -20,7 +20,7 @@ Source_Table_Recipe = 'METADATA\REALITY\TABLES\NMS_REALITY_GCRECIPETABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -126,7 +126,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 								</Property>
 								<Property name="Action">
 									<Property value="GcHarvestPlantAction.xml">
-										<Property name="Radius" value="]] .. harvest_radius .. [["/>
+										<Property name="Radius" value="]]..harvest_radius..[["/>
 									</Property>
 									<Property value="GcPlayAnimAction.xml">
 										<Property name="Anim" value="ON"/>
@@ -186,12 +186,12 @@ local function AddObjectInteractionNode(Object_Path)
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="ATTACHMENT" />
 				<Property name="AltID" value="" />
-				<Property name="Value" value="]] .. Object_Path .. [[INTERACTION.ENTITY.MBIN" />
+				<Property name="Value" value="]]..Object_Path..[[INTERACTION.ENTITY.MBIN" />
 			</Property>
 		</Property>
 		<Property name="Children">
 			<Property value="TkSceneNodeData.xml">
-				<Property name="Name" value="]] .. Object_Path .. [[" />
+				<Property name="Name" value="]]..Object_Path..[[" />
 				<Property name="NameHash" value="2419627813" />
 				<Property name="Type" value="COLLISION" />
 				<Property name="Transform" value="TkTransformData.xml">
@@ -246,36 +246,36 @@ Base_Parts = 'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\\'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H harvet all in radius.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= Base_Parts .. 'TECH\CUBEROOM_PLANTERMEGA.SCENE.MBIN',
+		MBIN_FILE_SOURCE	= Base_Parts..'TECH\CUBEROOM_PLANTERMEGA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= AddObjectInteractionNode(Base_Parts .. 'TECH\CUBEROOM_PLANTERMEGA\\')
+				ADD 				= AddObjectInteractionNode(Base_Parts..'TECH\CUBEROOM_PLANTERMEGA\\')
 			}
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= Base_Parts .. 'DECORATION\LABLAMP.SCENE.MBIN',
+		MBIN_FILE_SOURCE	= Base_Parts..'DECORATION\LABLAMP.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= AddObjectInteractionNode(Base_Parts .. 'DECORATION\LABLAMP\\')
+				ADD 				= AddObjectInteractionNode(Base_Parts..'DECORATION\LABLAMP\\')
 			}
 		}
 	}
 }}},
 	ADD_FILES	= {
 	{
-		FILE_DESTINATION = Base_Parts .. 'TECH\CUBEROOM_PLANTERMEGA\INTERACTION.ENTITY.EXML',
+		FILE_DESTINATION = Base_Parts..'TECH\CUBEROOM_PLANTERMEGA\INTERACTION.ENTITY.EXML',
 		FILE_CONTENT	 = AddIteractionEntityEXML(0.95)
 	},
 	{
-		FILE_DESTINATION = Base_Parts .. 'DECORATION\LABLAMP\INTERACTION.ENTITY.EXML',
+		FILE_DESTINATION = Base_Parts..'DECORATION\LABLAMP\INTERACTION.ENTITY.EXML',
 		FILE_CONTENT	 = AddIteractionEntityEXML(22)
 	}
 }}

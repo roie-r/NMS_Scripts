@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 07 Scientific cockpitA re-center trails.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

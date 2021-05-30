@@ -5,7 +5,7 @@
 	┃ changes to weapon upgrades projectile color
 	┃ Change mech terrain editor fuel to metal - same as the multitool
 ────┸────────────────────────────────────────────────────────────────--]]
-Tech_Charge = {
+Charge_Capacity = {
 	dat = {
 		{'SHIPJUMP1',		1.2},
 		{'SHIPJUMP_ALIEN',	1.2},
@@ -38,7 +38,7 @@ Tech_Charge = {
 	end
 }
 
-Tech_Category = {
+Include_In_Category = {
 	dat = {
 		{'SHIP_TELEPORT',	'Ship',		'AllShips'},
 		{'SHIPSCAN_COMBAT',	'Ship',		'AllShips'},
@@ -74,6 +74,33 @@ Projectile_Upgrade_Colour = {
 	end
 }
 
+Not_Core = {
+	dat = {
+		'PROTECT',
+		'JET1',
+		'SHIPJUMP1',
+		'LAUNCHER',
+		'HYPERDRIVE',
+		'SHIPSHIELD',
+		'SHIPGUN1',
+		'F_HYPERDRIVE',
+		'SHIPJUMP_ALIEN',
+		'WARP_ALIEN',
+		'LAUNCHER_ALIEN',
+		'SHIELD_ALIEN',
+		'SHIPGUN_ALIEN',
+		'SHIPLAS_ALIEN',
+		'LASER',
+		'MECH_FUEL',
+	},
+	Get = function(x)
+		return {
+			SPECIAL_KEY_WORDS	= {'ID', x},
+			VALUE_CHANGE_TABLE 	= { {'Core', false} }
+		}
+	end
+}
+
 Stat_Bonus = {
 	dat = {
 		{'UT_SCAN',			'Weapon_Scan_Radius',					'*',	1.6},	-- 1.1
@@ -103,10 +130,10 @@ Stat_Bonus = {
 		return [[
 			<Property value="GcStatsBonus.xml">
 				<Property name="StatsTypes" value="GcStatsTypes.xml">
-					<Property name="StatsType" value="]] .. stat .. [[" />
+					<Property name="StatsType" value="]]..stat..[[" />
 				</Property>
-				<Property name="Bonus" value="]] .. bonus .. [[" />
-				<Property name="Level" value="]] .. level .. [[" />
+				<Property name="Bonus" value="]]..bonus..[[" />
+				<Property name="Level" value="]]..level..[[" />
 			</Property>
 		]]
 	end
@@ -123,7 +150,7 @@ Source_Table_Tech = 'METADATA\REALITY\TABLES\NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.38',
+	NMS_VERSION			= '3.42',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -154,7 +181,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'HYPERDRIVE'},
+				SPECIAL_KEY_WORDS	= {'ID', 'HYPERDRIVE'}, -- F_HYPERDRIVE
 				VALUE_CHANGE_TABLE 	= {
 					{'Core',		false}
 				}
@@ -181,11 +208,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Tech,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Tech_Charge)
+		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Charge_Capacity)
 	},
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Tech,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Tech_Category)
+		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Include_In_Category)
 	},
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Tech,
@@ -194,5 +221,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Tech,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Stat_Bonus)
+	},
+	{
+		MBIN_FILE_SOURCE	= Source_Table_Tech,
+		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Not_Core)
 	}
 }}}}
