@@ -18,7 +18,7 @@ Cam_Follow = {
 		{'MechShootCam',			0,		0.3,	0,		3,		4,		0.3,	0.4,	0},
 		{'MechJetpackCam',			0.4,	0.65,	0,		5,		5,		0,		2,		0},
 		{'SpaceshipFollowCam',		0,		3.2,	-3.2,	-2,		-4,		2,		2,		160},
-		{'DropshipFollowCam',		0,		1.8,	-3.8,	-2,		-4,		1.8,	1.8,	160},
+		{'DropshipFollowCam',		0,		2.0,	-3.8,	-2,		-4,		2.0,	2.0,	160},
 		{'ShuttleFollowCam',		0,		0.2,	-1,		1,		-1,		1,		0,		160},
 		{'RoyalShipFollowCam',		0,		1.4,	-8,		4,		-4,		1,		1,		160},
 		{'ScienceShipFollowCam',	0,		2,		-2,		5,		6,		2,		1,		160},
@@ -79,7 +79,7 @@ Source_Global_Camera = 'GCCAMERAGLOBALS.GLOBAL.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

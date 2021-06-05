@@ -1,11 +1,12 @@
 --[[┎────────────────────────────────────────────────────────────────
 	┃ Decrease binoc scan and charge times
-	┃ Increase and tweak torch
+	┃ visor focus: unknown is red / scanned is dark blue
+	┃ Change torch color and intensity
 ────┸────────────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -35,7 +36,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxDronesLowSurvival',				-1},	-- 1
 					{'ShipInteractRadius',					800},	-- 50
 					{'ZoomFindBuildingRange',				400},	-- 600
-					{'TorchFoV',							-32},	-- 100
+					{'TorchFoV',							-28},	-- 100
 					{'TorchStrength',						0.5},	-- 4
 					{'TorchDimFoV',							3},		-- 65
 					{'TorchDimStrength',					0.5},	-- 1.5

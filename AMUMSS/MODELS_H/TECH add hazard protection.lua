@@ -132,7 +132,7 @@ Heater_Attachment = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H hazard protection with tech.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -145,7 +145,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= Light_Attchment.. Heater_Attachment
+				ADD 				= Light_Attchment .. Heater_Attachment
 			}
 		}
 	}

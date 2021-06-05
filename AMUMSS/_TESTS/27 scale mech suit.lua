@@ -10,7 +10,7 @@ GUN_X_SHIFT	= JET_X_SHIFT / 2
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 27 scale mech suit.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

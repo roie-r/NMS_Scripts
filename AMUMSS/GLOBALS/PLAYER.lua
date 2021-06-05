@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC PLAYER.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

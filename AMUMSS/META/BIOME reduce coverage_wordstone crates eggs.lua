@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META reduce coverage_wordstone crate eggs.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -16,16 +16,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		EXML_CHANGE_TABLE	= {
 			{
+				REPLACE_TYPE 		= 'ALL',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	 = {'Filename', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/DEBRIS/DEBRISLARGE_COMMON.SCENE.MBIN'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
 					{'Coverage',	0.00001},
-					-- {'MaxHeight',	-1}
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
+				REPLACE_TYPE 		= 'ALL',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS 	= {'Filename', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/RUINPARTS/WORDSTONE.SCENE.MBIN'},
 				SECTION_UP			= 1,
@@ -41,11 +42,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
+				REPLACE_TYPE 		= 'ALL',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = 'DetailObjects',
 				VALUE_CHANGE_TABLE 	= {
 					{'Coverage',	0.00001},
-					-- {'MaxHeight',	-1}
 				}
 			}
 		}

@@ -118,15 +118,14 @@ Scan_Table = {
 				<Property name="Icon" value="TkTextureResource.xml">
 					<Property name="Filename" value="TEXTURES/UI/FRONTEND/ICONS/]]..ste.icon..[[" />
 				</Property>
-			</Property>
-		]]
+			</Property>]]
 	end,
 	GetScanList = function(lst)
 		local exml = '<Property name="ScanList">'
 		for i = 1, #lst do
 			exml = exml..[[
 				<Property value="NMSString0x20.xml">
-					<Property name="Value" value="]] ..lst[i]..[[" />
+					<Property name="Value" value="]]..lst[i]..[[" />
 				</Property>]]
 		end
 		return exml..'</Property>'
@@ -273,7 +272,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

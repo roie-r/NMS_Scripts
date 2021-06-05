@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
 							Remove gunk (rusted metal) from cargo crate
@@ -14,7 +14,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							Remove smoke and trails effect from mech and player
 							Increase mech walk animation speed
 							Hide lines - trader routs, HUD icons and landing lines
-							Scientific cockpitA re-center trails
 							Remove resource crates at portals ]],
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -170,24 +169,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxPointsPerFrame',	0},
 					{'DistanceThreshold',	0},
 					{'PointLife',			0}
-				}
-			}
-		}
-	},
-	{
-		-- Scientific cockpitA re-center trails
-		MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\SCIENTIFIC\COCKPIT\COCKPITA\COCKPITA.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'Trail'},
-				VALUE_CHANGE_TABLE 	= {
-					{'TransX',		1.055}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'Trail1'},
-				VALUE_CHANGE_TABLE 	= {
-					{'TransX',		-1.055}
 				}
 			}
 		}

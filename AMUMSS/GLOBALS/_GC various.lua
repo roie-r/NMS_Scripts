@@ -1,15 +1,16 @@
---[[┎──────────────────────────
-	┃ various
-────┸──────────────────────--]]
+--[[┎───────────────────────────────────────────────────────────
+	┃ disable ladder auto-grab; disable falling camera-view
+	┃ same (dark mode) warp tunnel in teleports
+	┃ lower water level to avoid invisible water at shoreline
+────┸────────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		-- disable ladder auto-grab; disable falling camera-view
 		MBIN_FILE_SOURCE	= 'GCCHARACTERGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -21,22 +22,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
+	-- {
+		-- MBIN_FILE_SOURCE	= 'GCSIMULATIONGLOBALS.GLOBAL.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- VALUE_CHANGE_TABLE 	=
+				-- {
+					-- {'TeleportTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
+					-- {'PortalTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
+					-- {'PortalStoryTunnelFile',	'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'}
+				-- }
+			-- }
+		-- }
+	-- },
 	{
-		-- same (dark mode) warp tunnel in teleports
-		MBIN_FILE_SOURCE	= 'GCSIMULATIONGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	=
-				{
-					{'TeleportTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
-					{'PortalTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
-					{'PortalStoryTunnelFile',	'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'}
-				}
-			}
-		}
-	},
-	{
-		-- tweak water level to avoid invisible water at shoreline
 		MBIN_FILE_SOURCE	= 'GCWATERGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -46,5 +45,5 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		}
-	},
+	}
 }}}}

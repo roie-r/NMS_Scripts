@@ -105,7 +105,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEST replace freighter rewards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

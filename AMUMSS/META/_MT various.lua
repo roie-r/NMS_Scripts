@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
 							Replace the creature-scanned icon
@@ -102,20 +102,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-		-- better cloud map
-		MBIN_FILE_SOURCE	= 'MATERIALS\ATMOSPHERE.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gaSpecularValuesVec4'},
-				REMOVE				= 'SECTION'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE.DDS'}
-				}
-			}
-		}
-	}
+	-- {
+	-- 	-- better cloud map
+	-- 	MBIN_FILE_SOURCE	= 'MATERIALS\ATMOSPHERE.MATERIAL.MBIN',
+	-- 	EXML_CHANGE_TABLE	= {
+	-- 		{
+	-- 			SPECIAL_KEY_WORDS	= {'Name', 'gaSpecularValuesVec4'},
+	-- 			REMOVE				= 'SECTION'
+	-- 		},
+	-- 		{
+	-- 			SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
+	-- 			VALUE_CHANGE_TABLE 	= {
+	-- 				{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE.DDS'}
+	-- 			}
+	-- 		}
+	-- 	}
+	-- }
 }}}}

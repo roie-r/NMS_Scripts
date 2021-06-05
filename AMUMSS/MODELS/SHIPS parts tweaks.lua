@@ -16,20 +16,28 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL ships tweak parts.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	-- {
-		-- bioship remove slime
-		-- MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\S-CLASS\BIOPARTS\BIOSHIP_PROC.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Name', 'Slime5'},
-				-- REMOVE				= 'SECTION'
-			-- }
-		-- }
-	-- },
+	{
+		-- Scientific cockpitA re-center trails
+		MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\SCIENTIFIC\COCKPIT\COCKPITA\COCKPITA.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Trail'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		1.055}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Trail1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		-1.055}
+				}
+			}
+		}
+	},
 	{
 		MBIN_FILE_SOURCE	= {
 			'MODELS\COMMON\SPACECRAFT\DROPSHIPS\SUBWINGS\SUBWINGSF\SUBWINGSF_LEFT.SCENE.MBIN',
@@ -86,5 +94,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS\COMMON\SPACECRAFT\DROPSHIPS\SUBWINGS\SUBWINGSH\SUBWINGSH_RIGHT.SCENE.MBIN',
 		},
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable_DeleteContrail({'', 1})
-	}
+	},
+	-- {
+		-- bioship remove slime
+		-- MBIN_FILE_SOURCE	= 'MODELS\COMMON\SPACECRAFT\S-CLASS\BIOPARTS\BIOSHIP_PROC.SCENE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'Slime5'},
+				-- REMOVE				= 'SECTION'
+			-- }
+		-- }
+	-- },
 }}}}

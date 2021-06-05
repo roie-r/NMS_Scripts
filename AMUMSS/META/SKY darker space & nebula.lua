@@ -29,37 +29,38 @@ General_Colour_Modifier = {
 
 New_Colour_Modifier = {
 	dat = {
-		{{'GenericSettings',	'SkyColour'}, 		M.biome2},
-		{{'GenericSettings',	'SkyUpperColour'},	M.biome2},
-		{{'GenericSettings',	'SkySolarColour'},	M.biome2 + 0.2},
-		{{'GenericSettings',	'HorizonColour'},	M.biome2 + 0.2},
-		{{'GenericSettings',	'HeightFogColour'},	M.biome2},
-		{{'GenericSettings',	'LightColour'},		M.biome2 + 0.52},
-		{{'GenericSettings',	'CloudColour1'},	M.biome2 + 0.24},
-		{{'GenericSettings',	'CloudColour2'},	M.biome2 + 0.24},
-		{{'Swamp',				'SkyColour'}, 		M.biome2 - 0.18},
-		{{'Swamp',				'SkyUpperColour'}, 	M.biome2 - 0.22},
-		{{'Swamp',				'SkySolarColour'},	M.biome2 + 0.1},
-		{{'Swamp',				'HorizonColour'},	M.biome2 + 0.2},
-		{{'Swamp',				'HeightFogColour'},	M.biome2 - 0.1},
-		{{'Swamp',				'LightColour'},		M.biome2 + 0.52},
-		{{'Swamp',				'CloudColour1'},	M.biome2 + 0.24},
-		{{'Swamp',				'CloudColour2'},	M.biome2 + 0.24},
-		{{'Lava',				'SkyColour'}, 		M.biome2 + 0.4},
-		{{'Lava',				'SkyUpperColour'}, 	M.biome2 + 0.4},
-		{{'Lava',				'SkySolarColour'},	M.biome2 + 0.32},
-		{{'Lava',				'HorizonColour'},	M.biome2 + 0.42},
-		{{'Lava',				'HeightFogColour'},	M.biome2},
-		{{'Lava',				'LightColour'},		M.biome2 + 0.52},
-		{{'Lava',				'CloudColour1'},	M.biome2 + 0.36},
-		{{'Lava',				'CloudColour2'},	M.biome2 + 0.36}
+		{{'GenericSettings',	'SkyColour'}},
+		{{'GenericSettings',	'SkyUpperColour'}},
+		{{'GenericSettings',	'SkySolarColour'},	0.2},
+		{{'GenericSettings',	'HorizonColour'},	0.2},
+		{{'GenericSettings',	'HeightFogColour'}},
+		{{'GenericSettings',	'LightColour'},		0.52},
+		{{'GenericSettings',	'CloudColour1'},	0.24},
+		{{'GenericSettings',	'CloudColour2'},	0.24},
+		{{'Swamp',				'SkyColour'}, 		-0.18},
+		{{'Swamp',				'SkyUpperColour'}, 	-0.22},
+		{{'Swamp',				'SkySolarColour'},	0.1},
+		{{'Swamp',				'HorizonColour'},	0.2},
+		{{'Swamp',				'HeightFogColour'},	-0.1},
+		{{'Swamp',				'LightColour'},		0.52},
+		{{'Swamp',				'CloudColour1'},	0.24},
+		{{'Swamp',				'CloudColour2'},	0.24},
+		{{'Lava',				'SkyColour'}, 		0.4},
+		{{'Lava',				'SkyUpperColour'}, 	0.4},
+		{{'Lava',				'SkySolarColour'},	0.32},
+		{{'Lava',				'HorizonColour'},	0.42},
+		{{'Lava',				'HeightFogColour'}},
+		{{'Lava',				'LightColour'},		0.52},
+		{{'Lava',				'CloudColour1'},	0.36},
+		{{'Lava',				'CloudColour2'},	0.36}
 	},
 	Get = function(x)
+		v =  M.biome2 + (x[2] or 0)
 		return {
 			INTEGER_TO_FLOAT	= 'FORCE',
 			MATH_OPERATION		= '*',
 			PRECEDING_KEY_WORDS	= x[1],
-			VALUE_CHANGE_TABLE 	= { {'R', x[2]}, {'G', x[2]}, {'B', x[2]} }
+			VALUE_CHANGE_TABLE 	= { {'R', v}, {'G', v}, {'B', v} }
 		}
 	end
 }
@@ -73,7 +74,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META Darker Space & nebula.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -98,7 +98,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 08 insert new light.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

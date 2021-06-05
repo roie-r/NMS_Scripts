@@ -3,35 +3,33 @@
 	┃ Replace freighter defence reward with better selection
 	┃ Increase wild plants harvest yield
 ────┸────────────────────────────────────────────────────────--]]
--- harvest multipliers
-f_min = 1.2
-w_min = 2
-mult  = 1.2
+Mult = { D=1.2, W=2, M=1.2 }
 
 Plant_Harvest = {
 	dat = {
-		{'DE_COOK_ALL1',	f_min,	f_min * mult},	-- Heptaploid Wheat
-		{'DE_COOK_ALL2',	f_min,	f_min * mult},	-- Sweetroot
-		{'DE_COOK_ALL3',	f_min,	f_min * mult},	-- Pulpy Roots
-		{'DE_COOK_HOT',		f_min,	f_min * mult},	-- Fireberry
-		{'DE_COOK_RAD',		f_min,	f_min * mult},	-- Grahberry
-		{'DE_COOK_DUST',	f_min,	f_min * mult},	-- Aloe Flesh
-		{'DE_COOK_COLD',	f_min,	f_min * mult},	-- Frozen Tubers
-		{'DE_COOK_TOX',		f_min,	f_min * mult},	-- Jade Peas
-		{'DE_COOK_LUSH',	f_min,	f_min * mult},	-- Impulse Beans
-		{'DE_COOK_WEIRD',	f_min,	f_min * mult},	-- Hexaberry
-		{'WILD_SCORCHED',	w_min,	w_min * mult},	-- Solanium
-		{'WILD_RADIO',		w_min,	w_min * mult},	-- Gamma Root
-		{'WILD_BARREN',		w_min,	w_min * mult},	-- Cactus Flesh
-		{'WILD_SNOW',		w_min,	w_min * mult},	-- Frost Crystal
-		{'WILD_TOXIC',		w_min,	w_min * mult},	-- Fungal Mould
-		{'WILD_LUSH',		w_min,	w_min * mult}	-- Star Bulb
+		'DE_COOK_ALL1',		-- Heptaploid Wheat
+		'DE_COOK_ALL2',		-- Sweetroot
+		'DE_COOK_ALL3',		-- Pulpy Roots
+		'DE_COOK_HOT',		-- Fireberry
+		'DE_COOK_RAD',		-- Grahberry
+		'DE_COOK_DUST',		-- Aloe Flesh
+		'DE_COOK_COLD',		-- Frozen Tubers
+		'DE_COOK_TOX',		-- Jade Peas
+		'DE_COOK_LUSH',		-- Impulse Beans
+		'DE_COOK_WEIRD',	-- Hexaberry
+		'WILD_SCORCHED',	-- Solanium
+		'WILD_RADIO',		-- Gamma Root
+		'WILD_BARREN',		-- Cactus Flesh
+		'WILD_SNOW',		-- Frost Crystal
+		'WILD_TOXIC',		-- Fungal Mould
+		'WILD_LUSH',		-- Star Bulb
 	},
 	Get = function(x)
+		local v = Mult[string.sub(x, 1, 1)]
 		return {
 			MATH_OPERATION 		= '*',
-			SPECIAL_KEY_WORDS	= {'Id', x[1]},
-			VALUE_CHANGE_TABLE 	= { {'AmountMin', x[2]}, {'AmountMax', x[3]} }
+			SPECIAL_KEY_WORDS	= {'Id', x},
+			VALUE_CHANGE_TABLE 	= { {'AmountMin', v}, {'AmountMax', v * Mult.M} }
 		}
 	end
 }
@@ -52,18 +50,7 @@ F_ = {
 			<Property name="ForceSpecialMessage" value="False" />
 			<Property name="HideInSeasonRewards" value="False" />
 		]]
-		return F_.TableItem(item, exml, 'GcRewardSpecificProduct.xml')
-	end,
-	ProductList = function(item)
-		local exml = '<Property name="ProductList">'
-		for i = 1, #item.id do
-			exml = exml..[[
-				<Property value="NMSString0x10.xml">
-					<Property name="Value" value="]] ..item.id[i]..[[" />
-				</Property>]]
-		end
-		exml = exml..'</Property><Property name="ForceSpecialMessage" value="False" />'
-		return F_.TableItem(item, exml, 'GcRewardSystemSpecificProductFromList.xml')
+		return F_.TableItemSingle(item, exml, 'GcRewardSpecificProduct.xml')
 	end,
 	Substance = function(item)
 		local exml = [[
@@ -78,7 +65,7 @@ F_ = {
 			<Property name="RewardAsBlobs" value="False" />
 			<Property name="UseFuelMultiplier" value="False" />
 		]]
-		return F_.TableItem(item, exml, 'GcRewardSpecificSubstance.xml')
+		return F_.TableItemSingle(item, exml, 'GcRewardSpecificSubstance.xml')
 	end,
 	Units = function(item)
 		local exml = [[
@@ -86,7 +73,7 @@ F_ = {
 				<Property name="Currency" value="Units" />
 			</Property>
 		]]
-		return F_.TableItem(item, exml, 'GcRewardMoney.xml')
+		return F_.TableItemSingle(item, exml, 'GcRewardMoney.xml')
 	end,
 	Nanites = function(item)
 		local exml = [[
@@ -94,16 +81,52 @@ F_ = {
 				<Property name="Currency" value="Nanites" />
 			</Property>
 		]]
-		return F_.TableItem(item, exml, 'GcRewardMoney.xml')
+		return F_.TableItemSingle(item, exml, 'GcRewardMoney.xml')
 	end,
-	TableItem = function(item, reward, type)
+	Shield = function(item)
+		return F_.TableItemSingle(item, '', 'GcRewardShield.xml')
+	end,
+	TableItemSingle = function(item, reward, type)
 		return [[
 			<Property value="GcRewardTableItem.xml">
-				<Property name="PercentageChance" value="]]..item[3]..[[" />
+				<Property name="PercentageChance" value="]]..item.c..[[" />
 				<Property name="Reward" value="]]..type..[[">
 					]]..reward..[[
-					<Property name="AmountMin" value="]]..item[1]..[[" />
-					<Property name="AmountMax" value="]]..item[2]..[[" />
+					<Property name="AmountMin" value="]]..item.n..[[" />
+					<Property name="AmountMax" value="]]..item.x..[[" />
+				</Property>
+				<Property name="LabelID" value="" />
+			</Property>
+		]]
+	end,
+	ItemList = function(item)
+		local exml = '<Property name="Items">'
+		for i=1, #item do
+			exml = exml..[[
+				<Property value="GcMultiSpecificItemEntry.xml">
+					<Property name="MultiItemRewardType" value="]]..item[i].t..[[" />
+					<Property name="Id" value="]]..item[i].id..[[" />
+					<Property name="Amount" value="]]..item[i].n..[[" />
+					<Property name="ProcTechGroup" value="" />
+					<Property name="ProcTechQuality" value="0" />
+					<Property name="ProcProdType" value="GcProceduralProductCategory.xml">
+						<Property name="ProceduralProductCategory" value="Loot" />
+					</Property>
+					<Property name="ProcProdRarity" value="GcRarity.xml">
+						<Property name="Rarity" value="Common" />
+					</Property>
+					<Property name="HideInSeasonRewards" value="False" />
+				</Property>]]
+		end
+		exml = exml..'</Property>'
+		return F_.TableItemMulti(item, exml, 'GcRewardMultiSpecificItems.xml')
+	end,
+	TableItemMulti = function(item, reward, type)
+		return [[
+			<Property value="GcRewardTableItem.xml">
+				<Property name="PercentageChance" value="]]..item.c..[[" />
+				<Property name="Reward" value="]]..type..[[">
+					]]..reward..[[
 				</Property>
 				<Property name="LabelID" value="" />
 			</Property>
@@ -111,17 +134,19 @@ F_ = {
 	end
 }
 
+T_ = { PRD='Product', SBT='Substance', PCT='ProcTech', PCP='ProcProduct'}
+
 Rewards = {
 	FreightLoot_Explorer = {
 		id = 'FREIGHTERLOOT_E',
 		choice = 'GiveAll',
 		rewardlist = {
 		--	Id					Min		Max		%		function
-			{id='HYPERFUEL1',	1,		1,		100,	f=F_.Product},	-- Hyperdrive fuel
-			{id='SCRAP_TECH',	1,		1,		100,	f=F_.Product},	-- anomaly locator
-			{id='STARCHART_A',	3,		3,		100,	f=F_.Product},	-- chart
-			{id='ASTEROID3',	150,	160,	100,	f=F_.Substance},-- Platinum
-			{id='nanites',		360,	380,	100,	f=F_.Nanites},
+			{id='HYPERFUEL1',	n=1,	x=1,	c=100,	f=F_.Product},	-- Hyperdrive fuel
+			{id='SCRAP_TECH',	n=1,	x=1,	c=100,	f=F_.Product},	-- anomaly locator
+			{id='STARCHART_A',	n=3,	x=3,	c=100,	f=F_.Product},	-- chart
+			{id='ASTEROID3',	n=150,	x=160,	c=100,	f=F_.Substance},-- Platinum
+			{id='nanites',		n=360,	x=380,	c=100,	f=F_.Nanites},
 		}
 	},
 	FreightLoot_Trader = {
@@ -129,11 +154,11 @@ Rewards = {
 		choice = 'GiveAll',
 		rewardlist = {
 		--	Id					Min		Max		%		function
-			{id='HYPERFUEL1',	1,		1,		100,	f=F_.Product},
-			{id='SCRAP_GOODS',	1,		1,		100,	f=F_.Product},
-			{id='FRIG_TOKEN',	1,		1,		100,	f=F_.Product},
-			{id='ASTEROID2',	190,	195,	100,	f=F_.Substance},-- gold
-			{id='units',		40100,	50200,	100,	f=F_.Units},
+			{id='HYPERFUEL1',	n=1,	x=1,	c=100,	f=F_.Product},
+			{id='SCRAP_GOODS',	n=1,	x=1,	c=100,	f=F_.Product},
+			{id='FRIG_TOKEN',	n=1,	x=1,	c=100,	f=F_.Product},
+			{id='GEODE_ASTEROID',n=5,	x=6,	c=100,	f=F_.Product},	-- gold nugget
+			{id='units',		n=40100,x=50200,c=100,	f=F_.Units},
 		}
 	},
 	FreightLoot_Warrior = {
@@ -141,30 +166,36 @@ Rewards = {
 		choice = 'GiveAll',
 		rewardlist = {
 		--	Id					Min		Max		%		function
-			{id='HYPERFUEL1',	1,		1,		100,	f=F_.Product},
-			{id='SCRAP_WEAP',	1,		1,		100,	f=F_.Product},
-			{id='GEODE_RARE',	1,		1,		100,	f=F_.Product},	-- Glowing crystal
-			{id='ASTEROID3',	150,	160,	100,	f=F_.Substance},
-			{id='nanites',		315,	335,	100,	f=F_.Nanites},
+			{id='HYPERFUEL1',	n=1,	x=1,	c=100,	f=F_.Product},
+			{id='SCRAP_WEAP',	n=1,	x=1,	c=100,	f=F_.Product},
+			{id='GEODE_RARE',	n=1,	x=1,	c=100,	f=F_.Product},	-- Glowing crystal
+			{id='ASTEROID2',	n=180,	x=190,	c=100,	f=F_.Substance},
+			{id='nanites',		n=315,	x=335,	c=100,	f=F_.Nanites},
+		}
+	},
+	Cook_Shield = {
+		id = 'BAKE_SHIELD',
+		choice = 'GiveAllSilent',
+		rewardlist = {
+			{id='shield',		n=50,	x=70,	c=100,	f=F_.Shield}
 		}
 	},
 	Test_Loot_09 = {
 		id = 'TEST_REWARD_09',
-		choice = 'GiveAll',
+		choice = 'SelectAlways',
 		rewardlist = {
-		--	Id					Min		Max		%	function
 			{
-				id={
-					'ASTEROID2',
-					'ASTEROID3',
-					'STELLAR2',
-					'AF_METAL',
-					'SOULFRAG',
-					'SUNGOLD',
-					'SPACEGUNK2',
-				},
-				120, 180, 100, f=F_.ProductList,
-			}
+				{id='HYPERFUEL1',		n=1, 	t=T_.PRD},
+				{id='POI_LOCATOR',		n=1, 	t=T_.PRD},
+				{id='FOOD_MM_CACTUS',	n=2, 	t=T_.PRD},
+				{id='ASTEROID3',		n=240,	t=T_.SBT},
+				{id='SOULFRAG',			n=128,	t=T_.SBT},
+				{id='AF_METAL',			n=243,	t=T_.SBT},
+				{id='SPACEGUNK2',		n=1200,	t=T_.SBT},
+				c=75,
+				f=F_.ItemList
+			},
+			{id='nanites',		n=305,	x=335,	c=80,	f=F_.Nanites}
 		}
 	},
 	BuildRewardTableEntry = function(rte)
@@ -192,7 +223,7 @@ Source_Table_Reward = 'METADATA\REALITY\TABLES\REWARDTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.42',
+	NMS_VERSION			= '3.51',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -203,13 +234,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Id', 'PIRATELOOT', 'ID', 'STELLAR2'},
 				SECTION_UP			= 1,
 				REPLACE_TYPE		= 'ADDAFTERSECTION',
-				ADD					= F_.Product({id='ALLOY2', 1, 1, 30})
+				ADD					= F_.Product({id='ALLOY2', n=1, x=1, c=30})
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_HARD', 'ID', 'STELLAR2'},
 				SECTION_UP			= 1,
 				REPLACE_TYPE		= 'ADDAFTERSECTION',
-				ADD					= F_.Product({id='ALLOY2', 1, 1, 30})
+				ADD					= F_.Product({id='ALLOY2', n=1, x=1, c=30})
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'POLICELOOT', 'ID', 'FRIG_BOOST_TRA'},
@@ -220,8 +251,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'JETPACK_BOOST'},
-				VALUE_CHANGE_TABLE 	= {				
-					{'Duration',		2.4},	-- 10
+				VALUE_CHANGE_TABLE 	= {
+					{'Duration',		2.2},	-- 10
 					{'ForwardBoost',	1.5},	-- 4.5
 					{'UpBoost',			1.2},	-- 0.8
 					{'IgnitionBoost',	1.2},	-- 1.9
@@ -230,26 +261,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'MIXER_JETPACK'},
-				VALUE_CHANGE_TABLE 	= {				
-					{'Duration',		2.4},	-- 10
-					{'ForwardBoost',	1.5},	-- 4.5
-					{'UpBoost',			1.2},	-- 0.8
-					{'IgnitionBoost',	1.2},	-- 1.9
+				VALUE_CHANGE_TABLE 	= {
+					{'Duration',		2.2},
+					{'ForwardBoost',	1.5},
+					{'UpBoost',			1.2},
+					{'IgnitionBoost',	1.2},
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'DE_FOOD_JETPACK'},
-				VALUE_CHANGE_TABLE 	= {				
-					{'Duration',		2.4},	-- 10
-					{'ForwardBoost',	1.5},	-- 4.5
-					{'UpBoost',			1.2},	-- 0.8
-					{'IgnitionBoost',	1.2},	-- 1.9
+				VALUE_CHANGE_TABLE 	= {
+					{'Duration',		2.2},
+					{'ForwardBoost',	1.5},
+					{'UpBoost',			1.2},
+					{'IgnitionBoost',	1.2},
 				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'FREIGHTERLOOT'},
-				REMOVE				= 'SECTION'
 			},
 			{
 				PRECEDING_KEY_WORDS	= 'GenericTable',
@@ -258,6 +285,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 									  Rewards.BuildRewardTableEntry(Rewards.FreightLoot_Trader)
 									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.FreightLoot_Warrior)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Cook_Shield)
 									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.Test_Loot_09)
 			}
