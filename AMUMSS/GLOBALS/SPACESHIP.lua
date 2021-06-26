@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SPACESHIP.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -22,6 +22,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'_3rdPersonRollAngleScience',		8},		-- 62
 					{'_3rdPersonRollAngleDropship',		20},	-- 45
 					{'_3rdPersonRollAngleAlien',		22},	-- 30
+					{'_3rdPersonFlashIntensity',		-0.4},	-- 0.9
+					{'_3rdPersonFlashDuration',			-0.3},	-- 0.9
+					{'_3rdPersonWarpXWander',			-2.4},	-- 6
+					{'_3rdPersonWarpYWander',			-0.4},	-- 1.5
+					{'_3rdPersonWarpZWander',			-2.2},	-- 5.5
+					{'_3rdPersonWarpWanderStartTime',	-1},	-- 6.5
+					{'AvoidancePower',					3},		-- 3
 					{'MiniWarpHUDArrowAttractAngle',	-7},	-- 10
 					{'HoverTakeoffHeight',				-22},	-- 90
 					{'HoverLandReachedDistance',		-2},	-- 10
@@ -52,7 +59,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'SpaceEngine',
 				VALUE_CHANGE_TABLE 	= {
 					{'MinSpeed',		0.001},	-- 1
-					{'Falloff',			-0.4},	-- 0.7
+					{'Falloff',			0.4},	-- 0.7
 					{'TurnStrength',	1.16},
 					{'RollAmount',		1.16},
 					{'RollForce', 		1.3},
@@ -66,6 +73,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'PlanetEngine',
 				VALUE_CHANGE_TABLE 	= {
 					{'MinSpeed',		0.0001},
+					{'Falloff',			0.2},
 					{'TurnStrength',	1.12},
 					{'RollAmount',		1.12},
 					{'RollForce', 		1.2},
@@ -79,6 +87,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'CombatEngine',
 				VALUE_CHANGE_TABLE 	= {
 					{'MinSpeed',		0.0005},
+					{'Falloff',			0.4},
 					{'TurnStrength',	1.44},
 					{'RollAmount',		1.16},
 					{'RollForce', 		1.32},

@@ -6,7 +6,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,13 +17,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				VALUE_CHANGE_TABLE 	= {
-					-- {'WarpsBetweenBattles',					-4},	-- 5
-					-- {'HoursBetweenBattles',					-3},	-- 3
+					-- {'WarpsBetweenBattles',				-4},	-- 5
+					-- {'HoursBetweenBattles',				-3},	-- 3
 
 					{'ShipScanPlanetRechargeMultiplier',	-0.5},	-- 1
 					{'ShipScanSpaceRechargeMultiplier',		-0.1},	-- 0.3
 					{'OverheatGenerosity',					0.05},	-- 1.05
 					{'SurveyMaxDistance',					200},	-- 400
+					-- {'MaxNumSameGroupTech',					3},		-- 3
 					{'BinocMinScanTime',					-1.1},	-- 3.9
 					{'BinocScanTime',						-1.1},	-- 3.9
 					{'BinocCreatureScanTime',				-1},	-- 3.2
@@ -36,21 +37,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxDronesLowSurvival',				-1},	-- 1
 					{'ShipInteractRadius',					800},	-- 50
 					{'ZoomFindBuildingRange',				400},	-- 600
-					{'TorchFoV',							-28},	-- 100
-					{'TorchStrength',						0.5},	-- 4
+					{'TorchFoV',							-40},	-- 120
+					{'TorchStrength',						1.5},	-- 3.5
 					{'TorchDimFoV',							3},		-- 65
-					{'TorchDimStrength',					0.5},	-- 1.5
-					{'TorchOffsetY',						-0.2},	-- 0.5
-					{'TorchOffsetZ',						-0.4},	-- -0.2
-					{'LightStrength',						1}		-- 1 (build selected item light)
+					{'TorchDimStrength',					0.7},	-- 1.5
+					{'UndergroundTorchFoV',					-2},	-- 70
+					{'UndergroundTorchStrength',			0.7},	-- 2.5
+					{'TorchOffsetY',						0.1},	-- 0.5
+					{'TorchOffsetZ',						-0.45},	-- -0.2
+					{'LightStrength',						0.8},	-- 1 (build selected item light)
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'TorchColour',
 				VALUE_CHANGE_TABLE 	= {
-					{'R',			0.92},	-- 0.95
-					{'G',			0.9},	-- 0.993
-					{'B',			0.96}	-- 0.944
+					{'R',			0.93},	-- 0.95
+					{'G',			0.97},	-- 0.993
+					{'B',			0.94}	-- 0.944
 				}
 			},
 			{

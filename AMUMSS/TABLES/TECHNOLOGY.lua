@@ -106,6 +106,7 @@ Stat_Bonus = {
 		{'SHIP_TELEPORT',	'Ship_Teleport',						'*',	32},	-- 100
 		{'SHIPROCKETS',		'Ship_Weapons_Guns_Damage',				'*',	1.6},	-- 4500
 		{'UT_ROCKETS',		'Ship_Weapons_Guns_CoolTime',			'*',	0.6},	-- 0.8
+		{'UT_PROTECT',		'Suit_Protection',						'+',	0.1},	-- 0.2
 		{'VEHICLE_GRIP1',	'Vehicle_Grip',							'+',	-0.4},	-- 3
 		{'VEHICLE_GRIP1',	'Vehicle_SkidGrip',						'+',	0.22},	-- 0.66
 		{'MECH_GUN',		'Vehicle_GunDamage',					'+',	260},	-- 340
@@ -144,12 +145,12 @@ local function BuildExmlChangeTable(tbl)
 	return T
 end
 
-Source_Table_Tech = 'METADATA\REALITY\TABLES\NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
+Source_Table_Tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -165,6 +166,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'ID','UT_ROCKETS'},
 				PRECEDING_KEY_WORDS	= 'StatBonuses',
 				ADD 				= Stat_Bonus.AddNew('Ship_Weapons_Guns_Damage', 3800, 3)
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'ENERGY', 'Value', 'COLD1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		'FOOD_P_HOTFARM'}
+				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'MECH_MINER'},

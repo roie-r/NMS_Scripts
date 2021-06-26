@@ -4,11 +4,11 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 09 change rewards in dialogs.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\NMS_DIALOG_GCALIENPUZZLETABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_DIALOG_GCALIENPUZZLETABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				-- insert the test reward into the construction recipe analyser 'Cancel' menu option

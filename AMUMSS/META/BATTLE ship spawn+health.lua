@@ -49,17 +49,17 @@ Pirate_Spawn_Count = {
 
 Ship_Stats = {
 	dat = {
-		{'PIRATE_FREIGHT',	'MEDIUM',	4},		-- 3600
-		{'AI_EASY',			'MEDIUM',	2.2},	-- 6200
-		{'AI_MEDIUM',		'HARD',		2.2},	-- 8000
+		{'PIRATE_FREIGHT',	'MEDIUM',	5},		-- 3600
+		{'AI_EASY',			'MEDIUM',	2.4},	-- 6200
+		{'AI_MEDIUM',		'HARD',		2.4},	-- 8000
 		{'AI_HARD',			'HARD',		1.8},	-- 14000
-		{'AI_SOLO',			'SOLO',		1.2},	-- 30000
-		{'PIRATE',			'MEDIUM',	2.4},	-- 6200
-		{'POLICE',			'HARD',		2},		-- 14000
-		{'TRADE_EASY',		'MEDIUM',	2.4},	-- 6000
-		{'TRADE_MED',		'HARD',		2.2},	-- 8000
+		{'AI_SOLO',			'SOLO',		1.4},	-- 30000
+		{'PIRATE',			'MEDIUM',	3.2},	-- 6200
+		{'POLICE',			'HARD',		2.2},	-- 14000
+		{'TRADE_EASY',		'MEDIUM',	3.2},	-- 6000
+		{'TRADE_MED',		'HARD',		3.0},	-- 8000
 		{'TRADE_HARD',		'HARD',		1.8},	-- 14000
-		{'BOUNTY',			'HARD',		1.6}	-- 20000
+		{'BOUNTY',			'HARD',		1.8}	-- 20000
 	},
 	Get = function(x)
 		return {{
@@ -82,12 +82,12 @@ local function BuildExmlChangeTable(tbl)
 	return T
 end
 
-Source_Exp_Spawn_Table = 'METADATA\SIMULATION\SCENE\EXPERIENCESPAWNTABLE.MBIN'
+Source_Exp_Spawn_Table = 'METADATA/SIMULATION/SCENE/EXPERIENCESPAWNTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship spawns & health.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -112,7 +112,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Pirate_Spawn_Count)
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\SIMULATION\SPACE\AISPACESHIPATTACKDATATABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SPACE/AISPACESHIPATTACKDATATABLE.MBIN',
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Ship_Stats)
 	}
 }}}}

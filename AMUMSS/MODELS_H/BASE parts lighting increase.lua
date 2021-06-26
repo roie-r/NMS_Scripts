@@ -1,14 +1,14 @@
 --[[┎────────────────────────────────────────────────────
 	┃ Increase light intesity to various building parts
 ────┸────────────────────────────────────────────────--]]
-File_Path = 'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\DECORATION\\'
+File_Path = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/'
 Wall_Light_Mult		= 2
 Stand_Light_Mult	= 6
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H parts light intensity.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

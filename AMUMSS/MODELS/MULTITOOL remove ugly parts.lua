@@ -5,13 +5,25 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL remove multitool ugly parts.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'MODELS\COMMON\WEAPONS\MULTITOOL\MULTITOOL.DESCRIPTOR.MBIN',
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/WEAPONS/MULTITOOL/MULTITOOL.DESCRIPTOR.MBIN',
 		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '_Mag1Clip_1'}, -- no magazine
+				REMOVE				= 'SECTION'
+			},
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', '_LSAcc3_1'}, -- ?
+				-- REMOVE				= 'SECTION'
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', '_LSideAcc_6'}, -- ?
+				-- REMOVE				= 'SECTION'
+			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_Screen_1'}, -- 1=tilted 2=flap 3=rounded
 				REMOVE				= 'SECTION'

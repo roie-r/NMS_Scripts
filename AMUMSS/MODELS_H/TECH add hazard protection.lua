@@ -1,11 +1,11 @@
---[[┎──────────────────────────────────────────────────────────
-	┃ Add hazard protection to beacon and cooker tech
-────┸──────────────────────────────────────────────────────--]]
-Tech_Light = { lum=38000.0, r=0.86, g=0.18, b=0.28 }
+--[[┎──────────────────────────────────────────────────────────────────────────────
+	┃ Add hazard protection and a small light to beacon, cooker and signal booster
+────┸──────────────────────────────────────────────────────────────────────────--]]
+Tech_Light = { lum=28000.0, r=0.86, g=0.18, b=0.28 }
 
 Protection_Radius = 8
 
-Light_Attchment = [[
+Add_Light = [[
 	<Property value="TkSceneNodeData.xml">
 		<Property name="Name" value="TechLight02"/>
 		<Property name="NameHash" value="0"/>
@@ -32,6 +32,11 @@ Light_Attchment = [[
 				<Property name="AltID" value=""/>
 				<Property name="Value" value="quadratic"/>
 			</Property>
+			<Property value="TkSceneNodeAttributeData.xml">
+              <Property name="Name" value="FALLOFF_RATE" />
+              <Property name="AltID" value="" />
+              <Property name="Value" value="4.0" />
+            </Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="INTENSITY"/>
 				<Property name="AltID" value=""/>
@@ -72,7 +77,7 @@ Light_Attchment = [[
 	</Property>
 ]]
 
-Heater_Attachment = [[
+Add_Heater = [[
 	<Property value="TkSceneNodeData.xml">
 		<Property name="Name" value="HeatedFloors"/>
 		<Property name="NameHash" value="0"/>
@@ -92,7 +97,7 @@ Heater_Attachment = [[
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="ATTACHMENT"/>
 				<Property name="AltID" value=""/>
-				<Property name="Value" value="MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\SPACEBASE\PROPS\STANDINGLIGHT_SMALL\ENTITIES\HEATER.ENTITY.MBIN"/>
+				<Property name="Value" value="MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/SPACEBASE/PROPS/STANDINGLIGHT_SMALL/ENTITIES/HEATER.ENTITY.MBIN"/>
 			</Property>
 		</Property>
 		<Property name="Children">
@@ -132,20 +137,20 @@ Heater_Attachment = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H hazard protection with tech.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= {
-			'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\TECH\BEACON.SCENE.MBIN',
-			'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\TECH\COOKER.SCENE.MBIN',
-			'MODELS\PLANETS\BIOMES\COMMON\BUILDINGS\PARTS\BUILDABLEPARTS\TECH\SIGNALSCANNER.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/BEACON.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/COOKER.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/SIGNALSCANNER.SCENE.MBIN',
 		},
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= Light_Attchment .. Heater_Attachment
+				ADD 				= Add_Light .. Add_Heater
 			}
 		}
 	}

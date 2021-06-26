@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC VEHICLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -22,11 +22,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MechJetpackTurnSpeed',		-1.8},	-- 3
 					{'MechJetpackStrafeStrength',	1.6},	-- 0.5
 					{'MechJetpackForce',			8},		-- 70
-					{'MechJetpackMaxSpeed',			18},	-- 20
+					{'MechJetpackMaxSpeed',			20},	-- 20
 					{'MechJetpackMaxUpSpeed',		8},		-- 20
 					{'MechJetpackFallForce',		-24},	-- 80
 					{'MechTitanFallCameraShakeDist',-34},	-- 80
 					{'MechLandCameraShakeDist',		-16},	-- 40
+					{'ExitStopTime',				1.5},	-- 0.5
+					{'ExitStopForce',				-40},	-- 50
 					{'SubmarineEjectRadius',		-1.8},	-- 1.8 -- stand on top
 					{'SubmarineEjectDownOffset',	3}		-- -2
 				}

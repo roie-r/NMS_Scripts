@@ -75,12 +75,12 @@ local function BuildExmlChangeTable(tbl)
 	return T
 end
 
-Source_Table_Basebuild = 'METADATA\REALITY\TABLES\BASEBUILDINGTABLE.MBIN'
+Source_Table_Basebuild = 'METADATA/REALITY/TABLES/BASEBUILDINGTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -94,6 +94,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'CanChangeMaterial',			true},
 					{'CanRotate3D',					true},
 					{'CanScale',					true},
+					{'CanPlaceOnItself',			true},
 					{'CheckPlaceholderCollision',	false},
 				}
 			},

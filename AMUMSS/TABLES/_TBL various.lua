@@ -1,8 +1,8 @@
---[[┎────────────────────────────────────────────────────
+--[[┎──────────────────────────────────────────────────────────
 	┃ Increase exocraft inventory size
 	┃ Vykeen monolith accepts Effigy instead of dagger
 	┃ Add freighter cargo bulkhead to freighter tech tree
-────┸────────────────────────────────────────────────--]]
+────┸──────────────────────────────────────────────────────--]]
 local function NewItemTreeNode(id)
 	return [[
 		<Property value="GcUnlockableItemTreeNode.xml">
@@ -15,12 +15,12 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\INVENTORYTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/INVENTORYTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'VehicleSmall',
@@ -42,11 +42,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MinSlots',	48},
 					{'MaxSlots',	48}
 				}
-			}
+			},
+			-- {
+				-- REPLACE_TYPE 		= 'ALL',
+				-- MATH_OPERATION 		= '+',
+				-- VALUE_MATCH			= 48,
+				-- VALUE_MATCH_OPTIONS = '<',
+				-- PRECEDING_KEY_WORDS = 'MaxTechInventoryCapacity',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'IGNORE',		27}
+				-- }
+			-- }
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\CONSUMABLEITEMTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/CONSUMABLEITEMTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'FOOD_R_PASTRY'},
@@ -58,7 +68,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\COSTTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/COSTTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'WAR_FIND_PORTAL', 'Id', 'WAR_CURIO2'},
@@ -69,7 +79,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\UNLOCKABLEITEMTREES.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/UNLOCKABLEITEMTREES.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Title', 'UI_FREIGHTER_TREE'},

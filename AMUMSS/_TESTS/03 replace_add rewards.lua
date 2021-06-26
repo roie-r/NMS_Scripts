@@ -20,59 +20,6 @@ ALL_FLEET_COMM_POST_OPT..FLEET_COMM_POST_EMPTY
 	TryFirst_ThenSelectAlways
 	SelectFromSuccess
 	SelectFromSuccessSilent
-
--- jetpack bonus food
-
-FOOD_R_DONUT		Lumpen Doughnut
-FOOD_R_GONUT		Proto-Beignet
-FOOD_DNUT_CUST		Custard Doughnut
-FOOD_DNUT_FCUST		Salty Doughnut
-FOOD_DNUT_MCUST		Monstrous Doughnut
-FOOD_DNUT_SCUST		The Stellarator
-FOOD_DNUT_HON		Honey Doughnut
-FOOD_DNUT_HONB		Honeybutter Doughnut
-FOOD_DNUT_BLOB		Gooey ProtoDoughnut
-FOOD_DNUT_CARM		Caramel Doughnut
-FOOD_DNUT_CHOC		Cocoa Doughnut
-FOOD_DNUT_MEAT		Proteinous Doughnut
-FOOD_DNUT_JAM		Jam Doughnut
-FOOD_DNUT_CJAM		Wriggling Doughnut
-FOOD_DNUT_AJAM		Anomalous Doughnut
-FOOD_CM_CREAM		Doomed Cream Cake
-FOOD_CM_CHOC		Haunted Chocolate Dreams
-FOOD_CM_CARM		Wailing Caramel Cake
-FOOD_CM_APPLE		'Apple' Cake of Lost Souls
-FOOD_CM_CACTUS		Choking Monstrosity Cake
-FOOD_CM_JAM			Appalling Jam Sponge
-FOOD_CM_JHOT		Cake of Burning Dread
-FOOD_CM_JGLITCH		Cake of Glass
-FOOD_MC_HONEY		Honied Angel Cake
-FOOD_MC_BLOB		Gooey Honey Puff
-FOOD_MC_CREAM		Extra-Fluffy Cream Cake
-FOOD_MC_CHOC		Chocolate Dream
-FOOD_MC_CARM		Fluffy Caramel Delight
-FOOD_MC_APPLE		Angelic Fruitcake
-FOOD_MC_CACTUS		Soft and Spiky Surprise
-FOOD_MC_JAM			Jam Fluffer
-FOOD_MC_JHOT		Burning Jam Fluffer
-FOOD_MC_JGLITCH		Perpetual Jam Fluffer
-FOOD_MC_CUST		Soft Custard Fancy
-FOOD_MM_HONEY		Tortured Honey Cake
-FOOD_MM_BLOB		Itching, Creeping Honey Sponge
-FOOD_MM_CREAM		Unbound Cream Horn
-FOOD_MM_CHOC		Volatile Chocolate Fancy
-FOOD_MM_CARM		Caramelised Nightmare
-FOOD_MM_APPLE		Cake of Sin
-FOOD_MM_CACTUS		Fluffy Throatripper
-FOOD_MM_JAM			Writhing Jam Puff
-FOOD_MM_JHOT		Burning Jam Surprise
-FOOD_MM_JGLITCH		Unbound Monstrosity
-FOOD_MM_CUST		Cake of the Lost
-FOOD_CM_BLOBBUT		Gooey Screamer
-FOOD_CM_HONEY		Monstrous Honey Cake
-FOOD_CG_HONEY		Honied Proto-Cake
-FOOD_R_BREAD		Bread
-FOOD_R_PASTRY
 --]]
 
 F_ = {
@@ -286,11 +233,11 @@ Rewards = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 03 replace add rewards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\REWARDTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			-- *** rebuild full reward table item ***
 			-- {

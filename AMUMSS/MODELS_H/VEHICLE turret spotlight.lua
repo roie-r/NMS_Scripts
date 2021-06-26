@@ -1,7 +1,7 @@
 --[[┎───────────────────────────────────
 	┃ Add spotlight to exocraft turret
 ────┸───────────────────────────────--]]
-LightStats = { fov=62, lum=94000.0, r=0.92, g=0.94, b=0.98 }
+LightStats = { fov=62, lum=94000.0, r=0.94, g=0.96, b=1.0 }
 
 Turret_Spotlight = [[
 	<Property value="TkSceneNodeData.xml">
@@ -30,6 +30,11 @@ Turret_Spotlight = [[
 				<Property name="AltID" value=""/>
 				<Property name="Value" value="linear"/>
 			</Property>
+			<Property value="TkSceneNodeAttributeData.xml">
+              <Property name="Name" value="FALLOFF_RATE" />
+              <Property name="AltID" value="" />
+              <Property name="Value" value="1.0" />
+            </Property>
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="INTENSITY"/>
 				<Property name="AltID" value=""/>
@@ -73,12 +78,12 @@ Turret_Spotlight = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H vehicle spotlight.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'MODELS\COMMON\VEHICLES\SHARED\MININGLASER.SCENE.MBIN',
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/SHARED/MININGLASER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'SHOOT'},

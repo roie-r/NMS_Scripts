@@ -1,7 +1,6 @@
---[[┎──────────────────────────────────────────
-	┃ 					EXCLUDED FROM BATCH
-	┃ Reduce freighter warp explosion effect
-────┸──────────────────────────────────────--]]
+--[[┎────────────────────────────────────────────────
+	┃ Reduce freighter warp light explosion effect
+────┸────────────────────────────────────────────--]]
 Warp_Exp_Scale = {
 	dat = {
 		'WARP_FRT_ATMOS',
@@ -16,7 +15,7 @@ Warp_Exp_Scale = {
 			MATH_OPERATION 		= '*',
 			INTEGER_TO_FLOAT	= 'FORCE',
 			SPECIAL_KEY_WORDS	= {'Id', x},
-			VALUE_CHANGE_TABLE 	= { {'Scale', 0.4} }
+			VALUE_CHANGE_TABLE 	= { {'Scale', 0.5} }
 		}
 	end
 }
@@ -30,12 +29,12 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META reduce freighter warp boom.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\EFFECTS\EXPLOSIONTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/EFFECTS/EXPLOSIONTABLE.MBIN',
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Warp_Exp_Scale)
 	}
 }}}}

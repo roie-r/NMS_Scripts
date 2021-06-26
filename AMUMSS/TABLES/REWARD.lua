@@ -49,6 +49,7 @@ F_ = {
 			<Property name="ID" value="]]..item.id..[[" />
 			<Property name="ForceSpecialMessage" value="False" />
 			<Property name="HideInSeasonRewards" value="False" />
+			<Property name="Silent" value="False"/>
 		]]
 		return F_.TableItemSingle(item, exml, 'GcRewardSpecificProduct.xml')
 	end,
@@ -64,6 +65,7 @@ F_ = {
 			<Property name="DisableMultiplier" value="False" />
 			<Property name="RewardAsBlobs" value="False" />
 			<Property name="UseFuelMultiplier" value="False" />
+			<Property name="Silent" value="False"/>
 		]]
 		return F_.TableItemSingle(item, exml, 'GcRewardSpecificSubstance.xml')
 	end,
@@ -141,36 +143,48 @@ Rewards = {
 		id = 'FREIGHTERLOOT_E',
 		choice = 'GiveAll',
 		rewardlist = {
-		--	Id					Min		Max		%		function
-			{id='HYPERFUEL1',	n=1,	x=1,	c=100,	f=F_.Product},	-- Hyperdrive fuel
-			{id='SCRAP_TECH',	n=1,	x=1,	c=100,	f=F_.Product},	-- anomaly locator
-			{id='STARCHART_A',	n=3,	x=3,	c=100,	f=F_.Product},	-- chart
-			{id='ASTEROID3',	n=150,	x=160,	c=100,	f=F_.Substance},-- Platinum
-			{id='nanites',		n=360,	x=380,	c=100,	f=F_.Nanites},
+			{
+				--id				Amount	type
+				{id='HYPERFUEL1',	n=1, 	t=T_.PRD},	-- Hyperdrive fuel
+				{id='SCRAP_TECH',	n=1, 	t=T_.PRD},
+				{id='STARCHART_A',	n=3, 	t=T_.PRD},	-- chart
+				{id='ASTEROID3',	n=160, 	t=T_.SBT},	-- Platinum
+				c=100,
+				f=F_.ItemList
+			},
+			{id='nanites', n=360, x=380, c=100, f=F_.Nanites}
 		}
 	},
 	FreightLoot_Trader = {
 		id = 'FREIGHTERLOOT_T',
 		choice = 'GiveAll',
 		rewardlist = {
-		--	Id					Min		Max		%		function
-			{id='HYPERFUEL1',	n=1,	x=1,	c=100,	f=F_.Product},
-			{id='SCRAP_GOODS',	n=1,	x=1,	c=100,	f=F_.Product},
-			{id='FRIG_TOKEN',	n=1,	x=1,	c=100,	f=F_.Product},
-			{id='GEODE_ASTEROID',n=5,	x=6,	c=100,	f=F_.Product},	-- gold nugget
-			{id='units',		n=40100,x=50200,c=100,	f=F_.Units},
+			{
+				--id				Amount	type
+				{id='HYPERFUEL1',	n=1, 	t=T_.PRD},
+				{id='SCRAP_TECH',	n=1, 	t=T_.PRD},
+				{id='FRIG_TOKEN',	n=1, 	t=T_.PRD},
+				{id='GEODE_ASTEROID',n=4, 	t=T_.PRD},	-- gold nugget
+				c=100,
+				f=F_.ItemList
+			},
+			{id='units', n=40100, x=50200, c=100, f=F_.Units}
 		}
 	},
 	FreightLoot_Warrior = {
 		id = 'FREIGHTERLOOT_W',
 		choice = 'GiveAll',
 		rewardlist = {
-		--	Id					Min		Max		%		function
-			{id='HYPERFUEL1',	n=1,	x=1,	c=100,	f=F_.Product},
-			{id='SCRAP_WEAP',	n=1,	x=1,	c=100,	f=F_.Product},
-			{id='GEODE_RARE',	n=1,	x=1,	c=100,	f=F_.Product},	-- Glowing crystal
-			{id='ASTEROID2',	n=180,	x=190,	c=100,	f=F_.Substance},
-			{id='nanites',		n=315,	x=335,	c=100,	f=F_.Nanites},
+			{
+				--id				Amount	type
+				{id='HYPERFUEL1',	n=1, 	t=T_.PRD},
+				{id='SCRAP_WEAP',	n=1, 	t=T_.PRD},
+				{id='GEODE_RARE',	n=2, 	t=T_.PRD},	-- Glowing crystal
+				{id='ASTEROID2',	n=210, 	t=T_.SBT},	-- gold
+				c=100,
+				f=F_.ItemList
+			},
+			{id='nanites', n=315, x=335, c=100, f=F_.Nanites}
 		}
 	},
 	Cook_Shield = {
@@ -180,22 +194,104 @@ Rewards = {
 			{id='shield',		n=50,	x=70,	c=100,	f=F_.Shield}
 		}
 	},
+	Pirate_Loot_Esay = {
+		id = 'PIRAT_LOOT_EASY',
+		choice = 'SelectAlways',
+		rewardlist = {
+			--id					Min		Max		%		function
+			{id='LAND2',			n=60,	x=160,	c=5,	f=F_.Substance},
+			{id='CAVE1',			n=70,	x=170,	c=5,	f=F_.Substance},
+			{id='TRA_ALLOY1',		n=1,	x=3,	c=3,	f=F_.Product},
+			{id='TRA_ENERGY1',		n=1,	x=3,	c=3,	f=F_.Product},
+			{id='TRA_EXOTICS1',		n=1,	x=3,	c=3,	f=F_.Product},
+			{id='FOOD_CM_APPLE',	n=1,	x=1,	c=1,	f=F_.Product},
+			-- {id='shield',			n=30,	x=40,	c=100,	f=F_.Shield},
+		}
+	},
+	Pirate_Loot_Med = {
+		id = 'PIRAT_LOOT_MED',
+		choice = 'SelectAlways',
+		rewardlist = {
+			--id					Min		Max		%		function
+			{id='ALLOY2',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY3',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY4',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='WATER2',			n=90,	x=190,	c=5,	f=F_.Substance},
+			{id='CAVE2',			n=100,	x=200,	c=5,	f=F_.Substance},
+			{id='TRA_ALLOY2',		n=1,	x=3,	c=3,	f=F_.Product},
+			{id='TRA_ENERGY2',		n=1,	x=3,	c=3,	f=F_.Product},
+			{id='TRA_TECH2',		n=1,	x=3,	c=3,	f=F_.Product},
+			{id='FOOD_ICE_GLITCH',	n=1,	x=1,	c=1,	f=F_.Product},
+			-- {id='shield',			n=40,	x=50,	c=100,	f=F_.Shield},
+		}
+	},
+	Pirate_Loot_Reg = {
+		id = 'PIRATELOOT',
+		choice = 'SelectAlways',
+		rewardlist = {
+			--id					Min		Max		%		function
+			{id='ALLOY2',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY3',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY4',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='WATER2',			n=120,	x=220,	c=5,	f=F_.Substance},
+			{id='TRA_ALLOY3',		n=1,	x=3,	c=5,	f=F_.Product},
+			{id='TRA_ENERGY3',		n=1,	x=3,	c=5,	f=F_.Product},
+			{id='TRA_COMPONENT3',	n=1,	x=3,	c=5,	f=F_.Product},
+			{id='TRA_MINERALS3',	n=1,	x=3,	c=5,	f=F_.Product},
+			{id='EX_BLUE',			n=80,	x=180,	c=3,	f=F_.Substance},
+			{id='GEODE_RARE',		n=1,	x=1,	c=3,	f=F_.Product},
+			{id='FOOD_CM_APPLE',	n=1,	x=3,	c=3,	f=F_.Product},
+			{id='FOOD_ICE_GLITCH',	n=1,	x=3,	c=3,	f=F_.Product},
+			{id='AF_METAL',			n=60,	x=160,	c=1,	f=F_.Substance},
+			{id='shield',			n=50,	x=60,	c=100,	f=F_.Shield},
+		}
+	},
+	Pirate_Loot_Hard = {
+		id = 'PIRAT_LOOT_HARD',
+		choice = 'SelectAlways',
+		rewardlist = {
+			--id					Min		Max		%		function
+			{id='ALLOY1',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY2',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY3',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY4',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY5',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='ALLOY6',			n=1,	x=1,	c=5,	f=F_.Product},
+			{id='WATER2',			n=130,	x=230,	c=5,	f=F_.Substance},
+			{id='TRA_ENERGY4',		n=1,	x=3,	c=5,	f=F_.Product},
+			{id='TRA_ALLOY4',		n=1,	x=3,	c=5,	f=F_.Product},
+			{id='TRA_EXOTICS4',		n=1,	x=3,	c=5,	f=F_.Product},
+			{id='TRA_TECH4',		n=1,	x=3,	c=5,	f=F_.Product},
+			{id='GEODE_RARE',		n=1,	x=1,	c=3,	f=F_.Product},
+			{id='EX_GREEN',			n=90,	x=190,	c=3,	f=F_.Substance},
+			{id='EX_BLUE',			n=80,	x=180,	c=3,	f=F_.Substance},
+			{id='FOOD_CM_APPLE',	n=1,	x=2,	c=3,	f=F_.Product},
+			{id='FOOD_CM_CHOC',		n=1,	x=2,	c=3,	f=F_.Product},
+			{id='FOOD_ICE_GLITCH',	n=1,	x=2,	c=3,	f=F_.Product},
+			{id='AF_METAL',			n=140,	x=160,	c=2,	f=F_.Substance},
+			{id='SCRAP_TECH',		n=1,	x=1,	c=1,	f=F_.Product},
+			{id='SCRAP_WEAP',		n=1,	x=1,	c=1,	f=F_.Product},
+			{id='shield',			n=60,	x=65,	c=100,	f=F_.Shield},
+		}
+	},
 	Test_Loot_09 = {
 		id = 'TEST_REWARD_09',
 		choice = 'SelectAlways',
 		rewardlist = {
-			{
-				{id='HYPERFUEL1',		n=1, 	t=T_.PRD},
-				{id='POI_LOCATOR',		n=1, 	t=T_.PRD},
-				{id='FOOD_MM_CACTUS',	n=2, 	t=T_.PRD},
-				{id='ASTEROID3',		n=240,	t=T_.SBT},
-				{id='SOULFRAG',			n=128,	t=T_.SBT},
-				{id='AF_METAL',			n=243,	t=T_.SBT},
-				{id='SPACEGUNK2',		n=1200,	t=T_.SBT},
-				c=75,
-				f=F_.ItemList
-			},
-			{id='nanites',		n=305,	x=335,	c=80,	f=F_.Nanites}
+			--id					Min		Max		%		function
+			{id='ALLOY1',			n=1,	x=2,	c=3,	f=F_.Product},
+			{id='ALLOY5',			n=1,	x=2,	c=3,	f=F_.Product},
+			{id='ALLOY6',			n=1,	x=2,	c=3,	f=F_.Product},
+			{id='WATER2',			n=260,	x=280,	c=3,	f=F_.Substance},
+			{id='TRA_ENERGY4',		n=6,	x=7,	c=3,	f=F_.Product},
+			{id='TRA_ALLOY4',		n=6,	x=7,	c=3,	f=F_.Product},
+			{id='EX_BLUE',			n=160,	x=180,	c=3,	f=F_.Substance},
+			{id='FOOD_CM_APPLE',	n=3,	x=4,	c=3,	f=F_.Product},
+			{id='FOOD_ICE_GLITCH',	n=3,	x=4,	c=3,	f=F_.Product},
+			{id='AF_METAL',			n=140,	x=160,	c=3,	f=F_.Substance},
+			{id='SCRAP_TECH',		n=1,	x=1,	c=3,	f=F_.Product},
+			{id='SCRAP_WEAP',		n=1,	x=1,	c=3,	f=F_.Product},
+			{id='shield',			n=50,	x=60,	c=100,	f=F_.Shield},
 		}
 	},
 	BuildRewardTableEntry = function(rte)
@@ -218,36 +314,18 @@ Rewards = {
 	end
 }
 
-Source_Table_Reward = 'METADATA\REALITY\TABLES\REWARDTABLE.MBIN'
+Source_Table_Reward = 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Reward,
 		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'PIRATELOOT', 'ID', 'STELLAR2'},
-				SECTION_UP			= 1,
-				REPLACE_TYPE		= 'ADDAFTERSECTION',
-				ADD					= F_.Product({id='ALLOY2', n=1, x=1, c=30})
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_HARD', 'ID', 'STELLAR2'},
-				SECTION_UP			= 1,
-				REPLACE_TYPE		= 'ADDAFTERSECTION',
-				ADD					= F_.Product({id='ALLOY2', n=1, x=1, c=30})
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'POLICELOOT', 'ID', 'FRIG_BOOST_TRA'},
-				VALUE_CHANGE_TABLE 	= {
-					{'ID',			'FRIG_BOOST_SPD'}
-				}
-			},
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'JETPACK_BOOST'},
@@ -279,6 +357,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
+				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_EASY'},
+				REMOVE				= 'SECTION'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_MED'},
+				REMOVE				= 'SECTION'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'PIRATELOOT'},
+				REMOVE				= 'SECTION'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'PIRAT_LOOT_HARD'},
+				REMOVE				= 'SECTION'
+			},
+			{
 				PRECEDING_KEY_WORDS	= 'GenericTable',
 				ADD					= Rewards.BuildRewardTableEntry(Rewards.FreightLoot_Explorer)
 									  ..
@@ -289,6 +383,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 									  Rewards.BuildRewardTableEntry(Rewards.Cook_Shield)
 									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.Test_Loot_09)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Esay)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Med)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Reg)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Hard)
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'POLICELOOT', 'ID', 'FRIG_BOOST_TRA'},
+				SECTION_UP			= 1,
+				REPLACE_TYPE		= 'ADDAFTERSECTION',
+				ADD					= F_.Product({id='FRIG_BOOST_SPD', n=1, x=1, c=100})
+									  ..
+									  F_.Product({id='FRIG_BOOST_EXP', n=1, x=1, c=100})
+									  ..
+									  F_.Product({id='FRIG_BOOST_MIN', n=1, x=1, c=100})
 			}
 		}
 	},

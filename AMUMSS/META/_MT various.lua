@@ -4,12 +4,11 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.51',
+	NMS_VERSION			= '3.53',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
 							Replace the creature-scanned icon
 							Faster screen text
-							Disable ship weapons overheat warning
 							Increase suit tech inventory size; round stack to 10000
 							remove startup logo splash
 							better cloud map  ]],
@@ -17,7 +16,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		-- replace the creature-scanned icon
-		MBIN_FILE_SOURCE	= 'METADATA\UI\HUD\SCANNERICONS.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'CreatureDiscovered',
@@ -29,39 +28,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		-- Faster screen text
-		MBIN_FILE_SOURCE	= 'METADATA\UI\SPECIALTEXTPUNCTUATIONDELAYDATA.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/UI/SPECIALTEXTPUNCTUATIONDELAYDATA.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'ALL',
 				INTEGER_TO_FLOAT	= 'FORCE',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
-					{'Delay',			0.24},
-					{'DefaultDelay',	0.24}
+					{'Delay',			0.22},
+					{'DefaultDelay',	0.22}
 				}
 			}
 		}
 	},
-	--[[
-	{
-		-- Disable ship -switch weapon when overheated- warning
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\DEFAULTREALITY.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				REPLACE_TYPE 		= 'ALL',
-				PRECEDING_KEY_WORDS = 'ShipWeapons',
-				VALUE_CHANGE_TABLE 	= {
-					{'ShowOverheatSwitch', false}
-				}
-			}
-		}
-	},
-	--]]
 	{
 		-- Increase suit tech inventory size; round stack to 10000
 		MBIN_FILE_SOURCE	= {
-			'METADATA\GAMESTATE\DEFAULTINVENTORYBALANCE.MBIN',
-			'METADATA\GAMESTATE\DEFAULTINVENTORYBALANCESURVIVAL.MBIN'
+			'METADATA/GAMESTATE/DEFAULTINVENTORYBALANCE.MBIN',
+			'METADATA/GAMESTATE/DEFAULTINVENTORYBALANCESURVIVAL.MBIN'
 		},
 		EXML_CHANGE_TABLE	= {
 			{
@@ -79,7 +63,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		-- Increase substance stack in survival mode
-		MBIN_FILE_SOURCE	= 'METADATA\GAMESTATE\DEFAULTINVENTORYBALANCESURVIVAL.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/DEFAULTINVENTORYBALANCESURVIVAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -90,7 +74,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		-- faster startup logo splash
-		MBIN_FILE_SOURCE	= 'METADATA\UI\BOOTLOGOPC.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/UI/BOOTLOGOPC.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'ALL',
@@ -102,20 +86,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-	-- 	-- better cloud map
-	-- 	MBIN_FILE_SOURCE	= 'MATERIALS\ATMOSPHERE.MATERIAL.MBIN',
-	-- 	EXML_CHANGE_TABLE	= {
-	-- 		{
-	-- 			SPECIAL_KEY_WORDS	= {'Name', 'gaSpecularValuesVec4'},
-	-- 			REMOVE				= 'SECTION'
-	-- 		},
-	-- 		{
-	-- 			SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
-	-- 			VALUE_CHANGE_TABLE 	= {
-	-- 				{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE.DDS'}
-	-- 			}
-	-- 		}
-	-- 	}
-	-- }
+	{
+		-- better cloud map
+		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
+		EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'gaSpecularValuesVec4'},
+				-- REMOVE				= 'SECTION'
+			-- },
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE02.DDS'}
+				}
+			}
+		}
+	}
 }}}}
