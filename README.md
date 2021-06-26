@@ -1,2 +1,2 @@
-My personal-use collection. Some are my own, others were picked from other mods and incorporated in my scripts.
+My personal-use modifications. Some are my own, others were collected from -or inspired by mods.
  
