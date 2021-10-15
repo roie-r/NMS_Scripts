@@ -28,7 +28,7 @@ Add_Charge_Item = {
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
+	for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
 	return T
 end
 
@@ -64,7 +64,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 46 restore powercells.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

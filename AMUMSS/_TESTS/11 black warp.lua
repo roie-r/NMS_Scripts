@@ -6,7 +6,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST Black Warp + Nebulae.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
