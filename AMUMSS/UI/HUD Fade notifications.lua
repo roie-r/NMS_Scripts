@@ -1,12 +1,12 @@
 --[[┎────────────────────────────────────────────────────────────────────────────────
 	┃ Hide elements of the lower-right notification panel and fade the text contents
 ────┸────────────────────────────────────────────────────────────────────────────--]]
-Text_Alpha = 0.65
+Text_Alpha = 0.66
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fade notifications.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_UI ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -39,7 +39,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'ID', 'TITLE'},
 				SECTION_UP			= 1,
-				PRECEDING_KEY_WORDS	= {'Style'},
 				VALUE_CHANGE_TABLE 	= {
 					{'A',	Text_Alpha}
 				}
@@ -50,7 +49,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'ID', 'BODY'},
 				SECTION_UP			= 1,
-				PRECEDING_KEY_WORDS	= {'Style'},
 				VALUE_CHANGE_TABLE 	= {
 					{'A',	Text_Alpha}
 				}
@@ -61,7 +59,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'ID', 'HEADERLINE'},
 				SECTION_UP			= 1,
-				PRECEDING_KEY_WORDS	= {'Style'},
 				VALUE_CHANGE_TABLE 	= {
 					{'A',	Text_Alpha - 0.1}
 				}
@@ -72,7 +69,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				SPECIAL_KEY_WORDS	= {'ID', 'BASELINE'},
 				SECTION_UP			= 1,
-				PRECEDING_KEY_WORDS	= {'Style'},
 				VALUE_CHANGE_TABLE 	= {
 					{'A',	Text_Alpha - 0.1}
 				}
