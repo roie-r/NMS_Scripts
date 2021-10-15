@@ -1,7 +1,7 @@
 --[[┎────────────────────────────────────────────────────────────
-	┃ Replace space pirates battle loot with a more varid list
+	┃ Replace space pirates battle loot with a more varied list
 ────┸────────────────────────────────────────────────────────--]]
-mod_version = 1.0
+mod_version = 1.02
 
 F_ = {
 	Product = function(item)
@@ -205,7 +205,7 @@ Rewards = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Loot pirates loot.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

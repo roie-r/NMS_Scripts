@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.remove jetpack trail and smoke.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_DESCRIPTION		= 'Remove the jetpack trail line and smoke',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

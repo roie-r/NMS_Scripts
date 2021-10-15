@@ -1,9 +1,9 @@
 --[[┎──────────────────────────────────────────────────────────────────────────
-	┃ Mobile summoning station - make it pickable.
+	┃ Mobile summoning station - make it pick-able.
 	┃ Replace the default model with the signal booster
 	┃ Set the station as the default choice in the exocrafts build menu
 	┃ Set the icon to signal booster with a different background
-	┃ Add hazard protection to the new summoing station (signal booster) model
+	┃ Add hazard protection to the new summoning station (signal booster) model
 ────┸──────────────────────────────────────────────────────────────────────--]]
 Protection_Radius = 8
 
@@ -67,7 +67,7 @@ Heater_Attachment = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Mobile Summoning Station.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Scientific cockpitA trail FIX.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_DESCRIPTION		= 'Re-center the Scientific ship cockpitA (hopper) engine trail, which was misaligned.',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

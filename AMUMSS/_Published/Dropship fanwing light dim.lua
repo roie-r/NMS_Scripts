@@ -1,10 +1,10 @@
---[[┎──────────────────────────────────────────────────────────────────────────────────────
+--[[┎─────────────────────────────────────────
 	┃ Dim lights on dropship wing_F
-────┸──────────────────────────────────────────────────────────────────────────────────--]]
+────┸─────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Dropship fanwing light dim.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_DESCRIPTION		= 'Dim lights on dropship wing_F',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -19,13 +19,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'Glow'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransY',		0},		-- -0.05168
-					{'ScaleY',		0.42},
+					{'ScaleY',		0.42},	-- 1
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'pointLight1', 'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		26000}
+					{'Value',		26000}	-- 50000
 				}
 			},
 			{

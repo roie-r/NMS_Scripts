@@ -1,9 +1,9 @@
 --[[┎─────────────────────────────────────────────────────────────────────
 	┃ Replace freighter after-warp-battle reward with better a selection
-	┃ with something different from aech race
+	┃ with something different from each race
 	┃ * (the lists are non-random because a bug causes them to misbehave)
 ────┸─────────────────────────────────────────────────────────────────--]]
-Mod_Version = 1.03
+Mod_Version = 1.05
 
 F_ = {
 	Product = function(item)
@@ -175,7 +175,7 @@ Rewards = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Freighter Defense Rewards.'..Mod_Version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
