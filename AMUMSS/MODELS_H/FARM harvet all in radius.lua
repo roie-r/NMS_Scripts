@@ -1,6 +1,6 @@
 --[[┎──────────────────────────────────────────────────────────
-	┃ Add 'harvet all' at radius of 22u to lab-lamp base part
-	┃ Add 'harvet all' local function to large planter
+	┃ Add 'harvest all' at radius of 22u to lab-lamp base part
+	┃ Add 'harvest all' local function to large planter
 ────┸──────────────────────────────────────────────────────--]]
 
 local function AddIteractionEntityEXML(harvest_radius)
@@ -32,6 +32,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 				<Property name="BlockTeleporter" value="False"/>
 				<Property name="DisableGravity" value="False"/>
 				<Property name="SpinOnCreate" value="0"/>
+				<Property name="UseBasePartOptimisation" value="False"/>
 			</Property>
 			<Property value="GcSimpleInteractionComponentData.xml">
 				<Property name="SimpleInteractionType" value="Interact"/>
@@ -56,6 +57,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 				</Property>
 				<Property name="InteractFiendCrimeChance" value="1"/>
 				<Property name="InteractCrimeLevel" value="0"/>
+				<Property name="NotifyEncounter" value="False"/>
 				<Property name="ActivationCost" value="GcInteractionActivationCost.xml">
 					<Property name="SubstanceId" value=""/>
 					<Property name="AltIds"/>
@@ -79,13 +81,13 @@ local function AddIteractionEntityEXML(harvest_radius)
 				</Property>
 				<Property name="ActivateLocatorsFromRarity" value="False"/>
 				<Property name="RarityLocators">
-					<Property value="NMSString0x10.xml">
+					<Property name="Common" value="NMSString0x10.xml">
 						<Property name="Value" value=""/>
 					</Property>
-					<Property value="NMSString0x10.xml">
+					<Property name="Uncommon" value="NMSString0x10.xml">
 						<Property name="Value" value=""/>
 					</Property>
-					<Property value="NMSString0x10.xml">
+					<Property name="Rare" value="NMSString0x10.xml">
 						<Property name="Value" value=""/>
 					</Property>
 				</Property>
@@ -104,7 +106,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 						<Property name="StateID" value="BOOT"/>
 						<Property name="Triggers">
 							<Property value="GcActionTrigger.xml">
-								<Property name="Trigger" value="GcStateTimeEvent.xml">
+								<Property name="Event" value="GcStateTimeEvent.xml">
 									<Property name="Seconds" value="0"/>
 									<Property name="RandomSeconds" value="0"/>
 								</Property>
@@ -120,7 +122,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 						<Property name="StateID" value="HARVEST"/>
 						<Property name="Triggers">
 							<Property value="GcActionTrigger.xml">
-								<Property name="Trigger" value="GcStateTimeEvent.xml">
+								<Property name="Event" value="GcStateTimeEvent.xml">
 									<Property name="Seconds" value="0"/>
 									<Property name="RandomSeconds" value="0"/>
 								</Property>
@@ -134,7 +136,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 								</Property>
 							</Property>
 							<Property value="GcActionTrigger.xml">
-								<Property name="Trigger" value="GcStateTimeEvent.xml">
+								<Property name="Event" value="GcStateTimeEvent.xml">
 									<Property name="Seconds" value="5"/>
 									<Property name="RandomSeconds" value="0"/>
 								</Property>
@@ -165,7 +167,7 @@ local function AddIteractionEntityEXML(harvest_radius)
 	</Data>]]
 end
 
-local function AddObjectInteractionNode(Object_Path)
+local function AddObjectInteractionNode(path)
 	return [[
 	<Property value="TkSceneNodeData.xml">
 		<Property name="Name" value="Interaction" />
@@ -186,12 +188,12 @@ local function AddObjectInteractionNode(Object_Path)
 			<Property value="TkSceneNodeAttributeData.xml">
 				<Property name="Name" value="ATTACHMENT" />
 				<Property name="AltID" value="" />
-				<Property name="Value" value="]]..Object_Path..[[INTERACTION.ENTITY.MBIN" />
+				<Property name="Value" value="]]..Base_Parts..path..[[INTERACTION.ENTITY.MBIN" />
 			</Property>
 		</Property>
 		<Property name="Children">
 			<Property value="TkSceneNodeData.xml">
-				<Property name="Name" value="]]..Object_Path..[[" />
+				<Property name="Name" value="COLLISION99" />
 				<Property name="NameHash" value="2419627813" />
 				<Property name="Type" value="COLLISION" />
 				<Property name="Transform" value="TkTransformData.xml">
@@ -246,7 +248,7 @@ Base_Parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H harvet all in radius.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -254,8 +256,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= Base_Parts..'TECH/CUBEROOM_PLANTERMEGA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
+				SPECIAL_KEY_WORDS	= {'Name', 'INTERACT'},
+				REMOVE				= 'SECTION'
+			},
+			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= AddObjectInteractionNode(Base_Parts..'TECH/CUBEROOM_PLANTERMEGA/')
+				ADD 				= AddObjectInteractionNode('TECH/CUBEROOM_PLANTERMEGA/')
 			}
 		}
 	},
@@ -264,7 +270,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= AddObjectInteractionNode(Base_Parts..'DECORATION/LABLAMP/')
+				ADD 				= AddObjectInteractionNode('DECORATION/LABLAMP/')
 			}
 		}
 	}
@@ -272,10 +278,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	ADD_FILES	= {
 	{
 		FILE_DESTINATION = Base_Parts..'TECH/CUBEROOM_PLANTERMEGA/INTERACTION.ENTITY.EXML',
-		FILE_CONTENT	 = AddIteractionEntityEXML(0.95)
+		FILE_CONTENT	 = AddIteractionEntityEXML(3)
 	},
 	{
 		FILE_DESTINATION = Base_Parts..'DECORATION/LABLAMP/INTERACTION.ENTITY.EXML',
-		FILE_CONTENT	 = AddIteractionEntityEXML(22)
+		FILE_CONTENT	 = AddIteractionEntityEXML(24)
 	}
 }}

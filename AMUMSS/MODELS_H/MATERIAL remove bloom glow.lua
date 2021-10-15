@@ -1,5 +1,5 @@
 --[[┎──────────────────────────────────────────────────────────────
-	┃ Remove bloom glow flag:: engines, base parts, plants
+	┃ Remove bloom glow flag:: base parts, plants
 ────┸──────────────────────────────────────────────────────────--]]
 P = {
 	exo = 'MODELS/COMMON/VEHICLES/',
@@ -10,7 +10,7 @@ P = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL_H remove bloom glow.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_MODELS_H ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
