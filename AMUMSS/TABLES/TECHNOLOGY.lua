@@ -2,6 +2,7 @@
 	┃ Increase Charge Amounts for selected items
 	┃ Enable ship-tech for bioship _ share tech between vehicle & mech
 	┃ Increase stat value (bonus) for selected items
+	┃ Set powercell & life support gel as the default recharge choice
 	┃ changes to weapon upgrades projectile color
 	┃ Change mech terrain editor fuel to metal - same as the multitool
 ────┸────────────────────────────────────────────────────────────────--]]
@@ -45,6 +46,7 @@ Include_In_Category = {
 		{'SHIPSCAN_ECON',	'Ship',		'AllShips'},
 		{'VEHICLE_SCAN1',	'Exocraft',	'AllVehicles'},
 		{'VEHICLE_SCAN2',	'Exocraft',	'AllVehicles'},
+		{'VEHICLE_LASER1',	'Exocraft',	'AllVehicles'},
 		{'MECH_PROT',		'Mech',		'AllVehicles'}
 	},
 	Get = function(x)
@@ -117,15 +119,6 @@ Stat_Bonus = {
 		{'F_HDRIVEBOOST2',	'Freighter_Hyperdrive_JumpDistance',	'*',	6},		-- 300
 		{'F_HDRIVEBOOST3',	'Freighter_Hyperdrive_JumpDistance',	'*',	4}		-- 800
 	},
-	Get = function(x)
-		return {
-			MATH_OPERATION 		= x[3],
-			INTEGER_TO_FLOAT	= 'FORCE',
-			SPECIAL_KEY_WORDS	= {'ID', x[1], 'StatsType', x[2]},
-			SECTION_UP			= 1,
-			VALUE_CHANGE_TABLE 	= { {'Bonus', x[4]} }
-		}
-	end,
 	AddNew = function(stat, bonus, level)
 		return [[
 			<Property value="GcStatsBonus.xml">
@@ -136,12 +129,56 @@ Stat_Bonus = {
 				<Property name="Level" value="]]..level..[[" />
 			</Property>
 		]]
+	end,
+	Get = function(x)
+		return {
+			MATH_OPERATION 		= x[3],
+			INTEGER_TO_FLOAT	= 'FORCE',
+			SPECIAL_KEY_WORDS	= {'ID', x[1], 'StatsType', x[2]},
+			SECTION_UP			= 1,
+			VALUE_CHANGE_TABLE 	= { {'Bonus', x[4]} }
+		}
 	end
+}
+
+Move_Charge_To_Top = {
+	dat = {
+		{'PROTECT',		'POWERCELL'},
+		{'ENERGY',		'PRODFUEL2'},
+		{'T_RAD',		'POWERCELL'},
+		{'T_TOX',		'POWERCELL'},
+		{'T_COLDPROT',	'POWERCELL'},
+		{'T_HOTPROT',	'POWERCELL'},
+		{'T_UNW',		'PRODFUEL2'},
+	},
+	Get = function(x)
+		local newcharge = [[
+			<Property value="NMSString0x10.xml">
+				<Property name="Value" value="]]..x[2]..[["/>
+			</Property>]]
+		return {
+			{
+				SPECIAL_KEY_WORDS	= {'ID', x[1], 'Value', x[2]},
+				REMOVE				= 'SECTION'
+			}, {
+				SPECIAL_KEY_WORDS	= {'ID', x[1]},
+				PRECEDING_KEY_WORDS = 'ChargeBy',
+				ADD					= newcharge
+			}
+		}
+	end,
+	Double = true
 }
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
+	if (tbl.Double or false) then
+		for _,v in pairs(tbl.dat) do
+			for _,w in pairs( tbl.Get(v) ) do table.insert(T, w) end
+		end
+	else
+		for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
+	end
 	return T
 end
 
@@ -150,7 +187,7 @@ Source_Table_Tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -166,12 +203,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'ID','UT_ROCKETS'},
 				PRECEDING_KEY_WORDS	= 'StatBonuses',
 				ADD 				= Stat_Bonus.AddNew('Ship_Weapons_Guns_Damage', 3800, 3)
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'ID', 'ENERGY', 'Value', 'COLD1'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Value',		'FOOD_P_HOTFARM'}
-				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'MECH_MINER'},
@@ -207,5 +238,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Tech,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Not_Core)
+	},
+	{
+		MBIN_FILE_SOURCE	= Source_Table_Tech,
+		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Move_Charge_To_Top)
 	}
 }}}}

@@ -1,7 +1,8 @@
---[[┎──────────────────────────────────────────────────────────────
+--[[┎──────────────────────────────────────────────────────────────────────────────────
 	┃ Decrease all refining time by 1/2; Gas reaction time by 1/5
 	┃ for gas reaction recipes
-────┸──────────────────────────────────────────────────────────--]]
+	┃ Refine magnetized ferrite into tainted metal: 3*LAND3 + 1*AF_METAL = 3*AF_METAL
+────┸──────────────────────────────────────────────────────────────────────────────--]]
 local function BuildExmlChangeTable(id1, id2, multiplier)
 	local T = {}
 	for i = id1, id2 do
@@ -20,7 +21,7 @@ Source_Table_Recipe = 'METADATA/REALITY/TABLES/NMS_REALITY_GCRECIPETABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -38,6 +39,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
 					{'TimeToMake',	0.5}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_113'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Name',		'RECIPE_LAND3'}
+				}
+			},
+			{
+				-- Refine magnetized ferrite into tainted metal
+				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_113'},
+				PRECEDING_KEY_WORDS	= 'Result',
+				VALUE_CHANGE_TABLE 	= {
+					{'Id',			'AF_METAL'},
+					{'Amount',		3}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_113', 'Id', 'ROBOT1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Id',			'AF_METAL'}
 				}
 			}
 		}

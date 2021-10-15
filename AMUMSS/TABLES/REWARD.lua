@@ -1,44 +1,9 @@
---[[┎────────────────────────────────────────────────────────────
-	┃ Replace police loot trade booster with speed booster
-	┃ Replace freighter defence reward with better selection
+--[[┎─────────────────────────────────────────────────────────────────────
+	┃ Replace freighter defense reward (requires changes in AlienPuzzle)
+	┃ Changes to pirate battle loot
+	┃ Add all 5 boosters to police loot
 	┃ Increase wild plants harvest yield
-────┸────────────────────────────────────────────────────────--]]
-Mult = { D=1.2, W=2, M=1.2 }
-
-Plant_Harvest = {
-	dat = {
-		'DE_COOK_ALL1',		-- Heptaploid Wheat
-		'DE_COOK_ALL2',		-- Sweetroot
-		'DE_COOK_ALL3',		-- Pulpy Roots
-		'DE_COOK_HOT',		-- Fireberry
-		'DE_COOK_RAD',		-- Grahberry
-		'DE_COOK_DUST',		-- Aloe Flesh
-		'DE_COOK_COLD',		-- Frozen Tubers
-		'DE_COOK_TOX',		-- Jade Peas
-		'DE_COOK_LUSH',		-- Impulse Beans
-		'DE_COOK_WEIRD',	-- Hexaberry
-		'WILD_SCORCHED',	-- Solanium
-		'WILD_RADIO',		-- Gamma Root
-		'WILD_BARREN',		-- Cactus Flesh
-		'WILD_SNOW',		-- Frost Crystal
-		'WILD_TOXIC',		-- Fungal Mould
-		'WILD_LUSH',		-- Star Bulb
-	},
-	Get = function(x)
-		local v = Mult[string.sub(x, 1, 1)]
-		return {
-			MATH_OPERATION 		= '*',
-			SPECIAL_KEY_WORDS	= {'Id', x},
-			VALUE_CHANGE_TABLE 	= { {'AmountMin', v}, {'AmountMax', v * Mult.M} }
-		}
-	end
-}
-
-local function BuildExmlChangeTable(tbl)
-	local T = {}
-	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
-	return T
-end
+────┸─────────────────────────────────────────────────────────────────--]]
 
 F_ = {
 	Product = function(item)
@@ -85,15 +50,27 @@ F_ = {
 		]]
 		return F_.TableItemSingle(item, exml, 'GcRewardMoney.xml')
 	end,
+	Word = function(item)
+		local exml = [[
+			<Property name="Race" value="GcAlienRace.xml">
+				<Property name="AlienRace" value="]]..item.id..[[" />
+			</Property>
+			<Property name="UseCategory" value="False" />
+			<Property name="Category" value="GcWordCategoryTableEnum.xml">
+				<Property name="gcwordcategorytableEnum" value="MISC" />
+			</Property>
+		]]
+		return F_.TableItemSingle(item, exml, 'GcRewardTeachWord.xml')
+	end,
 	Shield = function(item)
 		return F_.TableItemSingle(item, '', 'GcRewardShield.xml')
 	end,
-	TableItemSingle = function(item, reward, type)
+	TableItemSingle = function(item, data, reward)
 		return [[
 			<Property value="GcRewardTableItem.xml">
 				<Property name="PercentageChance" value="]]..item.c..[[" />
-				<Property name="Reward" value="]]..type..[[">
-					]]..reward..[[
+				<Property name="Reward" value="]]..reward..[[">
+					]]..data..[[
 					<Property name="AmountMin" value="]]..item.n..[[" />
 					<Property name="AmountMax" value="]]..item.x..[[" />
 				</Property>
@@ -123,12 +100,12 @@ F_ = {
 		exml = exml..'</Property>'
 		return F_.TableItemMulti(item, exml, 'GcRewardMultiSpecificItems.xml')
 	end,
-	TableItemMulti = function(item, reward, type)
+	TableItemMulti = function(item, data, reward)
 		return [[
 			<Property value="GcRewardTableItem.xml">
 				<Property name="PercentageChance" value="]]..item.c..[[" />
-				<Property name="Reward" value="]]..type..[[">
-					]]..reward..[[
+				<Property name="Reward" value="]]..reward..[[">
+					]]..data..[[
 				</Property>
 				<Property name="LabelID" value="" />
 			</Property>
@@ -205,7 +182,6 @@ Rewards = {
 			{id='TRA_ENERGY1',		n=1,	x=3,	c=3,	f=F_.Product},
 			{id='TRA_EXOTICS1',		n=1,	x=3,	c=3,	f=F_.Product},
 			{id='FOOD_CM_APPLE',	n=1,	x=1,	c=1,	f=F_.Product},
-			-- {id='shield',			n=30,	x=40,	c=100,	f=F_.Shield},
 		}
 	},
 	Pirate_Loot_Med = {
@@ -222,7 +198,6 @@ Rewards = {
 			{id='TRA_ENERGY2',		n=1,	x=3,	c=3,	f=F_.Product},
 			{id='TRA_TECH2',		n=1,	x=3,	c=3,	f=F_.Product},
 			{id='FOOD_ICE_GLITCH',	n=1,	x=1,	c=1,	f=F_.Product},
-			-- {id='shield',			n=40,	x=50,	c=100,	f=F_.Shield},
 		}
 	},
 	Pirate_Loot_Reg = {
@@ -307,19 +282,78 @@ Rewards = {
 	end,
 	GetRewardsList = function(lst)
 		local exml = '<Property name="List">'
-		for i = 1, #lst do
-			exml = exml..lst[i].f(lst[i])
-		end
+		for _,v in pairs(lst) do exml = exml..v.f(v) end
 		return exml..'</Property>'
 	end
 }
+
+Plant_Harvest = {
+	dat = {
+		'DE_COOK_ALL1',		-- Heptaploid Wheat
+		'DE_COOK_ALL2',		-- Sweetroot
+		'DE_COOK_ALL3',		-- Pulpy Roots
+		'DE_COOK_HOT',		-- Fireberry
+		'DE_COOK_RAD',		-- Grahberry
+		'DE_COOK_DUST',		-- Aloe Flesh
+		'DE_COOK_COLD',		-- Frozen Tubers
+		'DE_COOK_TOX',		-- Jade Peas
+		'DE_COOK_LUSH',		-- Impulse Beans
+		'DE_COOK_WEIRD',	-- Hexaberry
+		'WILD_SCORCHED',	-- Solanium
+		'WILD_RADIO',		-- Gamma Root
+		'WILD_BARREN',		-- Cactus Flesh
+		'WILD_SNOW',		-- Frost Crystal
+		'WILD_TOXIC',		-- Fungal Mould
+		'WILD_LUSH',		-- Star Bulb
+	},
+	Mult = {
+		D=1.2, W=2, M=1.2 
+	},
+	Get = function(x)
+		local v = Plant_Harvest.Mult[string.sub(x, 1, 1)]
+		return {
+			MATH_OPERATION 		= '*',
+			SPECIAL_KEY_WORDS	= {'Id', x},
+			VALUE_CHANGE_TABLE 	= {
+				{'AmountMin', v}, {'AmountMax', v * Plant_Harvest.Mult.M}			
+			}
+		}
+	end
+}
+
+Learn_More_Words = {
+	dat = {
+		{'WORD',			'None',			2},
+		{'EXP_WORD',		'Explorers',	2},
+		{'TRA_WORD',		'Traders',		2},
+		{'WAR_WORD',		'Warriors',		2},
+		{'TEACHWORD_EXP',	'Explorers',	2},
+		{'TEACHWORD_TRA',	'Traders',		2},
+		{'TEACHWORD_WAR',	'Warriors',		2},
+		{'TEACHWORD_ATLAS',	'Atlas',		2},
+	},
+	Get = function(x)
+		return {
+			SPECIAL_KEY_WORDS	= {'Id', x[1]},
+			PRECEDING_KEY_WORDS = 'GcRewardTableItem.xml',			
+			REPLACE_TYPE		= 'ADDAFTERSECTION',
+			ADD					= F_.Word({id=x[2], n=1, x=1, c=100})
+		}
+	end
+}
+
+local function BuildExmlChangeTable(tbl)
+	local T = {}
+	for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
+	return T
+end
 
 Source_Table_Reward = 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -330,30 +364,30 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'JETPACK_BOOST'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Duration',		2.2},	-- 10
+					{'Duration',		4},		-- 10
 					{'ForwardBoost',	1.5},	-- 4.5
 					{'UpBoost',			1.2},	-- 0.8
-					{'IgnitionBoost',	1.2},	-- 1.9
+					{'IgnitionBoost',	1.3},	-- 1.9
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'MIXER_JETPACK'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Duration',		2.2},
+					{'Duration',		4},
 					{'ForwardBoost',	1.5},
 					{'UpBoost',			1.2},
-					{'IgnitionBoost',	1.2},
+					{'IgnitionBoost',	1.3},
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Id', 'DE_FOOD_JETPACK'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Duration',		2.2},
+					{'Duration',		4},
 					{'ForwardBoost',	1.5},
 					{'UpBoost',			1.2},
-					{'IgnitionBoost',	1.2},
+					{'IgnitionBoost',	1.3},
 				}
 			},
 			{
@@ -380,10 +414,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.FreightLoot_Warrior)
 									  ..
-									  Rewards.BuildRewardTableEntry(Rewards.Cook_Shield)
-									  ..
-									  Rewards.BuildRewardTableEntry(Rewards.Test_Loot_09)
-									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Esay)
 									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Med)
@@ -391,6 +421,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Reg)
 									  ..
 									  Rewards.BuildRewardTableEntry(Rewards.Pirate_Loot_Hard)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Cook_Shield)
+									  ..
+									  Rewards.BuildRewardTableEntry(Rewards.Test_Loot_09)
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'POLICELOOT', 'ID', 'FRIG_BOOST_TRA'},
@@ -407,5 +441,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Reward,
 		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Plant_Harvest)
+	},
+	{
+		MBIN_FILE_SOURCE	= Source_Table_Reward,
+		EXML_CHANGE_TABLE	= BuildExmlChangeTable(Learn_More_Words)
 	}
 }}}}

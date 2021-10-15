@@ -1,21 +1,25 @@
 --[[┎────────────────────────────────────────────────────────────────────
 	┃ Increase SMG hit damage and reduce its fire rate
 	┃ Delete grenade bounce property upgrade
-	┃ Increase ship hyperdrive ditance
-	┃ Increase suit jetpack tank size
-	┃ Increase bioship pulse upgrades - higher speed and manauverability
+	┃ Increase hyperdrive distance and reduce efficiency bonuses
+	┃ Increase suit jetpack tank size and refill rate
+	┃ Increase bioship pulse upgrades - higher speed and maneuverability
 	┃ Increase chance for better -and more stats in X-class upgrades
 ────┸────────────────────────────────────────────────────────────────--]]
 Upgrade_Stats = {
 	dat = {
 		{'UP_SMG',			'Weapon_Projectile_Damage',			'+',	1,		1},		-- 2, 	3
-		{'UP_SMG',			'Weapon_Projectile_Rate',			'-',	0.1,	0.1},	-- 1.1, 1.15
+		{'UP_SMG',			'Weapon_Projectile_Rate',			'+',	-0.15,	-0.15},	-- 1.1, 1.15
+		{'UP_GREN',			'Weapon_Grenade_Bounce',			'*',	0,		0},
 		{'UP_JETBOOST',		'Suit_Jetpack_Tank',				'*',	1.4,	1.4},
 		{'UP_JETBOOST',		'Suit_Jetpack_Refill',				'*',	1.6,	1.6},
-		{'UP_MCENG',		'Vehicle_BoostTanks',				'*',	14,		14},	-- 0.25, 0.3
+		{'UP_MCENG',		'Vehicle_BoostTanks',				'*',	20,		20},	-- 0.25, 0.3
 		{'UP_HYPERDRIVE',	'Ship_Hyperdrive_JumpDistance',		'*',	4,		4},
+		{'UP_HYPERDRIVE',	'Ship_Hyperdrive_JumpsPerCell',		'*',	0.4,	0.6},
 		{'AP_HYPERDRIVE',	'Ship_Hyperdrive_JumpDistance',		'*',	4,		4},
-		{'UT_FR_HYP_NAME',	'Freighter_Hyperdrive_JumpDistance','*',	24,		24},
+		{'AP_HYPERDRIVE',	'Ship_Hyperdrive_JumpsPerCell',		'*',	0.4,	0.6},
+		{'UT_FR_HYP_NAME',	'Freighter_Hyperdrive_JumpDistance','*',	16,		16},
+		{'UT_FR_HYP_NAME',	'Freighter_Hyperdrive_JumpsPerCell','*',	0.4,	0.6},
 		{'AP_PULSEDRIVE', 	'Ship_Boost',						'+',	0.11,	0.11},	-- 1.05, 1.15
 		{'AP_PULSEDRIVE', 	'Ship_BoostManeuverability',		'+',	0.13,	0.11},	-- 1.05, 1.12
 		{'AP_PULSEDRIVE', 	'Ship_Maneuverability',				'+',	0.048,	0.05},	-- 1.005
@@ -34,7 +38,7 @@ Upgrade_Stats = {
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
+	for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
 	return T
 end
 
@@ -43,19 +47,13 @@ Source_Table_Proc_Tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPROCEDURALTECHNO
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROC TECH.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Proc_Tech,
 		EXML_CHANGE_TABLE	= {
-			{
-				REPLACE_TYPE 		= 'ALL',
-				SPECIAL_KEY_WORDS	= {'Name', 'UP_GREN', 'StatsType','Weapon_Grenade_Bounce'},
-				SECTION_UP			= 1,
-				REMOVE				= 'SECTION'
-			},
 			{
 				REPLACE_TYPE 		= 'ALL',
 				VALUE_MATCH			= 'MaxIsRare',

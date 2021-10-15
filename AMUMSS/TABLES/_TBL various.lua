@@ -15,7 +15,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -42,17 +42,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MinSlots',	48},
 					{'MaxSlots',	48}
 				}
-			},
-			-- {
-				-- REPLACE_TYPE 		= 'ALL',
-				-- MATH_OPERATION 		= '+',
-				-- VALUE_MATCH			= 48,
-				-- VALUE_MATCH_OPTIONS = '<',
-				-- PRECEDING_KEY_WORDS = 'MaxTechInventoryCapacity',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'IGNORE',		27}
-				-- }
-			-- }
+			}
 		}
 	},
 	{
