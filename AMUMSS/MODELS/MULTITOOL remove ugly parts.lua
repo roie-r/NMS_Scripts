@@ -1,11 +1,10 @@
 --[[┎───────────────────────────────────────────────
-	┃ remove unwanted parts from mmultitool
-	┃ scale multitool apperance
+	┃ avoid unwanted parts in multitool
 ────┸───────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL remove multitool ugly parts.pak',
+	MOD_FILENAME 		= '__MODEL multitool avoid ugly parts.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -4,9 +4,10 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MOD_DESCRIPTION		= [[
+							Activate planetray portal without cost
 							Remove gunk (rusted metal) from cargo crate
 							Remove space dust and plasma
 							Reduce space speed lines for thrust and pulse
@@ -17,6 +18,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							Remove resource crates at portals ]],
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{
+		-- Activate planetray portal without cost
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL/ENTITIES/BUTTON.ENTITY.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'GcMaintenanceComponentData.xml',
+				REMOVE				= 'SECTION'
+			}
+		}
+	},
 	{
 		-- Remove gunk (rusted metal) from cargo crate
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRATE/CRATE_LARGE_RARE/ENTITIES/CRATE_LARGE_RARE.ENTITY.MBIN',

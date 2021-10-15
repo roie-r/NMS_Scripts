@@ -1,11 +1,10 @@
---[[┎──────────────────────────────────────────────────────────────────
+--[[┎────────────────────────────────────────────────────────────────────────
 	┃ Shorter overhead tail fin _Acc_A (clips with engines B & D)
-	┃ metal parts in wings and tail instead of secondary texture
-	┃ Narower _SubWings_D, so it doesn't clip the ground
-	┃ Partial fix to wing_K disapearing texture when near
+	┃ Narrower _SubWings_D, so it doesn't clip the ground
+	┃ Partial fix to wing_K disappearing texture when near
 	┃ Relocate bobble in cockpit so it doesn't obstruct the map
-	┃ Reduce ship body spotlight intensity
-────┸──────────────────────────────────────────────────────────────--]]
+	┃ Reduce ship body outer spotlight intensity, remove foggy light cone
+────┸────────────────────────────────────────────────────────────────────--]]
 Tail_Scales = {
 	dat = {'', 1, 2, 3, 4, 5, 6, 10},
 	Get = function(x)
@@ -23,7 +22,7 @@ Tail_Scales = {
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for i=1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
+	for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
 	return T
 end
 
@@ -42,7 +41,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL fighter parts tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -77,7 +76,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		-- Narower _SubWings_D, so it doesn't clip the ground
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_F/WINGS_F.SCENE.MBIN',
-			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_H/WINGSH.SCENE.MBIN',
+			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_H/WINGSH.SCENE.MBIN'
 		},
 		EXML_CHANGE_TABLE	= {
 			{
@@ -92,10 +91,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		-- Narower _SubWings_D, more tightly closed around WINGS_B
-		MBIN_FILE_SOURCE	= {
-			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_B/WINGSB.SCENE.MBIN',
-		},
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_B/WINGSB.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
@@ -125,7 +121,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		-- Partial fix to wing_K disapearing texture when near
+		-- Partial fix to wing_K disappearing texture when near
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_K/WINGSK.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -149,21 +145,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
-				MATH_OPERATION 		= '+',
 				SPECIAL_KEY_WORDS	= {'Name', 'BobbleHeadLocator'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TransX',		0.081},	-- 0.088366
-					{'TransY',		0.0208},-- -0.485839
-					{'TransZ',		0.081},	-- 1.067041
-					{'ScaleX',		-0.22},
-					{'ScaleY',		-0.22},
-					{'ScaleZ',		-0.22}
+					{'TransX',		0.1694},	-- 0.088366
+					{'TransY',		-0.46504},	-- -0.485839
+					{'TransZ',		1.14804},	-- 1.067041
+					{'ScaleX',		0.88},
+					{'ScaleY',		0.88},
+					{'ScaleZ',		0.88}
 				}
 			}
 		}
 	},
 	{
-		-- Reduce ship body outer spotlight intensity
+		-- Reduce ship body outer spotlight intensity, remove foggy light cone
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/HEADLAMP.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -177,6 +172,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'Value',		28000}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'spotLight1'},
+				REMOVE				= 'SECTION'
 			}
 		}
 	},

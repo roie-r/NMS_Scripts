@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL collect in mech.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
