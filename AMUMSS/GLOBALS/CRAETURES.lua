@@ -5,18 +5,23 @@
 	┃ Increase harvest yield
 	┃ Decrase pet incubation & grow times
 ────┸────────────────────────────────────────────────────────────--]]
-WormCruise = 720
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CRAETURES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCCREATUREGLOBALS.MBIN',
 		EXML_CHANGE_TABLE	= {
+			{
+				INTEGER_TO_FLOAT	= 'FORCE',
+				VALUE_CHANGE_TABLE 	= {
+					{'SandWormJumpHeight',				700},	-- 120 --> 700
+					{'SandWormSubmergeDepth',			-500},	-- 100 --> 400
+				}
+			},
 			{
 				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'FORCE',
@@ -28,16 +33,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'PlayerPredatorBoredomDistance',	-10},	-- 80
 					{'PredatorRegainInterestTime',		10},	-- 30
 					{'SandWormChangeDirectionTime',		1},		-- 1
-					{'SandWormJumpHeight',				WormCruise - 120},	-- 120
 					{'SandWormJumpTime',				1},		-- 3
-					{'SandWormSubmergeDepth',			100 - WormCruise},	-- 100
-					{'SandWormSubmergeTime',			0},		-- 3
+					{'SandWormSubmergeTime',			-2},	-- 3
 					{'SandWormSurfaceTime',				0},		-- 1
 					{'SandWormMaxJumps',				3},		-- 5
-					{'SandWormDespawnDist',				1000},	-- 1500
-					-- {'SandWormSpawnTimer',				-295},	-- 300
-					-- {'SandWormSpawnChanceMin',			0.8},	-- 0.01
-					-- {'SandWormSpawnChanceMax',			0.94},	-- 0.2
+					{'SandWormDespawnDist',				1500},	-- 1500
+					{'SandWormSpawnTimer',				-150},	-- 300
+					{'SandWormSpawnChanceMin',			0.1},	-- 0.01
+					{'SandWormSpawnChanceMax',			0.05},	-- 0.2 
 					{'SpawnOnscreenDist',				20},	-- 100
 					{'RidingTurnRadiusMultiplier',		-0.5},	-- 1
 					{'FadeDistance',					20},	-- 10
@@ -55,6 +58,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				MATH_OPERATION 		= '*',
+				-- INTEGER_TO_FLOAT	= 'FORCE',
 				VALUE_CHANGE_TABLE 	= {
 					{'CreatureHarvestAmountSmall',		2}, 	-- 1
 					{'CreatureHarvestAmountMed',		2}, 	-- 1

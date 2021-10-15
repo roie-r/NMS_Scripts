@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC VEHICLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -100,10 +100,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'SUBMARINE'},
 				VALUE_CHANGE_TABLE 	= {
 					{'UnderwaterEnginePower',		2},		-- 6
-					{'UnderwaterEngineMaxSpeed',	7},		-- 15
-					{'UnderwaterEngineFalloff', 	-0.5},	-- 0.7
-					{'TopSpeedForward', 			7},		-- 15
-					{'VehicleGravity',				-5},	-- 30
+					{'UnderwaterEngineMaxSpeed',	4},		-- 15
+					{'UnderwaterEngineFalloff', 	-0.4},	-- 0.7
+					{'TopSpeedForward', 			4},		-- 15
+					-- {'VehicleGravity',				-5},	-- 30
 					{'VehicleGravityWater',			-1},	-- 17.5
 				}
 			},

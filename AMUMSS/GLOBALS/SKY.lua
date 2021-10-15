@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SKY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -24,7 +24,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxStormLengthLow',					0.75},	-- 180
 					{'MinStormLengthHigh',					0.75},	-- 150
 					{'MaxStormLengthHigh',					0.55},	-- 320
-					{'StormWarningTime',					0.8}	-- 25
+					{'StormWarningTime',					0.8},	-- 25
+					{'WeatherBloomGain',					0.66},	-- 7.1
 				}
 			},
 			{
@@ -33,9 +34,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = 'PlanetFog',
 				VALUE_CHANGE_TABLE 	= {
-					{'FogMax',				0.98},	-- 1
-					{'Alpha1',				0.98},	-- 1
-					{'Alpha2',				0.98}	-- 1
+					{'FogMax',				0.96},	-- 1
+					{'Alpha1',				0.96},	-- 1
+					{'Alpha2',				0.96}	-- 1
 				}
 			},
 			{

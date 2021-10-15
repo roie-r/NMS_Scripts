@@ -1,14 +1,14 @@
 --[[┎──────────────────────────────────────────
 	┃ camera POV tweaks for vehicles and ships
-	┃ Remove auto-centering; photomode tweaks
-	┃ Decrease caemra shake for various events
+	┃ Remove auto-centering; photo-mode tweaks
+	┃ Decrease camera shake for various events
 ────┸──────────────────────────────────────--]]
 Cam_Follow = {
 	dat = {
 	--	PRECEDING_KEY				OffsetX	OffsetY	OffsetZ	BackMin	BackMax	UpMin	UpMax	LookStick
 		{'CharacterRideCamMedium',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8,	0},
 		{'CharacterRideCamLarge',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8,	0},
-		{'CharacterRideCamHuge',	2.5,	0.6,	1.2,	-15,	-14,	0.6,	0.8,	0},
+		{'CharacterRideCamHuge',	2.5,	0.6,	1.2,	-12,	-11,	0.6,	0.8,	0},
 		{'BuggyFollowCam',			0,		-0.2,	-0.7,	1,		2,		1,		1,		0},
 		{'SubmarineFollowCam',		0,		3.3,	-2.5,	5,		5,		3,		4,		0},
 		{'BikeFollowCam',			0,		0.01,	-0.4,	0,		2,		0.2,	0,		0},
@@ -49,14 +49,14 @@ Shake_Strength_Mult = {
 		{'WALKERWALK',		0.5},	-- 0.03
 		{'DOCKINGSHAKE', 	0.4},	-- 0.01
 		{'WARP_FRT_ATMOS',	0.1},	-- 0.01
-		{'LARGECREATUREWA', 0.5},	-- 0.02
+		{'LARGECREATUREWA', 0.35},	-- 0.02
 		{'RUNNING',			0.8},	-- 30
-		{'FLYBY',			0.6},	-- 2
+		{'FLYBY',			0.1},	-- 2
 		{'VENTBUILDUP',		0.4},	-- 0.05
-		{'VENTEXPLODE',		0.67},	-- 0.3
+		{'VENTEXPLODE',		0.65},	-- 0.3
 		{'EXTRACTOR',		0.2},	-- 0.3
-		{'MECHTITANFALL',	0.35},	-- 0.3
-		{'MECHLAND',		0.35}	-- 0.3
+		{'MECHTITANFALL',	0.35},	-- 0.03
+		{'MECHLAND',		0.35}	-- 0.03
 	},
 	Get = function(x)
 		return {
@@ -70,7 +70,7 @@ Shake_Strength_Mult = {
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for i = 1, #tbl.dat do table.insert(T, tbl.Get(tbl.dat[i])) end
+	for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
 	return T
 end
 
@@ -79,7 +79,7 @@ Source_Global_Camera = 'GCCAMERAGLOBALS.GLOBAL.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

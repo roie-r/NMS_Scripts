@@ -1,11 +1,11 @@
 --[[┎────────────────────────────────────────────────────────────────
-	┃ Change solar system to faster moving & more varid
+	┃ Change solar system to faster moving & more varied
 	┃ Restore galaxy map black hole icon to the original
 ────┸────────────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GALAXY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -6,7 +6,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -23,14 +23,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	-- {
-		-- MBIN_FILE_SOURCE	= 'GCSIMULATIONGLOBALS.GLOBAL.MBIN',
+		-- MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
 		-- EXML_CHANGE_TABLE	= {
 			-- {
-				-- VALUE_CHANGE_TABLE 	=
-				-- {
-					-- {'TeleportTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
-					-- {'PortalTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
-					-- {'PortalStoryTunnelFile',	'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'}
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'ForceUncachedTerrain', true}
 				-- }
 			-- }
 		-- }

@@ -1,11 +1,11 @@
 --[[┎────────────────────────────────────────────────────────────────
-	┃ Faster clicks and keys presses; Redueces cursor size
+	┃ Faster clicks and keys presses; Reduces cursor size
 	┃ Minor tweaks to menu vehicle/tool/freighter model angles
 ────┸────────────────────────────────────────────────────────────--]]
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC UI.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -54,9 +54,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'FrontendConfirmSalvageTime',				-1},	-- 1.6
 					{'FrontendCursorSize',						-14},	-- 24
 					{'FrontendCursorWidth',						-5}, 	-- 9
-					{'DiscoverPlanetTotalTime',					-5}, 	-- 10
+					{'DiscoverPlanetTotalTime',					-6}, 	-- 10
 					{'DiscoverPlanetMessageWait',				-1}, 	-- 1
-					{'DiscoverPlanetMessageTime',				-4}, 	-- 7
+					{'DiscoverPlanetMessageTime',				-4.5}, 	-- 7
 					{'TextChatMaxDisplayTime',					-45},	-- 60
 					{'TextChatStayBigAfterTextInput',			-10}, 	-- 15
 					{'TargetParallaxMouseMultiplier',			-0.36} 	-- 0.36

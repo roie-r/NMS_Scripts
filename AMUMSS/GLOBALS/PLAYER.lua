@@ -4,7 +4,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC PLAYER.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -33,7 +33,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SpaceJetpackForce',				6},		-- 40
 					{'SpaceJetpackUpForce',				3},		-- 30
 					{'SpaceJetpackDrainRate',			-0.2},	-- 0.3
-					-- {'ShieldRechargeMinTimeSinceDamage',-20},	-- 30
+					{'ShieldRechargeMinTimeSinceDamage',-15},	-- 30
 					{'ReloadButtonHoldTimeToHolster',	-0.1},	-- 0.5
 					{'StaminaRate',						-0.06},	-- 0.1 (pet ride stamina)
 					{'MaxFallSpeed',					26}, 	-- 30

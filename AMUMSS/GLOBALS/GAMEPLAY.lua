@@ -6,7 +6,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -24,7 +24,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ShipScanSpaceRechargeMultiplier',		-0.1},	-- 0.3
 					{'OverheatGenerosity',					0.05},	-- 1.05
 					{'SurveyMaxDistance',					200},	-- 400
-					-- {'MaxNumSameGroupTech',					3},		-- 3
 					{'BinocMinScanTime',					-1.1},	-- 3.9
 					{'BinocScanTime',						-1.1},	-- 3.9
 					{'BinocCreatureScanTime',				-1},	-- 3.2

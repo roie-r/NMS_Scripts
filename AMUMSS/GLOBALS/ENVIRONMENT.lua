@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.53',
+	NMS_VERSION			= '3.68',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -20,16 +20,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'CreatureFadeTime',		-0.7},	-- 1.5
 					{'FloraFadeTimeMin',		-0.2},	-- 0.6
 					{'FloraFadeTimeMax',		-1},	-- 2.25
-					{'AnimationScale',			-40},	-- 50 (clouds speed)
-				}
-			},
-			{
-				REPLACE_TYPE 		= 'ALL',
-				MATH_OPERATION 		= '+',
-				INTEGER_TO_FLOAT	= 'FORCE',
-				PRECEDING_KEY_WORDS = {'LODSettings', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'LODAdjust'},
-				VALUE_CHANGE_TABLE 	= {
-					{'IGNORE',		0.5} -- 1 (+0.5)
+					{'AnimationScale',			-35},	-- 50 (clouds speed)
 				}
 			},
 			{
@@ -37,7 +28,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = {'LODSettings', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'LODAdjust'},
 				VALUE_CHANGE_TABLE 	= {
-					{'IGNORE',		1} -- 1 (+1)
+					{'IGNORE',		1}
+				}
+			},
+			{
+				MATH_OPERATION 		= '+',
+				PRECEDING_KEY_WORDS = {'LODSettings', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'LODAdjust'},
+				LINE_OFFSET			= 4,
+				VALUE_CHANGE_TABLE 	= {
+					{'IGNORE',		1}
+				}
+			},
+			{
+				MATH_OPERATION 		= '+',
+				PRECEDING_KEY_WORDS = {'LODSettings', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'TkLODSettingsData.xml', 'LODAdjust'},
+				LINE_OFFSET			= 5,
+				VALUE_CHANGE_TABLE 	= {
+					{'IGNORE',		1}
 				}
 			},
 			{
