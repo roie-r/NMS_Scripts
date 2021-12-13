@@ -1,15 +1,17 @@
---[[┎──────────────────────────────────────────────────────────
-	┃ Enable 3D rotation and scaling for Glitch items
-────┸──────────────────────────────────────────────────────--]]
+--------------------------------------------------------------------------
+local desc = [[
+  Enable 3D rotation and scaling for Glitch items
+]]------------------------------------------------------------------------
+	
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '_MOD.lMonk.Manipulate Glitches.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
-	MOD_DESCRIPTION		= 'Enable 3D rotation and scaling for Glitch items',
+	NMS_VERSION			= 3.75,
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA\REALITY\TABLES\BASEBUILDINGOBJECTSTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'ALL',

@@ -1,20 +1,19 @@
---[[┎──────────────────────────────────────────────────────────────────────────────
-	┃ removes the notification panel's background and icon and add transparency
-	┃ to the text - making it fade into the background (and a little hard to read)
-────┸──────────────────────────────────────────────────────────────────────────--]]
+--------------------------------------------------------------------------
+local desc = [[
+  removes the notification panel's background and icon and add transparency
+  to the text - making it fade into the background (and a little hard to read)
+]]------------------------------------------------------------------------
 Text_Alpha = 0.66
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.FADED Notifications.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
-	MOD_DESCRIPTION		= [[
-							Removes the notification panel's background and icon and add transparency
-							to the text - making it fade into the background (and a little hard to read) ]],
+	NMS_VERSION			= 3.75,
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE 	= {
 	{
-		MBIN_FILE_SOURCE	= 'UI\HUD\HUDNOTIFICATIONPANEL.MBIN',
+		MBIN_FILE_SOURCE	= 'UI/HUD/HUDNOTIFICATIONPANEL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'TITLEBACKGROUND'},
