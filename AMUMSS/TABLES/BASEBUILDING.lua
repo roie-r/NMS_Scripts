@@ -1,97 +1,92 @@
---[[┎────────────────────────────────────────────────────────────
-	┃ General changes to building parts
-	┃ Set beacon and summon garage as the default of their group
-	┃ Increase power generation and storage
-	┃ Build menu tweaks - change defaults & remove unneeded
-────┸──────────────────────────────────────────────────────────]]
-Build_On_Freighter = {
-	dat = {
-		'NPCVEHICLETERM',
-		'BUILDANTIMATTER',
-		'CYLINDERSHAPE',
-		'CUBESHAPE',
-		'CURVEPIPESHAPE',
-		'PIPESHAPE',
-		'PYRAMIDSHAPE',
-		'SPHERESHAPE',
-		'WEDGESHAPE',
-		'WEDGESMALLSHAPE',
-		'BASE_NEXUS1',
-		'BASE_NEXUS2',
-		'BASE_NEXUS3',
-	},
-	Get = function(x)
-		return {
-			SPECIAL_KEY_WORDS	= {'ID', x},
-			VALUE_CHANGE_TABLE 	= { {'BuildableOnFreighter', true} }
-		}
-	end
-}
+--------------------------------------------------------------
+local desc = [[
+  General changes to building parts
+  Set beacon and summon garage as the default of their group
+  Increase power generation and storage
+  Build menu tweaks - change defaults & remove unneeded
+]]------------------------------------------------------------
 
-Build_Above_Water = {
-	dat = {
-		'MAINROOM_WATER',
-		'MAINROOMCUBE_W',
-		'MOONPOOL',
-		'BUILDDOOR_WATER',
-		'CORRIDOR_WATER',
-		'CORRIDORL_WATER',
-		'CORRIDORT_WATER',
-		'CORRIDORX_WATER',
-		'CORRIDORV_WATER',
-		'BASE_BARNACLE',
-		'GARAGE_SUB'
-	},
-	Get = function(x)
-		return {
-			SPECIAL_KEY_WORDS	= {'ID', x},
-			VALUE_CHANGE_TABLE 	= { {'BuildableAboveWater', true} }
-		}
-	end
+local Build_On_Freighter = {
+	'NPCVEHICLETERM',
+	'BUILDANTIMATTER',
+	'CYLINDERSHAPE',
+	'CUBESHAPE',
+	'CURVEPIPESHAPE',
+	'PIPESHAPE',
+	'PYRAMIDSHAPE',
+	'SPHERESHAPE',
+	'WEDGESHAPE',
+	'WEDGESMALLSHAPE',
+	'BASE_NEXUS1',
+	'BASE_NEXUS2',
+	'BASE_NEXUS3',
 }
+function Build_On_Freighter:Get(x)
+	return {
+		SPECIAL_KEY_WORDS	= {'ID', x},
+		VALUE_CHANGE_TABLE 	= { {'BuildableOnFreighter', true} }
+	}
+end
 
-Decoration_Type = {
-	dat = {
-		-- {'BUILDBEACON'},
-		-- {'BUILDSIGNAL'},
-		{'BUILDLIGHT'},
-		{'BUILDLIGHT2'},
-		{'BUILDLIGHT3'},
-		{'SUMMON_GARAGE'},
-		{'HEATER'},
-		{'BASE_TOYCUBE'},
-		{'BASE_TOYSPHERE'},
-		{'BASE_TOYJELLY'},
-		{'BASE_TOYCORE'},
-		{'PLANETPORTABLE',	'SubGroupName', 2},
-		{'DECOFOLIAGE',		'SubGroupName', 2},
-		{'DECOGLITCHES',	'SubGroupName', 2},
-	},
-	Get = function(x)
-		local tp = nil
-		if #x > 1 then tp = 'ALL' end
-		return {
-			REPLACE_TYPE 		= tp,
-			SPECIAL_KEY_WORDS	= {(x[2] or 'ID'), x[1]},
-			SECTION_UP			= (x[3] or 0),
-			VALUE_CHANGE_TABLE 	= { {'BaseBuildingDecorationType', 'SurfaceNormal'} }
-		}
-	end
+local Build_Above_Water = {
+	'MAINROOM_WATER',
+	'MAINROOMCUBE_W',
+	'MOONPOOL',
+	'BUILDDOOR_WATER',
+	'CORRIDOR_WATER',
+	'CORRIDORL_WATER',
+	'CORRIDORT_WATER',
+	'CORRIDORX_WATER',
+	'CORRIDORV_WATER',
+	'BASE_BARNACLE',
+	'GARAGE_SUB'
 }
+function Build_Above_Water:Get(x)
+	return {
+		SPECIAL_KEY_WORDS	= {'ID', x},
+		VALUE_CHANGE_TABLE 	= { {'BuildableAboveWater', true} }
+	}
+end
+
+local Decoration_Type = {
+	{'BUILDLIGHT'},
+	{'BUILDLIGHT2'},
+	{'BUILDLIGHT3'},
+	{'SUMMON_GARAGE'},
+	{'HEATER'},
+	{'BASE_TOYCUBE'},
+	{'BASE_TOYSPHERE'},
+	{'BASE_TOYJELLY'},
+	{'BASE_TOYCORE'},
+	{'PLANETPORTABLE',	'SubGroupName', 2},
+	{'DECOFOLIAGE',		'SubGroupName', 2},
+	{'DECOGLITCHES',	'SubGroupName', 2},
+}
+function Decoration_Type:Get(x)
+	local tp = nil
+	if #x > 1 then tp = 'ALL' end
+	return {
+		REPLACE_TYPE 		= tp,
+		SPECIAL_KEY_WORDS	= {(x[2] or 'ID'), x[1]},
+		SECTION_UP			= (x[3] or 0),
+		VALUE_CHANGE_TABLE 	= { {'BaseBuildingDecorationType', 'SurfaceNormal'} }
+	}
+end
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for _,v in pairs(tbl.dat) do table.insert(T, tbl.Get(v)) end
+	for _,v in ipairs(tbl) do table.insert(T, tbl:Get(v)) end
 	return T
 end
 
-Source_Table_BaseObj = 'METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.MBIN'
+local Source_Table_BaseObj = 'METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -126,27 +121,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'IsPlaceable',			true}
 				}
 			},
-			-- {
-			-- 	SPECIAL_KEY_WORDS	= {'ID', 'BUILDTERMINAL'},
-			-- 	VALUE_CHANGE_TABLE 	= {
-			-- 		{'IsPlaceable',			true}
-			-- 	}
-			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'COOKER'},
 				VALUE_CHANGE_TABLE 	= {
 					{'CloseMenuAfterBuild',	true}
 				}
 			},
-			-- {
-			-- 	SPECIAL_KEY_WORDS	= {'ID', 'WATERBUBBLE'},
-			-- 	VALUE_CHANGE_TABLE 	= {
-			-- 		{'BuildableAboveWater',	true},
-			-- 		{'EditsTerrain',		false},
-			-- 		{'CloseMenuAfterBuild',	true},
-			-- 		{'Value',				'PLANET_TECH'}
-			-- 	}
-			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'SUMMON_GARAGE'},
 				VALUE_CHANGE_TABLE 	= {
