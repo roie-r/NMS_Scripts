@@ -1,13 +1,16 @@
---[[┎────────────────────────────────────────────────────────────────
-	┃ Fewer and more dispersed asteroids
-────┸────────────────────────────────────────────────────────────--]]
+---------------------------------------
+local desc = [[
+  Fewer and more dispersed asteroids
+]]-------------------------------------
+
 Asteroid_Disp_Mult	= { X=0.52, Y=0.42 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SOLAR.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

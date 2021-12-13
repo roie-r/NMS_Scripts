@@ -1,12 +1,15 @@
---[[┎────────────────────────────────────────────────────────────────
-	┃ Reduce freighter spawns; allow NPC to fill all docks
-	┃ Faster NPC flybys
-────┸────────────────────────────────────────────────────────────--]]
+--------------------------------------------------------
+local desc = [[
+  Reduce freighter spawns; allow NPC to fill all docks
+  Faster NPC flybys
+]]------------------------------------------------------
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC AISPACESHIP.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
