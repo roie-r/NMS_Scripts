@@ -1,11 +1,14 @@
---[[┎───────────────────────────────────────────────
-	┃ avoid unwanted parts in multitool
-────┸───────────────────────────────────────────--]]
+--------------------------------------
+local desc = [[
+  avoid unwanted parts in multitool
+]]------------------------------------
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL multitool avoid ugly parts.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
