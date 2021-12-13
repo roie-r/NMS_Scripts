@@ -1,13 +1,15 @@
---[[┎────────────────────────────────────────────────────────────────────────────────
-	┃ Hide elements of the lower-right notification panel and fade the text contents
-────┸────────────────────────────────────────────────────────────────────────────--]]
+---------------------------------------------------------------------------------
+local desc = [[
+  Hide elements of the lower-right notification panel and fade the text contents
+]]-------------------------------------------------------------------------------
 Text_Alpha = 0.66
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fade notifications.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MOD_BATCHNAME		= '_UI ~@~collection.pak',
+	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
