@@ -1,204 +1,254 @@
---[[┎────────────────────────────────────────────────────────────────────
-	┃ -- TESTS! -- Scale biome props & increase their LOD --
-────┸────────────────────────────────────────────────────────────────--]]
-Include_LOD_Increase = true
+--[[----------------------------
+  TESTS! -- Scale biome props
+------------------------------]]
 
-Scales = {
+-- Properties of [GcObjectSpawnData.xml] being modified
+local Object_Spawn_Prop = {
+	n='MinScale', x='MaxScale', c='Coverage', w='ShearWindStrength'
+}
+-- Modfiers and counters for Object_Spawn_Prop
+local Object_Spawn_Mods = {
+	n={v=0, i=0}, x={v=0, i=0}, c={v=0, i=0}, w={v=0, i=0}
+}
+
+local Scale_tags = {
 	biome = {
-		FROZENOBJECTSFULL = {
-			TREE				= {1.2,		2.7,	0.78},
-		},
-		HUGELUSHOBJECTSFULL = {
-			HQTREE				= {1.1,		2.4,	0.74},
-		},
-		LUSHBIGPROPSOBJECTSFULL = {
-			TREE				= {1.2,		2.7,	0.76},
-		},
-		LUSHHQTENTACLEOBJECTSFULL = {
-			TENTACLE			= {1.2,		1.9,	0.9},
-			TREE				= {1.0,		2.8,	0.78},
-		},
-		LUSHBUBBLEOBJECTS = {
-			HQTREE				= {1.2,		2.7,	0.86},
-			FERN				= {1.4,		2.6},
-		},
-		LUSHROOMBOBJECTS = {
-			SHROOMSINGL			= {2.3,		4.6},
-		},
-		RADIOSPIKECRYSTAL = {
-			BUBBLELUSH			= {1.0,		1.1},
-		},
-		RADIOSPIKEPOTATO = {
-			HOUDINIPROP			= {1.0,		1.2,	1.6},
-			BUBBLELUSH			= {1.0,		1.1},
-		},
-		SWAMPOBJECTSFULL = {
-			MANGROVELARGEFULL	= {2.2,		7.8}, -- where is it !?
-			MANGROVELARGE		= {0.8,		-0.7, 	0.8},
-		},
+		{
+			'LUSH', { -- applied to all LUSH sources
+				TREE		= {n=1.2,	x=2.5,	c=0.9},
+				BUBBLELUSH	= {n=1.15,	x=1.65},
+			}
+		},{
+			'LUSHBIGPROPSOBJECTSFULL', {
+				TREE		= {n=1.1,	x=2.3,	c=0.86},
+			}
+		},{
+			'LUSHBUBBLEOBJECTS', {
+				TREE		= {x=2.4,	c=0.86},
+				FERN		= {n=1.4,	x=2.6},
+			}
+		},{
+			'LUSHOBJECTSFULL', {
+				FERN		= {n=1.3,	x=1.9},
+				FLOWER		= {n=1.4,	x=1.8},
+			}
+		},{
+			'TENTACLEOBJECTSFULL', {
+				TENTACLE	= {n=1.2,	x=1.9,	c=0.94},
+			}
+		},{
+			'LUSHROOMBOBJECTS', {
+				SHROOMSINGL	= {n=1.8,	x=2.9,	u=true},
+			}
+		},{
+			'FROZENOBJECTSFULL', {
+				TREE 		= {n=1.2,	x=2.7,	c=0.9},
+			}
+		},{
+			'RADIOBIGPROPS', {
+				ROCK		= {n=1.1,	x=1.3,	c=0.95},
+			}
+		},{
+			'RADIOSPIKEPOTATO', {
+				WEIRD		= {x=1.4,	c=1.2}, -- potato
+			}
+		},{
+			'TOXIC', { -- applied to all TOXIC sources
+				TENDRIL		= {n=1.4,	x=1.9},
+			}
+		},{
+			'TOXICBIGPROPS', {
+				HUGEPROPS	= {n=0.7,	x=1.05,	c=0.84},
+			}
+		},{
+			'TOXICOBJECTSFULL', {
+				LARGEBLOB	= {n=0.4,	x=0.8,	c=1.03},
+				FUNGALTREE	= {n=1.3,	x=1.9,	c=0.86},
+			}
+		},{
+			'ROCKY', { -- less -and smaller rocks on rocky biomes
+				FACEBLEND	= {n=0.8,	x=0.9,	c=0.84,	u=true},
+			}
+		},{
+			'SWAMPOBJECTSFULL', {
+				GROVELARGEF	= {n=1.8,	x=3.0,	u=true}, -- where is it !?
+				GROVELARGE	= {n=0.8,	x=-0.7, c=0.86},
+				HQTREE		= {n=1.4,	x=2.7,	c=0.9,	u=true},
+				FERN		= {n=1.5,	x=2.1},
+				FLOWER		= {n=1.4,	x=1.8, 	w=0.94},
+			}
+		}
 	},
-	prop = {
-		SHARD		= {0.98,	1.4},
-		SPIRE		= {0.9,		1.05},
-		ROCK		= {1.2,		1.8},
-		CACTUS		= {1.1,		1.6},
-		TREE		= {1.2,		2.8},
-		SHROOM		= {1.05,	2.5},
-		FLOWER		= {1.0,		1.3},
-		FOLIAGE		= {1.1,		1.3},
-		PLANT		= {0.94,	1.5},
-		BUBBLELUSH	= {1.2,		1.7},
-		BOULDER		= {1.1,		1.4},
-		CURVED		= {1.0,		1.5},
-		DROPLET		= {1.05,	1.55},
-		TENDRIL		= {1.1,		1.7},
-		EGG			= {0.98,	1.0},
-		SPORE		= {1.0,		1.2},
-		LARGE		= {1.1,		1.6},
-		MEDIUM		= {0.85,	0.9},
-		SMALL		= {0.8,		0.58},
-		INTERACTIVE	= {0.48,	0.01},
-	},
-	skip = {
-		'LAVA',
-		'FRAGMENT',
-		'GRAVEL',
-		'HUGEPROP',
-		'FARM',
+	global = {
+		SHARD		= {n=1.05,	x=1.4},
+		SPIRE		= {n=1.15,	x=1.3},
+		ROCK		= {n=1.2,	x=1.75},
+		CACTUS		= {n=1.1,	x=1.55},
+		TREE		= {n=1.2,	x=2.8},
+		SHROOM		= {n=1.05,	x=2.5},
+		FOLIAGE		= {n=1.1,	x=1.3},
+		FLOWER		= {x=1.2},
+		CROSS		= {n=0.95,	x=1.1},	      -- grass
+		LBOARD		= {n=0.95,	x=1.1},		  -- grass
+		TOXICGRASS	= {n=1.2,	x=1.6,	w=0}, -- not grass!
+		PLANT		= {n=0.94,	x=1.5},
+		BUBBLELUSH	= {x=1.15},
+		BOULDER		= {n=1.1,	x=1.4},
+		CURVED		= {x=1.5},
+		DROPLET		= {n=1.05,	x=1.55},
+		SPORE		= {x=1.2},
+		LARGE		= {n=1.2,	x=1.6},
+		MEDIUM		= {n=1.05,	x=0.95},
+		SMALL		= {n=0.95,	x=0.8},
+		INTERACTIVE	= {n=0.48,	x=0.01,	c=1.1},
+
+		-- skipped
+		LAVA		= {u=true},
+		WEIRD		= {u=true},
+		LIVINGSHIP	= {u=true},
+		FRAGMENT	= {u=true},
+		GRAVEL		= {u=true},
+		HUGEPROPS	= {u=true},
+		FARM		= {u=true}
 	}
 }
 
-Biomes = {
-	{
-		source = 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/LUSH/LUSHBIGPROPSOBJECTSFULL.MBIN',
-		scene = {
-			'MODELS/PLANETS/BIOMES/HQLUSH/HQTREES/PARTS/HQTREE10.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/TOXIC/SMALL/TOXICGRASS.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/FLOWERS/YARROW.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/ROCKS/SMALL/SMALLROCK.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/ROCKS/SURFACEBLEND/GRAVELPATCHMOSSBLEND.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/BARREN/HQ/FOLIAGE/BARRENGRASSLARGE.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/PLANTS/MEDIUMPLANT.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/PLANTS/LARGEPLANT.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/PLANTS/SMALLFLOWERS.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/HQLUSHULTRA/DECORATIVEFERN.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/ROCKS/LARGE/LARGEROCK.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/GRASS/NEWCROSSGRASS.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/HQLUSH/HQTREES/PARTS/HQTREE21.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/PLANTS/SMALLPLANT.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/ROCKS/MEDIUM/MEDIUMROCK.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/FLOWERS/SCABIOUS.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/GRASS/TALLGRASSBILLBOARD.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/HQLUSHULTRA/DECORATIVESMALLFLOWERS.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/HQLUSH/SMALLPROPS/SMALLBOULDER.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/BARREN/PLANTS/GROUNDFLOWER.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/HQLUSH/HQTREES/PARTS/HQTREE17.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/PLANTS/SPRIGBUSH.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/PLANTS/MEDIUMBUSH.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/COMMON/FLOWERS/BUTTERCUP.SCENE.MBIN',
-			'MODELS/PLANETS/BIOMES/HQLUSH/HQTREES/PARTS/HQTREE63.SCENE.MBIN',
-	}}
-}
+---------------------------------------------------------------------------
+---- CODING
+---------------------------------------------------------------------------
 
--- Return biome-specific scales key
-local function GetBiomeScaleKey(s)
-	for k,_ in pairs(Scales.biome) do
-		if string.find(s, k) ~= nil then return k end
+-- return a deep copy of a table
+local function DeepCopy(org)
+    local copy
+    if type(org) == 'table' then
+        copy = {}
+        for k, v in pairs(org) do copy[k] = DeepCopy(v) end
+    else
+        copy = org
+    end
+    return copy
+end
+
+-- return a deep copy a tables array in a single merged table
+-- Identical keys are overwritten
+local function MergeTables(n)
+	local tbl = {}
+	for _,t in ipairs(n) do
+		for k, v in pairs(t) do tbl[k] = DeepCopy(v) end
 	end
-	return nil
+	return tbl
 end
 
--- return a copy of multiple arrays in a single array
-local function CopyArrays(n)
-	local Arr = {}
-	for _, ar in ipairs(n) do
-		for k, v in pairs(ar) do Arr[k] = v end
+-- return biome-specific prop scales
+local function GetBiomeScales(biome, src)
+	local tbl = {}
+	for _,d in ipairs(biome) do
+		if src:find(d[1]) ~= nil then tbl = MergeTables({tbl, d[2]}) end
 	end
-	return Arr
+	return tbl
 end
 
--- add biome-specific modifier and prop scales to work array
-local function UpdateBiomeProps(src)
-	key = GetBiomeScaleKey(src)
-	Scales.workprop = CopyArrays({Scales.prop, Scales.biome[key]})
-end
-
--- search the scene name for matching phrases from the scales table
-local function FindScale(scene)
-	local mins, maxs, cover, i = 0, 0, 0, 0
-	for k, v in pairs(Scales.workprop) do
-		if string.find(scene, k) ~= nil then
-			i = i + 1
-			mins = mins + v[1]
-			maxs = maxs + v[2]
-			cover = cover + (v[3] or 1)
+-- find all tags for a single spawn and return their average
+-- unless a tag includes u=true, then return just the one
+local function AverageScales(spawn, worktags)
+	local function addVal(m, val)
+		if val ~= 1 then
+			m.v = m.v + val
+			m.i = m.i + 1
 		end
 	end
-	if cover == i then cover = nil else cover = cover / i end
-	return mins / i, maxs / i, cover
-end
-
--- return true if none of the skip values are found in the scene
-local function IsNotSkipped(scene)
-	for _,v in pairs(Scales.skip) do
-		if string.find(scene, v) ~= nil then return false end
+	local function avgs(m)
+		if m.i > 0 then
+			m.v = m.v / m.i
+		else
+			m.v = 1
+		end
 	end
-	return true
+	local mods = DeepCopy(Object_Spawn_Mods)
+	for key, tag in pairs(worktags) do
+		if spawn:find(key) ~= nil then
+			if tag.u or false then
+				for i, d in pairs(mods) do d.v = (tag[i] or 1) end
+				return mods
+			end
+			for i, d in pairs(tag) do addVal(mods[i], d) end
+		end
+	end
+	for _,m in pairs(mods) do avgs(m) end
+	return mods
 end
 
-local function SetTheScales()
+-- main work.
+-- get a merged tags list for a biome and add modifiers for every spawn
+local function SetTheScales(biomeObjects, globalTags, biomeTags)
+	local function addVal(T, prop, mod)
+		if mod.v ~= 1 then table.insert(T, {prop, mod.v}) end
+	end
 	mbin_change = {}
-	for _,src in pairs(Biomes) do
+
+	for _,src in pairs(biomeObjects) do
 		mods_tbl = {
 			MBIN_FILE_SOURCE = src.source,
 			EXML_CHANGE_TABLE = {}
 		}
-		UpdateBiomeProps(src.source)
-
-		-- add prop modifiers
-		for _,scn in pairs(src.scene) do
-			if IsNotSkipped(scn) then
-				local mins, maxs, cover = FindScale(scn)
-				if mins > 0 then
-					exml_change = {
-						REPLACE_TYPE 		= 'ALL',
-						INTEGER_TO_FLOAT	= 'FORCE',
-						MATH_OPERATION 		= '*',
-						SPECIAL_KEY_WORDS	= {'Filename', scn},
-						SECTION_UP			= 1,
-						VALUE_CHANGE_TABLE 	= {
-							{'MinScale',	mins},
-							{'MaxScale',	maxs}
-						}
-					}
-					if cover ~= nil then
-						table.insert(exml_change.VALUE_CHANGE_TABLE, {'Coverage', cover})
-					end
-					table.insert(mods_tbl.EXML_CHANGE_TABLE, exml_change)
-				end
+		local worktags = MergeTables( {globalTags, GetBiomeScales(biomeTags, src.source)} )
+		for _,spn in pairs(src.spawn) do
+			local mods = AverageScales(spn, worktags)
+			local mod_changes = {}
+			for k, m in pairs(mods) do
+				addVal(mod_changes, Object_Spawn_Prop[k], m)
+			end
+			if #mod_changes > 0 then
+				local spawn_props = {
+					REPLACE_TYPE 		= 'ALL',
+					INTEGER_TO_FLOAT	= 'FORCE',
+					MATH_OPERATION 		= '*',
+					SPECIAL_KEY_WORDS	= {'Filename', spn},
+					SECTION_UP			= 1,
+					VALUE_CHANGE_TABLE 	= mod_changes
+				}
+				table.insert(mods_tbl.EXML_CHANGE_TABLE, spawn_props)
 			end
 		end
-		-- LOD increase (unrelated to big props) --
-		if (Include_LOD_Increase or false) then
-			exml_change = {
-				REPLACE_TYPE 		= 'ALL',
-				MATH_OPERATION 		= '*',
-				PRECEDING_KEY_WORDS = 'LodDistances',
-				VALUE_CHANGE_TABLE 	= { {'IGNORE', 1.2} }
-			}
-			table.insert(mods_tbl.EXML_CHANGE_TABLE, exml_change)
-		end
-
 		table.insert(mbin_change, mods_tbl)
 	end
 	return mbin_change
 end
 
+local Biome_Objects = {
+	{
+		source = 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/TOXIC/TOXICTENTACLESOBJECTS.MBIN',
+		spawn = {
+			'MODELS/PLANETS/BIOMES/LUSHROOM/SMALLBLUESHROOMS.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/HQLUSH/MEDIUMPROPS/MEDIUMBOULDER02.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/HQLUSH/SMALLPROPS/SMALLROCK.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/TOXIC/SMALL/SPORETUBESMALL.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/GRASS/BUBBLELUSHGRASS.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/TOXIC/HOUDINIPROPS/LARGETENTACLE.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/TOXIC/HOUDINIPROPS/MEDIUMTENTACLEBLOB.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/UNDERWATER/MEDIUMPLANTS/MEDIUMJELLYPLANT.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/BARREN/PLANTS/GROUNDFLOWER.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/ROCKS/MEDIUM/MEDIUMROCK.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/UNDERWATER/UPDATEPROPS/ANENOMESHAPE.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/GRASS/TALLGRASSBILLBOARD.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/BARREN/HQ/FOLIAGE/BARRENGRASSLARGE.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/HQLUSH/SMALLPROPS/SMALLBOULDER.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/RADIOACTIVE/SMALL/CURVEDSMALL.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/TOXIC/SMALL/TOXICGRASS.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/ROCKS/SURFACEBLEND/MEDIUMSANDBLENDROCK.SCENE.MBIN',
+	}}
+}
+
+-- naming names
+local function GetSourceName(S)
+	local name = S:match("[^/]*.MBIN$")
+	return name:sub(0, #name - 5)
+end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '___TEST 02 Big props.pak',
+	MOD_FILENAME 		= '___TEST big props '..GetSourceName(Biome_Objects[1].source)..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MODIFICATIONS 		= {{
-	MBIN_CHANGE_TABLE	= SetTheScales()
+	MBIN_CHANGE_TABLE	= SetTheScales(Biome_Objects, Scale_tags.global, Scale_tags.biome)
 }}}

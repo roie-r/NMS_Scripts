@@ -1,6 +1,7 @@
---[[┎────────────────────────────────────────────────────────────────────────────
-	┃ restore the shield and health powercells deprecated in Origins update
-────┸────────────────────────────────────────────────────────────────────────--]]
+--[[-------------------------------------------------------------------
+ restore the shield and health powercells deprecated in Origins update
+---------------------------------------------------------------------]]
+
 Add_Charge_Item = {
 	dat = {
 		{'ENERGY',		'PRODFUEL1'},
@@ -64,7 +65,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 46 restore powercells.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '3.68',
+	NMS_VERSION			= 3.75,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
