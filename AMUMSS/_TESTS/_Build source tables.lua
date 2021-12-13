@@ -7,26 +7,23 @@ local Results_Path = 'E:\\MODZ_stuff\\NoMansSky\\AMUMss_Scripts\\_TESTS\\test_mb
 
 local Batch = {}
 
--- return a folder's path contents, filtered by files/directories and extensions
--- mode:: [f/d = files/directories]
 local function lstDir(path, mode, ext)
 	if mode == 'f' then mode = '-d' end
 	local t = {}
 	local cmd = string.format('dir %s\\%s /a:%s /b', path, (ext or ''), mode)
 	local dirdump = assert(io.popen(cmd, 'r'))
 	local chunk = dirdump:read('*all')
-	for s in string.gmatch(chunk, '[^\r\n]+') do
+	for s in chunk:gmatch('[^\r\n]+') do
 		table.insert(t, string.format('%s\\%s', path, s))
 	end
 	return t
 end
 
--- collate the batch folders (folder's name must begin with a letter)
 local function collateFolders(path)
 	local d = lstDir(path, 'd')
 	for _,v in pairs(d) do
-		dname = string.sub(v, #path + 2, #v)
-		if string.find(string.sub(dname, 1, 1), '%w') ~= nil then
+		dname = v:sub(#path + 2, #v)
+		if dname:sub(1, 1):find('%w') ~= nil then
 			Batch[dname] = v
 		end
 	end
@@ -68,7 +65,7 @@ local function tableToString(name, tbl, l)
 	local function eval(v)
 		if type(v) == 'number' or type(v) == 'boolean' then
 			return v
-		elseif string.find(v, '\n') ~= nil then
+		elseif v:find('\n') ~= nil then
 			return '[['..v..']]'
 		else
 			return '\''..v..'\''
