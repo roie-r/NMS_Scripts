@@ -7,7 +7,7 @@ local desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Scientific cockpitA trail FIX.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -59,8 +59,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RotX',		-90},
 					{'RotY',		-90},
 					{'TransX',		1.1},
-					{'ScaleX', 		0.562464},
-					{'ScaleY', 		0.562464}
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			},
 			{
@@ -69,8 +69,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RotX',		-90},
 					{'RotY',		-90},
 					{'TransX',		1.1},
-					{'ScaleX', 		0.562464},
-					{'ScaleY', 		0.562464}
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			}
 		}
@@ -81,13 +81,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotY',		-90}
+					{'RotY',		-90},
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotY',		-90}
+					{'RotY',		-90},
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			}
 		}

@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEST 06 explorer cockpit_A decals.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

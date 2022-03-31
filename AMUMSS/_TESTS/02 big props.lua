@@ -248,7 +248,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST big props '..GetSourceName(Biome_Objects[1].source)..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= SetTheScales(Biome_Objects, Scale_tags.global, Scale_tags.biome)
 }}}

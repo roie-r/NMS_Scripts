@@ -5,7 +5,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEST 07 fighter cockpit F decals.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

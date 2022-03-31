@@ -35,18 +35,27 @@ local function collateSources(path)
 	local mbins = {}
 	local luas = lstDir(path, 'f', '*.lua')
 	for _,sf in pairs(luas) do
-		local t = {}
+		local src = {}
 		assert(loadfile(sf))()
-		mbin_ct = NMS_MOD_DEFINITION_CONTAINER.MODIFICATIONS[1].MBIN_CHANGE_TABLE
-		for _,mct in pairs(mbin_ct) do
-			mbin_fs = mct.MBIN_FILE_SOURCE
-			if type(mbin_fs) == 'table' then
-				for _,mfs in pairs(mbin_fs) do t[mfs] = 1 end
-			else
-				t[mbin_fs] = 1
+		container = NMS_MOD_DEFINITION_CONTAINER
+		if container.MODIFICATIONS and #container.MODIFICATIONS > 0 then
+			mbin_ct = container.MODIFICATIONS[1].MBIN_CHANGE_TABLE
+			for _,mct in pairs(mbin_ct) do
+				mbin_fs = mct.MBIN_FILE_SOURCE
+				if type(mbin_fs) == 'table' then
+					for _,mfs in pairs(mbin_fs) do src[mfs] = 1 end
+				else
+					src[mbin_fs] = 1
+				end
 			end
 		end
-		for k,_ in pairs(t) do table.insert(mbins, k) end
+		if container.ADD_FILES and #container.ADD_FILES > 0 then
+			for _,af in ipairs(container.ADD_FILES) do
+				s = af.FILE_DESTINATION:gsub('EXML', 'MBIN')
+				src[s] = 1
+			end
+		end
+		for k,_ in pairs(src) do table.insert(mbins, k) end
 	end
 	return mbins
 end
