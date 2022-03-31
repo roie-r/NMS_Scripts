@@ -8,7 +8,7 @@ local desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -44,12 +44,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TorchStrength',						1.5},	-- 3.5
 					{'TorchDimFoV',							3},		-- 65
 					{'TorchDimStrength',					0.7},	-- 1.5
+					{'InteractionTorchStrength',			-0.7},	-- 2
 					{'UndergroundTorchFoV',					-2},	-- 70
 					{'UndergroundTorchStrength',			0.7},	-- 2.5
 					{'TorchOffsetY',						0.1},	-- 0.5
 					{'TorchOffsetZ',						-0.45},	-- -0.2
 					{'TorchFollowCameraTime',				-0.08},	-- 0.15
-					{'LightStrength',						0.8},	-- 1 (build selected item light)
+					{'LightStrength',						0.6},	-- 1 (build selected item light)
 				}
 			},
 			{
@@ -76,18 +77,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				INTEGER_TO_FLOAT	= 'FORCE',
-				PRECEDING_KEY_WORDS = 'BuildingScanEffect',
-				VALUE_CHANGE_TABLE 	= {
-					{'R',					0.12},	-- 0
-					{'G',					0.36},	-- 0.7
-					{'B',					0.48},	-- 1
-					{'BasecolourIntensity',	0.12},	-- 0.2
-					{'FresnelIntensity',	-18},	-- 3
-					{'WaveActive',			false}
-				}
-			},
-			{
-				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = 'BinocularSelectedEffect',
 				VALUE_CHANGE_TABLE 	= {
 					{'BasecolourIntensity',	0.32},	-- 0.4
@@ -107,9 +96,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = 'BinocularSelectedUnknownColour',
 				VALUE_CHANGE_TABLE 	= {
-					{'R',			0.98},	-- 0.926
-					{'G',			0.32},	-- 0.539
+					{'R',			0.94},	-- 0.926
+					{'G',			0.3},	-- 0.539
 					{'B',			0.18}	-- 1
+				}
+			},
+			{
+				INTEGER_TO_FLOAT	= 'FORCE',
+				PRECEDING_KEY_WORDS = 'BuildingScanEffect',
+				VALUE_CHANGE_TABLE 	= {
+					{'R',					0.12},	-- 0
+					{'G',					0.36},	-- 0.7
+					{'B',					0.48},	-- 1
+					{'BasecolourIntensity',	0.12},	-- 0.2
+					{'FresnelIntensity',	-18},	-- 3
+					{'WaveActive',			false}
 				}
 			}
 		}

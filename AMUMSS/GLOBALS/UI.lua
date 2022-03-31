@@ -7,7 +7,7 @@ local desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC UI.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -94,7 +94,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'Distance',		0.44},	-- 1.3
 					{'x',				-0.21},	-- -0.3
-					{'y',				0.06},	-- 0.077
+					{'y',				0.035},	-- 0.077
 					{'z',				0.6},	-- 0
 					{'Pitch',			20},	-- 0
 					{'Rotate',			-40},	-- -45
@@ -106,7 +106,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'FORCE',
 				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'Vehicle'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',				-3.6},
+					{'x',				-3.5},
 					{'y',				0.06},
 					{'Pitch',			5},
 					{'Rotate',			-43},
@@ -132,7 +132,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'z',				-0.05},
 					{'Pitch',			15},
 					{'LightPitch',		35},
-					{'LightRotate',		251}
+					{'LightRotate',		250}
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 local desc = [[
   Increase exocraft inventory size
   Vykeen monolith accepts Effigy instead of dagger
+  cheaper pet slots
   Add freighter cargo bulkhead to freighter tech tree
 ]]----------------------------------------------------
 
@@ -17,27 +18,27 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		-- |higher vehicle inventory|
+		-- |INVENTORY higher vehicle inventory|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/INVENTORYTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'VehicleSmall',
 				VALUE_CHANGE_TABLE 	= {
-					{'MinSlots',	24},
-					{'MaxSlots',	24}
+					{'MinSlots',	26},
+					{'MaxSlots',	26}
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'VehicleMedium',
 				VALUE_CHANGE_TABLE 	= {
-					{'MinSlots',	36},
-					{'MaxSlots',	36}
+					{'MinSlots',	42},
+					{'MaxSlots',	42}
 				}
 			},
 			{
@@ -50,20 +51,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		-- |pastry shield|
+		-- |CONSUMABLE healthy silicon egg|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/CONSUMABLEITEMTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'FOOD_R_PASTRY'},
+				SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_STELLAR'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RewardID',				'BAKE_SHIELD'},
+					{'RewardID',				'HEALTH_MAJOR'},
 					{'CloseInventoryWhenUsed',	true}
 				}
 			}
 		}
 	},
 	{
-		-- |Effigy for Vykeen monolith|
+		-- |COST pet slots_Effigy for monolith|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/COSTTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -71,11 +72,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'Id',			'WAR_CURIO1'}
 				}
+			},
+			{
+				REPLACE_TYPE 		= 'ALL',
+				MATH_OPERATION 		= '*',
+				SPECIAL_KEY_WORDS	= {'Id', 'C_PET_SLOT'},
+				PRECEDING_KEY_WORDS = 'Costs',
+				VALUE_CHANGE_TABLE 	= {
+					{'IGNORE',		0.1}
+				}
 			}
 		}
 	},
 	{
-		-- |craft freight bulkehad|
+		-- |UNLOCKABLE craft freight bulkehad|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/UNLOCKABLEITEMTREES.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

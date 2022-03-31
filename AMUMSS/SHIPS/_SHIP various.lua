@@ -13,7 +13,7 @@ local desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_SHIPS ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -57,6 +57,42 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RotX',		-59.09569},
 					{'RotY',		90}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
+				VALUE_CHANGE_TABLE 	= {
+					{'RotX',		-60.328335},
+					{'RotY',		90}
+				}
+			}
+		}
+	},
+	{
+		-- |Scientific cockpitD re-align trails|		
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITD/COCKPITD.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Trail'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransY',		1.8692},	-- 2.069246
+					{'TransZ',		-2.019},	-- -2.51901
+					{'RotX',		0}			-- 30.782648
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Trail1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransY',		1.8692},
+					{'TransZ',		-2.019},
+					{'RotX',		0}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '_Number_A1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'RotX',		-38.173},
+					{'RotY',		0}
+				}
 			}
 		}
 	},
@@ -85,7 +121,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotY',		-90},
+					-- {'RotY',		-90},
 					{'TransY',		3.26},	-- 2.655958
 					{'TransZ',		-4.72},	-- -3.727964
 				}
@@ -100,27 +136,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		-- |Scientific cockpitA back fins decals| fix
+		-- |Scientific tail wings decals| fix
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGILEFT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
 				VALUE_CHANGE_TABLE 	= {
 					{'RotX',		-90},	-- 90
-					{'RotY',		-90},
+					{'RotY',		-90},	-- 0
 					{'TransX',		1.1},	-- 0.972093
-					{'ScaleX', 		0.562464},
-					{'ScaleY', 		0.562464}
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
 				VALUE_CHANGE_TABLE 	= {
 					{'RotX',		-90},	-- 90
-					{'RotY',		-90},
+					{'RotY',		-90},	-- 0
 					{'TransX',		1.1},	-- 0.972093
-					{'ScaleX', 		0.562464},
-					{'ScaleY', 		0.562464}
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			}
 		}
@@ -131,20 +167,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotY',		-90}
+					{'RotY',		-90},
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotY',		-90}
+					{'RotY',		-90},
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
 				}
 			}
 		}
 	},
 	{
-		-- change hot |green trail to blue dark|
-		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/HOTGREENTRAIL.MATERIAL.MBIN',
+		-- change dark |purple trail to dark blue|
+		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/HOTDARKTRAIL.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -185,6 +225,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_E/COCKPIT_E/HQWHITELIGHT_MAT1.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_B/COCKPITB/HQWHITELIGHT_MAT.MATERIAL.MBIN',
+			'MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_D/COCKPITD/HQWHITELIGHT_MAT1.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEC/COCKPITANOSEC/HQWHITELIGHT_MAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEE/COCKPITANOSEE/HQWHITELIGHT_MAT1.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/ACCESSORIES/LANDINGGEAR_BASE/HQWHITELIGHT_MAT3.MATERIAL.MBIN',
@@ -209,26 +250,65 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'TypeId', '_SIDEL_'},
+				-- SPECIAL_KEY_WORDS	= {'Id', '_SIDEL_A'},
 				REMOVE				= 'SECTION'
 			}
 		}
 	},
-	{
-		-- |dropship subwing_E delete big decal|
-		MBIN_FILE_SOURCE	= {
-			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_LEFT.DESCRIPTOR.MBIN',
-			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_RIGHT.DESCRIPTOR.MBIN'
-		},
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Id', '_DECAL_A'},
-				REMOVE				= 'SECTION'
-			}
-		}
-	},
+	-- {
+		-- -- |dropship hull decals fix|
+		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/HULL/HULLA.SCENE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- INTEGER_TO_FLOAT	= 'FORCE',
+				-- SPECIAL_KEY_WORDS	= {'Name', '_SideL_A1'}, -- R horiz
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'TransX',		0.38},		-- 1.500948 - 0.9
+					-- {'TransY',		2.7091},	-- 2.709136
+					-- {'TransZ',		0.4},		-- 0.218558 - 0.27
+					-- {'RotX',		0},			-- 0
+					-- {'RotY',		-81.8517},	-- -77.34289
+					-- {'RotZ',		180},		-- 180
+					-- {'ScaleX',		1.66},		-- 2.107159
+					-- {'ScaleY',		1.0},		-- 1.053579
+					-- {'ScaleZ',		0.42},		-- 0.637855 - 0.54 48
+				-- }
+			-- },
+			-- {
+				-- INTEGER_TO_FLOAT	= 'FORCE',
+				-- SPECIAL_KEY_WORDS	= {'Name', '_SideL_A3'}, -- L horiz
+				-- VALUE_CHANGE_TABLE 	= {				
+						-- {'TransX',	0.3122},	-- 0.312157
+						-- {'TransY',	0},			-- 0
+						-- {'TransZ',	4.5919},	-- 4.591873
+						-- {'RotX',	0},			-- 0
+						-- {'RotY',	-171.852},	-- -171.85173
+						-- {'RotZ',	0},			-- 0
+						-- {'ScaleX',	1.677},		-- 1.677014
+						-- {'ScaleY',	1.0},		-- 1
+						-- {'ScaleZ',	0.9132},	-- 0.913196
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', '_SideL_A'}, -- L diagonal
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {nil, nil},
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', '_SideR_A'}, -- R diagonal
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {nil, nil},
+				-- }
+			-- },
+		-- }
+	-- },
 	{
 		-- |bioship no slime|
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/BIOSHIP_PROC/MEMBRANE_MAT.MATERIAL.MBIN',
+		MBIN_FILE_SOURCE	= {
+			'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/BIOSHIP_PROC/MEMBRANE_MAT.MATERIAL.MBIN',
+			'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/INTERIOR/NOSTRILBURSTS/MEMBRANE_MAT1.MATERIAL.MBIN'
+		},
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Samplers',

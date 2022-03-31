@@ -1,13 +1,13 @@
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 local desc = [[
-  replace freighter battles reward for each race, require additions in rewards table(!)
-  insert the test reward into the construction recipe analyzer 'Cancel' menu
-]]--------------------------------------------------------------------------------------
+  Replace freighter battles reward for each race, requires(!) additions in rewards table
+  attach the test reward to the construction recipe analyzer <Cancel> menu
+]]---------------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DIALOG PUZZLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{

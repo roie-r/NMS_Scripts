@@ -13,10 +13,10 @@ local Upgrade_Stats = {
 	{'UP_SMG',			'Weapon_Projectile_Damage',			'+',	1,		1},		-- 2, 	3
 	{'UP_SMG',			'Weapon_Projectile_Rate',			'+',	-0.15,	-0.15},	-- 1.1, 1.15
 	{'UP_GREN',			'Weapon_Grenade_Bounce'},
-	{'UP_LASER',		'Weapon_Laser_Mining_Speed',		'+',	-1,		-1},
-	{'UP_LASER',		'Weapon_Laser_Mining_Speed',		'*',	20,		20},
-	{'UP_JETBOOST',		'Suit_Jetpack_Tank',				'*',	1.4,	1.4},
-	{'UP_JETBOOST',		'Suit_Jetpack_Refill',				'*',	1.6,	1.6},
+	{'UP_LASER',		'Weapon_Laser_Damage',				'+',	-1,		-1},
+	{'UP_LASER',		'Weapon_Laser_Damage',				'*',	-20,	-20},
+	{'UP_JETBOOST',		'Suit_Jetpack_Tank',				'*',	1.2,	1.2},
+	{'UP_JETBOOST',		'Suit_Jetpack_Refill',				'*',	1.2,	1.2},
 	{'UP_MCENG',		'Vehicle_BoostTanks',				'*',	20,		20},	-- 0.25, 0.3
 	{'UP_MCGUN',		'Vehicle_GunDamage',				'*',	2.5,	2.5},
 	{'UP_MCGUN',		'Vehicle_GunRate'},
@@ -57,7 +57,7 @@ local Source_Table_Proc_Tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPROCEDURAL
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROC TECH.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -65,14 +65,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Proc_Tech,
 		EXML_CHANGE_TABLE	= {
-			{
-				REPLACE_TYPE 		= 'ALL',
-				VALUE_MATCH			= 'MaxIsRare',
-				SPECIAL_KEY_WORDS	= {'Quality', 'Illegal', 'WeightingCurve', 'IGNORE'},
-				VALUE_CHANGE_TABLE 	= {
-					{'WeightingCurve', 'MinIsSuperRare'} -- MaxIsRare
-				}
-			},
 			{
 				REPLACE_TYPE 		= 'ALL',
 				SPECIAL_KEY_WORDS	= {'StatsType', 'Weapon_Laser_Mining_Speed'},

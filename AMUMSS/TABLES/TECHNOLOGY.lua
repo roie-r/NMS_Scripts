@@ -18,6 +18,7 @@ local Charge_Capacity = {
 	{'TERRAINEDITOR',	3},
 	{'RAILGUN',			4},
 	{'GRENADE',			1.5},
+	{'STUN_GREN',		1.5},
 	{'VEHICLE_ENGINE',	1.2},
 	{'VEHICLE_LASER',	1.4},
 	{'SUB_ENGINE',		2},
@@ -29,7 +30,9 @@ local Charge_Capacity = {
 	{'T_HOTPROT',		3},
 	{'MECH_LASER',		2},
 	{'MECH_MINER',		4},
-	{'MECH_GUN',		1.4}
+	{'MECH_GUN',		1.4},
+	{'CANNON',			0.6},
+	{'STEALTH',			6}
 }
 function Charge_Capacity:Get(x)
 	return {
@@ -58,7 +61,6 @@ end
 
 local Projectile_Upgrade_Colour = {
 	{'UT_BOLT', 	0.88,	0.94,	0.2},
-	{'UT_MINER',	0.92,	0.25,	0.82},
 	{'UT_RAIL',		0.74,	0.1,	0.16},
 	{'UT_SHIPLAS',	0.12,	0.1,	0.62},
 	{'UT_SHIPGUN',	0.01,	0.88,	0.1},
@@ -105,8 +107,10 @@ local Stat_Bonus = {
 	{'SHIPROCKETS',		'Ship_Weapons_Guns_Damage',				'*',	1.5},		-- 6500
 	{'VEHICLE_GRIP1',	'Vehicle_Grip',							'+',	-0.4},		-- 3
 	{'VEHICLE_GRIP1',	'Vehicle_SkidGrip',						'+',	0.22},		-- 0.66
+	{'VEHICLE_ENGINE',	'Vehicle_Grip',							'+',	1.5},		-- 1
+	{'VEHICLE_ENGINE',	'Vehicle_SkidGrip',						'+',	-0.15},		-- 1
 	{'MECH_GUN',		'Vehicle_GunDamage',					'+',	80},		-- 340
-	{'MECH_GUN',		'Vehicle_GunRate',						'+',	0.45},		-- 0.35
+	{'MECH_GUN',		'Vehicle_GunRate',						'+',	0.35},		-- 0.35
 	{'MECH_ENGINE',		'Vehicle_EngineFuelUse',				'+',	0.5},		-- 0.5
 	{'MECH_FUEL',		'Vehicle_EngineFuelUse',				'+',	0.07},		-- 0.8
 	{'F_HYPERDRIVE',	'Freighter_Hyperdrive_JumpDistance',	'*',	10},		-- 100
@@ -115,20 +119,19 @@ local Stat_Bonus = {
 	{'F_HDRIVEBOOST3',	'Freighter_Hyperdrive_JumpDistance',	'*',	4}			-- 800
 }
 function Stat_Bonus:Get(x)
-	local T = {
+	return {
 		MATH_OPERATION 		= x[3],
 		INTEGER_TO_FLOAT	= 'FORCE',
 		SPECIAL_KEY_WORDS	= {'ID', x[1], 'StatsType', x[2]},
 		SECTION_UP			= 1,
+		SECTION_ACTIVE		= x[5] or 0,
 		VALUE_CHANGE_TABLE 	= { {'Bonus', x[4]} }
 	}
-	if x[5] then T.SECTION_ACTIVE	= x[5] end
-	return T
 end
 function Stat_Bonus.AddNew(stat, bonus, level)
 	return [[
 		<Property value="GcStatsBonus.xml">
-			<Property name="StatsTypes" value="GcStatsTypes.xml">
+			<Property name="Stat" value="GcStatsTypes.xml">
 				<Property name="StatsType" value="]]..stat..[[" />
 			</Property>
 			<Property name="Bonus" value="]]..bonus..[[" />
@@ -180,7 +183,7 @@ local Source_Table_Tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -188,6 +191,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= Source_Table_Tech,
 		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'MECH_ENGINE'},
+				PRECEDING_KEY_WORDS	= 'StatBonuses',
+				ADD 				= Stat_Bonus.AddNew('Vehicle_FuelRegen', 3, 1)
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'VEHICLE_ENGINE'},
+				PRECEDING_KEY_WORDS	= 'StatBonuses',
+				ADD 				= Stat_Bonus.AddNew('Vehicle_FuelRegen', 3, 1)
+			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'STRONGLASER'},
 				PRECEDING_KEY_WORDS	= 'StatBonuses',
@@ -198,16 +211,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'StatBonuses',
 				ADD 				= Stat_Bonus.AddNew('Weapon_Laser_Damage', 4, 0)
 			},
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'ID', 'UT_SHOT'},
+				-- PRECEDING_KEY_WORDS	= 'StatBonuses',
+				-- ADD 				= Stat_Bonus.AddNew('Weapon_Stun', 1, 4)
+									  -- ..
+									  -- Stat_Bonus.AddNew('Weapon_Stun_Duration', 3, 1)
+			-- },
+			{
+				SPECIAL_KEY_WORDS	= {'ID','UT_ROCKETS'},
+				PRECEDING_KEY_WORDS	= 'StatBonuses',
+				ADD 				= Stat_Bonus.AddNew('Ship_Weapons_Guns_Damage', 4600, 0)
+			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'UT_MINER'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.RAILGUN1MOD.DDS'}
 				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'ID','UT_ROCKETS'},
-				PRECEDING_KEY_WORDS	= 'StatBonuses',
-				ADD 				= Stat_Bonus.AddNew('Ship_Weapons_Guns_Damage', 4600, 0)
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'MECH_MINER'},

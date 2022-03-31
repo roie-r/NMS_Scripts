@@ -8,7 +8,7 @@ local desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -23,6 +23,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'LadderCooldownAfterBeforeAutoClimb',	0},		-- 0.6
 					{'TimeNotOnGroundToUseFallingCamera',	88},	-- 0.2
 					{'TimeFallingUntilPanic',				180},	-- 0.8
+				}
+			}
+		}
+	},
+	{
+		-- |GC ROBOT|
+		MBIN_FILE_SOURCE	= 'GCROBOTGLOBALS.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'FriendlyDroneChatCooldown',				12},	-- 5
+					{'FriendlyDroneDissolveTime',				2},		-- 1
+					{'FriendlyDroneChatChanceIdle',				0.15},	-- 0.33
+					{'FriendlyDroneBeepReplaceChatChance',		0.1},	-- 0.3
 				}
 			}
 		}
@@ -42,9 +56,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'GCWATERGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'WaveHeight',	-1.7}	-- 1.5
+					{'WaveHeight',	-0.2}	-- 1.5
 				}
 			}
 		}

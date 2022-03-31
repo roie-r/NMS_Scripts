@@ -10,15 +10,17 @@ local desc = [[
 
 local Stack_Mult = {
 	{'CRAFTPROD_SUB', 				6},
-	{'FUELGEL_SUB', 				16},
+	{'FUELGEL_SUB', 				8},
 	{'FOOD_INGREDIENT_SUB', 		40},
 	{'FOOD_COOKED_SUB',				40},
 	{'LAUNCHFUEL_SUB',				4},
 	{'BP_SALVAGE_SUB',				5},
+	{'UI_SENTINEL_LOOT_SUB',		8},
 	{'UI_REPAIR_KIT_SUB',			4},
 	{'UI_STORMCRYSTAL_SUB',			2},
 	{'UI_ALLOY_COMPLEX_SUBTITLE',	2},
 	{'UI_REACTION_SUBTITLE',		2},
+	{'UI_MEGAPROD_SUBTITLE',		2},
 	{'UI_ULTRAPROD_SUBTITLE',		8},
 	{'BLD_GLITCHPROP_SUBTITLE',		2}
 }
@@ -65,6 +67,7 @@ local K_Icons_Color = {
 	{'Id',		'WATERPROD3',					0,	0.54,	0.26,	0.26},
 	{'Id',		'CATAPROD3',					0,	0.54,	0.26,	0.26},
 	{'Id',		'OXYPROD3',						0,	0.54,	0.26,	0.26},
+	{'Id',		'CAVECUBE',						0,	0.302,	0.16,	0.341},	
 	{'Name',	'UI_STORMCRYSTAL_NAME',			0,	0.54,	0.26,	0.26},
 	{'Name',	'UI_VENTGEM_NAME',				0,	0.54,	0.26,	0.26},
 	{'Id',		'SUMMON_GARAGE',				0,	0.04,	0.18,	0.26},
@@ -168,7 +171,7 @@ local Source_Table_Product = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 3.75,
+	NMS_VERSION			= 3.84,
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MOD_DESCRIPTION		= desc,
 	MODIFICATIONS 		= {{
@@ -231,12 +234,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Id', 'FREI_INV_TOKEN', 'Legality', 'Legal'},
-				LINE_OFFSET			= 8,
-				REMOVE				= 'LINE'
-			},
-			{
 				SPECIAL_KEY_WORDS	= {'Id', 'FREI_INV_TOKEN'},
+				PRECEDING_KEY_WORDS = 'Requirements',
 				ADD					= Prod_Requirements:Build('Cargo_Bulkhead')
 			}
 		}
