@@ -1,7 +1,8 @@
---------------------------------------------------------------------------------
----	Convert EXML to an equivalent lua table and back again to exml text
----	helper functions and ENUMs...
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------
+---	LUA 2 EXML (VERSION: 0.81) ... by lMonk
+---	A tool for converting exml to an equivalent lua table and back again
+---	(with added color helper functions)
+-------------------------------------------------------------------------
 
 --	replace a boolean with its text (ignore otherwise)
 function bool(b)
@@ -72,7 +73,7 @@ function FileWrapping(data, template)
 	if type(data) == 'string' then
 		return string.format(wrapper, template, data)
 	end
-	-- remove the extra table added by ToLua (FIX THIS!)
+	-- remove the extra table added by ToLua
 	if data.template then data = data.template end
 	-- table loaded from file
 	if data.META[1] == 'template' then
@@ -99,7 +100,7 @@ end
 --	Returns a table representation of EXML sections
 --	When parsing a full file, the header is stripped and a mock template is added
 --	Rquires complete EXML sections in the nomral format ...
---	 Each property in a separate line with no blank lines or comments
+--	 Each property in a separate line with no commented lines
 function ToLua(exml)
 	local function eval(val)
 		if val == 'True' then
@@ -159,10 +160,10 @@ function ToLua(exml)
 	return tlua
 end
 
---	Converts EXML to a pretty-printed, ready-to-work, lua table script
+--	Converts EXML to a pretty-printed, ready-to-work, lua script.
 --	When parsing a full file, the header is stripped and a mock template is added
 --	Rquires complete EXML sections in the nomral format ...
---	 Each property in a separate line with no blank lines or comments
+--	 Each property in a separate line with no commented lines
 function PrintExmlAsLua(exml, indent, com)
 	local function eval(val)
 		if #val == 0 then
@@ -252,7 +253,7 @@ function ColorData(t, n)
 		end
 	end
 	return {
-		-- if a name (n) is present then use 2-property tag
+		-- if a name (n) is present then use 2-property tags
 		META= {n or 'value', 'Colour.xml'},
 		R	= t[1] or 1,
 		G	= t[2] or 1,
@@ -263,8 +264,3 @@ end
 
 --	InventoryType Enum
 I_={ PRD='Product', SBT='Substance', TCH='Technology' }
-
---	just let me clutter up my code in peace
-NMS_MOD_DEFINITION_CONTAINER = {
-	AMUMSS_SUPPRESS_MSG = 'MULTIPLE_STATEMENTS,UNDEFINED_VARIABLE,UNUSED_VARIABLE'
-}

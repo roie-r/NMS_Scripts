@@ -1,6 +1,10 @@
----------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
----------------------------------------------------------------------
+------------------------------------------------------------------------------
+---	Construct reality tables entries (VERSION: 0.81) ... by lMonk
+---	Add new items into technology, proc-tech, product & basebuilding
+---	* Not ALL properties of the tables' classes are included, ones which
+---   can be safely left with their deafult value are omited.
+---	!! Requires lua_2_exml.lua !!
+------------------------------------------------------------------------------
 
 --	build the requirements table for tech and products
 --	receives a table of {id, amount, product/substance} items
@@ -35,7 +39,7 @@ local function GetIdTable(t, prop)
 end
 
 --	Build a new entry for NMS_REALITY_GCTECHNOLOGYTABLE
---	gets requirements and color in separate tables
+--	sub lists (requirements and color) are entered in separate tables
 function TechnologyEntry(tech)
 	local function getStats(s)
 	--	receives a table of {type, bonus, level} items
@@ -123,7 +127,7 @@ function TechnologyEntry(tech)
 end
 
 --	Build a new entry for NMS_REALITY_GCPRODUCTTABLE
---	sub lists (requirements and color) should be in separate tables
+--	sub lists (requirements and color) are entered in separate tables
 function ProductEntry(prod)
 	return {
 		META	= {'value', 'GcProductData.xml'},
@@ -267,13 +271,17 @@ function BaseBuildObjectEntry(bpart)
 	return {
 		META = {'value', 'GcBaseBuildingEntry.xml'},
 		ID							= bpart.id,
+		Style						= {
+			META		= {'Style', 'GcBaseBuildingPartStyle.xml'},
+			Style		= bpart.style or 'None'							--	Enum
+		},
 		PlacementScene				= {
 			META		= {'PlacementScene', 'TkModelResource.xml'},
 			Filename	= bpart.placementscene
 		},
 		DecorationType				= {
-			META	= {'DecorationType', 'GcBaseBuildingObjectDecorationTypes.xml'},
-			BaseBuildingDecorationType = bpart.decorationtype or 'Normal'
+			META		= {'DecorationType', 'GcBaseBuildingObjectDecorationTypes.xml'},
+			BaseBuildingDecorationType = bpart.decorationtype or 'Normal'--	Enum
 		},
 		IsPlaceable					= bpart.isplaceable,				--	b
 		IsDecoration				= bpart.isdecoration,				--	b
@@ -319,11 +327,7 @@ function BaseBuildObjectEntry(bpart)
 		ShowGhosts					= bpart.showghosts or true,
 		GhostsCountOverride			= 0,
 		SnappingDistanceOverride	= 0,
-		RegionSpawnLOD				= 1,
-		NPCInteractionScene			= {
-			META = {'NPCInteractionScene', 'TkModelResource.xml'},
-			Filename = bpart.npcinteractionscene
-		}
+		RegionSpawnLOD				= 1
 	}
 end
 
