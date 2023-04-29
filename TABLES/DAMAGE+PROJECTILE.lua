@@ -4,7 +4,6 @@ mod_desc = [[
 ]]-------------------------------------------------------
 
 local player_damage = {
-	-- {'IMPACTSHIP',		0.01},	-- 10
 	{'BASICDAMAGE',		2},		-- 1
 	{'LASERDAMAGE',		2},		-- 3
 	{'AISHIPGUN',		1.5},	-- 14
@@ -83,7 +82,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DAMAGE+PROJECTILE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{

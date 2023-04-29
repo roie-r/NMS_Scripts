@@ -5,7 +5,7 @@ mod_desc = [[
 
   * source is used for importing the dds files (needs path to the files' folder)
   * The script STILL WORKS if the source path is incorrect or no dds
-   files are found - except no textures will be packed with the mbin files.  
+   files are found - except no textures will be packed with the mbin files.
 ]]-----------------------------------------------------------------
 
 local proc_texture_files = {
@@ -51,7 +51,7 @@ local function GetProcTextures(path, layer)
 		end
 		local con = ''
 		for _,ar in ipairs(arg) do
-			if ar and ar:len() > 0 then
+			if ar and #ar > 0 then
 				con = con..ar..'.'
 			end
 		end

@@ -61,6 +61,86 @@ function ToExml(cls)
 	end
 end
 
+--	Remove the EXML header and data template if found
+--	The template is re-added as a property
+local function UnWrap(data)
+	if data:sub(1, 5) == '<?xml' then
+		local template = data:match('<Data template="([%w_]+)">')
+		return '<Property name="template" value="'..template..'">\n'..
+				data:sub(data:find('<Property'), -8)..'</Property>'
+	else
+		return data
+	end
+end
+
+function PrintExmlAsLua2(exml, indent, com)
+	local function eval(val)
+		-- return a value as its real type
+		if val == 'True' then
+			return true
+		elseif val == 'False' then
+			return false
+		else
+			return '[['..val..']]'
+		end
+	end
+	local tag1	= [[<Property ([%w_]+)="(.+)"[ ]?([/]?)>]]
+	local tag2	= [[<Property name="([%w_]+)" value="(.*)"[ ]?([/]?)>]]
+	indent		= indent or '\t'
+	com			= com or [[']]
+	local tlua	= {'exml_source = '}
+	local lvl	= 0
+	--	array=true when processing an ordered (name) section
+	local array	= false
+	local st_array	= {false}
+	for line in UnWrap(exml):gmatch('([^\n]+)') do -- parse lines
+		if line:match('Property') then -- properties only
+			_,eql = line:gsub('=', '')
+			if eql > 0 then
+				-- choose tag by the count of [=] in a line
+				local att, val, close = line:match(eql > 1 and tag2 or tag1)
+				if close == '' then
+					-- opening a new table
+					array = att == 'name'
+					-- lookup if parent is an array
+					if st_array[#st_array] or att == 'value' then
+						tlua[#tlua+1] = string.format('%s{\n', indent:rep(lvl))
+					else
+						tlua[#tlua+1] = string.format('%s%s = {\n',
+							indent:rep(lvl),
+							att == 'name' and val or att
+						)
+					end
+					table.insert(st_array, att == 'name')
+					lvl = lvl + 1
+					tlua[#tlua+1] = string.format('%sMETA = {%s%s%s, %s%s%s},\n',
+						indent:rep(lvl), com, att, com, com, val, com
+					)
+				else
+					if att == 'value' or array then
+						-- value property or properties in an array
+						tlua[#tlua+1] = string.format('%s{%s = %s%s%s},\n',
+							indent:rep(lvl), att, com, val, com
+						)
+					elseif att ~= 'name' then
+						-- regular property (skips stubs)
+						tlua[#tlua+1] = string.format('%s%s = %s,\n', indent:rep(lvl), att, eval(val))
+					end
+				end
+			else
+				-- closing the table
+				lvl = lvl - 1
+				tlua[#tlua+1] = indent:rep(lvl)..'},\n'
+				table.remove(st_array)
+			end
+		end
+	end
+	-- trim start & end
+	if tlua[2]:len() > 3 then tlua[2] = '{\n' end
+	tlua[#tlua] = '}'
+	return table.concat(tlua)
+end
+
 -- receives a table containing:
 -- 1 string. if ends with [.xml] then attribute is value, otherwise is name
 -- 2 table of data strings
@@ -197,6 +277,40 @@ function FileWrapping(template, data)
 	return '<?xml version="1.0" encoding="utf-8"?><Data template="'..template..'">'..data..'</Data>'
 end
 
+--	Pretty-print a lua table as a ready-to-work script
+--	(Doesn't maintain the original exml class order)
+function TableToString(tbl, name, l)
+	local lvl		= l or 1
+	local indent	= '\t'
+	name			= name or 'source_09'
+	local slua		= {}
+	function slua:add(t)
+		for _,v in ipairs(t) do self[#self+1] = v end
+	end
+	local function key(s)
+		return tonumber(s) and '' or s..' = '
+	end
+	local function eval(v)
+		if v == true then
+			return 'true'
+		elseif v == false then
+			return 'false'
+		else
+			return '[['..v..']]'
+		end
+	end
+	slua:add({key(name), '{\n'})
+	for k, val in pairs(tbl) do
+		if type(val) ~= 'table' then
+			slua:add({indent:rep(lvl), key(k), eval(val), ',\n'})
+		else
+			slua:add({indent:rep(lvl), TableToString(val, k, lvl + 1), ',\n'})
+		end
+	end
+	lvl = lvl - 1
+	slua:add({indent:rep(lvl), '}'})
+	return table.concat(slua)
+end
 
 entity_components = {
 	{
@@ -428,73 +542,35 @@ scene_02 = {
 	}
 }
 
--- print(ToExml(scene_02))
+exml_source = {
+	META = {'template', 'TkAnimMetadata'},
+	FrameCount = 10,
+	NodeCount  = 1,
+	NodeData   = {
+		META = {'name', 'NodeData'},
+		{
+			META = {'value', 'TkAnimNodeData.xml'},
+			Node = 'SpeedCool',
+			CanCompress = true
+		}
+	}
+}
 
-
--- local function AddSceneInteractionNode2(path)
--- 	return [[
--- 	<Property value="TkSceneNodeData.xml">
--- 		<Property name="Name" value="Interaction"/>
--- 		<Property name="Type" value="LOCATOR"/>
--- 		<Property name="Transform" value="TkTransformData.xml">
--- 			<Property name="TransX" value="0"/>
--- 			<Property name="TransY" value="1"/>
--- 			<Property name="TransZ" value="0"/>
--- 			<Property name="RotX" value="0"/>
--- 			<Property name="RotX" value="0"/>
--- 			<Property name="RotX" value="0"/>
--- 			<Property name="ScaleX" value="1"/>
--- 			<Property name="ScaleY" value="1"/>
--- 			<Property name="ScaleZ" value="1"/>
--- 		</Property>
--- 		<Property name="Attributes">
--- 			<Property value="TkSceneNodeAttributeData.xml">
--- 				<Property name="Name" value="ATTACHMENT"/>
--- 				<Property name="Value" value="]]..build_parts..path..[["/>
--- 			</Property>
--- 		</Property>
--- 		<Property name="Children">
--- 			<Property value="TkSceneNodeData.xml">
--- 				<Property name="Name" value="collision99"/>
--- 				<Property name="Type" value="COLLISION"/>
--- 				<Property name="Transform" value="TkTransformData.xml">
--- 					<Property name="TransX" value="0"/>
--- 					<Property name="TransY" value="0"/>
--- 					<Property name="TransZ" value="0"/>
--- 					<Property name="RotX" value="0"/>
--- 					<Property name="RotX" value="0"/>
--- 					<Property name="RotX" value="0"/>
--- 					<Property name="ScaleX" value="1"/>
--- 					<Property name="ScaleY" value="1"/>
--- 					<Property name="ScaleZ" value="1"/>
--- 				</Property>
--- 				<Property name="Attributes">
--- 					<Property value="TkSceneNodeAttributeData.xml">
--- 						<Property name="Name" value="TYPE"/>
--- 						<Property name="Value" value="Sphere"/>
--- 					</Property>
--- 					<Property value="TkSceneNodeAttributeData.xml">
--- 						<Property name="Name" value="RADIUS"/>
--- 						<Property name="Value" value="1"/>
--- 					</Property>
--- 				</Property>
--- 				<Property name="Children"/>
--- 			</Property>
--- 			<Property value="TkSceneNodeData.xml">
--- 				<Property name="Name" value="interaction2"/>
--- 				<Property name="Type" value="LOCATOR"/>
--- 				<Property name="Transform" value="TkTransformData.xml">
--- 					<Property name="TransX" value="0"/>
--- 					<Property name="TransY" value="0"/>
--- 					<Property name="TransZ" value="0"/>
--- 					<Property name="RotX" value="0"/>
--- 					<Property name="RotX" value="0"/>
--- 					<Property name="RotX" value="0"/>
--- 					<Property name="ScaleX" value="1"/>
--- 					<Property name="ScaleY" value="1"/>
--- 					<Property name="ScaleZ" value="1"/>
--- 				</Property>
--- 			</Property>
--- 		</Property>
--- 	</Property>]]
--- end
+local spin_entity = {
+	META = {'template', 'TkAttachmentData'},
+	Components = {
+		META = {'name', 'Components'},
+		{
+			META  = {'value', 'TkRotationComponentData.xml'},
+			Speed = 0.001,
+			Axis  = {
+				META = {'Axis', 'Vector3f.xml'},
+				x = 1,
+				y = 1,
+				z = 1
+			},
+			AlwaysUpdate = true,
+			SyncGroup    = -1
+		}
+	}
+}

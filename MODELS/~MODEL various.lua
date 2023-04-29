@@ -1,5 +1,6 @@
 -----------------------------------------------------------
 mod_desc = [[
+  - large living crystal reward fix
   - Increase scan discovery range for rare resources
   - green cave crystal rewards cave2
   - shorter freighter landing tractor range
@@ -11,10 +12,22 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{
+	--	|large crystal shard| reward fix
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/SENTINELCRYSTALDRONE.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
+				VALUE_CHANGE_TABLE	= {
+					{'Value', 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/SENTINELCRYSTAL/ENTITIES/DATA.ENTITY.MBIN'}
+				}
+			}
+		}
+	},
 	{
 	--	|fainter resource| lights
 		MBIN_FILE_SOURCE	= {
@@ -92,7 +105,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name',	'_Clump1'},
 					{'Name',	'_Clump2'},
 					{'Name',	'_Clump3'},

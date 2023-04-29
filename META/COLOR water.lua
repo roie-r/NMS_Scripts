@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------------------------
 mod_desc = [[
   Add more water color choices
@@ -8,89 +8,89 @@ mod_desc = [[
 
 local water_colors = {
 ---	earth blue
-	'3C5777FF',
-	'51749EFF',
-	'141D28FF',
-	'5C6BF2FF',
-	'DAE4EA33',
+	'3c5777ff',
+	'51749eff',
+	'141d28ff',
+	'5c6bf2ff',
+	'dae4ea33',
 ---	burnt orange
-	'8C6439FF',
-	'C99063FF',
-	'45230EFF',
-	'C27547FF',
-	'C7E19CFF',
+	'8c6439ff',
+	'c99063ff',
+	'45230eff',
+	'c27547ff',
+	'c7e19cff',
 ---	young red ?
-	'985151FF',
-	'B87E7EFF',
-	'4C1C1CFF',
-	'A83838FF',
-	'7AD5EEFF',
+	'985151ff',
+	'b87e7eff',
+	'4c1c1cff',
+	'a83838ff',
+	'7ad5eeff',
 ---	green jade
-	'2B695FFF',
-	'499585FF',
-	'093634FF',
-	'6BE69EFF',
-	'B9E7D6FF',
+	'2b695fff',
+	'499585ff',
+	'093634ff',
+	'6be69eff',
+	'b9e7d6ff',
 ---	royal blue
-	'1A3E58FF',
-	'1D5C79FF',
-	'03295DFF',
-	'2E526BFF',
-	'C0CBEA4D',
+	'1a3e58ff',
+	'1d5c79ff',
+	'03295dff',
+	'2e526bff',
+	'c0cbea4d',
 ---	orange-yellow
-	'AA9C6FFF',
-	'B7AB7EFF',
-	'302503FF',
-	'6D5A1DFF',
-	'E8E2D0FF',
+	'aa9c6fff',
+	'b7ab7eff',
+	'302503ff',
+	'6d5a1dff',
+	'e8e2d0ff',
 ---	orange-yellow (-)
-	'9E885FFF',
-	'AB936DFF',
-	'232006FF',
-	'69632EFF',
-	'D6DDB7FF',
+	'9e885fff',
+	'ab936dff',
+	'232006ff',
+	'69632eff',
+	'd6ddb7ff',
 ---	pale blue-green
-	'5A94A8FF',
-	'6BAABFFF',
-	'0E304AFF',
-	'1E546DFF',
-	'BDEDFCFF',
+	'5a94a8ff',
+	'6baabfff',
+	'0e304aff',
+	'1e546dff',
+	'bdedfcff',
 ---	turquose green
-	'1F8475FF',
-	'257584FF',
-	'183323FF',
-	'294729FF',
-	'C3FFC7FF',
+	'1f8475ff',
+	'257584ff',
+	'183323ff',
+	'294729ff',
+	'c3ffc7ff',
 ---	mid blue
-	'385A68FF',
-	'446C7CFF',
-	'1B2A30FF',
-	'3B8E49FF',
-	'87AFBFFF',
+	'385a68ff',
+	'446c7cff',
+	'1b2a30ff',
+	'3b8e49ff',
+	'87afbfff',
 ---	swamp green
-	'3D4C3DFF',
-	'3E563FFF',
-	'202D53FF',
-	'7B5119FF',
-	'DBC6ADFF',
+	'3d4c3dff',
+	'3e563fff',
+	'202d53ff',
+	'7b5119ff',
+	'dbc6adff',
 ---	swamp mid green
-	'336660FF',
-	'3B776AFF',
-	'03355DFF',
-	'1F613CFF',
-	'DAE4EA66',
+	'336660ff',
+	'3b776aff',
+	'03355dff',
+	'1f613cff',
+	'dae4ea66',
 ---	brown-red
-	'5A4633FF',
-	'775D44FF',
-	'093634FF',
-	'3B8A6BFF',
-	'B9E7D6FF',
+	'5a4633ff',
+	'775d44ff',
+	'093634ff',
+	'3b8a6bff',
+	'b9e7d6ff',
 }
 
 local function GcWaterColourSetting(colors_list)
 	local function hex2rgb(hex)
 		local n = {}
-		for i=1, (hex:len()/2) do
+		for i=1, (#hex/2) do
 			n[#n+1] = tonumber(hex:sub(i*2-1, i*2), 16) * 0.00392
 		end
 		return n
@@ -116,16 +116,16 @@ local function GcWaterColourSetting(colors_list)
 	}
 	-- Assign the exml table with its designated meta
 	local T = {META = {'name', 'Settings'}}
-	local rgbx = {}
+	local rgba = {}
 	for i=0, (#colors_list - 1) do
 		local b5 = i % 5 + 1
 		local c = Convert2Rgba(colors_list[i + 1])
 		-- add the color class's name to the rgb table
-		rgbx[#rgbx+1] = ColorData(c, props[b5])
+		rgba[#rgba+1] = ColorData(c, props[b5])
 		if b5 == 5 then
-			rgbx.META = {'value', 'GcPlanetWaterColourData.xml'}
-			T[#T+1] = rgbx
-			rgbx = {}
+			rgba.META = {'value', 'GcPlanetWaterColourData.xml'}
+			T[#T+1] = rgba
+			rgba = {}
 		end
 	end
 	-- new mbin
@@ -138,7 +138,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META water colors.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	ADD_FILES			= {

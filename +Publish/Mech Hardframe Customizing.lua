@@ -49,7 +49,7 @@ local function GetProcTextures(path, layer)
 		end
 		local con = ''
 		for _,ar in ipairs(arg) do
-			if ar and ar:len() > 0 then
+			if ar and #ar > 0 then
 				con = con..ar..'.'
 			end
 		end
@@ -131,7 +131,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Mech Hardframe Customizing.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddProcTexFiles()
 }

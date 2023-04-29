@@ -1,11 +1,11 @@
----------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
----------------------------------------------------------------------
+----------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+----------------------------------------------
 mod_desc = [[
   Add hotkey saving (quick action emote menu)
   Disable panic falling animation
   Upgrade suit refiner to 3 slots
-]]------------------------------------------------
+]]--------------------------------------------
 
 save_trigger_components = {
 	{
@@ -74,7 +74,7 @@ save_trigger_components = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -146,6 +146,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'AnimationName',			'SAVEGAME'},
 					{'RidingAnimationName',		'SAVEGAME'},
 					{'Filename',				'TEXTURES/UI/HUD/ICONS/PLAYER/SAVE.DDS'},
+					{'NeverShowInMenu',			false},
 					{'MoveToCancel',			false},
 					{'AvailableUnderwater',		true}
 				}

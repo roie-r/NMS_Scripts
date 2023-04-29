@@ -6,7 +6,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC DEBUG.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,14 +15,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					-- {'OctahedralImpostersEnable',			true},
 					{'DisableSaveSlotSorting',				true},
 					{'DisableBaseBuildingLimits',			true},
-					{'DisableProfanityFilter', 				true},
 					{'MultiplePlayerFreightersInASystem',	true},
 
 					-- {'EnableBaseMovingOption',				true},
-					-- {'MoveBaseIndex',						5},
+					-- {'MoveBaseIndex',						3},
 
 					--- FOR TESTING!
 					-- {'ForceSunAngle',						35},	-- 0

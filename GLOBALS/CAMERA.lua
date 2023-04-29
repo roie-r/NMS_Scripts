@@ -7,24 +7,25 @@ mod_desc = [[
 
 local pilot_cam_follows = {
 ---	PRECEDING_KEY				offsetX	offsetY	offsetZ	backMin	backMax	upMin	upMax	lookStick
-	{'CharacterRideCamMedium',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8},
-	{'CharacterRideCamLarge',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8},
-	{'CharacterRideCamHuge',	2.8,	1,		1.2,	-8,		-6,		1,		1.4},
-	{'BuggyFollowCam',			0,		-0.2,	-0.7,	1,		2,		1,		1},
-	{'SubmarineFollowCam',		0,		3.3,	-2.5,	5,		5,		3,		4},
-	{'BikeFollowCam',			0,		0.01,	-0.4,	0,		2,		0.2,	0},
-	{'WheeledBikeFollowCam',	0,		0.4,	-0.7,	0,		-7,		0,		1},
-	{'TruckFollowCam',			0,		2.6,	-2,		4,		4,		2.5,	2.25},
-	{'MechFollowCam',			0.3,	1.9,	0,		5,		3,		1.1,	1},
-	{'MechCombatCam',			-2.3,	2.4,	0,		5,		3,		1.1,	1},
-	{'MechJetpackCam',			0.4,	0.85,	0,		5,		3,		0.5,	1.5},
-	{'SpaceshipFollowCam',		0,		2.6,	-3.2,	-1.4,	0,		1.8,	0,		255},
-	{'DropshipFollowCam',		0,		2.4,	-3.8,	0.2,	0,		2.2,	1.2,	255},
-	{'ShuttleFollowCam',		0,		0.2,	-1,		1,		1,		1,		0,		255},
-	{'RoyalShipFollowCam',		0,		1.4,	-8,		5,		5,		1,		1,		255},
-	{'SailShipFollowCam',		0,		1.2,	-8,		8,		6,		0.8,	0,		255},
-	{'ScienceShipFollowCam',	0,		2.4,	-2,		5,		4,		2.2,	1.2,	255},
-	{'AlienShipFollowCam',		0,		-0.2,	-4,		0,		0,		-0.2,	-2,		255}
+	{'CharacterRideCamMedium',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8			},
+	{'CharacterRideCamLarge',	2.2,	0.6,	1,		0.6,	0.6,	0.6,	0.8			},
+	{'CharacterRideCamHuge',	2.8,	1,		1.2,	-8,		-6,		1,		1.4			},
+	{'BuggyFollowCam',			0,		-0.2,	-0.7,	1,		2,		1,		1			},
+	{'SubmarineFollowCam',		0,		3.3,	-2.5,	5,		5,		3,		4			},
+	{'BikeFollowCam',			0,		0.01,	-0.4,	0,		2,		0.2,	0			},
+	{'WheeledBikeFollowCam',	0,		0.4,	-0.7,	0,		-7,		0,		1			},
+	{'TruckFollowCam',			0,		2.6,	-2,		4,		4,		2.5,	2.25		},
+	{'MechFollowCam',			0.3,	1.9,	0,		5,		3,		1.1,	1			},
+	{'MechCombatCam',			-2.3,	2.4,	0,		5,		3,		1.1,	1			},
+	{'MechJetpackCam',			0.4,	0.85,	0,		5,		3,		0.5,	1.5			},
+	{'SpaceshipFollowCam',		0,		2.6,	-3.2,	-1.4,	0,		1.8,	0,		255	},
+	{'DropshipFollowCam',		0,		2.4,	-3.8,	0.2,	0,		2.2,	1.2,	255	},
+	{'ShuttleFollowCam',		0,		0.2,	-1,		1,		1,		1,		0,		255	},
+	{'RoyalShipFollowCam',		0,		1.4,	-8,		5,		5,		1,		1,		255	},
+	{'SailShipFollowCam',		0,		1.2,	-8,		8,		6,		0.8,	0,		255	},
+	{'ScienceShipFollowCam',	0,		2.4,	-2,		5,		4,		2.2,	1.2,	255	},
+	{'AlienShipFollowCam',		0,		-0.2,	-4,		0,		0,		-0.2,	-2,		255	},
+	{'RobotShipFollowCam',		0,		0.8,	0,		0,		0,		0.2,	0,		255	}
 }
 function pilot_cam_follows:Get(x)
 	return {
@@ -45,23 +46,23 @@ function pilot_cam_follows:Get(x)
 end
 
 local shake_strength_mult = {
-	{'LAND',			1, 		0.5},	-- 1	0.01
-	{'WALKERWALK',		1, 		0.5},	-- 1	0.03
-	{'DOCKINGSHAKE', 	8,		0.4},	-- 1	0.01
-	{'WARP_FRT_ATMOS',	4,		0.33},	-- 0.6	0.01
-	{'WARP_FRG_ATMOS',	4,		0.33},	-- 0.6	0.01
-	{'LARGECREATUREWA', 2, 		0.6},	-- 1	0.02
-	{'RUNNING',			1, 		0.8},	-- 2000	30
-	{'FLYBY',			10,		0.6},	-- 100	2
-	{'VENTBUILDUP',		2, 		0.8},	-- 5	0.05
-	{'VENTEXPLODE',		2, 		0.6},	-- 1	0.3
-	{'EXTRACTOR',		4,		0.2},	-- 8	0.3
-	{'MECHTITANFALL',	1, 		0.35},	-- 1	0.03
-	{'MECHLAND',		1, 		0.35},	-- 1	0.03
-	{'SANDWORMEMERGE',	2, 		0.5},	-- 1.5	0.06
-	{'SANDWORMSHAKE',	2, 		0.8},	-- 1.5	0.004
-	{'WORMGRNDEMERGE',	2, 		0.5},	-- 1.5	0.06
-	{'WORMGRNDROAR',	2, 		0.8},	-- 1.5	0.004
+	{'LAND',			1, 	0.5	},	-- 1	0.01
+	{'WALKERWALK',		1, 	0.5	},	-- 1	0.03
+	{'DOCKINGSHAKE', 	8,	0.4	},	-- 1	0.01
+	{'WARP_FRT_ATMOS',	4,	0.33},	-- 0.6	0.01
+	{'WARP_FRG_ATMOS',	4,	0.33},	-- 0.6	0.01
+	{'LARGECREATUREWA', 2, 	0.6	},	-- 1	0.02
+	{'RUNNING',			1, 	0.8	},	-- 2000	30
+	{'FLYBY',			10,	0.6	},	-- 100	2
+	{'VENTBUILDUP',		2, 	0.8	},	-- 5	0.05
+	{'VENTEXPLODE',		2, 	0.6	},	-- 1	0.3
+	{'EXTRACTOR',		4,	0.2	},	-- 8	0.3
+	{'MECHTITANFALL',	1, 	0.35},	-- 1	0.03
+	{'MECHLAND',		1, 	0.35},	-- 1	0.03
+	{'SANDWORMEMERGE',	2, 	0.5	},	-- 1.5	0.06
+	{'SANDWORMSHAKE',	2, 	0.8	},	-- 1.5	0.004
+	{'WORMGRNDEMERGE',	2, 	0.5	},	-- 1.5	0.06
+	{'WORMGRNDROAR',	2, 	0.8	},	-- 1.5	0.004
 }
 function shake_strength_mult:Get(x)
 	return {
@@ -86,7 +87,7 @@ source_global_camera = 'GCCAMERAGLOBALS.GLOBAL.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -106,28 +107,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
-					{'VehicleExitFlashTime',			-0.3},	-- 0.8
-					{'VehicleExitFlashStrength',		-0.3},	-- 0.8
-					{'BinocularFlashTime',				-0.12},	-- 0.24
-					{'BinocularFlashStrength',			-0.5},	-- 0.9
-					{'MechCameraArmShootOffsetY',		1},		-- 1
-					{'InteractionHeadHeightDefault',	-0.15},	-- 1.65
-					{'PhotoModeVelocitySmoothTime',		1},		-- 0.5
-					{'PhotoModeMoveSpeed',				3},		-- 11
-					{'PhotoModeTurnSpeed',				-38},	-- 60
-					{'PhotoModeMaxDistance',			1000},	-- 150
-					{'PhotoModeMaxDistanceSpace',		5000},	-- 200
-					{'PhotoModeRollSpeed',				-10},	-- 45
-					{'BuildingModeMaxDistance',			1600},	-- 60
-					{'MechCamSpringStrengthMin',		-0.5},	-- 0.6
-					{'MechCamSpringStrengthMax',		-0.5},	-- 0.6
-					{'ModelViewMouseRotateSpeed',		-0.4},	-- 1.6	-- inventory models
-					{'ModelViewMouseRotateSnapStrength',-0.56},	-- 0.94
-					{'BobAmountAbandFreighter',			-0.02},	-- 0.1
-					{'FirstPersonCamHeight',			-0.06},	-- 0.85
+					{'VehicleExitFlashTime',			0.5},	-- 0.8		361
+					{'VehicleExitFlashStrength',		0.5},	-- 0.8
+					{'BinocularFlashTime',				0.12},	-- 0.24
+					{'BinocularFlashStrength',			0.4},	-- 0.9
+					{'MechCameraArmShootOffsetY',		2},		-- 1
+					{'InteractionHeadHeightDefault',	1.5},	-- 1.65		3313
+					{'PhotoModeVelocitySmoothTime',		1.5},	-- 0.5
+					{'PhotoModeMoveSpeed',				14},	-- 11
+					{'PhotoModeTurnSpeed',				22},	-- 60
+					{'PhotoModeMaxDistance',			1200},	-- 150
+					{'PhotoModeMaxDistanceSpace',		5500},	-- 200
+					{'PhotoModeRollSpeed',				35},	-- 45
+					{'BuildingModeMaxDistance',			1500},	-- 60
+					{'MechCamSpringStrengthMin',		0.1},	-- 0.6
+					{'MechCamSpringStrengthMax',		0.1},	-- 0.6
+					{'ModelViewMouseRotateSpeed',		1.2},	-- 1.6	-- inventory models
+					{'ModelViewMouseRotateSnapStrength',0.38},	-- 0.94
+					{'BobAmountAbandFreighter',			0.08},	-- 0.1		6129
+					{'FirstPersonCamHeight',			0.79},	-- 0.85
 				}
 			},
 			{

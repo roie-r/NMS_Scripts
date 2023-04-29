@@ -119,7 +119,7 @@ local source_exp_spawn_table = 'METADATA/SIMULATION/SCENE/EXPERIENCESPAWNTABLE.M
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship spawns & health.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -128,9 +128,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		-- MBIN_FILE_SOURCE	= source_exp_spawn_table,
 		-- EXML_CHANGE_TABLE	= {
 			-- {
-				-- SPECIAL_KEY_WORDS	= {'Id', 'BIO_FRIG'},
+				-- -- SPECIAL_KEY_WORDS	= {'Id', 'BIO_FRIG'},
+				-- SPECIAL_KEY_WORDS	= {'Id', 'RELIC_GATE'},
 				-- VALUE_CHANGE_TABLE	= {
-					-- {'SpawnChance', 90}
+					-- {'SpawnChance', 120}
 				-- }
 			-- }
 		-- }

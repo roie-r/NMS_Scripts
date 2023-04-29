@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SKY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.08',
+	NMS_VERSION				= '4.23',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -78,9 +78,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'PlanetFlightFog', 'GcFogProperties.xml'},
 				VALUE_CHANGE_TABLE 	= {
-					{'FogStrength',			0.8},	-- 0.04
+					{'FogStrength',			0.9},	-- 0.04
 					{'FogMax',				0.95},	-- 1
-					{'HeightFogStrength',	0.8}	-- 0.15
+					{'HeightFogStrength',	0.8},	-- 0.15
+					{'FogHeight',			2}		-- 128
 				}
 			},
 			{

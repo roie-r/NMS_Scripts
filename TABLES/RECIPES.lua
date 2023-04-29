@@ -1,13 +1,13 @@
-----------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
-----------------------------------------------------------------------------------
+---------------------------------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+---------------------------------------------------------------------
 mod_desc = [[
   Add new recipes
   Decrease all refining time by 1/2
   Decrease Gas reaction time by 1/5
-]]--------------------------------------------------------------------------------
+]]-------------------------------------------------------------------
 
-local new_recipe = {
+local new_recipes = {
 	{
 	---	make lots of sand from ferrite
 		id		= 'RECIPE_MORESAND',
@@ -46,10 +46,20 @@ local new_recipe = {
 		{'AF_METAL',		3,	I_.SBT,	true}, -- result!
 		{'AF_METAL',		1,	I_.SBT},
 		{'LAND3',			3,	I_.SBT}
+	},{
+	---	quicksilver from colored sources
+		id		= 'RECIPE_GAS2HG',
+		name	= 'RECIPE_ASTEROID2',
+		make	= 10,
+		cook	= 'False',
+		{'HEXCORE',			1,	I_.PRD,	true}, -- result!
+		{'GAS1',			200,I_.SBT},
+		{'GAS2',			200,I_.SBT},
+		{'GAS3',			200,I_.SBT}
 	}
 }
 
-local function BuildRecipe(rec)
+local function AddNewRecipes()
 	local function addIngredient(x)
 		return {
 			META	= {x[4] and 'Result' or 'value', 'GcRefinerRecipeElement.xml'},
@@ -61,25 +71,24 @@ local function BuildRecipe(rec)
 			}
 		}
 	end
-	local T = {META = {'name', 'Ingredients'}}
-	for i=2, #rec do
-		T[#T+1] = addIngredient(rec[i])
+	local function BuildRecipe(rec)
+		local T = {META = {'name', 'Ingredients'}}
+		for i=2, #rec do
+			T[#T+1] = addIngredient(rec[i])
+		end
+		return {
+			META		= {'value', 'GcRefinerRecipe.xml'},
+			Id			= rec.id,
+			RecipeType	= rec.name,
+			RecipeName	= rec.name,
+			TimeToMake	= rec.make,
+			Cooking		= rec.cook,
+			Result		= addIngredient(rec[1]),
+			Ingredients	= T
+		}
 	end
-	return {
-		META		= {'value', 'GcRefinerRecipe.xml'},
-		Id			= rec.id,
-		RecipeType	= rec.name,
-		RecipeName	= rec.name,
-		TimeToMake	= rec.make,
-		Cooking		= rec.cook,
-		Result		= addIngredient(rec[1]),
-		Ingredients	= T
-	}
-end
-
-local function AddNewRecipes()
 	local T = {}
-	for _,r in ipairs(new_recipe) do
+	for _,r in ipairs(new_recipes) do
 		T[#T+1] = BuildRecipe(r)
 	end
 	return ToExml(T)
@@ -88,13 +97,13 @@ end
 local function ChangeTimeToMakeRange(id1, id2, multiplier)
 	local T = {}
 	T[1] = {
-		FSKWG				= {},
+		SKW					= {},
 		INTEGER_TO_FLOAT	= 'Preserve',
 		MATH_OPERATION 		= '*',
 		VALUE_CHANGE_TABLE 	= { {'TimeToMake',	multiplier} }
 	}
 	for i = id1, id2 do
-		T[1].FSKWG[#T[1].FSKWG + 1] = {'Id', 'REFINERECIPE_'..i}
+		T[1].SKW[#T[1].SKW + 1] = {'Id', 'REFINERECIPE_'..i}
 	end
 	return T
 end
@@ -104,9 +113,8 @@ local source_table_recipe = 'METADATA/REALITY/TABLES/NMS_REALITY_GCRECIPETABLE.M
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

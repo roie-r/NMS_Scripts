@@ -7,7 +7,7 @@ mod_desc = [[
 
 local function ColorFromHex(hex)
 	local rgb = {{'R', 1}, {'G', 1}, {'B', 1}, {'A', 1}}
-	for i=1, (hex:len()/2) do
+	for i=1, (#hex/2) do
 		rgb[i][2] = tonumber(hex:sub(i*2-1, i*2), 16) * 0.00392
 	end
 	return rgb
@@ -16,7 +16,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.08',
+	NMS_VERSION				= '4.23',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -25,36 +25,35 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'GCGAMEPLAYGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'WarpsBetweenBattles',					3},		-- 5
-					{'HoursBetweenBattles',					2},		-- 3
-					{'CargoShieldStrength',					0.22},	-- 0.5		4413
-					{'TechDamageChanceShieldedMax',			-0.3},	-- 0.5
-					{'TechDamageChanceShieldLevelMax',		-0.6},	-- 0.75
-					{'ShipScanPlanetRechargeMultiplier',	-0.5},	-- 1
-					{'ShipScanSpaceRechargeMultiplier',		-0.1},	-- 0.3
-					{'NormalModeHeatBonus',					1},		-- 2
-					{'OverheatGenerosity',					0.05},	-- 1.05
-					{'SurveyMaxDistance',					200},	-- 400
-					{'FreighterStartPecent',				-50},	-- 60
-					{'LowSentinelProbability',				0.15},	-- 0.55
-					{'AggressiveSentinelProbability',		-0.08},	-- 0.13
-					{'MaxDronesLowSurvival',				-1},	-- 1
-					{'ShipInteractRadius',					800},	-- 50
-					{'ZoomFindBuildingRange',				400},	-- 600
-					{'TorchFoV',							-40},	-- 120
-					{'TorchStrength',						1.5},	-- 3.5
-					{'TorchDimFoV',							3},		-- 65
-					{'TorchDimStrength',					1.2},	-- 1.5
-					{'InteractionTorchStrength',			-0.8},	-- 2
-					{'UndergroundTorchFoV',					-4},	-- 70
-					{'UndergroundTorchStrength',			0.7},	-- 2.5
-					{'TorchOffsetY',						0.1},	-- 0.5
-					{'TorchOffsetZ',						-0.65},	-- -0.2
-					{'TorchFollowCameraTime',				-0.08},	-- 0.15
-					{'LightStrength',						0.6},	-- 1 (build selected item light)
-					-- {'PulseEncounterCheckTimer',			1},		-- 1
+					{'UseSecondaryBiomeSubstances',			true},
+					{'CargoShieldStrength',					0.72},	-- 0.5		4425
+					{'NormalModeHeatBonus',					3},		-- 2
+					{'ShipMiningMul',						0.8},	-- 0.2
+					{'OverheatGenerosity',					1.1},	-- 1.05
+					{'SurveyMaxDistance',					100},	-- 400
+					{'WarpsBetweenBattles',					7},		-- 5		5054
+					{'HoursBetweenBattles',					4},		-- 3
+					{'TechDamageChanceShieldedMax',			0.2},	-- 0.5
+					{'TechDamageChanceShieldLevelMax',		0.2},	-- 0.75
+					{'ShipScanPlanetRechargeMultiplier',	0.5},	-- 1
+					{'ShipScanSpaceRechargeMultiplier',		0.2},	-- 0.3
+					{'AggressiveSentinelProbability',		0.08},	-- 0.13		5093
+					{'LowSentinelProbability',				0.1},	-- 0.55
+					{'FreighterStartPecent',				50},	-- 60
+					{'ShipInteractRadius',					850},	-- 50		5279
+					{'ZoomFindBuildingRange',				1000},	-- 600
+					{'TorchFoV',							80},	-- 120		6102
+					{'TorchStrength',						4.8},	-- 3.5
+					{'TorchDimFoV',							68},	-- 65
+					{'TorchDimStrength',					2.7},	-- 1.5
+					{'InteractionTorchStrength',			1.2},	-- 2
+					{'UndergroundTorchFoV',					66},	-- 70
+					{'UndergroundTorchStrength',			3},		-- 2.5
+					{'TorchOffsetY',						0.5},	-- -0.5
+					{'TorchOffsetZ',						-0.85},	-- -0.75
+					{'TorchFollowCameraTime',				0.08},	-- 0.15
+					{'LightStrength',						1.6},	-- 1 (build selected item light)
 				}
 			},
 			{
@@ -129,20 +128,42 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				MATH_OPERATION 		= '*',
-				REPLACE_TYPE 		= 'All',
-				PRECEDING_KEY_WORDS = 'FreighterTimers',
+				PRECEDING_KEY_WORDS = {'FreighterTimers', 'High'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			2},
-					{'y',			2}
+					{'x',			4},	-- 10
+					{'y',			4}	-- 30
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
-				REPLACE_TYPE 		= 'All',
-				PRECEDING_KEY_WORDS = 'FlybyTimers',
+				PRECEDING_KEY_WORDS = {'FreighterTimers', 'Normal'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			3},
-					{'y',			3}
+					{'x',			3},	-- 60
+					{'y',			2}	-- 240
+				}
+			},
+			{
+				MATH_OPERATION 		= '*',
+				PRECEDING_KEY_WORDS = {'FlybyTimers', 'High'},
+				VALUE_CHANGE_TABLE 	= {
+					{'x',			5},	-- 20
+					{'y',			7}	-- 40
+				}
+			},
+			{
+				MATH_OPERATION 		= '*',
+				PRECEDING_KEY_WORDS = {'FlybyTimers', 'Normal'},
+				VALUE_CHANGE_TABLE 	= {
+					{'x',			4},	-- 60
+					{'y',			5}	-- 60
+				}
+			},
+			{
+				MATH_OPERATION 		= '*',
+				PRECEDING_KEY_WORDS = {'FlybyTimers', 'Low'},
+				VALUE_CHANGE_TABLE 	= {
+					{'x',			1.5},-- 200
+					{'y',			2.5} -- 600
 				}
 			},
 			{

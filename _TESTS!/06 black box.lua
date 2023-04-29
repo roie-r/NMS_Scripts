@@ -1,10 +1,10 @@
 --------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 6 black box.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

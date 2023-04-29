@@ -1,5 +1,8 @@
 ---------------------------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+---------------------------------------------------------------
 mod_desc = [[
+  Same underwater freighter crash site as on land
   Reduce creature damage from laser
   Remove excesive listing of proc upgrades in the catalogue
   Restore old creature-scanned icon; Remove selected HUD icons
@@ -14,10 +17,24 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{
+	--	|same underwater freigher|
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS	= {'WaterCrashedFreighter', 'GcBuildingFilename.xml'},
+				PRECEDING_KEY_WORDS = 'Scene',
+				VALUE_CHANGE_TABLE 	= {
+					{'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'}
+				}
+			}
+		}
+	},
 	{
 	--	|no creature laser damage|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/DEFAULTREALITY.MBIN',
@@ -41,11 +58,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-	--	|no procs in catalogue|
+	--	|no procedurals in catalogue|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/CATALOGUECRAFTING.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'CategoryID', 'UI_PORTAL_CAT_TECH_SUIT'}, -- keep s-class >> {^U_.+[124X]X$}
 					{'CategoryID', 'UI_PORTAL_CAT_TECH_SHIP'}, -- keep s-class >> {^U_.+[123X]$}
 					{'CategoryID', 'UI_PORTAL_CAT_TECH_TOOL'},
@@ -61,6 +78,29 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'NMSString0x10.xml',
 				VALUE_MATCH			= '{^U_FR_.+[123]$}', -- keep s-class
 				REMOVE				= 'Section'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'CategoryID', 'UI_PORTAL_CAT_TECH_WEIRD'},
+				PRECEDING_KEY_WORDS = 'Items',
+				ADD					= (
+					function()
+						local T = {}
+						for _,id in ipairs({
+							'LIFESUP_ROBO',
+							'LAUNCHER_ROBO',
+							'SHIPJUMP_ROBO',
+							'HYPERDRIVE_ROBO',
+							'SHIPSHIELD_ROBO',
+							'SHIPGUN_ROBO'
+						}) do
+							T[#T+1] = {
+								META	= {'value', 'NMSString0x10.xml'},
+								Value	= id
+							}
+						end
+						return ToExml(T)
+					end
+				)()
 			}
 		}
 	},
@@ -71,11 +111,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS = 'CreatureDiscovered',
 				VALUE_CHANGE_TABLE 	= {
-					{'Filename', 'TEXTURES/UI/HUD/ICONS/CREATURE.DISCOVERED.DDS'}
+					{'Filename', 'TEXTURES/UI/HUD/ICONS/CREATURE.GREEN2.DDS'}
 				}
 			},
 			{
-				FOREACH_SKW_GROUP = {
+				SPECIAL_KEY_WORDS = {
 					{'MessageBeacon',		'GcScannerIcon.xml'},
 					{'MessageBeaconSmall',	'GcScannerIcon.xml'},
 					{'FreighterBase',		'GcScannerIcon.xml'},
@@ -142,20 +182,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|restore eyes to head4| alien
-		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'GroupID', 'FOURTH_HEAD_1'},
-				PRECEDING_KEY_WORDS = 'Descriptors',
-				ADD 				= [[
-					<Property value="NMSString0x20.xml">
-						<Property name="Value" value="_EYES_DEFAULT1"/>
-					</Property>]]
-			}
-		}
-	},
+	-- {
+	-- --	|restore eyes to head4| alien
+		-- MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS 	= {'GroupID', 'FOURTH_HEAD_1'},
+				-- PRECEDING_KEY_WORDS = 'Descriptors',
+				-- ADD 				= [[
+					-- <Property value="NMSString0x20.xml">
+						-- <Property name="Value" value="_EYES_DEFAULT1"/>
+					-- </Property>]]
+			-- }
+		-- }
+	-- },
 	{
 	--	|better clouds|
 		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',

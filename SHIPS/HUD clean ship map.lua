@@ -6,7 +6,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP clean HUD map.pak',
 	MOD_AUTHOR			= 'Lo2k; script by lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -25,7 +25,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'MaterialFlag', '_F49_DISABLE_AMBIENT'},
 					{'MaterialFlag', '_F50_DISABLE_POSTPROCESS'},
 					{'MaterialFlag', '_F60_ACUTE_ANGLE_FADE'},

@@ -1,5 +1,6 @@
 ------------------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/scene_tools.lua')
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 ------------------------------------------------------------------------------------------
 mod_desc = [[
   procedurally placed containers in the crashed freighter - instead of constant placement
@@ -100,7 +101,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Crashed Freighter Procedural Containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.08,
+	NMS_VERSION			= 4.23,
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

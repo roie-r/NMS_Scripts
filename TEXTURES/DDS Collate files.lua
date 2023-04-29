@@ -22,7 +22,9 @@ local dds_sources = {
 			{'BLANK.64.DDS',	'UI/HUD/CROSSHAIRS/LARGETARGET.DDS'},
 			{'BLANK.64.DDS',	'UI/HUD/CROSSHAIRTARGET.DDS'},
 			-- hide inv tab bulletpoint
-			{'BLANK.32.DDS',	'UI/FONTS/BULLETPOINT.DDS'}
+			{'BLANK.32.DDS',	'UI/FONTS/BULLETPOINT.DDS'},
+			-- just the blank
+			{'BLANK.64.DDS'},
 		}
 	},{
 	---	clean non-chipped fighter paint & white ship lights
@@ -32,11 +34,19 @@ local dds_sources = {
 			{'*.DDS'}
 		}
 	},{
-	---	shiny-er metalic explorers
-		source = 'Ship/Scientific/',
-		target = 'COMMON/SPACECRAFT/SCIENTIFIC/SHARED/',
+	---	sentinel ship blue lights
+		source = 'Ship/Sentinel/',
+		target = 'COMMON/ROBOTS/SHARED/',
 		names  = {
-			{'*.DDS'}
+			{'LIGHTS.?.DDS'}
+		}
+
+	},{
+	---	blue theme speeder (and bit more reflective)
+		source = 'Ship/Speeder/',
+		target = 'COMMON/SPACECRAFT/FIGHTERS/',
+		names  = {
+			{'VRSPEEDER.*.DDS'}
 		}
 	},{
 	---	Dimmer sailship sail
@@ -44,6 +54,13 @@ local dds_sources = {
 		target = 'COMMON/SPACECRAFT/FIGHTERS/SAILS/',
 		names  = {
 			{'*.DDS'}
+		}
+	},{
+	---	vehicle buggy/bike headlights
+		source = 'Vehicle/',
+		target = 'COMMON/VEHICLES/BUGGY/',
+		names  = {
+			{'BUGGYLIGHTS.1.DDS'}
 		}
 	},{
 	---	carbon-fiber laylaps
@@ -87,8 +104,8 @@ local dds_sources = {
 			{'MINERAL2.BASE.DDS',	'CRYSTAL/LARGEPROP/MINERAL2.BASE.DDS'}
 		}
 	},{
-	---	hangar crane
-		source = 'Building/Crane/',
+	---	hangar crane; includes light used in the sentinel ship
+		source = 'Building/PirateStation/',
 		target = 'SPACE/SPACESTATION/PIRATES/',
 		names  = {
 			{'*.DDS'}
@@ -136,7 +153,7 @@ local dds_sources = {
 			{'THIRDPERSONSHIP.DDS', 'THIRDPERSONCHARACTER.DDS'},
 		}
 	},{
-	---	 ICONS: translucent hud icons
+	---	 ICONS: HUD translucent icons
 		source = 'Icons/Hud/',
 		target = 'UI/HUD/ICONS/',
 		names  = {
@@ -147,7 +164,7 @@ local dds_sources = {
 			{'Player/*.DDS',		'PLAYER/*.DDS'},
 			{'BLACKHOLE.DDS',		'MISSIONS/MISSION.BLACKHOLE.DDS'},
 			-- discovered creature HUD icon (requires change in SCANNERICONS.MBIN)
-			{'CREATURE.DISCOVERED.DDS'}
+			{'CREATURE.*.DDS'}
 		}
 	},{
 	---	player: vkyeen gloves
@@ -166,23 +183,23 @@ local dds_sources = {
 	}
 }
 
-local function BuildAddFilesTable()
-	local T = {}
-	for _,p in pairs(dds_sources) do
-		for _,s in ipairs(p.names) do
-			T[#T+1] = {
-				EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/'..p.source..s[1],
-				FILE_DESTINATION	 = 'TEXTURES/'..(p.target..(s[2] or s[1])):upper(),
-			}
-		end
-	end
-	return T
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
-	ADD_FILES			= BuildAddFilesTable()
+	ADD_FILES			= (
+		function()
+			local T = {}
+			for _,rp in pairs(dds_sources) do
+				for _,f in ipairs(rp.names) do
+					T[#T+1] = {
+						EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/'..rp.source..f[1],
+						FILE_DESTINATION	 = 'TEXTURES/'..(rp.target..(f[2] or f[1])):upper(),
+					}
+				end
+			end
+			return T
+		end
+	)()
 }

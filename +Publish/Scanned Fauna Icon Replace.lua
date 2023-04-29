@@ -1,19 +1,19 @@
---------------------------------------------------------------------------
+------------------------------------------------------------
 mod_desc = [[
   Restore the scanned fauna icon to the white circle
   
   ** CREATURE.SCANNED2.DDS is NOT an original game resource
-]]------------------------------------------------------------------------
+]]----------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.scanned fauna icon replace.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{
-			EXTERNAL_FILE_SOURCE= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Hud/CREATURE.DISCOVERED.DDS',
-			FILE_DESTINATION	= 'TEXTURES/UI/HUD/CREATURE.DISCOVERED.DDS'
+			EXTERNAL_FILE_SOURCE= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Hud/CREATURE.GREEN2.DDS',
+			FILE_DESTINATION	= 'TEXTURES/UI/HUD/CREATURE.GREEN2.DDS'
 		}
 	},
 	MODIFICATIONS 		= {{
@@ -24,7 +24,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS = 'CreatureDiscovered',
 				VALUE_CHANGE_TABLE 	= {
-					{'Filename', 'TEXTURES/UI/HUD/CREATURE.DISCOVERED.DDS'}
+					{'Filename', 'TEXTURES/UI/HUD/CREATURE.GREEN2.DDS'}
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 ------------------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/scene_tools.lua')
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 ------------------------------------------------------------------------------------------
 mod_desc = [[
   proceduraly-placed containers in the crashed freigther - instead of constant placement
@@ -100,7 +101,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL crashed freighter proc containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.08,
+	NMS_VERSION			= 4.23,
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -120,7 +121,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'HeightAdjust3'},
 					{'Name', 'HeightAdjust4'}
 				},

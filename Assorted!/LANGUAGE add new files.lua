@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 ----------------------------------------------------------------------------------------
 mod_desc = [[
   Add a new language file.
@@ -15,7 +15,7 @@ local text_lines = {
 	locale	= 'NMS_Loc88',
 	default	= 'EN',
 	entries	= {
-	---	New text
+	---	New text ---
 		SUPERFOOD_NAME = {
 			EN = [[GLOWING PELLETS]],
 		},
@@ -57,11 +57,11 @@ local text_lines = {
 			EN = [[Personal Shield]],
 			FR = [[Bouclier personnel]]
 		},
-		BODYSHIELD_SUB = {
+		BODYSHIELD_SUBTITLE = {
 			EN = [[Cheating anti-cheat protection]],
 			FR = [[Protection anti-triche anti-triche]]
 		},
-		BODYSHIELD_DESC = {
+		BODYSHIELD_DESCRIPTION = {
 			EN = [[Protects your person from <RED>Malevolent<> travelers, Atlas <STELLAR>glitches<> and various annoyances]],
 		},
 		UI_GEODE_NAME_CAVE = {
@@ -85,8 +85,43 @@ local text_lines = {
 		UI_SGUNK5_SYM	= { EN = [[œ]] },
 		UI_TIMEDUST_SYM	= { EN = [[Љ]] },
 		UI_TIMEMILK_SYM	= { EN = [[Ҩ]] },
+		UI_ROBOT2_SYM	= { EN = [[¤]] },
 
-	---	Existing text overwritten
+	---	Existing text overwritten ---
+
+		UI_SENT_LASER_NAME = {
+			EN = [[MULTIPLEX LASER]],
+		},
+		UI_SENT_LASER_NAME_L = {
+			EN = [[Multiplex Laser]],
+		},
+		UI_SHIPGUN_ROBO_NAME = {
+			EN = [[PREVALENCE GUN]],
+		},
+		UI_SHIPGUN_ROBO_NAME_L = {
+			EN = [[Prevalence Gun]],
+		},
+		UI_SHIPJUMP_ROBO_NAME = {
+			EN = [[OSCILLATION GENERATOR]],
+		},
+		UI_SHIPJUMP_ROBO_NAME_L = {
+			EN = [[Oscillation Generator]],
+		},
+		UI_HYPERDRIVE_ROBO_NAME = {
+			EN = [[SANGUINE CORE]],
+		},
+		UI_HYPERDRIVE_ROBO_NAME_L = {
+			EN = [[Sanguine Core]],
+		},
+		UI_LIFESUP_ROBO_NAME = {
+			EN = [[GLASS/BOUNDARY TERMINAL]],
+		},
+		UI_LIFESUP_ROBO_NAME_L = {
+			EN = [[Glass/Boundary Terminal]],
+		},
+		UI_LIFESUP_ROBO_SUB = {
+			EN = [[Pilot Interface]],
+		},
 		MECH_SCAN_FACT = {
 			EN = [[Industrial Facilities]],
 		},
@@ -145,6 +180,7 @@ local text_lines = {
 		UI_NEXUS_TECHFRAG_TITLE			= { EN = ' ' },
 		UI_NOTIFY_EXOCRAFT_TIP_TITLE	= { EN = ' ' },
 		UI_NOTIFY_SHIP_TIP_TITLE		= { EN = ' ' },
+		UI_NOTIFY_SHIP_SUMMON			= { EN = ' ' },
 		UI_NOTIFY_TAKEOFF				= { EN = ' ' },
 		UI_NOTIFY_TIP_TITLE				= { EN = ' ' },
 	}
@@ -171,7 +207,6 @@ local languages = {
 	JA = 'Japanese',
 	US = 'USEnglish'
 }
-
 
 local function InsertCharEntities(s)
 	local entity = {
@@ -209,7 +244,9 @@ local function AddLanguageFiles()
 	local lang_codes = {}
 	-- collect all language codes from entries
 	for _,e in pairs(text_lines.entries) do
-		for k,_ in pairs(e) do lang_codes[k] = 0 end
+		for k,_ in pairs(e) do
+			lang_codes[k] = 0
+		end
 	end
 	local T = {}
 	for code,_ in pairs(lang_codes) do
@@ -228,7 +265,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

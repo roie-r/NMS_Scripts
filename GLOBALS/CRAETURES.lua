@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CRAETURES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -20,46 +20,39 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
+					{'RideSpeedSlow', 					1.2},	-- 0.5
+					{'RideSpeedFast',					3},		-- 2
+					{'WeaponRepelRange',				4},		-- 18			707
+					{'WeaponRepelAmount',				1},		-- 2
+					{'RepelRange',						4},		-- 5			
+					{'SandWormChangeDirectionTime',		2},		-- 1
 					{'SandWormJumpHeight',				700},	-- 120 --> 700
 					{'SandWormSubmergeDepth',			-500},	-- 100 --> 400
-				}
-			},
-			{
-				MATH_OPERATION 		= '+',
-				INTEGER_TO_FLOAT	= 'Force',
-				VALUE_CHANGE_TABLE 	= {
-					{'RepelRange',						-3},	-- 5
-					{'WeaponRepelRange',				-16},	-- 18
-					{'WeaponRepelAmount',				-1},	-- 2
-					{'PercentagePlayerPredators',		-0.25},	-- 0.5
-					{'PlayerPredatorBoredomDistance',	-15},	-- 80
-					{'PredatorRegainInterestTime',		10},	-- 30
-					{'SandWormChangeDirectionTime',		1},		-- 1
-					{'SandWormJumpTime',				1},		-- 3
-					{'SandWormSubmergeTime',			-2},	-- 3
-					{'SandWormSurfaceTime',				0},		-- 1
-					{'SandWormMaxJumps',				3},		-- 5
-					{'SandWormDespawnDist',				2000},	-- 1500
-					{'SandWormSpawnTimer',				-120},	-- 300
+					{'SandWormJumpTime',				4},		-- 3		
+					{'SandWormSubmergeTime',			1},		-- 3
+					{'SandWormMaxJumps',				8},		-- 5
+					{'SandWormDespawnDist',				3600},	-- 1500
+					{'SandWormSpawnTimer',				220},	-- 300
 					{'SandWormSpawnChanceMin',			0.07},	-- 0.01
 					{'SandWormSpawnChanceMax',			0.05},	-- 0.2
 					{'SandWormSpawnChanceInfested',		-0.2},	-- 1
-					{'SpawnOnscreenDist',				20},	-- 100
-					{'FadeDistance',					20},	-- 10
-					{'MinFade',							25},	-- 30
-					{'RideSpeedSlow', 					0.7},	-- 0.5
-					{'RideSpeedFast',					1},		-- 2
-					{'PetMaxSizeOffPlanet',				3},		-- 1
-					{'PetTeleportDistOnPlanet',			10},	-- 150
-					{'PetWalkAtHeelChanceDevoted',		-0.4},	-- 0.9
-					{'PetWalkAtHeelChanceIndependent',	-0.05},	-- 0.1
-					{'PetWalkAtHeelDistMin',			4},		-- 0
-					{'PetWalkAtHeelDistMax',			6},		-- 4
-					{'PetRunAtHeelDistMin', 			5},		-- 11
-					{'PetRunAtHeelDistMax',				6},		-- 20
-					{'PetFollowRunPlayerDistance',		12},	-- 4
-					{'PetFollowRange',					8},		-- 2
-					{'PetAnimSpeedMax',					-0.5},	-- 1.5
+					{'PercentagePlayerPredators',		0.25},	-- 0.5
+					{'PlayerPredatorBoredomDistance',	64},	-- 80
+					{'PredatorRegainInterestTime',		20},	-- 30
+					{'SpawnOnscreenDist',				0.68},	-- 0.7			982
+					{'FadeDistance',					30},	-- 10
+					{'MinFade',							52},	-- 30
+					{'PetMaxSizeOffPlanet',				4},		-- 1
+					{'PetTeleportDistOnPlanet',			165},	-- 150
+					{'PetWalkAtHeelChanceDevoted',		0.5},	-- 0.9
+					{'PetWalkAtHeelChanceIndependent',	0.05},	-- 0.1
+					{'PetWalkAtHeelDistMin',			5},		-- 0
+					{'PetWalkAtHeelDistMax',			8},		-- 4
+					{'PetRunAtHeelDistMin', 			16},	-- 11
+					{'PetRunAtHeelDistMax',				20},	-- 20
+					{'PetFollowRunPlayerDistance',		16},	-- 4
+					{'PetFollowRange',					10},	-- 2
+					{'PetAnimSpeedMax',					1},		-- 1.5
 				}
 			},
 			{

@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -29,7 +29,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SPACEGUNK4',	'UI_SGUNK4_SYM'},
 					{'SPACEGUNK5',	'UI_SGUNK5_SYM'},
 					{'TIMEDUST',	'UI_TIMEDUST_SYM'},
-					{'TIMEMILK',	'UI_TIMEMILK_SYM'}
+					{'TIMEMILK',	'UI_TIMEMILK_SYM'},
+					{'ROBOT2',		'UI_ROBOT2_SYM'}
 				}) do
 					T[#T+1] = {
 						SPECIAL_KEY_WORDS	= {'ID', sym[1]},
@@ -51,7 +52,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Id', 'C_INV_WEAP_C'},
 					{'Id', 'C_INV_WEAP_CR'},
 					{'Id', 'C_INV_SAL_CASH'},
@@ -72,7 +73,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		-- MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/INVENTORYTABLE.MBIN',
 		-- EXML_CHANGE_TABLE	= {
 			-- {
-				-- FOREACH_SKW_GROUP 	= {
+				-- SPECIAL_KEY_WORDS 	= {
 					-- {'ChestSmall', 'GcInventoryLayoutGenerationDataEntry.xml'},
 					-- {'ChestMedium', 'GcInventoryLayoutGenerationDataEntry.xml'},
 					-- {'ChestLarge', 'GcInventoryLayoutGenerationDataEntry.xml'},

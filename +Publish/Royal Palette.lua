@@ -83,7 +83,7 @@ local function RebuildPaletteColors()
 	end
 	local function hex2rgb(hex)
 		local n = {}
-		for i=1, hex:len()-1, 2 do
+		for i=1, #hex-1, 2 do
 			table.insert(n, trunc(tonumber(hex:sub(i, i+1), 16) / 255, 3))
 		end
 		return n
@@ -120,7 +120,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.royal palette.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

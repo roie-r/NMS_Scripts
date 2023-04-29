@@ -1,4 +1,6 @@
 ----------------------------------------------------------
+-- EXCLUDED FROM BATCH
+----------------------------------------------------------
 mod_desc = [[
   Disable storm weather filters
   remove screen filter from scanning and surveying binocs
@@ -7,7 +9,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META screen filters.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

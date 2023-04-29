@@ -56,9 +56,9 @@ local function BuildExmlChangeTable(tbl)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__SHIP sailship various.pak',
+	MOD_FILENAME 		= '__SHIP sailship.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -80,7 +80,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			-- delete sails
 			-- {
-				-- FOREACH_SKW_GROUP 	= {
+				-- SPECIAL_KEY_WORDS 	= {
 					-- {'Name', '_Sails_A'},
 					-- {'Name', '_Sails_B'},
 					-- {'Name', '_Sails_C'}
@@ -89,16 +89,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- }
 		}
 	},
-	-- {
-	-- --	|disable sail unfolding|
-		-- MBIN_FILE_SOURCE 	= 'MODELS/COMMON/SPACECRAFT/SAILSHIP/SAILSHIPPARTS/SAILSHIPANIMS/SAILSHIP_SHARED/ENTITIES/ROOTJNT.ENTITY.MBIN',
-		-- EXML_CHANGE_TABLE 	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Anim', 'LOWALTITUDE'},
-				-- REMOVE				= 'Section',
-			-- }
-		-- }
-	-- },
 	{
 	--	|sailship logo decals|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SAILSHIP/SAILSHIP_PROC/DECALS_NUMBERDECAL1.MATERIAL.MBIN',
@@ -135,4 +125,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	}
+	-- {
+	-- --	|disable sail unfolding|
+		-- MBIN_FILE_SOURCE 	= 'MODELS/COMMON/SPACECRAFT/SAILSHIP/SAILSHIPPARTS/SAILSHIPANIMS/SAILSHIP_SHARED/ENTITIES/ROOTJNT.ENTITY.MBIN',
+		-- EXML_CHANGE_TABLE 	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Anim', 'LOWALTITUDE'},
+				-- REMOVE				= 'Section',
+			-- }
+		-- }
+	-- },
 }}}}

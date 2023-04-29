@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE CONSUMABLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -43,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RewardID',				'RS_QUICKSILV_T'},
 					{'ButtonLocID',				'UI_CONSUME'},
 					{'ButtonSubLocID',			''},
-					{'CloseInventoryWhenUsed',	true},
+					{'CloseInventoryWhenUsed',	false},
 					{'DestroyItemWhenConsumed',	true}
 				}
 			},
@@ -54,21 +54,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SECTION_EDIT 		= 'gc_consumable_item',
 				VALUE_CHANGE_TABLE 	= {
-					{'ID',			'SUPERFOOD'},
-					{'RewardID',	'HEALTH_MAJOR'}
+					{'ID',						'SUPERFOOD'},
+					{'RewardID',				'HEALTH_MAJOR'},
+					{'CloseInventoryWhenUsed',	true},
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Table',
 				SECTION_ADD_NAMED 	= 'gc_consumable_item'
-			},
-			-- {
-				-- PRECEDING_KEY_WORDS = 'Table',
-				-- ADD 				=
-					-- AddConsumableItem({id='HEXCORE', reward='RS_QUICKSILV_T'})
-					-- -- ..
-					-- -- AddConsumableItem({id='WHALE_BEACON', reward='WHALE_SINGING', closeinv=true})
-			-- }
+			}
 		}
 	}
 }}}}

@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 --------------------------------------------------------------------------------------
 mod_desc = [[
   Rebuild and add to unlockable items tree
@@ -58,12 +58,20 @@ local unlockable_items = {
 		cost	= 'NANITES',
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
-			Unlockable	= 'SHIPJUMP_ALIEN',
+			Unlockable	= 'LIFESUP_ROBO',
 			{
 				META	= mt_child,
 				{
 					META	= mt_ulitn,
-					Unlockable	= 'WARP_ALIEN'
+					Unlockable	= 'SHIPJUMP_ALIEN',
+					{
+						META	= mt_child,
+						{
+							META = mt_ulitn,
+							Unlockable	= 'WARP_ALIEN'
+						}
+					}
+					
 				},
 				{
 					META	= mt_ulitn,
@@ -99,6 +107,35 @@ local unlockable_items = {
 						{
 							META = mt_ulitn,
 							Unlockable	= 'CARGO_S_ALIEN'
+						}
+					}
+				},
+				{
+					META	= mt_ulitn,
+					Unlockable	= 'SHIPJUMP_ROBO',
+					{
+						META	= mt_child,
+						{
+							META = mt_ulitn,
+							Unlockable	= 'LAUNCHER_ROBO',
+							{
+								META	= mt_child,
+								{
+									META = mt_ulitn,
+									Unlockable	= 'HYPERDRIVE_ROBO'
+								}
+							}							
+						}
+					}
+				},
+				{
+					META	= mt_ulitn,
+					Unlockable	= 'SHIPGUN_ROBO',
+					{
+						META	= mt_child,
+						{
+							META = mt_ulitn,
+							Unlockable	= 'SHIPSHIELD_ROBO'						
 						}
 					}
 				}
@@ -360,7 +397,14 @@ local unlockable_items = {
 								META	= mt_child,
 								{
 									META = mt_ulitn,
-									Unlockable	= 'UT_MINER'
+									Unlockable	= 'UT_MINER',
+									{
+										META	= mt_child,
+										{
+											META = mt_ulitn,
+											Unlockable	= 'SENT_LASER'
+										}
+									}
 								}
 							}
 						}
@@ -1582,11 +1626,11 @@ end
 
 local function AddAllTrees()
 	local T = {}
-	T[1] = { FSKWG={}, REMOVE='Section' }
+	T[1] = { SKW={}, REMOVE='Section' }
 	for _,tree in ipairs(unlockable_items) do
 		-- do all REMOVEs before adding
 		if tree.issubs then
-			T[1].FSKWG[#T[1].FSKWG + 1] = {'Title', tree.parent[1], 'Title', tree.parent[2]}
+			T[1].SKW[#T[1].SKW + 1] = {'Title', tree.parent[1], 'Title', tree.parent[2]}
 		end
 		for _,n in ipairs(AddTreeToChangeTable(tree)) do
 			T[#T+1] = n
@@ -1598,7 +1642,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,5 +1,6 @@
 -----------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/reward_entry.lua')
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/reward_entry.lua')
 -----------------------------------------------------------------------
 mod_desc = [[
   A system for adding & replacing rewards.
@@ -17,7 +18,6 @@ local new_rewards = {
 	---	sentinel salvaged glass shard ---
 		id			= 'DE_SENT_LOOT',
 		choice		= C_.ONE,
-		disabled	= false,
 		replacement	= true,
 		rewardlist	= {
 			--id					Min		Max		%		function
@@ -47,7 +47,6 @@ local new_rewards = {
 	---	crashed freighter containers ---
 		id			= 'CRASHCONT_M',
 		choice		= C_.ONE,
-		disabled	= false,
 		replacement	= true,
 		rewardlist	= {
 			{id=U_.UT,	n=25000,	x=75000,	c=50,	f=R_Money},
@@ -81,32 +80,32 @@ local new_rewards = {
 			{
 				f=R_MultiItem,
 				{id='FARMPROD1',		n=1, 	t=M_.PRD},	-- Acid
-				{id='WORMDUST',			n=105, 	t=M_.SBT},
+				{id='WATER1',			n=243, 	t=M_.SBT},
 				c=25,
 			},
 			{
 				f=R_MultiItem,
 				c=25,
 				{id='FARMPROD5',		n=1, 	t=M_.PRD},	-- Poly Fibre
-				{id='TIMEDUST',			n=94, 	t=M_.SBT},
+				{id='WATER2',			n=189, 	t=M_.SBT},
 			},
 			{
 				f=R_MultiItem,
 				c=25,
 				{id='SALVAGE_TECH8',	n=1, 	t=M_.PRD},	-- Subatomic Regulators
-				{id='SPECIAL_POOP',		n=203, 	t=M_.SBT},
+				{id='ROBOT1',			n=203, 	t=M_.SBT},
 			},
 			{
 				f=R_MultiItem,
 				c=25,
 				{id='SALVAGE_TECH7',	n=1, 	t=M_.PRD},	-- Recycled Circuitry
-				{id='TIMEMILK',			n=91, 	t=M_.SBT},
+				{id='ROBOT2',			n=180, 	t=M_.SBT},
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{id='FREI_INV_TOKEN',	n=2, 	t=M_.PRD},	-- freighter inv
-				{id='ROBOT1',			n=303, 	t=M_.SBT},
+				{id='SENTFREI_PROD',	n=303, 	t=M_.PRD},	-- AI Fragment
 			},
 
 			-- freighter hyper
@@ -214,7 +213,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=5,
 				{pid=P_.FRM, 		q=0,	t=M_.PRP},
-				{id='CATA_CRAFT',	n=187, 	t=M_.PRD},
+				{id='HYDRALIC',		n=3, 	t=M_.PRD},
 			},
 			{
 				f=R_MultiItem,
@@ -265,7 +264,6 @@ local new_rewards = {
 	---	explorer freighter defense battle ---
 		id			= 'FREIGHTERSAVE_E',
 		choice		= C_.ALL,
-		disabled	= false,
 		rewardlist	= {
 			{
 				--id				Amount	type
@@ -284,7 +282,6 @@ local new_rewards = {
 	---	trader freighter defense battle ---
 		id			= 'FREIGHTERSAVE_T',
 		choice		= C_.ALL,
-		disabled	= false,
 		rewardlist	= {
 			{
 				--id				Amount	type
@@ -303,7 +300,6 @@ local new_rewards = {
 	---	warior freighter defense battle ---
 		id			= 'FREIGHTERSAVE_W',
 		choice		= C_.ALL,
-		disabled	= false,
 		rewardlist	= {
 			{
 				--id				Amount	type
@@ -322,7 +318,6 @@ local new_rewards = {
 	---	pirate attack loot - easy level ---
 		id			= 'PIRATELOOT_EASY',
 		choice		= C_.ONE_S,
-		disabled	= false,
 		rewardlist	= {
 			--id					Min		Max		%		function
 			{id='SHIPCHARGE',				x=1,	c=80,	f=R_Product},
@@ -339,7 +334,6 @@ local new_rewards = {
 	---	pirate attack loot - normal level ---
 		id			= 'PIRATELOOT',
 		choice 		= C_.ONE_S,
-		disabled	= false,
 		zeroseed 	= true,
 		replacement	= true,
 		rewardlist	= {
@@ -363,7 +357,6 @@ local new_rewards = {
 	---	 pirate attack loot - hard level ---
 		id			= 'PIRATELOOT_HARD',
 		choice		= C_.ONE_S,
-		disabled	= false,
 		zeroseed	= true,
 		rewardlist	= {
 			--id					Min		Max		%		function
@@ -390,7 +383,6 @@ local new_rewards = {
 	---	 pirate attack loot - building raid ---
 		id			= 'RAIDLOOT',
 		choice		= C_.ONE_S,
-		disabled	= false,
 		rewardlist	= {
 			--id					Min		Max		%		function
 			{id='SHIPCHARGE',				x=1,	c=80,	f=R_Product},
@@ -408,7 +400,6 @@ local new_rewards = {
 	---	jetpack boost from tech plant ---
 		id			= 'JETPACK_BOOST',
 		choice		= C_.ALL,
-		disabled	= false,
 		replacement	= true,
 		rewardlist	= {
 			{id='jetboost',		t=5,	b=1.25,	c=100,	f=R_Jetboost}
@@ -418,7 +409,6 @@ local new_rewards = {
 	---	jetpack boost from ? ---
 		id			= 'MIXER_JETPACK',
 		choice		= C_.ALL,
-		disabled	= false,
 		replacement	= true,
 		rewardlist	= {
 			{id='jetboost',		t=4,	b=1.2,	c=100,	f=R_Jetboost}
@@ -428,7 +418,6 @@ local new_rewards = {
 	---	jetpack boost from consumable product ---
 		id			= 'DE_FOOD_JETPACK',
 		choice		= C_.ALL,
-		disabled	= false,
 		replacement	= true,
 		rewardlist	= {
 			{id='jetboost',		t=3,	b=1.15,	c=100,	f=R_Jetboost}
@@ -438,7 +427,6 @@ local new_rewards = {
 	---	health + shield + stamina + hazard + jetboost = balatant cheat! ---
 		id			= 'HEALTH_MAJOR',
 		choice		= C_.ALL_S,
-		disabled	= false,
 		rewardlist	= {
 			{id='health',		n=3,	x=5,	c=100,	f=R_Health},
 			{id='shield',		n=70,	x=100,	c=100,	f=R_Shield},
@@ -451,16 +439,14 @@ local new_rewards = {
 	---	quicksilver tiny=30 ---
 		id			= 'RS_QUICKSILV_T',
 		choice		= C_.ALL,
-		disabled	= false,
 		rewardlist	= {
-			{id=U_.HG,			x=30,		c=100,		f=R_Money}
+			{id=U_.HG,			x=36,		c=100,		f=R_Money}
 		}
 	},
 	{
 	---	test 9 ---
 		id			= 'TEST_REWARD_09',
 		choice		= C_.ALL,
-		disabled	= false,
 		rewardlist	= {
 			-- id					details			%		function
 			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
@@ -477,8 +463,8 @@ local new_rewards = {
 	{
 	---	more tests ---
 		id			= 'TEST_99',
+		unused		= true,
 		choice		= C_.ONE,
-		disabled	= true,
 		rewardlist	= {
 			-- id					details			%		function
 			{id='no_sentinels',		t=20,			c=90,	f=R_NoSentinels},
@@ -500,19 +486,19 @@ local new_rewards = {
 -- loop through the rewards list and return the generated exml
 local function AddNewRewardsToChangeTable()
 	local T = {}
-	T[1] = { FSKWG={}, REMOVE='Section' }
+	T[1] = { SKW={}, REMOVE='Section' }
 	local rewards = {}
 	for _,rwd in ipairs(new_rewards) do
-		-- collect exisitng rewards to be removed in FSKWG
-		if not rwd.disabled then
+		-- collect exisitng rewards to be removed in SKW
+		if not rwd.unused then
 			if rwd.replacement then
-				T[1].FSKWG[#T[1].FSKWG+1] = {'Id', rwd.id}
+				T[1].SKW[#T[1].SKW+1] = {'Id', rwd.id}
 			end
 			rewards[#rewards+1] = R_RewardTableEntry(rwd)
 		end
 	end
-	-- remove FSKWG if none added
-	if #T[1].FSKWG <= 0 then T[1] = nil end
+	-- remove SKW if none added
+	if #T[1].SKW <= 0 then T[1] = nil end
 
 	T[#T+1] = {
 		PRECEDING_KEY_WORDS	= 'GenericTable',
@@ -593,8 +579,9 @@ local source_table_reward = 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -604,11 +591,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= source_table_reward,
 		EXML_CHANGE_TABLE	= {
+			-- {
+				-- -- PRECEDING_FIRST		= true,
+				-- -- PRECEDING_KEY_WORDS	= 'GcGenericRewardTableEntry.xml',
+				-- SPECIAL_KEY_WORDS	= {'ID', 'BP_SALVAGE'},
+				-- SECTION_ACTIVE		= -7,
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'AmountMin',	3},
+					-- {'AmountMax',	8}
+				-- }
+			-- },
 			{
-				SPECIAL_KEY_WORDS	= {'Id', 'TECHDEBRIS', 'ID', 'LAUNCHFUEL'},
+				REPLACE_TYPE 		= 'All',
+				MATH_OPERATION 		= '*',
+				SPECIAL_KEY_WORDS	= {'Currency', 'Specials'},
 				SECTION_UP			= 1,
-				ADD_OPTION			= 'ADDAfterSection',
-				ADD					= ToExml(R_Product({id='BP_SALVAGE', n=2, x=4, c=50}))
+				VALUE_CHANGE_TABLE 	= {
+					{'AmountMin',	2},
+					{'AmountMax',	2}
+				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'REFRESH_HAZ', 'LabelID', 'UI_RESTORE_HAZARD'},

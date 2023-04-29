@@ -1,10 +1,12 @@
 ---------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/scene_tools.lua')
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 mod_desc = [[
-  * original by Redmas
+  * original mod by Redmas
   Adds procedural parts, more wrecks and a few wreck -and space-encounter
-  items to the derelict freighter encouter mission.
+  items to the derelict freighter encounter mission.
+  Adds a minor tumble to floating items to make the scene more dynamic
   - fixes lighting of space clock to avoid issues when near other objects.
 ]]-------------------------------------------------------------------------
 
@@ -13,86 +15,85 @@ local assets = {
 		name = '_Acc_',
 		{
 			form	= {-100, 770, 20, 165, 130, -10, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
+			addloc	= true
 		},
 		{
 			form	= {-700, 1200, 220, 170, 40, 60, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN',
+			addloc	= true
 		},
 		{
 			form	= {900, -780, 132, 180, 0, 90, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN',
+			addloc	= true
 		},
 		{
 			form	= {700, -840, 132, 90, 90, 0, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN',
+			addloc	= true
 		},
 		{
 			form	= {-700, 1100, 220, 100, 40, 10, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN',
+			addloc	= true
 		},
 		{
 			form	= {-100, 770, 20, 165, 130, -10, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN',
+			addloc	= true
 		},
 		{
 			form	= {-1100, 660, 140, 10, 30, 210, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN'
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN',
+			addloc	= true
 		}
 	},
 	{
 		name = '_Front_',
 		{
 			form	= {410, 475, 532, -20, 80, 60, 2.4, 2.4, 2.4},
-			model	= 'MODELS/SPACE/POI/WARRIORSILOS.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/WARRIORSILOS.SCENE.MBIN'
 		},
 		{
 			form	= {-113, 191, -83, 0, 0, 0, 1, 1, 1},
-			model	= 'MODELS/SPACE/POI/WEIRDOBJECT2.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/WEIRDOBJECT2.SCENE.MBIN'
 		},
 		{
 			form	= {-110, 185, -87, 0, 0, 0, 1.4, 1.4, 1.4},
-			model	= 'MODELS/SPACE/POI/SPACECLOCK.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/SPACECLOCK.SCENE.MBIN'
 		},
 		{
 			form	= {-110, 185, -87, 0, 0, 0, 1.4, 1.4, 1.4},
-			model	= 'MODELS/SPACE/POI/SPACEGYROSCOPE.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/SPACEGYROSCOPE.SCENE.MBIN'
 		},
 		{
 			form	= {810, 845, 832, -20, 80, 60, 1.2, 1.2, 1.2},
-			model	= 'MODELS/SPACE/POI/ASTEROID_BEACON.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/ASTEROID_BEACON.SCENE.MBIN'
 		},
 		{
 			form	= {-510, 585, 500, 330, -25, -55, 1.2, 1.2, 1.2},
-			model	= 'MODELS/SPACE/POI/GATE_POI.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/GATE_POI.SCENE.MBIN'
 		}
 	},
 	{
 		name = '_AccSide_',
 		{
 			form	= {410, 375, -800, 120, 210, 190, 0.6, 0.6, 0.6},
-			model	= 'MODELS/SPACE/POI/PILLARPOI.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/PILLARPOI.SCENE.MBIN'
 		},
 		{
 			form	= {410, 375, -800, 120, 210, 190, 1, 1, 1},
-			model	= 'MODELS/SPACE/POI/SPACECLOCK.SCENE.MBIN',
-			hasloc	= true
+			model	= 'MODELS/SPACE/POI/SPACECLOCK.SCENE.MBIN'
 		}
 	}
 }
 
 local function AddSceneNodes()
 	local T = {}
-	for _,ast in ipairs(assets) do
-		for i,scn in ipairs(ast) do
-			if not scn.hasloc then
+	for _, ast in ipairs(assets) do
+		for i, scn in ipairs(ast) do
+			if scn.addloc then
 				T[#T+1] = ScNode(ast.name..string.char(64 + i), 'LOCATOR')
 			end
 			T[#T+1] = ScNode(
@@ -113,8 +114,8 @@ end
 local function GenerateDescriptor()
 	local T = {
 		META = {'template', 'TkModelDescriptorList'},
-		List = {META = {'name', 'List'}}	
-	}	
+		List = {META = {'name', 'List'}}
+	}
 	for _,ast in ipairs(assets) do
 		local tmp = {
 			META		= {'value', 'TkResourceDescriptorList.xml'},
@@ -128,7 +129,7 @@ local function GenerateDescriptor()
 				Name	= ast.name..string.char(64 + i),
 			}
 		end
-		T.List[#T.List + 1] = tmp
+		T.List[#T.List+1] = tmp
 	end
 	return T
 end
@@ -138,16 +139,16 @@ local spin_entity = {
 	Components = {
 		META = {'name', 'Components'},
 		{
-			META = {'value', 'TkRotationComponentData.xml'},
+			META  = {'value', 'TkRotationComponentData.xml'},
 			Speed = 0.001,
-			Axis = {
+			Axis  = {
 				META = {'Axis', 'Vector3f.xml'},
 				x = 1,
 				y = 1,
 				z = 1
 			},
 			AlwaysUpdate = true,
-			SyncGroup = -1
+			SyncGroup    = -1
 		}
 	}
 }
@@ -155,7 +156,7 @@ local spin_entity = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

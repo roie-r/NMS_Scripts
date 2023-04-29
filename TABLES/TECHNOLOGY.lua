@@ -1,5 +1,6 @@
 -------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/table_entry.lua')
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/table_entry.lua')
 -------------------------------------------------------------------------------
 mod_desc = [[
   - Edit / add / remove stats
@@ -20,11 +21,11 @@ local add_edit_stats = {
 ---	suit
 	{id='UT_WATER',			st='Suit_Protection_WaterDrain',			bn=0.2,		op='+'},		-- 1.33
 ---	multitool
-	{id='BOLT',				st='Weapon_Projectile_Recoil',				bn=-10,		op='+'},		-- 200
-	{id='UT_BOLT',			st='Weapon_Projectile_Recoil',				bn=-0.05,	op='+'},		-- 0.7
+	{id='BOLT',				st='Weapon_Projectile_Recoil',				bn=20,		op='-'},		-- 200
+	{id='UT_BOLT',			st='Weapon_Projectile_Recoil',				bn=0.05,	op='-'},		-- 0.7
 	{id='UT_SURVEY',		st='Weapon_Scan_Surveying',					bn=1,		op='*',	lv=0},	-- 0.7
 ---	vehicle
-	{id='VEHICLE_GRIP1',	st='Vehicle_Grip',							bn=-0.5,	op='+'},		-- 3
+	{id='VEHICLE_GRIP1',	st='Vehicle_Grip',							bn=0.5,		op='-'},		-- 3
 	{id='VEHICLE_GRIP1',	st='Vehicle_SkidGrip',						bn=0.2,		op='+'},		-- 0.66
 	{id='VEHICLE_GUN',		st='Vehicle_GunDamage',						bn=160,		op='+'},		-- 320
 	{id='VEHICLE_GUN',		st='Vehicle_GunRate',						bn=0.45,	op='+'},		-- 0.5
@@ -35,21 +36,23 @@ local add_edit_stats = {
 	{id='MECH_ENGINE',		st='Vehicle_EngineFuelUse',					bn=0.2,		op='+'},		-- 0.5
 	{id='MECH_SENT_L_ARM',	st='Vehicle_LaserDamage',					bn=40,		op='+'},		-- 50
 ---	ship
-	{id='UT_SHIPSHIELD',	st='Ship_Armour_Shield_Strength',			bn=0.01,	op='+',	lv=1},	-- 0.05
+	{id='UT_SHIPSHIELD',	st='Ship_Armour_Shield_Strength',			bn=0.01,	op='+',	lv=2},	-- 0.05
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_Damage',				bn=2000,	op='+'},		-- 6500
-	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_Rate',				bn=-0.5,	op='+'},		-- 1
-	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-2,		op='+'},		-- 10
+	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_Rate',				bn=0.5,		op='-'},		-- 1
+	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=2,		op='-'},		-- 10
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_HeatTime',			bn=1,		op='+'},		-- 0
-	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-0.3,	op='+'},		-- 0.8
-	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8
+	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=0.3,		op='-'},		-- 0.8
+	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=0.2,		op='-'},		-- 0.8
 	{id='UT_SHIPGUN',		st='Ship_Weapons_Guns_HeatTime',			bn=0.1,		op='+'},		-- 1.2
 	{id='SHIP_TELEPORT',	st='Ship_Teleport',							bn=32,		op='*'},		-- 100
-	{id='SHIPJUMP_SPEC',	st='Ship_Maneuverability'},												-- bug fix
-	{id='SHIPJUMP_SPEC',	st='Ship_BoostManeuverability',				bn=-0.1,	op='+'},		-- 1.25
-	{id='SHIPJUMP_SPEC',	st='Ship_Boost',							bn=-10,		op='+'},		-- 120
-	{id='SHIPJUMP_SPEC',	st='Ship_PulseDrive_MiniJumpSpeed',			bn=0.24,	op='+'},		-- 1
-	{id='SOLAR_SAIL',		st='Ship_PulseDrive_MiniJumpFuelSpending',	bn=0.2,		op='+'},		-- 0.2
 	{id='SHIPMINIGUN',		st='Ship_Weapons_Guns_Damage_Radius',		bn=1,		op='+'},		-- 3
+	{id='SHIPJUMP_SPEC',	st='Ship_Maneuverability'},												-- bug fix
+	{id='SHIPJUMP_SPEC',	st='Ship_BoostManeuverability',				bn=0.1,		op='-'},		-- 1.25
+	{id='SHIPJUMP_SPEC',	st='Ship_Boost',							bn=10,		op='-'},		-- 120
+	{id='SHIPJUMP_SPEC',	st='Ship_PulseDrive_MiniJumpSpeed',			bn=0.24,	op='+'},		-- 1
+	{id='SHIPJUMP_ROBO',	st='Ship_BoostManeuverability',				bn=0.15,	op='-'},		-- 1.5
+	{id='SHIPJUMP_ROBO',	st='Ship_Maneuverability',					bn=0.005,	op='+'},		-- 1.0
+	{id='SOLAR_SAIL',		st='Ship_PulseDrive_MiniJumpFuelSpending',	bn=0.2,		op='+'},		-- 0.2
 ---	freighter
 	{id='F_HYPERDRIVE',		st='Freighter_Hyperdrive_JumpDistance',		bn=10,		op='*'},		-- 100
 	{id='F_HDRIVEBOOST1',	st='Freighter_Hyperdrive_JumpDistance',		bn=8,		op='*'},		-- 200
@@ -81,8 +84,10 @@ local add_edit_stats = {
 	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_HeatTime',			bn=1.2},
 	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_Range',				bn=1.1,		lv=1},
 	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_Damage',				bn=3200,	lv=2},
-	{id='SHIPGUN1',			st='Ship_Weapons_ShieldLeech',				bn=0.18,	lv=1},
-	{id='UT_SHIPGUN',		st='Ship_Weapons_ShieldLeech',				bn=0.08,	lv=3},
+	{id='SHIPGUN1',			st='Ship_Weapons_ShieldLeech',				bn=0.15,	lv=1},
+	{id='SHIPGUN_ROBO',		st='Ship_Weapons_ShieldLeech',				bn=0.15,	lv=1},
+	{id='SHIPGUN_ALIEN',	st='Ship_Weapons_ShieldLeech',				bn=0.15,	lv=1},
+	{id='UT_SHIPGUN',		st='Ship_Weapons_ShieldLeech',				bn=0.05,	lv=3},
 	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_HeatTime',			bn=1.3,		lv=2},
 	{id='UT_SHIPMINI',		st='Ship_Weapons_Guns_HeatTime',			bn=1.3,		lv=2},
 ---	freighter
@@ -92,7 +97,7 @@ local add_edit_stats = {
 function add_edit_stats:GetExmlCT()
 	local T = {}
 	T[1] = {
-		FSKWG		= {},
+		SKW			= {},
 		SECTION_UP	= 1,
 		REMOVE		= 'Section'
 	}
@@ -101,13 +106,12 @@ function add_edit_stats:GetExmlCT()
 		if x.op then
 			--- edit ---
 			T[#T+1] = {
-				MATH_OPERATION 		= x.op,
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= skw,
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'Bonus', x.bn},
-					{'Level', x.lv or (x.op == '*' and 1 or 0)}
+					{'Bonus', '@'..x.op..x.bn},
+					{'Level', x.lv or 'Ignore'}
 				}
 			}
 			--- replace ---
@@ -136,7 +140,7 @@ function add_edit_stats:GetExmlCT()
 			}
 		else
 			--- remove ---
-			T[1].FSKWG[#T[1].FSKWG + 1] = skw
+			T[1].SKW[#T[1].SKW + 1] = skw
 		end
 	end
 	return T
@@ -146,17 +150,20 @@ local charge_capacity = {
 	{'SHIPJUMP1',		1.5},
 	{'SHIPJUMP_SPEC',	1.5},
 	{'SHIPJUMP_ALIEN',	1.5},
+	{'SHIPJUMP_ROBO',	1.5},
 	{'LAUNCHER',		1.5},
 	{'LAUNCHER_SPEC',	1.5},
 	{'LAUNCHER_ALIEN',	1.5},
+	{'LAUNCHER_ROBO',	1.5},
 	{'F_HYPERDRIVE',	4},
 	{'LASER',			2},
+	{'SENT_LASER',		2},
 	{'TERRAINEDITOR',	3},
 	{'RAILGUN',			4},
 	{'GRENADE',			1.5},
 	{'STUN_GREN',		1.5},
 	{'SUN_LASER',		8},
-	{'CANNON',			0.6},
+	{'CANNON',			0.8},
 	{'T_UNW',			4},
 	{'T_RAD',			3},
 	{'T_TOX',			3},
@@ -184,10 +191,10 @@ function charge_capacity:GetExmlCT()
 end
 
 local include_in_category = {
-	{'SHIP_TELEPORT',	'Ship',		'AllShips'},
-	{'VEHICLE_SCAN1',	'Exocraft',	'AllVehicles'},
-	{'VEHICLE_SCAN2',	'Exocraft',	'AllVehicles'},
-	{'MECH_PROT',		'Mech',		'AllVehicles'}
+	{'SHIP_TELEPORT',	'AllShipsExceptAlien',	'AllShips'},
+	{'VEHICLE_SCAN1',	'Exocraft',				'AllVehicles'},
+	{'VEHICLE_SCAN2',	'Exocraft',				'AllVehicles'},
+	{'MECH_PROT',		'Mech',					'AllVehicles'}
 }
 function include_in_category:GetExmlCT()
 	local T = {}
@@ -226,14 +233,14 @@ function edit_rgb:GetExmlCT()
 	local T = {}
 	T[1] = {
 	--- background color ---
-		FSKWG				= {},
+		SKW					= {},
 		INTEGER_TO_FLOAT	= 'Force',
 		PRECEDING_KEY_WORDS	= 'Colour',
 		VALUE_CHANGE_TABLE 	= ColorFromHex('095c77ff')
 	}
 	for _,x in ipairs(self) do
 		if #x < 2 then
-			T[1].FSKWG[#T[1].FSKWG + 1] = {'ID', x[1]}
+			T[1].SKW[#T[1].SKW + 1] = {'ID', x[1]}
 		else
 	--- upgrade color ---
 			T[#T+1] = {
@@ -260,7 +267,13 @@ local fragment_cost = {
 	{'WARP_ALIEN',		160},
 	{'SHIELD_ALIEN',	160},
 	{'SHIPGUN_ALIEN',	160},
-	{'SHIPLAS_ALIEN',	160}
+	{'SHIPLAS_ALIEN',	160},
+	{'LAUNCHER_ROBO',	180},
+	{'SHIPJUMP_ROBO',	180},
+	{'HYPERDRIVE_ROBO',	180},
+	{'SHIPSHIELD_ROBO',	180},
+	{'SHIPGUN_ROBO',	180},
+	{'LIFESUP_ROBO',	20}
 }
 function fragment_cost:GetExmlCT()
 	local T = {}
@@ -288,7 +301,7 @@ local tech_icons = {
 	{'UT_SHIPLAS',		'TECHNOLOGY/RENDER.PHASEBEAM.BLUE.DDS'},
 	{'UT_SHIPSHOT',		'TECHNOLOGY/RENDER.SHIPSHOT.GREEN.DDS'},
 	{'UT_SHIPBLOB',		'TECHNOLOGY/RENDER.IONBLAST.PINK.DDS'},
-	{'UT_SHIPGUN',		'TECHNOLOGY/RENDER.SHIPPHOTONMOD.DDS'},
+	{'UT_SHIPGUN',		'TECHNOLOGY/RENDER.SHIPGUN.GRAY.DDS'},
 	{'UT_SHIPMINI',		'TECHNOLOGY/RENDER.PHOTONACCEL.BLUE1.DDS'},
 	{'T_SHIPSHLD',		'TECHNOLOGY/RENDER.SHIELDMOD.DDS'},
 	{'UT_SHIPSHIELD',	'TECHNOLOGY/RENDER.SHIELD.RED2.DDS'},
@@ -307,8 +320,8 @@ local tech_icons = {
 	{'LASER_XO',		'TECHNOLOGY/RENDER.LASER.RED.DDS'},
 	{'STRONGLASER',		'TECHNOLOGY/RENDER.LASER.YELLOW.DDS'},
 	{'UT_MINER',		'TECHNOLOGY/RENDER.LASER.BLUE.DDS'},
-	{'BOLT_SM',			'TECHNOLOGY/RENDER.BOLT.BLUE.DDS'},
-	{'UT_BOLT',			'TECHNOLOGY/RENDER.BOLT.BLUE.DDS'},
+	{'BOLT_SM',			'TECHNOLOGY/RENDER.PROJECTILE.BLUE.DDS'},
+	{'UT_BOLT',			'TECHNOLOGY/RENDER.PROJECTILE.BLUE.DDS'},
 	{'UT_BOLTBOUNCE',	'TECHNOLOGY/RENDER.RICOCHET.DDS'},
 	{'UT_SURVEY',		'TECHNOLOGY/RENDER.BINOCULARS2.DDS'},
 	{'UT_SHOT',			'TECHNOLOGY/RENDER.SCATTER.GREEN.DDS'},
@@ -319,6 +332,11 @@ local tech_icons = {
 	{'UT_CANNON',		'TECHNOLOGY/RENDER.CANNON.GREEN.DDS'},
 	{'UT_RAIL_STUN',	'TECHNOLOGY/RENDER.BLAZEJAVELIN.BLUE.DDS'},
 	{'UT_SCAN',			'TECHNOLOGY/RENDER.SCAN.RED.DDS'},
+	{'SENT_LASER',		'TECHNOLOGY/RENDER.LASERSENTINEL2.DDS'},
+	{'WEAPSENT_DMG1',	'TECHNOLOGY/SENTWEAP.DMG1.DDS'},
+	{'WEAPSENT_DMG2',	'U4PRODUCTS/PRODUCT.DRONEPARTE3.DDS'},
+	{'WEAPSENT_DMG3',	'TECHNOLOGY/SENTWEAP.DMG3.DDS'},
+	{'WEAPSENT_DMG4',	'TECHNOLOGY/SENTWEAP.DMG4.DDS'},
 	---	suit
 	{'UT_ENERGY',		'TECHNOLOGY/RENDER.CELL.BLUE.DDS'},
 	{'UT_WATERENERGY',	'TECHNOLOGY/RENDER.CELL.BLUE.DDS'},
@@ -328,6 +346,7 @@ local tech_icons = {
 	{'UT_WATERJET',		'TECHNOLOGY/RENDER.JETPACK.MOD.DDS'},
 	{'UT_WATER',		'TECHNOLOGY/RENDER.PROTECT.WATER.DDS'},
 	{'UT_PROTECT',		'TECHNOLOGY/RENDER.PROTECT.BLUE.DDS'},
+	{'T_SHIELD',		'TECHNOLOGY/RENDER.SHIELD.SUIT.DDS'},
 	---	freighter
 	{'F_TELEPORT',		'TECHNOLOGY/TECHNOLOGY.FLEET.TRADE.DDS'},
 	{'F_HYPERDRIVE',	'SPECIALSHOP/SPECIAL1.FREIGHTJETS.GRAVITY.DDS'},
@@ -350,31 +369,54 @@ function tech_icons:GetExmlCT()
 end
 
 local charge_to_top = {
-	{'PROTECT',		'POWERCELL'},
-	{'ENERGY',		'PRODFUEL2'},
-	{'T_RAD',		'POWERCELL'},
-	{'T_TOX',		'POWERCELL'},
-	{'T_COLDPROT',	'POWERCELL'},
-	{'T_HOTPROT',	'POWERCELL'},
-	{'T_UNW',		'PRODFUEL2'},
-	{'SHIPSHIELD',	'SHIPCHARGE'},
-	{'SUIT_ROCKET',	'LAUNCHFUEL', true}
+	{id='SENT_LASER',		prd={'DRONE_SHARD', 'ROBOT2', 'ROBOT1'}},
+	{id='PROTECT',			prd='POWERCELL'},
+	{id='ENERGY',			prd='PRODFUEL2'},
+	{id='T_RAD',			prd='POWERCELL'},
+	{id='T_TOX',			prd='POWERCELL'},
+	{id='T_COLDPROT',		prd='POWERCELL'},
+	{id='T_HOTPROT',		prd='POWERCELL'},
+	{id='T_UNW',			prd='PRODFUEL2'},
+	{id='SHIPSHIELD',		prd='SHIPCHARGE'},
+	{id='SUIT_ROCKET',		prd='LAUNCHFUEL', new=true},
+	{id='SHIPSHIELD_ROBO',	prd='DRONE_SHARD'},
+	{id='HYPERDRIVE_ROBO',	prd='DRONE_SHARD'}
 }
 function charge_to_top:GetExmlCT()
 	local T = {}
-	T[1] = { FSKWG={}, REMOVE='Section' }
+	T[1] = { SKW={}, REMOVE='Section' }
 	for _,x in ipairs(self) do
-		if not x[3] then
-			T[1].FSKWG[#T[1].FSKWG + 1] = {'ID', x[1], 'Value', x[2]}
+		if type(x.prd) == 'table' then
+		-- if prd is a table of items then replace the entire chargeby list
+			T[#T+1] = {
+				SPECIAL_KEY_WORDS	= {'ID', x.id},
+				PRECEDING_KEY_WORDS = 'ChargeBy',
+				REMOVE				= x.new and 'Line' or 'Section'
+			}
+			local tmp = {META = {'name', 'ChargeBy'}}
+			for _,p in ipairs(x.prd) do
+				tmp[#tmp+1] = {
+					META	= {'value', 'NMSString0x10.xml'},
+					Value	= p
+				}
+			end
+			T[#T+1] = {
+				SPECIAL_KEY_WORDS	= {'ID', x.id},
+				ADD					= ToExml(tmp)
+			}
+		else
+			if not x.new then
+				T[1].SKW[#T[1].SKW + 1] = {'ID', x.id, 'Value', x.prd}
+			end
+			T[#T+1] = {
+				SPECIAL_KEY_WORDS	= {'ID', x.id},
+				PRECEDING_KEY_WORDS = 'ChargeBy',
+				ADD					= ToExml({
+					META	= {'value', 'NMSString0x10.xml'},
+					Value	= x.prd
+				})
+			}
 		end
-		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x[1]},
-			PRECEDING_KEY_WORDS = 'ChargeBy',
-			ADD					= ToExml({
-				META	= {'value', 'NMSString0x10.xml'},
-				Value	= x[2]
-			})
-		}
 	end
 	return T
 end
@@ -426,12 +468,12 @@ function replace_requirements:GetExmlCT()
 	end
 	local T = {}
 	T[1] = {
-		FSKWG				= {},
+		SKW					= {},
 		PRECEDING_KEY_WORDS	= 'Requirements',
 		REMOVE				= 'Section'
 	}
 	for _,req in ipairs(self) do
-		T[1].FSKWG[#T[1].FSKWG + 1] = {'ID', req.id}
+		T[1].SKW[#T[1].SKW + 1] = {'ID', req.id}
 		T[#T+1] = {
 			SPECIAL_KEY_WORDS	= {'ID', req.id},
 			ADD					= BuildReqs(req)
@@ -445,7 +487,7 @@ local source_table_tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -464,7 +506,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					charge_to_top,
 					replace_requirements
 				}) do
-					for _,tv in ipairs(tm:GetExmlCT()) do T[#T+1] = tv end
+					for _,tv in ipairs(tm:GetExmlCT()) do
+						T[#T+1] = tv
+					end
 				end
 				return T
 			end
@@ -474,7 +518,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= source_table_tech,
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'MECH_MINER'},
 					{'ID', 'SUN_LASER'}
 				},
@@ -483,33 +527,37 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
-					{'ID', 'PROTECT'},
-					{'ID', 'JET1'},
-					{'ID', 'SHIPJUMP1'},
-					{'ID', 'LASER'},
-					{'ID', 'LAUNCHER'},
-					{'ID', 'HYPERDRIVE'},
-					{'ID', 'SHIPSHIELD'},
-					{'ID', 'SHIPGUN1'},
-					{'ID', 'F_HYPERDRIVE'},
-					{'ID', 'SHIPJUMP_ALIEN'},
-					{'ID', 'WARP_ALIEN'},
-					{'ID', 'LAUNCHER_ALIEN'},
-					{'ID', 'SHIELD_ALIEN'},
-					{'ID', 'SHIPGUN_ALIEN'},
-					{'ID', 'SHIPLAS_ALIEN'},
-					{'ID', 'MECH_FUEL'},
-					{'ID', 'SHIPJUMP_SPEC'},
-					{'ID', 'LAUNCHER_SPEC'},
-					{'ID', 'HYPERDRIVE_SPEC'},
-					{'ID', 'SHIP_LIFESUP'},
-					{'ID', 'SHIPJUMP_ALIEN'},
-					{'ID', 'LAUNCHER_ALIEN'},
-					{'ID', 'WARP_ALIEN'},
-					{'ID', 'SHIELD_ALIEN'},
-					{'ID', 'SHIPGUN_ALIEN'},
-					{'ID', 'SHIPLAS_ALIEN'}
+				SPECIAL_KEY_WORDS 	= {
+					{'ID',	'PROTECT'},
+					{'ID',	'ENERGY'},
+					{'ID',	'JET1'},
+					{'ID',	'SHIPJUMP1'},
+					{'ID',	'LAUNCHER'},
+					{'ID',	'HYPERDRIVE'},
+					{'ID',	'SHIPSHIELD'},
+					{'ID',	'LASER'},
+					{'ID',	'VEHICLE_ENGINE'},
+					{'ID',	'SUB_ENGINE'},
+					{'ID',	'SHIPJUMP_ALIEN'},
+					{'ID',	'LAUNCHER_ALIEN'},
+					{'ID',	'WARP_ALIEN'},
+					{'ID',	'SHIELD_ALIEN'},
+					{'ID',	'SHIPGUN_ALIEN'},
+					{'ID',	'SHIPLAS_ALIEN'},
+					{'ID',	'LAUNCHER_SPEC'},
+					{'ID',	'SHIPJUMP_SPEC'},
+					{'ID',	'HYPERDRIVE_SPEC'},
+					{'ID',	'SHIP_LIFESUP'},
+					{'ID',	'MECH_ENGINE'},
+					{'ID',	'SOLAR_SAIL'},
+					{'ID',	'LAUNCHER_ROBO'},
+					{'ID',	'SHIPJUMP_ROBO'},
+					{'ID',	'HYPERDRIVE_ROBO'},
+					{'ID',	'SHIPSHIELD_ROBO'},
+					{'ID',	'LIFESUP_ROBO'},
+					{'ID',	'SENT_LASER'},
+					{'ID',	'F_HYPERDRIVE'},
+					{'ID',	'F_LIFESUPP'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'Core',		false}
@@ -533,7 +581,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					category		= 'Suit',
 					rarity			= 'Always',
 					value			= 5,
-					requirements	= { {'POWERCELL', 1, 'Product'} },
+					requirements	= { {'POWERCELL', 1, I_.PRD} },
 					basestat		= 'Suit_Armour_Shield',
 					statbonuses		= {
 						{'Suit_Armour_Shield',			1,	1},

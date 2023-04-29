@@ -6,7 +6,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL dark warp tunnel.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -14,7 +14,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'AnimatedLights'},
 					{'Name', 'scrollingwave9'},
 					{'Name', 'scrollingwaveALT'},
@@ -23,8 +23,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Name', 'stars2'},
 					{'Name', 'gradientCloud'},
 					{'Name', 'gradientCloudAlt'},
+					{'Name', 'pointLight5'},
 					{'Name', 'LightStreaks'},
 					{'Name', 'LightStreaksSmall'},
+					{'Name', 'LightStreaksSmall1'},
 					{'Name', 'LightStreaks1'},
 					{'Name', 'LightLargeStreaks'},
 				},
@@ -41,14 +43,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', 'FALLOFF'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		'linear'}
+					{'Value',		'quadratic'}
 				}
 			},
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', 'FALLOFF_RATE'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		4.8}
+					{'Value',		2.5}
 				}
 			},
 			{
@@ -62,14 +64,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', 'COL_R'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		0.92}
+					{'Value',		0.86}
 				}
 			},
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', 'COL_G'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		0.45}
+					{'Value',		0.4}
 				}
 			},
 			{
@@ -86,6 +88,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Value',		'MATERIALS/LIGHT_WARPTUNNEL.MATERIAL.MBIN'}
 				}
 			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'LightArms'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransZ',		-13}
+				}
+			}
 		}
 	},
 	{
@@ -103,15 +111,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'Class',				'Opaque'},
+					{'Class', 'Translucent'},
 					{'TransparencyLayerID',	0}
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gHSVOverlay'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Anisotropy',			0}
+					{'Anisotropy', 0}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'gLightCookiesMap'},
+				REMOVE 				= 'Section'
 			},
 		}
 	},
@@ -132,35 +144,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL/ENGGLOWCAPMAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				VALUE_CHANGE_TABLE 	= {
-					{'Class',				'Translucent'},
-					{'TransparencyLayerID',	-100}
-				}
-			},
-			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gCustomParams01Vec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'t', 			0.02}
+                    {'x',			0},
+                    {'y',			0},
+                    {'z',			0},
+                    {'t',			0}
 				}
-			},
-			{
-				PRECEDING_KEY_WORDS = 'Flags',
-				ADD					= (
-					function()
-						local exml = ''
-						for _,v in ipairs({
-							'_F22_TRANSPARENT_SCALAR',
-							'_F23_TRANSLUCENT',
-							'_F50_DISABLE_POSTPROCESS'
-						}) do
-							exml = exml..string.format(
-								[[<Property value="TkMaterialFlags.xml">
-									<Property name="MaterialFlag" value="%s"/>
-								</Property>]], v)
-						end
-						return exml
-					end
-				)()
 			}
 		}
 	}

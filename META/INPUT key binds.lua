@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------------------------
 mod_desc = [[
   use the mouse wheel for switching multitool tech & zoom stages
@@ -27,7 +27,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META key binds.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -48,10 +48,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					AddBindings('Player_ChangeWeapon', 'None', 'MouseWheel'),
-					AddBindings('Player_Scan', 'Mouse3'),
-					AddBindings('Player_Binoculars', 'Mouse5'),
-					AddBindings('Player_Torch', 'Mouse6')
+					AddBindings('Player_ChangeWeapon',	'None',		'MouseWheel'),
+					AddBindings('Player_Scan',			'Mouse3'),
+					AddBindings('Player_Binoculars',	'Mouse5'),
+					AddBindings('Player_Torch',			'Mouse6')
 				})
 			},
 			{
@@ -59,8 +59,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					AddBindings('Vehicle_ChangeWeapon', 'None', 'MouseWheel'),
-					AddBindings('Vehicle_Scan', 'Mouse3')
+					AddBindings('Vehicle_ChangeWeapon',	'None',		'MouseWheel'),
+					AddBindings('Vehicle_Scan',			'Mouse3')
 				})
 			},
 			{
@@ -68,8 +68,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					AddBindings('Ship_ChangeWeapon', 'None', 'MouseWheel'),
-					AddBindings('Ship_Scan', 'Mouse3')
+					AddBindings('Ship_ChangeWeapon',	'None',		'MouseWheel'),
+					AddBindings('Ship_Scan',			'Mouse3')
 				})
 			}
 		}
@@ -94,12 +94,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'InputButton',	'Space'}
 				}
 			},
-			{
-				SPECIAL_KEY_WORDS	= {'ActionSetType', 'OnFootControls'},
-				SECTION_UP_SPECIAL	= 1,
-				PRECEDING_KEY_WORDS = 'InputBindings',
-				ADD 				= ToExml(AddBindings('Player_Zoom', 'Key2'))
-			}
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'ActionSetType', 'OnFootControls'},
+				-- SECTION_UP_SPECIAL	= 1,
+				-- PRECEDING_KEY_WORDS = 'InputBindings',
+				-- ADD 				= ToExml(AddBindings('Player_Zoom', 'Key2'))
+			-- }
 		}
 	}
 }}}}

@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 --------------------------------------------------------------------------
 mod_desc = [[
   Increase SMG hit damage and reduce its fire rate
@@ -30,7 +30,7 @@ local edit_stats = {
 	{id='UP_EXOSUBGUN',		st='Vehicle_GunRate'},
 	{id='UP_MCGUN',			st='Vehicle_GunDamage',					op='*',	vn=6,		vx=6},		-- 30	40
 	{id='UP_MCGUN',			st='Vehicle_GunRate'},
-	{id='UP_MCENG',			st='Vehicle_EngineFuelUse',				op='+',	vn=0.1,		vx=0.1},
+	{id='UP_MCENG',			st='Vehicle_EngineFuelUse',				op='+',	vn=0.2,		vx=0.2},
 	{id='UP_MCENG',			st='Vehicle_BoostTanks',				op='+',	vn=8,		vx=8},		-- 0.1,	0.3
 ---	ship
 	{id='UP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpDistance',		op='*',	vn=2.4,		vx=2.4},
@@ -47,7 +47,7 @@ local edit_stats = {
 function edit_stats:GetExmlCT()
 	local T = {}
 	T[1] = {
-		FSKWG		 = {},
+		SKW			 = {},
 		REPLACE_TYPE = 'All',
 		SECTION_UP   = 1,
 		REMOVE		 = 'Section'
@@ -86,7 +86,7 @@ function edit_stats:GetExmlCT()
 			}
 		else
 			--- remove ---
-			T[1].FSKWG[#T[1].FSKWG + 1] = {'Name', x.id, 'StatsType', x.st}
+			T[1].SKW[#T[1].SKW + 1] = {'Name', x.id, 'StatsType', x.st}
 		end
 	end
 	return T
@@ -95,7 +95,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROC TECH.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{

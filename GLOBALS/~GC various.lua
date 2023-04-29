@@ -9,7 +9,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -18,9 +18,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'GCTERRAINGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'TerrainEditBeamMaxRange',	40}		-- 40
+					{'TerrainEditBeamMaxRange',	100}	-- 40
 				}
 			},
 			{
@@ -39,22 +38,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'GCFREIGHTERBASEGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'MaxTotalNPCCount',		-12},	-- 24
-					{'NPCStartSpawnDelayTime',	2},		-- 3
-					{'NPCSpawnIntervalTime',	1},		-- 0.1
+					{'MaxTotalNPCCount',		12},	-- 24
+					{'NPCStartSpawnDelayTime',	5},		-- 3
+					{'NPCSpawnIntervalTime',	0.8},	-- 0.1
 				}
 			},
 			{
-				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = 'MaxTotalCapacityOfNPCTypes',
 				VALUE_CHANGE_TABLE 	= {
-					{'SquadronPilot',			-2},	-- 4
-					{'FrigateCaptain',			-2},	-- 4
-					{'WorkerBio',				-3},	-- 6
-					{'WorkerTech',				-3},	-- 6
-					{'WorkerIndustry',			-3},	-- 6
+					{'SquadronPilot',			2},		-- 4
+					{'FrigateCaptain',			2},		-- 4
+					{'WorkerBio',				3},		-- 6
+					{'WorkerTech',				3},		-- 6
+					{'WorkerIndustry',			3},		-- 6
 				}
 			}
 		}
@@ -106,7 +103,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
+					-- {'SpaceStationFile',			'MODELS/SPACE/SPACESTATION/SPACESTATIONTYPEB.SCENE.MBIN'},
+					-- {'AbandonedSpaceStationFile',	'MODELS/SPACE/SPACESTATION/SPACESTATIONTYPEB.SCENE.MBIN'},
+					-- {'PirateSystemSpaceStationFile','MODELS/SPACE/SPACESTATION/SPACESTATIONTYPEB.SCENE.MBIN'},
 
+					{'WarpTunnelScale',			180},
 					{'WarpTunnelFile',			'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'BlackHoleTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'TeleportTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},

@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC BUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,22 +15,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'GCBUILDINGGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'UnknownBuildingRange',				200},	-- 600
-					{'MarkerLineWidth',						-3},	-- 4
-					{'MaxShipScanBuildings',				1},		-- 2
+					{'UnknownBuildingRange',				800},	-- 600
+					{'MarkerLineWidth',						1},		-- 4
+					{'MaxShipScanBuildings',				2},		-- 2
 
 					--- normal game
-					{'BaseRadiusExtension',					-20},	-- 50
-					{'MinRadiusForBases',					-150},	-- 300
-					{'BuildingPlacementMaxConnectionLength',1600},	-- 200
-					{'BuildingPlacementDefaultMinDistance',	-2},	-- 3
+					{'BaseRadiusExtension',					30},	-- 50
+					{'MinRadiusForBases',					150},	-- 300
+					{'BuildingPlacementMaxConnectionLength',1800},	-- 200
+					{'BuildingPlacementDefaultMinDistance',	1},		-- 3
 
 					--- Extension for basebuilding
-					-- {'MaxRadiusForPlanetBases',			 	1000},	-- 1000
-					-- {'BaseRadiusExtension',					20},
-					-- {'MinRadiusForBases',					1000},
+					-- {'MaxRadiusForPlanetBases',			 	2000},	-- 1000
+					-- {'BaseRadiusExtension',					80},
+					-- {'MinRadiusForBases',					1100},
 				}
 			}
 		}

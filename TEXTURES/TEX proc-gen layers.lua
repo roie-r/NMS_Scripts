@@ -1,11 +1,14 @@
 ---------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------------------------
 mod_desc = [[
   Generate proc texture files & include the relevant dds files
   diff/normal/masks	= true >> add the texture path to layer
   If a source path is present add the files to the pak
 ]]--------------------------------------------------------------
+
+--	TextureGameplayUseEnum
+U_ = {IGR='IgnoreName', MCT='MatchName', DNM='DoNotMatchName'}
 
 local proc_texture_files = {
 	{
@@ -38,7 +41,7 @@ local proc_texture_files = {
 		{
 			ly_name	= 'BASE',
 			palette = 'Paint',
-			color	= 'Alternative3',
+			color	= 'Primary',		-- Alternative3
 			diff	= true
 		}
 	},
@@ -49,7 +52,7 @@ local proc_texture_files = {
 		{
 			ly_name	= 'BASE',
 			palette = 'Paint',
-			color	= 'Primary',
+			color	= 'Alternative1',	-- Primary
 			diff	= true
 		}
 	},
@@ -60,7 +63,7 @@ local proc_texture_files = {
 		{
 			ly_name	= 'BASE',
 			palette = 'Paint',
-			color	= 'Primary',
+			color	= 'Alternative3',	-- Primary
 			diff	= true
 		}
 	},
@@ -74,7 +77,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			normal	= true,
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'L15', 'L14', 'L13', 'L12', 'L11', 'L10', 'L9', 'L8', 'L7', 'L6', 'L5', 'L4', 'L3', 'L2', 'L1'},
 			palette = 'Paint',
@@ -92,7 +96,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			normal	= true,
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'R15', 'R14', 'R13', 'R12', 'R11', 'R10', 'R9', 'R8', 'R7', 'R6', 'R5', 'R4', 'R3', 'R2', 'R1'},
 			palette = 'Paint',
@@ -110,7 +115,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			normal	= true,
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'S6', 'S5', 'S4', 'S3', 'S2', 'S1'},
 			palette = 'Paint',
@@ -128,7 +134,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			normal	= true,
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'},
 			palette = 'Paint',
@@ -146,7 +153,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			normal	= true,
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'LT1', 'LT2', 'LT3', 'LT4', 'LT5', 'LT6', 'LT7', 'LT8', 'LT9'},
 			palette = 'Paint',
@@ -164,7 +172,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			color	= 'Primary',
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'ST1', 'ST2', 'ST3', 'ST4', 'ST5', 'ST6', 'ST7'},
 			diff	= true
@@ -180,7 +189,8 @@ local proc_texture_files = {
 			ly_name	= 'OVERLAY',
 			color	= 'Primary',
 			masks	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			tx_name	= {'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'},
 			diff	= true
@@ -205,9 +215,10 @@ local proc_texture_files = {
 		nmspath	= 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/',
 		{
 			ly_name	= 'OVERLAYMETAL',
-			tx_name	= {{'SILVER', 0.7}, {'GOLD', 0.3}},
+			tx_name	= {{n='SILVER', pr=0.7}, {n='GOLD', pr=0.3}},
 			diff	= true
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			palette = 'SpaceBottom',
 			color	= 'Primary',
@@ -224,37 +235,143 @@ local proc_texture_files = {
 		{
 			ly_name	= 'OVERLAY',
 			diff	= true,
-		},{
+		},
+		{
 			ly_name	= 'PRIMARY',
 			palette = 'Paint',
 			color	= 'Primary',
 			diff	= true,
-		},{
+		},
+		{
 			ly_name	= 'SECONDARY',
 			palette = 'Paint',
 			color	= 'Alternative1',
 			diff	= true,
-		},{
+		},
+		{
 			ly_name	= 'TERTIARY',
 			palette = 'Paint',
 			color	= 'Alternative2',
 			diff	= true,
-		},{
+		},
+		{
 			ly_name	= 'BASE',
 			diff	= true,
 			normal	= true,
 			masks	= true
+		}
+	},
+	{
+	---	sentinel ship
+		unused	= true,
+		label	= 'SENTINELPROC',
+		nmspath	= 'TEXTURES/COMMON/ROBOTS/',
+		{
+			ly_name	= 'FIXED',
+			tx_name	= {'1', '2'},
+			diff	= true,
+			masks	= true
 		},
+		{
+			ly_name	= 'OVERLAY',
+			tx_name	= {
+				-- needs dds flags and alt name for each tex to deal with the unconventional naming
+				{n='POLICE',	u=U_.MCT},
+				{n='1',			u=U_.DNM},
+				{n='2',			u=U_.DNM},
+				{n='3',			u=U_.DNM,	pt='Paint',	ca='None'},
+				{n='4',			u=U_.DNM,	pt='Paint',	ca='Alternative1'}
+			},
+			diff	= true,
+			normal	= true,
+			masks	= true
+		},
+		{
+			ly_name	= 'BASE',
+			tx_name	= {'1'},
+			palette = 'Paint',
+			color	= 'Primary',
+			diff	= true,
+			normal	= true,
+			masks	= true
+		}
+	},
+	{
+	---	ship: fake light beam & glow parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
+		unused	= true,
+		label	= 'RECTWHITELIGHT',
+		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
+		{
+			ly_name	= 'BASE',
+			palette = 'Paint',
+			color	= 'Primary',
+			diff	= true
+		}
+	},
+	{
+	---	ship: glow rectangle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
+		unused	= true,
+		label	= 'RECTLIGHT',
+		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
+		{
+			ly_name	= 'BASE',
+			palette = 'Paint',
+			color	= 'Primary',
+			diff	= true
+		}
+	},
+	{
+	---	ship: glow circle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
+		unused	= true,
+		label	= 'CIRCLELIGHT',
+		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
+		{
+			ly_name	= 'BASE',
+			palette = 'Paint',
+			color	= 'Primary',
+			diff	= true
+		}
+	},
+	{
+	---	ship: glow circle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
+		unused	= true,
+		label	= 'HEADLIGHT',
+		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		nmspath	= 'TEXTURES/COMMON/SPACECRAFT/SHARED/',
+		{
+			ly_name	= 'BASE',
+			palette = 'Paint',
+			color	= 'Primary',
+			diff	= true
+		}
+	},
+	{
+	--- speeder TEST (needs a base + diff-ready textures)
+		unused	= true,
+		label	= 'VRSPEEDER',
+		nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/',
+		{
+			ly_name	= 'BASE',
+			tx_name	= {'1'},
+			palette = 'Paint',
+			color	= 'Primary',
+			diff	= true,
+			masks	= true,
+			normal	= true
+		}
 	}
 }
 
 local function GetProcTextures(path, layer)
 	-- concat table with [.] separator
-	local function TexPath(arg)
-		if not arg.b then return '' end
+	local function TexPath(e, arg)
+		if not e then return '' end
 		local con = ''
 		for _,ar in ipairs(arg) do
-			if ar and ar:len() > 0 then
+			if ar and #ar > 0 then
 				con = con..ar..'.'
 			end
 		end
@@ -262,21 +379,25 @@ local function GetProcTextures(path, layer)
 	end
 	local T = {META = {'name', 'Textures'}}
 
-	-- handles 3 options: a simple names list, {name, probability} list, or nothing
-	-- if no list found, name='' & probability=1
-	for _,name_prob in ipairs(layer.tx_name and layer.tx_name or {{'', 1}}) do
-		if type(name_prob) == 'string' then name_prob = {name_prob, 1} end
-		T[#T+1] = {
+	-- handles 3 options: 
+	-- a simple names list,
+	-- A list of tables of the following - non-essential - properties:
+	--   {n='name', pr=0.3, u=U_.DNM,	pt='palette', ca='colouralt'} >> u=TextureGameplayUseEnum
+	-- or none, in which case all default values will apply
+	for _,ptex in ipairs(layer.tx_name and layer.tx_name or {{n=''}}) do
+		if type(ptex) == 'string' then ptex = {n=ptex} end
+			T[#T+1] = {
 			META	= {'value', 'TkProceduralTexture.xml'},
-			Name		= name_prob[1],
-			Probability	= name_prob[2],
-			Diffuse		= TexPath({b=layer.diff,   path, layer.ly_name, name_prob[1]}),
-			Normal		= TexPath({b=layer.normal, path, layer.ly_name, 'NORMAL'}),
-			Mask		= TexPath({b=layer.masks,  path, layer.ly_name, 'MASKS'}),
-			Palette		= {
-				META	= {'Palette', 'TkPaletteTexture.xml'},
-				Palette		= layer.palette	or 'Rock',
-				ColourAlt	= layer.color	or 'None',
+			Name				= ptex.n  or '',
+			Probability			= ptex.pr or 1,
+			TextureGameplayUse	= ptex.u  or nil,
+			Diffuse				= TexPath(layer.diff,   {path, layer.ly_name, ptex.n}),
+			Normal				= TexPath(layer.normal, {path, layer.ly_name, 'NORMAL'}),
+			Mask				= TexPath(layer.masks,  {path, layer.ly_name, 'MASKS'}),
+			Palette				= {
+				META		= {'Palette', 'TkPaletteTexture.xml'},
+				Palette		= ptex.pt or (layer.palette	or 'Rock'),
+				ColourAlt	= ptex.ca or (layer.color	or 'None')
 			}
 		}
 	end
@@ -292,7 +413,7 @@ local function BuildProcTexListMbin(tex_layer)
 			Name		= ly.ly_name,
 			Probability	= tex_layer.ly_prob	or 1,
 			Group		= tex_layer.group,
-			[1]			= GetProcTextures(tex_layer.nmspath..tex_layer.label, ly)
+			Textures	= GetProcTextures(tex_layer.nmspath..tex_layer.label, ly)
 		}
 	end
 	-- complete silly fixed length array
@@ -305,80 +426,29 @@ end
 
 -- io.open('e:/_dump/15.TEXTURE.EXML', 'w'):write(BuildProcTexListMbin(proc_texture_files[15]))
 
-local function AddProcTexFiles()
-	local T = {}
-	for _,ptf in ipairs(proc_texture_files) do
-		T[#T+1] = {
-			FILE_CONTENT		= BuildProcTexListMbin(ptf),
-			FILE_DESTINATION	= ptf.nmspath..ptf.label..'.TEXTURE.EXML'
-		}
-		if ptf.source then
-			T[#T+1] = {
-				EXTERNAL_FILE_SOURCE= ptf.source..ptf.label..'*.DDS',
-				FILE_DESTINATION	= ptf.nmspath..'*.DDS'
-			}
-		end
-	end
-	return T
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
-	ADD_FILES			= AddProcTexFiles()
+	ADD_FILES			= (
+		function()
+			local T = {}
+			for _,ptf in ipairs(proc_texture_files) do
+				if not ptf.unused then
+					T[#T+1] = {
+						FILE_CONTENT		= BuildProcTexListMbin(ptf),
+						FILE_DESTINATION	= ptf.nmspath..ptf.label..'.TEXTURE.EXML'
+					}
+					if ptf.source then
+						T[#T+1] = {
+							EXTERNAL_FILE_SOURCE= ptf.source..ptf.label..'*.DDS',
+							FILE_DESTINATION	= ptf.nmspath..'*.DDS'
+						}
+					end
+				end
+			end
+			return T
+		end
+	)()
 }
-
---------------------------------------------------------------------------------------
---- proc-gen ship lights
-
-	-- {
-	-- ---	ship: fake light beam & glow parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
-		-- label	= 'RECTWHITELIGHT',
-		-- source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
-		-- nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
-		-- {
-			-- ly_name	= 'BASE',
-			-- palette = 'Paint',
-			-- color	= 'Primary',
-			-- diff	= true
-		-- }
-	-- },
-	-- {
-	-- ---	ship: glow rectangle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
-		-- label	= 'RECTLIGHT',
-		-- source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
-		-- nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
-		-- {
-			-- ly_name	= 'BASE',
-			-- palette = 'Paint',
-			-- color	= 'Primary',
-			-- diff	= true
-		-- }
-	-- },
-	-- {
-	-- ---	ship: glow circle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
-		-- label	= 'CIRCLELIGHT',
-		-- source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
-		-- nmspath	= 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
-		-- {
-			-- ly_name	= 'BASE',
-			-- palette = 'Paint',
-			-- color	= 'Primary',
-			-- diff	= true
-		-- }
-	-- },
-	-- {
-	-- ---	ship: glow circle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
-		-- label	= 'HEADLIGHT',
-		-- source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
-		-- nmspath	= 'TEXTURES/COMMON/SPACECRAFT/SHARED/',
-		-- {
-			-- ly_name	= 'BASE',
-			-- ly_name	= 'BASE',
-			-- palette = 'Paint',
-			-- color	= 'Primary',
-			-- diff	= true
-		-- }
-	-- },

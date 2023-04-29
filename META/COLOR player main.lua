@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/lua_2_exml.lua')
+dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------------------------
 mod_desc = [[
   true for ships & black in customizing palettes
@@ -18,17 +18,17 @@ local base_colors = {
 			'555555ff',
 			'C7c7c7ff',
 			'Ffffffff',
-			{-0.998,-0.998,-0.998},
+			{-0.86,	-0.86,	-0.86},
 			'Ebebebff',
 			{-1,	-1,		-1},
-			{-0.999,-0.999,-0.999},
+			{-1,	-1,		-1},
 			'B3b3b3ff',
 			'808080ff',
 			'4d4d4dff',
 			'262626ff',
-			'000000ff',
+			{-1,	-1,		-1},
 			{-0.1,	-0.1,	-0.1},
-			{-0.99,	-0.99,	-0.99},
+			{-0.9,	-0.9,	-0.9},
 			'490910ff',
 			'5a0b12ff',
 			'7f1521ff',
@@ -297,7 +297,7 @@ local base_colors = {
 local function RebuildPaletteColors(gc_data)
 	local function hex2rgb(hex)
 		local n = {}
-		for i=1, (hex:len()/2) do
+		for i=1, (#hex/2) do
 			n[#n+1] = tonumber(hex:sub(i*2-1, i*2), 16) * 0.00392
 		end
 		return n
@@ -326,13 +326,13 @@ end
 local function AddToChangeTable()
 	local T = {}
 	T[1] = {
-		FSKWG	= {},
+		SKW		= {},
 		PKW		= 'Colours',
 		REMOVE	= 'Section'
 	}
 	for _,gc_data in pairs(base_colors) do
 		if gc_data.enabled then
-			T[1].FSKWG[#T[1].FSKWG + 1] = {gc_data.name, 'GcPaletteData.xml'}
+			T[1].SKW[#T[1].SKW + 1] = {gc_data.name, 'GcPaletteData.xml'}
 			T[#T+1] = {
 				PRECEDING_KEY_WORDS = gc_data.name,
 				VALUE_CHANGE_TABLE 	= {
@@ -365,8 +365,9 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META player main palettes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

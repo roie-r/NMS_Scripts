@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.23',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -33,7 +33,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'PLANTER'},
 					{'ID', 'PLANTERMEGA'}
 				},
@@ -61,25 +61,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/ANTENNA0_PLACEMENT.SCENE.MBIN'}
 				}
 			},
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'ID', 'TELEPORTER'},
-				-- PRECEDING_KEY_WORDS = 'Groups',
-				-- ADD 				= AddToGroup('FREIGHTER_TECH', 'FRE_TECH_OTHER')
-			-- },
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'U_SOLAR_S'},
+				MATH_OPERATION 		= '*',
+				SPECIAL_KEY_WORDS 	= {
+					{'ID', 'U_EXTRACTOR_S'},
+					{'ID', 'U_GASEXTRACTOR'},
+					{'ID', 'U_SOLAR_S'},
+					{'ID', 'U_SILO_S'},
+				},
 				VALUE_CHANGE_TABLE 	= {
-					{'Rate',		80},	-- 50
+					{'Rate',		1.8},
+					{'Storage',		4}
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'U_BIOGENERATOR'},
 				VALUE_CHANGE_TABLE 	= {
-					{'DependentRate', 80},	-- 50
+					{'DependentRate', 80}	-- 50
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'BUILDLIGHT'},
 					{'ID', 'BUILDLIGHT2'},
 					{'ID', 'BUILDLIGHT3'},
@@ -90,17 +92,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ID', 'BASE_TOYJELLY'},
 					{'ID', 'BASE_TOYCORE'},
 					{'ID', 'S_WATERVALVE0'},
-					{'ID', 'S_SIGN_BAR0'},
+					{'ID', 'S_SIGN_BAR0'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'BaseBuildingDecorationType', 'BuildingSurfaceNormal'}
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'SubGroupName', 'PLANETPORTABLE'},
 					{'SubGroupName', 'DECOFOLIAGE'},
-					{'SubGroupName', 'DECOGLITCHES'},
+					{'SubGroupName', 'DECOGLITCHES'}
 				},
 				REPLACE_TYPE 		= 'All',
 				SECTION_UP			= 2,
@@ -109,7 +111,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'BUILDSAVE'},
 					{'ID', 'COOKER'},
 					{'ID', 'PLANTERMEGA'},
@@ -142,7 +144,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'MAINROOM_WATER'},
 					{'ID', 'MAINROOMCUBE_W'},
 					{'ID', 'MOONPOOL'},

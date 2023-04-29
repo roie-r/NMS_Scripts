@@ -1,21 +1,22 @@
 ---------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/light_scene.lua')
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 mod_desc = [[
   - Mech: Faster step anime (adjusted for faster speed in vehicle globals)
    Hardframe blue front 3part light
   - Bike: reduce turret scale for the Nomad exocraft
-  - Remove installed tech check for vehicle turret ... avoid bug
    Rescale engine nozzle, re-position the engine bloom glow
    Remove light shafts
   - Add spotlight to exocraft turret
   - remove glow from bike & buggy parts
+  - (deprecated) Remove installed tech check for vehicle turret
 ]]-------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL vehicles various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.08',
+	NMS_VERSION				= '4.23',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -49,19 +50,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 										fov	= 62,	i = 104000,	c=  'f0f5ff',
 										f	= 'l',	fr= 1.0
 									})
-			}
-		}
-	},
-	{
-	--	|No vehicle gun tech inventory check| bugged since waypoint update
-		MBIN_FILE_SOURCE	= {
-			'MODELS/COMMON/VEHICLES/BUGGY/ENTITIES/GUN.ENTITY.MBIN',
-			'MODELS/COMMON/VEHICLES/SHARED/MININGLASER/ENTITIES/GUN.ENTITY.MBIN'
-		},
-		EXML_CHANGE_TABLE	= {
-			{
-				PRECEDING_KEY_WORDS = 'GcTechnologyAttachmentComponentData.xml',
-				REMOVE				= 'Section'
 			}
 		}
 	},
@@ -112,11 +100,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REMOVE				= 'Section'
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'spotLight4'},
 					{'Name', 'spotLight5'}
 				},
 				REMOVE				= 'Section'
+			}
+		}
+	},
+	{
+	--	|bike blue lights|
+		MBIN_FILE_SOURCE	= {
+			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTFADE_MAT.MATERIAL.MBIN',	-- green
+			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTS_MAT.MATERIAL.MBIN',		-- green			
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
+				VALUE_CHANGE_TABLE 	= {
+					{'x',			0.56},
+					{'y',			0.52},
+					{'z',			0.86}
+				}
 			}
 		}
 	},
@@ -138,6 +143,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	--	|mech faster step| animation speed
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/MECH_SUIT/MECH_SUIT/ENTITIES/MECH.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS = 'GcCreatureFullBodyIKComponentData.xml',
+				VALUE_CHANGE_TABLE 	= {
+					{'MaxHeadYaw',		120},	-- 125
+					{'MaxFootAngle',	65},	-- 45
+					{'MovementDamp',	0.45},	-- 0.2
+				}
+			},
 			{
 				MATH_OPERATION 		= '*',
 				SPECIAL_KEY_WORDS	= {'Filename','MODELS/COMMON/VEHICLES/MECH_SUIT/ANIMS/MECH_WALK.ANIM.MBIN'},
@@ -166,16 +179,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-	-- --	|remove wheeled bike fake light|
-		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/HQLIGHT_MAT1.MATERIAL.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'Samplers',
-				-- REMOVE				= 'Section'
-			-- }
-		-- }
-	-- },
 	{
 	---	remove |vehicle glow|
 		MBIN_FILE_SOURCE	= {
@@ -189,4 +192,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
+	-- {
+	-- --	|remove wheeled bike fake light|
+		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/HQLIGHT_MAT1.MATERIAL.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- PRECEDING_KEY_WORDS	= 'Samplers',
+				-- REMOVE				= 'Section'
+			-- }
+		-- }
+	-- },
+	-- {
+	-- --	|No vehicle gun tech inventory check| bugged since waypoint update
+	-- --	fixed - no longer needed
+		-- MBIN_FILE_SOURCE	= {
+			-- 'MODELS/COMMON/VEHICLES/BUGGY/ENTITIES/GUN.ENTITY.MBIN',
+			-- 'MODELS/COMMON/VEHICLES/SHARED/MININGLASER/ENTITIES/GUN.ENTITY.MBIN'
+		-- },
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- PRECEDING_KEY_WORDS = 'GcTechnologyAttachmentComponentData.xml',
+				-- REMOVE				= 'Section'
+			-- }
+		-- }
+	-- },
 }}}}

@@ -1,13 +1,13 @@
 ----------------------------------------------
 mod_desc = [[
   squadron formation & battle tweaks;
-  freigher summon delay
+  freighter summon delay
 ]]--------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC AISPACESHIP.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.08,
+	NMS_VERSION			= 4.23,
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,38 +15,37 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'GCAISPACESHIPGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
-					{'FormationOffsetZOffsetVarianceMaxSpeedScale',		-70},	-- 150
-					{'FormationOffsetCylinderWidth',					-30},	-- 80
-					{'FormationOffsetCylinderHeight',					-10},	-- 40
-					{'FormationOffsetCylinderLength',					-5},	-- 10
-					{'CombatFormationOffsetCylinderWidth',				100},	-- 80
-					{'CombatFormationOffsetCylinderHeight',				50},	-- 40
-					{'CombatFormationOffsetCylinderLength',				40},	-- 10
-					{'CombatFormationOffsetCylinderWidthThirdPerson',	105},	-- 75
-					{'CombatFormationOffsetCylinderHeightThirdPerson',	50},	-- 40
-					{'CombatFormationOffsetCylinderLengthThirdPerson',	25},	-- 5
-					{'MaintainFormationInCombatMinTime',				-9},	-- 10
-					{'MaintainFormationInCombatMaxTime',				-15},	-- 20
-					{'MaintainFormationLockStrengthCombat',				-4},	-- 4.5
-					{'OutOfFormationMinTime',							-4},	-- 8
-					{'OutOfFormationMaxTime',							32},	-- 16
-					{'PoliceStationEngageRange',						-2000},	-- 10000
-					{'PoliceStationNumToLaunch',						-4},	-- 9
-					{'MinimumCircleTimeBeforeLanding',					3},		-- 5
-					{'MinimumTimeBetweenOutpostLandings',				1},		-- 3
-					{'DockWaitMinTime',									5},		-- 20
+					{'FormationOffsetZOffsetVarianceMaxSpeedScale',		80},	-- 150
+					{'FormationOffsetCylinderWidth',					50},	-- 80
+					{'FormationOffsetCylinderHeight',					30},	-- 40
+					{'FormationOffsetCylinderLength',					5},		-- 10
+					{'CombatFormationOffsetCylinderWidth',				180},	-- 80
+					{'CombatFormationOffsetCylinderHeight',				90},	-- 40
+					{'CombatFormationOffsetCylinderLength',				50},	-- 10
+					{'CombatFormationOffsetCylinderWidthThirdPerson',	180},	-- 75
+					{'CombatFormationOffsetCylinderHeightThirdPerson',	90},	-- 40
+					{'CombatFormationOffsetCylinderLengthThirdPerson',	30},	-- 5
+					{'MaintainFormationInCombatMinTime',				2},		-- 10
+					{'MaintainFormationInCombatMaxTime',				8},		-- 20
+					{'MaintainFormationLockStrengthCombat',				0.5},	-- 4.5
+					{'OutOfFormationMinTime',							2},		-- 8
+					{'OutOfFormationMaxTime',							40},	-- 16
+					{'PoliceStationEngageRange',						8000},	-- 10000
+					{'PoliceStationNumToLaunch',						4},		-- 9
+					{'MinimumCircleTimeBeforeLanding',					8},		-- 5
+					{'MinimumTimeBetweenOutpostLandings',				4},		-- 3
+					{'DockWaitMinTime',									25},	-- 20
 					{'AbandonedSystemShipSpawnProbablity',				0.05},	-- 0
-					{'FlybyHeight',										60},	-- 120
-					{'FlybyOffset',										40},	-- 320
-					{'FlybyCloseOdds',									-15},	-- 20
-					{'FreighterSpawnRate',								-20},	-- 40
-					{'TradeRouteFlickerFreq',							-10},
-					{'TradeRouteFlickerAmp',							-0.01},
-					{'WarpInTimeFreighter',								1.4},	-- 0.6
-					{'MaxNumFreighters',								-5},	-- 12
+					{'FlybyHeight',										200},	-- 120
+					{'FlybyOffset',										360},	-- 320
+					{'FlybyCloseOdds',									35},	-- 20
+					{'FreighterSpawnRate',								30},	-- 40
+					{'TradeRouteFlickerFreq',							0},
+					{'TradeRouteFlickerAmp',							0},
+					{'WarpInTimeFreighter',								2},		-- 0.6
+					{'MaxNumFreighters',								9},		-- 12
 				}
 			}
 		}

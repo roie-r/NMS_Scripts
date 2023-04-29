@@ -5,7 +5,7 @@ mod_desc = [[
   Relocate bobble in cockpit so it doesn't obstruct the map
   Reduce ship body outer spotlight intensity, remove foggy light cone
   Blue-white little glowlights (instead of green)
-  * Needs to be merged with 'fighter LOD increase' script(!)
+  * Needs to be merged with other fighter scripts(!)
 ]]------------------------------------------------------------------------------
 
 local function tail_scales_ExmlCT()
@@ -26,9 +26,9 @@ end
 local fighters = 'MODELS/COMMON/SPACECRAFT/FIGHTERS/'
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__SHIP fighter various tweaks.pak',
+	MOD_FILENAME 			= '__SHIP fighter.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.08',
+	NMS_VERSION				= '4.23',
 	MOD_DESCRIPTION			= mod_desc,
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
@@ -102,7 +102,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '+',
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', '_Number3_A3'},
 					{'Name', '_Number1_A2'},
 					{'Name', '_Number3_A4'},
@@ -138,7 +138,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= fighters..'NOSE/COCKPITA_NOSEC/COCKPITANOSEC.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', '_logoL_A'},
 					{'Name', '_logoR_A'},
 				},
@@ -153,7 +153,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= fighters..'COCKPIT/COCKPIT_F/COCKPTF.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'logo_A1'},
 					{'Name', 'logo_A2'},
 				},
@@ -165,7 +165,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'Letter_A1'},
 					{'Name', 'Letter_A3'},
 				},
@@ -176,7 +176,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'Letter_A2'},
 					{'Name', 'Letter_A4'},
 				},
@@ -247,6 +247,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ScaleY',		0.88},
 					{'ScaleZ',		0.88}
 				}
+			}
+		}
+	},
+	{
+	--	|no fake orange light|
+		MBIN_FILE_SOURCE	= {
+			fighters..'COCKPIT/COCKPIT_E/COCKPIT_E/HQWHITELIGHT_MAT1.MATERIAL.MBIN',
+			fighters..'COCKPIT/COCKPIT_B/COCKPITB/HQWHITELIGHT_MAT.MATERIAL.MBIN',
+			fighters..'COCKPIT/COCKPIT_D/COCKPITD/HQWHITELIGHT_MAT1.MATERIAL.MBIN',
+			fighters..'NOSE/COCKPITA_NOSEC/COCKPITANOSEC/HQWHITELIGHT_MAT.MATERIAL.MBIN',
+			fighters..'NOSE/COCKPITA_NOSEE/COCKPITANOSEE/HQWHITELIGHT_MAT1.MATERIAL.MBIN'
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'Samplers',
+				REMOVE				= 'Section'
 			}
 		}
 	},
