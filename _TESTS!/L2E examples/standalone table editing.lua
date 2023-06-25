@@ -1,7 +1,8 @@
 -----------------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('C:/AMUMSS/ModScript/ModHelperScripts/LIB/lua_2_exml.lua')
+dofile('C:/AMUMSS/ModScript/ModHelperScripts/LIB/exml_2_lua.lua')
 -----------------------------------------------------------------------------------------
---	Simple examples of using ToLua & ToExml (called from inside FileWrapping)
+--	Simple examples of using ToLua & ToExml (ToExml is called by FileWrapping)
 --	as a stand-alone EXML editor (it's not a full modding tool).
 --  * This is a bare-bones, no safeties, example - Not really a working mod script.
 -----------------------------------------------------------------------------------------
@@ -24,8 +25,8 @@ local src0 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/GCCAMERAGLOBALS.GLOBAL.EXML'
 local gc_cam_file = ReadExml(src0)
 local gc_cam = gc_cam_file.template
 
-gc_cam.VehicleExitFlashTime		= 0.5
-gc_cam.VehicleExitFlashStrength	= 0.5
+gc_cam.VehicleExitFlashTime			= 0.5
+gc_cam.VehicleExitFlashStrength		= 0.5
 gc_cam.BinocularFlashTime			= 0.12
 gc_cam.BinocularFlashStrength		= 0.4
 gc_cam.MechCameraArmShootOffsetY	= 2
@@ -47,14 +48,14 @@ local shk = {}
 --	map GcCameraShakeData names for use as table keys
 for i, s in ipairs(gc_cam.CameraShakeTable) do shk[s.Name] = i end
 
-gc_cam.CameraShakeTable[shk.LAND].StrengthScale = 2
-gc_cam.CameraShakeTable[shk.LAND].CapturedData.ShakeStrength = 0.01
-gc_cam.CameraShakeTable[shk.WALKERWALK].StrengthScale = 2
-gc_cam.CameraShakeTable[shk.WALKERWALK].CapturedData.ShakeStrength = 0.02
-gc_cam.CameraShakeTable[shk.DOCKINGSHAKE].StrengthScale = 8
-gc_cam.CameraShakeTable[shk.DOCKINGSHAKE].CapturedData.ShakeStrength = 0.006
-gc_cam.CameraShakeTable[shk.FLYBY].StrengthScale = 1000
-gc_cam.CameraShakeTable[shk.FLYBY].CapturedData.ShakeStrength = 1.2
+gc_cam.CameraShakeTable[shk.LAND].StrengthScale							= 2
+gc_cam.CameraShakeTable[shk.LAND].CapturedData.ShakeStrength			= 0.01
+gc_cam.CameraShakeTable[shk.WALKERWALK].StrengthScale					= 2
+gc_cam.CameraShakeTable[shk.WALKERWALK].CapturedData.ShakeStrength		= 0.02
+gc_cam.CameraShakeTable[shk.DOCKINGSHAKE].StrengthScale					= 8
+gc_cam.CameraShakeTable[shk.DOCKINGSHAKE].CapturedData.ShakeStrength	= 0.006
+gc_cam.CameraShakeTable[shk.FLYBY].StrengthScale						= 1000
+gc_cam.CameraShakeTable[shk.FLYBY].CapturedData.ShakeStrength			= 1.2
 
 WriteExml(gc_cam_file, 'e:/_dump/gccameraglobals.global.exml')
 -----------------------------------------------------------------------------------------

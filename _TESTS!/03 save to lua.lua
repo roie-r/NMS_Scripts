@@ -1,5 +1,6 @@
 -----------------------------------------------------------------------------------------
 dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
+dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/exml_2_lua.lua')
 -----------------------------------------------------------------------------------------
 
 exml_section_08 = [[

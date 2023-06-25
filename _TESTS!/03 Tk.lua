@@ -222,7 +222,7 @@ function ColorData(t)
 	}
 end
 
-function Hex2Prc(h)
+function Hex2Percent(h)
 	-- translates a 2^16 hex string to 0-1.0 percentage
 	-- math.floor(X / 255 * 1000) / 1000 == X * 0.00392
 	return tonumber(h, 16) * 0.00392
@@ -231,7 +231,7 @@ end
 function ColorFromHex(hex)
 	local rgb = {{'R', 1}, {'G', 1}, {'B', 1}, {'A', 1}}
 	for i=1, (hex:len()/2) do
-		rgb[i][2] = Hex2Prc(hex:sub(i*2-1, i*2))
+		rgb[i][2] = Hex2Percent(hex:sub(i*2-1, i*2))
 	end
 	return rgb
 end
@@ -248,9 +248,9 @@ function ScLight(newlight)
 	for k, v in pairs(newlight or {}) do light[k] = v end
 	-- c = color as hex string. overwrites rgb if present.
 	if light.c then
-		light.r = Hex2Prc(light.c:sub(1, 2))
-		light.g = Hex2Prc(light.c:sub(3, 4))
-		light.b = Hex2Prc(light.c:sub(5, 6))
+		light.r = Hex2Percent(light.c:sub(1, 2))
+		light.g = Hex2Percent(light.c:sub(3, 4))
+		light.b = Hex2Percent(light.c:sub(5, 6))
 	end
 	return ScNode(
 		light.name, 'LIGHT', {
