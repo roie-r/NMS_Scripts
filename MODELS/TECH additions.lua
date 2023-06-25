@@ -6,7 +6,7 @@ mod_desc = [[
   - Add the weapons upgrade menu to the base weapons master terminal
    copied from: MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/SHOPS/ ..
    WEAPONSHOP/ENTITIES/WEAPONSUPGRADETERMINAL.ENTITY.MBIN
-  - Add the ship upgrade menu to Monitor Station (MONITORDESK) & nexus orb stand
+  - Add the ship upgrade menu to the nexus orb stand
   - Add hazard protection and a small light to beacon, cooker and signal booster (cheat)
   - Increase freighter extractor storage capacity
 ]]---------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -42,7 +42,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						SecondaryCameraTransitionTime	= 1
 					},
 					-- component stub
-					{ META	= {'value', 'TkPhysicsComponentData.xml'} }
+					{value = 'TkPhysicsComponentData.xml'}
 				})
 			}
 		}
@@ -85,45 +85,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-	-- --	add |antenna0 scanner| entity
-		-- MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/ANTENNA0.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',	build_parts..'TECH/SIGNALSCANNER/ENTITIES/SIGNALSCANNER.ENTITY.MBIN'}
-				-- }
-			-- }
-		-- }
-	-- },
-	-- {
-		-- MBIN_FILE_SOURCE	= build_parts..'TECH/SIGNALSCANNER/ENTITIES/SIGNALSCANNER.ENTITY.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- PRECEDING_KEY_WORDS = 'GcInteractionComponentData.xml',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'UseInteractCamera', false}
-				-- }
-			-- },
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'Components',
-				-- ADD					= ToExml({
-					-- META = {'value', 'GcScannableComponentData.xml'},
-					-- ScanRange			= 460,
-					-- ScanName			= 'Signaling Station',
-					-- ScanTime			= 5,
-					-- CanTagIcon			= true,
-					-- ClearTagOnArrival	= true,
-					-- UseModelNode		= true,
-					-- Icon = {
-						-- META = {'Icon', 'GcScannerIconTypes.xml'},
-						-- ScanIconType = 'SignalBooster',
-					-- }
-				-- })
-			-- }
-		-- }
-	-- },
+	{
+	--	add |antenna0 scanner| entity
+		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/ANTENNA0.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',	build_parts..'TECH/SIGNALSCANNER/ENTITIES/SIGNALSCANNER.ENTITY.MBIN'}
+				}
+			}
+		}
+	},
 	{
 		MBIN_FILE_SOURCE	= {
 			build_parts..'TECH/BEACON.SCENE.MBIN',
@@ -152,7 +125,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							})
 						}
 					),
-					[2] = ScLight({name='redlight', ty=1.8, i=20000, c='c73347ff', fr=3.8})
+					[2] = ScLight({name='redlight', ty=1.8, i=20000, c='ffc73347', fr=3.8})
 				})
 			}
 		}

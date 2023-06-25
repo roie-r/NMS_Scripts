@@ -14,7 +14,7 @@ local edit_stats = {
 ---	suit
 	{id='UP_JETBOOST',		st='Suit_Jetpack_Tank',					op='*',	vn=1.8,		vx=1.8},
 	{id='UP_JETBOOST',		st='Suit_Jetpack_Drain',				op='+',	vn=-0.3,	vx=-0.3},
-	{id='UP_JETBOOST',		st='Suit_Jetpack_Refill',				op='+',	vn=0.6,		vx=0.6},
+	{id='UP_JETBOOST',		st='Suit_Jetpack_Refill',				op='+',	vn=0.5,		vx=0.5},
 	{id='UP_JETBOOST',		st='Suit_Jetpack_Ignition',				op='+',	vn=0.03,	vx=0.03},
 	{id='UP_UNW', 			st='Suit_Protection_WaterDrain',		vn=0.1,	vx=0.2,		wc='MaxIsUncommon',	ac=true},
 ---	multitool
@@ -77,7 +77,7 @@ function edit_stats:GetExmlCT()
 					},
 					ValueMin		= x.vn,
 					ValueMax		= x.vx,
-					AlwaysChoose	= x.ac and 'True' or 'False',
+					AlwaysChoose	= bool(x.ac),
 					WeightingCurve	= {
 						META	= {'WeightingCurve', 'GcWeightingCurve.xml'},
 						WeightingCurve	= x.wc or 'NoWeighting'
@@ -95,9 +95,9 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROC TECH.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

@@ -27,7 +27,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META key binds.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -39,8 +39,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'InputAction', 'Player_Zoom'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'InputButton',	'None'},
-					{'InputAxis',	'MouseWheel'}
+					{'InputButton',	'MouseWheelDown'},
+					-- {'InputButton',	''}
+					-- {'InputAxis',	'MouseWheel'}
 				}
 			},
 			{
@@ -48,7 +49,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					AddBindings('Player_ChangeWeapon',	'None',		'MouseWheel'),
+					-- AddBindings('Player_ChangeWeapon',	'None',		'MouseWheel'),
+					AddBindings('Player_ChangeWeapon',	'MouseWheelDown'),
 					AddBindings('Player_Scan',			'Mouse3'),
 					AddBindings('Player_Binoculars',	'Mouse5'),
 					AddBindings('Player_Torch',			'Mouse6')
@@ -59,7 +61,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					AddBindings('Vehicle_ChangeWeapon',	'None',		'MouseWheel'),
+					-- AddBindings('Vehicle_ChangeWeapon',	'None',		'MouseWheel'),
+					AddBindings('Vehicle_ChangeWeapon',	'MouseWheelDown'),
 					AddBindings('Vehicle_Scan',			'Mouse3')
 				})
 			},
@@ -68,9 +71,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					AddBindings('Ship_ChangeWeapon',	'None',		'MouseWheel'),
+					-- AddBindings('Ship_ChangeWeapon',	'None',		'MouseWheel'),
+					AddBindings('Ship_ChangeWeapon',	'MouseWheelDown'),
 					AddBindings('Ship_Scan',			'Mouse3')
 				})
+			},
+			{
+				SPECIAL_KEY_WORDS	= {
+					{'InputAction', 'Quick_Left'},
+					{'InputAction', 'Quick_Right'}
+				},
+				SECTION_UP_SPECIAL	= 1,
+				REMOVE				= 'Section'
 			}
 		}
 	},
@@ -93,6 +105,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'InputButton',	'Space'}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {
+					{'InputAction', 'Player_ChangeWeapon'},
+					{'InputAction', 'Ship_ChangeWeapon'},
+					{'InputAction', 'Vehicle_ChangeWeapon'},
+				},
+				SECTION_UP			= 1,
+				VALUE_CHANGE_TABLE 	= {
+					{'InputButton',	'Key2'}
+				}
+			},
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS	= {'InputAction', 'Unbound'},
+				SECTION_UP			= 1,
+				REMOVE				= 'Section'
 			},
 			-- {
 				-- SPECIAL_KEY_WORDS	= {'ActionSetType', 'OnFootControls'},

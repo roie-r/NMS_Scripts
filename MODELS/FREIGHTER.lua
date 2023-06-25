@@ -12,7 +12,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL ferighter changes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -60,12 +60,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'OrangeLights'},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD 				= ToExml({
-					[1] = ScLight({name='left', fov=100, tx=16, ty=10, rx=-22, ry=90, f='l', fr=1.2, c='f5f7faff'}),
-					[2] = ScLight({name='right', fov=100, tx=-16, ty=10, rx=-22, ry=-90, f='l', fr=1.2, c='f5f7faff'}),
-					[3] = ScLight({name='ne', i=44000, fov=120, tx=4.8, ty=0.25, tz=4.8, rx=30, ry=45, c='f5f7faff'}),
-					[4] = ScLight({name='nw', i=44000, fov=120, tx=-4.8, ty=0.25, tz=4.8, rx=30, ry=-45, c='f5f7faff'}),
-					[5] = ScLight({name='se', i=44000, fov=120, tx=4.8, ty=0.25, tz=-4.8, rx=30, ry=135, c='f5f7faff'}),
-					[6] = ScLight({name='sw', i=44000, fov=120, tx=-4.8, ty=0.25, tz=-4.8, rx=30, ry=-135, c='f5f7faff'})
+					[1] = ScLight({name='left', fov=100, tx=16, ty=10, rx=-22, ry=90, f='l', fr=1.2, c='fff5f7fa'}),
+					[2] = ScLight({name='right', fov=100, tx=-16, ty=10, rx=-22, ry=-90, f='l', fr=1.2, c='fff5f7fa'}),
+					[3] = ScLight({name='ne', i=44000, fov=120, tx=4.8, ty=0.25, tz=4.8, rx=30, ry=45, c='fff5f7fa'}),
+					[4] = ScLight({name='nw', i=44000, fov=120, tx=-4.8, ty=0.25, tz=4.8, rx=30, ry=-45, c='fff5f7fa'}),
+					[5] = ScLight({name='se', i=44000, fov=120, tx=4.8, ty=0.25, tz=-4.8, rx=30, ry=135, c='fff5f7fa'}),
+					[6] = ScLight({name='sw', i=44000, fov=120, tx=-4.8, ty=0.25, tz=-4.8, rx=30, ry=-135, c='fff5f7fa'})
 				})
 			}
 		}

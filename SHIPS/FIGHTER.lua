@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+-----------------------------------------------------------------------
 mod_desc = [[
   Shorter overhead tail fin _Acc_A (clips with engines B & D)
   Narrower _SubWings_D, so it doesn't clip the ground
@@ -6,7 +6,7 @@ mod_desc = [[
   Reduce ship body outer spotlight intensity, remove foggy light cone
   Blue-white little glowlights (instead of green)
   * Needs to be merged with other fighter scripts(!)
-]]------------------------------------------------------------------------------
+]]---------------------------------------------------------------------
 
 local function tail_scales_ExmlCT()
 	local T = {}
@@ -28,7 +28,7 @@ local fighters = 'MODELS/COMMON/SPACECRAFT/FIGHTERS/'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.36',
 	MOD_DESCRIPTION			= mod_desc,
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',

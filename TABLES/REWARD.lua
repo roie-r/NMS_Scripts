@@ -14,8 +14,7 @@ mod_desc = [[
 ]]---------------------------------------------------------------------
 
 local new_rewards = {
-	{
-	---	sentinel salvaged glass shard ---
+	{--- sentinel salvaged glass shard ---
 		id			= 'DE_SENT_LOOT',
 		choice		= C_.ONE,
 		replacement	= true,
@@ -43,8 +42,7 @@ local new_rewards = {
 			{id=U_.HG,				n=100,	x=160,	c=10,	f=R_Money}
 		}
 	},
-	{
-	---	crashed freighter containers ---
+	{--- crashed freighter containers ---
 		id			= 'CRASHCONT_M',
 		choice		= C_.ONE,
 		replacement	= true,
@@ -105,7 +103,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=2,
 				{id='FREI_INV_TOKEN',	n=2, 	t=M_.PRD},	-- freighter inv
-				{id='SENTFREI_PROD',	n=303, 	t=M_.PRD},	-- AI Fragment
+				{id='SENTFREI_PROD',	n=3, 	t=M_.PRD},	-- AI Fragment
 			},
 
 			-- freighter hyper
@@ -113,7 +111,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=5,
 				{pid=P_.FRH, 		q=0,	t=M_.PRP},
-				{id='CASING',		n=1, 	t=M_.PRD},
+				{id='CASING',		n=5, 	t=M_.PRD},
 			},
 			{
 				f=R_MultiItem,
@@ -138,7 +136,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=5,
 				{pid=P_.FRF, 		q=0,	t=M_.PRP},
-				{id='NANOTUBES',	n=1, 	t=M_.PRD},
+				{id='NANOTUBES',	n=5, 	t=M_.PRD},
 			},
 			{
 				f=R_MultiItem,
@@ -163,7 +161,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=5,
 				{pid=P_.FRT, 		q=0,	t=M_.PRP},
-				{id='JELLY',		n=1, 	t=M_.PRD},
+				{id='JELLY',		n=5, 	t=M_.PRD},
 			},
 			{
 				f=R_MultiItem,
@@ -188,7 +186,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=5,
 				{pid=P_.FRC, 		q=0,	t=M_.PRP},
-				{id='POWERCELL',	n=187, 	t=M_.PRD},
+				{id='POWERCELL',	n=5, 	t=M_.PRD},
 			},
 			{
 				f=R_MultiItem,
@@ -238,7 +236,7 @@ local new_rewards = {
 				f=R_MultiItem,
 				c=5,
 				{pid=P_.FRE, 		q=0,	t=M_.PRP},
-				{id='CARBON_SEAL',	n=187, 	t=M_.PRD},
+				{id='CARBON_SEAL',	n=3, 	t=M_.PRD},
 			},
 			{
 				f=R_MultiItem,
@@ -260,8 +258,7 @@ local new_rewards = {
 			}
 		}
 	},
-	{
-	---	explorer freighter defense battle ---
+	{--- freighter defense :: explorer ---
 		id			= 'FREIGHTERSAVE_E',
 		choice		= C_.ALL,
 		rewardlist	= {
@@ -278,8 +275,7 @@ local new_rewards = {
 			{id=U_.HG, n=50, x=60, c=100, f=R_Money},
 		}
 	},
-	{
-	---	trader freighter defense battle ---
+	{--- freighter defense :: trader ---
 		id			= 'FREIGHTERSAVE_T',
 		choice		= C_.ALL,
 		rewardlist	= {
@@ -296,8 +292,7 @@ local new_rewards = {
 			{id=U_.UT, n=35100, x=50200, c=100, f=R_Money},
 		}
 	},
-	{
-	---	warior freighter defense battle ---
+	{--- freighter defense :: warior ---
 		id			= 'FREIGHTERSAVE_W',
 		choice		= C_.ALL,
 		rewardlist	= {
@@ -314,8 +309,7 @@ local new_rewards = {
 			{id=U_.NN, n=190, x=270, c=100, f=R_Money},
 		}
 	},
-	{
-	---	pirate attack loot - easy level ---
+	{--- pirate attack :: easy ---
 		id			= 'PIRATELOOT_EASY',
 		choice		= C_.ONE_S,
 		rewardlist	= {
@@ -327,11 +321,10 @@ local new_rewards = {
 			{id='ILLEGAL_PROD3',	n=1,	x=2,	c=40,	f=R_Product},
 			{id=P_.DBI,				r=R_.C,			c=30,	f=R_Procedural},
 			{id=P_.DTC,				r=R_.C,			c=30,	f=R_Procedural},
-			{id=U_.UT,				n=18000,x=30000,c=80,	f=R_Money}
+			{id=U_.UT,				n=18000,x=30000,c=30,	f=R_Money}
 		}
 	},
-	{
-	---	pirate attack loot - normal level ---
+	{--- pirate attack :: normal ---
 		id			= 'PIRATELOOT',
 		choice 		= C_.ONE_S,
 		zeroseed 	= true,
@@ -350,11 +343,10 @@ local new_rewards = {
 			{id='AF_METAL',			n=100,	x=130,	c=30,	f=R_Substance},
 			{id=P_.DBI,				o=true,	r=R_.U,	c=30,	f=R_Procedural},
 			{id=P_.DTC,				o=true,	r=R_.U,	c=30,	f=R_Procedural},
-			{id=U_.NN,				n=100,	x=250,	c=100,	f=R_Money}
+			{id=U_.NN,				n=100,	x=250,	c=40,	f=R_Money}
 		}
 	},
-	{
-	---	 pirate attack loot - hard level ---
+	{--- pirate attack :: hard level ---
 		id			= 'PIRATELOOT_HARD',
 		choice		= C_.ONE_S,
 		zeroseed	= true,
@@ -376,11 +368,10 @@ local new_rewards = {
 			{id='GEODE_RARE',				x=1,	c=20,	f=R_Product},
 			{id=P_.DBI,				o=true,	r=R_.U,	c=20,	f=R_Procedural},
 			{id=P_.DTC,				o=true,	r=R_.U,	c=20,	f=R_Procedural},
-			{id=U_.NN,				n=300,	x=400,	c=100,	f=R_Money}
+			{id=U_.NN,				n=300,	x=400,	c=20,	f=R_Money}
 		}
 	},
-	{
-	---	 pirate attack loot - building raid ---
+	{--- pirate attack :: building raid ---
 		id			= 'RAIDLOOT',
 		choice		= C_.ONE_S,
 		rewardlist	= {
@@ -393,11 +384,10 @@ local new_rewards = {
 			{id='GEODE_RARE',				x=1,	c=20,	f=R_Product},
 			{id=P_.DBI,				o=true,	r=R_.U,	c=20,	f=R_Procedural},
 			{id=P_.DTC,				o=true,	r=R_.U,	c=20,	f=R_Procedural},
-			{id=U_.UT,				n=25000,x=35000,c=80,	f=R_Money}
+			{id=U_.UT,				n=25000,x=35000,c=20,	f=R_Money}
 		}
 	},
-	{
-	---	jetpack boost from tech plant ---
+	{--- jetpack boost :: tech plant ---
 		id			= 'JETPACK_BOOST',
 		choice		= C_.ALL,
 		replacement	= true,
@@ -405,8 +395,7 @@ local new_rewards = {
 			{id='jetboost',		t=5,	b=1.25,	c=100,	f=R_Jetboost}
 		}
 	},
-	{
-	---	jetpack boost from ? ---
+	{--- jetpack boost :: ? ---
 		id			= 'MIXER_JETPACK',
 		choice		= C_.ALL,
 		replacement	= true,
@@ -414,8 +403,7 @@ local new_rewards = {
 			{id='jetboost',		t=4,	b=1.2,	c=100,	f=R_Jetboost}
 		}
 	},
-	{
-	---	jetpack boost from consumable product ---
+	{--- jetpack boost :: consumable product ---
 		id			= 'DE_FOOD_JETPACK',
 		choice		= C_.ALL,
 		replacement	= true,
@@ -423,8 +411,7 @@ local new_rewards = {
 			{id='jetboost',		t=3,	b=1.15,	c=100,	f=R_Jetboost}
 		}
 	},
-	{
-	---	health + shield + stamina + hazard + jetboost = balatant cheat! ---
+	{--- health + shield + stamina + hazard + jetboost = balatant cheat! ---
 		id			= 'HEALTH_MAJOR',
 		choice		= C_.ALL_S,
 		rewardlist	= {
@@ -435,16 +422,14 @@ local new_rewards = {
 			{id='jetboost',		t=4,	b=1.2,	c=100,	f=R_Jetboost}
 		}
 	},
-	{
-	---	quicksilver tiny=30 ---
+	{--- quicksilver tiny=30 ---
 		id			= 'RS_QUICKSILV_T',
 		choice		= C_.ALL,
 		rewardlist	= {
 			{id=U_.HG,			x=36,		c=100,		f=R_Money}
 		}
 	},
-	{
-	---	test 9 ---
+	{--- test 9 ---
 		id			= 'TEST_REWARD_09',
 		choice		= C_.ALL,
 		rewardlist	= {
@@ -457,18 +442,17 @@ local new_rewards = {
 			{id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
 			{id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
 			{id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
-			{id=U_.NN,				n=5,	x=15,	c=100,	f=R_Money}
 		}
 	},
-	{
-	---	more tests ---
+	{--- more tests ---
 		id			= 'TEST_99',
 		unused		= true,
 		choice		= C_.ONE,
 		rewardlist	= {
 			-- id					details			%		function
-			{id='no_sentinels',		t=20,			c=90,	f=R_NoSentinels},
-			{id='wanted_level',		w=0,			c=50,	f=R_Wanted},
+			{id='wanted_level',		l=1,			c=95,	f=R_Wanted},
+			{id='storm',			t=10,			c=95,	f=R_Storm},
+			{id='no_sentinels',		t=20,			c=95,	f=R_NoSentinels},
 			{id='ROGUE_HAZBOX',				x=1,	c=10,	f=R_Product},
 			{id='UT_SHIPLAS',				x=1,	c=10,	f=R_Product},
 			{id=P_.FOS,				r=R_.R,			c=10,	f=R_Procedural},
@@ -484,27 +468,27 @@ local new_rewards = {
 }
 
 -- loop through the rewards list and return the generated exml
-local function AddNewRewardsToChangeTable()
-	local T = {}
-	T[1] = { SKW={}, REMOVE='Section' }
+local function AddNewRewardsToChangeTable(T)
 	local rewards = {}
+	local rw_rd = #T+1
+	T[rw_rd] = { SKW={}, REMOVE='Section' }
+
 	for _,rwd in ipairs(new_rewards) do
 		-- collect exisitng rewards to be removed in SKW
 		if not rwd.unused then
 			if rwd.replacement then
-				T[1].SKW[#T[1].SKW+1] = {'Id', rwd.id}
+				T[rw_rd].SKW[#T[rw_rd].SKW+1] = {'Id', rwd.id}
 			end
 			rewards[#rewards+1] = R_RewardTableEntry(rwd)
 		end
 	end
 	-- remove SKW if none added
-	if #T[1].SKW <= 0 then T[1] = nil end
+	if #T[rw_rd].SKW <= 0 then T[rw_rd] = nil end
 
 	T[#T+1] = {
 		PRECEDING_KEY_WORDS	= 'GenericTable',
 		ADD					= ToExml(rewards)
 	}
-	return T
 end
 
 local plant_harvest = {
@@ -525,16 +509,18 @@ local plant_harvest = {
 	{'WILD_LUSH',		1.6,	2.2},	-- 10 15
 	{'WILD_TOXIC',		1.6,	2},		-- 18 30
 }
-function plant_harvest:Get(x)
-	return {
-		MATH_OPERATION 		= '*',
-		INTEGER_TO_FLOAT	= 'Preserve',
-		SPECIAL_KEY_WORDS	= {'Id', x[1]},
-		VALUE_CHANGE_TABLE 	= {
-			{'AmountMin',	x[2]},
-			{'AmountMax',	x[3]}
+function plant_harvest:GetExmlCT(T)
+	for _,x in ipairs(self) do
+		T[#T+1] = {
+			MATH_OPERATION 		= '*',
+			INTEGER_TO_FLOAT	= 'Preserve',
+			SPECIAL_KEY_WORDS	= {'Id', x[1]},
+			VALUE_CHANGE_TABLE 	= {
+				{'AmountMin',	x[2]},
+				{'AmountMax',	x[3]}
+			}
 		}
-	}
+	end
 end
 
 local learn_more_words = {
@@ -548,82 +534,54 @@ local learn_more_words = {
 	{'TEACHWORD_ATLAS',	A_.ATL,	3},
 	multi = true
 }
-function learn_more_words:Get(x)
-	local T = {}
-	for i=1, (x[3] - 1) do
-		T[i] = {
-			SPECIAL_KEY_WORDS	= {'Id', x[1]},
-			SECTION_ACTIVE		= 1,
-			PRECEDING_KEY_WORDS = 'GcRewardTableItem.xml',
-			ADD_OPTION			= 'ADDAfterSection',
-			ADD					= ToExml(R_Word({id=x[2], x=1, c=45}))
-		}
-	end
-	return T
-end
-
-local function BuildExmlChangeTable(tbl)
-	local T = {}
-	if tbl.multi or false then
-		for _,v in ipairs(tbl) do
-			for _,w in ipairs(tbl:Get(v)) do T[#T+1] = w end
+function learn_more_words:GetExmlCT(T)
+	for _,x in ipairs(self) do
+		for _=1, (x[3] - 1) do
+			T[#T+1] = {
+				SPECIAL_KEY_WORDS	= {'Id', x[1]},
+				SECTION_ACTIVE		= -1,
+				PRECEDING_KEY_WORDS = 'GcRewardTableItem.xml',
+				ADD_OPTION			= 'ADDAfterSection',
+				ADD					= ToExml(R_Word({id=x[2], x=1, c=45}))
+			}
 		end
-	else
-		for _,v in ipairs(tbl) do T[#T+1] = tbl:Get(v) end
 	end
-	return T
 end
-
-local source_table_reward = 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= AddNewRewardsToChangeTable()
-	},
-	{
-		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= {
-			-- {
-				-- -- PRECEDING_FIRST		= true,
-				-- -- PRECEDING_KEY_WORDS	= 'GcGenericRewardTableEntry.xml',
-				-- SPECIAL_KEY_WORDS	= {'ID', 'BP_SALVAGE'},
-				-- SECTION_ACTIVE		= -7,
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'AmountMin',	3},
-					-- {'AmountMax',	8}
-				-- }
-			-- },
-			{
-				REPLACE_TYPE 		= 'All',
-				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'Currency', 'Specials'},
-				SECTION_UP			= 1,
-				VALUE_CHANGE_TABLE 	= {
-					{'AmountMin',	2},
-					{'AmountMax',	2}
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN',
+		EXML_CHANGE_TABLE	= (
+			function()
+				T = {}
+				AddNewRewardsToChangeTable(T)
+				plant_harvest:GetExmlCT(T)
+				learn_more_words:GetExmlCT(T)
+
+				T[#T+1] = {
+					REPLACE_TYPE 		= 'All',
+					MATH_OPERATION 		= '*',
+					SPECIAL_KEY_WORDS	= {'Currency', 'Specials'},
+					SECTION_UP			= 1,
+					VALUE_CHANGE_TABLE 	= {
+						{'AmountMin',	2},
+						{'AmountMax',	2}
+					}
 				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'REFRESH_HAZ', 'LabelID', 'UI_RESTORE_HAZARD'},
-				ADD_OPTION			= 'ADDAfterSection',
-				ADD					= ToExml(R_Technology({id='BODYSHIELD', c=100, s=true}))
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(plant_harvest)
-	},
-	{
-		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(learn_more_words)
+				T[#T+1] = {
+					SPECIAL_KEY_WORDS	= {'Id', 'REFRESH_HAZ', 'LabelID', 'UI_RESTORE_HAZARD'},
+					ADD_OPTION			= 'ADDAfterSection',
+					ADD					= ToExml(R_Technology({id='BODYSHIELD', c=100, s=true}))
+				}
+				return T
+			end
+		)()
 	}
 }}}}

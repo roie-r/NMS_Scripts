@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------
+-- EXCLUDED FROM BATCH
+-------------------------------------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+-------------------------------------------------------------------------
 mod_desc = [[
   - slower wings folding anim
   - move the bobble in the sentinel cockpit to a less intrusive location
@@ -6,16 +10,57 @@ mod_desc = [[
   - wingB blue glow
   - remove shiny head and 3cross head pieces (replaced with others)
   - remove non-used engine exaust (3, 4, 6)
+  - removes orange and purple overlays - painted sentinels only
 ]]-----------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sentinel.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.36',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
+	AMUMSS_SUPPRESS_MSG		= 'UNUSED_VARIABLE',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
+	{
+		--	|sentinel increase LOD|
+		MBIN_FILE_SOURCE	= {
+			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
+			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB.SCENE.MBIN'
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {
+					{'Name', 'LODDIST1'},
+					{'Name', 'LODDIST2'},
+					{'Name', 'LODDIST3'}
+				},
+				REMOVE = 'Section'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+				VALUE_CHANGE_TABLE 	= { {'Value', 5} }
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+				ADD_OPTION			= 'AddAfterSection',
+				ADD 				= ToExml({
+					META	= {'value', 'TkSceneNodeAttributeData.xml'},
+					Name	= 'ATTACHMENT',
+					Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
+				})
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {'Name', 'LandingLight'},
+				REMOVE = 'Section'
+			}
+		}
+	},
 	{
 		--	|sentinel slow wing anim|
 		MBIN_FILE_SOURCE	= {
@@ -66,11 +111,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Name', 'MonitorL2'},
 					{'Name', 'SentinelCableL'},		-- thick cables
 					{'Name', 'SentinelCableR'},
-					{'Name', 'CableSpinnerL'},		-- thick cable spinner
+					{'Name', 'CableSpinnerL'},		-- thick cables spinning section
 					{'Name', 'CableSpinnerR'}
 				},
 				REMOVE = 'Section'
 			},
+		}
+	},
+	{
+	--	|sentinel blue lights| instead of red
+		MBIN_FILE_SOURCE	= {
+			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELCOCKPIT/LIGHTSCROLLBMAT.MATERIAL.MBIN',
+			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC/LIGHTSCROLLBMAT.MATERIAL.MBIN'
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/LIGHTDETAILBLUE.DDS'}
+				}
+			}
 		}
 	},
 	{
@@ -108,8 +167,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			function()
 				T = {}
 				for id, sfx in pairs({
-					_Lights_		= { 'C', 'E', 'J', 'D', 'C1', 'D1'},
-					_EngineFlame_	= {'3', '1', '3b', '1b', '4', '2', '4b', '2b', '6', '5', '6b', '5b'}
+					_Lights_		= { 'C', 'E', 'J', 'D', 'C1', 'D1'},	-- front heads
+					_exWingsb_		= { '5sts3', 'NULL4'},					-- wing b top antenna
+					_axWingss_		= { '12', '11'},						-- wing s top antenna
+					_EngineFlame_	= {'3', '1', '3b', '1b', '4', '2', '4b', '2b', '6', '5', '6b', '5b'},
+					_sideEngines_	= {'A2', 'NULL', 'A3', 'NULL1'},					-- wing jets with cable
+					_Jets_			= {'A', 'NULL_A', 'B', 'NULL_B', 'C', 'NULL_C'},	-- back jets sides
+					-- _Jet			= {'Top_A', 'Top_NULL', 'Bots_A', 'Bots_NULL'},		-- back jets top & bottom 
 				}) do
 					for i=1, #sfx, 2 do
 						T[#T+1] = {
@@ -124,5 +188,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				return T
 			end
 		)()
+	},
+	{
+	--	|sentinel wings descriptor| remove the bugged non-animated antenna from top back tail wing
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB.DESCRIPTOR.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Id', '_EXTENSIONSTOP_A1', 'Id', '_ANTS_14B1'}, -- { '14b1', '15b1'}
+				REMOVE				= 'Section'
+			}
+		}
 	}
 }}}}

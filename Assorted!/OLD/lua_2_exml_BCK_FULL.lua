@@ -1,7 +1,8 @@
---------------------------------------------------------------------------------
----	Convert EXML to an equivalent lua table and back again to exml text
----	helper functions and ENUMs...
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------
+---	LUA 2 EXML (VERSION: 0.81) ... by lMonk
+---	A tool for converting exml to an equivalent lua table and back again
+---	(with added color helper functions)
+-------------------------------------------------------------------------
 
 --	replace a boolean with its text (ignore otherwise)
 function bool(b)
@@ -11,7 +12,7 @@ end
 --	Generate an EXML-tagged text from a lua table representation of exml class
 function ToExml(class)
 	local function len2(t)
-	-- get the count of ALL objects in a table (non-recursive)
+	--	get the count of ALL objects in a table (non-recursive)
 		i=0; for _ in pairs(t) do i=i+1 end ; return i
 	end
 	local function exml_r(tlua)
@@ -35,8 +36,7 @@ function ToExml(class)
 					-- add normal property
 					if type(cls) == 'table' then
 						-- because you can't read an unknown key directly
-						for k,v in pairs(cls) do key = k; val = v end
-						cls = val
+						for k,v in pairs(cls) do key = k; cls = v end
 					end
 					if key == 'name' or key == 'value' then
 						exml:add({key, '="', bool(cls), '"/>'})
@@ -73,12 +73,12 @@ function FileWrapping(data, template)
 	if type(data) == 'string' then
 		return string.format(wrapper, template, data)
 	end
-	-- remove the extra table added by ToLua (FIX THIS!)
+	-- remove the extra table added by ToLua
 	if data.template then data = data.template end
 	-- table loaded from file
 	if data.META[1] == 'template' then
 		-- strip mock template
-		txt_data = ToExml(data):sub(data.META[2]:len() + 36, -12)
+		txt_data = ToExml(data):sub(#data.META[2] + 36, -12)
 		return string.format(wrapper, data.META[2], txt_data)
 	else
 		return string.format(wrapper, template, ToExml(data))
@@ -97,12 +97,12 @@ local function UnWrap(data)
 	end
 end
 
---	Builds a table representation of EXML sections
---	accepts complete EXML sections in a standard format - each property in a separate line
+--	Returns a table representation of EXML sections
 --	When parsing a full file, the header is stripped and a mock template is added
+--	Rquires complete EXML sections in the nomral format ...
+--	 Each property in a separate line with no commented lines
 function ToLua(exml)
 	local function eval(val)
-	-- return a value as its real type
 		if val == 'True' then
 			return true
 		elseif val == 'False' then
@@ -130,7 +130,7 @@ function ToLua(exml)
 					table.insert(st_node, parent)
 					node = {META = {att , val}}
 
-					 -- lookup if parent is an array
+					 -- look up if parent is an array
 					if st_array[#st_array] or att == 'value' then
 						parent[#parent+1] = node
 					elseif att == 'name' then
@@ -142,10 +142,10 @@ function ToLua(exml)
 					parent = node
 				else
 					-- add property to parent table
-					if att == 'name' or att == 'value' or array then
+					if att == 'value' or array then
 						node[#node+1] = {[att] = eval(val)}
-					else
-						-- regular property
+					-- regular property (skips stubs)
+					elseif att ~= 'name' then
 						node[att] = eval(val)
 					end
 				end
@@ -160,16 +160,18 @@ function ToLua(exml)
 	return tlua
 end
 
---	Converts EXML to a pretty-printed, ready-to-work, lua table script
---	accepts complete EXML sections in a standard format - each property in a separate line
+--	Converts EXML to a pretty-printed, ready-to-work, lua script.
 --	When parsing a full file, the header is stripped and a mock template is added
+--	Rquires complete EXML sections in the nomral format ...
+--	 Each property in a separate line with no commented lines
 function PrintExmlAsLua(exml, indent, com)
 	local function eval(val)
-		-- return a value as its real type
-		if val == 'True' then
-			return true
-		elseif val == 'False' then
-			return false
+		if #val == 0 then
+			return 'nil'
+		elseif val == 'True' or val == 'False' then
+			return val:lower()
+		elseif tonumber(val) and #val < 18 and not val:match('^0x') then
+			return val
 		else
 			return '[['..val..']]'
 		end
@@ -178,11 +180,14 @@ function PrintExmlAsLua(exml, indent, com)
 	local tag2	= [[<Property name="([%w_]+)" value="(.*)"[ ]?([/]?)>]]
 	indent		= indent or '\t'
 	com			= com or [[']]
-	local tlua	= {'exml_source = '}
 	local lvl	= 0
+	local tlua	= {'exml_source'}
+	function tlua:add(t)
+		for _,v in ipairs(t) do self[#self+1] = v end
+	end
 	--	array=true when processing an ordered (name) section
 	local array	= false
-	local st_array	= {false}
+	local st_array = {false}
 	for line in UnWrap(exml):gmatch('([^\n]+)') do -- parse lines
 		if line:match('Property') then -- properties only
 			_,eql = line:gsub('=', '')
@@ -192,79 +197,36 @@ function PrintExmlAsLua(exml, indent, com)
 				if close == '' then
 					-- opening a new table
 					array = att == 'name'
-					-- lookup if parent is an array
+					-- look up if parent is an array
 					if st_array[#st_array] or att == 'value' then
-						tlua[#tlua+1] = string.format('%s{\n', indent:rep(lvl))
+						tlua:add({indent:rep(lvl), '{\n'})
 					else
-						tlua[#tlua+1] = string.format('%s%s = {\n',
-							indent:rep(lvl),
-							att == 'name' and val or att
-						)
+						tlua:add({indent:rep(lvl), (att == 'name' and val or att), ' = ', '{\n'})
 					end
 					table.insert(st_array, att == 'name')
 					lvl = lvl + 1
-					tlua[#tlua+1] = string.format('%sMETA = {%s%s%s, %s%s%s},\n',
-						indent:rep(lvl), com, att, com, com, val, com
-					)
+					tlua:add({indent:rep(lvl), 'META = {', com, att, com, ',', com, val, com, '},\n'})
 				else
-					if att == 'name' or att == 'value' or array then
-						-- stub or value property
-						tlua[#tlua+1] = string.format('%s{%s = %s%s%s},\n',
-							indent:rep(lvl), att, com, val, com
-						)
-					else
-						-- regular property
-						tlua[#tlua+1] = string.format('%s%s = %s,\n', indent:rep(lvl), att, eval(val))
+					-- value property or properties in an array
+					if att == 'value' or array then
+						tlua:add({indent:rep(lvl), '{', att, ' = ', com, val, com, '},\n'})
+					-- regular property (skips stubs)
+					elseif att ~= 'name' then
+						tlua:add({indent:rep(lvl), att, ' = ', eval(val), ',\n'})
 					end
 				end
 			else
 				-- closing the table
 				lvl = lvl - 1
-				tlua[#tlua+1] = indent:rep(lvl)..'},\n'
+				tlua:add({indent:rep(lvl), '},\n'})
 				table.remove(st_array)
 			end
 		end
 	end
-	-- trim start & end
-	if tlua[2]:len() > 3 then tlua[2] = '{\n' end
+	-- start & end trims
+	tlua[3] = #tlua[3] > 2 and '' or ' = {\n'
 	tlua[#tlua] = '}'
 	return table.concat(tlua)
-end
-
---	Pretty-print a lua table as a ready-to-work script
---	(Doesn't maintain the original exml class order)
-function TableToString(tbl, name, l)
-	local lvl		= l or 1
-	local indent	= '\t'
-	-- com				= com or [[']]
-	name			= name or 'source_09'
-	local slua		= {}
-	function slua:add(t)
-		for _,v in ipairs(t) do self[#self+1] = v end
-	end
-	local function key(s)
-		return tonumber(s) and '' or s..' = '
-	end
-	local function eval(v)
-		if v == true then
-			return 'true'
-		elseif v == false then
-			return 'false'
-		else
-			return '[['..v..']]'
-		end
-	end
-	slua:add({key(name), '{\n'})
-	for k, val in pairs(tbl) do
-		if type(val) ~= 'table' then
-			slua:add({indent:rep(lvl), key(k), eval(val), ',\n'})
-		else
-			slua:add({indent:rep(lvl), TableToString(val, k, lvl + 1), ',\n'})
-		end
-	end
-	lvl = lvl - 1
-	slua:add({indent:rep(lvl), '}'})
-	return table.concat(slua)
 end
 
 function Hex2Percent(h)
@@ -275,23 +237,23 @@ end
 
 function ColorFromHex(hex)
 	local rgb = {{'R', 1}, {'G', 1}, {'B', 1}, {'A', 1}}
-	for i=1, (hex:len()/2) do
+	for i=1, (#hex/2) do
 		rgb[i][2] = Hex2Percent(hex:sub(i*2-1, i*2))
 	end
 	return rgb
 end
 
---	return a color table from 3-number table or hex
+--	return a color table from 3-4 number table or hex
 --	n=class name, c=hex color (overwrites the rgb)
 function ColorData(t, n)
 	t = t  or {}
 	if t.c then
-		for i=1, (t.c:len()/2) do
+		for i=1, (#t.c/2) do
 			t[i] = Hex2Percent(t.c:sub(i*2-1, i*2))
 		end
 	end
 	return {
-		-- if a name (n) is present then use 2-property tag
+		-- if a name (n) is present then use 2-property tags
 		META= {n or 'value', 'Colour.xml'},
 		R	= t[1] or 1,
 		G	= t[2] or 1,
@@ -302,6 +264,3 @@ end
 
 --	InventoryType Enum
 I_={ PRD='Product', SBT='Substance', TCH='Technology' }
-
---	just let me clutter up my code in peace
-NMS_MOD_DEFINITION_CONTAINER = { AMUMSS_SUPPRESS_MSG='MULTIPLE_STATEMENTS,UNUSED_VARIABLE' }

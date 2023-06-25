@@ -8,7 +8,7 @@ mod_desc = [[
 -------------------------------------------------------------------
   Set the number of seeds you want generated for each model
   (0 skips the unwanted)
-  * freighters are displayed with the seed but can't be bought
+  * freighters are displayed with their seed but can't be bought
 ]]-----------------------------------------------------------------
 
 local seed_counter = {
@@ -19,10 +19,10 @@ local seed_counter = {
 	Royal			= 0,
 	Bioship			= 0,
 	Sailship		= 0,
-	Sentinel		= 120000,
+	Sentinel		= 0,
 	Freighter		= 0,
 	Capital			= 0,
-	Multitool		= 0,
+	Multitool		= 140000,
 	Royaltool		= 0,
 	Sentineltool	= 0
 }
@@ -324,7 +324,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.1.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

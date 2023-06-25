@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SOLAR.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -24,13 +24,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
+				INTEGER_TO_FLOAT	= 'Preserve',
 				PRECEDING_KEY_WORDS = 'CommonAsteroidData',
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		2000},		-- 1000
-					{'Spacing',		'@*1.2'},	-- 645
+					{'Spacing',		'@*1.4'},	-- 645
 				}
 			},
 			{
+				INTEGER_TO_FLOAT	= 'Preserve',
 				PRECEDING_KEY_WORDS = 'LargeAsteroidData',
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		1200},		-- 400
@@ -39,6 +41,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
+				INTEGER_TO_FLOAT	= 'Preserve',
 				PRECEDING_KEY_WORDS = 'RareAsteroidData',
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		1800},		-- 1400
@@ -51,8 +54,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				PRECEDING_KEY_WORDS = 'CivilianClassWeightings',
 				VALUE_CHANGE_TABLE	= {
-					{'Alien',		2},
-					{'Robot',		1}
+					{'Royal',		3},
+					{'Sail',		5},
+					{'Alien',		1},
+					{'Robot',		2}
 				}
 			}
 		}

@@ -1,22 +1,16 @@
 ------------------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+------------------------------------------------------
 mod_desc = [[
   Decrease binoc scan and charge times
   visor focus: unknown is red / scanned is dark blue
   Change torch color and intensity
 ]]----------------------------------------------------
 
-local function ColorFromHex(hex)
-	local rgb = {{'R', 1}, {'G', 1}, {'B', 1}, {'A', 1}}
-	for i=1, (#hex/2) do
-		rgb[i][2] = tonumber(hex:sub(i*2-1, i*2), 16) * 0.00392
-	end
-	return rgb
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= 4.36,
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -31,19 +25,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NormalModeHeatBonus',					3},		-- 2
 					{'ShipMiningMul',						0.8},	-- 0.2
 					{'OverheatGenerosity',					1.1},	-- 1.05
-					{'SurveyMaxDistance',					100},	-- 400
+					{'SurveyMaxDistance',					600},	-- 400
 					{'WarpsBetweenBattles',					7},		-- 5		5054
 					{'HoursBetweenBattles',					4},		-- 3
 					{'TechDamageChanceShieldedMax',			0.2},	-- 0.5
 					{'TechDamageChanceShieldLevelMax',		0.2},	-- 0.75
 					{'ShipScanPlanetRechargeMultiplier',	0.5},	-- 1
 					{'ShipScanSpaceRechargeMultiplier',		0.2},	-- 0.3
-					{'AggressiveSentinelProbability',		0.08},	-- 0.13		5093
-					{'LowSentinelProbability',				0.1},	-- 0.55
+					{'LowSentinelProbability',				0.6},	-- 0.55
 					{'FreighterStartPecent',				50},	-- 60
+					{'ResourceReducer',						8},		-- 10
+					{'ResourceMaxAmount',					3},		-- 2
+					{'ResourceCommonReducer',				4},		-- 5
+					{'ResourceDirtReducer',					30},	-- 40
 					{'ShipInteractRadius',					850},	-- 50		5279
 					{'ZoomFindBuildingRange',				1000},	-- 600
-					{'TorchFoV',							80},	-- 120		6102
+					{'TorchFoV',							122},	-- 120		6102
 					{'TorchStrength',						4.8},	-- 3.5
 					{'TorchDimFoV',							68},	-- 65
 					{'TorchDimStrength',					2.7},	-- 1.5
@@ -83,21 +80,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'TorchColour',
-				VALUE_CHANGE_TABLE 	= ColorFromHex('edf7f0ff')
-			},
-			{
-				MATH_OPERATION 		= '+',
-				PRECEDING_KEY_WORDS = 'ToolScan',
-				VALUE_CHANGE_TABLE 	= {
-					{'ChargeTime',	-18}	-- 30
-				}
-			},
-			{
-				MATH_OPERATION 		= '+',
-				PRECEDING_KEY_WORDS = 'ToolScanHardMode',
-				VALUE_CHANGE_TABLE 	= {
-					{'ChargeTime',	-60}	-- 90
-				}
+				VALUE_CHANGE_TABLE 	= ColorFromHex('FFD1F7F7')
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedEffect',
@@ -108,15 +91,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedColour',
-				VALUE_CHANGE_TABLE 	= ColorFromHex('0f1f2b77')
+				VALUE_CHANGE_TABLE 	= ColorFromHex('770F1F2B')
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedUnknownColour',
-				VALUE_CHANGE_TABLE 	= ColorFromHex('e04e4eaa')
+				VALUE_CHANGE_TABLE 	= ColorFromHex('AAE04E4E')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BuildingScanEffect', 'Colour'},
-				VALUE_CHANGE_TABLE 	= ColorFromHex('1f5c7aff')
+				VALUE_CHANGE_TABLE 	= ColorFromHex('FF1F5C7A')
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BuildingScanEffect',

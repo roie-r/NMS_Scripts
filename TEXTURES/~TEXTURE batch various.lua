@@ -4,13 +4,13 @@ mod_desc = [[
 ]]-----------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME			= '__TEXTURE various.pak',
-	MOD_BATCHNAME			= '_TEXTURES ~@~collection.pak',
-	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
-	MOD_DESCRIPTION			= mod_desc,
-	MODIFICATIONS 			= {{
-	MBIN_CHANGE_TABLE		= {
+	MOD_FILENAME 		= '__TEXTURE batch various.pak',
+	MOD_AUTHOR			= 'lMonk',
+	MOD_BATCHNAME		= '_TEXTURES ~@~collection.pak',
+	NMS_VERSION			= '4.36',
+	MOD_DESCRIPTION		= mod_desc,
+	MODIFICATIONS 		= {{
+	MBIN_CHANGE_TABLE	= {
 	{
 	--	|painted sentinels| only (removes orange and purple)
 		MBIN_FILE_SOURCE	= 'TEXTURES/COMMON/ROBOTS/SENTINELPROC.TEXTURE.MBIN',

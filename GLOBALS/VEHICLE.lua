@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC VEHICLE.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.36',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -35,7 +35,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ExitStopForce',						-10},	-- 50
 					{'SubmarineEjectRadius',				0},		-- 1.8 		549 stand on top
 					{'SubmarineEjectDownOffset',			1},		-- -2
-					-- {'UnderwaterFlattenMinDepth',			-1},	-- 1
 					{'MiningLaserRadius', 					0.8},	-- 1.3
 					{'VehicleMaxSummonDistance',			2000},	-- 50
 					{'VehicleMaxSummonDistanceUnderwater',	2000},	-- 50
@@ -50,8 +49,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'VehicleBoostMaxSpeed', 		1.24},
 					{'VehicleBoostTime', 			1.6},
 					{'VehicleBoostRechargeTime', 	0.8},
-					{'PulseRange',					3},
-					{'ChargeTime',					0.25}
+					-- {'PulseRange',					3},
+					-- {'ChargeTime',					0.25}
 				}
 			},
 			{

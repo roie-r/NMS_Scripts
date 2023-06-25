@@ -29,36 +29,33 @@ local sailship_edits = {
 	{'Trail105L4',			0,		3.478},											-- wings_D R
 	{'Trail105L5',			0,		1.16},											-- wings_D L
 }
-function sailship_edits:Get(x)
+function sailship_edits:GetExmlCT()
 	local T = {}
-	T.SPECIAL_KEY_WORDS = {'Name', x[1]}
-	if x[2] then
-		T.MATH_OPERATION	 = '+'
-		T.VALUE_CHANGE_TABLE = {
-			{'RotX',	x[2]},
-			{'RotY',	x[3]},
-			{'RotZ',	x[4] or 0},
-			{'TransX',	x[5] or 0},
-			{'TransZ',	x[6] or 0},
-			{'ScaleX',	x[7] or 0},
-			{'ScaleY',	x[8] or 0},
-		}
-	else
-		T.REMOVE = 'Section'
+	for _,x in ipairs(self) do
+		i = #T + 1
+		T[i] = { SPECIAL_KEY_WORDS = {'Name', x[1]} }
+		if x[2] then
+			T[i].MATH_OPERATION	 = '+'
+			T[i].VALUE_CHANGE_TABLE = {
+				{'RotX',	x[2]},
+				{'RotY',	x[3]},
+				{'RotZ',	x[4] or 0},
+				{'TransX',	x[5] or 0},
+				{'TransZ',	x[6] or 0},
+				{'ScaleX',	x[7] or 0},
+				{'ScaleY',	x[8] or 0},
+			}
+		else
+			T[i].REMOVE = 'Section'
+		end
 	end
-	return T
-end
-
-local function BuildExmlChangeTable(tbl)
-	local T = {}
-	for _,v in ipairs(tbl) do T[#T+1] = tbl:Get(v) end
 	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP sailship.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -66,7 +63,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 	--	|sailship re-alignments|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SAILSHIP/SAILSHIP_PROC.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(sailship_edits)
+		EXML_CHANGE_TABLE	= sailship_edits:GetExmlCT()
 	},
 	{
 	---	fix |body_F spike| texture

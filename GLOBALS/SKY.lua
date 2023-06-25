@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SKY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.36',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -18,6 +18,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
+					{'DayLength',							2},		-- 1800
 					{'MinTimeBetweenStormsHigh',			3},		-- 120
 					{'MaxTimeBetweenStormsHigh',			2},		-- 620
 					{'MinTimeBetweenStormsExtremeFallback', 2},		-- 240

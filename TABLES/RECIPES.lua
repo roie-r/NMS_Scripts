@@ -8,8 +8,7 @@ mod_desc = [[
 ]]-------------------------------------------------------------------
 
 local new_recipes = {
-	{
-	---	make lots of sand from ferrite
+	{--	make lots of sand from ferrite
 		id		= 'RECIPE_MORESAND',
 		name	= 'UI_SANDWORD_DIET7',
 		make	= 40,
@@ -17,8 +16,8 @@ local new_recipes = {
 		{'SAND1',			6,	I_.SBT,	true}, -- result!
 		{'LAND1',			1,	I_.SBT},
 		{'LAND1',			1,	I_.SBT}
-	},{
-	---	glowing pellets are good for you
+	},
+	{--	glowing pellets are good for you
 		id		= 'RECIPE_HEALTHMAJOR',
 		name	= 'RECIPE_CATALYST1_ROBOT1',
 		make	= 3,
@@ -27,8 +26,8 @@ local new_recipes = {
 		{'SENTINEL_LOOT',	1,	I_.PRD},
 		{'FOOD_V_ROBOT',	1,	I_.PRD},
 		{'STELLAR2',		25,	I_.SBT}
-	},{
-	---	Spawning Sac - bioship inventory
+	},
+	{--	Spawning Sac - bioship inventory
 		id   	= 'RECIPE_BIOCARGO',
 		name	= 'RECIPE_ASTEROID_MIX',
 		make	= 4,
@@ -37,8 +36,8 @@ local new_recipes = {
 		{'FIENDCORE', 		2,	I_.PRD},
 		{'SPACEGUNK2', 		40,	I_.SBT},
 		{'ROBOT1', 			80,	I_.SBT}
-	},{
-	---	taint mag ferrite for more taint
+	},
+	{--	taint mag ferrite for more taint
 		id		= 'RECIPE_TAINT3',
 		name	= 'RECIPE_ASTEROID2',
 		make	= 40,
@@ -46,8 +45,8 @@ local new_recipes = {
 		{'AF_METAL',		3,	I_.SBT,	true}, -- result!
 		{'AF_METAL',		1,	I_.SBT},
 		{'LAND3',			3,	I_.SBT}
-	},{
-	---	quicksilver from colored sources
+	},
+	{--	quicksilver from colored sources
 		id		= 'RECIPE_GAS2HG',
 		name	= 'RECIPE_ASTEROID2',
 		make	= 10,
@@ -94,31 +93,31 @@ local function AddNewRecipes()
 	return ToExml(T)
 end
 
-local function ChangeTimeToMakeRange(id1, id2, multiplier)
-	local T = {}
-	T[1] = {
-		SKW					= {},
-		INTEGER_TO_FLOAT	= 'Preserve',
-		MATH_OPERATION 		= '*',
-		VALUE_CHANGE_TABLE 	= { {'TimeToMake',	multiplier} }
-	}
-	for i = id1, id2 do
-		T[1].SKW[#T[1].SKW + 1] = {'Id', 'REFINERECIPE_'..i}
-	end
-	return T
-end
+-- local function ChangeTimeToMakeRange(id1, id2, multiplier)
+-- 	local T = {}
+-- 	T[1] = {
+-- 		SKW					= {},
+-- 		INTEGER_TO_FLOAT	= 'Preserve',
+-- 		MATH_OPERATION 		= '*',
+-- 		VALUE_CHANGE_TABLE 	= { {'TimeToMake',	multiplier} }
+-- 	}
+-- 	for i = id1, id2 do
+-- 		T[1].SKW[#T[1].SKW + 1] = {'Id', 'REFINERECIPE_'..i}
+-- 	end
+-- 	return T
+-- end
 
-local source_table_recipe = 'METADATA/REALITY/TABLES/NMS_REALITY_GCRECIPETABLE.MBIN'
+-- local source_table_recipe = 'METADATA/REALITY/TABLES/NMS_REALITY_GCRECIPETABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= source_table_recipe,
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCRECIPETABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
@@ -128,12 +127,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TimeToMake',	0.5}
 				}
 			},
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_322'},
-				VALUE_CHANGE_TABLE 	= {
-					{'TimeToMake',	45}	-- ancient bug fix
-				}
-			},
+			-- {
+			-- 	SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_322'},
+			-- 	VALUE_CHANGE_TABLE 	= {
+			-- 		{'TimeToMake',	45}	-- ancient bug fix
+			-- 	}
+			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_52'},
 				VALUE_CHANGE_TABLE 	= {
@@ -146,12 +145,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-		MBIN_FILE_SOURCE	= source_table_recipe,
-		EXML_CHANGE_TABLE	= ChangeTimeToMakeRange(132, 137, 0.4)
-	},
-	{
-		MBIN_FILE_SOURCE	= source_table_recipe,
-		EXML_CHANGE_TABLE	= ChangeTimeToMakeRange(311, 322, 0.4)
-	}
+	-- {
+	-- 	MBIN_FILE_SOURCE	= source_table_recipe,
+	-- 	EXML_CHANGE_TABLE	= ChangeTimeToMakeRange(132, 137, 0.4)
+	-- },
+	-- {
+	-- 	MBIN_FILE_SOURCE	= source_table_recipe,
+	-- 	EXML_CHANGE_TABLE	= ChangeTimeToMakeRange(311, 322, 0.4)
+	-- }
 }}}}

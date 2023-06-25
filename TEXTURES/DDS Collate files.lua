@@ -3,182 +3,189 @@ mod_desc = [[
   Collate texture replacements
 ]]-----------------------------
 
-local dds_sources = {
-	{
-	---	blank replacers
+local texture_collection = {
+	{--	blank replacers
 		source = 'Blanks/',
 		target = '',
 		names  = {
 			-- binoculars screen filters
-			{'BLANK.FILTER.DDS','LUT/FILTERS/BINOCULARS.DDS'},
-			{'BLANK.FILTER.DDS','LUT/FILTERS/SURVEYING1.DDS'},
-			{'BLANK.FILTER.DDS','LUT/FILTERS/MISSIONSURVEY.DDS'},
+			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/BINOCULARS.DDS'},
+			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/SURVEYING1.DDS'},
+			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/MISSIONSURVEY.DDS'},
 			-- binoculars HUD background
-			{'BLANK.64.DDS',	'UI/HUD/BINOCULARS.DDS'},
-			{'BLANK.64.DDS',	'UI/HUD/BINOCULARMISSION.DDS'},
-			{'BLANK.64.DDS',	'UI/HUD/SURVEYING.DDS'},
+			{s='BLANK.64.DDS',		t='UI/HUD/BINOCULARS.DDS'},
+			{s='BLANK.64.DDS',		t='UI/HUD/BINOCULARMISSION.DDS'},
+			{s='BLANK.64.DDS',		t='UI/HUD/SURVEYING.DDS'},
 			-- laser mid part & target crosshairs
-			{'BLANK.64.DDS',	'UI/HUD/CROSSHAIRLAZERMIDDLE.DDS'},
-			{'BLANK.64.DDS',	'UI/HUD/CROSSHAIRS/LARGETARGET.DDS'},
-			{'BLANK.64.DDS',	'UI/HUD/CROSSHAIRTARGET.DDS'},
+			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRLAZERMIDDLE.DDS'},
+			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRS/LARGETARGET.DDS'},
+			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRTARGET.DDS'},
 			-- hide inv tab bulletpoint
-			{'BLANK.32.DDS',	'UI/FONTS/BULLETPOINT.DDS'},
+			{s='BLANK.32.DDS',		t='UI/FONTS/BULLETPOINT.DDS'},
 			-- just the blank
-			{'BLANK.64.DDS'},
+			{s='BLANK.64.DDS'},
 		}
-	},{
-	---	clean non-chipped fighter paint & white ship lights
+	},
+	{--	clean non-chipped fighter paint & white ship lights
 		source = 'Ship/FighterClean/',
 		target = 'COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		names  = {
-			{'*.DDS'}
+			{s='*.DDS'}
 		}
-	},{
-	---	sentinel ship blue lights
+	},
+	{--	sentinel ship blue lights
 		source = 'Ship/Sentinel/',
 		target = 'COMMON/ROBOTS/SHARED/',
 		names  = {
-			{'LIGHTS.?.DDS'}
+			{s='LIGHT*.DDS'}
 		}
 
-	},{
-	---	blue theme speeder (and bit more reflective)
+	},
+	{--	blue theme speeder (and bit more reflective)
 		source = 'Ship/Speeder/',
 		target = 'COMMON/SPACECRAFT/FIGHTERS/',
 		names  = {
-			{'VRSPEEDER.*.DDS'}
+			{s='VRSPEEDER.*.DDS'}
 		}
-	},{
-	---	Dimmer sailship sail
-		source = 'Ship/Sail/',
-		target = 'COMMON/SPACECRAFT/FIGHTERS/SAILS/',
-		names  = {
-			{'*.DDS'}
-		}
-	},{
-	---	vehicle buggy/bike headlights
+	},
+	-- {--	Dimmer sailship sail
+		-- source = 'Ship/Sail/',
+		-- target = 'COMMON/SPACECRAFT/FIGHTERS/SAILS/',
+		-- names  = {
+			-- {s='*.DDS'}
+		-- }
+	-- },
+	{--	vehicle buggy/bike headlights
 		source = 'Vehicle/',
 		target = 'COMMON/VEHICLES/BUGGY/',
 		names  = {
-			{'BUGGYLIGHTS.1.DDS'}
+			{s='BUGGYLIGHTS.1.DDS'}
 		}
-	},{
-	---	carbon-fiber laylaps
+	},
+	{--	carbon-fiber laylaps
 		source = 'FriendlyRobot/',
 		target = 'COMMON/ROBOTS/',
 		names  = {
-			{'FRIENDLYDRONE.DDS'}
+			{s='FRIENDLYDRONE.DDS'}
 		}
-	},{
-	---	planetary clouds replacement
+	},
+	{--	planetary clouds replacement
 		source = 'Clouds/',
 		target = 'SPACE/ATMOSPHERE/',
 		names  = {
-			{'ATMOSPHERE.DDS'}
+			{s='ATMOSPHERE.DDS'}
 		}
-	},{
-	---	multitool display screen & glow parts
+	},
+	{--	multitool display screen & glow parts
 		source = 'Weapon/',
 		target = 'UI/WEAPON/',
 		names  = {
-			{'*SCREEN.DDS'},
+			{s='*SCREEN.DDS'}
 		}
-	},{
-	---	dark blue trail (requires change in HOTDARKTRAIL.MATERIAL.MBIN)
-	---	blue infraknife shot (requires change in SHIPMINIGUNPROJECTILEGRADIENT.MATERIAL.MBIN)
-	---	remove sailship wing blinkers; alt warp textures
+	},
+	{--	multitool dark pristine
+		source = 'Weapon/',
+		target = 'COMMON/WEAPONS/MULTITOOL/',
+		names  = {
+			{s='MULTITOOLTRIM.*.DDS'}
+		}
+	},
+	{--	effects
+	--	dark blue trail (requires change in HOTDARKTRAIL.MATERIAL.MBIN)
+	--	blue infraknife shot (requires change in SHIPMINIGUNPROJECTILEGRADIENT.MATERIAL.MBIN)
+	--	remove sailship wing blinkers; alt warp textures
 		source = 'Effects/',
 		target = 'EFFECTS/',
 		names  = {
-			{'HeavyAir/*.DDS'},
-			{'Light/*.DDS'},
-			{'Particles/*.DDS'},
-			{'Trails/*.DDS',	'TRAILS/HOT/*.DDS'}
+			{s='HeavyAir/*.DDS'},
+			{s='Light/*.DDS'},
+			{s='Particles/*.DDS'},
+			{s='Trails/*.DDS',		t='TRAILS/HOT/*.DDS'}
 		}
-	},{
-	---	black carbon crystals
+	},
+	{--	black carbon crystals
 		source = 'BlackCarbon/',
 		target = 'PLANETS/BIOMES/',
 		names  = {
-			{'*.RED.DDS',			'COMMON/CRYSTALS/*.RED.DDS'},
-			{'MINERAL2.BASE.DDS',	'CRYSTAL/LARGEPROP/MINERAL2.BASE.DDS'}
+			{s='*.RED.DDS',			t='COMMON/CRYSTALS/*.RED.DDS'},
+			{s='MINERAL2.BASE.DDS',	t='CRYSTAL/LARGEPROP/MINERAL2.BASE.DDS'}
 		}
-	},{
-	---	hangar crane; includes light used in the sentinel ship
+	},
+	{--	freigher hangar crane
 		source = 'Building/PirateStation/',
 		target = 'SPACE/SPACESTATION/PIRATES/',
 		names  = {
-			{'*.DDS'}
+			{s='PIRATETRIM.*.DDS'}
 		}
-	},{
-	---	building parts: cleaner glass panes, decal replacers
+	},
+	{--	building parts: cleaner glass panes, decal replacers
 		source = 'Building/',
 		target = 'PLANETS/BIOMES/COMMON/BUILDINGS/SHARED/BUILDABLEBUILDINGS/',
 		names  = {
-			{'Glass/*.DDS',		'*.DDS'},
-			{'Decals/*.DDS',	'DECALS/*.DDS'}
+			{s='Glass/*.DDS',		t='*.DDS'},
+			{s='Decals/*.DDS',		t='DECALS/*.DDS'}
 		}
-	},{
-	---	ICONS: base part number decals
+	},
+	{--	ICONS: base part number decals
 		source = 'Icons/Base/',
 		target = 'UI/FRONTEND/ICONS/BUILDABLE/',
 		names  = {
-			{'DECAL.NUM?.DDS'},
+			{s='DECAL.NUM?.DDS'},
 			-- used for the quickmenu
-			{'BUILDABLE.BYTEBEAT.DDS'},
+			{s='BUILDABLE.BYTEBEAT.DDS'},
 		}
-	},{
-	---	ICONS: inventory
+	},
+	{--	ICONS: inventory
 		source = 'Icons/',
 		target = 'UI/FRONTEND/ICONS/',
 		names  = {
-		---	products & substances
-			{'Products/PRODUCT.*.DDS'},
-			{'u4Products/PRODUCT.*.DDS'},
-			{'UPDATE3/*.DDS'},
-			{'Products/Ketaros/PRODUCT.*.DDS'},
-			{'U4Substances/SUBSTANCE.*.DDS'},
+		--	products & substances
+			{s='Categories/INVCAT.*.DDS'},
+			{s='Products/PRODUCT.*.DDS'},
+			{s='CookingProducts/PRODUCT.*.DDS'},
+			{s='u4Products/PRODUCT.*.DDS'},
+			{s='U4Substances/SUBSTANCE.*.DDS'},
+			{s='Update3/*.DDS'},
 		--- technology
-			{'Technology/*.DDS'},
-			{'Technology/Bio/*.DDS'},
-			{'Technology/Vehicle/*.DDS'},
+			{s='Technology/*.DDS'},
+			{s='Technology/Bio/*.DDS'},
+			{s='Technology/Vehicle/*.DDS'},
 		}
-	},{
-	---	ICONS: quickmenu
+	},
+	{--	ICONS: quickmenu
 		source = 'Icons/Quickmenu/',
 		target = 'UI/FRONTEND/ICONS/QUICKMENU/',
 		names  = {
-			{'*.DDS'},
+			{s='*.DDS'},
 			-- THIRDPERSONSHIP is copied twice
-			{'THIRDPERSONSHIP.DDS', 'THIRDPERSONCHARACTER.DDS'},
+			{s='THIRDPERSONSHIP.DDS', t='THIRDPERSONCHARACTER.DDS'},
 		}
-	},{
-	---	 ICONS: HUD translucent icons
+	},
+	{--	 ICONS: HUD translucent icons
 		source = 'Icons/Hud/',
 		target = 'UI/HUD/ICONS/',
 		names  = {
-			{'Building/*.DDS',		'BUILDINGS/*.DDS'},
-			{'Pickups/*.DDS',		'PICKUPS/*.DDS'},
-			{'U4Pickups/*.DDS',		'U4PICKUPS/*.DDS'},
-			{'Poles/*.DDS',			'*.DDS'},
-			{'Player/*.DDS',		'PLAYER/*.DDS'},
-			{'BLACKHOLE.DDS',		'MISSIONS/MISSION.BLACKHOLE.DDS'},
-			-- discovered creature HUD icon (requires change in SCANNERICONS.MBIN)
-			{'CREATURE.*.DDS'}
+			{s='Building/*.DDS',	t='BUILDINGS/*.DDS'},
+			{s='Pickups/*.DDS',		t='PICKUPS/*.DDS'},
+			{s='U4Pickups/*.DDS',	t='U4PICKUPS/*.DDS'},
+			{s='Poles/*.DDS',		t='*.DDS'},
+			{s='Player/*.DDS',		t='PLAYER/*.DDS'},
+			{s='BLACKHOLE.DDS',		t='MISSIONS/MISSION.BLACKHOLE.DDS'},
+			{s='CREATURE.*.DDS'}
 		}
-	},{
-	---	player: vkyeen gloves
+	},
+	{--	player: vkyeen gloves
 		source = 'Player/',
 		target = 'COMMON/PLAYER/PLAYERCHARACTER/',
 		names  = {
-			{'VYKEEN*.DDS'}
+			{s='VYKEEN*.DDS'}
 		}
-	},{
-	---	menu: UI background
+	},
+	{--	menu: UI background
 		source = 'UI/background/',
 		target = 'UI/FRONTEND/BACKGROUNDS/',
 		names  = {
-			{'*.DDS'}
+			{s='*.DDS'}
 		}
 	}
 }
@@ -186,16 +193,16 @@ local dds_sources = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()
 			local T = {}
-			for _,rp in pairs(dds_sources) do
-				for _,f in ipairs(rp.names) do
+			for _,dds in pairs(texture_collection) do
+				for _,dfn in ipairs(dds.names) do
 					T[#T+1] = {
-						EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/'..rp.source..f[1],
-						FILE_DESTINATION	 = 'TEXTURES/'..(rp.target..(f[2] or f[1])):upper(),
+						EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/'..dds.source..dfn.s,
+						FILE_DESTINATION	 = 'TEXTURES/'..(dds.target..(dfn.t or dfn.s)):upper(),
 					}
 				end
 			end

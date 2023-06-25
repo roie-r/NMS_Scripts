@@ -12,7 +12,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -101,18 +101,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-	--	|No resource crates at portal|
+	--	|No crates at portal|
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name',	'_Clump1'},
-					{'Name',	'_Clump2'},
-					{'Name',	'_Clump3'},
-					{'Name',	'_Clump4'},
-					{'Name',	'_Clump5'},
-					{'Name',	'_Clump6'}
-				},
+				SPECIAL_KEY_WORDS	= {'Name', 'PortalStructure'},
+				PRECEDING_KEY_WORDS	= 'TkSceneNodeData.xml',
+				VALUE_MATCH			= '{^_Clump[1-6]}',
 				REMOVE				= 'Section'
 			}
 		}

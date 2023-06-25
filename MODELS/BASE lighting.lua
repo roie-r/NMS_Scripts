@@ -11,7 +11,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL base lighting.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -28,7 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'HangingLampLOD0'},
 				ADD					= ToExml(
-					ScChildren({ ScLight({name='lamp000', i=26000, ty=12, c='fae6bf'}) })
+					ScChildren({ ScLight({name='lamp000', i=26000, ty=12, c='fffae6bf'}) })
 				)
 			}
 		}

@@ -252,7 +252,7 @@ local function GetProcTextures(path, layer)
 		if not arg.b then return '' end
 		local con = ''
 		for _,ar in ipairs(arg) do
-			if ar and ar:len() > 0 then
+			if ar and #ar > 0 then
 				con = con..ar..'.'
 			end
 		end
@@ -334,7 +334,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	ADD_FILES			= AddProcTexFiles()

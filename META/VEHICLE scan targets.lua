@@ -214,32 +214,38 @@ local scan_events = {
 		class	= 'Terminal',
 		osd		= 'SIGNAL_TERMINAL',
 		tip		= 'TIP_TERMINAL'
-	},{
+	},
+	{
 		event	= 'T_RUIN',
 		class	= 'TreasureRuins',
 		osd		= 'UI_SIGNAL_TREASURERUIN',
 		tip		= 'UI_TIP_TREASURERUIN'
-	},{
+	},
+	{
 		event	= 'DEBRIS_NPC',
 		class	= 'NPCDebris',
 		osd		= 'SIGNAL_DEBRIS',
 		tip		= 'TIP_DEBRIS'
-	},{
+	},
+	{
 		event	= 'PLAQUE',
 		class	= 'Plaque',
 		osd		= 'SIGNAL_PLAQUE',
 		tip		= 'TIP_PLAQUE'
-	},{
+	},
+	{
 		event	= 'NEW_BASE',
 		class	= 'Base',
 		osd		= 'SIGNAL_BASE',
 		tip		= 'TIP_BASE'
-	},{
+	},
+	{
 		event	= 'LIBRARY',
 		class	= 'LargeBuilding',
 		osd		= 'SIGNAL_LIBRARY',
 		tip		= 'TIP_LIBRARY'
-	},{
+	},
+	{
 		event	= 'SETTLEMENT',
 		evprior	= 'High',
 		blocal	= 'AllNearest',
@@ -247,38 +253,44 @@ local scan_events = {
 		class	= 'Settlement_Hub',
 		osd		= 'UI_SETTLEMENT_LOCATED_OSD',
 		tip		= 'UI_SETTLEMENT_LOCATED'
-	},{
+	},
+	{
 		name	= 'BUILDING_GLITCHYSTORYBOX_L',
 		event	= 'BOUND_GLITCH',
 		class	= 'StoryGlitch',
 		osd		= 'UI_MP_PORTALQUEST_RIFT_OSD',
 		tip		= 'TUT_BASEBUILD_SURVEY_OSD'
-	},{
+	},
+	{
 		name	= 'SCAN_GRAVE',
 		event	= 'TRAVEL_GRAVE',
 		class	= 'GraveInCave',
 		osd		= 'UI_BIOSHIP5_SURVEY_OSD',
 		tip		= 'UI_MP_PLANTKILL_GRAVE_SURV_OSD2'
-	},{
+	},
+	{
 		name	= 'UI_CORE_HOLOHUB_MARKER',
 		event	= 'HOLO_TOWER',
 		class	= 'MissionTower',
 		osd		= 'UI_CORE_A1S4_SURVEY_OSD',
 		tip		= 'UI_CORE_HOLOHUB_OSD1'
-	},{
+	},
+	{
 		event	= 'DRONE_HIVE',
 		class	= 'DroneHive',
 		osd		= 'UI_DRONEHIVE_LOCATED_OSD',
 		mlabel	= 'UI_SENTINEL_HIVE_NAME',
 		tip		= 'UI_DRONEHIVE_LOCATED'
-	},{
+	},
+	{
 		event	= 'SENT_CRASH_CORRUPT',
 		replace	= true,
 		class	= 'SentinelDistressSignal',
 		osd		= 'UI_CRASH_REVEAL_OSD',
 		mlabel	= 'UI_CRASH_REVEAL_MARKER',
 		tip		= 'UI_CRASH_REVEAL_MSG'
-	},{
+	},
+	{
 		event	= 'ROBOT_CAMP',
 		replace	= true,
 		class	= 'AbandonedRobotCamp',
@@ -288,7 +300,7 @@ local scan_events = {
 	}
 }
 
-local function BuildVehicleScanTable()
+local function BuildVehicleScanMenuTable()
 	local function getScanList(scans)
 		-- Assign the exml table with its designated meta
 		local Ts = {META = {'name', 'ScanList'}}
@@ -318,7 +330,7 @@ local function BuildVehicleScanTable()
 	return FileWrapping(T, 'GcVehicleScanTable')
 end
 
-local function AddNewScanEventsAndIcons()
+local function VehicleScanEventsChangeTable()
 	local T = {
 		{
 			PRECEDING_KEY_WORDS = 'GcScanEventData.xml',
@@ -361,36 +373,31 @@ local function AddNewScanEventsAndIcons()
 			VALUE_CHANGE_TABLE	= { {'Filename', s[2]} }
 		}
 	end
+	-- ancient bug fix
+	T[#T+1] = {
+		SPECIAL_KEY_WORDS	= {'Name', 'RUIN'},
+		VALUE_CHANGE_TABLE 	= {
+			{'OSDMessage', 'UI_SIGNAL_TREASURERUIN'}
+		}
+	}	
 	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{
 			FILE_DESTINATION = 'METADATA/SIMULATION/SCANNING/VEHICLESCANTABLE.EXML',
-			FILE_CONTENT	 = BuildVehicleScanTable()
+			FILE_CONTENT	 = BuildVehicleScanMenuTable()
 		}
 	},
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SCANNING/SCANEVENTTABLEVEHICLE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				-- old bug fix
-				SPECIAL_KEY_WORDS	= {'Name', 'RUIN'},
-				VALUE_CHANGE_TABLE 	= {
-					{'OSDMessage', 'UI_SIGNAL_TREASURERUIN'}
-				}
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SCANNING/SCANEVENTTABLEVEHICLE.MBIN',
-		EXML_CHANGE_TABLE	= AddNewScanEventsAndIcons()
+		EXML_CHANGE_TABLE	= VehicleScanEventsChangeTable()
 	}
 }}}}

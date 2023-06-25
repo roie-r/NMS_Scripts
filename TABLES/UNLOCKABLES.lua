@@ -5,7 +5,7 @@ mod_desc = [[
   Rebuild and add to unlockable items tree
   - A replacement for a full tree needs the ItemTrees title & the tree's own title
    as 1st & 2nd parents.
-  - A new tree is inserted as 1st in its ItemTrees by default. Inesrting [after] work
+  - A new tree is inserted as 1st in its ItemTrees by default. Inserting [after] work
    only on existing trees, not newly-added, and needs the 'after' Title.
 ]]------------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ local unlockable_items = {
 		cost	= 'NANITES',
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
-			Unlockable	= 'LIFESUP_ROBO',
+			Unlockable	= 'SHIP_LIFESUP',
 			{
 				META	= mt_child,
 				{
@@ -71,7 +71,7 @@ local unlockable_items = {
 							Unlockable	= 'WARP_ALIEN'
 						}
 					}
-					
+
 				},
 				{
 					META	= mt_ulitn,
@@ -124,18 +124,25 @@ local unlockable_items = {
 									META = mt_ulitn,
 									Unlockable	= 'HYPERDRIVE_ROBO'
 								}
-							}							
+							}
 						}
 					}
 				},
 				{
 					META	= mt_ulitn,
-					Unlockable	= 'SHIPGUN_ROBO',
+					Unlockable	= 'LIFESUP_ROBO',
 					{
 						META	= mt_child,
 						{
 							META = mt_ulitn,
-							Unlockable	= 'SHIPSHIELD_ROBO'						
+							Unlockable	= 'SHIPGUN_ROBO',
+							{
+								META	= mt_child,
+								{
+									META = mt_ulitn,
+									Unlockable	= 'SHIPSHIELD_ROBO'
+								}
+							}
 						}
 					}
 				}
@@ -370,7 +377,14 @@ local unlockable_items = {
 						META	= mt_child,
 						{
 							META = mt_ulitn,
-							Unlockable	= 'UT_SCAN'
+							Unlockable	= 'UT_SCAN',
+							{
+								META	= mt_child,
+								{
+									META = mt_ulitn,
+									Unlockable	= 'UT_S10_SCAN'
+								}
+							}
 						},
 						{
 							META = mt_ulitn,
@@ -1617,7 +1631,7 @@ local function AddTreeToChangeTable(node)
 		T[#T+1] = {
 			SPECIAL_KEY_WORDS	= {'Unlockable', node.parent[1]},
 			PRECEDING_KEY_WORDS = 'Children',
-			SECTION_ACTIVE		= 1,
+			SECTION_ACTIVE		= -1,
 			ADD					= ToExml(node.tree)
 		}
 	end
@@ -1642,7 +1656,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

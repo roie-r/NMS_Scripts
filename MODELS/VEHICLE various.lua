@@ -16,7 +16,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL vehicles various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.36',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -47,7 +47,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 										name='turret_light',
 										tx=	0.25,	ty=	0.45,	tz=	0.4,
 										rx=	10.6,	ry=	180,
-										fov	= 62,	i = 104000,	c=  'f0f5ff',
+										fov	= 62,	i = 104000,	c=  'fff0f5ff',
 										f	= 'l',	fr= 1.0
 									})
 			}
@@ -112,7 +112,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	--	|bike blue lights|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTFADE_MAT.MATERIAL.MBIN',	-- green
-			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTS_MAT.MATERIAL.MBIN',		-- green			
+			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTS_MAT.MATERIAL.MBIN',		-- green
 		},
 		EXML_CHANGE_TABLE	= {
 			{

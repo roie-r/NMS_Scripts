@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.36',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -17,24 +17,35 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '*',
-				PRECEDING_KEY_WORDS	= {'High', 'LODAdjust'},
+				PRECEDING_KEY_WORDS	= {'Medium', 'LODAdjust'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Ignore',		1.5},
 					{'Ignore',		1.5},
+					{'Ignore',		1.5},
+					{'Ignore',		1.5},
+					{'Ignore',		1.5}
+				}
+			},
+			{
+				MATH_OPERATION 		= '*',
+				PRECEDING_KEY_WORDS	= {'High', 'LODAdjust'},
+				VALUE_CHANGE_TABLE 	= {
 					{'Ignore',		2},
-					{'Ignore',		3},
-					{'Ignore',		3}
+					{'Ignore',		2},
+					{'Ignore',		2},
+					{'Ignore',		2},
+					{'Ignore',		2}
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS	= {'Ultra', 'LODAdjust'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Ignore',		2.5},
-					{'Ignore',		2.5},
 					{'Ignore',		3},
-					{'Ignore',		4},
-					{'Ignore',		4}
+					{'Ignore',		3},
+					{'Ignore',		3},
+					{'Ignore',		3},
+					{'Ignore',		3}
 				}
 			},
 			{

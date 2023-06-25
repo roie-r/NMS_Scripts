@@ -6,7 +6,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC PLAYER.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -43,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'WeaponHolsterDelay',					8},		-- 6
 					{'MaxFallSpeed',						56}, 	-- 30
 					{'MaxBuildHeight',						1024}, 	-- 64
-					-- {'AutoAimMaxAngle',						-20}, 	-- 30
+					{'AutoAimMaxAngle',						25}, 	-- 30
 					{'SlopeSlidingSpeed',					-18},	-- -15
 					{'SlopeSlideBrake',						6.5},	-- 18.5
 					{'AutoSaveMaxTime',						9999999},		--	1598

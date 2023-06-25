@@ -2,22 +2,21 @@
 dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------------------
 mod_desc = [[
-  Same underwater freighter crash site as on land
-  Reduce creature damage from laser
-  Remove excesive listing of proc upgrades in the catalogue
-  Restore old creature-scanned icon; Remove selected HUD icons
-  Remove tiny cargo pod frigates
-  Faster screen text
-  hide inventory change tab marker (bulletpoint) and slashes
-  add eye texture to alien head4
-  better cloud map
-  keep whale song mission active
+  - Same underwater freighter crash site as on land
+  - Remove proc tech upgrades and add sentinel tech to
+   technology catalogue
+  - Restore old creature-scanned icon; Remove selected HUD icons
+  - Remove tiny cargo pod frigates
+  - Faster screen text
+  - hide inventory change tab marker (bulletpoint) and slashes
+  - better cloud map
+  - keep whale song mission active
 ]]-------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -36,29 +35,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-	--	|no creature laser damage|
-		MBIN_FILE_SOURCE	= 'METADATA/REALITY/DEFAULTREALITY.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'CREATURE', 'DamageType', 'Laser'},
-				INTEGER_TO_FLOAT	= 'Force',
-				SECTION_UP			= 1,
-				VALUE_CHANGE_TABLE 	= {
-					{'Multiplier',	0.01}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Id', 'FIEND', 'DamageType', 'Laser'},
-				INTEGER_TO_FLOAT	= 'Force',
-				SECTION_UP			= 1,
-				VALUE_CHANGE_TABLE 	= {
-					{'Multiplier',	0.03}
-				}
-			}
-		}
-	},
-	{
-	--	|no procedurals in catalogue|
+	--	|catalogue changes| no procs & add sentinel tech
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/CATALOGUECRAFTING.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -182,20 +159,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-	-- --	|restore eyes to head4| alien
-		-- MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS 	= {'GroupID', 'FOURTH_HEAD_1'},
-				-- PRECEDING_KEY_WORDS = 'Descriptors',
-				-- ADD 				= [[
-					-- <Property value="NMSString0x20.xml">
-						-- <Property name="Value" value="_EYES_DEFAULT1"/>
-					-- </Property>]]
-			-- }
-		-- }
-	-- },
 	{
 	--	|better clouds|
 		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
@@ -219,7 +182,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
-				SECTION_ACTIVE		= 1,
+				SECTION_ACTIVE		= -1,
 				VALUE_CHANGE_TABLE	= {
 					{'RestartOnCompletion', 'True'}
 				}

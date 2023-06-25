@@ -81,14 +81,36 @@ local text_lines = {
 		UI_SGUNK1_SYM	= { EN = [[Ю]] },
 		UI_SGUNK2_SYM	= { EN = [[Ɣ]] },
 		UI_SGUNK3_SYM	= { EN = [[FeO]] },
-		UI_SGUNK4_SYM	= { EN = [[ȸ]] },
+		UI_SGUNK4_SYM	= { EN = [[ƪ]] },
 		UI_SGUNK5_SYM	= { EN = [[œ]] },
 		UI_TIMEDUST_SYM	= { EN = [[Љ]] },
 		UI_TIMEMILK_SYM	= { EN = [[Ҩ]] },
-		UI_ROBOT2_SYM	= { EN = [[¤]] },
+		UI_ROBOT2_SYM	= { EN = [[Ʊ]] },
 
 	---	Existing text overwritten ---
 
+		INTRCT_EMPTY = {
+			EN = [[.]],
+		},
+		UI_FREIGHTER_FUEL_1_NAME = {
+			EN = [[FRIGATE FUEL]],
+		},
+		UI_FREIGHTER_FUEL_1_NAME_L = {
+			EN = [[Frigate Fuel]],
+		},
+		UI_FREIGHTER_FUEL_2_NAME = {
+			EN = [[FRIGATE FUEL x2]],
+		},
+		UI_FREIGHTER_FUEL_2_NAME_L = {
+			EN = [[Frigate Fuel x2]],
+		},
+		UI_FREIGHTER_FUEL_3_NAME = {
+			EN = [[FRIGATE FUEL x4]],
+		},
+		UI_FREIGHTER_FUEL_3_NAME_L = {
+			EN = [[Frigate Fuel x4]],
+		},
+		
 		UI_SENT_LASER_NAME = {
 			EN = [[MULTIPLEX LASER]],
 		},
@@ -265,7 +287,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

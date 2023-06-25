@@ -8,9 +8,8 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -23,22 +22,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'CanChangeMaterial',			true},
 					{'CanRotate3D',					true},
 					{'CanScale',					true},
-					{'CheckPlaceholderCollision',	false}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'ID', 'BUILD_REFINER3'},
-				VALUE_CHANGE_TABLE 	= {
-					{'RegionLimit',	0}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS 	= {
-					{'ID', 'PLANTER'},
-					{'ID', 'PLANTERMEGA'}
-				},
-				VALUE_CHANGE_TABLE 	= {
-					{'IsPlaceable',	true}
+					{'CheckPlaceholderCollision',	false},
+					{'FreighterBaseLimit',			0},
+					{'PlanetBaseLimit',				0},
+					{'RegionLimit',					0},
+					{'PlanetLimit',					0}
 				}
 			},
 			{
@@ -70,8 +58,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ID', 'U_SILO_S'},
 				},
 				VALUE_CHANGE_TABLE 	= {
-					{'Rate',		1.8},
-					{'Storage',		4}
+					{'Rate',		1.2},
+					{'Storage',		2}
 				}
 			},
 			{

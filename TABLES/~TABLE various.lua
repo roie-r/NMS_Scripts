@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -53,11 +53,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS 	= {
-					{'Id', 'C_INV_WEAP_C'},
-					{'Id', 'C_INV_WEAP_CR'},
-					{'Id', 'C_INV_SAL_CASH'},
-					{'Id', 'C_INV_SAL_CASHR'},
+					{'Id', 'C_PILOT_UPGRADE'},
+					{'Id', 'C_PILOT_SLOT'},
 					{'Id', 'C_PET_SLOT'},
+					{'Id', 'C_WEAP_UPGRADE'},
+					{'Id', 'C_INV_WEAP_CR'},
+					{'Id', 'C_INV_WEAP_C'},
+					{'Id', 'C_INV_SAL_CASH'},
+					{'Id', 'C_INV_SAL_CASHR'}
 				},
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
@@ -68,27 +71,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	}
-	-- {
-	-- --	|INVENTORY bigger|
-		-- MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/INVENTORYTABLE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS 	= {
-					-- {'ChestSmall', 'GcInventoryLayoutGenerationDataEntry.xml'},
-					-- {'ChestMedium', 'GcInventoryLayoutGenerationDataEntry.xml'},
-					-- {'ChestLarge', 'GcInventoryLayoutGenerationDataEntry.xml'},
-				-- },
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'MinSlots',			60},
-					-- {'MaxSlots',			60},
-					-- {'MaxWidthSmall',		10},-- 8
-					-- -- {'MaxHeightSmall',		6},	-- 6
-					-- {'MaxWidthStandard',	10},-- 8
-					-- -- {'MaxHeightStandard',	6},	-- 6
-					-- {'MaxWidthLarge',		10},-- 8
-					-- -- {'MaxHeightLarge',		6},	-- 6
-				-- }
-			-- }
-		-- }
-	-- },
 }}}}

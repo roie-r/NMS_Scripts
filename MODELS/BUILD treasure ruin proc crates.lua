@@ -3,8 +3,8 @@ dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------------------------
 mod_desc = [[
-  proceduraly-placed keys - Only 3 keys will appear in any instance
-  4 Alternarate placements for the treasure chest
+  procedurally-placed keys - Only 3 keys will appear in any instance
+  4 Alternate placements for the treasure chest
 ]]--------------------------------------------------------------------
 
 local keys = {
@@ -21,7 +21,7 @@ local keys = {
 local locks = {
 	tid	 = '_CRATES_LOCK_',
 	name = '_Cratelock_',
-	{-0.91945,	-8.16323,	0.4867,		1.69392,	2.41958,	4.91478},				-- original ceneter
+	{-0.91945,	-8.16323,	0.4867,		1.69392,	2.41958,	4.91478},				-- original center
 	{-0.91945,	-12.19,		-31.1867,	1.6939,		182.42,		-1.51},					-- behind stairs
 	{33.35,		0.45,		22.2867,	4.694,		-48.43,		3.615,	0.8, 0.8, 0.8},	-- on tower
 	{-25.6,		-5.84,		-17.1,		1.6939,		182.24,		4.9148},				-- end of side walk

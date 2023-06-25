@@ -74,7 +74,7 @@ save_trigger_components = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.36',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -127,7 +127,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Anim', '0H_GREET_MOB_04'},
 				ADD_OPTION			= 'ADDAfterSection',
-				SECTION_ACTIVE		= 2,
+				SECTION_ACTIVE		= -2,
 				SECTION_ADD_NAMED 	= 'tk_animation_data'
 			}
 		}
