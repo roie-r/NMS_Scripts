@@ -14,18 +14,17 @@ local rgbs = {
 	-- {0.12,	0.1,	0.62},
 	-- {0.01,	0.88,	0.1},
 	-- {0.92,	0.12,	0.82},
-	
-		{0.507,	0.753,	0.914},
-		{0.34,	0.455,	0.604},
-		{0.7,	0.863,	0.925},
-		{0.733,	0.878,	0.953},
-		{0.996,	1,		0.83},
-		{0.7,	0.863,	0.925},
-		{0.98,	0.811,	0.628},
-		{1,		1,		1},
-		{1,		1,		0.904},
-		{0.9334,	0.97647,0.9451},
-		{0.9255,	0.9373,	0.9412}
+
+	{0.34,	0.455,	0.604},
+	{0.7,	0.863,	0.925},
+	{0.733,	0.878,	0.953},
+	{0.996,	1,		0.83},
+	{0.7,	0.863,	0.925},
+	{0.98,	0.811,	0.628},
+	{1,		1,		1},
+	{1,		1,		0.904},
+	{0.9334,	0.97647,0.9451},
+	{0.9255,	0.9373,	0.9412}
 
 }
 
@@ -35,7 +34,7 @@ function rgb2hex(c)
 	return h
 end
 
-for _,r in ipairs(rgbs) do print(rgb2hex(r)) end
+-- for _,r in ipairs(rgbs) do print(rgb2hex(r)) end
 
 function hex2rgb2(hex)
 	local function trunc(x, n)
@@ -96,6 +95,20 @@ function GetFilename(path)
 end
 
 -- local path = 'E:\\MODZ_stuff\\NoMansSky\\AMUMss_Scripts\\ships'
--- -- local path = 'E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/ships/'
+-- -- local path = 'D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/ships/'
 -- -- local split = path:gmatch('^.+/(.+)$')
 -- print(path:match('([^/\\]+)[/\\]-$'))
+
+str = [[
+  <!-- <this is > 5k4 -->
+  <my comment > e2e
+  <filtering > m4m
+  <!-- < pattern> 1o2 -->
+]]
+match1 = '()<(.-)>'
+match2 = '<!%-%-[ \t\n]-<(.-)>'
+match3 = '(<!%-%-)[ \t]-<(.-)>'
+
+for _,s in str:gmatch(match1) do
+	print(s)
+end

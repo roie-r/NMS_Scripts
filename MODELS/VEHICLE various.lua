@@ -16,13 +16,12 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL vehicles various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-	---	Add |turret spotlight| to vehicle
+	{--	Add |turret spotlight| to vehicle
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/SHARED/MININGLASER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -53,8 +52,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no vehicle muzzle flare|
+	{--	|no vehicle muzzle flare|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/MUZZLE/VEHICLELASERMUZZLE.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -108,8 +106,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|bike blue lights|
+	{--	|bike blue lights|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTFADE_MAT.MATERIAL.MBIN',	-- green
 			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTS_MAT.MATERIAL.MBIN',		-- green
@@ -125,8 +122,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|hardframe blue neon|
+	{--	|hardframe blue neon|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/MECH_SUIT/MECH_SUIT/REDGLOW_MAT5.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -139,8 +135,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|mech faster step| animation speed
+	{--	|mech faster step| animation speed
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/MECH_SUIT/MECH_SUIT/ENTITIES/MECH.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -167,8 +162,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	remove |vehicle glow|
+	{--	remove |vehicle glow|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKEPRES/LIGHTS_ENGINEGLOW_MAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -179,8 +173,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	remove |vehicle glow|
+	{--	remove |vehicle glow|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/VEHICLES/BUGGY/BUGGYPRES/ENGINEGLOW_MAT.MATERIAL.MBIN',
 			'MODELS/COMMON/VEHICLES/ROVER/ROVERPRES/ENGINEGLOW_MAT1.MATERIAL.MBIN',
@@ -192,8 +185,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
-	-- {
-	-- --	|remove wheeled bike fake light|
+	-- {--	|remove wheeled bike fake light|
 		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/HQLIGHT_MAT1.MATERIAL.MBIN',
 		-- EXML_CHANGE_TABLE	= {
 			-- {
@@ -202,8 +194,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- }
 		-- }
 	-- },
-	-- {
-	-- --	|No vehicle gun tech inventory check| bugged since waypoint update
+	-- {--	|No vehicle gun tech inventory check| bugged since waypoint update
 	-- --	fixed - no longer needed
 		-- MBIN_FILE_SOURCE	= {
 			-- 'MODELS/COMMON/VEHICLES/BUGGY/ENTITIES/GUN.ENTITY.MBIN',

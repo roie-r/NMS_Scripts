@@ -1,8 +1,9 @@
--------------------------------------------------------------------------
----	LUA 2 EXML (VERSION: 0.82.1) ... by lMonk
----	A tool for converting exml to an equivalent lua table and back again
----	(with added color and vector helper functions)
--------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+---	LUA 2 EXML (VERSION: 0.82.2) ... by lMonk
+---	A tool for converting exml to an equivalent lua table and back again.
+---	Helper functions for color class, vector class and string arrays
+---	* This should be placed at [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+-------------------------------------------------------------------------------
 
 --	replace a boolean with its text equivalent (ignore otherwise)
 --	@param b: any value
@@ -73,7 +74,7 @@ end
 --	Adds the xml header and data template
 --	Uses the contained template META if found (instead of the received variable)
 --	@param data: a lua2exml formatted table
---	@param template: an nms template string
+--	@param template: an nms file template string
 function FileWrapping(data, template)
 	local wrapper = [[<?xml version="1.0" encoding="utf-8"?><Data template="%s">%s</Data>]]
 	if type(data) == 'string' then
@@ -110,7 +111,7 @@ end
 --	@param T: ARGB color in percentage values (and optinal c=hex).
 --	  Either {1.0, 0.5, 0.4, 0.3} or {a=1.0, r=0.5, g=0.4, b=0.3}
 --	@param name: class name
---	@param c: (c is a key inside table T) hex color in ARGB format (overwrites the rgb)
+--	* hex color in ARGB format (c is a key inside table T) will overwrite the rgb
 function ColorData(T, name)
 	T = T  or {}
 	if T.c then
@@ -136,13 +137,28 @@ function VectorData(T, name)
 	T = T  or {}
 	return {
 		-- if a name is present then use 2-property tags
-		-- META= {name or 'value', len2(T) > 3 and 'Vector4f.xml' or 'Vector3f.xml'},
 		META= {name or 'value', (T.t or #T > 3) and 'Vector4f.xml' or 'Vector3f.xml'},
 		x	= (T[1] or T.x) or 0,
 		y	= (T[2] or T.y) or 0,
 		z	= (T[3] or T.z) or 0,
-		t	= (T[4] or T.t) or nil,
+		t	= (T[4] or T.t) or nil
 	}
+end
+
+--	Returns a 'name' type table of strings
+--	@param t: an ordered (non-keyed) table of strings
+--	@param name: class name
+--	@param size: string class size [10, 100, 20, 200, 40, 400, 80, 800]
+function StringArray(t, name, size)
+	if not t then return nil end
+	local T = {META = {'name', name}}
+	for _,str in ipairs(t) do
+		T[#T+1] = {
+			META	= {'value', 'NMSString0x'..size..'.xml'},
+			Value	= str
+		}
+	end
+	return T
 end
 
 --	InventoryType Enum

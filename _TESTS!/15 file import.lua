@@ -2,7 +2,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 08 file import.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -18,7 +18,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			EXTERNAL_FILE_SOURCE= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Effects/Trails/BLUEDARKER1.DDS',
+			EXTERNAL_FILE_SOURCE= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Effects/Trails/BLUEDARKER1.DDS',
 			FILE_DESTINATION	= 'TEXTURES/EFFECTS/TRAILS/HOT/BLUEDARKER1.DDS'
 		}
 	}

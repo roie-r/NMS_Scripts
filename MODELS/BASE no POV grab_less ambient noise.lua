@@ -9,12 +9,11 @@ local path = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL no POV grab_less ambient noise.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	---	less annoying |data pad|
+	{--	less annoying |data pad|
 		MBIN_FILE_SOURCE	= path..'PARTS/BUILDABLEPARTS/SPACEBASE/PROPS/DATA_PAD/ENTITIES/DATA_PAD.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -26,8 +25,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no camera grab|
+	{--	|no camera grab|
 		MBIN_FILE_SOURCE	= {
 			path..'TERMINAL/TERMINAL/ENTITIES/TERMINAL.ENTITY.MBIN',
 			path..'TERMINAL/TERMINAL_SHOP/ENTITIES/TERMINAL_SHOP.ENTITY.MBIN',
@@ -63,8 +61,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no ambient noise| from placed objects
+	{--	|no ambient noise| from placed objects
 		MBIN_FILE_SOURCE	= {
 			path..'PARTS/BUILDABLEPARTS/DECORATION/AQUARIUM/ENTITIES/AQUARIUM.ENTITY.MBIN',
 			path..'PARTS/BUILDABLEPARTS/DECORATION/LARGEDESK/ENTITIES/AUDIOLARGEDESK.ENTITY.MBIN',

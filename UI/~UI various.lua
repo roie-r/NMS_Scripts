@@ -10,12 +10,11 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fonts units & no bars.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|ship discovery screen| fix
+	{--	|ship discovery screen| fix
 		MBIN_FILE_SOURCE  	= 'UI/HUD/SHIP/SIDESCREENSOLARSYSTEM.MBIN',
 		EXML_CHANGE_TABLE 	=
 		{
@@ -39,8 +38,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|smaller item slot font|
+	{--	|smaller item slot font|
 		MBIN_FILE_SOURCE	= 'UI/COMPONENTS/INVENTORY/SQU_SLOT_ITEM.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -61,15 +59,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|smaller dialog font|
+	{--	|smaller dialog font|
 		MBIN_FILE_SOURCE	= 'UI/INTERACTIONDIALOGPAGE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				VALUE_MATCH			= 35,
 				VALUE_CHANGE_TABLE 	= {
-					{'FontHeight',	30}
+					{'FontHeight',	28} -- 30
 				}
 			},
 			{
@@ -81,20 +78,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|smaller dialog options font|
+	{--	|smaller dialog options font|
 		MBIN_FILE_SOURCE	= 'UI/COMPONENTS/RESPONDBUTTONSCROLL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				VALUE_CHANGE_TABLE 	= {
-					{'FontHeight',	30} -- 36
+					{'FontHeight',	26} -- 36 >> 30
 				}
 			}
 		}
 	},
-	{
-	--	|more space for units|
+	{--	|more space for units|
 		MBIN_FILE_SOURCE	= 'UI/COMPONENTS/USERBAR.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -125,8 +120,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no black bars|
+	{--	|no black bars|
 		MBIN_FILE_SOURCE	= {
 			'UI/HUD/HUDBARS.MBIN',
 			'UI/COMPONENTS/INTERACTION/CINEMATICBARS.MBIN'
@@ -143,11 +137,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			EXTERNAL_FILE_SOURCE= 'E:/MODZ_stuff/NoMansSky/Sources/+Fonts/Ubuntu-Regular.ttf',
+			EXTERNAL_FILE_SOURCE= 'D:/MODZ_stuff/NoMansSky/Sources/+Fonts/Ubuntu-Regular.ttf',
 			FILE_DESTINATION	= 'UI/GAMEFONT.TTF'
 		},
 		-- {
-			-- EXTERNAL_FILE_SOURCE= 'E:/MODZ_stuff/NoMansSky/Sources/+Fonts/OpenSans_SemiCondensed-Regular.ttf',
+			-- EXTERNAL_FILE_SOURCE= 'D:/MODZ_stuff/NoMansSky/Sources/+Fonts/OpenSans_SemiCondensed-Regular.ttf',
 			-- FILE_DESTINATION	= 'UI/GAMEFONT2.TTF'
 		-- }
 	}

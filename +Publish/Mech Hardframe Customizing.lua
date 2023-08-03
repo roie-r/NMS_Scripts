@@ -12,7 +12,7 @@ local proc_texture_files = {
 	{
 	---	mech hardframe
 		label	= 'SENTINELTRIM',
-		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/FriendlyRobot/',
+		source	= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/FriendlyRobot/',
 		nmspath	= 'TEXTURES/COMMON/ROBOTS/',
 		{
 			ly_name	= 'OVERLAY',
@@ -131,7 +131,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Mech Hardframe Customizing.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddProcTexFiles()
 }

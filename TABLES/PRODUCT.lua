@@ -10,31 +10,32 @@ mod_desc = [[
 ]]--------------------------------------
 
 local stack_mult = {
-	{'CRAFTPROD_SUB', 				4},
-	{'FOOD_INGREDIENT_SUB', 		4},
-	{'FOOD_COOKED_SUB',				4},
-	{'LAUNCHFUEL_SUB',				5},
-	{'BP_SALVAGE_SUB',				6},
-	{'UI_SALVAGE_TECH_SUB',			8},
-	{'UI_SENTINEL_LOOT_SUB',		8},
-	{'UI_REPAIR_KIT_SUB',			2},
-	{'UI_STORMCRYSTAL_SUB',			2},
-	{'UI_ALLOY_COMPLEX_SUBTITLE',	2},
-	{'UI_REACTION_SUBTITLE',		2},
-	{'UI_MEGAPROD_SUBTITLE',		2},
-	{'UI_ULTRAPROD_SUBTITLE',		8},
-	{'BLD_GLITCHPROP_SUBTITLE',		2},
-	{'UI_DRONE_SHARD_SUB',			12}
+	{'CRAFTPROD_SUB', 				'* 4'},
+	{'FOOD_INGREDIENT_SUB', 		'* 4'},
+	{'FOOD_COOKED_SUB',				'* 4'},
+	{'LAUNCHFUEL_SUB',				'* 5'},
+	{'BP_SALVAGE_SUB',				'* 6'},
+	{'UI_SALVAGE_TECH_SUB',			'* 8'},
+	{'SUB_DEADDRONE_SUBTITLE',		'+ 2'},
+	{'UI_SHIP_BRAIN_CLEAN_SUB',		'+ 2'},
+	{'UI_SENTINEL_LOOT_SUB',		'* 8'},
+	{'UI_REPAIR_KIT_SUB',			'* 2'},
+	{'UI_STORMCRYSTAL_SUB',			'* 2'},
+	{'UI_ALLOY_COMPLEX_SUBTITLE',	'* 2'},
+	{'UI_REACTION_SUBTITLE',		'* 2'},
+	{'UI_MEGAPROD_SUBTITLE',		'* 2'},
+	{'UI_ULTRAPROD_SUBTITLE',		'* 8'},
+	{'BLD_GLITCHPROP_SUBTITLE',		'* 2'},
+	{'UI_DRONE_SHARD_SUB',			'* 12'}
 }
 function stack_mult:GetExmlCT()
 	local T = {}
 	for _,x in ipairs(self) do
 		T[#T+1] = {
 			REPLACE_TYPE 		= 'All',
-			MATH_OPERATION 		= '*',
 			SPECIAL_KEY_WORDS	= {'Value', x[1]},
 			SECTION_UP			= 1,
-			VALUE_CHANGE_TABLE 	= { {'StackMultiplier',	x[2]} }
+			VALUE_CHANGE_TABLE 	= { {'StackMultiplier', '@ '..x[2]} }
 		}
 	end
 	return T
@@ -43,7 +44,7 @@ end
 local replace_icons = {
 	{'ACCESS1',			'PRODUCTS/PRODUCT.ATLASPASS1.DDS'},
 	{'ACCESS2',			'PRODUCTS/PRODUCT.ATLASPASS2.DDS'},
-	{'CARBON_SEAL',		'PRODUCTS/PRODUCT.HERMETICS.DDS'},
+	{'CARBON_SEAL',		'PRODUCTS/PRODUCT.MSEAL.DDS'},
 	{'MEGAPROD2',		'PRODUCTS/PRODUCT.QUANTUMP.DDS'},
 	{'FOOD_M_MEAT',		'COOKINGPRODUCTS/PRODUCT.MEATCHUNKY.DDS'},
 	{'FOOD_M_DIPLO',	'COOKINGPRODUCTS/PRODUCT.MEATCHUNKY.DDS'},
@@ -112,52 +113,52 @@ local prod_requirements = {
 	{--	cargo_bulkhead
 		id	 = 'FREI_INV_TOKEN',
 		cost = 8,
-		{'CASING', 		20,		I_.PRD},	-- plating
-		{'HYDRALIC',	10,		I_.PRD},	-- poly fibre
-		{'COMPOUND6',	1,		I_.PRD}		-- cryo pump
+		{id='CASING', 		n=20,	tp=I_.PRD},	-- plating
+		{id='HYDRALIC',		n=10,	tp=I_.PRD},	-- poly fibre
+		{id='COMPOUND6',	n=1,	tp=I_.PRD}	-- cryo pump
 	},
 	{--	wiring loom
 		id   = 'TECH_COMP',
-		{'MICROCHIP', 	3,		I_.PRD},	-- microprocessor
-		{'YELLOW2', 	80,		I_.SBT},	-- copper
-		{'ASTEROID1', 	40,		I_.SBT}		-- silver
+		{id='MICROCHIP',	n=3,	tp=I_.PRD},	-- microprocessor
+		{id='YELLOW2', 		n=80,	tp=I_.SBT},	-- copper
+		{id='ASTEROID1',	n=40,	tp=I_.SBT}	-- silver
 	},
 	{--	anomaly detector
 		id   = 'POI_LOCATOR',
-		{'GEODE_SPACE', 1,		I_.PRD},	-- tritium hypercluster
-		{'ASTEROID1', 	20,		I_.SBT},	-- silver
-		{'ASTEROID2', 	20,		I_.SBT},	-- gold
+		{id='GEODE_SPACE',	n=1,	tp=I_.PRD},	-- tritium hypercluster
+		{id='ASTEROID1', 	n=20,	tp=I_.SBT},	-- silver
+		{id='ASTEROID2', 	n=20,	tp=I_.SBT}	-- gold
 	},
 	{--	dream aerial
 		id   = 'WHALE_BEACON',
 		subs = true,
-		{'GEODE_SPACE', 1,		I_.PRD},	-- tritium hypercluster
-		{'POI_LOCATOR',	1,		I_.PRD},	-- anomaly detector
-		{'FARMPROD8', 	1,		I_.PRD},	-- living glass
+		{id='GEODE_SPACE',	n=1,	tp=I_.PRD},	-- tritium hypercluster
+		{id='POI_LOCATOR',	n=1,	tp=I_.PRD},	-- anomaly detector
+		{id='FARMPROD8', 	n=1,	tp=I_.PRD}	-- living glass
 	},
 	{--	desk chair
 		id   = 'BUILDCHAIR',
 		subs = true,
-		{'CASING', 		1,		I_.PRD},	-- metal plating
-		{'FUEL2', 		20,		I_.SBT},	-- c carbon
+		{id='CASING', 		n=1,	tp=I_.PRD},	-- metal plating
+		{id='FUEL2', 		n=20,	tp=I_.SBT}	-- c carbon
 	},
 	{--	armchair
 		id   = 'BUILDCHAIR2',
 		subs = true,
-		{'CASING', 		1,		I_.PRD},
-		{'FUEL2', 		20,		I_.SBT},
+		{id='CASING', 		n=1,	tp=I_.PRD},
+		{id='FUEL2', 		n=20,	tp=I_.SBT}
 	},
 	{--	adjustable chair
 		id   = 'BUILDCHAIR3',
 		subs = true,
-		{'CASING', 		1,		I_.PRD},
-		{'FUEL2', 		20,		I_.SBT},
+		{id='CASING', 		n=1,	tp=I_.PRD},
+		{id='FUEL2', 		n=20,	tp=I_.SBT}
 	},
 	{--	classic chair
 		id   = 'BUILDCHAIR4',
 		subs = true,
-		{'CASING', 		1,		I_.PRD},
-		{'FUEL2', 		20,		I_.SBT},
+		{id='CASING', 		n=1,	tp=I_.PRD},
+		{id='FUEL2', 		n=20,	tp=I_.SBT}
 	}
 }
 function prod_requirements:GetExmlCT()
@@ -186,7 +187,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -251,8 +253,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							legality		= 'Legal',
 							iscraftable		= true,
 							requirements	= {
-								{'ULTRAPROD1', 		20,	I_.PRD},
-								{'ULTRAPROD2', 		20,	I_.PRD}
+								{id='ULTRAPROD1', 		n=20,	tp=I_.PRD},
+								{id='ULTRAPROD2', 		n=20,	tp=I_.PRD}
 							},
 							stackmultiplier	= 16,
 							icon			= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.CAPTUREDNANODE.DDS'
@@ -271,9 +273,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							legality		= 'Legal',
 							consumable		= true,
 							requirements	= {
-								{'SENTINEL_LOOT',	2,	I_.PRD},
-								{'FOOD_V_ROBOT',	2,	I_.PRD},
-								{'STELLAR2',		50,	I_.SBT}
+								{id='SENTINEL_LOOT',	n=2,	pt=I_.PRD},
+								{id='FOOD_V_ROBOT',		n=2,	pt=I_.PRD},
+								{id='STELLAR2',			n=50,	pt=I_.SBT}
 							},
 							stackmultiplier	= 20,
 							icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'

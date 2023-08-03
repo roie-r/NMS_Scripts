@@ -19,26 +19,28 @@ local edit_stats = {
 	{id='UP_UNW', 			st='Suit_Protection_WaterDrain',		vn=0.1,	vx=0.2,		wc='MaxIsUncommon',	ac=true},
 ---	multitool
 	{id='UP_SMG',			st='Weapon_Projectile_Damage',			op='+',	vn=0.2,		vx=0.2},	-- 2, 	3
-	{id='UP_SMG',			st='Weapon_Projectile_Rate',			op='+',	vn=-0.15,	vx=-0.15},	-- 1.1, 1.15
+	{id='UP_SMG',			st='Weapon_Projectile_Rate',			op='+',	vn=-0.15,	vx=-0.15},	-- 1.1	1.15
+	{id='UP_CANNON', 		st='Weapon_ChargedProjectile_ChargeTime',op='*',vn=1.2,		vx=1.2},	-- 0.5	0.95
+	{id='UP_RAIL',			st='Weapon_Laser_ChargeTime',			op='+',vn=-0.1,		vx=-0.05},	-- 0.75	0.95
 	{id='UP_GREN',			st='Weapon_Grenade_Bounce'},
 	{id='UP_LASER', 		st='Weapon_Laser_ReloadTime'},
 	{id='UP_LASER', 		st='Weapon_Laser_Damage',				vn=1,	vx=1},
 ---	vehicle
-	{id='UP_EXGUN',			st='Vehicle_GunDamage',					op='*',	vn=5,		vx=5}, 		-- 30	40
+	{id='UP_EXGUN',			st='Vehicle_GunDamage',					op='*',	vn=2,		vx=2}, 		-- 30	40
 	{id='UP_EXGUN',			st='Vehicle_GunRate'},
-	{id='UP_EXOSUBGUN',		st='Vehicle_GunDamage',					op='*',	vn=5,		vx=5},		-- 30	40
+	{id='UP_EXOSUBGUN',		st='Vehicle_GunDamage',					op='*',	vn=2,		vx=2},		-- 30	40
 	{id='UP_EXOSUBGUN',		st='Vehicle_GunRate'},
-	{id='UP_MCGUN',			st='Vehicle_GunDamage',					op='*',	vn=6,		vx=6},		-- 30	40
+	{id='UP_MCGUN',			st='Vehicle_GunDamage',					op='*',	vn=2,		vx=2},		-- 30	40
 	{id='UP_MCGUN',			st='Vehicle_GunRate'},
 	{id='UP_MCENG',			st='Vehicle_EngineFuelUse',				op='+',	vn=0.2,		vx=0.2},
-	{id='UP_MCENG',			st='Vehicle_BoostTanks',				op='+',	vn=8,		vx=8},		-- 0.1,	0.3
+	{id='UP_MCENG',			st='Vehicle_BoostTanks',				op='+',	vn=8,		vx=8},		-- 0.1	0.3
 ---	ship
 	{id='UP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpDistance',		op='*',	vn=2.4,		vx=2.4},
 	{id='UP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpsPerCell',		op='*',	vn=0.4,		vx=0.6},
 	{id='AP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpDistance',		op='*',	vn=2.4,		vx=2.4},
 	{id='AP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpsPerCell',		op='*',	vn=0.4,		vx=0.6},
-	{id='AP_PULSEDRIVE', 	st='Ship_Boost',						op='+',	vn=0.15,	vx=0.2},	-- 1.1, 1.25
-	{id='AP_PULSEDRIVE', 	st='Ship_BoostManeuverability',			op='+',	vn=0.2,		vx=0.32},	-- 1.05, 1.18
+	{id='AP_PULSEDRIVE', 	st='Ship_Boost',						op='+',	vn=0.15,	vx=0.2},	-- 1.1	1.25
+	{id='AP_PULSEDRIVE', 	st='Ship_BoostManeuverability',			op='+',	vn=0.2,		vx=0.32},	-- 1.05	1.18
 	{id='AP_PULSEDRIVE', 	st='Ship_Maneuverability',				op='+',	vn=0.07,	vx=0.07},	-- 1.0065
 ---	freighter
 	{id='UT_FR_HYP_NAME',	st='Freighter_Hyperdrive_JumpDistance',	op='*',	vn=10,		vx=10},
@@ -57,11 +59,13 @@ function edit_stats:GetExmlCT()
 			--- edit ---
 			T[#T+1] = {
 				REPLACE_TYPE		= 'All',
-				MATH_OPERATION		= x.op,
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Name', x.id, 'StatsType', x.st},
 				SECTION_UP			= 1,
-				VALUE_CHANGE_TABLE	= { {'ValueMin', x.vn}, {'ValueMax', x.vx} }
+				VALUE_CHANGE_TABLE	= {
+					{'ValueMin', '@'..x.op..x.vn},
+					{'ValueMax', '@'..x.op..x.vx}
+				}
 			}
 		elseif x.vn then
 			--- add new ---
@@ -95,7 +99,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROC TECH.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{

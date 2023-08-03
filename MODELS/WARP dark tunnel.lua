@@ -6,7 +6,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL dark warp tunnel.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -105,8 +105,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|warp tunnel MAT1|
+	{--	|warp tunnel MAT1|
 		MBIN_FILE_SOURCE	= 'MATERIALS/LIGHT_WARPTUNNEL.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -127,8 +126,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
-	{
-	--	|warp tunnel MAT1|
+	{--	|warp tunnel MAT1|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL/TUNNELMAT1.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -139,8 +137,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|warp tunnel GLOW|
+	{--	|warp tunnel GLOW|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL/ENGGLOWCAPMAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

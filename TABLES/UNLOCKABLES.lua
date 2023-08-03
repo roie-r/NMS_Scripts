@@ -46,6 +46,11 @@ local unlockable_items = {
 			}
 		}
 	},
+	{--	vehicle tech: stun gun (custom tech)
+		parent	= {'VEHICLE_GUN'},
+		haschild= false,
+		tree	= { META = mt_ulitn,	Unlockable = 'VEHICLESTUN' }
+	},
 	{--	factory products: wiring loom
 		parent	= {'NANOTUBES'},
 		haschild= true,
@@ -1656,7 +1661,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

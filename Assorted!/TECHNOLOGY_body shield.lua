@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/~LIB/table_entry.lua')
+dofile('LIB/table_entry.lua')
 ----------------------------------------------------------------------------
 mod_desc = [[
   balatant cheat to protect your person against bugs and annoying travelers
@@ -11,7 +11,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TECHNOLOGY addon body shield.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.38',
 	MOD_BATCHNAME		= '__TABLE technology merged.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

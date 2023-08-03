@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
-dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/exml_2_lua.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/exml_2_lua.lua')
 -----------------------------------------------------------------------------------------
 
 exml_section_08 = [[
@@ -31,38 +31,37 @@ exml_section_08 = [[
 </Data>
 ]]
 
-a = ToLua(exml_section_08)
+-- a = ToLua(exml_section_08)
 
-tbl_08 = 'exml_source'
-
-w_src = io.open('e:/_dump/'..tbl_08..'.lua', 'w')
-
-w_src:write(PrintExmlAsLua(exml_section_08))
-w_src:close()
-print('saved '..tbl_08..' LUA to _dump')
------------------------------------------------------------------------------------------
-src0 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/GCCAMERAGLOBALS.GLOBAL.EXML'
-src1 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/MISSIONS/SEASONALMISSIONTABLE.EXML'
-src2 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.EXML'
-src3 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/REWARDTABLE.EXML'
-src4 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.EXML'
-src5 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.EXML'
-src6 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/COLOURS/BASECOLOURPALETTES.EXML'
-src7 = 'E:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/PLANETS/CREATURES/STRIDERRIG/STRIDER.DESCRIPTOR.EXML'
-
------------------------------------------------------------------------------------------
 -- tbl_08 = 'exml_source'
 
--- r_src = io.open(src4, 'r')
--- w_src = io.open('e:/_dump/'..tbl_08..'.lua', 'w')
--- w_src:write( PrintExmlAsLua( r_src:read('*a') ) )
--- r_src:close()
--- w_src:close()
+-- w_src = io.open('d:/_dump/'..tbl_08..'.lua', 'w')
 
+-- w_src:write(PrintExmlAsLua(exml_section_08))
+-- w_src:close()
 -- print('saved '..tbl_08..' LUA to _dump')
 -----------------------------------------------------------------------------------------
--- dofile('e:/_dump/'..tbl_08..'.lua')
--- ---@diagnostic disable-next-line: undefined-global
--- io.open('e:/_dump/'..tbl_08..'.EXML', 'w'):write(FileWrapping(exml_source))
+src0 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/GCCAMERAGLOBALS.GLOBAL.EXML'
+src1 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/MISSIONS/SEASONALMISSIONTABLE.EXML'
+src2 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.EXML'
+src3 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/REWARDTABLE.EXML'
+src4 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.EXML'
+src5 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.EXML'
+src6 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/COLOURS/BASECOLOURPALETTES.EXML'
+src7 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/PLANETS/CREATURES/STRIDERRIG/STRIDER.DESCRIPTOR.EXML'
 
--- print('saved '..tbl_08..' EXML to _dump')
+-----------------------------------------------------------------------------------------
+tbl_08 = 'exml_source'
+
+r_src = io.open(src3, 'r')
+w_src = io.open('d:/_dump/'..tbl_08..'.lua', 'w')
+w_src:write( PrintExmlAsLua( r_src:read('*a') ) )
+r_src:close()
+w_src:close()
+
+print('saved '..tbl_08..' LUA to _dump')
+-----------------------------------------------------------------------------------------
+dofile('d:/_dump/'..tbl_08..'.lua')
+io.open('d:/_dump/'..tbl_08..'.EXML', 'w'):write(FileWrapping(exml_source))
+
+print('saved '..tbl_08..' EXML to _dump')

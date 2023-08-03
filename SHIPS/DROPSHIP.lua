@@ -8,13 +8,12 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP dropship.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-	---	dropship |subwing_F dim lights|
+	{--	dropship |subwing_F dim lights|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_RIGHT.SCENE.MBIN',
@@ -38,8 +37,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|dropship left subwing_F decal fix|
+	{--	|dropship left subwing_F decal fix|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -58,8 +56,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no foggy headlights| cone from cockpits
+	{--	|no foggy headlights| cone from cockpits
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN',
@@ -72,8 +69,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|glow parts bluewhite|
+	{--	|glow parts bluewhite|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA/GLOW_MAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSC/SUBWINGSC_LEFT/GLOW_MAT.MATERIAL.MBIN',
@@ -106,8 +102,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	dropship |subwing_E_L letter| decal
+	{--	dropship |subwing_E_L letter| decal
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_LEFT.SCENE.MBIN',
 		},
@@ -121,8 +116,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	dropship |subwing_E_R letter| decal
+	{--	dropship |subwing_E_R letter| decal
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_RIGHT.SCENE.MBIN',
 		},
@@ -136,8 +130,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-		--	|dropship hull decals| fix
+	{--	|dropship hull decals| fix
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/HULL/HULLA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

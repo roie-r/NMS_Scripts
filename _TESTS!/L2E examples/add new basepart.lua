@@ -6,7 +6,7 @@ dofile('LIB/table_entry.lua')
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_TEST L2E add new basepart.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -25,7 +25,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					onplanetbase 	= true,
 					onfreighter		= true,
 					onplanet		= false,
-					groups			= {{'DECORATION', 'DECOLIGHTS'}},
+					groups			= {
+						{grp='DECORATION', sub='DECOLIGHTS'}
+					},
 					canpickup		= false,
 					editsterrain	= false,
 					issealed		= false,
@@ -44,10 +46,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'Parts',
 				ADD					= ToExml(BaseBuildPartEntry({
 					id			= '_BUILDLIGHT9',
-					stylemodels	= {{
-						'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/STANDINGLIGHT2.SCENE.MBIN',
-						'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/STANDINGLIGHT2_LOD.SCENE.MBIN'
-					}}
+					stylemodels	= {
+						{
+							act='MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/STANDINGLIGHT2.SCENE.MBIN',
+							lod='MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/STANDINGLIGHT2_LOD.SCENE.MBIN'
+						}
+					}
 				}))
 			}
 		}

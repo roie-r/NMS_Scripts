@@ -8,13 +8,12 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP scientific.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-	--	|Scientific cockpitD re-align trails|
+	{--	|Scientific cockpitD re-align trails|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITD/COCKPITD.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -37,8 +36,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Scientific cockpitA re-center trails|
+	{--	|Scientific cockpitA re-center trails|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITA/COCKPITA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -55,8 +53,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Scientific cockpitA back decals| fix
+	{--	|Scientific cockpitA back decals| fix
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITA/BACK/COCKPITABACKB.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -71,8 +68,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Scientific subwing_E logo| fix
+	{--	|Scientific subwing_E logo| fix
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/SUBWINGS/SUBWINGSE/SUBWINGE_L.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/SUBWINGS/SUBWINGSE/SUBWINGE_R.SCENE.MBIN',
@@ -86,8 +82,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Scientific tail wings decals| fix
+	{--	|Scientific tail wings decals| fix
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGILEFT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -121,8 +116,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no foggy headlights| cone from cockpits
+	{--	|no foggy headlights| cone from cockpits
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/ACCESSORIES/LAMP.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -132,8 +126,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|glow parts bluewhite| glow
+	{--	|glow parts bluewhite| glow
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGILEFT/SUBMARINEPRES_LIGHTS_TEST3.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGIRIGHT/SUBMARINEPRES2_LIGHTS_TEST3.MATERIAL.MBIN',

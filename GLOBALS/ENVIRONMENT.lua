@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -15,28 +15,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= 'GCENVIRONMENTGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
-			{
-				MATH_OPERATION 		= '*',
-				PRECEDING_KEY_WORDS	= {'Medium', 'LODAdjust'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Ignore',		1.5},
-					{'Ignore',		1.5},
-					{'Ignore',		1.5},
-					{'Ignore',		1.5},
-					{'Ignore',		1.5}
-				}
-			},
-			{
-				MATH_OPERATION 		= '*',
-				PRECEDING_KEY_WORDS	= {'High', 'LODAdjust'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Ignore',		2},
-					{'Ignore',		2},
-					{'Ignore',		2},
-					{'Ignore',		2},
-					{'Ignore',		2}
-				}
-			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS	= {'Ultra', 'LODAdjust'},
@@ -64,16 +42,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE = {
-					{'ImposterResolutionMultiplier', 2}
+					{'ImposterResolutionMultiplier', 3}
 				}
 			},
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'TerrainFadeTime',						1},		-- 2
 					{'TerrainFadeTimeInShip',				1},		-- 2
-					{'CreatureFadeTime',					0.5},	-- 1.5
-					{'FloraFadeTimeMin',					0.3},	-- 0.6
-					{'FloraFadeTimeMax',					0.8},	-- 2.25
+					{'CreatureFadeTime',					0.7},	-- 1.5
+					{'FloraFadeTimeMin',					0.8},	-- 0.6
+					{'FloraFadeTimeMax',					1.6},	-- 2.25
 					{'AnimationScale',						30},	-- 50 (clouds speed)
 					{'IndoorsLightingPlanetMax',			0.98},	-- 0.42
 					{'IndoorsLightingAbandonedFreighterMax',5},		-- 1

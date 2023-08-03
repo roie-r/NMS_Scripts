@@ -14,13 +14,12 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-	--	|infraknife blue shot|
+	{--	|infraknife blue shot|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PROJECTILES/SHIP_MINIGUN/SHIPMINIGUNPROJECTILEGRADIENT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -30,8 +29,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	replace purple with |dark blue trail|
+	{--	replace purple with |dark blue trail|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/HOTDARKTRAIL.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -41,8 +39,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|delete contrails|
+	{--	|delete contrails|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -65,8 +62,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no foggy headlights| cone from cockpits
+	{--	|no foggy headlights| cone from cockpits
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/CANOPY/CANOPYA.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/CANOPY/CANOPYB.SCENE.MBIN',
@@ -79,8 +75,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|ship texture removal|
+	{--	|ship texture removal|
 		MBIN_FILE_SOURCE	= {
 		--- cockpits: orange fake-light cone
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/ACCESSORIES/LANDINGGEAR_BASE/HQWHITELIGHT_MAT3.MATERIAL.MBIN',
@@ -104,8 +99,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|clean system map|
+	{--	|clean system map|
 		MBIN_FILE_SOURCE	= 'MODELS/HUD/SPACEMAPHORIZON/HORZ_MAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -141,8 +135,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|swirl instead of gold| trail
+	{--	|swirl instead of gold| trail
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/TIMELOOPTRAIL.SCENE.MBIN',

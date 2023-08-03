@@ -6,6 +6,7 @@ mod_desc = [[
   - Remove proc tech upgrades and add sentinel tech to
    technology catalogue
   - Restore old creature-scanned icon; Remove selected HUD icons
+  - override corrupt biome filter
   - Remove tiny cargo pod frigates
   - Faster screen text
   - hide inventory change tab marker (bulletpoint) and slashes
@@ -16,12 +17,12 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|same underwater freigher|
+	{--	|same underwater freigher|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -34,8 +35,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|catalogue changes| no procs & add sentinel tech
+	{--	|catalogue changes| no procs & add sentinel tech
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/CATALOGUECRAFTING.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -81,8 +81,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|alt HUD icons|
+	{--	|alt HUD icons|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -104,8 +103,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|text images styles|
+	{--	|screen filters|
+		MBIN_FILE_SOURCE	= 'METADATA/EFFECTS/SCREENFILTERS.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {
+					{'Filename', 'TEXTURES/LUT/FILTERS/BINOCULARS.DDS'},
+					{'Filename', 'TEXTURES/LUT/FILTERS/SURVEYING1.DDS'},
+					{'Filename', 'TEXTURES/LUT/FILTERS/MISSIONSURVEY.DDS'},
+				},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename',	'TEXTURES/LUT/FILTERS/DEFAULT.DDS'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = 'CorruptSentinels',
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename',	'TEXTURES/LUT/FILTERS/VIBRANT.DDS'}
+				}
+			}
+		}
+	},
+	{--	|text images styles|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/SPECIALSTYLESIMAGESDATA.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -120,8 +139,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Faster screen text|
+	{--	|Faster screen text|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/SPECIALTEXTPUNCTUATIONDELAYDATA.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -135,8 +153,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|No tiny frigates|
+	{--	|No tiny frigates|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SPACE/AISPACESHIPMANAGER.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -145,8 +162,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|faster splash logo|
+	{--	|faster splash logo|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/BOOTLOGOPC.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -159,8 +175,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|better clouds|
+	{--	|better clouds|
 		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -171,8 +186,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|keep whale song mission active|
+	{--	|keep whale song mission active|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/SPACEPOIMISSIONTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -195,8 +209,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-	-- --	|deeper oceans|
+	-- {--	|deeper oceans|
 		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/VOXELGENERATORSETTINGS.MBIN',
 		-- EXML_CHANGE_TABLE	= {
 			-- {

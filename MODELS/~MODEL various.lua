@@ -7,17 +7,17 @@ mod_desc = [[
   - organic rock bio gunk reward
   - Activate planetray portal without cost
   - Remove resource crates at portals
+  - Re-insert the missing full mangrove tree in swamp biome
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|large crystal shard| reward fix
+	{--	|large crystal shard| reward fix
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/SENTINELCRYSTALDRONE.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -28,8 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|fainter resource| lights
+	{--	|fainter resource| lights
 		MBIN_FILE_SOURCE	= {
 			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/COMMODITYPLANT.SCENE.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FUELPLANT.SCENE.MBIN',
@@ -44,8 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|rares scan range| increase
+	{--	|rares scan range| increase
 		MBIN_FILE_SOURCE	= {
 			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/ROLLINGPLANT/ENTITIES/ROLLINGPROP.ENTITY.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/GROUND/METALFORMATION/ENTITIES/METALFORMATION.ENTITY.MBIN',
@@ -60,8 +58,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	cave |green crystal cobalt| reward
+	{--	cave |green crystal cobalt| reward
 		MBIN_FILE_SOURCE	= {
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/LARGE/CRYSTAL_LARGE_CAVE/ENTITIES/CRYSTAL_LARGE_CAVE.ENTITY.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/MEDIUM/CRYSTAL_MEDIUM_CAVE/ENTITIES/CRYSTAL_MEDIUM_CAVE.ENTITY.MBIN',
@@ -78,8 +75,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	Barrren biome |organic rock bio reward| instead of mordite
+	{--	Barrren biome |organic rock bio reward| instead of mordite
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/GEMCRYSTALS/ENTITIES/GEMCRYSTAL.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -90,8 +86,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	Activate planetray |portal without cost|
+	{--	Activate planetray |portal without cost|
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL/ENTITIES/BUTTON.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -100,8 +95,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|No crates at portal|
+	{--	|No crates at portal|
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -110,6 +104,41 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_MATCH			= '{^_Clump[1-6]}',
 				REMOVE				= 'Section'
 			}
+		}
+	},
+	{--	|add full mangroves|
+		MBIN_FILE_SOURCE	= {
+			{
+				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGE.DESCRIPTOR.MBIN',
+				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
+				'REMOVE'
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	=  'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'TypeId',		'_MFULL_'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'TkResourceDescriptorData.xml',
+				SECTION_ACTIVE		= -1,
+				VALUE_CHANGE_TABLE 	= {
+					{'Id',			'_MFULL_01LOD0'},
+					{'Name',		'_MFull_01LOD0'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'TkResourceDescriptorData.xml',
+				SECTION_ACTIVE		= -2,
+				VALUE_CHANGE_TABLE 	= {
+					{'Id',			'_MFULL_02LOD0'},
+					{'Name',		'_MFull_02LOD0'}
+				}
+			},
 		}
 	}
 }}}}

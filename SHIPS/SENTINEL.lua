@@ -1,6 +1,4 @@
 -------------------------------------------------------------------------
--- EXCLUDED FROM BATCH
--------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 -------------------------------------------------------------------------
 mod_desc = [[
@@ -16,14 +14,13 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sentinel.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
-	AMUMSS_SUPPRESS_MSG		= 'UNUSED_VARIABLE',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-		--	|sentinel increase LOD|
+	{--	|sentinel increase LOD|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB.SCENE.MBIN'
@@ -61,8 +58,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-		--	|sentinel slow wing anim|
+	{--	|sentinel slower anim|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC/ENTITIES/ROOTJNT.ENTITY.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENGINEFLAMEBODY1/ENTITIES/DATA.ENTITY.MBIN',
@@ -83,8 +79,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-		--	|sentinel cockpit|
+	{--	|sentinel cockpit|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELCOCKPIT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -118,8 +113,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
-	{
-	--	|sentinel blue lights| instead of red
+	{--	|sentinel blue lights| instead of red
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELCOCKPIT/LIGHTSCROLLBMAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC/LIGHTSCROLLBMAT.MATERIAL.MBIN'
@@ -132,8 +126,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|sentinel wingB blue glow|
+	{--	|sentinel wingB blue glow|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC/REDGLOW_MAT2.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB/REDGLOW_MAT2.MATERIAL.MBIN'
@@ -149,8 +142,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|sentinel cockpit eject handle glow|
+	{--	|sentinel cockpit eject handle glow|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/EJECTHANDLEL/EJECTVFX3MAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -159,8 +151,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|sentinel descriptor| remove shiny head and 3cross and non-used engines
+	{--	|sentinel descriptor| remove shiny head and 3cross and non-used engines
 	--	Each 2nd suffix replaces its preceding one
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.DESCRIPTOR.MBIN',
 		EXML_CHANGE_TABLE	= (
@@ -173,7 +164,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					_EngineFlame_	= {'3', '1', '3b', '1b', '4', '2', '4b', '2b', '6', '5', '6b', '5b'},
 					_sideEngines_	= {'A2', 'NULL', 'A3', 'NULL1'},					-- wing jets with cable
 					_Jets_			= {'A', 'NULL_A', 'B', 'NULL_B', 'C', 'NULL_C'},	-- back jets sides
-					-- _Jet			= {'Top_A', 'Top_NULL', 'Bots_A', 'Bots_NULL'},		-- back jets top & bottom 
+					-- _Jet			= {'Top_A', 'Top_NULL', 'Bots_A', 'Bots_NULL'},		-- back jets top & bottom
 				}) do
 					for i=1, #sfx, 2 do
 						T[#T+1] = {
@@ -189,8 +180,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			end
 		)()
 	},
-	{
-	--	|sentinel wings descriptor| remove the bugged non-animated antenna from top back tail wing
+	{--	|sentinel wings descriptor| remove the bugged non-animated antenna from top back tail wing
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB.DESCRIPTOR.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

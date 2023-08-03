@@ -31,7 +31,7 @@ local function WingK_LodFixes()
 		for _,v in ipairs(vals) do
 			if v[i] then
 				table.insert(T, {
-					SECTION_ACTIVE		= 1,
+					SECTION_ACTIVE		= -1,
 					SPECIAL_KEY_WORDS	= {'Name', (lod..'0'), 'Name', v.atr},
 					VALUE_CHANGE_TABLE 	= { {'Value', v[i]} }
 				})
@@ -48,7 +48,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '_MOD.lMonk.fighter wingK FIX.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.23',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -74,7 +74,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Name', 'WingsK_BLOD0'}
 				},
 				PRECEDING_KEY_WORDS	= 'Attributes',
-				SECTION_ACTIVE		= 1,
+				SECTION_ACTIVE		= -1,
 				ADD 				= [[
 					<Property value="TkSceneNodeAttributeData.xml">
 						<Property name="Name" value="ATTACHMENT"/>

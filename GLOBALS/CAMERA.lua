@@ -5,7 +5,18 @@ mod_desc = [[
   Decrease camera shake for various events
 ]]-----------------------------------------
 
-local function CameraChangeTable()
+NMS_MOD_DEFINITION_CONTAINER = {
+	MOD_FILENAME 		= '__GC CAMERA.pak',
+	MOD_AUTHOR			= 'lMonk',
+	NMS_VERSION			= '4.38',
+	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
+	MODIFICATIONS 		= {{
+	MBIN_CHANGE_TABLE	= {
+	{
+		MBIN_FILE_SOURCE	= 'GCCAMERAGLOBALS.GLOBAL.MBIN',
+		EXML_CHANGE_TABLE	= (
+function()
 	local T = {}
 	for _,x in ipairs({
 	---	PRECEDING_KEY				offsetX	offsetY	offsetZ	backMin	backMax	upMin	upMax	lookStick
@@ -130,18 +141,6 @@ local function CameraChangeTable()
 		}
 	}
 	return T
-end
-
-NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__GC CAMERA.pak',
-	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
-	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
-	MODIFICATIONS 		= {{
-	MBIN_CHANGE_TABLE	= {
-	{
-		MBIN_FILE_SOURCE	= 'GCCAMERAGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= CameraChangeTable()
+end)()
 	}
 }}}}

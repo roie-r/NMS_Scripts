@@ -9,12 +9,11 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|GC TERRAIN|
+	{--	|GC TERRAIN|
 		MBIN_FILE_SOURCE	= 'GCTERRAINGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -33,8 +32,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|GC FREIGHTERBASE|
+	{--	|GC FREIGHTERBASE|
 		MBIN_FILE_SOURCE	= 'GCFREIGHTERBASEGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -56,8 +54,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|GC GRAPHICS|
+	{--	|GC GRAPHICS|
 		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -66,12 +63,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'LUTDistanceFlightMultiplier',			1},		-- 0
 					{'SunLightIntensity',					3.2},	-- 3
 					{'DOFFarStrengthWater',					0.2},	-- 0
+					{'ForceUncachedTerrain',				true}
 				}
 			}
 		}
 	},
-	{
-	--	|GC CHARACTER|
+	{--	|GC CHARACTER|
 		MBIN_FILE_SOURCE	= 'GCCHARACTERGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -84,8 +81,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|GC ROBOT|
+	{--	|GC ROBOT|
 		MBIN_FILE_SOURCE	= 'GCROBOTGLOBALS.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -97,8 +93,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|GC SIMULATION|
+	{--	|GC SIMULATION|
 		MBIN_FILE_SOURCE	= 'GCSIMULATIONGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -117,8 +112,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|GC WATER|
+	{--	|GC WATER|
 		MBIN_FILE_SOURCE	= 'GCWATERGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -127,5 +121,5 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		}
-	},
+	}
 }}}}

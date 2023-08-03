@@ -7,12 +7,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE batch various.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_BATCHNAME		= '_TEXTURES ~@~collection.pak',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|painted sentinels| only (removes orange and purple)
+	{--	|painted sentinels| only (removes orange and purple)
 		MBIN_FILE_SOURCE	= 'TEXTURES/COMMON/ROBOTS/SENTINELPROC.TEXTURE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -29,6 +28,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Diffuse',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.4.DDS'},
 					{'Normal',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.4.NORMAL.DDS'},
 					{'Mask',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.4.MASKS.DDS'}
+				}
+			}
+		}
+	},
+	{--	|construct head lights3| alt3 instead of alt2 color
+		MBIN_FILE_SOURCE	= 'TEXTURES/COMMON/ROBOTS/BUILDERLIGHTS.TEXTURE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				REPLACE_TYPE 		= 'All',
+				VALUE_CHANGE_TABLE 	= {
+					{'ColourAlt', 'Alternative3'}
 				}
 			}
 		}

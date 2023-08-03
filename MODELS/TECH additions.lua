@@ -16,12 +16,12 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|multitool upgrade menu|
+	{--	|multitool upgrade menu|
 		MBIN_FILE_SOURCE	= build_parts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAPON5SPIN.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -47,8 +47,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|ship upgrade menu|
+	{--	|ship upgrade menu|
 		MBIN_FILE_SOURCE	= build_parts..'DECORATION/NEXUSORBPILLAR.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -85,8 +84,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	add |antenna0 scanner| entity
+	{--	add |antenna0 scanner| entity
 		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/ANTENNA0.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -130,8 +128,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|freighter extractor| capacity
+	{--	|freighter extractor| capacity
 		MBIN_FILE_SOURCE	= build_parts..'FREIGHTERBASE/ROOMS/EXTRROOM/PARTS/FLOOR0/ENTITIES/EXTRACTORTERMINAL.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

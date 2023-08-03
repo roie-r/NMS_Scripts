@@ -21,37 +21,38 @@ local add_edit_stats = {
 ---	suit
 	{id='UT_WATER',			st='Suit_Protection_WaterDrain',			bn=0.17,	op='+'},		-- 1.33
 ---	multitool
-	{id='BOLT',				st='Weapon_Projectile_Recoil',				bn=20,		op='-'},		-- 200
-	{id='UT_BOLT',			st='Weapon_Projectile_Recoil',				bn=0.05,	op='-'},		-- 0.7
+	{id='BOLT',				st='Weapon_Projectile_Recoil',				bn=-20,		op='+'},		-- 200
+	{id='UT_BOLT',			st='Weapon_Projectile_Recoil',				bn=-0.05,	op='+'},		-- 0.7
 	{id='UT_SURVEY',		st='Weapon_Scan_Surveying',					bn=1,		op='*',	lv=0},	-- 0.7
+	{id='RAILGUN',			st='Weapon_Laser_ChargeTime',				bn=-1,		op='+'},		-- 3
 	{id='UT_S10_SCAN',		st='Weapon_Scan_Radius',					bn=0.05,	op='+'},		-- 1.33
 ---	vehicle
-	{id='VEHICLE_GRIP1',	st='Vehicle_Grip',							bn=0.5,		op='-'},		-- 3
+	{id='VEHICLE_GRIP1',	st='Vehicle_Grip',							bn=-0.5,	op='+'},		-- 3
 	{id='VEHICLE_GRIP1',	st='Vehicle_SkidGrip',						bn=0.2,		op='+'},		-- 0.66
-	{id='VEHICLE_GUN',		st='Vehicle_GunDamage',						bn=160,		op='+'},		-- 320
-	{id='VEHICLE_GUN',		st='Vehicle_GunRate',						bn=0.45,	op='+'},		-- 0.5
-	{id='SUB_GUN',			st='Vehicle_GunDamage',						bn=160,		op='+'},		-- 320
-	{id='SUB_GUN',			st='Vehicle_GunRate',						bn=0.45,	op='+'},		-- 0.5
-	{id='MECH_GUN',			st='Vehicle_GunDamage',						bn=220,		op='+'},		-- 420
-	{id='MECH_GUN',			st='Vehicle_GunRate',						bn=0.65,	op='+'},		-- 0.35
+	{id='VEHICLE_GUN',		st='Vehicle_GunDamage',						bn=80,		op='+'},		-- 320
+	{id='VEHICLE_GUN',		st='Vehicle_GunRate',						bn=0.35,	op='+'},		-- 0.5
+	{id='SUB_GUN',			st='Vehicle_GunDamage',						bn=80,		op='+'},		-- 320
+	{id='SUB_GUN',			st='Vehicle_GunRate',						bn=0.35,	op='+'},		-- 0.5
+	{id='MECH_GUN',			st='Vehicle_GunDamage',						bn=100,		op='+'},		-- 420
+	{id='MECH_GUN',			st='Vehicle_GunRate',						bn=0.55,	op='+'},		-- 0.35
 	{id='MECH_ENGINE',		st='Vehicle_EngineFuelUse',					bn=0.2,		op='+'},		-- 0.5
 	{id='MECH_SENT_L_ARM',	st='Vehicle_LaserDamage',					bn=40,		op='+'},		-- 50
 ---	ship
 	{id='UT_SHIPSHIELD',	st='Ship_Armour_Shield_Strength',			bn=0.01,	op='+',	lv=2},	-- 0.05
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_Damage',				bn=2000,	op='+'},		-- 6500
-	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_Rate',				bn=0.5,		op='-'},		-- 1
-	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=2,		op='-'},		-- 10
+	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_Rate',				bn=-0.5,	op='+'},		-- 1
+	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-2,		op='+'},		-- 10
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_HeatTime',			bn=1,		op='+'},		-- 0
-	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=0.3,		op='-'},		-- 0.8
-	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=0.2,		op='-'},		-- 0.8
+	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-0.3,	op='+'},		-- 0.8
+	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8
 	{id='UT_SHIPGUN',		st='Ship_Weapons_Guns_HeatTime',			bn=0.1,		op='+'},		-- 1.2
 	{id='SHIP_TELEPORT',	st='Ship_Teleport',							bn=32,		op='*'},		-- 100
 	{id='SHIPMINIGUN',		st='Ship_Weapons_Guns_Damage_Radius',		bn=1,		op='+'},		-- 3
 	{id='SHIPJUMP_SPEC',	st='Ship_Maneuverability'},												-- bug fix
-	{id='SHIPJUMP_SPEC',	st='Ship_BoostManeuverability',				bn=0.1,		op='-'},		-- 1.25
-	{id='SHIPJUMP_SPEC',	st='Ship_Boost',							bn=10,		op='-'},		-- 120
+	{id='SHIPJUMP_SPEC',	st='Ship_BoostManeuverability',				bn=-0.1,	op='+'},		-- 1.25
+	{id='SHIPJUMP_SPEC',	st='Ship_Boost',							bn=-10,		op='+'},		-- 120
 	{id='SHIPJUMP_SPEC',	st='Ship_PulseDrive_MiniJumpSpeed',			bn=0.24,	op='+'},		-- 1
-	{id='SHIPJUMP_ROBO',	st='Ship_BoostManeuverability',				bn=0.15,	op='-'},		-- 1.5
+	{id='SHIPJUMP_ROBO',	st='Ship_BoostManeuverability',				bn=-0.15,	op='+'},		-- 1.5
 	{id='SHIPJUMP_ROBO',	st='Ship_Maneuverability',					bn=0.005,	op='+'},		-- 1.0
 	{id='SOLAR_SAIL',		st='Ship_PulseDrive_MiniJumpFuelSpending',	bn=0.2,		op='+'},		-- 0.2
 ---	freighter
@@ -63,7 +64,6 @@ local add_edit_stats = {
 ---	suit
 	{id='UT_JUMP',			st='Suit_Jetpack_WaterEfficiency',			bn=1},
 	{id='UT_WATER',			st='Suit_UnderwaterLifeSupport',			bn=1,		lv=3},
-	{id='UT_S10_SCAN',		st='Weapon_Scan_Recharge_Time',				bn=0.75,	lv=3},
 ---	multitool
 	{id='UT_SHOT',			st='Weapon_FireDOT_Duration',				bn=2,		lv=1},
 	{id='UT_SHOT',			st='Weapon_FireDOT_DPS',					bn=120,		lv=1},
@@ -71,7 +71,9 @@ local add_edit_stats = {
 	{id='UT_MINER',			st='Weapon_Laser_Damage',					bn=1,		lv=4},
 	{id='STRONGLASER',		st='Weapon_Laser_Damage',					bn=3,		lv=3},
 	{id='LASER_XO',			st='Weapon_Laser_Damage',					bn=3},
+	{id='UT_RAIL',			st='Weapon_Laser_ChargeTime',				bn=0.85},
 	{id='UT_RAIL_STUN',		st='Weapon_Laser_Damage',					bn=200},
+	{id='UT_S10_SCAN',		st='Weapon_Scan_Recharge_Time',				bn=0.75,	lv=3},
 ---	vehicle
 	{id='MECH_SENT_L_ARM',	st='Vehicle_LaserStrongLaser',				bn=1},
 ---	ship
@@ -192,7 +194,7 @@ local include_in_category = {
 	{'SHIP_TELEPORT',	'AllShipsExceptAlien',	'AllShips'},
 	{'VEHICLE_SCAN1',	'Exocraft',				'AllVehicles'},
 	{'VEHICLE_SCAN2',	'Exocraft',				'AllVehicles'},
-	{'MECH_PROT',		'Mech',					'AllVehicles'}
+	{'MECH_PROT',		'Mech',					'AllVehicles'},
 }
 function include_in_category:GetExmlCT(T)
 	for _,x in ipairs(self) do
@@ -204,11 +206,11 @@ function include_in_category:GetExmlCT(T)
 end
 
 local edit_rgb = {
-	{'UT_BOLT', 		'ffede434'},
-	{'UT_RAIL',			'ffbd1a29'},
-	{'UT_SHIPLAS',		'ff1f1a9e'},
-	{'UT_SHIPGUN',		'ff03e01a'},
-	{'UT_SMG',			'ffeb1fd1'},
+	{'UT_BOLT', 		'FFEDE434'},
+	{'UT_RAIL',			'FFBD1A29'},
+	{'UT_SHIPLAS',		'FF1F1A9E'},
+	{'UT_SHIPGUN',		'FF03E01A'},
+	{'UT_SMG',			'FFEB1FD1'},
 	{'SHIPJUMP_SPEC'},
 	{'HYPERDRIVE_SPEC'},
 	{'LAUNCHER_SPEC'},
@@ -233,7 +235,7 @@ function edit_rgb:GetExmlCT(T)
 		SKW					= {},
 		INTEGER_TO_FLOAT	= 'Force',
 		PRECEDING_KEY_WORDS	= 'Colour',
-		VALUE_CHANGE_TABLE 	= ColorFromHex('ff095c77')
+		VALUE_CHANGE_TABLE 	= ColorFromHex('FF095C77')
 	}
 	for _,x in ipairs(self) do
 		if #x < 2 then
@@ -465,7 +467,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{
@@ -536,31 +538,65 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 				T[#T+1] = {
 					PRECEDING_KEY_WORDS	= 'Table',
-					ADD					= ToExml(TechnologyEntry({
-						id				= 'BODYSHIELD',
-						name			= 'BODYSHIELD_NAME',
-						namelower		= 'BODYSHIELD_NAME_L',
-						subtitle		= 'BODYSHIELD_SUB',
-						description		= 'BODYSHIELD_DESC',
-						icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
-						color			= {c='FF095C77'},
-						chargeable		= true,
-						chargeamount	= 400,
-						chargetype		= 'Catalyst',
-						chargeby		= {'POWERCELL', 'CATALYST2', 'CATALYST1'},
-						primaryitem		= true,
-						category		= 'Suit',
-						rarity			= 'Always',
-						value			= 5,
-						requirements	= { {'POWERCELL', 1, I_.PRD} },
-						basestat		= 'Suit_Armour_Shield',
-						statbonuses		= {
-							{'Suit_Armour_Shield',			1,	1},
-							{'Suit_Armour_Shield_Strength',	24,	1},
-							{'Suit_Armour_Health',			60,	20}
-						},
-						fragmentcost	= 980
-					}))
+					ADD					= ToExml({
+						[1] = TechnologyEntry({
+							id				= 'VEHICLESTUN',
+							name			= 'VEHICLESTUN_NAME',
+							namelower		= 'VEHICLESTUN_NAME_L',
+							subtitle		= 'VEHICLESTUN_SUB',
+							description		= 'VEHICLESTUN_DESC',
+							icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/RENDER.STUNGUN.DDS',
+							color			= {c='FF095C77'},
+							chargeable		= true,
+							chargeamount	= 40,
+							chargetype		= 'Fuel',
+							chargeby		= {'GRENFUEL1'},
+							chargemultiply	= 2,
+							primaryitem		= true,
+							category		= 'Exocraft',
+							rarity			= 'Rare',
+							value			= 5,
+							requirements	= {
+								{id='LAVA1',		n=70,	tp=I_.SBT},
+								{id='HYDRALIC',		n=2,	tp=I_.PRD},
+								{id='TECH_COMP',	n=1,	tp=I_.PRD}
+							},
+							basestat		= 'Vehicle_StunGun',
+							statbonuses		= {
+								{st='Vehicle_GunDamage',			bn=20,	lv=3},
+								{st='Vehicle_GunHeatTime',			bn=1,	lv=1},
+								{st='Vehicle_GunRate',				bn=0.5,	lv=1}
+							},
+							fragmentcost	= 580
+						}),
+						[2] = TechnologyEntry({
+							id				= 'BODYSHIELD',
+							name			= 'BODYSHIELD_NAME',
+							namelower		= 'BODYSHIELD_NAME_L',
+							subtitle		= 'BODYSHIELD_SUB',
+							description		= 'BODYSHIELD_DESC',
+							icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
+							color			= {c='FF095C77'},
+							chargeable		= true,
+							chargeamount	= 400,
+							chargetype		= 'Catalyst',
+							chargeby		= {'POWERCELL', 'CATALYST2', 'CATALYST1'},
+							primaryitem		= true,
+							category		= 'Suit',
+							rarity			= 'Rare',
+							value			= 5,
+							requirements	= {
+								{id='POWERCELL', 	n=1, 	tp=I_.PRD}
+							},
+							basestat		= 'Suit_Armour_Shield',
+							statbonuses		= {
+								{st='Suit_Armour_Shield',			bn=1,	lv=1},
+								{st='Suit_Armour_Shield_Strength',	bn=24,	lv=1},
+								{st='Suit_Armour_Health',			bn=60,	lv=20}
+							},
+							fragmentcost	= 980
+						})
+					})
 				}
 				return T
 			end

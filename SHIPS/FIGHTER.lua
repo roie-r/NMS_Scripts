@@ -28,14 +28,13 @@ local fighters = 'MODELS/COMMON/SPACECRAFT/FIGHTERS/'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-	---	Slightly wider _SubWings_A
+	{--	Slightly wider _SubWings_A
 		MBIN_FILE_SOURCE	= {
 			fighters..'WINGS/WINGS_B/WINGSB.SCENE.MBIN',
 			fighters..'WINGS/WINGS_E/WINGSE.SCENE.MBIN',
@@ -51,8 +50,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	Narower _SubWings_D, so it doesn't clip the ground
+	{--	Narower _SubWings_D, so it doesn't clip the ground
 		MBIN_FILE_SOURCE	= {
 			fighters..'WINGS/WINGS_F/WINGS_F.SCENE.MBIN',
 			fighters..'WINGS/WINGS_H/WINGSH.SCENE.MBIN'
@@ -96,8 +94,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|cockpit_A decals fix|
+	{--	|cockpit_A decals fix|
 		MBIN_FILE_SOURCE	= fighters..'COCKPIT/COCKPIT_A/COCKPITA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -114,8 +111,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|cockpit_B decals fix|
+	{--	|cockpit_B decals fix|
 		MBIN_FILE_SOURCE	= fighters..'COCKPIT/COCKPIT_B/COCKPITB.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -133,8 +129,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	nose C front decal fix
+	{--	nose C front decal fix
 		MBIN_FILE_SOURCE	= fighters..'NOSE/COCKPITA_NOSEC/COCKPITANOSEC.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -148,8 +143,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|fighter cockpit_F fixs|
+	{--	|fighter cockpit_F fixs|
 		MBIN_FILE_SOURCE	= fighters..'COCKPIT/COCKPIT_F/COCKPTF.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -193,8 +187,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- }
 		}
 	},
-	{
-	--	|no foggy headlights| cone from cockpits
+	{--	|no foggy headlights| cone from cockpits
 		MBIN_FILE_SOURCE	= {
 			fighters..'COCKPIT/COCKPIT_B/COCKPITB.SCENE.MBIN',
 			fighters..'COCKPIT/COCKPIT_E/COCKPIT_E.SCENE.MBIN',
@@ -208,8 +201,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|fighter parts bluewhite| glow
+	{--	|fighter parts bluewhite| glow
 		MBIN_FILE_SOURCE	= {
 			fighters..'COCKPIT/COCKPIT_A/COCKPITA/LIGHTS1.MATERIAL.MBIN',
 			fighters..'COCKPIT/COCKPIT_B/COCKPITB/LIGHTS1.MATERIAL.MBIN',
@@ -233,8 +225,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	---	Shrink and move bobble locator in fighter cockpit so it doesn't obstruct the map
+	{--	Shrink and move bobble locator in fighter cockpit so it doesn't obstruct the map
 		MBIN_FILE_SOURCE	= fighters..'COCKPIT/COCKPITCOMMON_INTERIOR.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -250,8 +241,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no fake orange light|
+	{--	|no fake orange light|
 		MBIN_FILE_SOURCE	= {
 			fighters..'COCKPIT/COCKPIT_E/COCKPIT_E/HQWHITELIGHT_MAT1.MATERIAL.MBIN',
 			fighters..'COCKPIT/COCKPIT_B/COCKPITB/HQWHITELIGHT_MAT.MATERIAL.MBIN',
@@ -266,8 +256,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Reduce ship spotlight intensity|, remove foggy light cone
+	{--	|Reduce ship spotlight intensity|, remove foggy light cone
 		MBIN_FILE_SOURCE	= fighters..'ACCESSORIES/HEADLAMP.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -288,8 +277,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|fighter long wingB short NoseC|
+	{--	|fighter long wingB short NoseC|
 		MBIN_FILE_SOURCE	= fighters..'FIGHTER_PROC.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

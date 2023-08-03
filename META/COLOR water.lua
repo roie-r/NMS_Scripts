@@ -127,16 +127,16 @@ local function GcWaterColourSetting()
 	return FileWrapping(T, 'GcWaterColourSettingList')
 end
 
--- dofile('E:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
+-- dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
 -- io.open('e:/_dump/WATERCOLOURS.EXML', 'w'):write(GcWaterColourSetting(water_colors))
 -- print('saved to _dump')
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META water colors.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	ADD_FILES 			= {
 		{
 			FILE_CONTENT		= GcWaterColourSetting(),

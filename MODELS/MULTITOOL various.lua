@@ -8,12 +8,11 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL multitool various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|sentinel tool proc| colors
+	{--	|sentinel tool proc| colors
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOL/ORANGEMETALMAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -36,8 +35,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|sentinel tool blue glow|
+	{--	|sentinel tool blue glow|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOL/REDGLOW_MAT2.MATERIAL.MBIN',
 			'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOLB/REDGLOW_MAT2.MATERIAL.MBIN',
@@ -54,9 +52,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|sentinel tool blue lights|
-		MBIN_FILE_SOURCE	= {		
+	{--	|sentinel tool blue lights|
+		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOL/LIGHTSCROLLBMAT.MATERIAL.MBIN',
 			'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOLB/LIGHTSCROLLBMAT.MATERIAL.MBIN'
 		},
@@ -68,8 +65,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no tool muzzle flare|
+	{--	|no tool muzzle flare|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/EFFECTS/MUZZLE/LASERMUZZLE.SCENE.MBIN',
 			'MODELS/EFFECTS/MUZZLE/BLASTOVERLOADMUZZLE.SCENE.MBIN'
@@ -81,8 +77,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|plain tool trim ugly parts|
+	{--	|plain tool trim ugly parts|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/WEAPONS/MULTITOOL/MULTITOOL.DESCRIPTOR.MBIN',
 		EXML_CHANGE_TABLE	= (
 			function()
@@ -91,7 +86,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					_Mag1Clip_	= {1, '2xRARE'},
 					_Screen_	= {1, 2},
 					_ToolStock_	= {del=true, 2, 3, 4, 5, 6},
-					_TS6A_		= {2, 'NULL'},
 					_B3TAcc_	= {'NULL', 1},
 					_B2Bars_	= {3, 2, 'NULL', 1},
 					_G1Acc_		= {1, 2},

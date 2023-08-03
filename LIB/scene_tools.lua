@@ -1,8 +1,9 @@
--------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 ---	Model scene tools (VERSION: 0.82) ... by lMonk TESTING!!
 ---	Helper functions for adding new TkSceneNodeData nodes and properties
----	!! Requires lua_2_exml.lua !!
--------------------------------------------------------------------------
+---	* Requires lua_2_exml.lua !
+---	* This should be placed at [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+-------------------------------------------------------------------------------
 
 --	Returns a keyed table of TkSceneNodeData sections, using the Name property as keys,
 --	* Use to enable direct access to nodes in a table generated with ToLua

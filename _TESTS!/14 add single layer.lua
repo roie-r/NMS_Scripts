@@ -6,7 +6,7 @@ mod_desc = [[
 local layered_textures = {
 	{
 	-- multitool glow parts
-		dds		= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Weapon/MULTITOOLGLOW.DDS',
+		dds		= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Weapon/MULTITOOLGLOW.DDS',
 		path	= 'TEXTURES/COMMON/WEAPONS/MULTITOOL/',
 		palette = 'Crystal',
 		color	= 'Primary',
@@ -116,7 +116,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 14 add single layer.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS		= {},
 	ADD_FILES			= add_tex_layers_files()

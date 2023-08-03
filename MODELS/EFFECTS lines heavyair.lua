@@ -9,13 +9,12 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL effects lines heavyair.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.36',
+	NMS_VERSION				= '4.38',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{
-	--	|varied rain|
+	{--	|varied rain|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/EFFECTS/HEAVYAIR/ALPINE/ALPINE2.HEAVYAIR.MBIN',
 			'MODELS/EFFECTS/HEAVYAIR/ALPINE/ALPINE3.HEAVYAIR.MBIN',
@@ -45,8 +44,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|snow1 partice|
+	{--	|snow1 partice|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/HEAVYAIR/SNOW/SNOW1.HEAVYAIR.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -58,8 +56,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|clean space| of dust and plasma clouds
+	{--	|clean space| of dust and plasma clouds
 		MBIN_FILE_SOURCE	= {
 			'MODELS/EFFECTS/HEAVYAIR/SPACE/SPACE2.HEAVYAIR.MBIN',
 			'MODELS/EFFECTS/HEAVYAIR/SPACE/SPACEPLASMA.HEAVYAIR.MBIN',
@@ -73,8 +70,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|custom empty line material|
+	{--	|custom empty line material|
 		MBIN_FILE_SOURCE	= {
 			{
 				'MATERIALS/LINE3D.MATERIAL.MBIN',
@@ -92,8 +88,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|no lines|
+	{--	|no lines|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/LINES/LINERENDERER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -110,8 +105,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|pulse - Less speed lines|
+	{--	|pulse - Less speed lines|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/EFFECTS/SPEEDLINES/MINIJUMPSPEEDLINES.SPEEDLINE.MBIN',
 			'MODELS/EFFECTS/SPEEDLINES/MINIJUMPSPEEDLINES2.SPEEDLINE.MBIN',
@@ -131,8 +125,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|boost - Less speed lines|
+	{--	|boost - Less speed lines|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/EFFECTS/SPEEDLINES/SPACE.SPEEDLINE.MBIN',
 			'MODELS/EFFECTS/SPEEDLINES/SPACE2.SPEEDLINE.MBIN',
@@ -156,8 +149,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Remove smoke and trails| effect from mech and player
+	{--	|Remove smoke and trails| effect from mech and player
 		MBIN_FILE_SOURCE	= {
 			'MODELS/EFFECTS/PLAYER/JETPACKEFFECTS/BLUEJETPACKFX.SCENE.MBIN',
 			'MODELS/EFFECTS/PLAYER/JETPACKEFFECTS/GREENJETPACKFX.SCENE.MBIN',

@@ -1,10 +1,11 @@
-------------------------------------------------------------------------------
----	Construct reality tables entries (VERSION: 0.81) ... by lMonk
+-------------------------------------------------------------------------------
+---	Construct reality tables entries (VERSION: 0.82.1) ... by lMonk
 ---	Add new items into technology, proc-tech, product & basebuilding
 ---	* Not ALL properties of the tables' classes are included, ones which
----   can be safely left with their deafult value are omited.
----	!! Requires lua_2_exml.lua !!
-------------------------------------------------------------------------------
+---  can be safely left with their deafult value are omited.
+---	* Requires lua_2_exml.lua !
+---	* This should be placed at [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+-------------------------------------------------------------------------------
 
 --	build the requirements table for tech and products
 --	receives a table of {id, amount, product/substance} items
@@ -14,28 +15,15 @@ function GetRequirements(r)
 	for _,req in ipairs(r) do
 		reqs[#reqs+1] = {
 			META	= {'value', 'GcTechnologyRequirement.xml'},
-			ID		= req[1],
-			Amount	= req[2],						--	i
+			ID		= req.id,
+			Amount	= req.n,						--	i
 			Type	= {
 				META	= {'Type', 'GcInventoryType.xml'},
-				InventoryType = req[3]				--	Enum
+				InventoryType = req.tp				--	Enum
 			}
 		}
 	end
 	return reqs
-end
-
---	receives a table of id strings
-local function GetIdTable(t, prop)
-	if not t then return nil end
-	local T = {META = {'name', prop}}
-	for _,id in ipairs(t) do
-		T[#T+1] = {
-			META	= {'value', 'NMSString0x10.xml'},
-			Value	= id,
-		}
-	end
-	return T
 end
 
 --	Build a new entry for NMS_REALITY_GCTECHNOLOGYTABLE
@@ -44,15 +32,15 @@ function TechnologyEntry(tech)
 	local function getStats(s)
 	--	receives a table of {type, bonus, level} items
 		local stats = {META = {'name', 'StatBonuses'}}
-		for _,st in ipairs(s) do
+		for _,stb in ipairs(s) do
 			stats[#stats+1] = {
 				META	= {'value', 'GcStatsBonus.xml'},
 				Stat	= {
 					META		= {'Stat', 'GcStatsTypes.xml'},
-					StatsType	= st[1]					--	Enum
+					StatsType	= stb.st					--	Enum
 				},
-				Bonus	= st[2],						--	f
-				Level	= st[3] or 0					--	i 0-4
+				Bonus	= stb.bn,							--	f
+				Level	= stb.lv or 0						--	i 0-4
 			}
 		end
 		return stats
@@ -86,8 +74,8 @@ function TechnologyEntry(tech)
 			META	= {'ChargeType', 'GcRealitySubstanceCategory.xml'},
 			SubstanceCategory = (tech.chargetype or 'Earth'),			--	E
 		},
-		ChargeBy		= GetIdTable(tech.chargeby, 'ChargeBy'),		--	Id
-		ChargeMultiplier= 1,
+		ChargeBy		= StringArray(tech.chargeby, 'ChargeBy', 10),	--	Id
+		ChargeMultiplier= tech.chargemultiply or 1,
 		BuildFullyCharged= true,
 		UsesAmmo		= tech.usesammo,								--	b
 		AmmoId			= tech.ammoid,									--	Id
@@ -210,20 +198,20 @@ function ProcTechEntry(tech)
 	local function getStatLevels(s)
 	--	receives a table of {type, min, max, weightcurve, always} items
 		local stats = {META = {'name', 'StatLevels'}}
-		for _,st in ipairs(s) do
+		for _,stl in ipairs(s) do
 			stats[#stats+1] = {
 				META		= {'value', 'GcProceduralTechnologyStatLevel.xml'},
 				Stat		= {
 					META = {'Stat', 'GcStatsTypes.xml'},
-					StatsType = st[1],							--	Enum
+					StatsType = stl.st,							--	Enum
 				},
-				ValueMin	= st[2],							--	f
-				ValueMax	= st[3],							--	f
+				ValueMin	= stl.n,							--	f
+				ValueMax	= stl.x,							--	f
 				WeightingCurve = {
 					META = {'WeightingCurve', 'GcWeightingCurve.xml'},
-					WeightingCurve = st[4] or 'NoWeighting',	--	Enum
+					WeightingCurve = stl.wc or 'NoWeighting',	--	Enum
 				},
-				AlwaysChoose= st[5]								--	b
+				AlwaysChoose= stl.ac							--	b
 			}
 		end
 		return stats
@@ -262,8 +250,8 @@ function BaseBuildObjectEntry(bpart)
 		for _,v in ipairs(t) do
 			T[#T+1] = {
 				META	= {'value', 'GcBaseBuildingEntryGroup.xml'},
-				Group			= v[1],
-				SubGroupName	= v[2]
+				Group			= v.grp,
+				SubGroupName	= v.sub
 			}
 		end
 		return T
@@ -299,8 +287,8 @@ function BaseBuildObjectEntry(bpart)
 		CanChangeMaterial			= true,
 		CanPickUp					= bpart.canpickup,					--	b
 		ShowInBuildMenu				= true,
-		CompositePartObjectIDs		= GetIdTable(bpart.compositeparts, 'CompositePartObjectIDs'),
-		FamilyIDs					= GetIdTable(bpart.familyids, 'FamilyIDs'),
+		CompositePartObjectIDs		= StringArray(bpart.compositeparts, 'CompositePartObjectIDs', 10),
+		FamilyIDs					= StringArray(bpart.familyids, 'FamilyIDs', 10),
 		BuildEffectAccelerator		= 1,								--	i
 		RemovesAttachedDecoration	= true,
 		RemovesWhenUnsnapped		= false,
@@ -344,11 +332,11 @@ function BaseBuildPartEntry(bpart)
 				},
 				Model = {
 					META = {'Model', 'TkModelResource.xml'},
-					Filename = src[1],
+					Filename = src.act,
 				},
 				Inactive = {
 					META = {'Inactive', 'TkModelResource.xml'},
-					Filename = src[2]
+					Filename = src.lod
 				}
 			}
 		end

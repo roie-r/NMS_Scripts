@@ -8,7 +8,7 @@ Timer_mult = 0.1
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= 'MISSION living ship shorter timer.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.08',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,35 +17,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '*',
+				FOREACH_SKW_GROUP 	= {
+					{'Message', 'UI_BIO_SHIP_MISSION1_MSG3'},
+					{'Message', 'UI_BIO_SHIP_MISSION2_MSG3'},
+					{'Message', 'UI_BIO_SHIP_MISSION3_MSG3'},
+					{'Message', 'UI_BIO_SHIP_MISSION4_MSG3'}
+				},
 				INTEGER_TO_FLOAT	= 'Force',
-				SPECIAL_KEY_WORDS	= {'Message', 'UI_BIO_SHIP_MISSION1_MSG3'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Time',		Timer_mult},
-					{'Randomness',	Timer_mult * 3}
-				}
-			},
-			{
-				MATH_OPERATION 		= '*',
-				INTEGER_TO_FLOAT	= 'Force',
-				SPECIAL_KEY_WORDS	= {'Message', 'UI_BIO_SHIP_MISSION2_MSG3'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Time',		Timer_mult},
-					{'Randomness',	Timer_mult * 3}
-				}
-			},
-			{
-				MATH_OPERATION 		= '*',
-				INTEGER_TO_FLOAT	= 'Force',
-				SPECIAL_KEY_WORDS	= {'Message', 'UI_BIO_SHIP_MISSION3_MSG3'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Time',		Timer_mult},
-					{'Randomness',	Timer_mult * 3}
-				}
-			},
-			{
-				MATH_OPERATION 		= '*',
-				INTEGER_TO_FLOAT	= 'Force',
-				SPECIAL_KEY_WORDS	= {'Message', 'UI_BIO_SHIP_MISSION4_MSG3'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Time',		Timer_mult},
 					{'Randomness',	Timer_mult * 3}

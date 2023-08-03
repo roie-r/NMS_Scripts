@@ -42,30 +42,32 @@ local proc_texture_files = {
 			diff	= true
 		}
 	},
-	-- {--	ship interior: plastic alt1
-		-- label	 = 'PLASTICGRAINALT1',
-		-- nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/',
-		-- {
-			-- ly_name	= 'BASE',
-			-- palette = 'Paint',
-			-- color	= 'Alternative1',
-			-- diff	= true
-		-- }
-	-- },
-	-- {--	ship interior: plastic alt2 (maybe disabled)
-		-- label	 = 'PLASTICGRAINALT2',
-		-- nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/',
-		-- {
-			-- ly_name	= 'BASE',
-			-- palette = 'Paint',
-			-- color	= 'Alternative3',
-			-- diff	= true
-		-- }
-	-- },
+	{--	ship interior: plastic alt1
+		disabled = true,
+		label	 = 'PLASTICGRAINALT1',
+		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/',
+		{
+			ly_name	= 'BASE',
+			palette = 'Paint',
+			color	= 'Alternative1',
+			diff	= true
+		}
+	},
+	{--	ship interior: plastic alt2 (maybe disabled)
+		disabled = true,
+		label	 = 'PLASTICGRAINALT2',
+		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/',
+		{
+			ly_name	= 'BASE',
+			palette = 'Paint',
+			color	= 'Alternative3',
+			diff	= true
+		}
+	},
 	{--	ship decals : logo
 		label	 = 'LOGO',
 		group	 = 'DECALLOGO',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/logo/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/logo/',
 		nmspath	 = 'TEXTURES/COMMON/DECALS/LOGO/',
 		{
 			ly_name	= 'OVERLAY',
@@ -83,7 +85,7 @@ local proc_texture_files = {
 	{--	ship decals : rectangle
 		label	 = 'RECTANGLE',
 		group	 = 'DECALRECTANGLE',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/rectangle/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/rectangle/',
 		nmspath	 = 'TEXTURES/COMMON/DECALS/RECTANGLE/',
 		{
 			ly_name	= 'OVERLAY',
@@ -101,7 +103,7 @@ local proc_texture_files = {
 	{--	ship decals : smallsign
 		label	 = 'SMALLSIGN',
 		group	 = 'DECALSMALLSIGN',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/smallsign/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/smallsign/',
 		nmspath	 = 'TEXTURES/COMMON/DECALS/SMALLSIGN/',
 		{
 			ly_name	= 'OVERLAY',
@@ -119,7 +121,7 @@ local proc_texture_files = {
 	{--	ship decals : number
 		label	 = 'NUMBER',
 		group	 = 'DECALNUMBER',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/number/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/number/',
 		nmspath	 = 'TEXTURES/COMMON/DECALS/NUMBER/',
 		{
 			ly_name	= 'OVERLAY',
@@ -137,7 +139,7 @@ local proc_texture_files = {
 	{--	ship decals : lettering
 		label	 = 'LETTERING',
 		group	 = 'DECALLET',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/lettering/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/ship/lettering/',
 		nmspath	 = 'TEXTURES/COMMON/DECALS/LETTERING/',
 		{
 			ly_name	= 'OVERLAY',
@@ -155,7 +157,7 @@ local proc_texture_files = {
 	{--	space station front lettering
 		label	 = 'LETTERING',
 		group	 = 'DECALLETTER',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
 		nmspath	 = 'TEXTURES/SPACE/SPACESTATION/DECALS/',
 		{
 			ly_name	= 'OVERLAY',
@@ -171,7 +173,7 @@ local proc_texture_files = {
 	{--	space station front number
 		label	 = 'NUMBER',
 		group	 = 'DECALNUMBER',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
 		nmspath	 = 'TEXTURES/SPACE/SPACESTATION/DECALS/',
 		{
 			ly_name	= 'OVERLAY',
@@ -186,7 +188,7 @@ local proc_texture_files = {
 	},
 	{--	multitool glow parts
 		label	 = 'MULTITOOLGLOW',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Weapon/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Weapon/',
 		nmspath	 = 'TEXTURES/COMMON/WEAPONS/MULTITOOL/',
 		{
 			ly_name	= 'BASE',
@@ -197,7 +199,7 @@ local proc_texture_files = {
 	},
 	{--	royal ship
 		label	 = 'ROYALSCLASS_TRIM',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Ship/Royal/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Ship/Royal/',
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/',
 		{
 			ly_name	= 'OVERLAYMETAL',
@@ -215,7 +217,7 @@ local proc_texture_files = {
 	},
 	{--	mech hardframe
 		label	 = 'SENTINELTRIM',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/FriendlyRobot/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/FriendlyRobot/',
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/',
 		{
 			ly_name	= 'OVERLAY',
@@ -283,7 +285,7 @@ local proc_texture_files = {
 	{--	ship: fake light beam & glow parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
 		disabled = true,
 		label	 = 'RECTWHITELIGHT',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		{
 			ly_name	= 'BASE',
@@ -295,7 +297,7 @@ local proc_texture_files = {
 	{--	ship: glow rectangle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
 		disabled = true,
 		label	 = 'RECTLIGHT',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		{
 			ly_name	= 'BASE',
@@ -304,10 +306,10 @@ local proc_texture_files = {
 			diff	= true
 		}
 	},
-	{--	ship: glow circle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
+	{--	ship: glow circle parts !!AFFECTS ship proc-gen PAINTED/PANELS!!
 		disabled = true,
 		label	 = 'CIRCLELIGHT',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		{
 			ly_name	= 'BASE',
@@ -316,10 +318,10 @@ local proc_texture_files = {
 			diff	= true
 		}
 	},
-	{--	ship: glow circle parts !!AFFECTS ship pro-gen PAINTED/PANELS!!
+	{--	ship: glow circle parts !!AFFECTS ship proc-gen PAINTED/PANELS!!
 		disabled = true,
 		label	 = 'HEADLIGHT',
-		source	 = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
+		source	 = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/',
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/',
 		{
 			ly_name	= 'BASE',
@@ -328,7 +330,7 @@ local proc_texture_files = {
 			diff	= true
 		}
 	},
-	{--- sentinel square lights !! NOT WORKING
+	{--	sentinel square lights !! NOT WORKING
 		disabled = true,
 		label	 = 'LIGHTS',
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/SHARED/',
@@ -340,7 +342,7 @@ local proc_texture_files = {
 			diff	= true
 		}
 	},
-	{--- sentinel back lights   !! NOT WORKING
+	{--	sentinel back lights   !! NOT WORKING
 		disabled = true,
 		label	 = 'LIGHTS',
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/SHARED/',
@@ -368,11 +370,11 @@ local function GetProcTextures(path, layer)
 	end
 	local T = {META = {'name', 'Textures'}}
 
-	-- handles 3 options: 
-	-- a simple names list,
-	-- A list of tables of the following - non-essential - properties:
+	-- handles 3 options:
+	--  A names string array
+	--  A list of tables of the following - non-essential - properties:
 	--   {n='name', pr=0.3, u=U_.DNM,	pt='palette', ca='colouralt'} >> u=TextureGameplayUseEnum
-	-- or none, in which case all default values will apply
+	--  or none, in which case all default values will apply
 	for _,ptex in ipairs(layer.tx_name and layer.tx_name or {{n=''}}) do
 		if type(ptex) == 'string' then ptex = {n=ptex} end
 			T[#T+1] = {
@@ -418,7 +420,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

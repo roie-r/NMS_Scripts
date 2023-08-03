@@ -27,12 +27,12 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META key binds.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|mouse input binds|
+	{--	|mouse input binds|
 		MBIN_FILE_SOURCE	= 'METADATA/INPUT/BINDINGS/GCINPUTBINDINGS_WIN_MOUSE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -86,8 +86,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|keyboard input binds|
+	{--	|keyboard input binds|
 		MBIN_FILE_SOURCE	= 'METADATA/INPUT/BINDINGS/GCINPUTBINDINGS_WIN_KEYBOARD.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -98,12 +97,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'InputButton',	'KeyR'}
 				}
 			},
-			{
-			--	replace inventory KeyE with space : install tech & craft +1
+			{--	replace inventory KeyE with space : install tech & craft +1
 				SPECIAL_KEY_WORDS	= {'InputAction', 'Fe_Alt1'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
 					{'InputButton',	'Space'}
+				}
+			},
+			{--	terrain edit sphere size down
+				SPECIAL_KEY_WORDS	= {'InputAction', 'Terrain_SizeDown'},
+				SECTION_UP			= 1,
+				VALUE_CHANGE_TABLE 	= {
+					{'InputButton',	'F1'}
+				}
+			},
+			{--	terrain edit sphere size up
+				SPECIAL_KEY_WORDS	= {'InputAction', 'Terrain_SizeUp'},
+				SECTION_UP			= 1,
+				VALUE_CHANGE_TABLE 	= {
+					{'InputButton',	'F2'}
 				}
 			},
 			{

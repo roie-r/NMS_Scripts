@@ -324,7 +324,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.1.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

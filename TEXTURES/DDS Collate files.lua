@@ -48,13 +48,6 @@ local texture_collection = {
 			{s='VRSPEEDER.*.DDS'}
 		}
 	},
-	-- {--	Dimmer sailship sail
-		-- source = 'Ship/Sail/',
-		-- target = 'COMMON/SPACECRAFT/FIGHTERS/SAILS/',
-		-- names  = {
-			-- {s='*.DDS'}
-		-- }
-	-- },
 	{--	vehicle buggy/bike headlights
 		source = 'Vehicle/',
 		target = 'COMMON/VEHICLES/BUGGY/',
@@ -181,6 +174,13 @@ local texture_collection = {
 			{s='VYKEEN*.DDS'}
 		}
 	},
+	{--	player: robot head eyes
+		source = 'Player/',
+		target = 'COMMON/ROBOTS/',
+		names  = {
+			{s='BUILDERLIGHTS.EYE.*.DDS'}
+		}
+	},
 	{--	menu: UI background
 		source = 'UI/background/',
 		target = 'UI/FRONTEND/BACKGROUNDS/',
@@ -193,7 +193,7 @@ local texture_collection = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()
@@ -201,7 +201,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			for _,dds in pairs(texture_collection) do
 				for _,dfn in ipairs(dds.names) do
 					T[#T+1] = {
-						EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/'..dds.source..dfn.s,
+						EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/'..dds.source..dfn.s,
 						FILE_DESTINATION	 = 'TEXTURES/'..(dds.target..(dfn.t or dfn.s)):upper(),
 					}
 				end

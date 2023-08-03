@@ -5,7 +5,7 @@ mod_desc = [[
   * The ADD_FILES section can be safely disabled/ignored if you prefer
    to add the texture files in a different method.
 ]]--------------------------------------------------------------------
-mod_version = '1.22'
+mod_version = '1.23'
 
 local tech_icons = {
 	---	ship
@@ -27,6 +27,7 @@ local tech_icons = {
 	{'T_SHIPSHLD',		'TECHNOLOGY/RENDER.SHIELDMOD.DDS'},
 	{'UT_SHIPSHIELD',	'TECHNOLOGY/RENDER.SHIELD.RED2.DDS'},
 	{'SHIPSCAN_ECON',	'TECHNOLOGY/RENDER.FREIGHTERSCANNER.DDS'},
+	{'SHIP_LIFESUP',	'TECHNOLOGY/RENDER.LIFESUP.DDS'},
 	{'SHIP_TELEPORT',	'TECHNOLOGY/TECHNOLOGY.FLEET.TRADE.DDS'},
 	---	vehicle
 	{'EXO_RECHARGE',	'TECHNOLOGY/VEHICLE/RENDER.ENGINE.ICARUS.DDS'},
@@ -54,6 +55,10 @@ local tech_icons = {
 	{'UT_RAIL_STUN',	'TECHNOLOGY/RENDER.BLAZEJAVELIN.BLUE.DDS'},
 	{'UT_SCAN',			'TECHNOLOGY/RENDER.SCAN.RED.DDS'},
 	{'SENT_LASER',		'TECHNOLOGY/RENDER.LASERSENTINEL2.DDS'},
+	{'WEAPSENT_DMG1',	'TECHNOLOGY/SENTWEAP.DMG1.DDS'},
+	{'WEAPSENT_DMG2',	'U4PRODUCTS/PRODUCT.DRONEPARTE3.DDS'},
+	{'WEAPSENT_DMG3',	'TECHNOLOGY/SENTWEAP.DMG3.DDS'},
+	{'WEAPSENT_DMG4',	'TECHNOLOGY/SENTWEAP.DMG4.DDS'},
 	---	suit
 	{'UT_ENERGY',		'TECHNOLOGY/RENDER.CELL.BLUE.DDS'},
 	{'UT_WATERENERGY',	'TECHNOLOGY/RENDER.CELL.BLUE.DDS'},
@@ -88,7 +93,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Technology Icons.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -99,15 +104,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Technology/*.DDS',
+			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Technology/*.DDS',
 			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/*.DDS',
 		},
 		{
-			EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Technology/Bio/*.DDS',
+			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Technology/Bio/*.DDS',
 			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/*.DDS',
 		},
 		{
-			EXTERNAL_FILE_SOURCE = 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Technology/Vehicle/*.DDS',
+			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Technology/Vehicle/*.DDS',
 			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/*.DDS',
 		},
 	}

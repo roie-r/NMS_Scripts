@@ -16,7 +16,7 @@ local layered_textures = {
 		palette = 'Paint',
 		color	= 'Primary',
 		diff	= 'RECTWHITELIGHT',
-		dds		= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/RECTWHITELIGHT.DDS'
+		dds		= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/RECTWHITELIGHT.DDS'
 	},
 	{
 	---	ship: glow rectangle parts (uses internal texture)
@@ -24,7 +24,7 @@ local layered_textures = {
 		palette = 'Paint',
 		color	= 'Primary',
 		diff	= 'RECTLIGHT',
-		dds		= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/RECTLIGHT.DDS'
+		dds		= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/RECTLIGHT.DDS'
 	},
 	{
 	---	ship: glow circle parts (uses internal texture)
@@ -32,7 +32,7 @@ local layered_textures = {
 		palette = 'Paint',
 		color	= 'Primary',
 		diff	= 'CIRCLELIGHT',
-		dds		= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/CIRCLELIGHT.DDS'
+		dds		= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/CIRCLELIGHT.DDS'
 	},
 	{
 	---	ship: headlight
@@ -40,7 +40,7 @@ local layered_textures = {
 		palette = 'Paint',
 		color	= 'Primary',
 		diff	= 'HEADLIGHT',
-		dds		= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/HEADLIGHT.DDS'
+		dds		= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/_Publish/HEADLIGHT.DDS'
 	}
 }
 
@@ -107,7 +107,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.ship procedural lights.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.23',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= add_tex_layers_files(),
 	MODIFICATIONS 		= {{

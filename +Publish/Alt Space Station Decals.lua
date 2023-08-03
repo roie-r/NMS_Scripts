@@ -13,7 +13,7 @@ local proc_texture_files = {
 	---	space station front lettering
 		label	= 'LETTERING',
 		group	= 'DECALLETTER',
-		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
+		source	= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
 		nmspath	= 'TEXTURES/SPACE/SPACESTATION/DECALS/',
 		{
 			ly_name	= 'OVERLAY',
@@ -29,7 +29,7 @@ local proc_texture_files = {
 	---	space station front number
 		label	= 'NUMBER',
 		group	= 'DECALNUMBER',
-		source	= 'E:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
+		source	= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Decals/station/',
 		nmspath	= 'TEXTURES/SPACE/SPACESTATION/DECALS/',
 		{
 			ly_name	= 'OVERLAY',

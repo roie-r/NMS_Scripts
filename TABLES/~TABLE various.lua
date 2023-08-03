@@ -8,12 +8,11 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|SUBSTANCES|
+	{--	|SUBSTANCES|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCSUBSTANCETABLE.MBIN',
 		EXML_CHANGE_TABLE	= (
 			function()
@@ -41,8 +40,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			end
 		)()
 	},
-	{
-	--	|COSTTABLE cheaper slots_Effigy for monolith|
+	{--	|COSTTABLE cheaper slots_Effigy for monolith|
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/COSTTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

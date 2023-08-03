@@ -332,7 +332,7 @@ local vehicle_scans_events = 'METADATA/SIMULATION/SCANNING/SCANEVENTTABLEVEHICLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST v4 vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

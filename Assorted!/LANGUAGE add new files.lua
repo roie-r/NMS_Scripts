@@ -25,6 +25,18 @@ local text_lines = {
 		SUPERFOOD_DESC = {
 			EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|NL|Consuming a sample seems to be a good for you.]],
 		},
+		VEHICLESTUN_NAME = {
+			EN = [[PARALYSIS GUN]],
+		},
+		VEHICLESTUN_NAME_L = {
+			EN = [[Paralysis Gun]],
+		},
+		VEHICLESTUN_DESC = {
+			EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.|NL|Charged with <FUEL>Unstable Plasma<>.]],
+		},
+		VEHICLESTUN_SUB = {
+			EN = [[Stun Weapons]],
+		},
 		PRODX40_NAME = {
 			EN = [[FUSED STASIS ENABLER]],
 			FR = [[ACTIVATEUR DE STASE FUSIBLE]],
@@ -287,7 +299,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.36',
+	NMS_VERSION			= '4.38',
+	AMUMSS_SUPPRESS_MSG	= 'UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{
