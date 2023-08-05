@@ -75,7 +75,9 @@ end
 
 local function BuildExmlChangeTable(tbl)
 	local T = {}
-	for _,v in ipairs(tbl) do T[#T+1] = tbl:Get(v) end
+	for _,v in ipairs(tbl) do
+		T[#T+1] = tbl:Get(v)
+	end
 	return T
 end
 
@@ -84,7 +86,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.38',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

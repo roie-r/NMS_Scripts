@@ -99,13 +99,13 @@ local assets = {
 
 local function AddSceneNodes()
 	local T = {}
-	for _, ast in ipairs(assets) do
-		for i, scn in ipairs(ast) do
+	for _, asset in ipairs(assets) do
+		for i, scn in ipairs(asset) do
 			if scn.addloc then
-				T[#T+1] = ScNode(ast.name..string.char(64 + i), 'LOCATOR')
+				T[#T+1] = ScNode(asset.name..string.char(64 + i), 'LOCATOR')
 			end
 			T[#T+1] = ScNode(
-				ast.name..string.char(64 + i), 'REFERENCE', {
+				asset.name..string.char(64 + i), 'REFERENCE', {
 					ScTransform(scn.form),
 					ScAttributes({
 						{'SCENEGRAPH', scn.model},
@@ -124,17 +124,17 @@ local function GenerateDescriptor()
 		META = {'template', 'TkModelDescriptorList'},
 		List = {META = {'name', 'List'}}
 	}
-	for _,ast in ipairs(assets) do
+	for _,asset in ipairs(assets) do
 		local tmp = {
 			META		= {'value', 'TkResourceDescriptorList.xml'},
-			TypeId		= ast.name:upper(),
+			TypeId		= asset.name:upper(),
 			Descriptors	= {META = {'name', 'Descriptors'}}
 		}
-		for i,scn in ipairs(ast) do
+		for i,_ in ipairs(asset) do
 			tmp.Descriptors[#tmp.Descriptors+1] = {
 				META	= {'value', 'TkResourceDescriptorData.xml'},
-				Id		= (ast.name..string.char(64 + i)):upper(),
-				Name	= ast.name..string.char(64 + i),
+				Id		= (asset.name..string.char(64 + i)):upper(),
+				Name	= asset.name..string.char(64 + i),
 			}
 		end
 		T.List[#T.List+1] = tmp
@@ -165,7 +165,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
 	LUA_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.38',
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,10 +1,11 @@
----------------------------------------------------------------------
+-----------------------------------------
 dofile('LIB/lua_2_exml.lua')
----------------------------------------------------------------------
+dofile('LIB/table_entry.lua')
+-----------------------------------------
 mod_desc = [[
   Add new recipes
   Decrease all refining time by 1/2
-]]-------------------------------------------------------------------
+]]---------------------------------------
 
 local new_recipes = {
 	{--	make lots of sand from ferrite
@@ -57,46 +58,10 @@ local new_recipes = {
 	}
 }
 
-local function AddNewRecipes()
-	local function addIngredient(x)
-		return {
-			META	= {x.res and 'Result' or 'value', 'GcRefinerRecipeElement.xml'},
-			Id		= x.id,
-			Amount	= x.n,
-			Type	= {
-				META			= {'Type', 'GcInventoryType.xml'},
-				InventoryType	= x.tp
-			}
-		}
-	end
-	local function BuildRecipe(rec)
-		local T = { META = {'name', 'Ingredients'} }
-		for i=2, #rec do
-			T[#T+1] = addIngredient(rec[i])
-		end
-		return {
-			META		= {'value', 'GcRefinerRecipe.xml'},
-			Id			= rec.id,
-			RecipeType	= rec.name,
-			RecipeName	= rec.name,
-			TimeToMake	= rec.make,
-			Cooking		= rec.cook,
-			Result		= addIngredient(rec[1]),
-			Ingredients	= T
-		}
-	end
-	local T = {}
-	for _,r in ipairs(new_recipes) do
-		T[#T+1] = BuildRecipe(r)
-	end
-	return ToExml(T)
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.38',
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -119,7 +84,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Table',
-				ADD 				= AddNewRecipes()
+				ADD 				= (
+					function()
+						local T = {}
+						for _,r in ipairs(new_recipes) do
+							T[#T+1] = RefinerRecipeEntry(r)
+						end
+						return ToExml(T)
+					end				
+				)()
 			}
 		}
 	}

@@ -10,7 +10,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter wingK fixes.pak',
 	MOD_AUTHOR				= 'lMonk',
 	NMS_VERSION				= '4.38',
-	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -50,7 +49,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						SPECIAL_KEY_WORDS	= {'Name', (lod..'0')},
 						VALUE_CHANGE_TABLE 	= { {'Name', (lod..'1')} }
 					}
-				end	
+				end
 				T[#T+1] = {
 					SPECIAL_KEY_WORDS 	= {
 						{'Name', 'LODDIST1'},
@@ -71,7 +70,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						Name	= 'ATTACHMENT',
 						Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
 					})
-				}	
+				}
 				return T
 			end
 		)()

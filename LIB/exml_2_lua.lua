@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----	EXML 2 LUA (VERSION: 0.82.1) ... by lMonk
+---	EXML 2 LUA (VERSION: 0.82.2) ... by lMonk
 ---	A tool for converting exml to an equivalent lua table and back again.
 ---	Functions for converting an exml file, or sections of one, to
 ---	 a lua table during run-time, or printing the exml as a lua script.
@@ -114,8 +114,8 @@ function PrintExmlAsLua(exml, indent, com)
 		_,eql = prop:gsub('=', '')
 		if eql > 0 then
 			-- choose tag by the count of [=] in a property
-			local att, val, close = prop:match(eql > 1 and tag2 or tag1)
-			if close == '' then
+			local att, val, closed = prop:match(eql > 1 and tag2 or tag1)
+			if closed == '' then
 				-- opening a new table
 				array = att == 'name'
 				-- look up if parent is an array
@@ -147,4 +147,17 @@ function PrintExmlAsLua(exml, indent, com)
 	tlua[3] = #tlua[3] > 2 and '' or ' = {\n'
 	tlua[#tlua] = '}'
 	return table.concat(tlua)
+end
+
+--	Returns a keyed table of TkSceneNodeData sections, using the Name property as keys,
+--	* Use to enable direct access to nodes in a table generated with ToLua
+function SceneNames(node, keys)
+	keys = keys or {}
+	if node.META[2] == 'TkSceneNodeData.xml' then
+		keys[node.Name] = node
+	end
+	for k, scn in pairs(node.Children or {}) do
+		if k ~= 'META' then SceneNames(scn, keys) end
+	end
+	return keys
 end

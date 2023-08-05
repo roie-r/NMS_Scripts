@@ -122,7 +122,7 @@ local text_lines = {
 		UI_FREIGHTER_FUEL_3_NAME_L = {
 			EN = [[Frigate Fuel x4]],
 		},
-		
+
 		UI_SENT_LASER_NAME = {
 			EN = [[MULTIPLEX LASER]],
 		},
@@ -300,7 +300,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.38',
-	AMUMSS_SUPPRESS_MSG	= 'UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

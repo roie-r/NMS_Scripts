@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----	LUA 2 EXML (VERSION: 0.82.2) ... by lMonk
+---	LUA 2 EXML (VERSION: 0.82.3) ... by lMonk
 ---	A tool for converting exml to an equivalent lua table and back again.
 ---	Helper functions for color class, vector class and string arrays
 ---	* This should be placed at [AMUMSS folder]\ModScript\ModHelperScripts\LIB
@@ -160,6 +160,3 @@ function StringArray(t, name, size)
 	end
 	return T
 end
-
---	InventoryType Enum
-I_={ PRD='Product', SBT='Substance', TCH='Technology' }

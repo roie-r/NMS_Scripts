@@ -74,7 +74,7 @@ local scan_table = {
 			{'LIBRARY',				icon.library},
 			{'DRONE_HIVE',			icon.dronehive},
 			{'ROBOT_CAMP',			icon.robocamp},
-			{'SENT_CRASH_CORRUPT',	icon.sentcrash},			
+			{'SENT_CRASH_CORRUPT',	icon.sentcrash},
 			{'SETTLEMENT',			icon.settlement}
 		}
 	},
@@ -379,7 +379,7 @@ local function VehicleScanEventsChangeTable()
 		VALUE_CHANGE_TABLE 	= {
 			{'OSDMessage', 'UI_SIGNAL_TREASURERUIN'}
 		}
-	}	
+	}
 	return T
 end
 
@@ -387,7 +387,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.38',
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{
