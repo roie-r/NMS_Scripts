@@ -9,7 +9,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META less storm chance_more hazards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.23,
+	NMS_VERSION			= 4.44,
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -21,8 +21,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Id', 'METEOR_EFFECT'},
 				VALUE_CHANGE_TABLE 	= {
-					{'MinSpawnScale',	0.5},	-- 1
-					{'MaxSpawnScale',	3},		-- 1
+					{'MinSpawnScale',				0.5},	-- 1
+					{'MaxSpawnScale',				2},		-- 1
 				}
 			}
 		}
@@ -35,30 +35,33 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Id', 'METEOR'},
 				VALUE_CHANGE_TABLE 	= {
-					{'MinSpawnScale',	0.5},	-- 1
-					{'MaxSpawnScale',	3},		-- 1
-					{'MaxMeteors',		8},		-- 6
-					{'DamageRadius',	10},	-- 3
+					{'MinSpawnScale',				0.5},	-- 1
+					{'MaxSpawnScale',				3},		-- 1
+					{'MaxMeteors',					8},		-- 6
+					{'DamageRadius',				10},	-- 3
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'LIGHTNING'},
 				VALUE_CHANGE_TABLE 	= {
-					{'DamageRadius',	10},	-- 3
+					{'DamageRadius',				10},	-- 3
 				}
 			},
 			{
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Id', 'TORNADO'},
 				VALUE_CHANGE_TABLE 	= {
-					{'MaxSpawnScale',	1.5},	-- 1
-					{'MoveSpeed',		7},		-- 5
-					{'SuckInRadius',	60},	-- 40
-					{'SuckInStrength',	10},	-- 5
-					{'SuckUpRadius',	55},	-- 7
-					{'SuckUpStrength',	2.2},	-- 2
-					{'SuckUpHeight',	50},	-- 50
-					{'SuckUpHeightCutoff',100},	-- 80
+					{'MaxHazardsOfThisTypeActive',	3}, 	-- 5
+					{'MaxSpawnScale',				1.2},	-- 1
+					{'MinSpawnDistance',			80},	-- 50
+					{'MaxSpawnDistance',			300},	-- 250
+					{'MoveSpeed',					6},		-- 5
+					{'SuckInRadius',				50},	-- 40
+					{'SuckInStrength',				8},		-- 5
+					{'SuckUpRadius',				18},	-- 7
+					{'SuckUpStrength',				2.2},	-- 2
+					{'SuckUpHeight',				55},	-- 50
+					{'SuckUpHeightCutoff',			90},	-- 80
 				}
 			},
 		}
@@ -94,25 +97,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-	--	|less damaging weather in lush biome|
+	--	|harmless lush weather|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				PRECEDING_KEY_WORDS = {'Temperature', 'Storm'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Normal',		-51},
-					{'Extreme',		-73},
+					{'Normal',				42},	-- 92
+					{'Extreme',				57},	-- 120
 				}
-			},
-			{
-				MATH_OPERATION 		= '+',
-				PRECEDING_KEY_WORDS = {'Temperature', 'Night'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Normal',		-7},
-					{'Extreme',		-12},
-				}
-			},
+			}
 		}
 	},
 	{

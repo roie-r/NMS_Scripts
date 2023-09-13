@@ -3,7 +3,7 @@ dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ------------------------------------------------------------------------------------------
 mod_desc = [[
-  proceduraly-placed containers in the crashed freigther - instead of constant placement
+  procedurally placed containers in the crashed freighter - instead of constant placement
 ]]----------------------------------------------------------------------------------------
 
 local containers = {
@@ -104,7 +104,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL crashed freighter proc containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

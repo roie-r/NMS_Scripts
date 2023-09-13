@@ -22,9 +22,11 @@ local seed_counter = {
 	Sentinel		= 0,
 	Freighter		= 0,
 	Capital			= 0,
-	Multitool		= 140000,
+	Multitool		= 0,
 	Royaltool		= 0,
-	Sentineltool	= 0
+	Sentineltool	= 0,
+	Stafftool		= 0,
+	Atlastool		= 120000
 }
 
 ------------------------------------------------------
@@ -71,9 +73,17 @@ local item_inventory = {
 		{id='SCAN1'},
 		{id='SCANBINOC1'}
 	},
+	atlas_weapon = {
+		{id='ATLAS_LASER',		amount=true},
+		{id='TERRAINEDITOR',	amount=true},
+		{id='BOLT'},
+		{id='SCAN1'},
+		{id='SCANBINOC1'}
+	},
 	sentinel_weapon = {
 		{id='SENT_LASER',		amount=true},
 		{id='TERRAINEDITOR',	amount=true},
+		{id='UT_BUI_SCAN2',		amount=true},
 		{id='BOLT'},
 		{id='SCAN1'},
 		{id='SCANBINOC1'}
@@ -87,95 +97,109 @@ local item_inventory = {
 local seed_model = {
 	Fighter = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/FIGHTER_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL.TWITCH.SHIP08.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL.TWITCH.SHIP08.DDS',
 		inventory	= item_inventory.normal_ship,
-		shiptype	= 'Fighter',
+		modeltype	= 'Fighter',
 		reward		= R_Ship
 	},
 	Dropship = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL1.TWITCH.SHIP24.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL1.TWITCH.SHIP24.DDS',
 		inventory	= item_inventory.normal_ship,
-		shiptype	= 'Dropship',
+		modeltype	= 'Dropship',
 		reward		= R_Ship
 	},
 	Scientific = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/SCIENTIFIC_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL1.TWITCH.SHIP23.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL1.TWITCH.SHIP23.DDS',
 		inventory	= item_inventory.normal_ship,
-		shiptype	= 'Scientific',
+		modeltype	= 'Scientific',
 		reward		= R_Ship
 	},
 	Shuttle = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/SHUTTLE/SHUTTLE_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL.TWITCH.SHIP05.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL.TWITCH.SHIP05.DDS',
 		inventory	= item_inventory.normal_ship,
-		shiptype	= 'Shuttle',
+		modeltype	= 'Shuttle',
 		reward		= R_Ship
 	},
 	Royal = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/S-CLASS/S-CLASS_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL.EXPEDITION.SHIP01.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL.EXPEDITION.SHIP01.DDS',
 		inventory	= item_inventory.normal_ship,
-		shiptype	= 'Royal',
+		modeltype	= 'Royal',
 		reward		= R_Ship
 	},
 	Bioship = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/BIOSHIP_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL.MYSTERYEGG.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL.MYSTERYEGG.DDS',
 		inventory	= item_inventory.bio_ship,
-		shiptype	= 'Alien',
+		modeltype	= 'Alien',
 		reward		= R_Ship
 	},
 	Sailship = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/SAILSHIP/SAILSHIP_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL1.TWITCH.SHIP27.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL1.TWITCH.SHIP27.DDS',
 		inventory	= item_inventory.sail_ship,
-		shiptype	= 'Sail',
+		modeltype	= 'Sail',
 		reward		= R_Ship
 	},
 	Sentinel = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.WALKERBRAIN2.DDS',
+		icon		= 'U4PRODUCTS/PRODUCT.WALKERBRAIN2.DDS',
 		inventory	= item_inventory.sentinel_ship,
-		shiptype	= 'Robot',
+		modeltype	= 'Robot',
 		reward		= R_Ship
 	},
 	Freighter = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/FREIGHTER_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
+		icon		= 'QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
 		inventory	= item_inventory.freighter,
-		-- class	= 'PlayerFreighter',
+		-- modeltype	= 'PlayerFreighter',
 		reward		= R_Multitool
 	},
 	Capital = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/CAPITALFREIGHTER_PROC.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
+		icon		= 'QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
 		inventory	= item_inventory.freighter,
-		-- class	= 'PlayerFreighter',
+		-- modeltype	= 'PlayerFreighter',
 		reward		= R_Multitool
 	},
 	Multitool =	{
 		filename	= 'MODELS/COMMON/WEAPONS/MULTITOOL/MULTITOOL.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL1.TWITCH.GUN12.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL1.TWITCH.GUN12.DDS',
 		inventory	= item_inventory.weapon,
-		weapontype	= 'Rifle',
+		modeltype	= 'Rifle',
 		reward		= R_Multitool
 	},
 	Royaltool = {
 		filename	= 'MODELS/COMMON/WEAPONS/MULTITOOL/ROYALMULTITOOL.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/SPECIALSHOP/SPECIAL1.TWITCH.GUN11.DDS',
+		icon		= 'SPECIALSHOP/SPECIAL1.TWITCH.GUN11.DDS',
 		inventory	= item_inventory.weapon,
-		weapontype	= 'Royal',
+		modeltype	= 'Royal',
 		reward		= R_Multitool
 	},
 	Sentineltool = {
 		filename	= 'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOL.SCENE.MBIN',
-		icon		= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.LASERSENTINEL2.DDS',
+		icon		= 'TECHNOLOGY/RENDER.LASERSENTINEL2.DDS',
 		inventory	= item_inventory.sentinel_weapon,
-		weapontype	= 'Robot',
+		modeltype	= 'Robot',
 		reward		= R_Multitool
-	}
+	},
+	Stafftool = {
+		filename	= 'MODELS/COMMON/WEAPONS/MULTITOOL/STAFFNPCMULTITOOL.SCENE.MBIN',
+		icon		= 'ROBOTPARTS/ROBOTPARTS.STAFFCORE.1.DDS',
+		inventory	= item_inventory.sentinel_weapon,
+		modeltype	= 'Staff',
+		reward		= R_Multitool
+	},
+	Atlastool = {
+		filename	= 'MODELS/COMMON/WEAPONS/MULTITOOL/ATLASMULTITOOL.SCENE.MBIN',
+		icon		= 'TECHNOLOGY/TECH.ATLASLASER.DDS',
+		inventory	= item_inventory.atlas_weapon,
+		modeltype	= 'Atlas',
+		reward		= R_Multitool
+	},
 }
 
 local function TriggerActionComponent(reward_id)
@@ -258,7 +282,7 @@ local function AnimationEntry(anim_id)
 	}
 end
 
-local function PlayerEmoteEntry(anim_id, icon)
+local function PlayerEmoteEntry(mdata)
 	return {
 		{
 			SPECIAL_KEY_WORDS	= {'Title', 'EMOTE_WAVE'},
@@ -267,10 +291,10 @@ local function PlayerEmoteEntry(anim_id, icon)
 		{
 			SECTION_EDIT 		= 'gc_player_emote',
 			VALUE_CHANGE_TABLE 	= {
-				{'Title',					anim_id},
-				{'EmoteID',					anim_id},
-				{'AnimationName',			anim_id},
-				{'Filename',				icon},
+				{'Title',					mdata.modeltype},
+				{'EmoteID',					mdata.rewardId},
+				{'AnimationName',			mdata.rewardId},
+				{'Filename',				'TEXTURES/UI/FRONTEND/ICONS/'..mdata.icon},
 				{'MoveToCancel',			false},
 				{'AvailableUnderwater',		true}
 			}
@@ -310,7 +334,7 @@ for model, mdata in pairs(seed_model) do
 		mdata.rewardId = 'R_'..model
 		t_rewards[#t_rewards+1] = R_RewardTableEntry({id = mdata.rewardId, item_list = reward_item})
 
-		for _,emt in pairs(PlayerEmoteEntry(mdata.rewardId, mdata.icon)) do
+		for _,emt in pairs(PlayerEmoteEntry(mdata)) do
 			t_emotes[#t_emotes+1] = emt
 		end
 		t_player_char[#t_player_char+1] = TriggerActionComponent(mdata.rewardId)
@@ -321,10 +345,10 @@ for model, mdata in pairs(seed_model) do
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__SEED-GENERATOR-v6.1.pak',
+	MOD_FILENAME 		= '__SEED-GENERATOR-v6.2.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

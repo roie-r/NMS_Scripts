@@ -5,18 +5,33 @@ mod_desc = [[
   - green cave crystal rewards cave2
   - shorter freighter landing tractor range
   - organic rock bio gunk reward
-  - Activate planetray portal without cost
+  - Activate planetary portal without cost
+  - remove gunk from damaged machinery
   - Remove resource crates at portals
+  - remove lowest level frigates lod
   - Re-insert the missing full mangrove tree in swamp biome
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	-- {--	|builder leg cylinder|
+		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/PHONG186.MATERIAL.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'x',			0.46},
+					-- {'y',			0.62},
+					-- {'z',			0.76}
+				-- }
+			-- }
+		-- }
+	-- },
 	{--	|large crystal shard| reward fix
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/SENTINELCRYSTALDRONE.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -75,7 +90,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	Barrren biome |organic rock bio reward| instead of mordite
+	{--	Barren biome |organic rock bio reward| instead of mordite
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/GEMCRYSTALS/ENTITIES/GEMCRYSTAL.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -86,8 +101,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	Activate planetray |portal without cost|
-		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL/ENTITIES/BUTTON.ENTITY.MBIN',
+	{--	|no maintenance| use portal without cost, undamaged machinery
+		MBIN_FILE_SOURCE	= {
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL/ENTITIES/BUTTON.ENTITY.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/DEBRIS/PARTS/DEBRILARGECONTAINER/ENTITIES/TECHDEBRIS.ENTITY.MBIN'
+		},
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'GcMaintenanceComponentData.xml',
@@ -103,6 +121,36 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'TkSceneNodeData.xml',
 				VALUE_MATCH			= '{^_Clump[1-6]}',
 				REMOVE				= 'Section'
+			}
+		}
+	},
+	{
+		--	remove lowest |frigate LOD|
+		MBIN_FILE_SOURCE	= {
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/COMBATFRIGATELOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/COMBATFRIGATELOD4.SCENE.MBIN',
+				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/DIPLOMATICFRIGATELOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/DIPLOMATICFRIGATELOD4.SCENE.MBIN',
+				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/INDUSTRIALFRIGATELOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/INDUSTRIALFRIGATELOD4.SCENE.MBIN',
+				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/SCIENCEFRIGATELOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/SCIENCEFRIGATELOD4.SCENE.MBIN',
+				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/SUPPORTFRIGATELOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/SUPPORTFRIGATELOD4.SCENE.MBIN',
+				'REMOVE'
 			}
 		}
 	},

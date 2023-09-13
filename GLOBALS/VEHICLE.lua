@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC VEHICLE.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.38',
+	NMS_VERSION				= '4.44',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -29,8 +29,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MechArmPitchAngleMin',				-45},	-- -30
 					{'MechArmPitchAngleMax',				75},	-- 60
 					{'MechPlayerGroundTurnSpeed',			0.7},	-- 0.5
-					-- {'MechTitanFallCameraShakeDist',		40},	-- 80
-					-- {'MechLandCameraShakeDist',				20},	-- 40
 					{'ExitStopTime',						2},		-- 0.5
 					{'ExitStopForce',						10},	-- 50
 					{'SubmarineEjectRadius',				0},		-- 1.8 		549 stand on top
@@ -48,9 +46,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'VehicleBoostMaxSpeed', 		1.24},
 					{'VehicleBoostTime', 			1.6},
-					{'VehicleBoostRechargeTime', 	0.8},
-					-- {'PulseRange',					3},
-					-- {'ChargeTime',					0.25}
+					{'VehicleBoostRechargeTime', 	0.8}
 				}
 			},
 			{

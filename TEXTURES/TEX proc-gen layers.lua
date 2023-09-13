@@ -377,7 +377,7 @@ local function GetProcTextures(path, layer)
 	--  or none, in which case all default values will apply
 	for _,ptex in ipairs(layer.tx_name and layer.tx_name or {{n=''}}) do
 		if type(ptex) == 'string' then ptex = {n=ptex} end
-			T[#T+1] = {
+		T[#T+1] = {
 			META	= {'value', 'TkProceduralTexture.xml'},
 			Name				= ptex.n,
 			Probability			= ptex.pr or 1,
@@ -386,7 +386,7 @@ local function GetProcTextures(path, layer)
 			Normal				= TexPath({b=layer.normal, path, layer.ly_name, 'NORMAL'}),
 			Mask				= TexPath({b=layer.masks,  path, layer.ly_name, 'MASKS'}),
 			Palette				= {
-				META		= {'Palette', 'TkPaletteTexture.xml'},
+				META	= {'Palette', 'TkPaletteTexture.xml'},
 				Palette		= ptex.pt or (layer.palette	or 'Rock'),
 				ColourAlt	= ptex.ca or (layer.color	or 'None')
 			}
@@ -397,7 +397,7 @@ end
 
 local function BuildProcTexListMbin(tex_layer)
 	-- Assign the exml table with its designated meta
-	local T = {META	= {'name', 'Layers'}}
+	local T = { META = {'name', 'Layers'} }
 	for _,ly in ipairs(tex_layer) do
 		T[#T+1] = {
 			META	= {'value', 'TkProceduralTextureLayer.xml'},
@@ -420,7 +420,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

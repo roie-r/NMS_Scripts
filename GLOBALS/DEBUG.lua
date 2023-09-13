@@ -6,7 +6,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC DEBUG.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,8 +15,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'WeaponScale3P',						0.78},
+					{'WeaponScale3P',						0.66},	-- 0.78
 					{'DisableSaveSlotSorting',				true},
+					{'ForceInitialShip',					false},
+					{'ForceInitialWeapon',					false},
 					{'DisableBaseBuildingLimits',			true},
 					{'MultiplePlayerFreightersInASystem',	true},
 					{'DisableFileWatcher',					true},

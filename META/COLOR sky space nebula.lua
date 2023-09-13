@@ -37,7 +37,7 @@ local function SpaceColorModifiers()
 	return T
 end
 
-function NightColorModifiers()
+local function NightColorModifiers()
 	local T = {}
 	for i, bio in pairs({
 		{k='GenericSettings',	m=0.42},
@@ -72,17 +72,17 @@ end
 
 local function AddPlanetWeatherColor(skies)
 	local sky_part = {
-		{f = ColorData, n='SkyColour'},
-		{f = ColorData, n='SkyUpperColour'},
-		{f = ColorData, n='SkySolarColour'},
-		{f = ColorData, n='HorizonColour'},
-		{f = ColorData, n='SunColour'},
-		{f = ColorData, n='FogColour'},
-		{f = ColorData, n='HeightFogColour'},
-		{f = VectorData,n='SkyGradientSpeed'},
-		{f = ColorData, n='LightColour'},
-		{f = ColorData, n='CloudColour1'},
-		{f = ColorData, n='CloudColour2'}
+		{f=ColorData,	n='SkyColour'},
+		{f=ColorData, 	n='SkyUpperColour'},
+		{f=ColorData, 	n='SkySolarColour'},
+		{f=ColorData, 	n='HorizonColour'},
+		{f=ColorData, 	n='SunColour'},
+		{f=ColorData, 	n='FogColour'},
+		{f=ColorData, 	n='HeightFogColour'},
+		{f=VectorData,	n='SkyGradientSpeed'},
+		{f=ColorData, 	n='LightColour'},
+		{f=ColorData, 	n='CloudColour1'},
+		{f=ColorData, 	n='CloudColour2'}
 	}
 	local sky_palettes = {
 		{--	natural pale blue
@@ -139,7 +139,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META sky dark space & nights.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

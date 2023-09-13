@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC BUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,8 +17,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'UnknownBuildingRange',				800},	-- 600
-					{'MarkerLineWidth',						1},		-- 4
-					{'MaxShipScanBuildings',				2},		-- 2
+					{'MarkerLineWidth',						2},		-- 4
+					{'MaxShipScanBuildings',				3},		-- 2
 
 					--- normal game
 					{'BaseRadiusExtension',					30},	-- 50

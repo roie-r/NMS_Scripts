@@ -22,6 +22,8 @@ local texture_collection = {
 			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRTARGET.DDS'},
 			-- hide inv tab bulletpoint
 			{s='BLANK.32.DDS',		t='UI/FONTS/BULLETPOINT.DDS'},
+			-- hide new item notification
+			{s='BLANK.32.DDS',		t='UI/FRONTEND/COMPONENTS/NEWEXCLAMATION.DDS'},
 			-- just the blank
 			{s='BLANK.64.DDS'},
 		}
@@ -119,27 +121,25 @@ local texture_collection = {
 			{s='Decals/*.DDS',		t='DECALS/*.DDS'}
 		}
 	},
-	{--	ICONS: base part number decals
-		source = 'Icons/Base/',
-		target = 'UI/FRONTEND/ICONS/BUILDABLE/',
-		names  = {
-			{s='DECAL.NUM?.DDS'},
-			-- used for the quickmenu
-			{s='BUILDABLE.BYTEBEAT.DDS'},
-		}
-	},
-	{--	ICONS: inventory
+	{--	ICONS: general
 		source = 'Icons/',
 		target = 'UI/FRONTEND/ICONS/',
 		names  = {
-		--	products & substances
+		--	base parts number decals
+			{s='Buildable/DECAL.NUM?.DDS'},
+		--	for the quickmenu bytebeat
+			{s='Buildable/BUILDABLE.BYTEBEAT.DDS'},
+		--	popup menu categories
 			{s='Categories/INVCAT.*.DDS'},
+		--	missions on/off
+			{s='Missions/mission.*.DDS'},
+		--	products & substances
 			{s='Products/PRODUCT.*.DDS'},
 			{s='CookingProducts/PRODUCT.*.DDS'},
 			{s='u4Products/PRODUCT.*.DDS'},
 			{s='U4Substances/SUBSTANCE.*.DDS'},
 			{s='Update3/*.DDS'},
-		--- technology
+		-- technology
 			{s='Technology/*.DDS'},
 			{s='Technology/Bio/*.DDS'},
 			{s='Technology/Vehicle/*.DDS'},
@@ -174,13 +174,6 @@ local texture_collection = {
 			{s='VYKEEN*.DDS'}
 		}
 	},
-	{--	player: robot head eyes
-		source = 'Player/',
-		target = 'COMMON/ROBOTS/',
-		names  = {
-			{s='BUILDERLIGHTS.EYE.*.DDS'}
-		}
-	},
 	{--	menu: UI background
 		source = 'UI/background/',
 		target = 'UI/FRONTEND/BACKGROUNDS/',
@@ -193,7 +186,7 @@ local texture_collection = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

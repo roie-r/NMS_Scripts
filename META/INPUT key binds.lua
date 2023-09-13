@@ -27,7 +27,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META key binds.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -38,9 +38,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'InputAction', 'Player_Zoom'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'InputButton',	'MouseWheelDown'},
-					-- {'InputButton',	''}
-					-- {'InputAxis',	'MouseWheel'}
+					{'InputButton',	'MouseWheelDown'}
 				}
 			},
 			{
@@ -48,7 +46,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					-- AddBindings('Player_ChangeWeapon',	'None',		'MouseWheel'),
 					AddBindings('Player_ChangeWeapon',	'MouseWheelDown'),
 					AddBindings('Player_Scan',			'Mouse3'),
 					AddBindings('Player_Binoculars',	'Mouse5'),
@@ -60,7 +57,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					-- AddBindings('Vehicle_ChangeWeapon',	'None',		'MouseWheel'),
 					AddBindings('Vehicle_ChangeWeapon',	'MouseWheelDown'),
 					AddBindings('Vehicle_Scan',			'Mouse3')
 				})
@@ -70,7 +66,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_UP_SPECIAL	= 1,
 				PRECEDING_KEY_WORDS = 'InputBindings',
 				ADD 				= ToExml({
-					-- AddBindings('Ship_ChangeWeapon',	'None',		'MouseWheel'),
 					AddBindings('Ship_ChangeWeapon',	'MouseWheelDown'),
 					AddBindings('Ship_Scan',			'Mouse3')
 				})
@@ -138,7 +133,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				-- SPECIAL_KEY_WORDS	= {'ActionSetType', 'OnFootControls'},
 				-- SECTION_UP_SPECIAL	= 1,
 				-- PRECEDING_KEY_WORDS = 'InputBindings',
-				-- ADD 				= ToExml(AddBindings('Player_Zoom', 'Key2'))
+				-- ADD 				= ToExml(AddBindings('Ship_GalacticMap', 'KeyM'))
 			-- }
 		}
 	}

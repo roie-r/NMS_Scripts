@@ -1,4 +1,7 @@
 -----------------------------------------------------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/puzzle_entry.lua')
+-----------------------------------------------------------------------------------------
 mod_desc = [[
   Replace freighter battles reward for each race, requires(!) additions in rewards table
   attach the test reward to the construction recipe analyzer <Cancel> menu
@@ -8,13 +11,40 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DIALOG PUZZLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_DIALOG_GCALIENPUZZLETABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
+
+-- SHIP_SALVAGE
+-- WEAPON_SALVAGE
+
+
+-- mutlitool upgrade station >> 1 install slot / 2 purchase new slot / 3 upgrade class
+-- UI_WEAPON_UPGRADE_LABEL >> UI_WEAP_UPGRADE_INV_OPTB / UI_WEAP_UPGRADE_INV_OPTA ?? UI_WEAPON_UPGRADE_OPT_A / UI_SALVAGE_CLASS_OPT
+
+-- UI_SALVAGE_MT_TITLE >> UI_COST_SALVAGE_WORTH
+-- multi-tool decommissioning >> 1 claim scrap worth ## units
+
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Text', 'UI_WEAP_UPGRADE_CLASS_RES'},
+				-- SECTION_SAVE_TO		= 'gc_alien_puzzle_option'
+			-- },
+			-- {
+				-- SECTION_EDIT 		= 'gc_alien_puzzle_option',
+				-- SPECIAL_KEY_WORDS	= {'Name', 'RADIUS'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Value',		1},
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Text', 'UI_WEAP_UPGRADE_CLASS_RES'},
+				-- ADD_OPTION			= 'AddAfterSection',
+				-- SECTION_ADD_NAMED 	= 'gc_alien_puzzle_option',
+			-- },
 			{
 				VALUE_MATCH			= 'FREIGHTER_SAVED',
 				SPECIAL_KEY_WORDS	= {'Id', '?FREIGHTER', 'AlienRace', 'Warriors'},
@@ -46,14 +76,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'KeepOpen',	true}
 				}
-			},
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Id', '?BLUEPRINT_ANALYSER', 'Name', 'ALL_REQUEST_LEAVE'},
-				-- PRECEDING_KEY_WORDS	= 'Rewards',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		'TEST_REWARD_09'}
-				-- }
-			-- }
+			}
 		}
 	}
 }}}}

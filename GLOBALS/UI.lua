@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC UI.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.38',
+	NMS_VERSION				= '4.44',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -27,27 +27,26 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'HUDMarkerDistanceOrTimeDistance',			32000},	-- 1250
 					{'RefinerPadStartTime',						0.25},	-- 1			2318
 					{'FreighterLeaderIconDistance',				7000},	-- 10000
-					-- {'ShipOverheatSwitchMessageWait',			0},		-- 0.9
 					{'ShipOverheatSwitchMessageTime',			0},		-- 1.6
 					{'HUDDisplayTime',							4},		-- 6
 					{'HideExtremePlanetNotifications',			true},	--				3383
 					{'NotificationsResourceExtractHintCount',	500},	-- 1500
-					{'NotificationStaminaHintDistanceWalked',	2000},	-- 10000					
+					{'NotificationStaminaHintDistanceWalked',	2000},	-- 10000
 					{'NotificationInteractHintStartTime',		99999},	-- 1800
-					{'NotificationBuildHintStartTime',			99999},	-- 31					
+					{'NotificationBuildHintStartTime',			99999},	-- 31
 					{'NotificationJetpackTime',					99999},	-- 1.3
 					{'NotificationShieldTime',					99999},	-- 3.5
 					{'NotificationShipBoostMinTime',			-1},	-- 5
 					{'NotificationShipBoostTime',				99999},	-- 15.5
 					{'NotificationShipBoostTimeVR',				99999},	-- 30
 					{'NotificationShipJumpMinTime',				-1},	-- 2
-					{'NotificationShipJumpReminderTime',		99999},	-- 300					
+					{'NotificationShipJumpReminderTime',		99999},	-- 300
 					{'NotificationMinVisibleTime',				0.5},	-- 3
 					{'NotificationScanTime',					300},	-- 600
 					{'NotificationScanTimeCutoff',				6000},	-- 20000
 					{'NotificationShipJumpReminderTutorial',	99999},	-- 10
 					{'NotificationShipBoostReminderTime',		99999},	-- 300
-					{'NotificationShipBoostReminderTimeTutorial',99999},-- 10					
+					{'NotificationShipBoostReminderTimeTutorial',99999},-- 10
 					{'NotificationUrgentMessageTime',			12},	-- 22
 					{'NotificationMissionHintTime',				11},	-- 21
 					{'NotificationMissionHintTimeCritical',		35},	-- 60

@@ -9,7 +9,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META default reality.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -33,6 +33,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Filename',	'TEXTURES/UI/FRONTEND/ICONS/CATEGORIES/INVCAT.MECH.DDS'}
 				}
 			},
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'ExploreMissionPlanetIcon', 'TkTextureResource.xml'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Filename',	'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.ENTERORBIT.ON.DDS'}
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'ExploreMissionSystemIcon', 'TkTextureResource.xml'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Filename',	'TEXTURES/UI/FRONTEND/ICONS/WIKI/WIKI.EXPLORATION.ON.DDS'}
+				-- }
+			-- },
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',

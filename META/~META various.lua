@@ -1,26 +1,41 @@
----------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
----------------------------------------------------------------
+------------------------------------------------------------------
 mod_desc = [[
+  - Replace exploration mission log menu icon
   - Same underwater freighter crash site as on land
-  - Remove proc tech upgrades and add sentinel tech to
-   technology catalogue
   - Restore old creature-scanned icon; Remove selected HUD icons
   - override corrupt biome filter
+  - Add civilian and pirate sentinel ships 
   - Remove tiny cargo pod frigates
   - Faster screen text
   - hide inventory change tab marker (bulletpoint) and slashes
   - better cloud map
   - keep whale song mission active
-]]-------------------------------------------------------------
+]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|exploration mission icon|
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/COREMISSIONTABLE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconSelected', 'TkTextureResource.xml'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.EXPLORATIONLOG.SYSTEM.ON.DDS'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconNotSelected', 'TkTextureResource.xml'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.EXPLORATIONLOG.SYSTEM.OFF.DDS'}
+				}
+			}
+		}
+	},
 	{--	|same underwater freigher|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -34,52 +49,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|catalogue changes| no procs & add sentinel tech
-		MBIN_FILE_SOURCE	= 'METADATA/REALITY/CATALOGUECRAFTING.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS 	= {
-					{'CategoryID', 'UI_PORTAL_CAT_TECH_SUIT'}, -- keep s-class >> {^U_.+[124X]X$}
-					{'CategoryID', 'UI_PORTAL_CAT_TECH_SHIP'}, -- keep s-class >> {^U_.+[123X]$}
-					{'CategoryID', 'UI_PORTAL_CAT_TECH_TOOL'},
-					{'CategoryID', 'UI_PORTAL_CAT_TECH_GUN'},
-					{'CategoryID', 'UI_PORTAL_CAT_TECH_VEH'}
-				},
-				PRECEDING_KEY_WORDS = 'NMSString0x10.xml',
-				VALUE_MATCH			= '{^U_.+[1234X]$}', -- remove all procs
-				REMOVE				= 'Section'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'CategoryID', 'UI_PORTAL_CAT_TECH_FRE'},
-				PRECEDING_KEY_WORDS = 'NMSString0x10.xml',
-				VALUE_MATCH			= '{^U_FR_.+[123]$}', -- keep s-class
-				REMOVE				= 'Section'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'CategoryID', 'UI_PORTAL_CAT_TECH_WEIRD'},
-				PRECEDING_KEY_WORDS = 'Items',
-				ADD					= (
-					function()
-						local T = {}
-						for _,id in ipairs({
-							'LIFESUP_ROBO',
-							'LAUNCHER_ROBO',
-							'SHIPJUMP_ROBO',
-							'HYPERDRIVE_ROBO',
-							'SHIPSHIELD_ROBO',
-							'SHIPGUN_ROBO'
-						}) do
-							T[#T+1] = {
-								META	= {'value', 'NMSString0x10.xml'},
-								Value	= id
-							}
-						end
-						return ToExml(T)
-					end
-				)()
-			}
-		}
-	},
 	{--	|alt HUD icons|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -87,6 +56,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'CreatureDiscovered',
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/HUD/ICONS/CREATURE.GREEN2.DDS'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = {'RareEgg', 'Main'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/HUD/ICONS/PICKUPS/PICKUP.HAZARDEGG.DDS'}
 				}
 			},
 			{
@@ -152,12 +127,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|No tiny frigates|
+	{--	|ai ship manager|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SPACE/AISPACESHIPMANAGER.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Filename', 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/FREIGHTERTINY_PROC.SCENE.MBIN'},
 				REMOVE				= 'Section'
+			},
+			{
+				PRECEDING_KEY_WORDS	= {'Police', 'Spaceships', 'GcAISpaceshipModelData.xml'},
+				SECTION_SAVE_TO		= 'ai_spaceship_model_data'
+			},
+			{
+				PRECEDING_KEY_WORDS	= {'Civilian', 'Spaceships'},
+				SECTION_ADD_NAMED 	= 'ai_spaceship_model_data'
+			},
+			{
+				PRECEDING_KEY_WORDS	= {'Pirate', 'Spaceships'},
+				SECTION_ADD_NAMED 	= 'ai_spaceship_model_data'
 			}
 		}
 	},

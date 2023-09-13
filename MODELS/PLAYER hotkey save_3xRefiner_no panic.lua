@@ -74,7 +74,7 @@ save_trigger_components = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -92,14 +92,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Id', '1H_AIRBORNE', 'AnimId', '0H_FALL_PANIC'},
 				VALUE_CHANGE_TABLE 	= {
 					{'AnimId',		'1H_FALL_CTRL'},
-				}
-			},
-			{
-			---	3 slot inventory refiner
-				PRECEDING_KEY_WORDS	= 'GcRefinerUnitComponentData.xml',
-				VALUE_CHANGE_TABLE 	= {
-					{'VisibleMaintenanceSlots',	5},
-					{'NumInputs',				3}
 				}
 			},
 			{

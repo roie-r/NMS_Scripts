@@ -1,14 +1,13 @@
 ------------------------------------------------------
 mod_desc = [[
-  Increase exocraft inventory size
   Vykeen monolith accepts Effigy instead of dagger
-  cheaper pet slots
+  cheaper slots
 ]]----------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

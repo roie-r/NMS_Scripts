@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.38',
+	NMS_VERSION				= '4.44',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -26,8 +26,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ShipMiningMul',						0.8},	-- 0.2
 					{'OverheatGenerosity',					1.1},	-- 1.05
 					{'SurveyMaxDistance',					600},	-- 400
-					{'WarpsBetweenBattles',					7},		-- 5		5054
-					{'HoursBetweenBattles',					4},		-- 3
+					-- {'WarpsBetweenBattles',					7},		-- 5		5054
+					-- {'HoursBetweenBattles',					4},		-- 3
 					{'TechDamageChanceShieldedMax',			0.2},	-- 0.5
 					{'TechDamageChanceShieldLevelMax',		0.2},	-- 0.75
 					{'ShipScanPlanetRechargeMultiplier',	0.5},	-- 1

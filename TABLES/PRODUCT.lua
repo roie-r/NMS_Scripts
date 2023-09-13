@@ -26,7 +26,8 @@ local stack_mult = {
 	{'UI_MEGAPROD_SUBTITLE',		'* 2'},
 	{'UI_ULTRAPROD_SUBTITLE',		'* 8'},
 	{'BLD_GLITCHPROP_SUBTITLE',		'* 2'},
-	{'UI_DRONE_SHARD_SUB',			'* 12'}
+	{'UI_DRONE_SHARD_SUB',			'* 12'},
+	{'UI_STAFF_PART_SUB',			'+ 1'}
 }
 function stack_mult:GetExmlCT()
 	local T = {}
@@ -91,6 +92,7 @@ local icon_bg_color = {
 	{'UI_ALLOY_COMPLEX_SUBTITLE',	'FF2E409E'}, -- Enriched Alloy Metal
 	{'UI_REACTION_SUBTITLE',		'FFDBA82E'}, -- Enhanced Gas Product
 	{'UI_COMPOUND_SUBTITLE',		'FFDBA82E'}, -- Manufactured Gas Product
+	{'UI_NAV_DATA_NAME',			'FF1A2733'}, -- navigation data
 }
 function icon_bg_color:GetExmlCT()
 	local function IsSingle(x, a, b)
@@ -159,6 +161,11 @@ local prod_requirements = {
 		subs = true,
 		{id='CASING', 		n=1,	tp=I_.PRD},
 		{id='FUEL2', 		n=20,	tp=I_.SBT}
+	},
+	{--	Echo Locator (builder site)
+		id   = 'CHART_BUILDER',
+		{id='CHART_SETTLE',	n=1,	tp=I_.PRD},
+		{id='ROBOT2', 		n=20,	tp=I_.SBT}
 	}
 }
 function prod_requirements:GetExmlCT()
@@ -187,7 +194,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

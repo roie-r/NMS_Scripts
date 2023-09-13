@@ -182,16 +182,19 @@ local unlockable_items = {
 						META	= mt_child,
 						{
 							META	= mt_ulitn,
-							Unlockable	= 'HEALTHSTATION'
-						},
-						{
-							META	= mt_ulitn,
-							Unlockable	= 'SHIELDSTATION',
+							Unlockable	= 'HEALTHSTATION',
 							{
 								META	= mt_child,
 								{
 									META	= mt_ulitn,
-									Unlockable	= 'MESSAGEMODULE'
+									Unlockable	= 'SHIELDSTATION',
+									{
+										META	= mt_child,
+										{
+											META	= mt_ulitn,
+											Unlockable	= 'MESSAGEMODULE'
+										}
+									}
 								}
 							}
 						},
@@ -208,6 +211,28 @@ local unlockable_items = {
 									META	= mt_ulitn,
 									Unlockable	= 'BUILDANTIMATTER'
 								},
+							}
+						},
+						{
+							META	= mt_ulitn,
+							Unlockable	= 'TELEPORTER',
+							{
+								META	= mt_child,
+								{
+									META	= mt_ulitn,
+									Unlockable	= 'BUILDTERMINAL',
+									{
+										META	= mt_child,
+										{
+											META	= mt_ulitn,
+											Unlockable	= 'DRESSING_TABLE'
+										},
+										{
+											META	= mt_ulitn,
+											Unlockable	= 'HOLO_DISCO_0'
+										}
+									}
+								}
 							}
 						},
 						{
@@ -241,12 +266,12 @@ local unlockable_items = {
 						META	= mt_child,
 						{
 							META = mt_ulitn,
-							Unlockable	= 'BP_ANALYSER',
+							Unlockable	= 'BUILDSIGNAL',
 							{
 								META	= mt_child,
 								{
 									META = mt_ulitn,
-									Unlockable	= 'BUILDSIGNAL',
+									Unlockable	= 'BP_ANALYSER',
 									{
 										META	= mt_child,
 										{
@@ -387,6 +412,10 @@ local unlockable_items = {
 								META	= mt_child,
 								{
 									META = mt_ulitn,
+									Unlockable	= 'UT_BUI_SCAN'
+								},
+								{
+									META = mt_ulitn,
 									Unlockable	= 'UT_S10_SCAN'
 								}
 							}
@@ -417,15 +446,26 @@ local unlockable_items = {
 								{
 									META = mt_ulitn,
 									Unlockable	= 'UT_MINER',
-									{
-										META	= mt_child,
-										{
-											META = mt_ulitn,
-											Unlockable	= 'SENT_LASER'
-										}
-									}
+									-- {
+										-- META	= mt_child,
+										-- {
+											-- META = mt_ulitn,
+											-- Unlockable	= 'SENT_LASER'
+										-- }
+									-- }
 								}
 							}
+						}
+					}
+				},
+				{
+					META	= mt_ulitn,
+					Unlockable	= 'SENT_LASER',
+					{
+						META	= mt_child,
+						{
+							META = mt_ulitn,
+							Unlockable	= 'ATLAS_LASER'
 						}
 					}
 				},
@@ -1534,7 +1574,14 @@ local unlockable_items = {
 						META	= mt_child,
 						{
 							META	= mt_ulitn,
-							Unlockable	= 'BUILDSIGNAL'
+							Unlockable	= 'BUILDSIGNAL',
+							{
+								META	= mt_child,
+								{
+									META	= mt_ulitn,
+									Unlockable	= 'S9_WEAPONTREE'
+								}
+							}
 						}
 					}
 				},
@@ -1661,7 +1708,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

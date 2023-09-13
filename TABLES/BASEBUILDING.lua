@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -28,6 +28,33 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RegionLimit',					0},
 					{'PlanetLimit',					0}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'HOLO_DISCO_0', 'Group', 'FURNITURE'},
+				VALUE_CHANGE_TABLE 	= {				
+					{'Group',		'BASE_TECH'},
+					{'SubGroupName','TECHTECH'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'S9_WEAPONTREE'},
+				VALUE_CHANGE_TABLE 	= {
+					{'CloseMenuAfterBuild',		true},
+					{'BuildableOnFreighter',	true},
+					{'BuildableOnPlanet',		true}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {
+					{'ID', 'S9_WEAPONTREE'},
+					{'ID', 'HOLO_DISCO_0'}
+				},
+				PRECEDING_KEY_WORDS = 'Groups',
+				ADD					= [[
+					<Property value="GcBaseBuildingEntryGroup.xml">
+						<Property name="Group" value="FREIGHTER_TECH"/>
+						<Property name="SubGroupName" value="FRE_TECH_OTHER"/>
+					</Property>]]
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'COOKER'},

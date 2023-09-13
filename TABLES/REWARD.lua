@@ -429,19 +429,26 @@ local new_rewards = {
 			{id=U_.HG,			x=36,		c=100,		f=R_Money}
 		}
 	},
+	{--- open unlockable recipe tree ---
+		id			= 'R_OPEN_TREE',
+		choice		= C_.ALL,
+		rewardlist	= {
+			{id='WeapTech',		c=100,	f=R_UnlockTree}
+		}
+	},
 	{--- test 9 ---
 		id			= 'TEST_REWARD_09',
 		choice		= C_.ALL,
 		rewardlist	= {
 			-- id					details			%		function
-			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
-			{id=P_.FOS,				r=R_.R,			c=2,	f=R_Procedural},
-			{id=P_.SPH,				r=R_.U,			c=2,	f=R_Procedural},
-			{id='ALLOY6',			n=1,	x=2,	c=2,	f=R_Product},
-			{id='FOOD_CM_JHOT',		n=1,	x=2,	c=2,	f=R_Product},
-			{id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
-			{id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
-			{id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
+			{id='storm',			t=100,			c=95,	f=R_Storm},
+			-- {id=P_.FOS,				r=R_.R,			c=2,	f=R_Procedural},
+			-- {id=P_.SPH,				r=R_.U,			c=2,	f=R_Procedural},
+			-- {id='ALLOY6',			n=1,	x=2,	c=2,	f=R_Product},
+			-- {id='FOOD_CM_JHOT',		n=1,	x=2,	c=2,	f=R_Product},
+			-- {id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
+			-- {id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
+			-- {id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
 		}
 	},
 	{--- more tests ---
@@ -451,7 +458,7 @@ local new_rewards = {
 		rewardlist	= {
 			-- id					details			%		function
 			{id='wanted_level',		l=1,			c=95,	f=R_Wanted},
-			{id='storm',			t=10,			c=95,	f=R_Storm},
+			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
 			{id='no_sentinels',		t=20,			c=95,	f=R_NoSentinels},
 			{id='ROGUE_HAZBOX',				x=1,	c=10,	f=R_Product},
 			{id='UT_SHIPLAS',				x=1,	c=10,	f=R_Product},
@@ -491,26 +498,25 @@ local function AddNewRewardsToChangeTable(T)
 	}
 end
 
-local plant_harvest = {
-	{'DE_COOK_ALL1',	1.3,	1.5},	--  5 10 Heptaploid Wheat
-	{'DE_COOK_ALL2',	1.3,	1.5},	--  5 10 Sweetroot
-	{'DE_COOK_ALL3',	1.3,	1.5},	--  5 10 Pulpy Roots
-	{'DE_COOK_HOT',		1.2,	1.6},	--  5 10 Fireberry
-	{'DE_COOK_RAD',		1.2,	1.6},	--  5 10 Grahberry
-	{'DE_COOK_DUST',	1.2,	1.6},	--  5 10 Aloe Flesh
-	{'DE_COOK_COLD',	1.1,	1.4},	--  5 10 Frozen Tubers
-	{'DE_COOK_TOX',		1.2,	1.6},	--  5 10 Jade Peas
-	{'DE_COOK_LUSH',	1.2,	1.6},	--  5 10 Impulse Beans
-	{'DE_COOK_WEIRD',	1.1,	1.5},	--  5 10 Hexaberry
-	{'WILD_SCORCHED',	1.6,	2.2},	-- 18 30
-	{'WILD_RADIO',		1.2,	1.6},	-- 18 30
-	{'WILD_BARREN',		1.6,	2},		-- 40 60
-	{'WILD_SNOW',		1.2,	1.6},	-- 18 30
-	{'WILD_LUSH',		1.6,	2.2},	-- 10 15
-	{'WILD_TOXIC',		1.6,	2},		-- 18 30
-}
-function plant_harvest:GetExmlCT(T)
-	for _,x in ipairs(self) do
+local function IncreasePlantHarvest(T)
+	for _,x in ipairs({
+		{'DE_COOK_ALL1',	1.3,	1.5},	--  5 10 Heptaploid Wheat
+		{'DE_COOK_ALL2',	1.3,	1.5},	--  5 10 Sweetroot
+		{'DE_COOK_ALL3',	1.3,	1.5},	--  5 10 Pulpy Roots
+		{'DE_COOK_HOT',		1.2,	1.6},	--  5 10 Fireberry
+		{'DE_COOK_RAD',		1.2,	1.6},	--  5 10 Grahberry
+		{'DE_COOK_DUST',	1.2,	1.6},	--  5 10 Aloe Flesh
+		{'DE_COOK_COLD',	1.1,	1.4},	--  5 10 Frozen Tubers
+		{'DE_COOK_TOX',		1.2,	1.6},	--  5 10 Jade Peas
+		{'DE_COOK_LUSH',	1.2,	1.6},	--  5 10 Impulse Beans
+		{'DE_COOK_WEIRD',	1.1,	1.5},	--  5 10 Hexaberry
+		{'WILD_SCORCHED',	1.6,	2.2},	-- 18 30
+		{'WILD_RADIO',		1.2,	1.6},	-- 18 30
+		{'WILD_BARREN',		1.6,	2},		-- 40 60
+		{'WILD_SNOW',		1.2,	1.6},	-- 18 30
+		{'WILD_LUSH',		1.6,	2.2},	-- 10 15
+		{'WILD_TOXIC',		1.6,	2},		-- 18 30
+	}) do
 		T[#T+1] = {
 			MATH_OPERATION 		= '*',
 			INTEGER_TO_FLOAT	= 'Preserve',
@@ -523,19 +529,18 @@ function plant_harvest:GetExmlCT(T)
 	end
 end
 
-local learn_more_words = {
-	{'WORD',			A_.NON,	3},
-	{'EXP_WORD',		A_.XPR,	3},
-	{'TRA_WORD',		A_.TRD,	3},
-	{'WAR_WORD',		A_.WAR,	3},
-	{'TEACHWORD_EXP',	A_.XPR,	3},
-	{'TEACHWORD_TRA',	A_.TRD,	3},
-	{'TEACHWORD_WAR',	A_.WAR,	3},
-	{'TEACHWORD_ATLAS',	A_.ATL,	3},
-	multi = true
-}
-function learn_more_words:GetExmlCT(T)
-	for _,x in ipairs(self) do
+function LearnMoreWords(T)
+	for _,x in ipairs({
+		{'WORD',			A_.NON,	3},
+		{'EXP_WORD',		A_.XPR,	3},
+		{'TRA_WORD',		A_.TRD,	3},
+		{'WAR_WORD',		A_.WAR,	3},
+		{'TEACHWORD_EXP',	A_.XPR,	3},
+		{'TEACHWORD_TRA',	A_.TRD,	3},
+		{'TEACHWORD_WAR',	A_.WAR,	3},
+		{'TEACHWORD_ATLAS',	A_.ATL,	3},
+		{'TEACHWORD_BUI',	A_.BLD,	3},
+	}) do
 		for _=1, (x[3] - 1) do
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'Id', x[1]},
@@ -551,7 +556,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -561,8 +566,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			function()
 				T = {}
 				AddNewRewardsToChangeTable(T)
-				plant_harvest:GetExmlCT(T)
-				learn_more_words:GetExmlCT(T)
+				IncreasePlantHarvest(T)
+				LearnMoreWords(T)
 
 				T[#T+1] = {
 					REPLACE_TYPE 		= 'All',

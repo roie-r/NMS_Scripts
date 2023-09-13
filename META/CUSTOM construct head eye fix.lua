@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META costruct head eyes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -18,25 +18,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONTEXTUREOPTIONDATA.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYE'},
-				PRECEDING_KEY_WORDS = 'Options',
-				REMOVE				= 'Section'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYE'},
-				PRECEDING_KEY_WORDS = 'Tips',
-				REMOVE				= 'Section'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYE'},
-				ADD					= ToExml(StringArray({0, 1, 2, 3, 4, 5, 6, 7, 8}, 'Options', 20))
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYE'},
+				SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYES_BUILDER'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TextureOptionsID',	'BUILDEREYES'},
-					{'Group',				'BUILDEREYES'},
-					{'ColourAlt',			'Alternative3'} -- regular = 2
+					{'ColourAlt',	'Alternative3'} -- Alternative2
 				}
 			}
 		}
@@ -46,25 +30,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {
-					{'DescriptorOption', 'HEAD_ASTBOT1', 'TextureOptionGroup', 'HEAD_ASTRO'},
-					{'DescriptorOption', 'HEAD_ASTBOT2', 'TextureOptionGroup', 'HEAD_ASTRO'},
-				},
-				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml({
-					META	= {'value', 'GcCustomisationTextureGroup.xml'},
-					Title				= 'BUILD_GROUP_LIGHTS',
-					TextureOptionGroup	= 'BUILDEREYES'
-				})
-			},
-			{
-				SPECIAL_KEY_WORDS	= {
-					{'DescriptorOption', 'HEAD_ASTBOT1', 'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'HEAD_ASTBOT2', 'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'HEAD_ASTBOT1','Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'HEAD_ASTBOT2','Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_3',		'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_4',		'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_5',		'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_6',		'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_7',		'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_9',		'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_10',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_11',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_12',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_13',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_14',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_15',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_16',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_17',	'Title', 'CUSTOMISE_TERTIARY'}
 				},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD					= ToExml({
 					META	= {'value', 'GcCustomisationColourGroup.xml'},
-					Title	= 'Headlights Color',
+					Title	= 'Light Color',
 					{
 						META		= {'Palette', 'TkPaletteTexture.xml'},
 						Palette		= 'Custom_Head',

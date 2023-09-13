@@ -16,7 +16,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL vehicles various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.38',
+	NMS_VERSION				= '4.44',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -25,18 +25,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/SHARED/MININGLASER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'Gun'},
-				PRECEDING_KEY_WORDS = 'Attributes',
-				REMOVE				= 'Section'
-			},
-			{
 				SPECIAL_KEY_WORDS	= {'Name', 'GunLight'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TransX',		0.52},	-- 0.530418
-					{'TransY',		-2.063},-- -2.16751
-					{'TransZ',		1.245},	-- 1.25
-					{'ScaleX',		0.96},	-- 1
-					{'ScaleY',		0.96},	-- 1
+					{'TransX',		0.516},	-- 0.530418
+					{'TransY',		-2.024},-- -2.16751
+					{'TransZ',		1.244},	-- 1.25
+					{'ScaleX',		0.94},	-- 1
+					{'ScaleY',		0.94},	-- 1
 				}
 			},
 			{
@@ -46,7 +41,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 										name='turret_light',
 										tx=	0.25,	ty=	0.45,	tz=	0.4,
 										rx=	10.6,	ry=	180,
-										fov	= 62,	i = 104000,	c=  'fff0f5ff',
+										fov	= 62,	i = 104000,	c=  'FFF0F5FF',
 										f	= 'l',	fr= 1.0
 									})
 			}
@@ -61,7 +56,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	|bike tweaks|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKEPRES.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -91,11 +86,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ScaleY',		0.56},
 					{'ScaleZ',		0.56}
 				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'Gun'},
-				PRECEDING_KEY_WORDS = 'Attributes',
-				REMOVE				= 'Section'
 			},
 			{
 				SPECIAL_KEY_WORDS 	= {
@@ -162,7 +152,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	remove |vehicle glow|
+	{--	remove |bike glow|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKEPRES/LIGHTS_ENGINEGLOW_MAT.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

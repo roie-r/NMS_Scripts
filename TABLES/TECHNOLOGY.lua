@@ -20,6 +20,7 @@ mod_desc = [[
 local add_edit_stats = {
 ---	suit
 	{id='UT_WATER',			st='Suit_Protection_WaterDrain',			bn=0.17,	op='+'},		-- 1.33
+	{id='SUIT_REFINER2',	st='Suit_Refiner',							bn=1,		op='+'},		-- 2
 ---	multitool
 	{id='BOLT',				st='Weapon_Projectile_Recoil',				bn=-20,		op='+'},		-- 200
 	{id='UT_BOLT',			st='Weapon_Projectile_Recoil',				bn=-0.05,	op='+'},		-- 0.7
@@ -44,7 +45,7 @@ local add_edit_stats = {
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-2,		op='+'},		-- 10
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_HeatTime',			bn=1,		op='+'},		-- 0
 	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-0.3,	op='+'},		-- 0.8
-	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8
+	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8 
 	{id='UT_SHIPGUN',		st='Ship_Weapons_Guns_HeatTime',			bn=0.1,		op='+'},		-- 1.2
 	{id='SHIP_TELEPORT',	st='Ship_Teleport',							bn=32,		op='*'},		-- 100
 	{id='SHIPMINIGUN',		st='Ship_Weapons_Guns_Damage_Radius',		bn=1,		op='+'},		-- 3
@@ -121,24 +122,16 @@ function add_edit_stats:GetExmlCT(T)
 				T[#T+1] = {
 					SPECIAL_KEY_WORDS	= skw,
 					VALUE_CHANGE_TABLE 	= {
-						{'StatsType', x.nw}
+						{'StatsType',	x.nw}
 					}
 				}
 			end
 		elseif x.bn then
 			--- add new ---
 			T[#T+1] = {
-				ADD = ToExml({
-					META	= {'value', 'GcStatsBonus.xml'},
-					Stat	= {
-						META		= {'Stat', 'GcStatsTypes.xml'},
-						StatsType	= x.st
-					},
-					Bonus	= x.bn,
-					Level	= x.lv or 0
-				}),
 				SPECIAL_KEY_WORDS	= {'ID', x.id},
-				PRECEDING_KEY_WORDS	= 'StatBonuses'
+				PRECEDING_KEY_WORDS	= 'StatBonuses',
+				ADD					= ToExml(TechStatBonus(x))
 			}
 		else
 			--- remove ---
@@ -255,6 +248,7 @@ end
 local fragment_cost = {
 	{'FLAME',			420},
 	{'SENT_LASER',		230},
+	{'ATLAS_LASER',		310},
 	{'SOLAR_SAIL',		780},
 	{'PHOTONIX_CORE',	780},
 	{'SHIPJUMP_SPEC',	980},
@@ -330,6 +324,7 @@ local tech_icons = {
 	{'UT_RAIL',			'TECHNOLOGY/RENDER.BLAZEJAVELIN.BLUE.DDS'},
 	{'UT_CANNON',		'TECHNOLOGY/RENDER.CANNON.GREEN.DDS'},
 	{'UT_RAIL_STUN',	'TECHNOLOGY/RENDER.BLAZEJAVELIN.BLUE.DDS'},
+	{'UT_BUI_SCAN',		'TECHNOLOGY/RENDER.SCAN.BUILDER.DDS'},
 	{'UT_S10_SCAN',		'TECHNOLOGY/RENDER.SCAN.BUILDER.DDS'},
 	{'UT_SCAN',			'TECHNOLOGY/RENDER.SCAN.RED.DDS'},
 	{'SENT_LASER',		'TECHNOLOGY/RENDER.LASERSENTINEL2.DDS'},
@@ -383,7 +378,10 @@ local charge_to_top = {
 function charge_to_top:GetExmlCT(T)
 	-- index for removing section (must come first)
 	crg_rd = #T + 1
-	T[crg_rd] = { SKW={}, REMOVE='Section' }
+	T[crg_rd] = {
+		SKW		= {},
+		REMOVE	= 'Section'
+	}
 	for _,x in ipairs(self) do
 		if type(x.prd) == 'table' then
 		-- if prd is a table of items then replace the entire chargeby list
@@ -392,16 +390,9 @@ function charge_to_top:GetExmlCT(T)
 				PRECEDING_KEY_WORDS = 'ChargeBy',
 				REMOVE				= x.new and 'Line' or 'Section'
 			}
-			local tmp = {META = {'name', 'ChargeBy'}}
-			for _,p in ipairs(x.prd) do
-				tmp[#tmp+1] = {
-					META	= {'value', 'NMSString0x10.xml'},
-					Value	= p
-				}
-			end
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'ID', x.id},
-				ADD					= ToExml(tmp)
+				ADD					= ToExml(StringArray(x.prd, 'ChargeBy', 10))
 			}
 		else
 			if not x.new then
@@ -420,31 +411,43 @@ function charge_to_top:GetExmlCT(T)
 end
 
 local replace_requirements = {
+	{--	hijacked (sentinel) laser
+		id = 'SENT_LASER',
+		{id='DRONE_SHARD',	n=2,	tp=I_.PRD},
+		{id='ROBOT2',		n=250,	tp=I_.SBT},
+		{id='TECH_COMP',	n=2,	tp=I_.PRD}
+	},
+	{--	runic lens (altas laser)
+		id = 'ATLAS_LASER',
+		{id='HEXCORE',		n=2,	tp=I_.PRD},
+		{id='ASTEROID3',	n=150,	tp=I_.SBT},
+		{id='TECH_COMP',	n=2,	tp=I_.PRD}
+	},
 	{--	environment control unit
 		id = 'MECH_PROT',
-		{'COMPUTER',	2,		I_.PRD},
-		{'SHIPCHARGE',	2,		I_.PRD},
-		{'TECH_COMP',	2,		I_.PRD}
+		{id='COMPUTER',		n=2,	tp=I_.PRD},
+		{id='SHIPCHARGE',	n=2,	tp=I_.PRD},
+		{id='TECH_COMP',	n=2,	tp=I_.PRD}
 	},
 	{--	pulsing heart
 		id = 'SHIPJUMP_ALIEN',
-		{'GRAVBALL',	2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{id='GRAVBALL',		n=2,	tp=I_.PRD},
+		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
 	},
 	{--	neural shielding
 		id = 'CARGO_S_ALIEN',
-		{'FIENDCORE',	2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{id='FIENDCORE',	n=2,	tp=I_.PRD},
+		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
 	},
 	{--	chloroplast membrane
 		id	= 'CHARGER_ALIEN',
-		{'FISHCORE',	2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{id='FISHCORE',		n=2,	tp=I_.PRD},
+		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
 	},
 	{--	wormhole brain
 		id = 'SHIPSCAN_ALIEN',
-		{'EYEBALL',		2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{id='EYEBALL',		n=2,	tp=I_.PRD},
+		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
 	}
 }
 function replace_requirements:GetExmlCT(T)
@@ -467,7 +470,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -528,6 +531,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						{'ID',	'SHIPSHIELD_ROBO'},
 						{'ID',	'LIFESUP_ROBO'},
 						{'ID',	'SENT_LASER'},
+						{'ID',	'ATLAS_LASER'},
 						{'ID',	'F_HYPERDRIVE'},
 						{'ID',	'F_LIFESUPP'}
 					},

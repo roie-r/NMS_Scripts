@@ -3,12 +3,16 @@ dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 -----------------------------------------------------------------------------------------
 mod_desc = [[
-  - Add the weapons upgrade menu to the base weapons master terminal
-   copied from: MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/SHOPS/ ..
-   WEAPONSHOP/ENTITIES/WEAPONSUPGRADETERMINAL.ENTITY.MBIN
+  - add suit inventory slots page to the toy sphere (from CRYOCHAMBERINTERACTION)
+   * purchases only instead of using tokens (something to do with the trigger)
+  - Add the multitool upgrade menu to the base weapons master terminal
+  - Add multitool salvage to the base weapons master terminal
+   * copied from: MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/SHOPS/ ..
+     WEAPONSHOP/ENTITIES/WEAPONSUPGRADETERMINAL.ENTITY.MBIN
   - Add the ship upgrade menu to the nexus orb stand
   - Add hazard protection and a small light to beacon, cooker and signal booster (cheat)
   - Increase freighter extractor storage capacity
+  - open staff building page from the utopia weapon research unit
 ]]---------------------------------------------------------------------------------------
 
 local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/'
@@ -16,10 +20,91 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	open |toy suit page|
+		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOY_SPHERE/ENTITIES/TOY_SPHERE.ENTITY.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'GcSimpleInteractionComponentData.xml',
+				VALUE_CHANGE_TABLE 	= {
+					{'Name',		'INTRCT_SUITTERMINAL'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = 'Components',
+				ADD					= ToExml({
+					META = {'value','GcInteractionComponentData.xml'},
+					InteractionAction	= 'PressButton',
+					InteractionType		= {
+						META = {'InteractionType','GcInteractionType.xml'},
+						InteractionType	= 'SuitTerminal'
+					},
+					AttractDistanceSq	= 9,
+					InteractAngle		= 360,
+					InteractDistance	= 5
+				})
+			}
+		}
+	},
+	{--	|base multitool salvage|
+		MBIN_FILE_SOURCE	= build_parts..'NPCROOMS/NPC_WEAPONS.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Workstation'},
+				PRECEDING_KEY_WORDS = 'Children',
+				ADD					= ToExml( ScNode(
+					'WeapSalvage', 'LOCATOR', {
+						ScTransform({tx=-1, ty=1.1, tz=1.6}),
+						ScAttributes({
+							{'ATTACHMENT', build_parts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.MBIN'}
+						}),
+						ScChildren({
+							ScNode(
+								'WeapSalvageCol', 'COLLISION', {
+									ScTransform(),
+									ScAttributes({
+										{'TYPE',	'Sphere'},
+										{'RADIUS',	0.2}
+									})
+								}
+							)
+						})
+					}
+				))
+			},
+		}
+	},
+	{--	|freighter multitool salvage|
+		MBIN_FILE_SOURCE	= build_parts..'FREIGHTERBASE/ROOMS/NPCWEAROOM/PARTS/FLOOR0.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Workstation'},
+				ADD_OPTION			= 'AddAfterSection',
+				ADD					= ToExml( ScNode(
+					'WeapSalvage', 'LOCATOR', {
+						ScTransform({ty=0.5, tz=-1.5}),
+						ScAttributes({
+							{'ATTACHMENT', build_parts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.MBIN'}
+						}),
+						ScChildren({
+							ScNode(
+								'WeapSalvageCol', 'COLLISION', {
+									ScTransform(),
+									ScAttributes({
+										{'TYPE',	'Sphere'},
+										{'RADIUS',	0.2}
+									})
+								}
+							)
+						})
+					}
+				))
+			},
+		}
+	},
 	{--	|multitool upgrade menu|
 		MBIN_FILE_SOURCE	= build_parts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAPON5SPIN.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -27,18 +112,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'Components',
 				ADD					= ToExml({
 					{
-						META	= {'value', 'GcInteractionComponentData.xml'},
+						META = {'value', 'GcInteractionComponentData.xml'},
 						{
-							META	= {'InteractionType', 'GcInteractionType.xml'},
+							META = {'InteractionType', 'GcInteractionType.xml'},
 							InteractionType	= 'WeaponUpgrade'
 						},
-						InteractionAction				= 'PressButton',
-						AttractDistanceSq				= 9,
-						BlendToCameraTime				= 0.5,
-						BlendFromCameraTime				= -1,
-						InteractAngle					= 360,
-						InteractDistance				= 3,
-						SecondaryCameraTransitionTime	= 1
+						InteractionAction	= 'PressButton',
+						AttractDistanceSq	= 9,
+						InteractAngle		= 360,
+						InteractDistance	= 3
 					},
 					-- component stub
 					{value = 'TkPhysicsComponentData.xml'}
@@ -61,6 +143,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'Value',	build_parts..'TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'}
 				}
+			}
+		}
+	},
+	{--	|staff builder| with the utopia weapon recipe unit
+		MBIN_FILE_SOURCE	= build_parts..'TECH/BLUEPRINTANALYSER_WEAP/ENTITIES/DATA.ENTITY.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'StoryUtilityOverrideData',
+				VALUE_CHANGE_TABLE 	= {
+					{'Name',	'UI_MULTITOOL_STAFF_BUILDER'},
+					{'Reward',	'R_STAFF_PAGE'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'PuzzleMissionOverrideTable',
+				REMOVE				= 'Section'
 			}
 		}
 	},
@@ -138,7 +236,49 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'MaxCapacity',	10000}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'STELLAR2'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Id', 'ROCKETSUB'}
+				}
 			}
 		}
 	}
-}}}}
+}}},
+	ADD_FILES	= {
+		{
+			FILE_DESTINATION = build_parts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.EXML',
+			FILE_CONTENT	 = FileWrapping({
+				META = {'template','TkAttachmentData'},
+				Components = {
+					META = {'name','Components'},
+					{
+						META = {'value','GcSimpleInteractionComponentData.xml'},
+						Name = 'UI_SALVAGE_MT_TITLE'
+					},
+					{
+						META = {'value','GcInteractionComponentData.xml'},
+						InteractionAction	= 'PressButton',
+						InteractionType		= {
+							META = {'InteractionType','GcInteractionType.xml'},
+							InteractionType	= 'StoryUtility'
+						},
+						AttractDistanceSq	= 9,
+						InteractAngle		= 360,
+						InteractDistance	= 5,
+						PuzzleMissionOverrideTable = {
+							META = {'name','PuzzleMissionOverrideTable'},
+							{
+								META = {'value','GcAlienPuzzleMissionOverride.xml'},
+								Mission		= 'EXPLORE_LOG', -- must be a valid mission id
+								Puzzle		= 'WEAPON_SALVAGE'
+							}
+						}
+					},
+					{value = 'TkPhysicsComponentData.xml'}
+				}
+			})
+		}
+	}
+}

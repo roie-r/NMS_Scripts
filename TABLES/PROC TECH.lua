@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
+dofile('LIB/table_entry.lua')
 --------------------------------------------------------------------------
 mod_desc = [[
   Increase SMG hit damage and reduce its fire rate
@@ -73,20 +74,7 @@ function edit_stats:GetExmlCT()
 				REPLACE_TYPE		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', x.id},
 				PRECEDING_KEY_WORDS	= 'StatLevels',
-				ADD 				= ToExml({
-					META	= {'value', 'GcProceduralTechnologyStatLevel.xml'},
-					Stat	= {
-						META	= {'Stat', 'GcStatsTypes.xml'},
-						StatsType	= x.st
-					},
-					ValueMin		= x.vn,
-					ValueMax		= x.vx,
-					AlwaysChoose	= bool(x.ac),
-					WeightingCurve	= {
-						META	= {'WeightingCurve', 'GcWeightingCurve.xml'},
-						WeightingCurve	= x.wc or 'NoWeighting'
-					}
-				})
+				ADD 				= ToExml(ProcTechStatLevel(x))
 			}
 		else
 			--- remove ---
@@ -99,7 +87,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PROC TECH.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

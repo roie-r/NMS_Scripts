@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fonts units & no bars.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -54,7 +54,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'PositionY',			84},	-- 82
 					{'Height',				24},	-- 32
 					{'DropShadowOffset',	2}, 	-- 3
-					{'OutlineSize',			2} 	-- 4
+					{'OutlineSize',			2} 		-- 4
 				}
 			}
 		}

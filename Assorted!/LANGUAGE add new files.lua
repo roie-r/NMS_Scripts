@@ -24,7 +24,19 @@ local text_lines = {
 		},
 		SUPERFOOD_DESC = {
 			EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|NL|Consuming a sample seems to be a good for you.]],
+		},		
+		UI_STARCHART_BUILDER_NAME = {
+			EN = [[ROAMING BUILDER LOCATOR]],
 		},
+		UI_STARCHART_BUILDER_NAME_L = {
+			EN = [[Roaming Builder Locator]],
+		},
+		UI_STARCHART_BUILDER_DESC = {
+			EN = [[A curious mesh of old and new technology, a hybrid between two entirely separate methods of creation. Nonetheless, this <STELLAR>location tracing device<> appears fully functional.]],
+		},
+		UI_STARCHART_BUILDER_SUB = {
+			EN = [[Harmonious Synthetics Tracker]],
+		},		
 		VEHICLESTUN_NAME = {
 			EN = [[PARALYSIS GUN]],
 		},
@@ -299,7 +311,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{
@@ -313,11 +325,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						-- META	= {'value', 'NMSString0x20.xml'},
 						-- Value	= text_lines.locale
 					-- })
-				-- },
-				-- {
-					-- VALUE_CHANGE_TABLE 	= {
-						-- {'DisableSaveSlotSorting', true}
-					-- }
 				-- }
 			-- }
 		-- }

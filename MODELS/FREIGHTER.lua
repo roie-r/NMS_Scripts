@@ -12,7 +12,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL ferighter changes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.44',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -169,7 +169,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Value',		0.6}
 				}
 			},
-		---------------- taken from Relight ----------------
+		---------------- copied from Relight ----------------
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'pointLight8'},  -- left stairs light
 				REPLACE_TYPE		= 'AddAfterSection',
