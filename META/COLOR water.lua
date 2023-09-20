@@ -95,11 +95,14 @@ local function GcWaterColourSetting()
 		return as
 	end
 	local function Convert2Rgb(color)
+		-- hex format
 		if type(color) == 'string' then
-			return {c=color}
+			return color
+		-- ascii format
 		elseif  color[1] > 1 or color[2] > 1 or color[3] > 1 then
 			return asc2prc(color)
 		end
+		-- percentage format
 		return color
 	end
 	local props = {
@@ -134,7 +137,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META water colors.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES 			= {
 		{

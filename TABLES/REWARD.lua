@@ -302,7 +302,7 @@ local new_rewards = {
 				{id='SCRAP_WEAP',	n=1, 	t=M_.PRD},
 				{id='FREI_INV_TOKEN',n=1, 	t=M_.PRD},
 				{id='ASTEROID2',	n=387, 	t=M_.SBT},	-- gold
-				{pid=P_.DTC,		q=1,	t=M_.PRP},
+				{pid=P_.DTC,		q=1,	t=M_.PRP},	-- Procedural
 				c=100,
 				f=R_MultiItem
 			},
@@ -441,14 +441,14 @@ local new_rewards = {
 		choice		= C_.ALL,
 		rewardlist	= {
 			-- id					details			%		function
-			{id='storm',			t=100,			c=95,	f=R_Storm},
-			-- {id=P_.FOS,				r=R_.R,			c=2,	f=R_Procedural},
-			-- {id=P_.SPH,				r=R_.U,			c=2,	f=R_Procedural},
-			-- {id='ALLOY6',			n=1,	x=2,	c=2,	f=R_Product},
-			-- {id='FOOD_CM_JHOT',		n=1,	x=2,	c=2,	f=R_Product},
-			-- {id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
-			-- {id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
-			-- {id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
+			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
+			{id=P_.FOS,				r=R_.R,			c=2,	f=R_Procedural},
+			{id=P_.SPH,				r=R_.U,			c=2,	f=R_Procedural},
+			{id='ALLOY6',			n=1,	x=2,	c=2,	f=R_Product},
+			{id='FOOD_CM_JHOT',		n=1,	x=2,	c=2,	f=R_Product},
+			{id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
+			{id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
+			{id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
 		}
 	},
 	{--- more tests ---
@@ -457,8 +457,8 @@ local new_rewards = {
 		choice		= C_.ONE,
 		rewardlist	= {
 			-- id					details			%		function
+			{id='storm',			t=100,			c=95,	f=R_Storm},
 			{id='wanted_level',		l=1,			c=95,	f=R_Wanted},
-			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
 			{id='no_sentinels',		t=20,			c=95,	f=R_NoSentinels},
 			{id='ROGUE_HAZBOX',				x=1,	c=10,	f=R_Product},
 			{id='UT_SHIPLAS',				x=1,	c=10,	f=R_Product},
@@ -556,7 +556,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

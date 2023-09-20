@@ -9,7 +9,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__Open Staff build page hotkey.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

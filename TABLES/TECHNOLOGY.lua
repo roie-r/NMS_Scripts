@@ -45,7 +45,7 @@ local add_edit_stats = {
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-2,		op='+'},		-- 10
 	{id='SHIPROCKETS',		st='Ship_Weapons_Guns_HeatTime',			bn=1,		op='+'},		-- 0
 	{id='UT_ROCKETS',		st='Ship_Weapons_Guns_CoolTime',			bn=-0.3,	op='+'},		-- 0.8
-	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8 
+	{id='UT_SHIPSHOT',		st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8
 	{id='UT_SHIPGUN',		st='Ship_Weapons_Guns_HeatTime',			bn=0.1,		op='+'},		-- 1.2
 	{id='SHIP_TELEPORT',	st='Ship_Teleport',							bn=32,		op='*'},		-- 100
 	{id='SHIPMINIGUN',		st='Ship_Weapons_Guns_Damage_Radius',		bn=1,		op='+'},		-- 3
@@ -470,7 +470,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -549,7 +549,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							subtitle		= 'VEHICLESTUN_SUB',
 							description		= 'VEHICLESTUN_DESC',
 							icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/RENDER.STUNGUN.DDS',
-							color			= {c='FF095C77'},
+							color			= 'FF095C77',
 							chargeable		= true,
 							chargeamount	= 40,
 							chargetype		= 'Fuel',
@@ -579,7 +579,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							subtitle		= 'BODYSHIELD_SUB',
 							description		= 'BODYSHIELD_DESC',
 							icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
-							color			= {c='FF095C77'},
+							color			= 'FF095C77',
 							chargeable		= true,
 							chargeamount	= 400,
 							chargetype		= 'Catalyst',

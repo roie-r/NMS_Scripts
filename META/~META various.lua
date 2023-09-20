@@ -15,7 +15,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -36,19 +36,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|same underwater freigher|
-		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				REPLACE_TYPE 		= 'All',
-				SPECIAL_KEY_WORDS	= {'WaterCrashedFreighter', 'GcBuildingFilename.xml'},
-				PRECEDING_KEY_WORDS = 'Scene',
-				VALUE_CHANGE_TABLE 	= {
-					{'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'}
-				}
-			}
-		}
-	},
+	-- {--	|same underwater freigher|
+		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- SPECIAL_KEY_WORDS	= {'WaterCrashedFreighter', 'GcBuildingFilename.xml'},
+				-- PRECEDING_KEY_WORDS = 'Scene',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'}
+				-- }
+			-- }
+		-- }
+	-- },
 	{--	|alt HUD icons|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
 		EXML_CHANGE_TABLE	= {

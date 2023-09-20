@@ -174,6 +174,15 @@ local texture_collection = {
 			{s='VYKEEN*.DDS'}
 		}
 	},
+	{--	player: builder cloth padding
+		source = 'Player/',
+		target = 'COMMON/ROBOTS/CLOTH/',
+		names  = {
+			{s='CLOTHTILEABLEPADDING.DDS'},
+			{s='CLOTHTILEABLEPADDING.MASKS.DDS'},
+			{s='CLOTHTILEABLEPADDING.NORMAL.DDS',	t='NORMAL/CLOTHTILEABLEPADDING.NORMAL.DDS'},
+		}
+	},
 	{--	menu: UI background
 		source = 'UI/background/',
 		target = 'UI/FRONTEND/BACKGROUNDS/',
@@ -186,7 +195,7 @@ local texture_collection = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

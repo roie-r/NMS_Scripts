@@ -14,7 +14,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sentinel.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.44',
+	NMS_VERSION				= '4.45',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -54,6 +54,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'LandingLight'},
 				REMOVE = 'Section'
+			}
+		}
+	},
+	{--	|sentinel trail fix|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENGINEFLAMESSMALL.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {'Name', 'Trail'}, 
+				VALUE_CHANGE_TABLE 	= { 
+					{'TransY',		-0.32}
+				}
 			}
 		}
 	},

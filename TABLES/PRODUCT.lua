@@ -194,7 +194,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -252,7 +252,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							subtitle		= 'CURIO4_SUBTITLE',
 							description		= 'PRODX40_DESC',
 							basevalue		= 624000000,
-							color			= {c='FFCCCCCC'},
+							color			= 'FFCCCCCC',
 							category		= 'Special',
 							type			= 'Tradeable',
 							rarity			= 'Rare',
@@ -262,6 +262,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 								{id='ULTRAPROD1', 		n=20,	tp=I_.PRD},
 								{id='ULTRAPROD2', 		n=20,	tp=I_.PRD}
 							},
+							sendtoplayer	= true,
 							stackmultiplier	= 16,
 							icon			= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.CAPTUREDNANODE.DDS'
 						}),
@@ -272,7 +273,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							subtitle		= 'PROD_NIP_SUBTITLE',
 							description		= 'SUPERFOOD_DESC',
 							basevalue		= 2,
-							color			= {c='FF1A273D'},
+							color			= 'FF1A273D',
 							category		= 'Exotic',
 							type			= 'Consumable',
 							rarity			= 'Rare',
@@ -283,6 +284,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 								{id='FOOD_V_ROBOT',		n=2,	pt=I_.PRD},
 								{id='STELLAR2',			n=50,	pt=I_.SBT}
 							},
+							sendtoplayer	= true,
 							stackmultiplier	= 20,
 							icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'
 						})

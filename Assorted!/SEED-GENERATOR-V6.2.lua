@@ -13,7 +13,7 @@ mod_desc = [[
 
 local seed_counter = {
 	Fighter			= 0,
-	Dropship		= 0,
+	Dropship		= 10000,
 	Scientific		= 0,
 	Shuttle			= 0,
 	Royal			= 0,
@@ -26,7 +26,7 @@ local seed_counter = {
 	Royaltool		= 0,
 	Sentineltool	= 0,
 	Stafftool		= 0,
-	Atlastool		= 120000
+	Atlastool		= 0
 }
 
 ------------------------------------------------------
@@ -348,7 +348,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.2.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

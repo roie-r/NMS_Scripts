@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -34,7 +34,7 @@ function()
 		{'DropshipFollowCam',		0,		2.4,	-3.8,	0.2,	0,		2.2,	1.2,	255	},
 		{'ShuttleFollowCam',		0,		0.2,	-1,		1,		1,		1,		0,		255	},
 		{'RoyalShipFollowCam',		0,		1.4,	-8,		5,		5,		1,		1,		255	},
-		{'SailShipFollowCam',		0,		1.2,	-8,		8,		6,		0.8,	0,		255	},
+		{'SailShipFollowCam',		0,		1.2,	-7,		6,		6,		0.8,	0,		255	},
 		{'ScienceShipFollowCam',	0,		2.4,	-2,		5,		4,		2.2,	1.2,	255	},
 		{'AlienShipFollowCam',		0,		-0.2,	-4,		0,		0,		-0.2,	-2,		255	},
 		{'RobotShipFollowCam',		0,		0.8,	0,		0,		0,		0.2,	0,		255	}

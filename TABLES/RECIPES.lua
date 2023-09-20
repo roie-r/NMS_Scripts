@@ -8,6 +8,27 @@ mod_desc = [[
 ]]---------------------------------------
 
 local new_recipes = {
+	{--	atlantideum to void mote
+		id			= 'RECIPE_TOSMOTE',
+		name		= 'RECIPE_DRONESCRAP',
+		make		= 40,
+		cook		= false,
+		result		= {id='BUI_SCRAP', n=1, tp=I_.SBT},
+		ingredients	= {
+			{id='ROBOT2',	n=4,	tp=I_.SBT},
+			{id='ROBOT2',	n=4,	tp=I_.SBT}
+		}
+	},
+	{--	radiant shard to atlantideum
+		id			= 'RECIPE_SHARDDUST',
+		name		= 'RECIPE_DRONESHARD',
+		make		= 100,
+		cook		= false,
+		result		= {id='ROBOT2', n=50, tp=I_.SBT},
+		ingredients	= {
+			{id='DRONE_SHARD',	n=1,	tp=I_.PRD}
+		}
+	},
 	{--	make lots of sand from ferrite
 		id			= 'RECIPE_MORESAND',
 		name		= 'UI_SANDWORD_DIET7',
@@ -67,7 +88,7 @@ local new_recipes = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,4 +1,7 @@
 -------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
+-------------------------------------------
 mod_desc = [[
   Scientific cockpitA re-center trails.
   Decals placement tweaks.
@@ -8,11 +11,37 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP scientific.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.44',
+	NMS_VERSION				= '4.45',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
+	{--	| wingA_L add trail|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSA/WINGSA_LEFT.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'WingALeft'},
+				PRECEDING_KEY_WORDS	= 'Children',
+				ADD					= ToExml( ScNode(
+					'Trail', 'LOCATOR',
+					{ScTransform({8.55, 0, -0.458, 0, 180})}
+				) )
+			}
+		}
+	},
+	{--	| wingA_R add trail|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSA/WINGSA_RIGHT.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'WingALeft'},
+				PRECEDING_KEY_WORDS	= 'Children',
+				ADD					= ToExml( ScNode(
+					'Trail', 'LOCATOR',
+					{ScTransform({-8.55, 0, -0.4, 0, 180})}
+				) )
+			}
+		}
+	},
 	{--	|Scientific cockpitD re-align trails|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITD/COCKPITD.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -82,32 +111,44 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|Scientific tail wings decals| fix
+	{-- |wing_A decals| fix
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGILEFT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', '_logo1_A1'},
-					{'Name', '_logo2_A2'}
-				},
+				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotX',		-90},	-- 90
-					{'RotY',		-90},	-- 0
-					{'TransX',		1.1},	-- 0.9721
+					{'RotX',		-90},
+					{'RotY',		-90},
+					{'TransX',		1.1},
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
+				VALUE_CHANGE_TABLE 	= {
+					{'RotX',		-90},
+					{'RotY',		-90},
+					{'TransX',		1.1},
 					{'ScaleX', 		0.56},
 					{'ScaleY', 		0.56}
 				}
 			}
 		}
 	},
-	{
+	{-- |wing_A decals| fix
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGIRIGHT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', '_logo1_A1'},
-					{'Name', '_logo2_A2'}
-				},
+				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'RotY',		-90},
+					{'ScaleX', 		0.56},
+					{'ScaleY', 		0.56}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
 				VALUE_CHANGE_TABLE 	= {
 					{'RotY',		-90},
 					{'ScaleX', 		0.56},

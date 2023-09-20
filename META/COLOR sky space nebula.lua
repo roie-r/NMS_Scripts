@@ -86,43 +86,43 @@ local function AddPlanetWeatherColor(skies)
 	}
 	local sky_palettes = {
 		{--	natural pale blue
-			{c='FF81C0E9'},
-			{c='FF57749A'},
-			{c='FFB3DCEC'},
-			{c='FFBBE0F3'},
-			{c='FFFEFFD4'},
-			{c='FFB3DCEC'},
-			{c='FFFACFA0'},
+			'FF81C0E9',
+			'FF57749A',
+			'FFB3DCEC',
+			'FFBBE0F3',
+			'FFFEFFD4',
+			'FFB3DCEC',
+			'FFFACFA0',
 			{1, 1, 1},
-			{c='FFFFFFE7'},
-			{c='FFEEF9F1'},
-			{c='FF97BBC7'}
+			'FFFFFFE7',
+			'FFEEF9F1',
+			'FF97BBC7'
 		},
 		{-- hot pale orange
-			{c='FFE7AF76'},
-			{c='FFEE7740'},
-			{c='FFEBB178'},
-			{c='FFF17468'},
-			{c='FFE8E9B0'},
-			{c='FF515A85'},
-			{c='FFBAF3E0'},
+			'FFE7AF76',
+			'FFEE7740',
+			'FFEBB178',
+			'FFF17468',
+			'FFE8E9B0',
+			'FF515A85',
+			'FFBAF3E0',
 			{2, 1, 1},
-			{c='FFF6D5B3'},
-			{c='FFE7E9F1'},
-			{c='FFE4D2AB'}
+			'FFF6D5B3',
+			'FFE7E9F1',
+			'FFE4D2AB'
 		},
 		{--	soft turquoize1
-			{c='FF7CE9CA'},
-			{c='FF94D3AD'},
-			{c='FF66DBAC'},
-			{c='FFB1D8E2'},
-			{c='FFDBDBAF'},
-			{c='FF2C617A'},
-			{c='FF5CD8FF'},
+			'FF7CE9CA',
+			'FF94D3AD',
+			'FF66DBAC',
+			'FFB1D8E2',
+			'FFDBDBAF',
+			'FF2C617A',
+			'FF5CD8FF',
 			{2, 1.2, 1},
-			{c='FFDFDFC2'},
-			{c='FFE2F6F6'},
-			{c='FF5CA998'}
+			'FFDFDFC2',
+			'FFE2F6F6',
+			'FF5CA998'
 		}
 	}
 	local T = {}
@@ -139,7 +139,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META sky dark space & nights.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

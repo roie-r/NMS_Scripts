@@ -269,7 +269,7 @@ local function InsertCharEntities(s)
 end
 
 -- return a complete TkLocalisationTable exml
--- if a locale text is missing, insert default locale
+-- if a locale text is missing, insert default locale text
 local function BuildLocaleText(lang_code)
 	local T = {META = {'name', 'Table'}}
 	for id, text in pairs(text_lines.entries) do
@@ -311,7 +311,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.44',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

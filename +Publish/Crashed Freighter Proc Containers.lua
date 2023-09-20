@@ -66,9 +66,9 @@ local function AddSceneNodes()
 	local T = {}
 	for _,scn in ipairs(containers) do
 		for i=1, #scn.form do
-			T[#T+1] = ScNode(scn.id..string.char(64 + i), 'LOCATOR')
+			T[#T+1] = ScNode(scn.name..string.char(64 + i), 'LOCATOR')
 			T[#T+1] = ScNode(
-				scn.id..string.char(64 + i), 'REFERENCE', {
+				scn.name..string.char(64 + i), 'REFERENCE', {
 					ScTransform(scn.form[i]),
 					ScAttributes({
 						{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/PARTS/CRASH_CONTAINER.SCENE.MBIN'}
@@ -85,14 +85,14 @@ local function AddDescriptors()
 	for _,scn in ipairs(containers) do
 		local tmp = {
 			META		= {'value', 'TkResourceDescriptorList.xml'},
-			TypeId		= scn.id:upper(),
+			TypeId		= scn.name:upper(),
 			Descriptors	= {META = {'name', 'Descriptors'}}
 		}
 		for i=1, #scn.form do
 			tmp.Descriptors[#tmp.Descriptors+1] = {
 				META	= {'value', 'TkResourceDescriptorData.xml'},
-				Id		= (scn.id..string.char(64 + i)):upper(),
-				Name	= scn.id..string.char(64 + i),
+				Id		= (scn.name..string.char(64 + i)):upper(),
+				Name	= scn.name..string.char(64 + i),
 				Chance	= 0
 			}
 		end
@@ -104,7 +104,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Crashed Freighter Procedural Containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.23,
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -124,7 +124,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'HeightAdjust3'},
 					{'Name', 'HeightAdjust4'}
 				},
