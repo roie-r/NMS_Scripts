@@ -35,7 +35,6 @@ end
 local function AddSceneNodes()
 	local T = {}
 	for i, key in ipairs(keys) do
-		T[#T+1] = ScNode(AddChar(keys.name, i), 'LOCATOR')
 		T[#T+1] = ScNode(
 			AddChar(keys.name, i), 'REFERENCE', {
 				ScTransform(key),
@@ -46,7 +45,6 @@ local function AddSceneNodes()
 		)
 	end
 	for i, lck in ipairs(locks) do
-		T[#T+1] = ScNode(AddChar(locks.name, i), 'LOCATOR')
 		T[#T+1] = ScNode(
 			AddChar(locks.name, i), 'REFERENCE', {
 				ScTransform(lck),

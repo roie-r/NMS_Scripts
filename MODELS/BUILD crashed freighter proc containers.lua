@@ -3,10 +3,11 @@ dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ------------------------------------------------------------------------------------------
 mod_desc = [[
-  procedurally placed containers in the crashed freighter - instead of constant placement
+  procedurally placed containers in the crashed -and underwater-crashed freigther
+  replaces the underwater one with the land model
 ]]----------------------------------------------------------------------------------------
 
-local containers = {
+local loot_containers = {
 	{
 		name = '_OutLeft_',
 		form = {
@@ -20,6 +21,7 @@ local containers = {
 		name = '_OutBack_',
 		form = {
 			{-5, 35.5, 85.6, -9, 55, -28, 0.6, 0.6, 0.6},
+			{5, 35, 88.5, 330, -22, 0, 0.5, 0.5, 0.5},
 			{-58.49, -3.4, 23.5, -29.0, 122.0, -165.8, 0.8, 0.8, 0.8},
 			{-79, -3.8, 16, 0, -20, 0, 0.5, 0.5, 0.5},
 			{-42.4, -3.4, 16.4, -55, 30, 115, 0.4, 0.4, 0.4}
@@ -64,9 +66,8 @@ local containers = {
 
 local function AddSceneNodes()
 	local T = {}
-	for _,scn in ipairs(containers) do
+	for _,scn in ipairs(loot_containers) do
 		for i=1, #scn.form do
-			T[#T+1] = ScNode(scn.name..string.char(64 + i), 'LOCATOR')
 			T[#T+1] = ScNode(
 				scn.name..string.char(64 + i), 'REFERENCE', {
 					ScTransform(scn.form[i]),
@@ -82,7 +83,7 @@ end
 
 local function AddDescriptors()
 	local T = {}
-	for _,scn in ipairs(containers) do
+	for _,scn in ipairs(loot_containers) do
 		local tmp = {
 			META		= {'value', 'TkResourceDescriptorList.xml'},
 			TypeId		= scn.name:upper(),
@@ -121,12 +122,42 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
+		MBIN_FILE_SOURCE	= {
+			{
+				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
+				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_UNDERWATER.SCENE.MBIN'
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= {
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_UNDERWATER.SCENE.MBIN'
+		},
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'HeightAdjust3'},
-					{'Name', 'HeightAdjust4'}
+					{'Name', 'HeightAdjust4'},
+					{'Name', 'REFSmokeVFX'},
+					{'Name', 'REFSmokeVFX1'},
+					{'Name', 'REFSmokeVFX2'},
+					{'Name', 'REFSmokeVFX3'},
+					{'Name', 'REFLargeCrashedFreighterCloudsVFX3'},
+					{'Name', 'REFLargeCrashedFreighterCloudsVFX4'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX5'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX6'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX7'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX8'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX1'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX2'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX3'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX4'},
+					{'Name', 'REFCrashedFreighterCloudsVFX'},
+					{'Name', 'REFCrashedFreighterCloudsVFX1'},
+					{'Name', 'REFCrashedFreighterCloudsVFX2'},
+					{'Name', 'REFCrashedFreighterCloudsVFX4'},
 				},
 				REMOVE				= 'Section'
 			},
@@ -138,11 +169,73 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.DESCRIPTOR.MBIN',
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_UNDERWATER.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {
+					-- vfx
+					-- mist
+					{'Name', 'REFPlatformMistVFX'},
+					{'Name', 'REFCrashedFreightMistVFX'},
+					{'Name', 'REFLargeCrashedFreighterSmokeVFX9'},
+					-- builder parts
+					{'Name', 'Interior_'},
+					{'Name', 'NAV_POI'},
+					{'Name', 'NAV_POI_CONV'},
+					{'Name', 'NAV_POI1'},
+					{'Name', 'NAV_POI2'},
+					{'Name', 'NAV_POI3'},
+					{'Name', 'NAV_POI4'},
+					{'Name', 'NAV_NODE'},
+					{'Name', 'NAV_NODE2'},
+					{'Name', 'NAV_NODE3'},
+					{'Name', 'NAV_NODE4'},
+					{'Name', 'NAV_NODE5'},
+					{'Name', 'NAV_NODE6'},
+					{'Name', 'NAV_NODE7'},
+					{'Name', 'NAV_NODE8'},
+					{'Name', 'NAV_NODE9'},
+					{'Name', 'NAV_NODE10'},
+					{'Name', 'NAV_NODE11'},
+					{'Name', 'NAV_NODE12'},
+					{'Name', 'NAV_NODE13'},
+					{'Name', 'NAV_NODE14'},
+					{'Name', '_Tents_Group_'},
+					{'Name', '_Tents_Group_1'},
+					{'Name', '_Tents_Group_2'},
+					{'Name', 'RefRobotTerminalMesh'},
+					{'Name', 'Barrel_Ref'}
+				},
+				REMOVE				= 'Section'
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= {
+			{
+				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.DESCRIPTOR.MBIN',
+				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_UNDERWATER.DESCRIPTOR.MBIN'
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= {
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.DESCRIPTOR.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_UNDERWATER.DESCRIPTOR.MBIN'
+		},
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'List',
 				ADD					= ToExml(AddDescriptors())
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_UNDERWATER.DESCRIPTOR.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {'TypeId', '_TENTS_'},
+				REMOVE				= 'Section'
 			}
 		}
 	}

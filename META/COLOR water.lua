@@ -87,47 +87,37 @@ local water_colors = {
 	'FFB9E7D6',
 }
 
-local function GcWaterColourSetting()
-	local function asc2prc(as)
-		for i=1, #as do
-			as[i] = math.floor(as[i] / 255 * 1000) / 1000
+local function Convert2Rgb(color)
+	local function asc2prc(asc)
+		for i=1, #asc do
+			asc[i] = math.floor(asc[i] / 255 * 1000) / 1000
 		end
-		return as
+		return asc
 	end
-	local function Convert2Rgb(color)
-		-- hex format
-		if type(color) == 'string' then
-			return color
-		-- ascii format
-		elseif  color[1] > 1 or color[2] > 1 or color[3] > 1 then
-			return asc2prc(color)
-		end
-		-- percentage format
-		return color
+	if type(color) == 'table' and (color[1] > 1 or color[2] > 1 or color[3] > 1) then
+		return asc2prc(color)
 	end
-	local props = {
-		'WaterFogColourNear',
-		'WaterFogColourFar',
-		'WaterColourBase',
-		'WaterColourAdd',
-		'FoamColour'
-	}
-	-- Assign the exml table with its designated meta
-	local T = {META = {'name', 'Settings'}}
-	local argb = {}
-	for i=0, (#water_colors - 1) do
-		local b5 = i % 5 + 1
-		local c = Convert2Rgb(water_colors[i + 1])
-		-- add the color class's name to the rgb table
-		argb[#argb+1] = ColorData(c, props[b5])
-		if b5 == 5 then
-			argb.META = {'value', 'GcPlanetWaterColourData.xml'}
-			T[#T+1] = argb
-			argb = {}
-		end
+	return color
+end
+local props = {
+	'WaterFogColourNear',
+	'WaterFogColourFar',
+	'WaterColourBase',
+	'WaterColourAdd',
+	'FoamColour'
+}
+-- Assign the exml table with its designated meta
+local ECT = {META = {'name', 'Settings'}}
+local argb = {}
+for i=0, (#water_colors - 1) do
+	local b5 = i % 5 + 1
+	-- add the color class's name to the rgb table
+	argb[#argb+1] = ColorData(Convert2Rgb(water_colors[i + 1]), props[b5])
+	if b5 == 5 then
+		argb.META = {'value', 'GcPlanetWaterColourData.xml'}
+		ECT[#ECT+1] = argb
+		argb = {}
 	end
-	-- new mbin
-	return FileWrapping(T, 'GcWaterColourSettingList')
 end
 
 -- dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
@@ -141,7 +131,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES 			= {
 		{
-			FILE_CONTENT		= GcWaterColourSetting(),
+			FILE_CONTENT		= FileWrapping(ECT, 'GcWaterColourSettingList'),
 			FILE_DESTINATION	= 'METADATA/SIMULATION/SOLARSYSTEM/COLOURS/WATERCOLOURS.EXML'
 		}
 	}

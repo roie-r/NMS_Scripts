@@ -32,7 +32,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'Radius', 3}
+					{'Radius',		3}
 				}
 			}
 		}
@@ -42,7 +42,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'Radius', 24}
+					{'Radius',		24}
 				}
 			}
 		}

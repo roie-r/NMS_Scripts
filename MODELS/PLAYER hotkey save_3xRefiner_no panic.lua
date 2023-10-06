@@ -101,46 +101,45 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS	= 'GcCombatEffectsComponentData.xml',
+				PRECEDING_KEY_WORDS	= 'GcSpringAttachmentComponentData.xml',
 				ADD_OPTION			= 'ADDAfterSection',
 				ADD 				= ToExml(save_trigger_components)
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Anim', '0H_TURN_L'},
+				PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
 				SECTION_SAVE_TO		= 'tk_animation_data'
 			},
 			{
 				SECTION_EDIT 		= 'tk_animation_data',
 				VALUE_CHANGE_TABLE 	= {
 					{'Anim',		'SAVEGAME'},
-					{'Filename',	'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN'}
+					{'Filename',	'MODELS/TESTS/EFFECTTEST.ANIM.MBIN'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Anim', '0H_GREET_MOB_04'},
+				SPECIAL_KEY_WORDS	= {'Anim', '2H_STAFF_WALK'},
 				ADD_OPTION			= 'ADDAfterSection',
-				SECTION_ACTIVE		= -2,
 				SECTION_ADD_NAMED 	= 'tk_animation_data'
 			}
+
 		}
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/UI/EMOTEMENU.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Title', 'EMOTE_STROKE'},
+				PRECEDING_KEY_WORDS = 'GcPlayerEmote.xml',
 				SECTION_SAVE_TO		= 'gc_player_emote'
 			},
 			{
 				SECTION_EDIT 		= 'gc_player_emote',
 				VALUE_CHANGE_TABLE 	= {
 					{'Title',					'Save'},
+					{'EmoteID',					'SAVEGAME'},
 					{'AnimationName',			'SAVEGAME'},
 					{'RidingAnimationName',		'SAVEGAME'},
 					{'Filename',				'TEXTURES/UI/HUD/ICONS/PLAYER/SAVE.DDS'},
-					{'NeverShowInMenu',			false},
-					{'MoveToCancel',			false},
-					{'AvailableUnderwater',		true}
+					{'AvailableUnderwater',		false}
 				}
 			},
 			{
@@ -150,31 +149,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SECTION_EDIT 		= 'gc_player_emote',
 				VALUE_CHANGE_TABLE 	= {
-					{'AvailableUnderwater',		false}
+					{'AvailableUnderwater',		true}
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Emotes',
 				SECTION_ADD_NAMED 	= 'gc_player_emote'
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/EFFECTS/ENGINES/SPEEDCOOL.ANIM.MBIN',
-				'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN',
-				'REMOVE'
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'FrameCount',	10}
-				}
 			}
 		}
 	}

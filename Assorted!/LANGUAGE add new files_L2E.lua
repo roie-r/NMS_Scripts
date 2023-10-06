@@ -1,4 +1,6 @@
 ----------------------------------------------------------------------------------------
+dofile('LIB/lua_2_exml.lua')
+----------------------------------------------------------------------------------------
 mod_desc = [[
   Add a new language file.
   - Generates a separate mbin for each language. If an additional language has missing
@@ -269,28 +271,19 @@ end
 -- return a complete TkLocalisationTable exml
 -- if a locale text is missing, insert default locale text
 local function BuildLocaleText(lang_code)
-	local T = {}
+	local T = {META = {'name', 'Table'}}
 	for id, text in pairs(text_lines.entries) do
 		local code = text[lang_code] and lang_code or text_lines.default
-		T[#T+1] = string.format(
-			[[<Property value="TkLocalisationEntry.xml">
-				<Property name="Id" value="%s"/>
-				<Property name="%s" value="VariableSizeString.xml">
-					<Property name="Value" value="%s"/>
-				</Property>
-			</Property>]],
-			id,
-			languages[lang_code],
-			InsertCharEntities(text[code])
-		)
+		T[#T+1] = {
+			META	= {'value', 'TkLocalisationEntry.xml'},
+			Id		= id,
+			{
+				META	= {languages[lang_code], 'VariableSizeString.xml'},
+				Value	= InsertCharEntities(text[code])
+			}
+		}
 	end
-	return string.format(
-		[[<?xml version="1.0" encoding="utf-8"?>
-		<Data template="TkLocalisationTable">
-			<Property name="Table">%s</Property>
-		</Data>]],
-		table.concat(T)
-	)
+	return FileWrapping(T, 'TkLocalisationTable')
 end
 
 local function AddLanguageFiles()
@@ -321,19 +314,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
-	MODIFICATIONS		= {{
-		MBIN_CHANGE_TABLE	= {
-		{
-			MBIN_FILE_SOURCE	= 'GCDEBUGOPTIONS.GLOBAL.MBIN',
-			EXML_CHANGE_TABLE	= {
-				{
-					PRECEDING_KEY_WORDS	= 'LocTableList',
-					ADD = string.format(
-						[[<Property value="NMSString0x20.xml"><Property name="Value" value="%s"/></Property>]],
-						text_lines.locale
-					)
-				}
-			}
-		}
-	}}}
+	-- MODIFICATIONS		= {{
+		-- MBIN_CHANGE_TABLE	= {
+		-- {
+			-- MBIN_FILE_SOURCE	= 'GCDEBUGOPTIONS.GLOBAL.MBIN',
+			-- EXML_CHANGE_TABLE	= {
+				-- {
+					-- PRECEDING_KEY_WORDS	= 'LocTableList',
+					-- ADD					= ToExml({
+						-- META	= {'value', 'NMSString0x20.xml'},
+						-- Value	= text_lines.locale
+					-- })
+				-- }
+			-- }
+		-- }
+	-- }}}
 }

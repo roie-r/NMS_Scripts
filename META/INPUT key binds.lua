@@ -102,14 +102,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'InputAction', 'Terrain_SizeDown'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'InputButton',	'F1'}
+					{'InputButton',	'F2'}
 				}
 			},
 			{--	terrain edit sphere size up
 				SPECIAL_KEY_WORDS	= {'InputAction', 'Terrain_SizeUp'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'InputButton',	'F2'}
+					{'InputButton',	'F1'}
 				}
 			},
 			{

@@ -19,19 +19,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	-- {--	|builder leg cylinder|
-		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/PHONG186.MATERIAL.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'x',			0.46},
-					-- {'y',			0.62},
-					-- {'z',			0.76}
-				-- }
-			-- }
-		-- }
-	-- },
+	{--	no |builder body light|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/INTERIORLIGHTS_MAT4.MATERIAL.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'Samplers',
+				REMOVE				= 'Section'
+			}
+		}
+	},
 	{--	|builder cloth tile|
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/BCLOTHTILEABLEPAD1.MATERIAL.MBIN',
@@ -39,11 +35,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		EXML_CHANGE_TABLE	= {
 			{
+				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
+				VALUE_CHANGE_TABLE	= {
+					{'Map', 'TEXTURES/COMMON/ROBOTS/CLOTH/CANVAS/CLOTHTILEABLEPADDING.DDS'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'gMasksMap'},
+				VALUE_CHANGE_TABLE	= {
+					{'Map', 'TEXTURES/COMMON/ROBOTS/CLOTH/CANVAS/CLOTHTILEABLEPADDING.MASKS.DDS'}
+				}
+			},
+			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gNormalMap'},
 				VALUE_CHANGE_TABLE	= {
-					{'Map', 'TEXTURES/COMMON/ROBOTS/CLOTH/NORMAL/CLOTHTILEABLEPADDING.NORMAL.DDS'}
+					{'Map', 'TEXTURES/COMMON/ROBOTS/CLOTH/CANVAS/CLOTHTILEABLEPADDING.NORMAL.DDS'}
 				}
-			}
+			},
 		}
 	},
 	{--	|large crystal shard| reward fix

@@ -39,29 +39,29 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|delete contrails|
-		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				PRECEDING_KEY_WORDS	= 'Children',
-				REMOVE				= 'Section'
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.TRAIL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'Width',				0},
-					{'Points',				0},
-					{'MaxPointsPerFrame',	0},
-					{'DistanceThreshold',	0},
-					{'PointLife',			0}
-				}
-			}
-		}
-	},
+	-- {--	|delete contrails|
+		-- MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.SCENE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- PRECEDING_KEY_WORDS	= 'Children',
+				-- REMOVE				= 'Section'
+			-- }
+		-- }
+	-- },
+	-- {
+		-- MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.TRAIL.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Width',				0},
+					-- {'Points',				0},
+					-- {'MaxPointsPerFrame',	0},
+					-- {'DistanceThreshold',	0},
+					-- {'PointLife',			0}
+				-- }
+			-- }
+		-- }
+	-- },
 	{--	|no foggy headlights| cone from cockpits
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/CANOPY/CANOPYA.SCENE.MBIN',

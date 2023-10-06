@@ -9,7 +9,7 @@ mod_desc = [[
 ]]---------------------------------------------------------------------------------------
 
 local scan_event = {
-	termimal =	{-- trade termimal
+	termimal =	{-- trade terminal
 		event	= 'TERMINAL',
 		class	= 'Terminal',
 		osd		= 'SIGNAL_TERMINAL',
@@ -83,7 +83,7 @@ local scan_event = {
 		tip		= 'TUT_BASEBUILD_SURVEY_OSD',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.GLITCH.DDS'
 	},
-	grave =		{-- traveller grave
+	grave =		{-- traveler grave
 		name	= 'SCAN_GRAVE',
 		event	= 'TRAVEL_GRAVE',
 		class	= 'GraveInCave',
@@ -255,7 +255,7 @@ local scan_menu_table = {
 		icon  = scan_event.depot.icon,
 		scan  = {
 			'DEPOT',
-			'TERMINAL',
+			'TERMINAL'
 		}
 	},
 	{--	drop pod
@@ -270,7 +270,7 @@ local scan_menu_table = {
 		icon  = scan_event.abandoned.icon,
 		scan  = {
 			'ABANDONED',
-			'UW_ABANDONED',
+			'UW_ABANDONED'
 		}
 	},
 	{--	treasure / underwater / regular ruin
@@ -298,7 +298,7 @@ local scan_menu_table = {
 		icon  = scan_event.radio.icon,
 		scan  = {
 			'RADIOTOWER',
-			'OBSERVATORY',
+			'OBSERVATORY'
 		}
 	},
 	{--	factory / harvester

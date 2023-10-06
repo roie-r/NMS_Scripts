@@ -467,6 +467,130 @@ function replace_requirements:GetExmlCT(T)
 	end
 end
 
+local ECT = {}
+for _,tm in ipairs({
+	charge_amount,
+	include_in_category,
+	edit_rgb,
+	fragment_cost,
+	tech_icons,
+	add_edit_stats,
+	charge_to_top,
+	replace_requirements
+}) do
+	tm:GetExmlCT(ECT)
+end
+
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS 	= {
+		{'ID', 'MECH_MINER'},
+		{'ID', 'SUN_LASER'}
+	},
+	VALUE_CHANGE_TABLE 	= {
+		{'SubstanceCategory', 'Metal'}	-- Fuel
+	}
+}
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS 	= {
+		{'ID',	'PROTECT'},
+		{'ID',	'ENERGY'},
+		{'ID',	'JET1'},
+		{'ID',	'SHIPJUMP1'},
+		{'ID',	'LAUNCHER'},
+		{'ID',	'HYPERDRIVE'},
+		{'ID',	'SHIPSHIELD'},
+		{'ID',	'LASER'},
+		{'ID',	'VEHICLE_ENGINE'},
+		{'ID',	'SUB_ENGINE'},
+		{'ID',	'SHIPJUMP_ALIEN'},
+		{'ID',	'LAUNCHER_ALIEN'},
+		{'ID',	'WARP_ALIEN'},
+		{'ID',	'SHIELD_ALIEN'},
+		{'ID',	'SHIPGUN_ALIEN'},
+		{'ID',	'SHIPLAS_ALIEN'},
+		{'ID',	'LAUNCHER_SPEC'},
+		{'ID',	'SHIPJUMP_SPEC'},
+		{'ID',	'HYPERDRIVE_SPEC'},
+		{'ID',	'SHIP_LIFESUP'},
+		{'ID',	'MECH_ENGINE'},
+		{'ID',	'SOLAR_SAIL'},
+		{'ID',	'LAUNCHER_ROBO'},
+		{'ID',	'SHIPJUMP_ROBO'},
+		{'ID',	'HYPERDRIVE_ROBO'},
+		{'ID',	'SHIPSHIELD_ROBO'},
+		{'ID',	'LIFESUP_ROBO'},
+		{'ID',	'SENT_LASER'},
+		{'ID',	'ATLAS_LASER'},
+		{'ID',	'F_HYPERDRIVE'},
+		{'ID',	'F_LIFESUPP'}
+	},
+	VALUE_CHANGE_TABLE 	= {
+		{'Core',		false}
+	}
+}
+ECT[#ECT+1] = {
+	PRECEDING_KEY_WORDS	= 'Table',
+	ADD					= ToExml({
+		[1] = TechnologyEntry({
+			id				= 'VEHICLESTUN',
+			name			= 'VEHICLESTUN_NAME',
+			namelower		= 'VEHICLESTUN_NAME_L',
+			subtitle		= 'VEHICLESTUN_SUB',
+			description		= 'VEHICLESTUN_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/RENDER.STUNGUN.DDS',
+			color			= 'FF095C77',
+			chargeable		= true,
+			chargeamount	= 40,
+			chargetype		= 'Fuel',
+			chargeby		= {'GRENFUEL1'},
+			chargemultiply	= 2,
+			primaryitem		= true,
+			category		= 'Exocraft',
+			rarity			= 'Rare',
+			value			= 5,
+			requirements	= {
+				{id='LAVA1',		n=70,	tp=I_.SBT},
+				{id='HYDRALIC',		n=2,	tp=I_.PRD},
+				{id='TECH_COMP',	n=1,	tp=I_.PRD}
+			},
+			basestat		= 'Vehicle_StunGun',
+			statbonuses		= {
+				{st='Vehicle_GunDamage',			bn=20,	lv=3},
+				{st='Vehicle_GunHeatTime',			bn=1,	lv=1},
+				{st='Vehicle_GunRate',				bn=0.5,	lv=1}
+			},
+			fragmentcost	= 580
+		}),
+		[2] = TechnologyEntry({
+			id				= 'BODYSHIELD',
+			name			= 'BODYSHIELD_NAME',
+			namelower		= 'BODYSHIELD_NAME_L',
+			subtitle		= 'BODYSHIELD_SUB',
+			description		= 'BODYSHIELD_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
+			color			= 'FF095C77',
+			chargeable		= true,
+			chargeamount	= 400,
+			chargetype		= 'Catalyst',
+			chargeby		= {'POWERCELL', 'CATALYST2', 'CATALYST1'},
+			primaryitem		= true,
+			category		= 'Suit',
+			rarity			= 'Rare',
+			value			= 5,
+			requirements	= {
+				{id='POWERCELL', 	n=1, 	tp=I_.PRD}
+			},
+			basestat		= 'Suit_Armour_Shield',
+			statbonuses		= {
+				{st='Suit_Armour_Shield',			bn=1,	lv=1},
+				{st='Suit_Armour_Shield_Strength',	bn=24,	lv=1},
+				{st='Suit_Armour_Health',			bn=60,	lv=20}
+			},
+			fragmentcost	= 980
+		})
+	})
+}
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
@@ -476,133 +600,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN',
-		EXML_CHANGE_TABLE	= (
-			function()
-				local T = {}
-				for _,tm in ipairs({
-					charge_amount,
-					include_in_category,
-					edit_rgb,
-					fragment_cost,
-					tech_icons,
-					add_edit_stats,
-					charge_to_top,
-					replace_requirements
-				}) do
-					tm:GetExmlCT(T)
-				end
-
-				T[#T+1] = {
-					SPECIAL_KEY_WORDS 	= {
-						{'ID', 'MECH_MINER'},
-						{'ID', 'SUN_LASER'}
-					},
-					VALUE_CHANGE_TABLE 	= {
-						{'SubstanceCategory', 'Metal'}	-- Fuel
-					}
-				}
-				T[#T+1] = {
-					SPECIAL_KEY_WORDS 	= {
-						{'ID',	'PROTECT'},
-						{'ID',	'ENERGY'},
-						{'ID',	'JET1'},
-						{'ID',	'SHIPJUMP1'},
-						{'ID',	'LAUNCHER'},
-						{'ID',	'HYPERDRIVE'},
-						{'ID',	'SHIPSHIELD'},
-						{'ID',	'LASER'},
-						{'ID',	'VEHICLE_ENGINE'},
-						{'ID',	'SUB_ENGINE'},
-						{'ID',	'SHIPJUMP_ALIEN'},
-						{'ID',	'LAUNCHER_ALIEN'},
-						{'ID',	'WARP_ALIEN'},
-						{'ID',	'SHIELD_ALIEN'},
-						{'ID',	'SHIPGUN_ALIEN'},
-						{'ID',	'SHIPLAS_ALIEN'},
-						{'ID',	'LAUNCHER_SPEC'},
-						{'ID',	'SHIPJUMP_SPEC'},
-						{'ID',	'HYPERDRIVE_SPEC'},
-						{'ID',	'SHIP_LIFESUP'},
-						{'ID',	'MECH_ENGINE'},
-						{'ID',	'SOLAR_SAIL'},
-						{'ID',	'LAUNCHER_ROBO'},
-						{'ID',	'SHIPJUMP_ROBO'},
-						{'ID',	'HYPERDRIVE_ROBO'},
-						{'ID',	'SHIPSHIELD_ROBO'},
-						{'ID',	'LIFESUP_ROBO'},
-						{'ID',	'SENT_LASER'},
-						{'ID',	'ATLAS_LASER'},
-						{'ID',	'F_HYPERDRIVE'},
-						{'ID',	'F_LIFESUPP'}
-					},
-					VALUE_CHANGE_TABLE 	= {
-						{'Core',		false}
-					}
-				}
-				T[#T+1] = {
-					PRECEDING_KEY_WORDS	= 'Table',
-					ADD					= ToExml({
-						[1] = TechnologyEntry({
-							id				= 'VEHICLESTUN',
-							name			= 'VEHICLESTUN_NAME',
-							namelower		= 'VEHICLESTUN_NAME_L',
-							subtitle		= 'VEHICLESTUN_SUB',
-							description		= 'VEHICLESTUN_DESC',
-							icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/RENDER.STUNGUN.DDS',
-							color			= 'FF095C77',
-							chargeable		= true,
-							chargeamount	= 40,
-							chargetype		= 'Fuel',
-							chargeby		= {'GRENFUEL1'},
-							chargemultiply	= 2,
-							primaryitem		= true,
-							category		= 'Exocraft',
-							rarity			= 'Rare',
-							value			= 5,
-							requirements	= {
-								{id='LAVA1',		n=70,	tp=I_.SBT},
-								{id='HYDRALIC',		n=2,	tp=I_.PRD},
-								{id='TECH_COMP',	n=1,	tp=I_.PRD}
-							},
-							basestat		= 'Vehicle_StunGun',
-							statbonuses		= {
-								{st='Vehicle_GunDamage',			bn=20,	lv=3},
-								{st='Vehicle_GunHeatTime',			bn=1,	lv=1},
-								{st='Vehicle_GunRate',				bn=0.5,	lv=1}
-							},
-							fragmentcost	= 580
-						}),
-						[2] = TechnologyEntry({
-							id				= 'BODYSHIELD',
-							name			= 'BODYSHIELD_NAME',
-							namelower		= 'BODYSHIELD_NAME_L',
-							subtitle		= 'BODYSHIELD_SUB',
-							description		= 'BODYSHIELD_DESC',
-							icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
-							color			= 'FF095C77',
-							chargeable		= true,
-							chargeamount	= 400,
-							chargetype		= 'Catalyst',
-							chargeby		= {'POWERCELL', 'CATALYST2', 'CATALYST1'},
-							primaryitem		= true,
-							category		= 'Suit',
-							rarity			= 'Rare',
-							value			= 5,
-							requirements	= {
-								{id='POWERCELL', 	n=1, 	tp=I_.PRD}
-							},
-							basestat		= 'Suit_Armour_Shield',
-							statbonuses		= {
-								{st='Suit_Armour_Shield',			bn=1,	lv=1},
-								{st='Suit_Armour_Shield_Strength',	bn=24,	lv=1},
-								{st='Suit_Armour_Health',			bn=60,	lv=20}
-							},
-							fragmentcost	= 980
-						})
-					})
-				}
-				return T
-			end
-		)()
+		EXML_CHANGE_TABLE	= ECT
 	}
 }}}}

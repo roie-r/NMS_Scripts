@@ -46,11 +46,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'AutoAimMaxAngle',						25}, 	-- 30
 					{'SlopeSlidingSpeed',					-18},	-- -15
 					{'SlopeSlideBrake',						6.5},	-- 18.5
-					{'AutoSaveMaxTime',						9999999},		--	1598
-					{'AutoSaveMinTime',						9999999},
-					{'AutoSaveRangeOnFoot',					9999999},
-					{'AutoSaveRangeInVehicle',				9999999},
-					{'AutoSaveRangeInSpace',				99999999},
+					{'AutoSaveMaxTime',						999999999},	--	1600
+					{'AutoSaveMinTime',						999999999},
+					{'AutoSaveRangeOnFoot',					999999999},
+					{'AutoSaveRangeInVehicle',				999999999},
+					{'AutoSaveRangeInSpace',				9999999999},
 				}
 			}
 		}

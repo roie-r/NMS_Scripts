@@ -1,56 +1,50 @@
----------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
----------------------------------------------------------------------------------
+---------------------------------------------------------------------------
 mod_desc = [[
   Adds procedural parts, more wrecks and a few wreck -and space-encounter
   items to the derelict freighter encounter mission.
   Adds a slow tumble to floating items to make the scene more dynamic
-  * fixes space clock & wrecks lighting to avoid issues when near other objects.
   * original mod by Redmas
-]]-------------------------------------------------------------------------------
+]]-------------------------------------------------------------------------
 
 local assets = {
 	{
-		name = '_Acc_',
+		name = '_Derelict_',
+		node = true,
 		{
 			form	= {-1000, 900, 200, 30, 20, 100, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'
 		},
 		{
 			form	= {-1200, 1300, 400, 10, -140, 240, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN'
 		},
 		{
 			form	= {1200, -1000, 300, 130, 90, 100, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN'
 		},
 		{
 			form	= {1000, 1000, 1200, 20, -150, 180, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN'
 		},
 		{
 			form	= {-1100, 1300, 400, 210, 110, 170, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI.SCENE.MBIN'
 		},
 		{
 			form	= {-1200, 800, -1100, -20, 30, -150, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI2.SCENE.MBIN'
 		},
 		{
 			form	= {-1100, 1400, -100, 15, 310, 165, 4, 4, 4},
-			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN',
-			addloc	= true
+			model	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER_SPACEPOI3.SCENE.MBIN'
 		}
 	},
 	{
-		name = '_Front_',
+		name = '_Anomal_F_',
+		node = true,
 		{
 			form	= {410, 475, 532, -20, 80, 60, 2.4, 2.4, 2.4},
 			model	= 'MODELS/SPACE/POI/WARRIORSILOS.SCENE.MBIN'
@@ -77,7 +71,8 @@ local assets = {
 		}
 	},
 	{
-		name = '_AccSide_',
+		name = '_Anomal_A_',
+		node = true,
 		{
 			form	= {410, 370, -800, 120, 210, 190, 0.6, 0.6, 0.6},
 			model	= 'MODELS/SPACE/POI/PILLARPOI.SCENE.MBIN'
@@ -94,26 +89,33 @@ local assets = {
 			form	= {-320, 246, -700, 120, 210, 190, 2, 2, 2},
 			model	= 'MODELS/SPACE/POI/ATLASBEACON.SCENE.MBIN'
 		}
+	},
+	{
+		-- add descriptor for existing nodes
+		name = '_Front_', 1, 1, 1, 1, 1, 1
+	},
+	{
+		-- add descriptor for existing nodes
+		name = '_AccSide_', 1, 1
 	}
 }
 
 local function AddSceneNodes()
 	local T = {}
 	for _, asset in ipairs(assets) do
-		for i, scn in ipairs(asset) do
-			if scn.addloc then
-				T[#T+1] = ScNode(asset.name..string.char(64 + i), 'LOCATOR')
+		if asset.node then
+			for i, scn in ipairs(asset) do
+				T[#T+1] = ScNode(
+					asset.name..string.char(64 + i), 'REFERENCE', {
+						ScTransform(scn.form),
+						ScAttributes({
+							{'SCENEGRAPH', scn.model},
+						--	add a spin entity to drifting wrecks
+							{'ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN.ENTITY.MBIN'}
+						})
+					}
+				)
 			end
-			T[#T+1] = ScNode(
-				asset.name..string.char(64 + i), 'REFERENCE', {
-					ScTransform(scn.form),
-					ScAttributes({
-						{'SCENEGRAPH', scn.model},
-					--	add a spin entity to drifting wrecks
-						{'ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN.ENTITY.MBIN'}
-					})
-				}
-			)
 		end
 	end
 	return ToExml(T)

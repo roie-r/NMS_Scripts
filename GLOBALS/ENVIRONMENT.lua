@@ -30,12 +30,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE = {
-					{'PlanetObjectSwitch',        2},
-					{'PlanetLodSwitch0',          2},
-					{'PlanetLodSwitch0Elevation', 2},
-					{'PlanetLodSwitch1',          2},
-					{'PlanetLodSwitch2',          2},
-					{'PlanetLodSwitch3',          2},
+					{'PlanetObjectSwitch',        3},
+					{'PlanetLodSwitch0',          3},
+					{'PlanetLodSwitch0Elevation', 3},
+					{'PlanetLodSwitch1',          3},
+					{'PlanetLodSwitch2',          3},
+					{'PlanetLodSwitch3',          3},
 				}
 			},
 			{

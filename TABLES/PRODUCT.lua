@@ -191,6 +191,92 @@ function prod_requirements:GetExmlCT()
 	return T
 end
 
+local ECT = {}
+for _,tm in ipairs({
+	stack_mult,
+	replace_icons,
+	icon_bg_color,
+	prod_requirements
+}) do
+	for _,tv in ipairs(tm:GetExmlCT()) do
+		ECT[#ECT+1] = tv
+	end
+end
+
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS	= {'ID', 'DRONE_SHARD'},
+	VALUE_CHANGE_TABLE 	= {
+		{'ChargeValue',	40}
+	}
+}
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS	= {'ID', 'JELLY'},
+	PRECEDING_KEY_WORDS = 'Subtitle',
+	VALUE_CHANGE_TABLE 	= {
+		{'Value',		'CRAFTPROD_SUB'}
+	}
+}
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS	= {'ID', 'TECH_COMP'},
+	VALUE_CHANGE_TABLE 	= {
+		{'ProductCategory', 'Component'}
+	}
+}
+ECT[#ECT+1] = {
+--	text added in custom lang file
+	SPECIAL_KEY_WORDS	= {'ID', 'GEODE_CAVE'},
+	VALUE_CHANGE_TABLE 	= {
+		{'Name',		'UI_GEODE_NAME_CAVE'},
+		{'NameLower',	'UI_GEODE_NAME_CAVE_L'}
+	}
+}
+ECT[#ECT+1] = {
+	PRECEDING_KEY_WORDS	= 'Table',
+	ADD					= ToExml({
+		[1] = ProductEntry({
+			id				= 'ULTRAPRODX40',
+			name			= 'PRODX40_NAME',
+			namelower		= 'PRODX40_NAME_L',
+			subtitle		= 'CURIO4_SUBTITLE',
+			description		= 'PRODX40_DESC',
+			basevalue		= 624000000,
+			color			= 'FFCCCCCC',
+			category		= 'Special',
+			type			= 'Tradeable',
+			rarity			= 'Rare',
+			legality		= 'Legal',
+			iscraftable		= true,
+			requirements	= {
+				{id='ULTRAPROD1', 		n=20,	tp=I_.PRD},
+				{id='ULTRAPROD2', 		n=20,	tp=I_.PRD}
+			},
+			stackmultiplier	= 16,
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.CAPTUREDNANODE.DDS'
+		}),
+		[2] = ProductEntry({
+			id				= 'SUPERFOOD',
+			name			= 'SUPERFOOD_NAME',
+			namelower		= 'SUPERFOOD_NAME_L',
+			subtitle		= 'PROD_NIP_SUBTITLE',
+			description		= 'SUPERFOOD_DESC',
+			basevalue		= 2,
+			color			= 'FF1A273D',
+			category		= 'Exotic',
+			type			= 'Consumable',
+			rarity			= 'Rare',
+			legality		= 'Legal',
+			consumable		= true,
+			requirements	= {
+				{id='SENTINEL_LOOT',	n=2,	pt=I_.PRD},
+				{id='FOOD_V_ROBOT',		n=2,	pt=I_.PRD},
+				{id='STELLAR2',			n=50,	pt=I_.SBT}
+			},
+			stackmultiplier	= 20,
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'
+		})
+	})
+}
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
@@ -200,98 +286,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN',
-		EXML_CHANGE_TABLE	= (
-			-- process all the above tables
-			function()
-				local T = {}
-				for _,tm in ipairs({
-					stack_mult,
-					replace_icons,
-					icon_bg_color,
-					prod_requirements
-				}) do
-					for _,tv in ipairs(tm:GetExmlCT()) do
-						T[#T+1] = tv
-					end
-				end
-
-				T[#T+1] = {
-					SPECIAL_KEY_WORDS	= {'ID', 'DRONE_SHARD'},
-					VALUE_CHANGE_TABLE 	= {
-						{'ChargeValue',	40}
-					}
-				}
-				T[#T+1] = {
-					SPECIAL_KEY_WORDS	= {'ID', 'JELLY'},
-					PRECEDING_KEY_WORDS = 'Subtitle',
-					VALUE_CHANGE_TABLE 	= {
-						{'Value',		'CRAFTPROD_SUB'}
-					}
-				}
-				T[#T+1] = {
-					SPECIAL_KEY_WORDS	= {'ID', 'TECH_COMP'},
-					VALUE_CHANGE_TABLE 	= {
-						{'ProductCategory', 'Component'}
-					}
-				}
-				T[#T+1] = {
-				--	text added in custom lang file
-					SPECIAL_KEY_WORDS	= {'ID', 'GEODE_CAVE'},
-					VALUE_CHANGE_TABLE 	= {
-						{'Name',		'UI_GEODE_NAME_CAVE'},
-						{'NameLower',	'UI_GEODE_NAME_CAVE_L'}
-					}
-				}
-				T[#T+1] = {
-					PRECEDING_KEY_WORDS	= 'Table',
-					ADD					= ToExml({
-						[1] = ProductEntry({
-							id				= 'ULTRAPRODX40',
-							name			= 'PRODX40_NAME',
-							namelower		= 'PRODX40_NAME_L',
-							subtitle		= 'CURIO4_SUBTITLE',
-							description		= 'PRODX40_DESC',
-							basevalue		= 624000000,
-							color			= 'FFCCCCCC',
-							category		= 'Special',
-							type			= 'Tradeable',
-							rarity			= 'Rare',
-							legality		= 'Legal',
-							iscraftable		= true,
-							requirements	= {
-								{id='ULTRAPROD1', 		n=20,	tp=I_.PRD},
-								{id='ULTRAPROD2', 		n=20,	tp=I_.PRD}
-							},
-							sendtoplayer	= true,
-							stackmultiplier	= 16,
-							icon			= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.CAPTUREDNANODE.DDS'
-						}),
-						[2] = ProductEntry({
-							id				= 'SUPERFOOD',
-							name			= 'SUPERFOOD_NAME',
-							namelower		= 'SUPERFOOD_NAME_L',
-							subtitle		= 'PROD_NIP_SUBTITLE',
-							description		= 'SUPERFOOD_DESC',
-							basevalue		= 2,
-							color			= 'FF1A273D',
-							category		= 'Exotic',
-							type			= 'Consumable',
-							rarity			= 'Rare',
-							legality		= 'Legal',
-							consumable		= true,
-							requirements	= {
-								{id='SENTINEL_LOOT',	n=2,	pt=I_.PRD},
-								{id='FOOD_V_ROBOT',		n=2,	pt=I_.PRD},
-								{id='STELLAR2',			n=50,	pt=I_.SBT}
-							},
-							sendtoplayer	= true,
-							stackmultiplier	= 20,
-							icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'
-						})
-					})
-				}
-				return T
-			end
-		)()
+		EXML_CHANGE_TABLE	= ECT
 	}
 }}}}

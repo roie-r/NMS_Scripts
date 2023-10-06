@@ -69,62 +69,63 @@ local function NightColorModifiers()
 	end
 	return T
 end
+	
+local sky_palettes = {
+	{--	natural pale blue
+		'FF81C0E9',
+		'FF57749A',
+		'FFB3DCEC',
+		'FFBBE0F3',
+		'FFFEFFD4',
+		'FFB3DCEC',
+		'FFFACFA0',
+		{1, 1, 1},
+		'FFFFFFE7',
+		'FFEEF9F1',
+		'FF97BBC7'
+	},
+	{-- hot pale orange
+		'FFE7AF76',
+		'FFEE7740',
+		'FFEBB178',
+		'FFF17468',
+		'FFE8E9B0',
+		'FF515A85',
+		'FFBAF3E0',
+		{2, 1, 1},
+		'FFF6D5B3',
+		'FFE7E9F1',
+		'FFE4D2AB'
+	},
+	{--	soft turquoize1
+		'FF7CE9CA',
+		'FF94D3AD',
+		'FF66DBAC',
+		'FFB1D8E2',
+		'FFDBDBAF',
+		'FF2C617A',
+		'FF5CD8FF',
+		{2, 1.2, 1},
+		'FFDFDFC2',
+		'FFE2F6F6',
+		'FF5CA998'
+	}
+}
+local sky_part = {
+	{f=ColorData,	n='SkyColour'},
+	{f=ColorData, 	n='SkyUpperColour'},
+	{f=ColorData, 	n='SkySolarColour'},
+	{f=ColorData, 	n='HorizonColour'},
+	{f=ColorData, 	n='SunColour'},
+	{f=ColorData, 	n='FogColour'},
+	{f=ColorData, 	n='HeightFogColour'},
+	{f=VectorData,	n='SkyGradientSpeed'},
+	{f=ColorData, 	n='LightColour'},
+	{f=ColorData, 	n='CloudColour1'},
+	{f=ColorData, 	n='CloudColour2'}
+}
 
 local function AddPlanetWeatherColor(skies)
-	local sky_part = {
-		{f=ColorData,	n='SkyColour'},
-		{f=ColorData, 	n='SkyUpperColour'},
-		{f=ColorData, 	n='SkySolarColour'},
-		{f=ColorData, 	n='HorizonColour'},
-		{f=ColorData, 	n='SunColour'},
-		{f=ColorData, 	n='FogColour'},
-		{f=ColorData, 	n='HeightFogColour'},
-		{f=VectorData,	n='SkyGradientSpeed'},
-		{f=ColorData, 	n='LightColour'},
-		{f=ColorData, 	n='CloudColour1'},
-		{f=ColorData, 	n='CloudColour2'}
-	}
-	local sky_palettes = {
-		{--	natural pale blue
-			'FF81C0E9',
-			'FF57749A',
-			'FFB3DCEC',
-			'FFBBE0F3',
-			'FFFEFFD4',
-			'FFB3DCEC',
-			'FFFACFA0',
-			{1, 1, 1},
-			'FFFFFFE7',
-			'FFEEF9F1',
-			'FF97BBC7'
-		},
-		{-- hot pale orange
-			'FFE7AF76',
-			'FFEE7740',
-			'FFEBB178',
-			'FFF17468',
-			'FFE8E9B0',
-			'FF515A85',
-			'FFBAF3E0',
-			{2, 1, 1},
-			'FFF6D5B3',
-			'FFE7E9F1',
-			'FFE4D2AB'
-		},
-		{--	soft turquoize1
-			'FF7CE9CA',
-			'FF94D3AD',
-			'FF66DBAC',
-			'FFB1D8E2',
-			'FFDBDBAF',
-			'FF2C617A',
-			'FF5CD8FF',
-			{2, 1.2, 1},
-			'FFDFDFC2',
-			'FFE2F6F6',
-			'FF5CA998'
-		}
-	}
 	local T = {}
 	for _, num in ipairs(skies) do
 		local pwcd = { META = {'value', 'GcPlanetWeatherColourData.xml'} }

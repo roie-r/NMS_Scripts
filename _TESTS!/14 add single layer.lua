@@ -116,7 +116,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 14 add single layer.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.38',
+	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS		= {},
 	ADD_FILES			= add_tex_layers_files()

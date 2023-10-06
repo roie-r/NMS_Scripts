@@ -15,9 +15,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'UI/HUD/HUDNOTIFICATIONPANEL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'TITLEBACKGROUND'},
-					{'ID', 'BACKGROUND'},
+					{'ID', 'BACKGROUND'}
 				},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
@@ -31,7 +31,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'TITLE'},
 					{'ID', 'BODY'}
 				},
@@ -43,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				FOREACH_SKW_GROUP 	= {
+				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'HEADERLINE'},
 					{'ID', 'BASELINE'}
 				},

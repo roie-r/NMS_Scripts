@@ -115,21 +115,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGILEFT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
+				SPECIAL_KEY_WORDS	= {
+					{'Name', '_logo1_A1'},
+					{'Name', '_logo2_A2'},
+				},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotX',		-90},
-					{'RotY',		-90},
 					{'TransX',		1.1},
-					{'ScaleX', 		0.56},
-					{'ScaleY', 		0.56}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
-				VALUE_CHANGE_TABLE 	= {
-					{'RotX',		-90},
-					{'RotY',		-90},
-					{'TransX',		1.1},
+					{'RotX',		90},
+					{'RotY',		90},
 					{'ScaleX', 		0.56},
 					{'ScaleY', 		0.56}
 				}
@@ -140,16 +133,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/WINGS/WINGSI/WINGIRIGHT.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', '_logo1_A1'},
+				SPECIAL_KEY_WORDS	= {
+					{'Name', '_logo1_A1'},
+					{'Name', '_logo2_A2'},
+				},
 				VALUE_CHANGE_TABLE 	= {
-					{'RotY',		-90},
-					{'ScaleX', 		0.56},
-					{'ScaleY', 		0.56}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', '_logo2_A2'},
-				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		-1.1},
 					{'RotY',		-90},
 					{'ScaleX', 		0.56},
 					{'ScaleY', 		0.56}

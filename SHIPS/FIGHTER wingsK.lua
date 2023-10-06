@@ -117,3 +117,43 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	}
 }}}}
+
+-- local function MoveDecals()
+	-- local decals = {
+		-- 'logoRight_A',
+		-- 'logoRight_A1',
+		-- 'RectangleRight_A',
+		-- 'RectangleRight_A1',
+		-- 'LetterRight_A',
+		-- 'LetterRight_A1'
+	-- }
+	-- local T = {}
+	-- for _,dec in ipairs(decals) do
+		-- local node = '_'..decal..'LOD'..'0'
+		-- T[#T+1] = {
+			-- SPECIAL_KEY_WORDS	= {'Name', node},
+			-- SECTION_SAVE_TO		= 'tk_scene_node_data'
+		-- }
+		-- T[#T+1] = {
+			-- SECTION_EDIT 		= 'tk_scene_node_data',
+			-- VALUE_CHANGE_TABLE 	= {
+				-- {'Name',		dec}
+			-- }
+		-- }
+		-- T[#T+1] = {
+			-- SPECIAL_KEY_WORDS	= {'Name', '_WingsK_A'},
+			-- PRECEDING_KEY_WORDS	= 'Children',
+			-- SECTION_ADD_NAMED 	= 'tk_scene_node_data'
+		-- }
+	-- end
+	-- rem = #T+1
+	-- T[rem] = {
+		-- SKW		= {},
+		-- REMOVE	= 'Section'
+	-- }
+	-- for _,dec in ipairs(decals) do
+		-- T[rem].SKW[#T[rem].SKW+1] = {'Name', '_'..decal..'LOD'..'0'}
+		-- T[rem].SKW[#T[rem].SKW+1] = {'Name', '_'..decal..'LOD'..'1'}
+	-- end
+	-- return T
+-- end

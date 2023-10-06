@@ -1,5 +1,6 @@
 -----------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 -----------------------------------------------------------------------
 mod_desc = [[
   Shorter overhead tail fin _Acc_A (clips with engines B & D)
@@ -11,17 +12,17 @@ mod_desc = [[
 ]]---------------------------------------------------------------------
 
 local fighter = {
-	ship =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/FIGHTER_PROC.SCENE.MBIN',         				add=true,	lod1=true},
+	ship =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/FIGHTER_PROC.SCENE.MBIN',         				skip=true},
 	turbine =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/TURBINEAA.SCENE.MBIN',         		add=true},
 	tail =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/ACCA.SCENE.MBIN',              		add=true},
-	lamp =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/HEADLAMP.SCENE.MBIN',				add=true,	lod1=true},
+	lamp =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/HEADLAMP.SCENE.MBIN',				skip=true},
 	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_A/COCKPITA.SCENE.MBIN',    		add=true},
 	cockpit_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_A/GOLDCOCKPITA.SCENE.MBIN',		add=true},
 	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_B/COCKPITB.SCENE.MBIN',    		add=true},
 	cockpit_g =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_D/COCKPITD.SCENE.MBIN',    		add=true},
 	cockpit_e =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_E/COCKPIT_E.SCENE.MBIN',   		add=true},
 	cockpit_f =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_F/COCKPTF.SCENE.MBIN',     		add=true},
-	interior =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPITCOMMON_INTERIOR.SCENE.MBIN',		lod1=true},
+	interior =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPITCOMMON_INTERIOR.SCENE.MBIN',		skip=true},
 	nose_a =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/COCKPITANOSEA.SCENE.MBIN'},
 	nose_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/GOLDCOCKPITANOSEA.SCENE.MBIN'},
 	nose_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEB/COCKPITANOSEB.SCENE.MBIN'},
@@ -73,6 +74,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TransZ',		0.315},
 					{'ScaleZ',		1.265}
 				}
+			}
+		}
+	},
+	{--	adds trail for Wing_F turbines
+		MBIN_FILE_SOURCE	= fighter.wing_f.src,
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Turbine'},
+				ADD_OPTION			= 'AddAfterSection',
+				ADD					= ToExml({
+					[1] = ScNode('TrailFL', 'LOCATOR', {ScTransform({4.85, 1.19, -1.1})}),
+					[2] = ScNode('TrailFR', 'LOCATOR', {ScTransform({-4.85, 1.19, -1.1})})
+				})
 			}
 		}
 	},
@@ -154,20 +168,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ScaleZ', 		1.3}
 				}
 			},
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Name', 'logo_A2'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'TransX',		0},
-					-- {'TransY',		1.25},
-					-- {'TransZ',		4.98},
-					-- {'RotX', 		0},
-					-- {'RotY', 		90},
-					-- {'RotZ', 		0},
-					-- {'ScaleX', 		0.317},
-					-- {'ScaleY', 		0.317},
-					-- {'ScaleZ', 		1.2}
-				-- }
-			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Number_A2'},
 				VALUE_CHANGE_TABLE 	= {
@@ -181,7 +181,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {
 					{'Name', 'Rectangle_A3'},
-					-- {'Name', 'logo_A1'},
 					{'Name', 'logo_A3'},
 					{'Name', 'logo_A4'},
 					{'Name', 'Number_A1'},
@@ -365,20 +364,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	|fighter lower tail fin|
 		MBIN_FILE_SOURCE	= fighter.ship.src,
 		EXML_CHANGE_TABLE	= (
 			function()
-				T = {}
-				for _,x in ipairs({'', 1, 2, 3, 4, 5, 6, 10}) do
-					T[#T+1] = {
-						SPECIAL_KEY_WORDS	= {'Name', '_Acc_A'..x},
+				T = {
+					{
+						SKW					= {},
 						VALUE_CHANGE_TABLE 	= {
 							{'ScaleX',		0.88},
 							{'ScaleY',		0.68},
 							{'ScaleZ',		1.08}
 						}
 					}
+				}
+				for _,x in ipairs({'', 1, 2, 3, 4, 5, 6, 10}) do
+					T[1].SKW[#T[1].SKW+1] = {'Name', '_Acc_A'..x}
 				end
 				return T
 			end
@@ -389,39 +390,41 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		function()
 			T = {}
 			for _,part in pairs(fighter) do
-				inx = #T+1
-				T[inx] = {
-					MBIN_FILE_SOURCE	= part.src,
-					EXML_CHANGE_TABLE	= {
-						{
-							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-							VALUE_CHANGE_TABLE 	= {
-								{'Value',		5}
+				if not part.skip then
+					inx = #T+1
+					T[inx] = {
+						MBIN_FILE_SOURCE	= part.src,
+						EXML_CHANGE_TABLE	= {
+							{
+								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+								VALUE_CHANGE_TABLE 	= {
+									{'Value',		5}
+								}
 							}
-						}					
+						}
 					}
-				}
-				ect = T[inx].EXML_CHANGE_TABLE
-				if not part.lod1 then
-					ect[#ect+1] = {
-						SPECIAL_KEY_WORDS 	= {
-							{'Name', 'LODDIST1'},
-							{'Name', 'LODDIST2'},
-							{'Name', 'LODDIST3'}
-						},
-						REMOVE = 'Section'
-					}
-				end
-				if part.add then
-					ect[#ect+1] = {
-						SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-						ADD_OPTION			= 'AddAfterSection',
-						ADD 				= ToExml({
-							META	= {'value', 'TkSceneNodeAttributeData.xml'},
-							Name	= 'ATTACHMENT',
-							Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
-						})
-					}
+					ect = T[inx].EXML_CHANGE_TABLE
+					if not part.lod1 then
+						ect[#ect+1] = {
+							SPECIAL_KEY_WORDS 	= {
+								{'Name', 'LODDIST1'},
+								{'Name', 'LODDIST2'},
+								{'Name', 'LODDIST3'}
+							},
+							REMOVE = 'Section'
+						}
+					end
+					if part.add then
+						ect[#ect+1] = {
+							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+							ADD_OPTION			= 'AddAfterSection',
+							ADD 				= ToExml({
+								META	= {'value', 'TkSceneNodeAttributeData.xml'},
+								Name	= 'ATTACHMENT',
+								Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
+							})
+						}
+					end
 				end
 			end
 			return T

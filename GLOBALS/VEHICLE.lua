@@ -20,7 +20,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'MechJetpackTurnSpeed',				1.8},	-- 3
 					{'MechLandBrake',						5},		-- 4
-					{'MechJetpackStrafeStrength',			1.5},	-- 0.5
+					{'MechJetpackStrafeStrength',			1.8},	-- 0.5
 					{'MechJetpackLandTime',					0.4},	-- 0.6
 					{'MechJetpackForce',					78},	-- 70
 					{'MechJetpackMaxSpeed',					42},	-- 20

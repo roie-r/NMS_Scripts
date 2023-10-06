@@ -17,25 +17,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
-					-- {'FormationOffsetZOffsetVarianceMaxSpeedScale',		80},	-- 150
-					-- {'FormationOffsetCylinderWidth',					50},	-- 80
-					-- {'FormationOffsetCylinderHeight',					30},	-- 40
-					-- {'FormationOffsetCylinderLength',					5},		-- 10
-					-- {'CombatFormationOffsetCylinderWidth',				180},	-- 80
-					-- {'CombatFormationOffsetCylinderHeight',				90},	-- 40
-					-- {'CombatFormationOffsetCylinderLength',				50},	-- 10
-					-- {'CombatFormationOffsetCylinderWidthThirdPerson',	180},	-- 75
-					-- {'CombatFormationOffsetCylinderHeightThirdPerson',	90},	-- 40
-					-- {'CombatFormationOffsetCylinderLengthThirdPerson',	30},	-- 5
-					-- {'MaintainFormationInCombatMinTime',				2},		-- 10
-					-- {'MaintainFormationInCombatMaxTime',				8},		-- 20
-					-- {'MaintainFormationLockStrengthCombat',				0.5},	-- 4.5
-					-- {'OutOfFormationMinTime',							2},		-- 8
-					-- {'OutOfFormationMaxTime',							40},	-- 16
+					{'FormationOffsetZOffsetVarianceMaxSpeedScale',		80},	-- 150
+					{'FormationOffsetCylinderWidth',					50},	-- 80
+					{'FormationOffsetCylinderHeight',					30},	-- 40
+					{'FormationOffsetCylinderLength',					5},		-- 10
+					{'CombatFormationOffsetCylinderWidth',				180},	-- 80
+					{'CombatFormationOffsetCylinderHeight',				90},	-- 40
+					{'CombatFormationOffsetCylinderLength',				50},	-- 10
+					{'CombatFormationOffsetCylinderWidthThirdPerson',	180},	-- 75
+					{'CombatFormationOffsetCylinderHeightThirdPerson',	90},	-- 40
+					{'CombatFormationOffsetCylinderLengthThirdPerson',	30},	-- 5
+					{'MaintainFormationInCombatMinTime',				2},		-- 10
+					{'MaintainFormationInCombatMaxTime',				8},		-- 20
+					{'MaintainFormationLockStrengthCombat',				0.5},	-- 4.5
+					{'OutOfFormationMinTime',							2},		-- 8
+					{'OutOfFormationMaxTime',							40},	-- 16
 					{'PoliceStationEngageRange',						8000},	-- 10000
 					{'PoliceStationNumToLaunch',						4},		-- 9
-					-- {'MinimumCircleTimeBeforeLanding',					8},		-- 5
-					-- {'MinimumTimeBetweenOutpostLandings',				4},		-- 3
 					{'DockWaitMinTime',									25},	-- 20
 					{'AbandonedSystemShipSpawnProbablity',				0.05},	-- 0
 					{'FlybyHeight',										200},	-- 120

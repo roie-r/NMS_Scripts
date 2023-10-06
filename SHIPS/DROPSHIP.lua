@@ -3,16 +3,17 @@ dofile('LIB/lua_2_exml.lua')
 -----------------------------------------------------------------
 mod_desc = [[
   dropship:
-  decal placements tweaks
-  No foggy headlights cone on cockpits
-  subwing_F dim lights
-  LOD improvement
+  - decal placements tweaks
+  - move guns below the cockpit (matches interior placement)
+  - No foggy headlights cone on cockpits
+  - subwing_F dim lights
+  - LOD improvement
 ]]---------------------------------------------------------------
 
 local dropship = {
-	ship =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',							lod1=true,	add=true},
-	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN'},
-	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN'},
+	ship =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',							skip=true},
+	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN',						skip=true},
+	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN',						skip=true},
 	box_l =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_L.SCENE.MBIN',	lod1=true,	add=true},
 	box_r =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_R.SCENE.MBIN',	lod1=true,	add=true},
 	ball_l =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_L.SCENE.MBIN',	lod1=true,	add=true},
@@ -118,6 +119,84 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					REPLACE_TYPE 		= 'All',
 					SPECIAL_KEY_WORDS	= {'Type', 'LIGHT'},
 					REMOVE				= 'Section'
+				}
+			}
+		},
+		{-- |dropship cockpit_A guns| placement
+			MBIN_FILE_SOURCE	= dropship.cockpit_a.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {
+						{'Name',	'Gun1Ref1'},
+						{'Name',	'Gun1Ref2'},
+					},
+					VALUE_CHANGE_TABLE 	= {
+						{'TransX',		1.33},
+						{'TransY',		1.47},
+						{'TransZ',		4.25},
+						{'RotZ',		90},
+						{'ScaleX',		0.7},
+						{'ScaleY',		0.7},
+						{'ScaleZ',		0.7}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Name', 'Gun1Ref2'},
+					VALUE_CHANGE_TABLE 	= {
+						{'TransX',		-1.33},
+						{'RotZ',		-90}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {
+						{'Name',	'_logoL_A'},
+						{'Name',	'_logoR_A'},
+					},
+					VALUE_CHANGE_TABLE 	= {
+						{'TransY',		1.8}
+					}
+				},
+			}
+		},
+		{-- |dropship cockpit_B guns| placement
+			MBIN_FILE_SOURCE	= dropship.cockpit_b.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {
+						{'Name',	'Gun1Ref2'},
+						{'Name',	'Gun1Ref3'}
+					},
+					VALUE_CHANGE_TABLE 	= {
+						{'TransX',		1.54},
+						{'TransY',		2.42},
+						{'TransZ',		3.03},
+						{'RotZ',		90},
+						{'ScaleX',		0.7},
+						{'ScaleY',		0.7},
+						{'ScaleZ',		0.7}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Name', 'Gun1Ref3'},
+					VALUE_CHANGE_TABLE 	= {
+						{'TransX',		-1.54},
+						{'RotZ',		-90}
+					}
+				}
+			}
+		},
+		{-- |dropship neck_5| decal fix
+			MBIN_FILE_SOURCE	= dropship.neck_5.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {
+						{'Name',	'_Letter1_A1'},
+						{'Name',	'_Letter2_A2'}
+					},
+					VALUE_CHANGE_TABLE 	= {
+						{'TransZ',		3.7},
+						{'RotZ',		0}
+					}
 				}
 			}
 		},
@@ -262,7 +341,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		},
-		{-- |dropship hull decals| fix
+		{-- |dropship hull| fixs
 			MBIN_FILE_SOURCE	= dropship.hull_a.src,
 			EXML_CHANGE_TABLE	= {
 				{
@@ -273,13 +352,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					VALUE_CHANGE_TABLE 	= {
 						{'TransX',		0},
 						{'TransY',		2.65},
-						{'TransZ',		0.19},
+						{'TransZ',		0},
 						{'RotX',		180},
 						{'RotY',		270},
 						{'RotZ',		180},
 						{'ScaleX',		2.1},
-						{'ScaleY',		1.18},
-						{'ScaleZ',		3.76},
+						{'ScaleY',		1.05},
+						{'ScaleZ',		3.76}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Name', '_SideL_A1', 'Name', 'MATERIAL'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Value', 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_RIGHT/RECTANGLEDECAL.MATERIAL.MBIN'}
 					}
 				},
 				{
@@ -330,37 +415,39 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			function()
 				T = {}
 				for _,part in pairs(dropship) do
-					inx = #T+1
-					T[inx] = {
-						MBIN_FILE_SOURCE	= part.src,
-						EXML_CHANGE_TABLE	= {
-							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-							VALUE_CHANGE_TABLE 	= {
-								{'Value',		5}
+					if not part.skip then
+						inx = #T+1
+						T[inx] = {
+							MBIN_FILE_SOURCE	= part.src,
+							EXML_CHANGE_TABLE	= {
+								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+								VALUE_CHANGE_TABLE 	= {
+									{'Value',		5}
+								}
 							}
 						}
-					}
-					ect = T[inx].EXML_CHANGE_TABLE
-					if not part.lod1 then
-						ect[#ect+1] = {
-							SPECIAL_KEY_WORDS 	= {
-								{'Name', 'LODDIST1'},
-								{'Name', 'LODDIST2'},
-								{'Name', 'LODDIST3'},
-							},
-							REMOVE				= 'Section'
-						}
-					end
-					if part.add then
-						ect[#ect+1] = {
-							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-							ADD_OPTION			= 'AddAfterSection',
-							ADD 				= ToExml({
-								META	= {'value', 'TkSceneNodeAttributeData.xml'},
-								Name	= 'ATTACHMENT',
-								Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
-							})
-						}
+						ect = T[inx].EXML_CHANGE_TABLE
+						if not part.lod1 then
+							ect[#ect+1] = {
+								SPECIAL_KEY_WORDS 	= {
+									{'Name', 'LODDIST1'},
+									{'Name', 'LODDIST2'},
+									{'Name', 'LODDIST3'},
+								},
+								REMOVE				= 'Section'
+							}
+						end
+						if part.add then
+							ect[#ect+1] = {
+								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+								ADD_OPTION			= 'AddAfterSection',
+								ADD 				= ToExml({
+									META	= {'value', 'TkSceneNodeAttributeData.xml'},
+									Name	= 'ATTACHMENT',
+									Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
+								})
+							}
+						end
 					end
 				end
 				return T

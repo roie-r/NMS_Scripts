@@ -36,19 +36,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {--	|same underwater freigher|
-		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- REPLACE_TYPE 		= 'All',
-				-- SPECIAL_KEY_WORDS	= {'WaterCrashedFreighter', 'GcBuildingFilename.xml'},
-				-- PRECEDING_KEY_WORDS = 'Scene',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'}
-				-- }
-			-- }
-		-- }
-	-- },
 	{--	|alt HUD icons|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -195,6 +182,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
+	-- {--	|same underwater freigher|
+		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- SPECIAL_KEY_WORDS	= {'WaterCrashedFreighter', 'GcBuildingFilename.xml'},
+				-- PRECEDING_KEY_WORDS = 'Scene',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'}
+				-- }
+			-- }
+		-- }
+	-- },
 	-- {--	|deeper oceans|
 		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/VOXELGENERATORSETTINGS.MBIN',
 		-- EXML_CHANGE_TABLE	= {

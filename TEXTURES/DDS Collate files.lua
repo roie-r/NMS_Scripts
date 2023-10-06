@@ -176,11 +176,9 @@ local texture_collection = {
 	},
 	{--	player: builder cloth padding
 		source = 'Player/',
-		target = 'COMMON/ROBOTS/CLOTH/',
+		target = 'COMMON/ROBOTS/CLOTH/CANVAS/',
 		names  = {
-			{s='CLOTHTILEABLEPADDING.DDS'},
-			{s='CLOTHTILEABLEPADDING.MASKS.DDS'},
-			{s='CLOTHTILEABLEPADDING.NORMAL.DDS',	t='NORMAL/CLOTHTILEABLEPADDING.NORMAL.DDS'},
+			{s='CLOTHTILEABLEPAD*.DDS'}
 		}
 	},
 	{--	menu: UI background

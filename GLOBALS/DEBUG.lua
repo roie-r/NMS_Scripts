@@ -15,8 +15,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'WeaponScale3P',						0.66},	-- 0.78
+					{'WeaponScale3P',						0.7},	-- 0.78
 					{'DisableSaveSlotSorting',				true},
+					{'AlwaysHaveFocus',						true},
 					{'ForceInitialShip',					false},
 					{'ForceInitialWeapon',					false},
 					{'DisableBaseBuildingLimits',			true},
@@ -27,7 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					-- {'MoveBaseIndex',						3},
 
 					--- FOR TESTING!
-					-- {'ForceSunAngle',						35},	-- 0
+					-- {'ForceSunAngle',						30},
 					-- {'EnableDayNightCycle',					false},
 					-- {'DisableStorms',						true},
 				}

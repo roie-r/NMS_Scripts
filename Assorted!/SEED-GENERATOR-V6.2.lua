@@ -13,7 +13,7 @@ mod_desc = [[
 
 local seed_counter = {
 	Fighter			= 0,
-	Dropship		= 10000,
+	Dropship		= 24000,
 	Scientific		= 0,
 	Shuttle			= 0,
 	Royal			= 0,
@@ -204,7 +204,7 @@ local seed_model = {
 
 local function TriggerActionComponent(reward_id)
 	return {
-		PRECEDING_KEY_WORDS	= 'GcCombatEffectsComponentData.xml',
+		PRECEDING_KEY_WORDS	= 'GcSpringAttachmentComponentData.xml',
 		ADD_OPTION			= 'ADDAfterSection',
 		ADD 				= ToExml({
 			META = {'value', 'GcTriggerActionComponentData.xml'},
@@ -264,18 +264,18 @@ end
 local function AnimationEntry(anim_id)
 	return {
 		{
-			SPECIAL_KEY_WORDS	= {'Anim', '0H_TURN_L'},
+			PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
 			SECTION_SAVE_TO		= 'tk_animation_data'
 		},
 		{
 			SECTION_EDIT 		= 'tk_animation_data',
 			VALUE_CHANGE_TABLE 	= {
-				{'Anim', anim_id},
-				{'Filename', 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN'}
+				{'Anim',		anim_id},
+				{'Filename',	'MODELS/TESTS/EFFECTTEST.ANIM.MBIN'}
 			}
 		},
 		{
-			SPECIAL_KEY_WORDS	= {'Anim', '0H_GREET_MOB_04', 'Filename', 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/INTERACTION/GENERAL/0H_INTER_GREET_07.ANIM.MBIN'},
+			SPECIAL_KEY_WORDS	= {'Anim', '2H_STAFF_WALK'},
 			ADD_OPTION			= 'ADDAfterSection',
 			SECTION_ADD_NAMED 	= 'tk_animation_data'
 		}
@@ -285,7 +285,7 @@ end
 local function PlayerEmoteEntry(mdata)
 	return {
 		{
-			SPECIAL_KEY_WORDS	= {'Title', 'EMOTE_WAVE'},
+			PRECEDING_KEY_WORDS = 'GcPlayerEmote.xml',
 			SECTION_SAVE_TO		= 'gc_player_emote'
 		},
 		{
@@ -295,17 +295,6 @@ local function PlayerEmoteEntry(mdata)
 				{'EmoteID',					mdata.rewardId},
 				{'AnimationName',			mdata.rewardId},
 				{'Filename',				'TEXTURES/UI/FRONTEND/ICONS/'..mdata.icon},
-				{'MoveToCancel',			false},
-				{'AvailableUnderwater',		true}
-			}
-		},
-		{
-			PRECEDING_KEY_WORDS = 'Emotes',
-			SECTION_ADD_NAMED 	= 'gc_player_emote'
-		},
-		{
-			SECTION_EDIT 		= 'gc_player_emote',
-			VALUE_CHANGE_TABLE 	= {
 				{'AvailableUnderwater',		false}
 			}
 		},
@@ -322,6 +311,7 @@ end
 
 -- MAIN tables
 local t_emotes, t_rewards, t_player_char = {}, {}, {}
+
 for model, mdata in pairs(seed_model) do
 	local reward_item = {}
 	if seed_counter[model] > 0 then
@@ -334,12 +324,12 @@ for model, mdata in pairs(seed_model) do
 		mdata.rewardId = 'R_'..model
 		t_rewards[#t_rewards+1] = R_RewardTableEntry({id = mdata.rewardId, item_list = reward_item})
 
-		for _,emt in pairs(PlayerEmoteEntry(mdata)) do
-			t_emotes[#t_emotes+1] = emt
+		for _,emot in pairs(PlayerEmoteEntry(mdata)) do
+			t_emotes[#t_emotes+1] = emot
 		end
 		t_player_char[#t_player_char+1] = TriggerActionComponent(mdata.rewardId)
-		for _,anm in pairs(AnimationEntry(mdata.rewardId)) do
-			t_player_char[#t_player_char+1] = anm
+		for _,anim in pairs(AnimationEntry(mdata.rewardId)) do
+			t_player_char[#t_player_char+1] = anim
 		end
 	end
 end
@@ -365,25 +355,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS = 'GenericTable',
 				ADD 				= ToExml(t_rewards)
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/EFFECTS/ENGINES/SPEEDCOOL.ANIM.MBIN',
-				'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN',
-				'REMOVE'
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'FrameCount',	10}
-				}
 			}
 		}
 	}

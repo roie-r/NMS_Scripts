@@ -25,6 +25,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NormalModeHeatBonus',					3},		-- 2
 					{'ShipMiningMul',						0.8},	-- 0.2
 					{'OverheatGenerosity',					1.1},	-- 1.05
+					{'SpecialTechSlotBonus',				1.32},	-- 1.25
 					{'SurveyMaxDistance',					600},	-- 400
 					-- {'WarpsBetweenBattles',					7},		-- 5		5054
 					-- {'HoursBetweenBattles',					4},		-- 3
@@ -96,6 +97,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedUnknownColour',
 				VALUE_CHANGE_TABLE 	= ColorFromHex('AAE04E4E')
+			},
+			{
+				PRECEDING_KEY_WORDS = {'PassiveScanEffect', 'Colour'},
+				VALUE_CHANGE_TABLE 	= ColorFromHex('77FFEEDD')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BuildingScanEffect', 'Colour'},

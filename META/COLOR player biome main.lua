@@ -4,6 +4,7 @@ dofile('LIB/lua_2_exml.lua')
 mod_desc = [[
   true black for ships & customizing palettes
   procedural royal ship palette
+  copy base snow palette to frozen palette
   * hex color is in ARGB format
 ]]--------------------------------------------------
 
@@ -302,9 +303,7 @@ local function RebuildPaletteColors(gc_data)
 		return as
 	end
 	local function Convert2Rgb(color)
-		if type(color) == 'string' then
-			return color
-		elseif  color[1] > 1 or color[2] > 1 or color[3] > 1 then
+		if type(color) == 'table' and (color[1] > 1 or color[2] > 1 or color[3] > 1) then
 			return asc2prc(color)
 		end
 		return color
@@ -313,7 +312,7 @@ local function RebuildPaletteColors(gc_data)
 	for _,col in ipairs(gc_data.palette) do
 		T[#T+1] = ColorData(Convert2Rgb(col))
 	end
-	-- Assign the exml table with its designated meta
+	-- exml meta for the color palette array
 	T.META = {'name', 'Colours'}
 	return ToExml(T)
 end
@@ -332,7 +331,7 @@ local function EditSingle(name, i, rgba)
 	}
 end
 
-local function AddToChangeTable()
+local function BasePaletteChanges()
 	local T = {}
 	T[1] = {
 		SKW		= {},
@@ -358,11 +357,16 @@ local function AddToChangeTable()
 	for i=2, 58, 8 do
 		T[#T+1] = EditSingle('SailShip_Sails', i, {0.36, 0.38, 0.42})
 	end
+	
+	T[#T+1] = {
+		SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
+		SECTION_SAVE_TO		= 'gc_palette_data',
+	}
 	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META player main palettes.pak',
+	MOD_FILENAME 		= '__META player biome main.pak',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.45',
 	MOD_DESCRIPTION		= mod_desc,
@@ -370,7 +374,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/COLOURS/BASECOLOURPALETTES.MBIN',
-		EXML_CHANGE_TABLE	= AddToChangeTable()
+		EXML_CHANGE_TABLE	= BasePaletteChanges()
 	},
 	{
 	--	|true black| in customizing palettes
@@ -384,6 +388,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			[6] = EditSingle('Vehicle_WheeledBike',	20, {-1, -1, -1}),
 			[7] = EditSingle('Vehicle_Submarine',	20, {-1, -1, -1}),
 			[8] = EditSingle('Vehicle_Mech',		20, {-1, -1, -1}),
+		}
+	},
+	{
+	--	replace frozen snow palette with base
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENCOLOURPALETTES.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
+				REMOVE				= 'Section'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Undercoat', 'GcPaletteData.xml'},
+				ADD_OPTION			= 'AddAfterSection',
+				SECTION_ADD_NAMED	= 'gc_palette_data'
+			},
 		}
 	}
 }}}}

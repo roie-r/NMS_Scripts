@@ -3,7 +3,38 @@ mod_desc = [[
   Increase hit damage all around - player, enemies & NPC
 ]]-------------------------------------------------------
 
-local player_damage = {
+local ECT_PR = {}
+for _,gun in ipairs({
+	{'SQUADGUN',		8, 10},	-- 40
+	{'AISHIPGUN',		1.6},	-- 15
+	{'TRADERGUN',		1.2},	-- 40
+	{'POLICEGUN',		1.6},	-- 15
+	{'FREIGHTGUN',		10},	-- 15
+	{'COP_FREIGHTGUN',	1.1},	-- 300
+	{'BASE_TURRET_M',	1.6},	-- 200
+	{'BASE_TURRET_L',	2.2},	-- 100
+	{'AI_SHIP',			4},		-- 10
+	{'AI_FREIGHTER',	4},		-- 15
+	{'COP_FREIGHTER',	15},	-- 15
+	{'ROBOTGUN',		10},	-- 1
+	{'ROBOTGUNWEAK',	10},	-- 1
+	{'ROBOTBIGGUN',		20},	-- 1
+	{'ROBOT_WALKER',	20},	-- 1
+	{'MINIROBOTGUN',	10},	-- 1
+}) do
+	ECT_PR[#ECT_PR+1] = {
+		MATH_OPERATION 		= '*',
+		INTEGER_TO_FLOAT	= 'Preserve',
+		SPECIAL_KEY_WORDS	= {'Id', gun[1]},
+		VALUE_CHANGE_TABLE	= {
+			[1] = {'DefaultDamage',	gun[2]},
+			[2] = gun[3] and {'Radius', gun[3]} or nil
+		}
+	}
+end
+
+local ECT_DM = {}
+for _,dmg in ipairs({
 	{'BASICDAMAGE',		2},		-- 1
 	{'LASERDAMAGE',		2},		-- 3
 	{'AISHIPGUN',		1.5},	-- 14
@@ -35,50 +66,16 @@ local player_damage = {
 	{'MPPLAYER_SHOT',	0.001},
 	{'MPPLAYER_SMG',	0.001},
 	{'MPPLAYER_GUN',	0.001},
-	{'MPPLAYER_CANNON',	0.001},
-}
-function player_damage:Get(x)
-	return {
+	{'MPPLAYER_CANNON',	0.001}
+}) do
+	ECT_DM[#ECT_DM+1] = {
 		INTEGER_TO_FLOAT	= 'Force',
 		MATH_OPERATION 		= '*',
-		SPECIAL_KEY_WORDS	= {'Id', x[1]},
-		VALUE_CHANGE_TABLE	= { {'Damage', x[2]} }
+		SPECIAL_KEY_WORDS	= {'Id', dmg[1]},
+		VALUE_CHANGE_TABLE	= {
+			{'Damage',		dmg[2]}
+		}
 	}
-end
-
-local projectile_damage = {
-	{'SQUADGUN',		8},		-- 40
-	{'AISHIPGUN',		1.6},	-- 15
-	{'TRADERGUN',		1.2},	-- 40
-	{'POLICEGUN',		1.6},	-- 15
-	{'FREIGHTGUN',		10},	-- 15
-	{'COP_FREIGHTGUN',	1.1},	-- 300
-	{'BASE_TURRET_M',	1.6},	-- 200
-	{'BASE_TURRET_L',	2.2},	-- 100
-	{'AI_SHIP',			4},		-- 9
-	{'AI_FREIGHTER',	4},		-- 15
-	{'COP_FREIGHTER',	15},	-- 15
-	{'ROBOTGUN',		10},	-- 1
-	{'ROBOTGUNWEAK',	10},	-- 1
-	{'ROBOTBIGGUN',		20},	-- 1
-	{'ROBOT_WALKER',	20},	-- 1
-	{'MINIROBOTGUN',	10},	-- 1
-}
-function projectile_damage:Get(x)
-	return {
-		INTEGER_TO_FLOAT	= 'Preserve',
-		MATH_OPERATION 		= '*',
-		SPECIAL_KEY_WORDS	= {'Id', x[1]},
-		VALUE_CHANGE_TABLE	= { {'DefaultDamage', x[2]} }
-	}
-end
-
-local function BuildExmlChangeTable(tbl)
-	local T = {}
-	for _,v in ipairs(tbl) do
-		T[#T+1] = tbl:Get(v)
-	end
-	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
@@ -89,11 +86,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/DAMAGETABLE.MBIN',
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(player_damage)
+		MBIN_FILE_SOURCE	= 'METADATA/PROJECTILES/PROJECTILETABLE.MBIN',
+		EXML_CHANGE_TABLE	= ECT_PR
 	},
 	{
-		MBIN_FILE_SOURCE	= 'METADATA/PROJECTILES/PROJECTILETABLE.MBIN',
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(projectile_damage)
+		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/DAMAGETABLE.MBIN',
+		EXML_CHANGE_TABLE	= ECT_DM
 	}
 }}}}

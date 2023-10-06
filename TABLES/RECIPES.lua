@@ -8,6 +8,29 @@ mod_desc = [[
 ]]---------------------------------------
 
 local new_recipes = {
+	{--	double nanites from mould
+		id			= 'RECIPE_MOULD2',
+		name		= 'RECIPE_BURIEDTECH',
+		make		= 32,
+		cook		= false,
+		result		= {id='TECHFRAG', n=2, tp=I_.SBT},
+		ingredients	= {
+			{id='SPACEGUNK2',n=5,	tp=I_.SBT},
+			{id='SPACEGUNK2',n=5,	tp=I_.SBT}
+		}
+	},
+	{--	triple nanites from mould
+		id			= 'RECIPE_MOULD3',
+		name		= 'RECIPE_BURIEDTECH',
+		make		= 36,
+		cook		= false,
+		result		= {id='TECHFRAG', n=3, tp=I_.SBT},
+		ingredients	= {
+			{id='SPACEGUNK2',n=5,	tp=I_.SBT},
+			{id='SPACEGUNK2',n=5,	tp=I_.SBT},
+			{id='SPACEGUNK2',n=5,	tp=I_.SBT}
+		}
+	},
 	{--	atlantideum to void mote
 		id			= 'RECIPE_TOSMOTE',
 		name		= 'RECIPE_DRONESCRAP',
@@ -106,7 +129,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_52'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TimeToMake',	25}
+					{'TimeToMake',	24}
 				}
 			},
 			{
@@ -118,7 +141,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							T[#T+1] = RefinerRecipeEntry(r)
 						end
 						return ToExml(T)
-					end				
+					end
 				)()
 			}
 		}

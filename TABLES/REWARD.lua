@@ -441,14 +441,14 @@ local new_rewards = {
 		choice		= C_.ALL,
 		rewardlist	= {
 			-- id					details			%		function
-			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
-			{id=P_.FOS,				r=R_.R,			c=2,	f=R_Procedural},
-			{id=P_.SPH,				r=R_.U,			c=2,	f=R_Procedural},
-			{id='ALLOY6',			n=1,	x=2,	c=2,	f=R_Product},
-			{id='FOOD_CM_JHOT',		n=1,	x=2,	c=2,	f=R_Product},
-			{id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
-			{id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
-			{id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
+			{id='storm',			t=100,			c=95,	f=R_Storm},
+			-- {id=P_.FOS,				r=R_.R,			c=2,	f=R_Procedural},
+			-- {id=P_.SPH,				r=R_.U,			c=2,	f=R_Procedural},
+			-- {id='ALLOY6',			n=1,	x=2,	c=2,	f=R_Product},
+			-- {id='FOOD_CM_JHOT',		n=1,	x=2,	c=2,	f=R_Product},
+			-- {id='SCRAP_WEAP',				x=1,	c=2,	f=R_Product},
+			-- {id='WATER2',			n=260,	x=280,	c=2,	f=R_Substance},
+			-- {id='WORMDUST',			n=1060,	x=1180,	c=2,	f=R_Substance},
 		}
 	},
 	{--- more tests ---
@@ -457,8 +457,8 @@ local new_rewards = {
 		choice		= C_.ONE,
 		rewardlist	= {
 			-- id					details			%		function
-			{id='storm',			t=100,			c=95,	f=R_Storm},
 			{id='wanted_level',		l=1,			c=95,	f=R_Wanted},
+			{id='flyby',			t=5,			c=95,	f=R_FlyBy},
 			{id='no_sentinels',		t=20,			c=95,	f=R_NoSentinels},
 			{id='ROGUE_HAZBOX',				x=1,	c=10,	f=R_Product},
 			{id='UT_SHIPLAS',				x=1,	c=10,	f=R_Product},

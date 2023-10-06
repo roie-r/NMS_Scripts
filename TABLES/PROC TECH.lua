@@ -37,15 +37,19 @@ local edit_stats = {
 	{id='UP_MCENG',			st='Vehicle_BoostTanks',				op='+',	vn=8,		vx=8},		-- 0.1	0.3
 ---	ship
 	{id='UP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpDistance',		op='*',	vn=2.4,		vx=2.4},
-	{id='UP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpsPerCell',		op='*',	vn=0.4,		vx=0.6},
+	{id='UP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpsPerCell',		op='*',	vn=0.4,		vx=0.4},
 	{id='AP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpDistance',		op='*',	vn=2.4,		vx=2.4},
-	{id='AP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpsPerCell',		op='*',	vn=0.4,		vx=0.6},
+	{id='AP_HYPERDRIVE',	st='Ship_Hyperdrive_JumpsPerCell',		op='*',	vn=0.4,		vx=0.4},
+	
+	-- {id='UP_PULSEDRIVE', 	st='Ship_BoostManeuverability',			op='+',	vn=0,		vx=-0.06},	-- 1.01	1.2
+	-- {id='UP_PULSEDRIVE', 	st='Ship_Maneuverability',				op='+',	vn=0.02,	vx=0.02},	-- 1.0065
+	
 	{id='AP_PULSEDRIVE', 	st='Ship_Boost',						op='+',	vn=0.15,	vx=0.2},	-- 1.1	1.25
 	{id='AP_PULSEDRIVE', 	st='Ship_BoostManeuverability',			op='+',	vn=0.2,		vx=0.32},	-- 1.05	1.18
 	{id='AP_PULSEDRIVE', 	st='Ship_Maneuverability',				op='+',	vn=0.07,	vx=0.07},	-- 1.0065
 ---	freighter
 	{id='UT_FR_HYP_NAME',	st='Freighter_Hyperdrive_JumpDistance',	op='*',	vn=10,		vx=10},
-	{id='UT_FR_HYP_NAME',	st='Freighter_Hyperdrive_JumpsPerCell',	op='*',	vn=0.4,		vx=0.6}
+	{id='UT_FR_HYP_NAME',	st='Freighter_Hyperdrive_JumpsPerCell',	op='*',	vn=0.4,		vx=0.4}
 }
 function edit_stats:GetExmlCT()
 	local T = {}

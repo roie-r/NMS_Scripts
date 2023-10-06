@@ -16,23 +16,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/ENTITIES/PLAYERCHARACTER.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Anim', '0H_TURN_L'},
+				PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
 				SECTION_SAVE_TO		= 'tk_animation_data'
 			},
 			{
 				SECTION_EDIT 		= 'tk_animation_data',
 				VALUE_CHANGE_TABLE 	= {
-					{'Anim', 'STAFF_IT_PAGE'},
-					{'Filename', 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN'}
+					{'Anim',		'STAFF_IT_PAGE'},
+					{'Filename',	'MODELS/TESTS/EFFECTTEST.ANIM.MBIN'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Anim', '0H_GREET_MOB_04', 'Filename', 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/INTERACTION/GENERAL/0H_INTER_GREET_07.ANIM.MBIN'},
-				ADD_OPTION			= 'AddAfterSection',
+				SPECIAL_KEY_WORDS	= {'Anim', '2H_STAFF_WALK'},
+				ADD_OPTION			= 'ADDAfterSection',
 				SECTION_ADD_NAMED 	= 'tk_animation_data'
 			},
 			{
-				PRECEDING_KEY_WORDS	= 'GcCombatEffectsComponentData.xml',
+				PRECEDING_KEY_WORDS	= 'GcSpringAttachmentComponentData.xml',
 				ADD_OPTION			= 'ADDAfterSection',
 				ADD 				= ToExml({
 					META = {'value', 'GcTriggerActionComponentData.xml'},
@@ -102,43 +102,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Title',					'Open Staff Build'},
 					{'EmoteID',					'STAFF_IT_PAGE'},
 					{'AnimationName',			'STAFF_IT_PAGE'},
-					{'Filename',				'TEXTURES/UI/FRONTEND/ICONS/ROBOTPARTS/ROBOTPARTS.STAFFCORE.1.DDS'},
-					{'MoveToCancel',			false},
-					{'AvailableUnderwater',		true}
-				}
-			},
-			{
-				PRECEDING_KEY_WORDS = 'Emotes',
-				SECTION_ADD_NAMED 	= 'gc_player_emote'
-			},
-			{
-				SECTION_EDIT 		= 'gc_player_emote',
-				VALUE_CHANGE_TABLE 	= {
+					{'Filename',				'TEXTURES/UI/FRONTEND/ICONS/ROBOTPARTS/ROBOTPARTS.STAFFHEAD.2.DDS'},
 					{'AvailableUnderwater',		false}
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Emotes',
 				SECTION_ADD_NAMED 	= 'gc_player_emote'
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/EFFECTS/ENGINES/SPEEDCOOL.ANIM.MBIN',
-				'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN',
-				'REMOVE'
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'FrameCount',	10}
-				}
 			}
 		}
 	}
