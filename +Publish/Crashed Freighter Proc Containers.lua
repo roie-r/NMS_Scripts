@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ------------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   procedurally placed containers in the crashed -and underwater-crashed freigther
   replaces the underwater one with the land model
 ]]----------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Crashed Freighter Procedural Containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Add and increase light intensity to various building parts
 ]]-------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL base lighting.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -26,7 +26,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'HangingLampLOD0'},
 				ADD					= ToExml(
-					ScChildren({ ScLight({name='lamp000', i=26000, ty=12, c='fffae6bf'}) })
+					ScChildren({ ScLight({name='lamp000', i=26000, ty=12, c='FFFAE6BF'}) })
 				)
 			}
 		}
@@ -64,69 +64,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-		-- MBIN_FILE_SOURCE	= {
-			-- build_parts..'DECORATION/STANDINGLIGHT1.SCENE.MBIN',
-			-- build_parts..'DECORATION/STANDINGLIGHT2.SCENE.MBIN',
-		-- },
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'RotX',		-20}
-				-- }
-			-- },
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT', 'Name', 'FOV'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		130}
-				-- }
-			-- },
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT', 'Name', 'FALLOFF'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		'linear'}
-				-- }
-			-- },
-			-- {
-				-- MATH_OPERATION 		= '*',
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT', 'Name', 'INTENSITY'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		6}
-				-- }
-			-- },
-		-- }
-	-- },
-	-- {
-		-- MBIN_FILE_SOURCE	= build_parts..'DECORATION/STANDINGLIGHT3.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT', 'Name', 'FALLOFF'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		'linear'}
-				-- }
-			-- },
-			-- {
-				-- MATH_OPERATION 		= '*',
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT', 'Name', 'INTENSITY'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		6}
-				-- }
-			-- },
-		-- }
-	-- },
-	-- {
-		-- MBIN_FILE_SOURCE	= build_parts..'DECORATION/CEILINGLIGHT.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- MATH_OPERATION 		= '*',
-				-- SPECIAL_KEY_WORDS	= {'Type', 'LIGHT', 'Name', 'INTENSITY'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value',		6}
-				-- }
-			-- },
-		-- }
-	-- },
 	{
 		MBIN_FILE_SOURCE	= {
 			build_parts..'DECORATION/WALLLIGHT_BLUE.SCENE.MBIN',

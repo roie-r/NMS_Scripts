@@ -1,12 +1,12 @@
 --------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   diverse shelters, by Lo2k
 ]]------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL diverse shelters.pak',
 	MOD_AUTHOR			= 'Lo2k',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

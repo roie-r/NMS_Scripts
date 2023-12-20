@@ -1,14 +1,14 @@
 ------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Restore the scanned fauna icon to the white circle
-  
+
   ** CREATURE.SCANNED2.DDS is NOT an original game resource
 ]]----------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.scanned fauna icon replace.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

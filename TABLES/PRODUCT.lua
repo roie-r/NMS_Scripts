@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 ----------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increase stack sizes
   Custom icons & icon background color
   Add and edit crafting requirements
@@ -31,12 +31,12 @@ local stack_mult = {
 }
 function stack_mult:GetExmlCT()
 	local T = {}
-	for _,x in ipairs(self) do
+	for _,prd in ipairs(self) do
 		T[#T+1] = {
 			REPLACE_TYPE 		= 'All',
-			SPECIAL_KEY_WORDS	= {'Value', x[1]},
+			SPECIAL_KEY_WORDS	= {'Value', prd[1]},
 			SECTION_UP			= 1,
-			VALUE_CHANGE_TABLE 	= { {'StackMultiplier', '@ '..x[2]} }
+			VALUE_CHANGE_TABLE 	= { {'StackMultiplier', '@ '..prd[2]} }
 		}
 	end
 	return T
@@ -61,11 +61,11 @@ local replace_icons = {
 }
 function replace_icons:GetExmlCT()
 	local T = {}
-	for _,x in ipairs(self) do
+	for _,prd in ipairs(self) do
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x[1]},
+			SPECIAL_KEY_WORDS	= {'ID', prd[1]},
 			PRECEDING_KEY_WORDS = 'Icon',
-			VALUE_CHANGE_TABLE 	= { {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..x[2]} }
+			VALUE_CHANGE_TABLE 	= { {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..prd[2]} }
 		}
 	end
 	return T
@@ -99,13 +99,13 @@ function icon_bg_color:GetExmlCT()
 		return x:find('NAME') and a or b
 	end
 	local T = {}
-	for _,x in ipairs(self) do
+	for _,prd in ipairs(self) do
 		T[#T+1] = {
-			REPLACE_TYPE 		= IsSingle(x[1], nil, 'All'),
+			REPLACE_TYPE 		= IsSingle(prd[1], nil, 'All'),
 			INTEGER_TO_FLOAT	= 'Force',
-			SPECIAL_KEY_WORDS	= {IsSingle(x[1], 'Name', 'Value'), x[1]},
-			SECTION_UP			= IsSingle(x[1], 0, 1),
-			VALUE_CHANGE_TABLE 	= ColorFromHex(x[2])
+			SPECIAL_KEY_WORDS	= {IsSingle(prd[1], 'Name', 'Value'), prd[1]},
+			SECTION_UP			= IsSingle(prd[1], 0, 1),
+			VALUE_CHANGE_TABLE 	= ColorFromHex(prd[2])
 		}
 	end
 	return T
@@ -115,77 +115,95 @@ local prod_requirements = {
 	{--	cargo_bulkhead
 		id	 = 'FREI_INV_TOKEN',
 		cost = 8,
-		{id='CASING', 		n=20,	tp=I_.PRD},	-- plating
-		{id='HYDRALIC',		n=10,	tp=I_.PRD},	-- poly fibre
-		{id='COMPOUND6',	n=1,	tp=I_.PRD}	-- cryo pump
+		req	 = {
+			{id='CASING', 		n=20,	tp=IT_.PRD},	-- plating
+			{id='HYDRALIC',		n=10,	tp=IT_.PRD},	-- poly fibre
+			{id='COMPOUND6',	n=1,	tp=IT_.PRD}	-- cryo pump
+		}
 	},
 	{--	wiring loom
 		id   = 'TECH_COMP',
-		{id='MICROCHIP',	n=3,	tp=I_.PRD},	-- microprocessor
-		{id='YELLOW2', 		n=80,	tp=I_.SBT},	-- copper
-		{id='ASTEROID1',	n=40,	tp=I_.SBT}	-- silver
+		req	 = {
+			{id='MICROCHIP',	n=3,	tp=IT_.PRD},	-- microprocessor
+			{id='YELLOW2', 		n=80,	tp=IT_.SBT},	-- copper
+			{id='ASTEROID1',	n=40,	tp=IT_.SBT}		-- silver
+		}		
 	},
 	{--	anomaly detector
 		id   = 'POI_LOCATOR',
-		{id='GEODE_SPACE',	n=1,	tp=I_.PRD},	-- tritium hypercluster
-		{id='ASTEROID1', 	n=20,	tp=I_.SBT},	-- silver
-		{id='ASTEROID2', 	n=20,	tp=I_.SBT}	-- gold
+		req	 = {
+			{id='GEODE_SPACE',	n=1,	tp=IT_.PRD},	-- tritium hypercluster
+			{id='ASTEROID1', 	n=20,	tp=IT_.SBT},	-- silver
+			{id='ASTEROID2', 	n=20,	tp=IT_.SBT}		-- gold
+		}		
 	},
 	{--	dream aerial
 		id   = 'WHALE_BEACON',
 		subs = true,
-		{id='GEODE_SPACE',	n=1,	tp=I_.PRD},	-- tritium hypercluster
-		{id='POI_LOCATOR',	n=1,	tp=I_.PRD},	-- anomaly detector
-		{id='FARMPROD8', 	n=1,	tp=I_.PRD}	-- living glass
+		req	 = {
+			{id='GEODE_SPACE',	n=1,	tp=IT_.PRD},	-- tritium hypercluster
+			{id='POI_LOCATOR',	n=1,	tp=IT_.PRD},	-- anomaly detector
+			{id='FARMPROD8', 	n=1,	tp=IT_.PRD}		-- living glass
+		}		
 	},
 	{--	desk chair
 		id   = 'BUILDCHAIR',
 		subs = true,
-		{id='CASING', 		n=1,	tp=I_.PRD},	-- metal plating
-		{id='FUEL2', 		n=20,	tp=I_.SBT}	-- c carbon
+		req	 = {
+			{id='CASING', 		n=1,	tp=IT_.PRD},	-- metal plating
+			{id='FUEL2', 		n=20,	tp=IT_.SBT}		-- c carbon
+		}		
 	},
 	{--	armchair
 		id   = 'BUILDCHAIR2',
 		subs = true,
-		{id='CASING', 		n=1,	tp=I_.PRD},
-		{id='FUEL2', 		n=20,	tp=I_.SBT}
+		req	 = {
+			{id='CASING', 		n=1,	tp=IT_.PRD},
+			{id='FUEL2', 		n=20,	tp=IT_.SBT}
+		}		
 	},
 	{--	adjustable chair
 		id   = 'BUILDCHAIR3',
 		subs = true,
-		{id='CASING', 		n=1,	tp=I_.PRD},
-		{id='FUEL2', 		n=20,	tp=I_.SBT}
+		req	 = {
+			{id='CASING', 		n=1,	tp=IT_.PRD},
+			{id='FUEL2', 		n=20,	tp=IT_.SBT}
+		}		
 	},
 	{--	classic chair
 		id   = 'BUILDCHAIR4',
 		subs = true,
-		{id='CASING', 		n=1,	tp=I_.PRD},
-		{id='FUEL2', 		n=20,	tp=I_.SBT}
+		req	 = {
+			{id='CASING', 		n=1,	tp=IT_.PRD},
+			{id='FUEL2', 		n=20,	tp=IT_.SBT}
+		}		
 	},
 	{--	Echo Locator (builder site)
 		id   = 'CHART_BUILDER',
-		{id='CHART_SETTLE',	n=1,	tp=I_.PRD},
-		{id='ROBOT2', 		n=20,	tp=I_.SBT}
+		req	 = {
+			{id='CHART_SETTLE',	n=1,	tp=IT_.PRD},
+			{id='ROBOT2', 		n=20,	tp=IT_.SBT}
+		}		
 	}
 }
 function prod_requirements:GetExmlCT()
 	local T = {}
-	for _,x in ipairs(self) do
+	for _,prd in ipairs(self) do
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x.id},
+			SPECIAL_KEY_WORDS	= {'ID', prd.id},
 			VALUE_CHANGE_TABLE 	= {
-				{'RecipeCost',	x.cost or 1},
+				{'RecipeCost',	prd.cost or 1},
 				{'IsCraftable',	true}
 			}
 		}
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x.id},
+			SPECIAL_KEY_WORDS	= {'ID', prd.id},
 			PRECEDING_KEY_WORDS	= 'Requirements',
-			REMOVE				= x.subs and 'Section' or 'Line'
+			REMOVE				= prd.subs and 'Section' or 'Line'
 		}
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x.id},
-			ADD					= ToExml(GetRequirements(x))
+			SPECIAL_KEY_WORDS	= {'ID', prd.id},
+			ADD					= ToExml(GetRequirements(prd.req))
 		}
 	end
 	return T
@@ -233,7 +251,7 @@ ECT[#ECT+1] = {
 ECT[#ECT+1] = {
 	PRECEDING_KEY_WORDS	= 'Table',
 	ADD					= ToExml({
-		[1] = ProductEntry({
+		ProductEntry({
 			id				= 'ULTRAPRODX40',
 			name			= 'PRODX40_NAME',
 			namelower		= 'PRODX40_NAME_L',
@@ -247,13 +265,13 @@ ECT[#ECT+1] = {
 			legality		= 'Legal',
 			iscraftable		= true,
 			requirements	= {
-				{id='ULTRAPROD1', 		n=20,	tp=I_.PRD},
-				{id='ULTRAPROD2', 		n=20,	tp=I_.PRD}
+				{id='ULTRAPROD1', 		n=20,	tp=IT_.PRD},
+				{id='ULTRAPROD2', 		n=20,	tp=IT_.PRD}
 			},
 			stackmultiplier	= 16,
 			icon			= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.CAPTUREDNANODE.DDS'
 		}),
-		[2] = ProductEntry({
+		ProductEntry({
 			id				= 'SUPERFOOD',
 			name			= 'SUPERFOOD_NAME',
 			namelower		= 'SUPERFOOD_NAME_L',
@@ -267,9 +285,9 @@ ECT[#ECT+1] = {
 			legality		= 'Legal',
 			consumable		= true,
 			requirements	= {
-				{id='SENTINEL_LOOT',	n=2,	pt=I_.PRD},
-				{id='FOOD_V_ROBOT',		n=2,	pt=I_.PRD},
-				{id='STELLAR2',			n=50,	pt=I_.SBT}
+				{id='SENTINEL_LOOT',	n=2,	pt=IT_.PRD},
+				{id='FOOD_V_ROBOT',		n=2,	pt=IT_.PRD},
+				{id='STELLAR2',			n=50,	pt=IT_.SBT}
 			},
 			stackmultiplier	= 20,
 			icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'
@@ -280,7 +298,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

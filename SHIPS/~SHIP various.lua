@@ -1,20 +1,20 @@
 ---------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Infraknife blue projectile
   - Dark blue instead of purple stealth trail
+  - Replace gold trail with time swirl (for squadrons)
   - Remove all ships contrails
   - Remove shuttle fake headlights
   - Remove orange fake light cones
   - Remove bioship slime
   - Remove cockpit eject handle glow
   - Remove grainy shader from ship's system map
-  - Replace gold trail with time swirl (for squadrons)
 ]]-------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -39,29 +39,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {--	|delete contrails|
-		-- MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'Children',
-				-- REMOVE				= 'Section'
-			-- }
-		-- }
-	-- },
-	-- {
-		-- MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.TRAIL.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Width',				0},
-					-- {'Points',				0},
-					-- {'MaxPointsPerFrame',	0},
-					-- {'DistanceThreshold',	0},
-					-- {'PointLife',			0}
-				-- }
-			-- }
-		-- }
-	-- },
+	{--	|swirl instead of gold| trail
+		MBIN_FILE_SOURCE	= {
+			{
+				'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/TIMELOOPTRAIL.SCENE.MBIN',
+				'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/HOTGOLDTRAIL.SCENE.MBIN',
+				'REMOVE'
+			}
+		}
+	},
 	{--	|no foggy headlights| cone from cockpits
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/CANOPY/CANOPYA.SCENE.MBIN',
@@ -135,13 +121,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|swirl instead of gold| trail
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/TIMELOOPTRAIL.SCENE.MBIN',
-				'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/HOTGOLDTRAIL.SCENE.MBIN',
-				'REMOVE'
-			}
-		}
-	}
+	-- {--	|bioship interior| remove canopy top; canopy membrane
+		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/INTERIOR/CANOPYA_INTERIOR.SCENE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS 	= {
+					-- {'Name', 'LeftCeilingFront'},
+					-- {'Name', 'RightCeilingFront'},
+					-- {'Name', 'Shadowmesh'},
+					-- {'Name', 'Membrane'}
+				-- },
+				-- REMOVE 				= 'Section'
+			-- }
+		-- }
+	-- },
 }}}}

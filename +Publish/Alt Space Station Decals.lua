@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Generate TkProceduralTextureList files for the procedural decals
   diff/normal/masks	= true >> include dds in the layer
 
@@ -131,7 +131,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Alt Space Staion Decals.1.5.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.0,
+	NMS_VERSION			= '4.0+',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddProcTexFiles()
 }

@@ -2,7 +2,8 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 -----------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
+  Buildable Base Parts Additions:
   - add suit inventory slots page to the toy sphere (from CRYOCHAMBERINTERACTION)
    * purchases only instead of using tokens (something to do with the trigger)
   - Add the multitool upgrade menu to the base weapons master terminal
@@ -12,15 +13,16 @@ mod_desc = [[
   - Add the ship upgrade menu to the nexus orb stand
   - Add hazard protection and a small light to beacon, cooker and signal booster (cheat)
   - Increase freighter extractor storage capacity
+  - Spin the wirecube, beam, and engine glitch items
   - open staff building page from the utopia weapon research unit
 ]]---------------------------------------------------------------------------------------
 
 local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/'
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL tech additions.pak',
+	MOD_FILENAME 		= '__MODEL base tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -113,7 +115,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ADD					= ToExml({
 					{
 						META = {'value', 'GcInteractionComponentData.xml'},
-						{
+						InteractionType		= {
 							META = {'InteractionType', 'GcInteractionType.xml'},
 							InteractionType	= 'WeaponUpgrade'
 						},
@@ -146,7 +148,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|staff builder| with the utopia weapon recipe unit
+	{--	|staff build page| with the utopia weapon recipe unit
 		MBIN_FILE_SOURCE	= build_parts..'TECH/BLUEPRINTANALYSER_WEAP/ENTITIES/DATA.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -203,7 +205,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'Children',
 				SECTION_ACTIVE		= -1,
 				ADD 				= ToExml({
-					[1] = ScNode(
+					ScNode(
 						'ShieldSphere', 'LOCATOR', {
 							ScTransform(),
 							ScAttributes({ {'ATTACHMENT', build_parts..'TECH/BEACON/ENTITIES/HEATER.ENTITY.MBIN'} }),
@@ -220,7 +222,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							})
 						}
 					),
-					[2] = ScLight({name='redlight', ty=1.8, i=20000, c='ffc73347', fr=3.8})
+					ScLight({name='redlight', ty=1.8, i=20000, c='ffc73347', fr=3.8})
 				})
 			}
 		}
@@ -244,6 +246,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		}
+	},
+	{--	|rotating foliage|
+		MBIN_FILE_SOURCE	= {
+			build_parts..'FOLIAGE/WEIRDCUBE.SCENE.MBIN',
+			build_parts..'FOLIAGE/BEAMSTONE.SCENE.MBIN',
+			build_parts..'FOLIAGE/ENGINEORB.SCENE.MBIN'
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'Attributes',
+				ADD 				= ToExml({
+					META	= {'value', 'TkSceneNodeAttributeData.xml'},
+					Name	= 'ATTACHMENT',
+					Value	= 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'
+				})
+			}
+		}
 	}
 }}},
 	ADD_FILES	= {
@@ -253,11 +272,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				META = {'template','TkAttachmentData'},
 				Components = {
 					META = {'name','Components'},
-					{
+					Simple		= {
 						META = {'value','GcSimpleInteractionComponentData.xml'},
 						Name = 'UI_SALVAGE_MT_TITLE'
 					},
-					{
+					Interaction	= {
 						META = {'value','GcInteractionComponentData.xml'},
 						InteractionAction	= 'PressButton',
 						InteractionType		= {
@@ -269,14 +288,42 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						InteractDistance	= 5,
 						PuzzleMissionOverrideTable = {
 							META = {'name','PuzzleMissionOverrideTable'},
-							{
+							Puzzle	= {
 								META = {'value','GcAlienPuzzleMissionOverride.xml'},
-								Mission		= 'EXPLORE_LOG', -- must be a valid mission id
+								Mission		= 'EXPLORE_LOG', -- must be a real mission id
 								Puzzle		= 'WEAPON_SALVAGE'
 							}
 						}
 					},
-					{value = 'TkPhysicsComponentData.xml'}
+					-- component stub
+					value = 'TkPhysicsComponentData.xml'
+				}
+			})
+		},
+		{
+			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.EXML',
+			FILE_CONTENT	 = FileWrapping({
+				META = {'template', 'TkAttachmentData'},
+				Components = {
+					META = {'name', 'Components'},
+					Rotation = {
+						META  = {'value', 'TkRotationComponentData.xml'},
+						Speed = 0.01,
+						Axis  = {
+							META = {'Axis', 'Vector3f.xml'},
+							y = 1
+						},
+						AlwaysUpdate = true,
+						SyncGroup    = -1
+					}
+				},
+				LodDistances = {
+					META = {'name','LodDistances'},
+					{value	= 0},
+					{value	= 50},
+					{value	= 80},
+					{value	= 150},
+					{value	= 500}
 				}
 			})
 		}

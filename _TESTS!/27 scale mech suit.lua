@@ -2,16 +2,16 @@
  Resize the mech(!)
 -------------------------------------------]]
 
-M_SCALE		= 2
-GUN_SCALE	= M_SCALE / 1.5
-JET_X_SHIFT	= 4.4
-JET_Y_SHIFT	= -1.2
-GUN_X_SHIFT	= JET_X_SHIFT / 2
+local M_SCALE		= 2
+local GUN_SCALE	= M_SCALE / 1.5
+local JET_X_SHIFT	= 4.4
+local JET_Y_SHIFT	= -1.2
+local GUN_X_SHIFT	= JET_X_SHIFT / 2
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 27 scale mech suit.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

@@ -1,7 +1,7 @@
----------------------------------------------------------------------
+-----------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
----------------------------------------------------------------------
-mod_desc = [[
+-----------------------------------------------------------------
+local mod_desc = [[
   use the mouse wheel for switching multitool tech & zoom stages
   scan with mouse3 button
 ]]---------------------------------------------------------------
@@ -27,7 +27,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META key binds.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,17 +1,19 @@
--------------------------------------------
+---------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
--------------------------------------------
-mod_desc = [[
-  Scientific cockpitA re-center trails.
+---------------------------------------------------
+local mod_desc = [[
+  cockpitA re-center trails.
+  cockpitA move guns below body to match interior
+  cockpitD guns placed on body (instead of joint)
   Decals placement tweaks.
   No foggy headlights cone on cockpits
-]]-----------------------------------------
+]]-------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP scientific.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -46,6 +48,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITD/COCKPITD.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
+				SPECIAL_KEY_WORDS	= {
+					{'Name', 'Gun1Ref3'},
+					{'Name', 'Gun1Ref4'},
+				},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		-0.9},
+					{'TransY',		2.5},
+					{'TransZ',		-0.6},
+					{'RotZ',		-90},
+					{'ScaleX', 		0.8},
+					{'ScaleY', 		0.8},
+					{'ScaleZ', 		0.8}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Gun1Ref4'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		0.9},
+					{'RotZ',		90}
+				}
+			},
+			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'Trail'},
 					{'Name', 'Trail1'}
@@ -69,17 +93,58 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITA/COCKPITA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
+				SPECIAL_KEY_WORDS	= {
+					{'Name', 'Gun1Ref1'},
+					{'Name', 'Gun1Ref2'},
+				},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		-0.32},
+					{'TransY',		0.952},
+					{'TransZ',		-0.48},
+					{'RotZ',		-18},
+					{'ScaleX', 		0.7},
+					{'ScaleY', 		0.7},
+					{'ScaleZ', 		0.7}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Gun1Ref2'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransX',		0.32},
+					{'RotZ',		18}
+				}
+			},
+			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Trail'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TransX',		1.055}
+					{'TransX',		1.055},
+					{'TransY',		1.5},
+					{'RotX',		0}
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Trail1'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TransX',		-1.055}
+					{'TransX',		-1.055},
+					{'TransY',		1.5},
+					{'RotX',		0}
 				}
-			}
+			},
+			-- {
+				-- SPECIAL_KEY_WORDS	= {
+					-- {'Name', 'Trail'},
+					-- {'Name', 'Trail1'}
+				-- },
+				-- REMOVE				= 'Section'
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'Cockpit_AData'},
+				-- PRECEDING_KEY_WORDS	= 'Children',
+				-- ADD					= ToExml( ScNode(
+					-- 'Trailm', 'LOCATOR',
+					-- {ScTransform({ty=3.3, tz=-5.4, ry=180})}
+				-- ) )
+			-- }
 		}
 	},
 	{--	|Scientific cockpitA back decals| fix
@@ -139,7 +204,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransX',		-1.1},
-					{'RotY',		-90},
+					{'RotX',		-90},
+					{'RotY',		90},
 					{'ScaleX', 		0.56},
 					{'ScaleY', 		0.56}
 				}

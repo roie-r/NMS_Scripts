@@ -78,7 +78,7 @@ function FileWrapping(data, template)
 	-- table loaded from file
 	if data.META[1] == 'template' then
 		-- strip mock template
-		txt_data = ToExml(data):sub(#data.META[2] + 36, -12)
+		local txt_data = ToExml(data):sub(#data.META[2] + 36, -12)
 		return string.format(wrapper, data.META[2], txt_data)
 	else
 		return string.format(wrapper, template, ToExml(data))
@@ -263,4 +263,4 @@ function ColorData(t, n)
 end
 
 --	InventoryType Enum
-I_={ PRD='Product', SBT='Substance', TCH='Technology' }
+IT_={ PRD='Product', SBT='Substance', TCH='Technology' }

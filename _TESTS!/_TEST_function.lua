@@ -2,6 +2,18 @@
  random functions
 -------------------------------------------]]
 
+--	Save the converted e2l table to the runtime processing temp folder
+function SaveRuntimeMbin(t, path)
+	path = '../MODBUILDER/_TEMP/DECOMPILED/'..path:gsub('.MBIN$', '.EXML')
+	f = io.open(path, 'w')
+	if f then
+		f:write(FileWrapping(t))
+		f:close()
+		return true
+	end
+	return false
+end
+
 local rgbs = {
 	{0.34,		0.455,		0.604},
 	{0.7,		0.863,		0.925},
@@ -15,7 +27,7 @@ local rgbs = {
 
 }
 
-function rgb2hex(c)
+local function rgb2hex(c)
 	local h = ''
 	for i=1, #c do h = h..string.format('%02X', math.floor(c[i] * 255 + 0.5)) end
 	return h
@@ -23,7 +35,7 @@ end
 
 for _,r in ipairs(rgbs) do print(rgb2hex(r)) end
 
-function hex2rgb2(hex)
+local function hex2rgb2(hex)
 	local function trunc(x, n)
 		return tonumber(string.format('%.'..(n or 0)..'f', x))
 	end
@@ -35,7 +47,7 @@ function hex2rgb2(hex)
 	-- return n
 end
 
-function Adjacency(sc)
+local function Adjacency(sc)
 	local function Adj(a, b)
 		return (a[1] == b[1] and math.abs(a[2] - b[2]) <= 1) or (a[2] == b[2] and math.abs(a[1] - b[1]) <= 1)
 	end
@@ -61,7 +73,7 @@ local function Hex2Pr(h, dec)
 	return (math.floor(tonumber(h, 16) / 255) * 10^dec) / 10^dec
 end
 
-function JenkinsHash(input)
+local function JenkinsHash(input)
 	local hash = 0
 	local t_chars = {string.byte(input:upper(), 1, #input)}
 
@@ -76,11 +88,11 @@ function JenkinsHash(input)
 	return tostring(hash)
 end
 
-function _add(val) return '@'..(val >= 0 and '+'..val or val) end
-function _add(val) return '@'..(val >= 0 and '+' or '-')..math.abs(val) end
+local function _add1(val) return '@'..(val >= 0 and '+'..val or val) end
+local function _add2(val) return '@'..(val >= 0 and '+' or '-')..math.abs(val) end
 
-function _mul(val) return '@*'..val end
+local function _mul(val) return '@*'..val end
 -- function _mul(val) return '@*'..(val >= 0 and val or math.abs(1/val)) end
 -- no solution for multiplying a negative!!
 
-print(JenkinsHash('CROSSING1'))
+print(JenkinsHash('1RefShipGun2'))

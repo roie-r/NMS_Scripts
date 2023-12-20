@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Decrease storms length and increase time between storms
   Decrease planet fog levels
 ]]---------------------------------------------------------
@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SKY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

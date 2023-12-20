@@ -1,7 +1,7 @@
 ------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Change solar system to faster moving & more varied
   Restore galaxy map black hole icon to the original
 ]]----------------------------------------------------
@@ -9,7 +9,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GALAXY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

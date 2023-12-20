@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   position cargo inventory above the tech and remove the inventory box labels
   (Original by lyravega)
   switch inventory window expansion icons placement
@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI cargo on top.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

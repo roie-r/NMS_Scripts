@@ -1,7 +1,7 @@
 ----------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ----------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   true black for ships & customizing palettes
   procedural royal ship palette
   copy base snow palette to frozen palette
@@ -357,7 +357,7 @@ local function BasePaletteChanges()
 	for i=2, 58, 8 do
 		T[#T+1] = EditSingle('SailShip_Sails', i, {0.36, 0.38, 0.42})
 	end
-	
+	-- pull snow palette for copying to frozen palette
 	T[#T+1] = {
 		SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
 		SECTION_SAVE_TO		= 'gc_palette_data',
@@ -368,7 +368,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META player biome main.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -380,14 +380,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	--	|true black| in customizing palettes
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CUSTOMISATIONCOLOURPALETTES.MBIN',
 		EXML_CHANGE_TABLE	= {
-			[1] = EditSingle('Player',				20, {-1, -1, -1}),
-			[2] = EditSingle('Freighter',			20, {-1, -1, -1}),
-			[3] = EditSingle('Vehicle',				20, {-1, -1, -1}),
-			[4] = EditSingle('Vehicle_Bike',		20, {-1, -1, -1}),
-			[5] = EditSingle('Vehicle_Truck',		20, {-1, -1, -1}),
-			[6] = EditSingle('Vehicle_WheeledBike',	20, {-1, -1, -1}),
-			[7] = EditSingle('Vehicle_Submarine',	20, {-1, -1, -1}),
-			[8] = EditSingle('Vehicle_Mech',		20, {-1, -1, -1}),
+			EditSingle('Player',				20, {-1, -1, -1}),
+			EditSingle('Freighter',				20, {-1, -1, -1}),
+			EditSingle('Vehicle',				20, {-1, -1, -1}),
+			EditSingle('Vehicle_Bike',			20, {-1, -1, -1}),
+			EditSingle('Vehicle_Truck',			20, {-1, -1, -1}),
+			EditSingle('Vehicle_WheeledBike',	20, {-1, -1, -1}),
+			EditSingle('Vehicle_Submarine',		20, {-1, -1, -1}),
+			EditSingle('Vehicle_Mech',			20, {-1, -1, -1})
 		}
 	},
 	{

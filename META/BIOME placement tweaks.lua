@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increase green crystals placement probability
   Remove random cargo drops & damaged machinery in the wild
   Lower chance of wordstones, underground cargo & dead planet fiend eggs
@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META biome placement tweaks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

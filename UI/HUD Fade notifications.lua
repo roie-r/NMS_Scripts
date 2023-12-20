@@ -1,12 +1,12 @@
 ---------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Hide elements of the lower-right notification panel and fade the text contents
 ]]-------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__UI fade notifications.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 		= {{

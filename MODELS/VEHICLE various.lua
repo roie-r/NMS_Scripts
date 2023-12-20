@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Mech: Faster step anime (adjusted for faster speed in vehicle globals)
    Hardframe blue front 3part light
   - Bike: reduce turret scale for the Nomad exocraft
@@ -16,7 +16,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL vehicles various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

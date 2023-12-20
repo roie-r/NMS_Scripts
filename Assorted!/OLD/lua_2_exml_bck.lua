@@ -78,7 +78,7 @@ function FileWrapping(data, template)
 	-- table loaded from file
 	if data.META[1] == 'template' then
 		-- strip mock template
-		txt_data = ToExml(data):sub(data.META[2]:len() + 36, -12)
+		local txt_data = ToExml(data):sub(data.META[2]:len() + 36, -12)
 		return string.format(wrapper, data.META[2], txt_data)
 	else
 		return string.format(wrapper, template, ToExml(data))
@@ -233,7 +233,7 @@ end
 
 --	Pretty-print a lua table as a ready-to-work script
 --	(Doesn't maintain the original exml class order)
-function TableToString(tbl, name, l)
+local function TableToString(tbl, name, l)
 	local lvl		= l or 1
 	local indent	= '\t'
 	-- com				= com or [[']]
@@ -301,7 +301,7 @@ function ColorData(t, n)
 end
 
 --	InventoryType Enum
-I_={ PRD='Product', SBT='Substance', TCH='Technology' }
+IT_={ PRD='Product', SBT='Substance', TCH='Technology' }
 
 --	just let me clutter up my code in peace
 NMS_MOD_DEFINITION_CONTAINER = { AMUMSS_SUPPRESS_MSG='MULTIPLE_STATEMENTS,UNUSED_VARIABLE' }

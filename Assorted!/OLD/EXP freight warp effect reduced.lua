@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 -- EXCLUDED FROM BATCH
 ------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Reduce freighter warp light explosion effect
   Reduce ship laser hit explosion
 ]]----------------------------------------------
@@ -34,7 +34,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META reduce explosion scale.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	-- MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

@@ -3,14 +3,14 @@
 ------------------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Fix speeder LOD to match other ships (same ancient bug as from the fighter model)
 ]]----------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP speeder.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -39,7 +39,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-				VALUE_CHANGE_TABLE 	= { {'Value', 5} }
+				VALUE_CHANGE_TABLE 	= { {'Value', 4} }
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'VRspeederr_LOD0'},

@@ -6,7 +6,7 @@ dofile('LIB/table_entry.lua')
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_TEST L2E add new products.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -15,7 +15,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Table',
 				ADD					= ToExml({
-					[1] = ProductEntry({
+					ProductEntry({
 						id				= 'ULTRAPRODX40',
 						name			= 'PRODX40_NAME',
 						namelower		= 'PRODX40_NAME_L',
@@ -29,13 +29,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						legality		= 'Legal',
 						iscraftable		= true,
 						requirements	= {
-							{id='ULTRAPROD1', 		n=20,	tp=I_.PRD},
-							{id='ULTRAPROD2', 		n=20,	tp=I_.PRD}
+							{id='ULTRAPROD1', 		n=20,	tp=IT_.PRD},
+							{id='ULTRAPROD2', 		n=20,	tp=IT_.PRD}
 						},
 						stackmultiplier	= 16,
 						icon			= 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/PRODUCT.CAPTUREDNANODE.DDS'
 					}),
-					[2] = ProductEntry({
+					ProductEntry({
 						id				= 'SUPERFOOD',
 						name			= 'SUPERFOOD_NAME',
 						namelower		= 'SUPERFOOD_NAME_L',
@@ -49,9 +49,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						legality		= 'Legal',
 						consumable		= true,
 						requirements	= {
-							{id='SENTINEL_LOOT',	n=2,	tp=I_.PRD},
-							{id='FOOD_V_ROBOT',		n=2,	tp=I_.PRD},
-							{id='STELLAR2',			n=50,	tp=I_.SBT}
+							{id='SENTINEL_LOOT',	n=2,	tp=IT_.PRD},
+							{id='FOOD_V_ROBOT',		n=2,	tp=IT_.PRD},
+							{id='STELLAR2',			n=50,	tp=IT_.SBT}
 						},
 						stackmultiplier	= 20,
 						icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'

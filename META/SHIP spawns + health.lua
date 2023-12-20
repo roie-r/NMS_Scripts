@@ -1,5 +1,5 @@
 --------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increase number of attackers in bounty and pirate missions
   Reduce number of planet flybys and outpost visits
   Increase enemy and NPC ships total health
@@ -24,18 +24,18 @@ for _,spn in ipairs({
 	{id='FrigateFlybySpawns',			pr='MinRange',	r=800},
 	{id='FrigateFlybySpawns',			pr='Count',		x=0,	y=1},
 }) do
-	mct = #ECT_EX+1
-	ECT_EX[mct] = {
+	local inx = #ECT_EX+1
+	ECT_EX[inx] = {
 		REPLACE_TYPE 			= 'All',
 		MATH_OPERATION 			= '+',
 		PRECEDING_FIRST			= true,
 		PRECEDING_KEY_WORDS		= spn.id
 	}
 	if spn.x then
-		ECT_EX[mct].SPECIAL_KEY_WORDS	= {spn.pr, 'Vector2f.xml'}
-		ECT_EX[mct].VALUE_CHANGE_TABLE	= {{'x', spn.x}, {'y', spn.y}}
+		ECT_EX[inx].SPECIAL_KEY_WORDS	= {spn.pr, 'Vector2f.xml'}
+		ECT_EX[inx].VALUE_CHANGE_TABLE	= {{'x', spn.x}, {'y', spn.y}}
 	else
-		ECT_EX[mct].VALUE_CHANGE_TABLE	= {{spn.pr, spn.r}}
+		ECT_EX[inx].VALUE_CHANGE_TABLE	= {{spn.pr, spn.r}}
 	end
 end
 
@@ -110,7 +110,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship spawns & health.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

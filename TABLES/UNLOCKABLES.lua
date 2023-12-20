@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 --------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Rebuild and add to unlockable items tree
   - A replacement for a full tree needs the ItemTrees title & the tree's own title
    as 1st & 2nd parents.
@@ -68,12 +68,19 @@ local unlockable_items = {
 				META	= mt_child,
 				{
 					META	= mt_ulitn,
-					Unlockable	= 'SHIPJUMP_ALIEN',
+					Unlockable	= 'WARP_ALIEN',
 					{
 						META	= mt_child,
 						{
 							META = mt_ulitn,
-							Unlockable	= 'WARP_ALIEN'
+							Unlockable	= 'SHIPJUMP_ALIEN',
+							{
+								META	= mt_child,
+								{
+									META = mt_ulitn,
+									Unlockable	= 'JUMP_U_ALIEN'
+								}
+							}
 						}
 					}
 
@@ -89,7 +96,14 @@ local unlockable_items = {
 						},
 						{
 							META = mt_ulitn,
-							Unlockable	= 'SHIELD_ALIEN'
+							Unlockable	= 'SHIELD_ALIEN',
+							{
+								META	= mt_child,
+								{
+									META = mt_ulitn,
+									Unlockable	= 'SHIELD_U_ALIEN'
+								}
+							}
 						}
 					}
 				},
@@ -1708,7 +1722,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

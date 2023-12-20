@@ -1,12 +1,12 @@
 ----------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Adds observatory settlement, drone-hive, ship debris, sentinel pillar, claimable base site,
   minor settlement, secure facility, ancient plaque, remote terminal, treasure ruin,
   traveler grave, distress signals and underwater locations to exocraft scanner.
   Re-arrange scanner icons grouping for improved target selection.
   Make exocraft scanner tech available to the mech.
 ]]--------------------------------------------------------------------------------------
-mod_version = '1.99.4'
+local mod_version = '1.99.4'
 
 local icon = {
 	glitch		= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.HIDE_N_SEEK.MSHOP.DDS',
@@ -382,14 +382,14 @@ local function VehicleScanEventsChangeTable()
 		VALUE_CHANGE_TABLE 	= {
 			{'OSDMessage', 'UI_SIGNAL_TREASURERUIN'}
 		}
-	}	
+	}
 	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.exocraft scan upgrade.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

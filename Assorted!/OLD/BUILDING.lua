@@ -1,5 +1,5 @@
 ------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increased scan range for buildings; More building found in scan
   Increased connections lengh of bases
 ]]----------------------------------------------------------------
@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC BUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

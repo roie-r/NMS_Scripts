@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Faster clicks and keys presses; Reduces cursor size
   Minor tweaks to menu vehicle/tool/freighter model angles
 ]]----------------------------------------------------------
@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC UI.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -23,6 +23,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'StackSizeChangeMinRate',					1},		-- 2
 					{'StackSizeChangeMaxRate',					180},	-- 60
 					{'WantedDetectMinTimeout',					3},		-- 5			1400
+					{'MaxNumMessageBeaconIcons',				0}, 	-- 10
 					{'TakeoffFuelMessageTime',					1.5},	-- 5
 					{'HUDMarkerDistanceOrTimeDistance',			32000},	-- 1250
 					{'RefinerPadStartTime',						0.25},	-- 1			2318

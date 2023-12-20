@@ -1,5 +1,5 @@
 ------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Add 'harvest all' at radius of 24u to Sealed Container base part
   Add 'harvest all' to Large planter (3u radius)
   (Duplicates the funcion from the Bioroom)
@@ -10,7 +10,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL harvet all in radius.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -18,7 +18,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= {
 			{
 				build_parts..'BIOROOM/ENTITIES/INTERACTION.ENTITY.MBIN',
-				build_parts..'TECH/CUBEROOM_PLANTERMEGA/INTERACTION.ENTITY.MBIN',
+				build_parts..'TECH/CUBEROOM_PLANTERMEGA/INTERACTION.ENTITY.MBIN'
+			},
+			{
+				build_parts..'BIOROOM/ENTITIES/INTERACTION.ENTITY.MBIN',
+				build_parts..'DECORATION/TOYDRONE/INTERACTION.ENTITY.MBIN'
 			},
 			{
 				build_parts..'BIOROOM/ENTITIES/INTERACTION.ENTITY.MBIN',
@@ -31,6 +35,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= build_parts..'TECH/CUBEROOM_PLANTERMEGA/INTERACTION.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
+				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',
+				REMOVE				= 'Section'
+			},
+			{
 				VALUE_CHANGE_TABLE 	= {
 					{'Radius',		3}
 				}
@@ -38,8 +46,26 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
+		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOYDRONE/INTERACTION.ENTITY.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',
+				REMOVE				= 'Section'
+			},
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'Radius',		24}
+				}
+			}
+		}
+	},
+	{
 		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/WATERVALVE/INTERACTION.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',
+				REMOVE				= 'Section'
+			},
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'Radius',		24}
@@ -58,7 +84,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/WATERVALVE.SCENE.MBIN',
+		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOYDRONE.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SECTION_EDIT 		= 'harvest_entity_scene_node',
@@ -75,6 +101,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Value',		1},
 				}
 			},
+			{
+				SECTION_EDIT 		= 'harvest_entity_scene_node',
+				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value', build_parts..'DECORATION/TOYDRONE/INTERACTION.ENTITY.MBIN'},
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'Children',
+				SECTION_ACTIVE		= -1,
+				SECTION_ADD_NAMED 	= 'harvest_entity_scene_node',
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/WATERVALVE.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
 			{
 				SECTION_EDIT 		= 'harvest_entity_scene_node',
 				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},

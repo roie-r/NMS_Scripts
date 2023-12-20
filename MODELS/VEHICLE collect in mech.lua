@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   collect stuff while in the mech
   resource crates, pearl, fiend egg, eye, hadal, larval, crystal sulphite, glitches and others..
 ]]-----------------------------------------------------------------------------------------------
@@ -7,7 +7,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL collect in mech.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

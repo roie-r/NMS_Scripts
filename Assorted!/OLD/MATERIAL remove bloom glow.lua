@@ -1,5 +1,5 @@
 -----------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Remove bloom glow flag:: base parts, plants
 ]]---------------------------------------------
 
@@ -10,7 +10,7 @@ local farm = 'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL remove bloom glow.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

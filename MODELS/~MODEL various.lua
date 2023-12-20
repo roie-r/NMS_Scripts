@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - large living crystal reward fix
   - Increase scan discovery range for rare resources
   - green cave crystal rewards cave2
@@ -15,7 +15,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -146,7 +146,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	remove lowest |frigate LOD|
+	{--	remove lowest |frigate LOD| model
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/COMMON/SPACECRAFT/FRIGATES/COMBATFRIGATELOD3.SCENE.MBIN',
@@ -172,10 +172,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				'MODELS/COMMON/SPACECRAFT/FRIGATES/SUPPORTFRIGATELOD3.SCENE.MBIN',
 				'MODELS/COMMON/SPACECRAFT/FRIGATES/SUPPORTFRIGATELOD4.SCENE.MBIN',
 				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/LIVINGFRIGATELOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/LIVINGFRIGATELOD4.SCENE.MBIN',
+				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/LIVINGFRIGATE_PROC_LOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/FRIGATES/LIVINGFRIGATE_PROC_LOD4.SCENE.MBIN',
+				'REMOVE'
+			},
+			{
+				'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/PIRATECRUISERLOD3.SCENE.MBIN',
+				'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/PIRATECRUISERLOD4.SCENE.MBIN',
+				'REMOVE'
 			}
 		}
 	},
-	{--	|add full mangroves|
+	{--	add full mangroves
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGE.DESCRIPTOR.MBIN',
@@ -184,7 +199,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	add full mangroves
 		MBIN_FILE_SOURCE	=  'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -207,7 +222,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Id',			'_MFULL_02LOD0'},
 					{'Name',		'_MFull_02LOD0'}
 				}
-			},
+			}
 		}
 	}
 }}}}

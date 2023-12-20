@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
-mod_desc = [[
-  Adds all base parts and tech recipes to the Construction Research Unit  
+local mod_desc = [[
+  Adds all base parts and tech recipes to the Construction Research Unit
   * Does not include expeditions and quicksilver shop items.
 ]]----------------------------------------------------------------------
 
@@ -124,7 +124,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Construction Unit ALL.'..version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

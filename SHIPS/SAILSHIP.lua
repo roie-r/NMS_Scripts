@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 --------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - sailship changes:
    re-align trails & decals
    add missing trails
@@ -76,14 +76,14 @@ end
 
 local function SailshipTrails(T)
 	for _,node in ipairs({
-		{k='AWingsL_JNT',	n='TrailAL',	3.558,	1.7178,	-5.0282,	0,	180},
-		{k='AWingsR_JNT',	n='TrailAR',	-1.874,	1.7178,	-9.7578,	0,	180},
-		{k='BWingsL_JNT',	n='TrailBL',	3.7583,	1.7178,	-5.0278,	0,	180},
-		{k='BWingsR_JNT',	n='TrailBR',	-3.539,	1.7178,	-5.0278,	0,	180},
-		{k='CWingsL_JNT',	n='TrailCL',	3.5532,	1.7178,	-5.0281,	0,	180},
-		{k='CWingsR_JNT',	n='TrailCR',	-3.539,	1.7178,	-5.0278,	0,	180},
-		{k='FWingsL_JNT',	n='TrailFL',	3.7181,	1.7178,	-5.0278,	0,	180},
-		{k='FWingsR_JNT',	n='TrailFR',	-3.539,	1.7178,	-5.0278,	0,	180}
+		{k='AWingsL_JNT', n='TrailAL', tx=3.5581, ty=1.7178, tz=-5.0282, rx=0, ry=180},
+		{k='AWingsR_JNT', n='TrailAR', tx=-1.874, ty=1.7178, tz=-9.7578, rx=0, ry=180},
+		{k='BWingsL_JNT', n='TrailBL', tx=3.7583, ty=1.7178, tz=-5.0278, rx=0, ry=180},
+		{k='BWingsR_JNT', n='TrailBR', tx=-3.539, ty=1.7178, tz=-5.0278, rx=0, ry=180},
+		{k='CWingsL_JNT', n='TrailCL', tx=3.5532, ty=1.7178, tz=-5.0281, rx=0, ry=180},
+		{k='CWingsR_JNT', n='TrailCR', tx=-3.539, ty=1.7178, tz=-5.0278, rx=0, ry=180},
+		{k='FWingsL_JNT', n='TrailFL', tx=3.7181, ty=1.7178, tz=-5.0278, rx=0, ry=180},
+		{k='FWingsR_JNT', n='TrailFR', tx=-3.539, ty=1.7178, tz=-5.0278, rx=0, ry=180}
 	}) do
 		T[#T+1] = {
 			SPECIAL_KEY_WORDS	= {'Name', node.k},
@@ -96,7 +96,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP sailship.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.45,
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

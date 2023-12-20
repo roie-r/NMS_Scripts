@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/puzzle_entry.lua')
 -----------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Replace freighter battles reward for each race, requires(!) additions in rewards table
   attach the test reward to the construction recipe analyzer <Cancel> menu
   Keep chef talking - don't close dialog after each interaction
@@ -11,7 +11,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DIALOG PUZZLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,12 +1,12 @@
 ----------------------
-mod_desc = [[
+local mod_desc = [[
   debug tweaks
 ]]--------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC DEBUG.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,7 +15,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'WeaponScale3P',						0.7},	-- 0.78
+					{'WeaponScale3P',						0.7},	-- 0.78	0.55
 					{'DisableSaveSlotSorting',				true},
 					{'AlwaysHaveFocus',						true},
 					{'ForceInitialShip',					false},

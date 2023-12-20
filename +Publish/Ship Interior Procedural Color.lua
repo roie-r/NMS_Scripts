@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Restores procedural colors for the cockpit interior plastic parts
   This affects all ship types except the living ship
 ]]-------------------------------------------------------------------
@@ -29,14 +29,14 @@ local function SingleLayerTextureMbin(diffuse, palette, altcolor)
 			<Property value="TkProceduralTextureLayer.xml"/>
 			<Property value="TkProceduralTextureLayer.xml"/>
 			<Property value="TkProceduralTextureLayer.xml"/>
-		</Property>	
+		</Property>
 	</Data>]]
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Ship Interior Procedural Color.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES	= {
 		{

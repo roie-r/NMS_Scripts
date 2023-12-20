@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - add procedual color to the pistol sentinel tool
   - remove laser horizontal flare
   - avoid unwanted parts from multitool
@@ -8,7 +8,8 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL multitool various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

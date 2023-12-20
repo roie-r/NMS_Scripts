@@ -1,14 +1,14 @@
 ---------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   shorten living ship mission waiting intervals (parts "maturing" over 24 hours)
   ** must be installed BEFORE accepting the first mission!
 ]]-------------------------------------------------------------------------------
-Timer_mult = 0.1
+local Timer_mult = 0.1
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= 'MISSION living ship shorter timer.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

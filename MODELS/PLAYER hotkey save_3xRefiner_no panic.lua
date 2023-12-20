@@ -1,23 +1,32 @@
 ----------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ----------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Add hotkey saving (quick action emote menu)
   Disable panic falling animation
   Upgrade suit refiner to 3 slots
 ]]--------------------------------------------
 
-save_trigger_components = {
+local save_trigger_components = {
 	{
-		META = {'value', 'GcSimpleInteractionComponentData.xml'},
+		META	= {'value', 'GcSimpleInteractionComponentData.xml'},
 		SimpleInteractionType	= 'Save',
 		TriggerAction			= 'INACTIVE',
-		HideContents			= true
+		HideContents			= true,
+	------------------------------------------
+		-- InteractIsCrime			= true,
+		-- InteractCrimeLevel		= 4,
+		-- InteractFiendCrimeChance= 100,
+		-- FiendCrime	= {
+			-- META	= {'InteractFiendCrimeType', 'GcFiendCrime.xml'},
+			-- FiendCrime	= 'EggDestroyed' --	EggDestroyed / EggCollected
+		-- }
+	------------------------------------------
 	},
 	{
-		META = {'value', 'GcTriggerActionComponentData.xml'},
+		META	= {'value', 'GcTriggerActionComponentData.xml'},
 		{
-			META = {'name', 'States'},
+			META	= {'name', 'States'},
 			{
 				META	= {'value', 'GcActionTriggerState.xml'},
 				StateID	= 'BOOT',
@@ -74,7 +83,8 @@ save_trigger_components = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

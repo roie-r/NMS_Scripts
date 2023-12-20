@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Replace freighter defense reward (requires changes in AlienPuzzle)
   Changes to pirate battle loot
   Increase wild plants harvest yield
@@ -433,7 +433,7 @@ local function AddNewRewardsToChangeTable()
 	table.insert(T, {
 		PRECEDING_KEY_WORDS	= 'GenericTable',
 		ADD					= rewards
-	})	
+	})
 	return T
 end
 
@@ -509,7 +509,7 @@ local source_table_reward = 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 4 REWARDS.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

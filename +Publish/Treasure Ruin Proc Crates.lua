@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   procedurally-placed keys - Only 3 keys will appear in any instance
   4 Alternate placements for the treasure chest
 ]]--------------------------------------------------------------------
@@ -152,7 +152,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Treasure Ruin Procedural Crates.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

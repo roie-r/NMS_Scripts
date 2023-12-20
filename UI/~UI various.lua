@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Add space in the menu's Units display for larger numbers
   Remove cinematic black bars
   smaller item slot amount font
@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fonts units & no bars.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

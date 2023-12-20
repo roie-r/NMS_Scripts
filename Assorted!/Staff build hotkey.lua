@@ -1,7 +1,7 @@
 ---------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   open staff build page from the quickmenu
 ]]-------------------------------------------------
 
@@ -9,7 +9,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__Open Staff build page hotkey.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -74,6 +74,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 										META	= {'name', 'Action'},
 										{
 											META	= {'value', 'GcRewardAction.xml'},
+											-- where the action happens
 											Reward	= 'R_STAFF_PAGE'
 										},
 										{

@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 -------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Edit / add / remove stats
   * The game determines an upgrade's class by the level property of the first
    stat in StatBonuses array, so adding a new stat can change the class.
@@ -78,6 +78,7 @@ local add_edit_stats = {
 ---	vehicle
 	{id='MECH_SENT_L_ARM',	st='Vehicle_LaserStrongLaser',				bn=1},
 ---	ship
+	{id='SHIPJUMP_ALIEN',	st='Ship_Drift',							bn=1,		lv=1},
 	{id='PHOTONIX_CORE',	st='Ship_Launcher_AutoCharge',				bn=1,		lv=1},
 	{id='PHOTONIX_CORE',	st='Ship_PulseDrive_MiniJumpSpeed',			bn=1.3,		lv=3},
 	{id='SOLAR_SAIL',		st='Ship_PulseDrive_MiniJumpSpeed',			bn=1.22},
@@ -98,44 +99,44 @@ local add_edit_stats = {
 }
 function add_edit_stats:GetExmlCT(T)
 	-- index for removing tech (must come first)
-	tch_rd = #T + 1
-	T[tch_rd] = {
+	local inx = #T + 1
+	T[inx] = {
 		SKW			= {},
 		SECTION_UP	= 1,
 		REMOVE		= 'Section'
 	}
-	for _,x in ipairs(self) do
-		local skw = {'ID', x.id, 'Stat', 'GcStatsTypes.xml',  'StatsType', x.st}
-		if x.op then
+	for _,tch in ipairs(self) do
+		local skw = {'ID', tch.id, 'Stat', 'GcStatsTypes.xml',  'StatsType', tch.st}
+		if tch.op then
 			--- edit ---
 			T[#T+1] = {
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= skw,
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'Bonus', '@'..x.op..x.bn},
-					{'Level', x.lv or 'Ignore'}
+					{'Bonus', '@'..tch.op..tch.bn},
+					{'Level', tch.lv or 'Ignore'}
 				}
 			}
 			--- replace ---
-			if x.nw then
+			if tch.nw then
 				T[#T+1] = {
 					SPECIAL_KEY_WORDS	= skw,
 					VALUE_CHANGE_TABLE 	= {
-						{'StatsType',	x.nw}
+						{'StatsType',	tch.nw}
 					}
 				}
 			end
-		elseif x.bn then
+		elseif tch.bn then
 			--- add new ---
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'ID', x.id},
+				SPECIAL_KEY_WORDS	= {'ID', tch.id},
 				PRECEDING_KEY_WORDS	= 'StatBonuses',
-				ADD					= ToExml(TechStatBonus(x))
+				ADD					= ToExml(TechStatBonus(tch))
 			}
 		else
 			--- remove ---
-			T[tch_rd].SKW[#T[tch_rd].SKW + 1] = skw
+			T[inx].SKW[#T[inx].SKW + 1] = skw
 		end
 	end
 end
@@ -150,6 +151,7 @@ local charge_amount = {
 	{'LAUNCHER_ALIEN',	1.5},
 	{'LAUNCHER_ROBO',	1.5},
 	{'F_HYPERDRIVE',	4},
+	{'F_MEGAWARP',		10},
 	{'LASER',			2},
 	{'SENT_LASER',		2},
 	{'TERRAINEDITOR',	3},
@@ -173,27 +175,35 @@ local charge_amount = {
 	{'MECH_GUN',		1.4}
 }
 function charge_amount:GetExmlCT(T)
-	for _,x in ipairs(self) do
+	for _,tch in ipairs(self) do
 		T[#T+1] = {
 			INTEGER_TO_FLOAT	= 'Preserve',
 			MATH_OPERATION 		= '*',
-			SPECIAL_KEY_WORDS	= {'ID', x[1]},
-			VALUE_CHANGE_TABLE 	= { {'ChargeAmount', x[2]} }
+			SPECIAL_KEY_WORDS	= {'ID', tch[1]},
+			VALUE_CHANGE_TABLE 	= { {'ChargeAmount', tch[2]} }
 		}
 	end
 end
 
 local include_in_category = {
 	{'SHIP_TELEPORT',	'AllShipsExceptAlien',	'AllShips'},
+	{'SHIPROCKETS',		'AllShipsExceptAlien',	'AllShips'},
+	{'UT_ROCKETS',		'AllShipsExceptAlien',	'AllShips'},
+	{'SHIPMINIGUN',		'AllShipsExceptAlien',	'AllShips'},
+	{'UT_SHIPMINI',		'AllShipsExceptAlien',	'AllShips'},
+	{'SHIPPLASMA',		'AllShipsExceptAlien',	'AllShips'},
+	{'UT_SHIPBLOB',		'AllShipsExceptAlien',	'AllShips'},
+	{'SHIPSHOTGUN',		'AllShipsExceptAlien',	'AllShips'},
+	{'UT_SHIPSHOT',		'AllShipsExceptAlien',	'AllShips'},
 	{'VEHICLE_SCAN1',	'Exocraft',				'AllVehicles'},
 	{'VEHICLE_SCAN2',	'Exocraft',				'AllVehicles'},
 	{'MECH_PROT',		'Mech',					'AllVehicles'},
 }
 function include_in_category:GetExmlCT(T)
-	for _,x in ipairs(self) do
+	for _,cat in ipairs(self) do
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x[1], 'TechnologyCategory', x[2]},
-			VALUE_CHANGE_TABLE 	= { {'TechnologyCategory', x[3]} }
+			SPECIAL_KEY_WORDS	= {'ID', cat[1], 'TechnologyCategory', cat[2]},
+			VALUE_CHANGE_TABLE 	= { {'TechnologyCategory', cat[3]} }
 		}
 	end
 end
@@ -221,25 +231,25 @@ local edit_rgb = {
 	{'T_SHIP_PIRATE'}
 }
 function edit_rgb:GetExmlCT(T)
-	-- index for backgrounds
-	bgd_c = #T + 1
-	T[bgd_c] = {
+	--- index for backgrounds
+	local inx = #T + 1
+	T[inx] = {
 	--- background color ---
 		SKW					= {},
 		INTEGER_TO_FLOAT	= 'Force',
 		PRECEDING_KEY_WORDS	= 'Colour',
 		VALUE_CHANGE_TABLE 	= ColorFromHex('FF095C77')
 	}
-	for _,x in ipairs(self) do
-		if #x < 2 then
-			T[bgd_c].SKW[#T[bgd_c].SKW + 1] = {'ID', x[1]}
+	for _,col in ipairs(self) do
+		if #col < 2 then
+			T[inx].SKW[#T[inx].SKW + 1] = {'ID', col[1]}
 		else
 	--- upgrade color ---
 			T[#T+1] = {
 				INTEGER_TO_FLOAT	= 'Force',
-				SPECIAL_KEY_WORDS	= {'ID', x[1]},
+				SPECIAL_KEY_WORDS	= {'ID', col[1]},
 				PRECEDING_KEY_WORDS	= 'UpgradeColour',
-				VALUE_CHANGE_TABLE 	= ColorFromHex(x[2])
+				VALUE_CHANGE_TABLE 	= ColorFromHex(col[2])
 			}
 		end
 	end
@@ -270,10 +280,10 @@ local fragment_cost = {
 	{'SHIP_LIFESUP',	10}
 }
 function fragment_cost:GetExmlCT(T)
-	for _,x in ipairs(self) do
+	for _,frg in ipairs(self) do
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x[1]},
-			VALUE_CHANGE_TABLE 	= { {'FragmentCost', x[2]} }
+			SPECIAL_KEY_WORDS	= {'ID', frg[1]},
+			VALUE_CHANGE_TABLE 	= { {'FragmentCost', frg[2]} }
 		}
 	end
 end
@@ -353,17 +363,17 @@ local tech_icons = {
 	{'F_HACCESS3',		'TECHNOLOGY/RENDER.FREIGHTER.BLUE.DDS'}
 }
 function tech_icons:GetExmlCT(T)
-	for _,x in ipairs(self) do
+	for _,tch in ipairs(self) do
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', x[1]},
-			VALUE_CHANGE_TABLE 	= { {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..x[2]} }
+			SPECIAL_KEY_WORDS	= {'ID', tch[1]},
+			VALUE_CHANGE_TABLE 	= { {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..tch[2]} }
 		}
 	end
 end
 
-local charge_to_top = {
-	{id='SENT_LASER',		prd={'DRONE_SHARD', 'ROBOT2', 'ROBOT1'}},
-	{id='PROTECT',			prd='POWERCELL'},
+local charge_bys = {
+	{id='SENT_LASER',		prd={'DRONE_SHARD', 'ROBOT2', 'ROBOT1'}, rpc=true},	-- full replace
+	{id='PROTECT',			prd='POWERCELL'},									-- move to top
 	{id='ENERGY',			prd='PRODFUEL2'},
 	{id='T_RAD',			prd='POWERCELL'},
 	{id='T_TOX',			prd='POWERCELL'},
@@ -371,40 +381,53 @@ local charge_to_top = {
 	{id='T_HOTPROT',		prd='POWERCELL'},
 	{id='T_UNW',			prd='PRODFUEL2'},
 	{id='SHIPSHIELD',		prd='SHIPCHARGE'},
-	{id='SUIT_ROCKET',		prd='LAUNCHFUEL', new=true},
+	{id='SUIT_ROCKET',		prd='LAUNCHFUEL',   new=true},						-- add new
+	{id='F_MEGAWARP',		prd={'HYPERFUEL2'}, new=true, rpc=true, ctp='Fuel'},-- add new & replace category
 	{id='SHIPSHIELD_ROBO',	prd='DRONE_SHARD'},
-	{id='HYPERDRIVE_ROBO',	prd='DRONE_SHARD'}
+	{id='HYPERDRIVE_ROBO',	prd='DRONE_SHARD'},
+	{id='MECH_MINER',		ctp='Metal'},
+	{id='SUN_LASER',		ctp='Metal'},
 }
-function charge_to_top:GetExmlCT(T)
+function charge_bys:GetExmlCT(T)
 	-- index for removing section (must come first)
-	crg_rd = #T + 1
-	T[crg_rd] = {
+	local inx = #T + 1
+	T[inx] = {
 		SKW		= {},
 		REMOVE	= 'Section'
 	}
-	for _,x in ipairs(self) do
-		if type(x.prd) == 'table' then
-		-- if prd is a table of items then replace the entire chargeby list
+	for _,crg in ipairs(self) do
+		-- if rpc then replace the existing list
+		if crg.rpc then
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'ID', x.id},
+				SPECIAL_KEY_WORDS	= {'ID', crg.id},
 				PRECEDING_KEY_WORDS = 'ChargeBy',
-				REMOVE				= x.new and 'Line' or 'Section'
+				REMOVE				= crg.new and 'Line' or 'Section'
 			}
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'ID', x.id},
-				ADD					= ToExml(StringArray(x.prd, 'ChargeBy', 10))
+				SPECIAL_KEY_WORDS	= {'ID', crg.id},
+				ADD					= ToExml(StringArray(crg.prd, 'ChargeBy', 10))
 			}
-		else
-			if not x.new then
-				T[crg_rd].SKW[#T[crg_rd].SKW + 1] = {'ID', x.id, 'Value', x.prd}
+		-- if prd item then move to top (delete then re-add)
+		elseif crg.prd then
+			if not crg.new then
+				T[inx].SKW[#T[inx].SKW + 1] = {'ID', crg.id, 'Value', crg.prd}
 			end
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'ID', x.id},
+				SPECIAL_KEY_WORDS	= {'ID', crg.id},
 				PRECEDING_KEY_WORDS = 'ChargeBy',
 				ADD					= ToExml({
 					META	= {'value', 'NMSString0x10.xml'},
-					Value	= x.prd
+					Value	= crg.prd
 				})
+			}
+		end
+		-- if ctp then replace charge category
+		if crg.ctp then
+			T[#T+1] = {
+				SPECIAL_KEY_WORDS	= {'ID', crg.id},
+				VALUE_CHANGE_TABLE 	= {
+					{'SubstanceCategory', crg.ctp}
+				}
 			}
 		end
 	end
@@ -412,62 +435,77 @@ end
 
 local replace_requirements = {
 	{--	hijacked (sentinel) laser
-		id = 'SENT_LASER',
-		{id='DRONE_SHARD',	n=2,	tp=I_.PRD},
-		{id='ROBOT2',		n=250,	tp=I_.SBT},
-		{id='TECH_COMP',	n=2,	tp=I_.PRD}
+		id	= 'SENT_LASER',
+		req	= {
+			{id='DRONE_SHARD',	n=2,	tp=IT_.PRD},
+			{id='ROBOT2',		n=250,	tp=IT_.SBT},
+			{id='TECH_COMP',	n=2,	tp=IT_.PRD}
+		}
 	},
 	{--	runic lens (altas laser)
-		id = 'ATLAS_LASER',
-		{id='HEXCORE',		n=2,	tp=I_.PRD},
-		{id='ASTEROID3',	n=150,	tp=I_.SBT},
-		{id='TECH_COMP',	n=2,	tp=I_.PRD}
+		id 	= 'ATLAS_LASER',
+		req	= {
+			{id='HEXCORE',		n=2,	tp=IT_.PRD},
+			{id='ASTEROID3',	n=150,	tp=IT_.SBT},
+			{id='TECH_COMP',	n=2,	tp=IT_.PRD}
+		}
 	},
 	{--	environment control unit
-		id = 'MECH_PROT',
-		{id='COMPUTER',		n=2,	tp=I_.PRD},
-		{id='SHIPCHARGE',	n=2,	tp=I_.PRD},
-		{id='TECH_COMP',	n=2,	tp=I_.PRD}
+		id	= 'MECH_PROT',
+		req	= {
+			{id='COMPUTER',		n=2,	tp=IT_.PRD},
+			{id='SHIPCHARGE',	n=2,	tp=IT_.PRD},
+			{id='TECH_COMP',	n=2,	tp=IT_.PRD}
+		}
 	},
 	{--	pulsing heart
 		id = 'SHIPJUMP_ALIEN',
-		{id='GRAVBALL',		n=2,	tp=I_.PRD},
-		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
+		req	= {
+			{id='GRAVBALL',		n=2,	tp=IT_.PRD},
+			{id='SPACEGUNK2',	n=100,	tp=IT_.SBT}
+		}
 	},
 	{--	neural shielding
-		id = 'CARGO_S_ALIEN',
-		{id='FIENDCORE',	n=2,	tp=I_.PRD},
-		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
+		id	= 'CARGO_S_ALIEN',
+		req	= {
+			{id='FIENDCORE',	n=2,	tp=IT_.PRD},
+			{id='SPACEGUNK2',	n=100,	tp=IT_.SBT}
+		}
 	},
 	{--	chloroplast membrane
 		id	= 'CHARGER_ALIEN',
-		{id='FISHCORE',		n=2,	tp=I_.PRD},
-		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
+		req	= {
+			{id='FISHCORE',		n=2,	tp=IT_.PRD},
+			{id='SPACEGUNK2',	n=100,	tp=IT_.SBT}
+		}
 	},
 	{--	wormhole brain
-		id = 'SHIPSCAN_ALIEN',
-		{id='EYEBALL',		n=2,	tp=I_.PRD},
-		{id='SPACEGUNK2',	n=100,	tp=I_.SBT}
+		id	= 'SHIPSCAN_ALIEN',
+		req	= {
+			{id='EYEBALL',		n=2,	tp=IT_.PRD},
+			{id='SPACEGUNK2',	n=100,	tp=IT_.SBT}
+		}
 	}
 }
 function replace_requirements:GetExmlCT(T)
 	-- index for removing section (must come first)
-	req_rd = #T + 1
-	T[req_rd] = {
-		SKW					= {},
-		PRECEDING_KEY_WORDS	= 'Requirements',
-		REMOVE				= 'Section'
+	local inx = #T + 1
+	T[inx] = {
+		SKW		= {},
+		PKW		= 'Requirements',
+		REMOVE	= 'Section'
 	}
-	for _,req in ipairs(self) do
-		T[req_rd].SKW[#T[req_rd].SKW + 1] = {'ID', req.id}
+	for _,tech in ipairs(self) do
+		T[inx].SKW[#T[inx].SKW + 1] = {'ID', tech.id}
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'ID', req.id},
-			ADD					= ToExml(GetRequirements(req))
+			SPECIAL_KEY_WORDS	= {'ID', tech.id},
+			ADD					= ToExml(GetRequirements(tech.req))
 		}
 	end
 end
 
 local ECT = {}
+---	sections process order ---
 for _,tm in ipairs({
 	charge_amount,
 	include_in_category,
@@ -475,21 +513,12 @@ for _,tm in ipairs({
 	fragment_cost,
 	tech_icons,
 	add_edit_stats,
-	charge_to_top,
+	charge_bys,
 	replace_requirements
 }) do
 	tm:GetExmlCT(ECT)
 end
 
-ECT[#ECT+1] = {
-	SPECIAL_KEY_WORDS 	= {
-		{'ID', 'MECH_MINER'},
-		{'ID', 'SUN_LASER'}
-	},
-	VALUE_CHANGE_TABLE 	= {
-		{'SubstanceCategory', 'Metal'}	-- Fuel
-	}
-}
 ECT[#ECT+1] = {
 	SPECIAL_KEY_WORDS 	= {
 		{'ID',	'PROTECT'},
@@ -528,10 +557,11 @@ ECT[#ECT+1] = {
 		{'Core',		false}
 	}
 }
+--- add new tech ---
 ECT[#ECT+1] = {
 	PRECEDING_KEY_WORDS	= 'Table',
 	ADD					= ToExml({
-		[1] = TechnologyEntry({
+		TechnologyEntry({-- vehicle stun cannon
 			id				= 'VEHICLESTUN',
 			name			= 'VEHICLESTUN_NAME',
 			namelower		= 'VEHICLESTUN_NAME_L',
@@ -548,45 +578,69 @@ ECT[#ECT+1] = {
 			category		= 'Exocraft',
 			rarity			= 'Rare',
 			value			= 5,
+			fragmentcost	= 580,
 			requirements	= {
-				{id='LAVA1',		n=70,	tp=I_.SBT},
-				{id='HYDRALIC',		n=2,	tp=I_.PRD},
-				{id='TECH_COMP',	n=1,	tp=I_.PRD}
+				{id='LAVA1',			n=70,	tp=IT_.SBT},
+				{id='HYDRALIC',			n=2,	tp=IT_.PRD},
+				{id='TECH_COMP',		n=1,	tp=IT_.PRD}
 			},
 			basestat		= 'Vehicle_StunGun',
 			statbonuses		= {
 				{st='Vehicle_GunDamage',			bn=20,	lv=3},
 				{st='Vehicle_GunHeatTime',			bn=1,	lv=1},
 				{st='Vehicle_GunRate',				bn=0.5,	lv=1}
-			},
-			fragmentcost	= 580
+			}
 		}),
-		[2] = TechnologyEntry({
-			id				= 'BODYSHIELD',
-			name			= 'BODYSHIELD_NAME',
-			namelower		= 'BODYSHIELD_NAME_L',
-			subtitle		= 'BODYSHIELD_SUB',
-			description		= 'BODYSHIELD_DESC',
-			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
-			color			= 'FF095C77',
-			chargeable		= true,
-			chargeamount	= 400,
-			chargetype		= 'Catalyst',
-			chargeby		= {'POWERCELL', 'CATALYST2', 'CATALYST1'},
-			primaryitem		= true,
-			category		= 'Suit',
-			rarity			= 'Rare',
-			value			= 5,
+		TechnologyEntry({-- bioship pulse engine upgrade
+			id				= 'JUMP_U_ALIEN',
+			name			= 'JUMP_U_ALIEN_NAME',
+			namelower		= 'JUMP_U_ALIEN_NAME_L',
+			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
+			description		= 'JUMP_U_ALIEN_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/BIOTECH.HEART.U.DDS',
+			color			= 'FF0A2E42',
+			upgrade			= true,
+			category		= 'AlienShip',
+			rarity			= 'Impossible',
+			value			= 7,
+			fragmentcost	= 520,
 			requirements	= {
-				{id='POWERCELL', 	n=1, 	tp=I_.PRD}
+				{id='ALIEN_TECHBOX',	n=2,	tp=IT_.PRD},
+				{id='MIRROR',			n=3,	tp=IT_.PRD},
+				{id='LAUNCHSUB2',		n=120,	tp=IT_.SBT}
 			},
-			basestat		= 'Suit_Armour_Shield',
+			basestat		= 'Ship_PulseDrive',
 			statbonuses		= {
-				{st='Suit_Armour_Shield',			bn=1,	lv=1},
-				{st='Suit_Armour_Shield_Strength',	bn=24,	lv=1},
-				{st='Suit_Armour_Health',			bn=60,	lv=20}
+				{st='Ship_PulseDrive_MiniJumpSpeed',		bn=1.2,		lv=4},
+				{st='Ship_Boost',							bn=1.16,	lv=1},
+				{st='Ship_BoostManeuverability',			bn=1.16,	lv=1},
+				{st='Ship_Maneuverability',					bn=1.006,	lv=1},
+				{st='Ship_Drift',							bn=0.6,		lv=1},
+				{st='Ship_PulseDrive_MiniJumpFuelSpending',	bn=0.86,	lv=1}
+			}
+		}),
+		TechnologyEntry({-- bioship shield upgrade
+			id				= 'SHIELD_U_ALIEN',
+			name			= 'SHIELD_U_ALIEN_NAME',
+			namelower		= 'SHIELD_U_ALIEN_NAME_L',
+			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
+			description		= 'SHIELD_U_ALIEN_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/BIOTECH.SCALES.U.DDS',
+			color			= 'FF0A2E42',
+			upgrade			= true,
+			category		= 'AlienShip',
+			rarity			= 'Impossible',
+			value			= 8,
+			fragmentcost	= 630,
+			requirements	= {
+				{id='ALIEN_TECHBOX',	n=1,	tp=IT_.PRD},
+				{id='MIRROR',			n=2,	tp=IT_.PRD},
+				{id='LAUNCHSUB2',		n=90,	tp=IT_.SBT}
 			},
-			fragmentcost	= 980
+			basestat		= 'Ship_Armour_Shield',
+			statbonuses		= {
+				{st='Ship_Armour_Shield_Strength',	bn=0.06, lv=3}
+			}
 		})
 	})
 }
@@ -594,7 +648,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

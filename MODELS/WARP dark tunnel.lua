@@ -1,12 +1,12 @@
 -----------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   dark warp tunnel by Silent369
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL dark warp tunnel.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

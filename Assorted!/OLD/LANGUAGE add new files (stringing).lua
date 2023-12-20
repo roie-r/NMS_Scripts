@@ -1,7 +1,5 @@
 ----------------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
-----------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Add a new language file.
   - Generates a separate mbin for each language. If an additional language has missing
    texts, the assigned default is inserted instead.
@@ -16,6 +14,24 @@ local text_lines = {
 	default	= 'EN',
 	entries	= {
 	---	New text ---
+		JUMP_U_ALIEN_NAME = {
+			EN = [[ENLARGED HEART]],
+		},
+		JUMP_U_ALIEN_NAME_L = {
+			EN = [[Enlarged Heart]],
+		},
+		JUMP_U_ALIEN_DESC = {
+			EN = [[A significant reinforcement to the vital organ's fibrous metallic superstructure, allowing greater performance and more subtle movement control.]],
+		},
+		SHIELD_U_ALIEN_NAME = {
+			EN = [[HORROR NULLIFIER]]
+		},
+		SHIELD_U_ALIEN_NAME_L =	{
+			EN = [[Horror Nullifier]]
+		},
+		SHIELD_U_ALIEN_DESC = {
+			EN = [[Envelops the neurological array and erects a barrier around it against all emotional trauma.]],
+		},
 		SUPERFOOD_NAME = {
 			EN = [[GLOWING PELLETS]],
 		},
@@ -23,8 +39,8 @@ local text_lines = {
 			EN = [[Glowing Pellets]],
 		},
 		SUPERFOOD_DESC = {
-			EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|NL|Consuming a sample seems to be a good for you.]],
-		},		
+			EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...||NConsuming a sample seems to be a good for you.]],
+		},
 		UI_STARCHART_BUILDER_NAME = {
 			EN = [[ROAMING BUILDER LOCATOR]],
 		},
@@ -36,7 +52,7 @@ local text_lines = {
 		},
 		UI_STARCHART_BUILDER_SUB = {
 			EN = [[Harmonious Synthetics Tracker]],
-		},		
+		},
 		VEHICLESTUN_NAME = {
 			EN = [[PARALYSIS GUN]],
 		},
@@ -44,7 +60,7 @@ local text_lines = {
 			EN = [[Paralysis Gun]],
 		},
 		VEHICLESTUN_DESC = {
-			EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.|NL|Charged with <FUEL>Unstable Plasma<>.]],
+			EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.||NCharged with <FUEL>Unstable Plasma<>.]],
 		},
 		VEHICLESTUN_SUB = {
 			EN = [[Stun Weapons]],
@@ -72,21 +88,6 @@ local text_lines = {
 		},
 		RECIPE_MEGASHIELD = {
 			EN = [[Requested Operation: Illegal <FUEL>Improbable<> Shielding]],
-		},
-		BODYSHIELD_NAME = {
-			EN = [[PERSONAL SHIELD]],
-			FR = [[BOUCLIER PERSONNEL]]
-		},
-		BODYSHIELD_NAME_L =	{
-			EN = [[Personal Shield]],
-			FR = [[Bouclier personnel]]
-		},
-		BODYSHIELD_SUBTITLE = {
-			EN = [[Cheating anti-cheat protection]],
-			FR = [[Protection anti-triche anti-triche]]
-		},
-		BODYSHIELD_DESCRIPTION = {
-			EN = [[Protects your person from <RED>Malevolent<> travelers, Atlas <STELLAR>glitches<> and various annoyances]],
 		},
 		UI_GEODE_NAME_CAVE = {
 			EN = [[CAVE GEODE]],
@@ -202,7 +203,7 @@ local text_lines = {
 			EN = [[Shell Igniter]],
 		},
 		UT_SHOT_DESC = {
-			EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.|NL||NL|Causes targets to <RED>burn<> for a short while, causing additional damage]],
+			EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.||N||NCauses targets to <RED>burn<> for a short while, causing additional damage]],
 		},
 		UI_LAUNCHSUB2_SYM	= { EN = [[H2]] },
 		UI_HEXITE_SYM		= { EN = [[Ӂ]] },
@@ -260,7 +261,7 @@ local function InsertCharEntities(s)
 		{'<',	'&lt;'},
 		{'>',	'&gt;'},
 		{'"',	'&quot;'},
-		{'|NL|','&#10;'}
+		{'||N',	'&#10;'}
 	}
 	for _,e in ipairs(entity) do
 		s = s:gsub(e[1], e[2])
@@ -271,19 +272,27 @@ end
 -- return a complete TkLocalisationTable exml
 -- if a locale text is missing, insert default locale text
 local function BuildLocaleText(lang_code)
-	local T = {META = {'name', 'Table'}}
+	local T = {}
 	for id, text in pairs(text_lines.entries) do
 		local code = text[lang_code] and lang_code or text_lines.default
-		T[#T+1] = {
-			META	= {'value', 'TkLocalisationEntry.xml'},
-			Id		= id,
-			{
-				META	= {languages[lang_code], 'VariableSizeString.xml'},
-				Value	= InsertCharEntities(text[code])
-			}
-		}
+		T[#T+1] = string.format(
+			[[<Property value="TkLocalisationEntry.xml">
+				<Property name="Id" value="%s"/>
+				<Property name="%s" value="VariableSizeString.xml">
+					<Property name="Value" value="%s"/>
+				</Property>
+			</Property>]],
+			id,
+			languages[lang_code],
+			InsertCharEntities(text[code])
+		)
 	end
-	return FileWrapping(T, 'TkLocalisationTable')
+	return string.format(
+		[[<Data template="TkLocalisationTable">
+			<Property name="Table">%s</Property>
+		</Data>]],
+		table.concat(T)
+	)
 end
 
 local function AddLanguageFiles()
@@ -311,7 +320,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{
@@ -321,10 +330,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- EXML_CHANGE_TABLE	= {
 				-- {
 					-- PRECEDING_KEY_WORDS	= 'LocTableList',
-					-- ADD					= ToExml({
-						-- META	= {'value', 'NMSString0x20.xml'},
-						-- Value	= text_lines.locale
-					-- })
+					-- ADD = string.format(
+						-- [[<Property value="NMSString0x20.xml"><Property name="Value" value="%s"/></Property>]],
+						-- text_lines.locale
+					-- )
 				-- }
 			-- }
 		-- }

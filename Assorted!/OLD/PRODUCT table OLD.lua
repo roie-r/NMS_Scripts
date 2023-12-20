@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increase stack size for various items
   Change cost of basic metal building parts to ferrite
   Explosive drones craft: ship_shield + unstable_plasma * 2 + platinum * 20
@@ -69,7 +69,7 @@ local icon_bg_color = {
 	{'Id',		'WATERPROD3',					0.54,	0.26,	0.26},
 	{'Id',		'CATAPROD3',					0.54,	0.26,	0.26},
 	{'Id',		'OXYPROD3',						0.54,	0.26,	0.26},
-	{'Id',		'CAVECUBE',						0.302,	0.16,	0.34},	
+	{'Id',		'CAVECUBE',						0.302,	0.16,	0.34},
 	{'Id',		'FOOD_V_ROBOT',					0.102,	0.153,	0.24},
 	{'Id',		'SUMMON_GARAGE',				0.04,	0.18,	0.26},
 	{'Name',	'UI_STORMCRYSTAL_NAME',			0.54,	0.26,	0.26},
@@ -175,7 +175,7 @@ local source_table_product = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

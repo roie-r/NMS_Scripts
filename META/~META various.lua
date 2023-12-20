@@ -1,10 +1,10 @@
 ------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Replace exploration mission log menu icon
   - Same underwater freighter crash site as on land
   - Restore old creature-scanned icon; Remove selected HUD icons
   - override corrupt biome filter
-  - Add civilian and pirate sentinel ships 
+  - Add civilian and pirate sentinel ships
   - Remove tiny cargo pod frigates
   - Faster screen text
   - hide inventory change tab marker (bulletpoint) and slashes
@@ -15,7 +15,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -182,19 +182,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {--	|same underwater freigher|
-		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/ENVIRONMENT/PLANETBUILDINGTABLE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- REPLACE_TYPE 		= 'All',
-				-- SPECIAL_KEY_WORDS	= {'WaterCrashedFreighter', 'GcBuildingFilename.xml'},
-				-- PRECEDING_KEY_WORDS = 'Scene',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/CRASHEDFREIGHTER.SCENE.MBIN'}
-				-- }
-			-- }
-		-- }
-	-- },
 	-- {--	|deeper oceans|
 		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/VOXELGENERATORSETTINGS.MBIN',
 		-- EXML_CHANGE_TABLE	= {

@@ -6,7 +6,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 32 vehicle grenade gun.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

@@ -1,5 +1,5 @@
 --------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Greater and more varied storm hazards
   Decrease storms occurrence chance
   Less damaging storms in lush biome
@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META less storm chance_more hazards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.44,
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,9 +1,11 @@
 -------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 -------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - slower wings folding anim
   - move the bobble in the sentinel cockpit to a less intrusive location
+  - add side engines trails
   - remove red glow in cockpit from selected sections
   - wingB blue glow
   - remove shiny head and 3cross head pieces (replaced with others)
@@ -14,7 +16,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sentinel.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -35,10 +37,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-				VALUE_CHANGE_TABLE 	= { {'Value', 5} }
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD 				= ToExml({
 					META	= {'value', 'TkSceneNodeAttributeData.xml'},
@@ -52,8 +50,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {'Name', 'LandingLight'},
-				REMOVE = 'Section'
+				SPECIAL_KEY_WORDS	= {'Name', 'LandingLight'},
+				REMOVE 	= 'Section'
 			}
 		}
 	},
@@ -61,8 +59,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENGINEFLAMESSMALL.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {'Name', 'Trail'}, 
-				VALUE_CHANGE_TABLE 	= { 
+				SPECIAL_KEY_WORDS 	= {'Name', 'Trail'},
+				VALUE_CHANGE_TABLE 	= {
 					{'TransY',		-0.32}
 				}
 			}
@@ -123,6 +121,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
+
+	{--	|sentinel side engine trails|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENFLAMESIDESANI.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'RTbodyJNT'},
+				PRECEDING_KEY_WORDS	= 'Children',
+				CREATE_HOS			= true,
+				ADD					= ToExml(ScNode('TrailER', 'LOCATOR', {ScTransform({tx=-3.9336, ty=-0.51785, tz=-2.3462, ry=180})}))
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'LTbodyJNT'},
+				PRECEDING_KEY_WORDS	= 'Children',
+				CREATE_HOS			= true,
+				ADD					= ToExml(ScNode('TrailEL', 'LOCATOR', {ScTransform({tx=3.9336, ty=0.51785, tz=2.3462, ry=180})}))
+			}
+		}
+	},
+
 	{--	|sentinel blue lights| instead of red
 		MBIN_FILE_SOURCE	= {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELCOCKPIT/LIGHTSCROLLBMAT.MATERIAL.MBIN',

@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 -------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Edit / add / remove stats
   * The game determines an upgrade's class by the level property of the first
    stat in StatBonuses array, so adding a new stat can change the class.
@@ -425,29 +425,29 @@ local replace_requirements = {
 	{
 	---	environment control unit
 		id = 'MECH_PROT',
-		{'COMPUTER',	2,		I_.PRD},
-		{'SHIPCHARGE',	2,		I_.PRD},
-		{'TECH_COMP',	2,		I_.PRD}
+		{'COMPUTER',	2,		IT_.PRD},
+		{'SHIPCHARGE',	2,		IT_.PRD},
+		{'TECH_COMP',	2,		IT_.PRD}
 	},{
 	---	pulsing heart
 		id = 'SHIPJUMP_ALIEN',
-		{'GRAVBALL',	2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{'GRAVBALL',	2,		IT_.PRD},
+		{'SPACEGUNK2',	100,	IT_.SBT}
 	},{
 	---	neural shielding
 		id = 'CARGO_S_ALIEN',
-		{'FIENDCORE',	2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{'FIENDCORE',	2,		IT_.PRD},
+		{'SPACEGUNK2',	100,	IT_.SBT}
 	},{
 	---	chloroplast membrane
 		id	= 'CHARGER_ALIEN',
-		{'FISHCORE',	2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{'FISHCORE',	2,		IT_.PRD},
+		{'SPACEGUNK2',	100,	IT_.SBT}
 	},{
 	---	wormhole brain
 		id = 'SHIPSCAN_ALIEN',
-		{'EYEBALL',		2,		I_.PRD},
-		{'SPACEGUNK2',	100,	I_.SBT}
+		{'EYEBALL',		2,		IT_.PRD},
+		{'SPACEGUNK2',	100,	IT_.SBT}
 	}
 }
 function replace_requirements:GetExmlCT()
@@ -487,7 +487,7 @@ local source_table_tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -581,7 +581,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					category		= 'Suit',
 					rarity			= 'Always',
 					value			= 5,
-					requirements	= { {'POWERCELL', 1, I_.PRD} },
+					requirements	= { {'POWERCELL', 1, IT_.PRD} },
 					basestat		= 'Suit_Armour_Shield',
 					statbonuses		= {
 						{'Suit_Armour_Shield',			1,	1},

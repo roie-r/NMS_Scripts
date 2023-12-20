@@ -1,6 +1,6 @@
 -- generate table sections
 
-ID_LIST = {
+local ID_LIST = {
 	'NPCVEHICLETERM',
 	'BIOROOM',
 	'CUBEFRAME',
@@ -9,7 +9,7 @@ ID_LIST = {
 	'WEDGESHAPE'
 }
 
-Tech_Charge = {
+local Tech_Charge = {
 	{'SHIPJUMP1',		1.2},
 	{'SHIPJUMP_ALIEN',	1.2},
 	{'LAUNCHER',		1.2},
@@ -21,14 +21,14 @@ Tech_Charge = {
 	{'VEHICLE_ENGINE',	1.2}
 }
 
-K_Icons_Color = {
+local K_Icons_Color = {
 	{'Id',		'STORM_CRYSTAL',				0, 0.54,	0.26,	0.26,	nil},
 	{'Id',		'VENTGEM',						0, 0.54,	0.26,	0.26,	nil},
 	{'Value',	'FRIG_BOOST_SUB',				1, 0.11,	0.18,	0.26,	'ALL'},
 	{'Value',	'UI_ALLOY_SIMPLE_SUBTITLE',		1, 0.18,	0.25,	0.62, 	'ALL'}
 }
 
-Add_To_Table = {}
+local Add_To_Table = {}
 for i = 1,#ID_LIST do
 	local section =
 	{
@@ -69,7 +69,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '___TEST 44 generate table sections.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

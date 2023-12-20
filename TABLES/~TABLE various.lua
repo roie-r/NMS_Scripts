@@ -1,7 +1,7 @@
 ------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Vykeen monolith accepts Effigy instead of dagger
   cheaper slots
 ]]----------------------------------------------------
@@ -9,7 +9,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -44,7 +44,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					PRECEDING_KEY_WORDS = 'Colour',
 					INTEGER_TO_FLOAT	= 'Force',
 					VALUE_CHANGE_TABLE 	= ColorFromHex('FF8A7F72')
-				}				
+				}
 				return T
 			end
 		)()

@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   space station interior LOD increase; mod by Lo2k
   station landing pad lights changed to near-white
 ]]--------------------------------------------------
@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL station interior FIX.pak',
 	MOD_AUTHOR			= 'Lo2k, lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

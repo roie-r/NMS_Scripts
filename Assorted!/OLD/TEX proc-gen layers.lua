@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Generate proc texture files & include the relevant dds files
   diff/normal/masks	= true >> add the texture path to layer
   If a source path is present add the files to the pak
@@ -334,7 +334,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	ADD_FILES			= AddProcTexFiles()

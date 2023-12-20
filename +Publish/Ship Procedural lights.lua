@@ -1,5 +1,5 @@
 ------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   All those small, glowing lights; the old, fake, light beams;
     various headlights, will will match the ship's main color.
 
@@ -107,7 +107,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.ship procedural lights.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= add_tex_layers_files(),
 	MODIFICATIONS 		= {{

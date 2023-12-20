@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   General better handling in water; stronger & longer boost
   Nimbler Mech handling;
   Eject on top of submarine; longer summoning range
@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC VEHICLE.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

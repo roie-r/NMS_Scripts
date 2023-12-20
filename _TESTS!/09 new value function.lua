@@ -1,15 +1,15 @@
-ModName = "mod"
-Author = "name"
-ModDescription = "description"
+local ModName = "mod"
+local Author = "name"
+local ModDescription = "description"
 
-values = {}
+local values = {}
 
-function saveValue(propertyname, orgvalue)
+local function saveValue(propertyname, orgvalue)
   table.insert(values, orgvalue)
   return orgvalue
 end
 
-function loadValue(propertyname, orgvalue)
+local function loadValue(propertyname, orgvalue)
   value = table.remove(values,1)
   return value
 end
@@ -29,12 +29,12 @@ NMS_MOD_DEFINITION_CONTAINER =
                     ["MBIN_FILE_SOURCE"] = "METADATA/REALITY/TABLES/NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE.MBIN",
                     ["EXML_CHANGE_TABLE"] =
                     {
-                        {   
+                        {
                             ["PROCEDING_KEY_WORDS"]   = {"Quality", "GcProceduralTechnologyStatLevel.xml"},
                             ["VALUE_CHANGE_TABLE"]    = {{"ValueMax", "saveValue()"}},
                             ["REPLACE_TYPE"]          = "ALL"
                         },
-                        {   
+                        {
                             ["PROCEDING_KEY_WORDS"]   = {"Quality", "GcProceduralTechnologyStatLevel.xml", "ValueMin"},
                             ["VALUE_CHANGE_TABLE"]    = {{"ValueMin", "loadValue()"}},
                             ["REPLACE_TYPE"]          = "ALL"

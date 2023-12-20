@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/reward_entry.lua')
 -------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Seed generator by lMonk (Original by Mjjstral)
   add action buttons to the emote menu that generate randoms ships
 -------------------------------------------------------------------
@@ -13,7 +13,7 @@ mod_desc = [[
 
 local seed_counter = {
 	Fighter			= 0,
-	Dropship		= 24000,
+	Dropship		= 0,
 	Scientific		= 0,
 	Shuttle			= 0,
 	Royal			= 0,
@@ -22,7 +22,7 @@ local seed_counter = {
 	Sentinel		= 0,
 	Freighter		= 0,
 	Capital			= 0,
-	Multitool		= 0,
+	Multitool		= 5000,
 	Royaltool		= 0,
 	Sentineltool	= 0,
 	Stafftool		= 0,
@@ -58,7 +58,7 @@ local item_inventory = {
 		{id='SOLAR_SAIL'},
 		{id='SHIPGUN1'}
 	},
-	sentinel_ship = {	
+	sentinel_ship = {
 		{id='LAUNCHER_ROBO',	amount=true},
 		{id='SHIPJUMP_ROBO',	amount=true},
 		{id='HYPERDRIVE_ROBO',	amount=true},
@@ -155,14 +155,14 @@ local seed_model = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/FREIGHTER_PROC.SCENE.MBIN',
 		icon		= 'QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
 		inventory	= item_inventory.freighter,
-		-- modeltype	= 'PlayerFreighter',
+		modeltype	= 'Rifle', -- PlayerFreighter
 		reward		= R_Multitool
 	},
 	Capital = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/CAPITALFREIGHTER_PROC.SCENE.MBIN',
 		icon		= 'QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
 		inventory	= item_inventory.freighter,
-		-- modeltype	= 'PlayerFreighter',
+		modeltype	= 'Rifle', -- PlayerFreighter
 		reward		= R_Multitool
 	},
 	Multitool =	{
@@ -313,16 +313,16 @@ end
 local t_emotes, t_rewards, t_player_char = {}, {}, {}
 
 for model, mdata in pairs(seed_model) do
-	local reward_item = {}
+	local rwd_entries = {}
 	if seed_counter[model] > 0 then
 		print(string.format('*** Generating %s %s rewards...', seed_counter[model], model))
 		for _=1, seed_counter[model] do
 			mdata.name = GenerateSeed()
 			mdata.seed = mdata.name
-			reward_item[#reward_item+1] = mdata.reward(mdata)
+			rwd_entries[#rwd_entries+1] = mdata.reward(mdata)
 		end
 		mdata.rewardId = 'R_'..model
-		t_rewards[#t_rewards+1] = R_RewardTableEntry({id = mdata.rewardId, item_list = reward_item})
+		t_rewards[#t_rewards+1] = R_RewardTableEntry({id = mdata.rewardId, list = rwd_entries})
 
 		for _,emot in pairs(PlayerEmoteEntry(mdata)) do
 			t_emotes[#t_emotes+1] = emot
@@ -338,7 +338,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.2.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

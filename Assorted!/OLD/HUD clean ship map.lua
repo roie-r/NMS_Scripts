@@ -1,12 +1,12 @@
 -----------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Remove grainy shader from ship's system map
 ]]---------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP clean HUD map.pak',
 	MOD_AUTHOR			= 'Lo2k; script by lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

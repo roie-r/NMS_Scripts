@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Change the royal ships to a wider variety of colors by changing it to use
   a full palette of 64 colors in the 'SpaceBottom' palette.
   The unused 'SpaceBottom' is partially changed from the original.
@@ -120,7 +120,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.royal palette.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -1,5 +1,5 @@
 ---------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increase hit damage all around - player, enemies & NPC
 ]]-------------------------------------------------------
 
@@ -27,8 +27,8 @@ for _,gun in ipairs({
 		INTEGER_TO_FLOAT	= 'Preserve',
 		SPECIAL_KEY_WORDS	= {'Id', gun[1]},
 		VALUE_CHANGE_TABLE	= {
-			[1] = {'DefaultDamage',	gun[2]},
-			[2] = gun[3] and {'Radius', gun[3]} or nil
+			{'DefaultDamage',	gun[2]},
+			gun[3] and {'Radius', gun[3]} or nil
 		}
 	}
 end
@@ -81,7 +81,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DAMAGE+PROJECTILE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

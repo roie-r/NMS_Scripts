@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - removes orange and purple overlays - painted sentinels only
 ]]-----------------------------------------------------------------------
 
@@ -7,7 +7,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE batch various.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_BATCHNAME		= '_TEXTURES ~@~collection.pak',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

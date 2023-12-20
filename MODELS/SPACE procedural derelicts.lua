@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Adds procedural parts, more wrecks and a few wreck -and space-encounter
   items to the derelict freighter encounter mission.
   Adds a slow tumble to floating items to make the scene more dynamic
@@ -91,12 +91,12 @@ local assets = {
 		}
 	},
 	{
-		-- add descriptor for existing nodes
-		name = '_Front_', 1, 1, 1, 1, 1, 1
+		-- add descriptor for existing nodes (relies on array length)
+		name = '_Front_', 0, 1, 0, 0, 1, 1
 	},
 	{
 		-- add descriptor for existing nodes
-		name = '_AccSide_', 1, 1
+		name = '_AccSide_', 1, 0
 	}
 }
 
@@ -154,7 +154,7 @@ local spin_entity = {
 			Axis  = {
 				META = {'Axis', 'Vector3f.xml'},
 				x = 1,
-				y = 1,
+				y = -1,
 				z = 1
 			},
 			AlwaysUpdate = true,
@@ -166,7 +166,8 @@ local spin_entity = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -187,7 +188,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			FILE_CONTENT	 = FileWrapping(GenerateDescriptor())
 		},
 		{
-			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN.ENTITY.EXML',
+			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.EXML',
 			FILE_CONTENT	 = FileWrapping(spin_entity)
 		}
 	}

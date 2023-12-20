@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   A bug fix for Waypoint update... Restore the gun turret on all vehicles.
   * The mod simply removes the check against installed tech so the turret
    is always displayed - even without a gun or laser installed.
@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Exocraft turret Restored.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

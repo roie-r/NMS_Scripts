@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 -----------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Add new recipes
   Decrease all refining time by 1/2
 ]]---------------------------------------
@@ -11,24 +11,24 @@ local new_recipes = {
 	{--	double nanites from mould
 		id			= 'RECIPE_MOULD2',
 		name		= 'RECIPE_BURIEDTECH',
-		make		= 32,
+		make		= 45,
 		cook		= false,
-		result		= {id='TECHFRAG', n=2, tp=I_.SBT},
+		result		= {id='TECHFRAG',	n=2,	tp=IT_.SBT},
 		ingredients	= {
-			{id='SPACEGUNK2',n=5,	tp=I_.SBT},
-			{id='SPACEGUNK2',n=5,	tp=I_.SBT}
+			{id='SPACEGUNK2',	n=5,	tp=IT_.SBT},
+			{id='SPACEGUNK2',	n=5,	tp=IT_.SBT}
 		}
 	},
 	{--	triple nanites from mould
 		id			= 'RECIPE_MOULD3',
 		name		= 'RECIPE_BURIEDTECH',
-		make		= 36,
+		make		= 50,
 		cook		= false,
-		result		= {id='TECHFRAG', n=3, tp=I_.SBT},
+		result		= {id='TECHFRAG',	n=3,	tp=IT_.SBT},
 		ingredients	= {
-			{id='SPACEGUNK2',n=5,	tp=I_.SBT},
-			{id='SPACEGUNK2',n=5,	tp=I_.SBT},
-			{id='SPACEGUNK2',n=5,	tp=I_.SBT}
+			{id='SPACEGUNK2',	n=5,	tp=IT_.SBT},
+			{id='SPACEGUNK2',	n=5,	tp=IT_.SBT},
+			{id='SPACEGUNK2',	n=5,	tp=IT_.SBT}
 		}
 	},
 	{--	atlantideum to void mote
@@ -36,10 +36,10 @@ local new_recipes = {
 		name		= 'RECIPE_DRONESCRAP',
 		make		= 40,
 		cook		= false,
-		result		= {id='BUI_SCRAP', n=1, tp=I_.SBT},
+		result		= {id='BUI_SCRAP',	n=1,	tp=IT_.SBT},
 		ingredients	= {
-			{id='ROBOT2',	n=4,	tp=I_.SBT},
-			{id='ROBOT2',	n=4,	tp=I_.SBT}
+			{id='ROBOT2',		n=4,	tp=IT_.SBT},
+			{id='ROBOT2',		n=4,	tp=IT_.SBT}
 		}
 	},
 	{--	radiant shard to atlantideum
@@ -47,9 +47,9 @@ local new_recipes = {
 		name		= 'RECIPE_DRONESHARD',
 		make		= 100,
 		cook		= false,
-		result		= {id='ROBOT2', n=50, tp=I_.SBT},
+		result		= {id='ROBOT2',		n=40,	tp=IT_.SBT},
 		ingredients	= {
-			{id='DRONE_SHARD',	n=1,	tp=I_.PRD}
+			{id='DRONE_SHARD',	n=1,	tp=IT_.PRD}
 		}
 	},
 	{--	make lots of sand from ferrite
@@ -57,53 +57,63 @@ local new_recipes = {
 		name		= 'UI_SANDWORD_DIET7',
 		make		= 40,
 		cook		= false,
-		result		= {id='SAND1', n=6, tp=I_.SBT},
+		result		= {id='SAND1',		n=6,	tp=IT_.SBT},
 		ingredients	= {
-			{id='LAND1',		n=1,	tp=I_.SBT},
-			{id='LAND1',		n=1,	tp=I_.SBT}
+			{id='LAND1',		n=1,	tp=IT_.SBT},
+			{id='LAND1',		n=1,	tp=IT_.SBT}
 		}
 	},
 	{--	glowing pellets are good for you
 		id			= 'RECIPE_HEALTHMAJOR',
 		name		= 'RECIPE_CATALYST1_ROBOT1',
 		make		= 3,
-		result		= {id='SUPERFOOD', n=1, tp=I_.PRD},
+		result		= {id='SUPERFOOD',	n=1,	tp=IT_.PRD},
 		ingredients	= {
-			{id='SENTINEL_LOOT',n=1,	tp=I_.PRD},
-			{id='FOOD_V_ROBOT',	n=1,	tp=I_.PRD},
-			{id='STELLAR2',		n=25,	tp=I_.SBT}
+			{id='SENTINEL_LOOT',n=1,	tp=IT_.PRD},
+			{id='FOOD_V_ROBOT',	n=1,	tp=IT_.PRD},
+			{id='LAUNCHSUB2',	n=40,	tp=IT_.SBT}
 		}
 	},
 	{--	Spawning Sac - bioship inventory
 		id   		= 'RECIPE_BIOCARGO',
 		name		= 'RECIPE_ASTEROID_MIX',
 		make		= 4,
-		result		= {id='ALIEN_INV_TOKEN', n=1, tp=I_.PRD},
+		result		= {id='ALIEN_INV_TOKEN', n=1, tp=IT_.PRD},
 		ingredients	= {
-			{id='FIENDCORE', 	n=2,	tp=I_.PRD},
-			{id='SPACEGUNK2', 	n=40,	tp=I_.SBT},
-			{id='ROBOT1', 		n=80,	tp=I_.SBT}
+			{id='FIENDCORE', 	n=2,	tp=IT_.PRD},
+			{id='SPACEGUNK2', 	n=40,	tp=IT_.SBT},
+			{id='ROBOT1', 		n=80,	tp=IT_.SBT}
 		}
 	},
 	{--	taint mag ferrite for more taint
 		id			= 'RECIPE_TAINT3',
 		name		= 'RECIPE_ASTEROID2',
 		make		= 40,
-		result		= {id='AF_METAL', n=3, tp=I_.SBT},
+		result		= {id='AF_METAL',	n=3,	tp=IT_.SBT},
 		ingredients	= {
-			{id='AF_METAL',		n=1,	tp=I_.SBT},
-			{id='LAND3',		n=3,	tp=I_.SBT}
+			{id='AF_METAL',		n=1,	tp=IT_.SBT},
+			{id='LAND3',		n=3,	tp=IT_.SBT}
 		}
 	},
-	{--	quicksilver from colored sources
+	{--	copper from activated copper
+		id			= 'RECIPE_2COPPER',
+		name		= 'RECIPE_LAUNCHSUB_GAS2',
+		make		= 40,
+		result		= {id='YELLOW2',	n=7,	tp=IT_.SBT},
+		ingredients	= {
+			{id='EX_YELLOW',	n=2,	tp=IT_.SBT},
+			{id='EX_YELLOW',	n=2,	tp=IT_.SBT}
+		}
+	},
+	{--	quicksilver from gases
 		id			= 'RECIPE_GAS2HG',
 		name		= 'RECIPE_ASTEROID2',
 		make		= 10,
-		result		= {id='HEXCORE', n=1, tp=I_.PRD},
+		result		= {id='HEXCORE',	n=1,	tp=IT_.PRD},
 		ingredients	= {
-			{id='GAS1',			n=400,	tp=I_.SBT},
-			{id='GAS2',			n=400,	tp=I_.SBT},
-			{id='GAS3',			n=400,	tp=I_.SBT}
+			{id='GAS1',			n=400,	tp=IT_.SBT},
+			{id='GAS2',			n=400,	tp=IT_.SBT},
+			{id='GAS3',			n=400,	tp=IT_.SBT}
 		}
 	}
 }
@@ -111,7 +121,7 @@ local new_recipes = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -126,10 +136,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TimeToMake',	0.5}
 				}
 			},
-			{
+			{--	mould to nanites
 				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_52'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TimeToMake',	24}
+					{'TimeToMake',	40}
 				}
 			},
 			{

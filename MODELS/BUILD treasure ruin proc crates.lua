@@ -2,7 +2,7 @@
 dofile('LIB/lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   procedurally-placed keys - Only 3 keys will appear in any instance
   4 Alternate placements for the treasure chest
 ]]--------------------------------------------------------------------
@@ -115,10 +115,10 @@ local function GenerateDescriptor()
 		}
 	end
 	local combinations = {}
-	--	generate combinations of 3 from group of 6
-	for i=1, 4 do
-		for j=i+1, 5 do
-			for k=j+1, 6 do
+	--	generate combinations of 3 from all keys
+	for i=1, #keys-2 do
+		for j=i+1, #keys-1 do
+			for k=j+1, #keys do
 				combinations[#combinations+1] = {i, j, k}
 			end
 		end
@@ -150,7 +150,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL treasure ruin proc crates.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

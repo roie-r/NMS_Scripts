@@ -1,16 +1,34 @@
 ------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
+dofile('LIB/exml_2_lua.lua')
 ------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Decrease binoc scan and charge times
   visor focus: unknown is red / scanned is dark blue
   Change torch color and intensity
+  Add substances to the staff parts lists
+
+  * MUST BE LAUNCHED WITH A SOURCE PRE-LOADER SCRIPT
 ]]----------------------------------------------------
+
+local function GetSubstanceIds()
+	local source		= 'METADATA/REALITY/TABLES/NMS_REALITY_GCSUBSTANCETABLE.MBIN' --<< preload_source_discard
+	local substances	= {}
+	local gc_subs_file	= LoadRuntimeMbin(source)
+	local gc_subs		= gc_subs_file and gc_subs_file.template.Table or {}
+
+	for _,subs in ipairs(gc_subs) do
+		if subs.Symbol ~= 'UI_REWARDPOP_SYM' then
+			substances[#substances+1] = subs.ID
+		end
+	end
+	return substances
+end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -21,7 +39,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'UseSecondaryBiomeSubstances',			true},
-					{'CargoShieldStrength',					0.72},	-- 0.5		4425
+					{'CargoShieldStrength',					0.65},	-- 0.5		4425
 					{'NormalModeHeatBonus',					3},		-- 2
 					{'ShipMiningMul',						0.8},	-- 0.2
 					{'OverheatGenerosity',					1.1},	-- 1.05
@@ -165,3 +183,55 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	}
 }}}}
+
+local ECT = NMS_MOD_DEFINITION_CONTAINER.MODIFICATIONS[1].MBIN_CHANGE_TABLE[1].EXML_CHANGE_TABLE
+
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS	= {'ItemID', 'STAFF_PART_C'},
+	SECTION_SAVE_TO		= 'customisation_slot_item',
+}
+ECT[#ECT+1] = {
+	SECTION_EDIT 		= 'customisation_slot_item',
+	PRECEDING_KEY_WORDS = 'ActivatedDescriptorGroupIDs',
+	REMOVE				= 'Section'
+}
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS	= {'SlotID', 'STAFF_HEAD'},
+	SECTION_SAVE_TO		= 'customisation_config',
+}
+ECT[#ECT+1] = {
+	SECTION_EDIT 		= 'customisation_config',
+	VALUE_CHANGE_TABLE 	= {
+		{'SlotID',		'STAFF_COLOR'},
+		{'LabelLocID',	'UI_BUILD_MENU_RECOLOUR_NAME'},
+	}
+}
+ECT[#ECT+1] = {
+	SECTION_EDIT 		= 'customisation_config',
+	SPECIAL_KEY_WORDS	= {'SlotEmptyCustomisation', 'GcModularCustomisationSlotItemData.xml'},
+	REMOVE				= 'Section'
+}
+ECT[#ECT+1] = {
+	REPLACE_TYPE 		= 'All',
+	SECTION_EDIT 		= 'customisation_config',
+	PRECEDING_KEY_WORDS = 'GcModularCustomisationSlotItemData.xml',
+	REMOVE				= 'Section'
+}
+for _,sbt in ipairs(GetSubstanceIds()) do
+	ECT[#ECT+1] = {
+		SECTION_EDIT 		= 'customisation_slot_item',
+		VALUE_CHANGE_TABLE 	= {
+			{'ItemID',		sbt}
+		}
+	}
+	ECT[#ECT+1] = {
+		SECTION_EDIT 		= 'customisation_config',
+		PRECEDING_KEY_WORDS = 'SlottableItems',
+		SECTION_ADD_NAMED 	= 'customisation_slot_item',
+	}
+end
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS	= {'SlotID', 'STAFF_POLE'},
+	ADD_OPTION			= 'AddAfterSection',
+	SECTION_ADD_NAMED 	= 'customisation_config',
+}

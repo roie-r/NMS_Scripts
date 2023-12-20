@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Disable restrictions on collision, scaling, rotating & freighter
   Increase power generation and storage
   Portable exocraft summon garage
@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -31,7 +31,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'HOLO_DISCO_0', 'Group', 'FURNITURE'},
-				VALUE_CHANGE_TABLE 	= {				
+				VALUE_CHANGE_TABLE 	= {
 					{'Group',		'BASE_TECH'},
 					{'SubGroupName','TECHTECH'}
 				}
@@ -47,6 +47,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {
 					{'ID', 'S9_WEAPONTREE'},
+					{'ID', 'NPCBUILDERTERM'},
+					{'ID', 'NPCFARMTERM'},
+					{'ID', 'NPCSCIENCETERM'},
+					{'ID', 'NPCVEHICLETERM'},
+					{'ID', 'NPCWEAPONTERM'},
 					{'ID', 'HOLO_DISCO_0'}
 				},
 				PRECEDING_KEY_WORDS = 'Groups',
@@ -152,7 +157,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ID', 'WEDGESMALLSHAPE'},
 					{'ID', 'BASE_NEXUS1'},
 					{'ID', 'BASE_NEXUS2'},
-					{'ID', 'BASE_NEXUS3'}
+					{'ID', 'BASE_NEXUS3'},
+					{'ID', 'BLD_BUI_HAND'},
+					{'ID', 'BLD_BUI_HEAD'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'BuildableOnFreighter', true}

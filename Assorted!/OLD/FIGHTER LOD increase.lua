@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 --------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Increase LOD for all fighter parts - making figther LOD equal to other ships.
   Deletes the in-scene LODDIST attributes and attaches a LodDistances entity to
   the main LOD0 node/s of the model.
@@ -50,7 +50,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP fighter LOD increase.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_BATCHNAME		= '__SHIP fighter merged.pak',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 	{
@@ -58,7 +58,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			function()
 				T = {}
 				for _,part in pairs(fighter) do
-					inx = #T+1
+					local inx = #T+1
 					T[inx] = {
 						MBIN_FILE_SOURCE	= part.src,
 						EXML_CHANGE_TABLE	= {

@@ -1,12 +1,12 @@
 ----------------------------------
-mod_desc = [[
+local mod_desc = [[
   More powerful jetpack & tweaks
 ]]--------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC PLAYER.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -39,9 +39,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ShieldRechargeMinTimeSinceDamage',	15},	-- 30		991
 					{'StaminaRate',							0.04},	-- 0.1		pet ride stamina
 					{'ReloadButtonHoldTimeToHolster',		0.4},	-- 0.5		1470
-					{'WeaponLowerDelay',					4},		-- 3		
+					{'WeaponLowerDelay',					4},		-- 3
 					{'WeaponHolsterDelay',					8},		-- 6
-					{'MaxFallSpeed',						56}, 	-- 30
+					{'MaxFallSpeed',						50}, 	-- 30
 					{'MaxBuildHeight',						1024}, 	-- 64
 					{'AutoAimMaxAngle',						25}, 	-- 30
 					{'SlopeSlidingSpeed',					-18},	-- -15

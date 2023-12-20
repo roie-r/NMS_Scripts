@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ------------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   - Adds planetary settlement, archive, ship debris, sentinel pillar, claimable base site,
    minor settlement, secure facility, ancient plaque, remote terminal, treasure ruin,
    traveler grave, distress signals and underwater locations to exocraft scanner.
@@ -467,7 +467,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

@@ -1,5 +1,5 @@
 ----------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   remove non-grouped small asteroids
   larger clean space around planets & stations
   small chance of living ships in the wild
@@ -8,7 +8,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC SOLAR.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -37,7 +37,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		1200},		-- 400
 					{'Spacing',		'@*2'},		-- 9000
-					{'FadeRange',	8100}		-- 9000	
+					{'FadeRange',	8100}		-- 9000
 				}
 			},
 			{

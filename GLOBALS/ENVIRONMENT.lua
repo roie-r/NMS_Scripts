@@ -1,13 +1,14 @@
 ---------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   LOD levels increase
   Clouds size gradient decrease, cloud movement reduced
+  reduce biome lighting effects indoors
 ]]-------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -42,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE = {
-					{'ImposterResolutionMultiplier', 3}
+					{'ImposterResolutionMultiplier', 2}
 				}
 			},
 			{

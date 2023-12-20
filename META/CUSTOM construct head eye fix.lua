@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
 ---------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   restore the costruct head eye lights
   * requires changing palette colorAlt in BUILDERLIGHTS.TEXTURE.MBIN
    (done in textures script)
@@ -10,7 +10,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META costruct head eyes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -51,7 +51,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ADD					= ToExml({
 					META	= {'value', 'GcCustomisationColourGroup.xml'},
 					Title	= 'Light Color',
-					{
+					Palette	= {
 						META		= {'Palette', 'TkPaletteTexture.xml'},
 						Palette		= 'Custom_Head',
 						ColourAlt	= 'Alternative3'

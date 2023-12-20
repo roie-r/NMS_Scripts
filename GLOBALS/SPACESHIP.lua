@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Spaceship controls changes:
    * reduced thrust force
    * more drifting: greatly reduced speed falloff and turning brake
@@ -52,56 +52,54 @@ for i, ctrl in ipairs({'Control', 'ControlLight', 'ControlHeavy', 'ControlHover'
 end
 ECT[#ECT+1] = {
 	VALUE_CHANGE_TABLE 	= {
-		{'LandingMargin',						2.2},	-- 1.4
-		{'LandingObstacleMinHeight',			3.2},	-- 2
-		{'LowAltitudeAnimationHeight',			3300},	-- 1200 -- solar sail trigger
-		{'LowAltitudeAnimationHysteresisTime',	3},		-- 4
-		{'LowAltitudeAnimationTime',			4},		-- 6
-		{'ApplyHeightForce',					false},
-		{'WarpInTimeFreighter',					2.2},	-- 1
-		{'WarpInTimeNexus',						2.2},	-- 1
-		{'WarpNexusDistance',					-8000},	-- -9000
-		{'MaxOverspeedBrake',					900},	-- 1000
-		{'PulseDrivePlanetApproachHeight',		4000},	-- 6000
-		{'_3rdPersonRollAngle',					78},	-- 75		(270)
-		{'_3rdPersonRollAngleScience',			76},	-- 62
-		{'_3rdPersonRollAngleDropship',			64},	-- 45
-		{'_3rdPersonRollAngleAlien',			54},	-- 30
-		{'_3rdPersonFlashIntensity',			0.5},	-- 0.9
-		{'_3rdPersonFlashDuration',				0.6},	-- 0.9
-		{'_3rdPersonWarpXWander',				3.2},	-- 6
-		{'_3rdPersonWarpYWander',				1},		-- 1.5
-		{'_3rdPersonWarpZWander',				2},		-- 5.5
-		{'_3rdPersonWarpWanderStartTime',		1},		-- 6.5
-		{'AvoidancePower',						4},		-- 3
-		{'PitchCorrectHeightMax',				300},	-- 700
-		{'HoverTakeoffHeight',					68},	-- 90
-		{'HoverLandReachedDistance',			8},		-- 10
-		{'LandingButtonMinTime',				0.3},	-- 0.5
-		{'LandingPushNoseUpFactor',				-0.03},	-- 0.15
-		{'AutoLevelMinAngle',					360}, 	-- 5
-		{'AutoLevelMaxAngle',					0}, 	-- 110
-		{'ShieldRechargeMinHitTime',			20},	-- 60		(1136)
-		{'HitAsteroidDamage',					40000},	-- 10000
-
-		{'MuzzleLightIntensity',				6},		-- 9
-		{'HoverBrakeStrength',					2}, 	-- 10
-
-		{'PlayerFreighterClearSpaceRadius',		2100},	-- 3000
-		{'MiniWarpLinesNum',					0},		-- 4
-		{'MiniWarpLinesSpacing',				0},		-- 3000
-		{'MiniWarpLinesOffset',					0},		-- 1000
-		{'MiniWarpLinesHeight',					0},		-- 800
-		{'MiniWarpShakeStrength',				1.2},	-- 2		(1358)
-		{'MiniWarpStoppingMarginPlanet',		4200},	-- 5000
-		{'MiniWarpHUDArrowAttractAngle',		3},		-- 10
-		{'MiniWarpHUDArrowAttractAngleStation',	3},		-- 5
-		{'MiniWarpHUDArrowAttractAngleDense',	3},		-- 4
-		{'MiniWarpHUDArrowNumMarkersToBeDense',	3},		-- 6
-		{'DockingRotateSpeed',					0.7},	-- 1
-		{'ShakeMaxPower',						0.9},	-- 1.3
-		{'GroundHeightSmoothTime',				3},		-- 0
-		{'MaxSpeedUpVelocity',					80},	-- 100
+		{'LandingMargin',						2.2		},	-- 1.4
+		{'LandingObstacleMinHeight',			3.2		},	-- 2
+		{'LowAltitudeAnimationHeight',			3300	},	-- 1200 -- solar sail trigger
+		{'LowAltitudeAnimationHysteresisTime',	3		},	-- 4
+		{'LowAltitudeAnimationTime',			4		},	-- 6
+		{'ApplyHeightForce',					false	},
+		{'WarpInTimeFreighter',					2.2		},	-- 1
+		{'WarpInTimeNexus',						2.2		},	-- 1
+		{'WarpNexusDistance',					-8000	},	-- -9000
+		{'MaxOverspeedBrake',					900		},	-- 1000
+		{'PulseDrivePlanetApproachHeight',		4000	},	-- 6000
+		{'_3rdPersonRollAngle',					78		},	-- 75		(270)
+		{'_3rdPersonRollAngleScience',			76		},	-- 62
+		{'_3rdPersonRollAngleDropship',			64		},	-- 45
+		{'_3rdPersonRollAngleAlien',			54		},	-- 30
+		{'_3rdPersonFlashIntensity',			0.5		},	-- 0.9
+		{'_3rdPersonFlashDuration',				0.6		},	-- 0.9
+		{'_3rdPersonWarpXWander',				3.2		},	-- 6
+		{'_3rdPersonWarpYWander',				1		},	-- 1.5
+		{'_3rdPersonWarpZWander',				2		},	-- 5.5
+		{'_3rdPersonWarpWanderStartTime',		1		},	-- 6.5
+		{'AvoidancePower',						4		},	-- 3
+		{'PitchCorrectHeightMax',				300		},	-- 700
+		{'HoverTakeoffHeight',					68		},	-- 90
+		{'HoverLandReachedDistance',			8		},	-- 10
+		{'LandingButtonMinTime',				0.3		},	-- 0.5
+		{'LandingPushNoseUpFactor',				-0.03	},	-- 0.15
+		{'AutoLevelMinAngle',					360		}, 	-- 5
+		{'AutoLevelMaxAngle',					0		}, 	-- 110
+		{'ShieldRechargeMinHitTime',			20		},	-- 60		(1136)
+		{'HitAsteroidDamage',					40000	},	-- 10000
+		{'MuzzleLightIntensity',				6		},	-- 9
+		{'HoverBrakeStrength',					2		}, 	-- 10
+		{'PlayerFreighterClearSpaceRadius',		2100	},	-- 3000
+		{'MiniWarpLinesNum',					0		},	-- 4
+		{'MiniWarpLinesSpacing',				0		},	-- 3000
+		{'MiniWarpLinesOffset',					0		},	-- 1000
+		{'MiniWarpLinesHeight',					0		},	-- 800
+		{'MiniWarpShakeStrength',				1.2		},	-- 2		(1358)
+		{'MiniWarpStoppingMarginPlanet',		4200	},	-- 5000
+		{'MiniWarpHUDArrowAttractAngle',		3		},	-- 10
+		{'MiniWarpHUDArrowAttractAngleStation',	3		},	-- 5
+		{'MiniWarpHUDArrowAttractAngleDense',	3		},	-- 4
+		{'MiniWarpHUDArrowNumMarkersToBeDense',	3		},	-- 6
+		{'DockingRotateSpeed',					0.7		},	-- 1
+		{'ShakeMaxPower',						0.9		},	-- 1.3
+		{'GroundHeightSmoothTime',				3		},	-- 0
+		{'MaxSpeedUpVelocity',					80		},	-- 100
 	}
 }
 ECT[#ECT+1] = {
@@ -116,7 +114,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SPACESHIP.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

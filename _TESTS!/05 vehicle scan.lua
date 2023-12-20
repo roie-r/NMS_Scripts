@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   Add planetary settlement, archive, base computer, minor settlement, trading post,
   ancient plaque, remote terminal, secure facility, distress signals, sentinel pillar,
   and underwater targets to the exocraft scanner.
@@ -20,7 +20,7 @@ local icon = {
 	freight	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.FREIGHTER.MSHOP.DDS',
 	cogs	= 'TEXTURES/UI/FRONTEND/ICONS/SETTLEMENT/BASICPRODUCTION.DDS',
 	signal	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SIGNAL.DDS',
-	planet	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.ENTERORBIT.ON.DDS',  
+	planet	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.ENTERORBIT.ON.DDS',
 	fact	= 'TEXTURES/UI/HUD/ICONS/WIKI/BASE4.DDS',
 	tech	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SCIENCEMISSIONS.MSHOP.DDS',
 	base	= 'TEXTURES/UI/HUD/ICONS/WIKI/BASE1.DDS',
@@ -340,7 +340,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 5 vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	ADD_FILES = {

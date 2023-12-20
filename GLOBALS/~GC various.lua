@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   settlement longer alret cycle, higher population
   longer building detection range; longer base wiring
   longer terrain edit beam
@@ -13,7 +13,7 @@ mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -99,12 +99,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
-					{'LUTDistanceFlightMultiplier',			1},		-- 0
-					{'SunLightIntensity',					3.2},	-- 3
-					{'DOFFarStrengthWater',					0.2},	-- 0
-					{'ForceUncachedTerrain',				true}
+					{'LUTDistanceFlightMultiplier',	1},		-- 0
+					{'SunLightIntensity',			3.2},	-- 3
+					{'DOFFarStrengthWater',			0.2},	-- 0
+					{'ForceUncachedTerrain',		true},
 				}
-			}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset.xml'},
+				VALUE_CHANGE_TABLE 	= {
+					{'FFXSR2Quality',				'Quality'},
+					{'MetalFXQuality',				'UltraQuality'},
+					{'AnisotropyLevel',				'_16'},
+					{'AntiAliasing',				'FFXSR2'},
+				}
+			},
 		}
 	},
 	{--	|GC CHARACTER|

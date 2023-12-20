@@ -1,12 +1,12 @@
 ---------------------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   add _F39_METALLIC_MASK flag
 ]]-------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__metal masks.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

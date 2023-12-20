@@ -1,5 +1,5 @@
 -------------------------------
-mod_desc = [[
+local mod_desc = [[
   Collate texture replacements
 ]]-----------------------------
 
@@ -57,11 +57,12 @@ local texture_collection = {
 			{s='BUGGYLIGHTS.1.DDS'}
 		}
 	},
-	{--	carbon-fiber laylaps
+	{--	carbon-fiber laylaps, sentinel ship guns
 		source = 'FriendlyRobot/',
 		target = 'COMMON/ROBOTS/',
 		names  = {
-			{s='FRIENDLYDRONE.DDS'}
+			{s='FRIENDLYDRONE.DDS'},
+			-- {s='SENTINELSHIPGUN.DDS'}
 		}
 	},
 	{--	planetary clouds replacement
@@ -89,12 +90,14 @@ local texture_collection = {
 	--	dark blue trail (requires change in HOTDARKTRAIL.MATERIAL.MBIN)
 	--	blue infraknife shot (requires change in SHIPMINIGUNPROJECTILEGRADIENT.MATERIAL.MBIN)
 	--	remove sailship wing blinkers; alt warp textures
+	--	Fix ship engine jet outer circle
 		source = 'Effects/',
 		target = 'EFFECTS/',
 		names  = {
 			{s='HeavyAir/*.DDS'},
 			{s='Light/*.DDS'},
 			{s='Particles/*.DDS'},
+			{s='Ship/*.DDS'},
 			{s='Trails/*.DDS',		t='TRAILS/HOT/*.DDS'}
 		}
 	},
@@ -106,11 +109,12 @@ local texture_collection = {
 			{s='MINERAL2.BASE.DDS',	t='CRYSTAL/LARGEPROP/MINERAL2.BASE.DDS'}
 		}
 	},
-	{--	freigher hangar crane
-		source = 'Building/PirateStation/',
-		target = 'SPACE/SPACESTATION/PIRATES/',
+	{--	Stations: crane, atlas red beam
+		source = 'Building/',
+		target = 'SPACE/',
 		names  = {
-			{s='PIRATETRIM.*.DDS'}
+			{s='ATLASSTATION/*.DDS'},
+			{s='PirateStation/*.DDS',	t='SPACESTATION/PIRATES/*.DDS'}
 		}
 	},
 	{--	building parts: cleaner glass panes, decal replacers
@@ -154,6 +158,20 @@ local texture_collection = {
 			{s='THIRDPERSONSHIP.DDS', t='THIRDPERSONCHARACTER.DDS'},
 		}
 	},
+	{--	menu: galacitc map part
+		source = 'UI/galactic/',
+		target = 'UI/FRONTEND/GALACTICMAP/',
+		names  = {
+			{s='VISITEDSYSTEMS.DDS'}
+		}
+	},
+	{--	menu: UI background
+		source = 'UI/background/',
+		target = 'UI/FRONTEND/BACKGROUNDS/',
+		names  = {
+			{s='*.DDS'}
+		}
+	},
 	{--	 ICONS: HUD translucent icons
 		source = 'Icons/Hud/',
 		target = 'UI/HUD/ICONS/',
@@ -180,20 +198,13 @@ local texture_collection = {
 		names  = {
 			{s='CLOTHTILEABLEPAD*.DDS'}
 		}
-	},
-	{--	menu: UI background
-		source = 'UI/background/',
-		target = 'UI/FRONTEND/BACKGROUNDS/',
-		names  = {
-			{s='*.DDS'}
-		}
 	}
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.47',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

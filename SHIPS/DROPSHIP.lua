@@ -1,19 +1,23 @@
------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 dofile('LIB/lua_2_exml.lua')
------------------------------------------------------------------
-mod_desc = [[
+-----------------------------------------------------------------------------------
+local mod_desc = [[
   dropship:
   - decal placements tweaks
   - move guns below the cockpit (matches interior placement)
   - No foggy headlights cone on cockpits
   - subwing_F dim lights
   - LOD improvement
-]]---------------------------------------------------------------
+  - metal (3rd palette color) instead of 2nd color for wings & engine parts.
+   * Only if the metal texture is active (determined by seed).
+   * Using this method in some parts (cockpit/body mostly) can change how proc-gen
+     interperts the seed - might change COATING/PANELS/PAINTED selection.
+]]---------------------------------------------------------------------------------
 
 local dropship = {
 	ship =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',							skip=true},
-	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN',						skip=true},
-	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN',						skip=true},
+	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN'},
+	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN'},
 	box_l =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_L.SCENE.MBIN',	lod1=true,	add=true},
 	box_r =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_R.SCENE.MBIN',	lod1=true,	add=true},
 	ball_l =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_L.SCENE.MBIN',	lod1=true,	add=true},
@@ -61,7 +65,7 @@ local dropship = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP dropship.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.45',
+	NMS_VERSION				= '4.47',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -185,7 +189,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		},
-		{-- |dropship neck_5| decal fix
+		{-- |dropship neck_5| decals
 			MBIN_FILE_SOURCE	= dropship.neck_5.src,
 			EXML_CHANGE_TABLE	= {
 				{
@@ -195,6 +199,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					},
 					VALUE_CHANGE_TABLE 	= {
 						{'TransZ',		3.7},
+						{'RotY',		90},
 						{'RotZ',		0}
 					}
 				}
@@ -230,11 +235,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Rectangle_A'},
 					VALUE_CHANGE_TABLE 	= {
-						{'TransX',		0.14},
-						{'TransY',		2.3},
-						{'TransZ',		0.19},
-						{'ScaleX',		2.8},
-						{'ScaleY',		1.2},
+						{'TransX',		0.14},	-- 0.1369
+						{'TransY',		2.3},	-- 2.298
+						{'TransZ',		0.14},	-- 0.255
+						{'ScaleX',		2.6},
+						{'ScaleY',		1.3},
 						{'ScaleZ',		0.2}
 					}
 				}
@@ -243,23 +248,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		{-- |dropship subwing_G_L rect| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_gl.src,
 			EXML_CHANGE_TABLE	= {
-				{
-					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
-					VALUE_CHANGE_TABLE 	= {
-						{'RotX',		-13},
-						{'RotY',		90}
-					}
-				},
+				-- {
+					-- SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
+					-- VALUE_CHANGE_TABLE 	= {
+						-- {'RotX',		-13},
+						-- {'RotY',		90}
+					-- }
+				-- },
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Rectangle_A'},
 					VALUE_CHANGE_TABLE 	= {
-						{'TransX',		0.14},
-						{'TransY',		2.3},
-						{'TransZ',		-0.05},
-						{'RotX',		-13},
-						{'RotY',		90},
-						{'ScaleX',		2.8},
-						{'ScaleY',		1.2},
+						{'TransX',		0.14},	-- 0.1369
+						{'TransY',		2.3},	-- 2.298
+						{'TransZ',		-0.14},	-- -0.255
+						{'ScaleX',		2.6},
+						{'ScaleY',		1.3},
 						{'ScaleZ',		0.2}
 					}
 				}
@@ -341,7 +344,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		},
-		{-- |dropship hull| fixs
+		{-- |dropship hull| decal fixs
 			MBIN_FILE_SOURCE	= dropship.hull_a.src,
 			EXML_CHANGE_TABLE	= {
 				{
@@ -373,6 +376,34 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						{'Name', '_SideL_A3'}
 					},
 					REMOVE				= 'Section'
+				}
+			}
+		},
+		{--	|METAL instead 2nd paint|
+			MBIN_FILE_SOURCE	= {
+				-- 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESB/TERTIARY.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB/TERTIARY1.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_5/TERTIARY.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/LANDINGGEAR/LANDINGGEARFRONT/PRIMARY.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_LEFT/TERTIARY1.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_RIGHT/TERTIARY1.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT/TERTIARY1.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_RIGHT/TERTIARY1.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_LEFT/TERTIARY1.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_RIGHT/TERTIARY2.MATERIAL.MBIN',
+			},
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Map', 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/SECONDARY.DDS'}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Name', 'gMasksMap'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Map', 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/SECONDARY.MASKS.DDS'}
+					}
 				}
 			}
 		},
@@ -416,13 +447,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				T = {}
 				for _,part in pairs(dropship) do
 					if not part.skip then
-						inx = #T+1
+						local inx = #T+1
 						T[inx] = {
 							MBIN_FILE_SOURCE	= part.src,
 							EXML_CHANGE_TABLE	= {
 								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
 								VALUE_CHANGE_TABLE 	= {
-									{'Value',		5}
+									{'Value',		4}
 								}
 							}
 						}
