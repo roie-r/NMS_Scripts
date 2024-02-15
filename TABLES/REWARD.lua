@@ -53,208 +53,207 @@ local new_rewards = {
 				c=45,
 				{id='LAUNCHFUEL',		mn=1, 	tp=RM_.PRD},
 				{id='BP_SALVAGE',		mn=3, 	tp=RM_.PRD},
-				{pid=PC_.DTC, 			qt=2,	tp=RM_.PRP},
+				{pid=PC_.DTC, 			qt=2,	tp=RM_.PRP}
 			},
 			{
 				f=R_MultiItem,
 				c=45,
 				{id='ANTIMATTER',		mn=2, 	tp=RM_.PRD},
 				{id='AM_HOUSING',		mn=2, 	tp=RM_.PRD},
-				{id='TECHFRAG',			mn=230, tp=RM_.SBT},
+				{id='TECHFRAG',			mn=230, tp=RM_.SBT}
 			},
 			{
 				f=R_MultiItem,
 				c=35,
 				{id='FRIG_TOKEN',		mn=1, 	tp=RM_.PRD},
-				{id='TIMEMILK',			mn=94, 	tp=RM_.SBT},
+				{id='TIMEMILK',			mn=94, 	tp=RM_.SBT}
 			},
 			{
 				f=R_MultiItem,
 				c=35,
 				{id='WEAP_INV_TOKEN',	mn=1, 	tp=RM_.PRD},
-				{id='AF_METAL',			mn=117, tp=RM_.SBT},
+				{id='AF_METAL',			mn=117, tp=RM_.SBT}
 			},
 			{id=CU_.UT,	mn=150000,	mx=260000,	c=20,	f=R_Money},
 			{
 				f=R_MultiItem,
-				{id='FARMPROD1',		mn=1, 	tp=RM_.PRD},	-- Acid
-				{id='WATER1',			mn=243, tp=RM_.SBT},
 				c=25,
+				{id='FARMPROD1',		mn=1, 	tp=RM_.PRD},	-- Acid
+				{id='WATER1',			mn=243, tp=RM_.SBT}
 			},
 			{
 				f=R_MultiItem,
 				c=25,
 				{id='FARMPROD5',		mn=1, 	tp=RM_.PRD},	-- Poly Fibre
-				{id='WATER2',			mn=189, tp=RM_.SBT},
+				{id='WATER2',			mn=189, tp=RM_.SBT}
 			},
 			{
 				f=R_MultiItem,
 				c=25,
 				{id='SALVAGE_TECH8',	mn=1, 	tp=RM_.PRD},	-- Subatomic Regulators
-				{id='ROBOT1',			mn=203, tp=RM_.SBT},
+				{id='ROBOT1',			mn=203, tp=RM_.SBT}
 			},
 			{
 				f=R_MultiItem,
 				c=25,
 				{id='SALVAGE_TECH7',	mn=1, 	tp=RM_.PRD},	-- Recycled Circuitry
-				{id='ROBOT2',			mn=180, tp=RM_.SBT},
+				{id='ROBOT2',			mn=180, tp=RM_.SBT}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{id='FREI_INV_TOKEN',	mn=2, 	tp=RM_.PRD},	-- freighter inv
-				{id='SENTFREI_PROD',	mn=3, 	tp=RM_.PRD},	-- AI Fragment
+				{id='SENTFREI_PROD',	mn=3, 	tp=RM_.PRD}		-- AI Fragment
 			},
-
 			-- freighter hyper
 			{
 				f=R_MultiItem,
 				c=5,
 				{pid=PC_.FRH, 			qt=0,	tp=RM_.PRP},
-				{id='CASING',			mn=5, 	tp=RM_.PRD},
+				{id='CASING',			mn=5, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{pid=PC_.FRH, 			qt=1,	tp=RM_.PRP},
-				{id='COMPOUND6',		mn=1, 	tp=RM_.PRD},
+				{id='COMPOUND6',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRH, 			qt=2,	tp=RM_.PRP},
-				{id='PRODFUEL2',		mn=1, 	tp=RM_.PRD},
+				{id='PRODFUEL2',		mn=1, 	tp=RM_.PRD}
 			},
 			{
+				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRH, 			qt=3,	tp=RM_.PRP},
-				{id='ILLEGAL_PROD6',	mn=1, 	tp=RM_.PRD},
-				f=R_MultiItem,
+				{id='ILLEGAL_PROD6',	mn=1, 	tp=RM_.PRD}
 			},
 			-- freighter fuel
 			{
 				f=R_MultiItem,
 				c=5,
 				{pid=PC_.FRF, 			qt=0,	tp=RM_.PRP},
-				{id='NANOTUBES',		mn=5, 	tp=RM_.PRD},
+				{id='NANOTUBES',		mn=5, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{pid=PC_.FRF, 			qt=1,	tp=RM_.PRP},
-				{id='COMPOUND5',		mn=1, 	tp=RM_.PRD},
+				{id='COMPOUND5',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRF, 			qt=2,	tp=RM_.PRP},
-				{id='REPAIRKIT',		mn=1, 	tp=RM_.PRD},
+				{id='REPAIRKIT',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRF, 			qt=3,	tp=RM_.PRP},
-				{id='ILLEGAL_PROD5',	mn=1, 	tp=RM_.PRD},
+				{id='ILLEGAL_PROD5',	mn=1, 	tp=RM_.PRD}
 			},
 			-- freighter trade
 			{
 				f=R_MultiItem,
 				c=5,
 				{pid=PC_.FRT, 			qt=0,	tp=RM_.PRP},
-				{id='JELLY',			mn=5, 	tp=RM_.PRD},
+				{id='JELLY',			mn=5, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{pid=PC_.FRT, 			qt=1,	tp=RM_.PRP},
-				{id='COMPOUND4',		mn=1, 	tp=RM_.PRD},
+				{id='COMPOUND4',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRT, 			qt=2,	tp=RM_.PRP},
-				{id='BIO',				mn=1, 	tp=RM_.PRD},
+				{id='BIO',				mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRT, 			qt=3,	tp=RM_.PRP},
-				{id='ILLEGAL_PROD4',	mn=1, 	tp=RM_.PRD},
+				{id='ILLEGAL_PROD4',	mn=1, 	tp=RM_.PRD}
 			},
 			-- freighter combat
 			{
 				f=R_MultiItem,
 				c=5,
 				{pid=PC_.FRC, 			qt=0,	tp=RM_.PRP},
-				{id='POWERCELL',		mn=5, 	tp=RM_.PRD},
+				{id='POWERCELL',		mn=5, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{pid=PC_.FRC, 			qt=1,	tp=RM_.PRP},
-				{id='COMPOUND3',		mn=1, 	tp=RM_.PRD},
+				{id='COMPOUND3',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRC, 			qt=2,	tp=RM_.PRP},
-				{id='MIRROR',			mn=1, 	tp=RM_.PRD},
+				{id='MIRROR',			mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRC, 			qt=3,	tp=RM_.PRP},
-				{id='ILLEGAL_PROD3',	mn=1, 	tp=RM_.PRD},
+				{id='ILLEGAL_PROD3',	mn=1, 	tp=RM_.PRD}
 			},
 			-- freighter mining
 			{
 				f=R_MultiItem,
 				c=5,
 				{pid=PC_.FRM, 			qt=0,	tp=RM_.PRP},
-				{id='HYDRALIC',			mn=3, 	tp=RM_.PRD},
+				{id='HYDRALIC',			mn=3, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{pid=PC_.FRM, 			qt=1,	tp=RM_.PRP},
-				{id='COMPOUND2',		mn=1, 	tp=RM_.PRD},
+				{id='COMPOUND2',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRM, 			qt=2,	tp=RM_.PRP},
-				{id='MICROCHIP',		mn=1, 	tp=RM_.PRD},
+				{id='MICROCHIP',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRM, 			qt=3,	tp=RM_.PRP},
-				{id='ILLEGAL_PROD2',	mn=1, 	tp=RM_.PRD},
+				{id='ILLEGAL_PROD2',	mn=1, 	tp=RM_.PRD}
 			},
 			-- freighter explore
 			{
 				f=R_MultiItem,
 				c=5,
 				{pid=PC_.FRE, 			qt=0,	tp=RM_.PRP},
-				{id='CARBON_SEAL',		mn=3, 	tp=RM_.PRD},
+				{id='CARBON_SEAL',		mn=3, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=2,
 				{pid=PC_.FRE, 			qt=1,	tp=RM_.PRP},
-				{id='COMPOUND1',		mn=1, 	tp=RM_.PRD},
+				{id='COMPOUND1',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRE, 			qt=2,	tp=RM_.PRP},
-				{id='TRA_ENERGY5',		mn=1, 	tp=RM_.PRD},
+				{id='TRA_ENERGY5',		mn=1, 	tp=RM_.PRD}
 			},
 			{
 				f=R_MultiItem,
 				c=1,
 				{pid=PC_.FRE, 			qt=3,	tp=RM_.PRP},
-				{id='ILLEGAL_PROD1',	mn=1, 	tp=RM_.PRD},
+				{id='ILLEGAL_PROD1',	mn=1, 	tp=RM_.PRD}
 			}
 		}
 	},
@@ -556,7 +555,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -582,7 +582,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ECT[#ECT+1] = {
 					SPECIAL_KEY_WORDS	= {'Id', 'REFRESH_HAZ', 'LabelID', 'UI_RESTORE_HAZARD'},
 					ADD_OPTION			= 'ADDAfterSection',
-					ADD					= ToExml(R_Technology({id='BODYSHIELD', c=100, sl=true}))
+					ADD					= ToExml(R_ProductRecipe({id='RAMMOULD5', c=100, sl=true}))
 				}
 				return ECT
 			end

@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC UI.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.47',
+	NMS_VERSION				= '4.50',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -54,7 +54,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NotificationMissionHintTimeSecondary',	7},		-- 15
 					{'MessageNotificationTime',					6}, 	-- 12	??
 					{'FrontendConfirmTimeMouseMultiplier',		6},		-- 0.5			5527
-					{'FrontendConfirmTimeFast',					0.05},	-- 0.35
+					{'FrontendConfirmTimeFast',					0.2},	-- 0.35
+					{'FrontendTouchConfirmTimeFastMultiplier',	1},		-- 0
 					{'FrontendConfirmTime',						0.1},	-- 0.7
 					{'FrontendConfirmTimeSlow',					1.2},	-- 1.6
 					{'FrontendCursorSize',						10},	-- 24

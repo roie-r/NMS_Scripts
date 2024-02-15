@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----	Build reality tables entries (VERSION: 0.82.5) ... by lMonk
+---	Build reality tables entries (VERSION: 0.82.6) ... by lMonk
 ---	Add new items into technology, proc-tech, product & basebuilding
 ---	* Not ALL properties of the tables' classes are included, some which
 ---  can be safely left with their deafult value are omited.
@@ -264,8 +264,8 @@ function BaseBuildObjectEntry(bpart)
 		for _,v in ipairs(t) do
 			T[#T+1] = {
 				META	= {'value', 'GcBaseBuildingEntryGroup.xml'},
-				Group			= v.grp,
-				SubGroupName	= v.sub
+				Group			= v.group,
+				SubGroupName	= v.subname
 			}
 		end
 		return T

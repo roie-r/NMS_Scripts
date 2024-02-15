@@ -10,7 +10,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META less storm chance_more hazards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -48,23 +48,23 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'DamageRadius',				10},	-- 3
 				}
 			},
-			-- {
-				-- INTEGER_TO_FLOAT	= 'Force',
-				-- SPECIAL_KEY_WORDS	= {'Id', 'TORNADO'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'MaxHazardsOfThisTypeActive',	3}, 	-- 5
-					-- {'MaxSpawnScale',				1.2},	-- 1
-					-- {'MinSpawnDistance',			80},	-- 50
-					-- {'MaxSpawnDistance',			300},	-- 250
-					-- {'MoveSpeed',					6},		-- 5
-					-- {'SuckInRadius',				50},	-- 40
-					-- {'SuckInStrength',				8},		-- 5
-					-- {'SuckUpRadius',				18},	-- 7
-					-- {'SuckUpStrength',				2.2},	-- 2
-					-- {'SuckUpHeight',				55},	-- 50
-					-- {'SuckUpHeightCutoff',			90},	-- 80
-				-- }
-			-- }
+			{
+				INTEGER_TO_FLOAT	= 'Force',
+				SPECIAL_KEY_WORDS	= {'Id', 'TORNADO'},
+				VALUE_CHANGE_TABLE 	= {
+					{'MaxHazardsOfThisTypeActive',	3}, 	-- 5
+					{'MaxSpawnScale',				1.2},	-- 1
+					{'MinSpawnDistance',			80},	-- 50
+					{'MaxSpawnDistance',			300},	-- 250
+					{'MoveSpeed',					6},		-- 5
+					{'SuckInRadius',				50},	-- 40
+					{'SuckInStrength',				8},		-- 5
+					{'SuckUpRadius',				18},	-- 7
+					{'SuckUpStrength',				2.2},	-- 2
+					{'SuckUpHeight',				55},	-- 50
+					{'SuckUpHeightCutoff',			90},	-- 80
+				}
+			}
 		}
 	},
 	{
@@ -109,24 +109,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|remove tornado|
-		MBIN_FILE_SOURCE	= {
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/DUSTWEATHER.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/RADIOACTIVE.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SCORCHED.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SNOWWEATHER.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SWAMPWEATHER.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/TOXIC.MBIN'
-		},
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Value', 'TORNADO'},
-				REMOVE 				= 'Section'
-			}
-		}
-	},
+	-- {
+	-- --	|remove tornado|
+		-- MBIN_FILE_SOURCE	= {
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/DUSTWEATHER.MBIN',
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/RADIOACTIVE.MBIN',
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SCORCHED.MBIN',
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SNOWWEATHER.MBIN',
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SWAMPWEATHER.MBIN',
+			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/TOXIC.MBIN'
+		-- },
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Value', 'TORNADO'},
+				-- REMOVE 				= 'Section'
+			-- }
+		-- }
+	-- },
 	{
 	--	|No dust & fog on airless biomes|
 		MBIN_FILE_SOURCE	= {

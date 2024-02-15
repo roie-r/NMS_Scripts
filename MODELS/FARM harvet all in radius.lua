@@ -10,7 +10,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL harvet all in radius.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -46,21 +46,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
-		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOYDRONE/INTERACTION.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',
-				REMOVE				= 'Section'
-			},
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'Radius',		24}
-				}
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/WATERVALVE/INTERACTION.ENTITY.MBIN',
+		MBIN_FILE_SOURCE	= {
+			build_parts..'DECORATION/TOYDRONE/INTERACTION.ENTITY.MBIN',
+			build_parts..'DECORATION/BAZAAR/WATERVALVE/INTERACTION.ENTITY.MBIN'
+		},
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',

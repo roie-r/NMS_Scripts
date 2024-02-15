@@ -9,6 +9,23 @@ local mod_desc = [[
 ]]--------------------------------------------------
 
 local base_colors = {
+	undercoat = {
+		enabled		= true,
+		name		= 'Undercoat',
+		num_colors	= 'All',
+		grid		= true,
+		palette		= {
+		--	GREY1		GREY2		GREY-GREEN	CYAN-GREEN	YELLOW3		BLUE2		BLUE1		GREY-BLUE
+			'FFA2A2A5',	'FFC3C5C5',	'FF98A39F',	'FFADB6B0',	'FFA6A79A',	'FFBABEC5',	'FFA2A3AE',	'FF989DA3',
+			'FF949497',	'FFB5B7B7',	'FF8D9994',	'FF9DA7A0',	'FF98998D',	'FFACB1B8',	'FF93949F',	'FF8D9299',
+			'FF87878A',	'FFA7A9A9',	'FF828E8A',	'FF8E9891',	'FF8B8C80',	'FF9FA4AC',	'FF858690',	'FF82888E',
+			'FF7A7A7D',	'FF999C9C',	'FF788480',	'FF7E8982',	'FF7E7F73',	'FF9198A0',	'FF777882',	'FF787D84',
+			'FF6D6D70',	'FF8C8E8E',	'FF6D7A76',	'FF6F7A73',	'FF717266',	'FF848B94',	'FF696A73',	'FF6D737A',
+			'FF606062',	'FF7E8181',	'FF62706B',	'FF606C63',	'FF636459',	'FF777E88',	'FF5A5C64',	'FF626970',
+			'FF535355',	'FF7E8181',	'FF586661',	'FF505D54',	'FF56574C',	'FF69727C',	'FF4C4E56',	'FF585E66',
+			'FF464648',	'FF636666',	'FF4D5C57',	'FF414E45',	'FF494A3F',	'FF5C6570',	'FF3E4047',	'FF4D545C',
+		}
+	},
 	paint = {
 		enabled		= true,
 		name		= 'Paint',
@@ -309,9 +326,18 @@ local function RebuildPaletteColors(gc_data)
 		return color
 	end
 	local T = {}
-	for _,col in ipairs(gc_data.palette) do
-		T[#T+1] = ColorData(Convert2Rgb(col))
+	if gc_data.grid then
+		for i=1, 64, 8 do
+			for j=0, 7 do
+				T[#T+1] = ColorData(Convert2Rgb(gc_data.palette[i+j]))
+			end
+		end
+	else
+		for _,col in ipairs(gc_data.palette) do
+			T[#T+1] = ColorData(Convert2Rgb(col))
+		end
 	end
+
 	-- exml meta for the color palette array
 	T.META = {'name', 'Colours'}
 	return ToExml(T)
@@ -368,7 +394,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META player biome main.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

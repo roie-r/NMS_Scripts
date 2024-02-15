@@ -15,12 +15,12 @@ local ECT = { {
 	REMOVE	= 'Section'
 } }
 for _,node in ipairs({
-	{k='NPC_01',			tx=-9.507,	ty=-3.355,	tz=-28.34},
-	{k='NPC_02',			tx=-56,		ty=-7.35,	tz=62.5,	ry=-150},
-	{k='NPC_03',			tx=-8.337,	ty=-3.355,	tz=-28.03},
+	{k='NPC_01',			tx=-9.507,	ty=-3.35,	tz=-28.34},
+	{k='NPC_02',			tx=-56,		ty=-7.34,	tz=62.5,	ry=-150},
+	{k='NPC_03',			tx=-8.337,	ty=-3.35,	tz=-28.03},
 	{k='NPC_04',			tx=38.4,	ty=-7.34,	tz=69.35,	ry=35},
-	{k='NPC_06',			tx=-21.92,	ty=-4.2,	tz=5.5},
-	{k='NPC_07',			tx=-57.8,	ty=8.1,		tz=57.14,	ry=270},
+	{k='NPC_06',			tx=-21.92,	ty=-4.18,	tz=5.5},
+	{k='NPC_07',			tx=-57.8,	ty=8.12,	tz=57.14,	ry=270},
 	{k='RefHangarCrane2',	tx=41.88,				tz=61.2},
 	{k='RefHangarCrane',	tx=-3.43,				tz=59.5},
 	{k='RefHangarCrane1',	tx=-41.96,				tz=60.9},
@@ -53,15 +53,15 @@ for _,node in ipairs({
 	end
 end
 for _,atr in ipairs({
-	{k1='lightorange1',	k2='pointLight8',	a='INTENSITY',	v=35000},
-	{k1='lightorange1',	k2='pointLight8',	a='COL_R',		v=0.3},
-	{k1='lightorange1',	k2='pointLight8',	a='COL_G',		v=0.5},
-	{k1='lightorange1',	k2='pointLight8',	a='COL_B',		v=0.6}
+	{a='INTENSITY',	v=35000},
+	{a='COL_R',		v=0.3},
+	{a='COL_G',		v=0.5},
+	{a='COL_B',		v=0.6}
 }) do
 	ECT[#ECT+1] = {
 		SPECIAL_KEY_WORDS 	= {
-			{'Name', atr.k1, 'Name', atr.a},
-			{'Name', atr.k2, 'Name', atr.a}
+			{'Name', 'lightorange1', 'Name', atr.a},
+			{'Name', 'pointLight8', 'Name', atr.a}
 		},
 		VALUE_CHANGE_TABLE	= {
 			{'Value',	atr.v}
@@ -227,21 +227,21 @@ ECT[#ECT+1] = {
 		}),
 		ScLight({
 			--	left stairs light (copied from Relight)
-			{name='pointLight125d', c='FFFACFA8', tx=-22.6657, ty=5.3848, tz=-15,8617, g=0.851, b=0.745},
-			{name='pointLight125e', c='FFFACFA8', tx=-22.6657, ty=2.6848, tz=-10,3617, g=0.851, b=0.745},
-			{name='pointLight125f', c='FFFACFA8', tx=-22.6657, ty=0.0, tz=-4,36167, g=0.851, b=0.745},
-			{name='pointLight125z', c='FFFACFA8', tx=-16.6657, ty=14.0848, tz=-30,8617},
-			{name='pointLight125b', c='FFFACFA8', tx=-22.6657, ty=11.0848, tz=-25,8617, rx=-135, fov=180, g=0.851, b=0.745},
-			{name='pointLight125c', c='FFFACFA8', tx=-22.6657, ty=8.0848, tz=-20,8617, g=0.851, b=0.745},
+			{name='pointLight125d',	c='FFFACFA8',	tx=-22.666,	ty=5.3848,	tz=-15,8617, g=0.851, b=0.745},
+			{name='pointLight125e',	c='FFFACFA8',	tx=-22.666,	ty=2.6848,	tz=-10,3617, g=0.851, b=0.745},
+			{name='pointLight125f',	c='FFFACFA8',	tx=-22.666,	ty=0.0,		tz=-4,36167, g=0.851, b=0.745},
+			{name='pointLight125z',	c='FFFACFA8',	tx=-16.666,	ty=14.0848,	tz=-30,8617},
+			{name='pointLight125b',	c='FFFACFA8',	tx=-22.666,	ty=11.0848,	tz=-25,8617, g=0.851, b=0.745, rx=-135, fov=180},
+			{name='pointLight125c',	c='FFFACFA8',	tx=-22.666,	ty=8.0848,	tz=-20,8617, g=0.851, b=0.745},
 			--	right stairs light (copied from Relight)
-			{name='pointLight70d', c='FFFACFA8', tx=22.6657, ty=5.3848, tz=-15,8617, g=0.851, b=0.745},
-			{name='pointLight70e', c='FFFACFA8', tx=22.6657, ty=2.6848, tz=-10,3617, g=0.851, b=0.745},
-			{name='pointLight70f', c='FFFACFA8', tx=22.6657, ty=0.0, tz=-4,36167, g=0.851, b=0.745},
-			{name='pointLight8b', c='FFFACFA8', tx=8.0, ty=12.128, tz=48.882, i=27000, r=0.947, g=0.59, b=0.306},
-			{name='pointLight8b', c='FFFACFA8', tx=0.0, ty=12.128, tz=48.882, i=27000, r=0.947, g=0.59, b=0.306},
-			{name='pointLight70z', c='FFFACFA8', tx=16.6657, ty=14.0848, tz=-30,8617},
-			{name='pointLight70b', c='FFFACFA8', tx=22.6657, ty=11.0848, tz=-25,8617, rx=-135, fov=180, g=0.851, b=0.745},
-			{name='pointLight70c', c='FFFACFA8', tx=22.6657, ty=8.0848, tz=-20,8617, g=0.851, b=0.745}
+			{name='pointLight70d',	c='FFFACFA8',	tx=22.666,	ty=5.3848,	tz=-15,8617, g=0.851, b=0.745},
+			{name='pointLight70e',	c='FFFACFA8',	tx=22.666,	ty=2.6848,	tz=-10,3617, g=0.851, b=0.745},
+			{name='pointLight70f',	c='FFFACFA8',	tx=22.666,	ty=0.0,		tz=-4,36167, g=0.851, b=0.745},
+			{name='pointLight8b',	c='FFFACFA8',	tx=8.0,		ty=12.128,	tz=48.882,   g=0.59,  b=0.306, i=27000, r=0.947},
+			{name='pointLight8b',	c='FFFACFA8',	tx=0.0,		ty=12.128,	tz=48.882,   g=0.59,  b=0.306, i=27000, r=0.947},
+			{name='pointLight70z',	c='FFFACFA8',	tx=16.666,	ty=14.0848,	tz=-30,8617},
+			{name='pointLight70b',	c='FFFACFA8',	tx=22.666,	ty=11.0848,	tz=-25,8617, g=0.851, b=0.745, rx=-135, fov=180},
+			{name='pointLight70c',	c='FFFACFA8',	tx=22.666,	ty=8.0848,	tz=-20,8617, g=0.851, b=0.745}
 		})
 	})
 }
@@ -249,8 +249,8 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL ferighter.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.47',
-	AMUMSS_SUPPRESS_MSG		= 'MIXED_TABLE',  
+	NMS_VERSION				= '4.50',
+	AMUMSS_SUPPRESS_MSG		= 'MIXED_TABLE',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -419,12 +419,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'OrangeLights'},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD 				= ToExml(ScLight({
-					{name='left', fov=100, tx=16, ty=10, rx=-22, ry=90, f='l', fr=1.2, c='FFF5F7FA'},
-					{name='right', fov=100, tx=-16, ty=10, rx=-22, ry=-90, f='l', fr=1.2, c='FFF5F7FA'},
-					{name='ne', i=44000, fov=120, tx=4.8, ty=0.25, tz=4.8, rx=30, ry=45, c='FFF5F7FA'},
-					{name='nw', i=44000, fov=120, tx=-4.8, ty=0.25, tz=4.8, rx=30, ry=-45, c='FFF5F7FA'},
-					{name='se', i=44000, fov=120, tx=4.8, ty=0.25, tz=-4.8, rx=30, ry=135, c='FFF5F7FA'},
-					{name='sw', i=44000, fov=120, tx=-4.8, ty=0.25, tz=-4.8, rx=30, ry=-135, c='FFF5F7FA'}
+					{name='left',  fov=100, tx=16,  ty=10, rx=-22, ry=90,  f='l', fr=1.2,		c='FFF5F7FA'},
+					{name='right', fov=100, tx=-16, ty=10, rx=-22, ry=-90, f='l', fr=1.2,		c='FFF5F7FA'},
+					{name='ne',	i=44000, fov=120, tx=4.8,	ty=0.25, tz=4.8,  rx=30, ry=45,		c='FFF5F7FA'},
+					{name='nw',	i=44000, fov=120, tx=-4.8,	ty=0.25, tz=4.8,  rx=30, ry=-45,	c='FFF5F7FA'},
+					{name='se',	i=44000, fov=120, tx=4.8,	ty=0.25, tz=-4.8, rx=30, ry=135,	c='FFF5F7FA'},
+					{name='sw',	i=44000, fov=120, tx=-4.8,	ty=0.25, tz=-4.8, rx=30, ry=-135,	c='FFF5F7FA'}
 				}))
 			}
 		}

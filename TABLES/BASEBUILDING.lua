@@ -1,6 +1,7 @@
 -------------------------------------------------------------------
 local mod_desc = [[
   Disable restrictions on collision, scaling, rotating & freighter
+  Add globe to planet tech
   Increase power generation and storage
   Portable exocraft summon garage
 ]]-----------------------------------------------------------------
@@ -8,7 +9,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -35,6 +36,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Group',		'BASE_TECH'},
 					{'SubGroupName','TECHTECH'}
 				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'BASE_TOYCORE'},
+				VALUE_CHANGE_TABLE 	= {
+					{'BuildableOnPlanet',	true}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'ID', 'BASE_TOYCORE'},
+				PRECEDING_KEY_WORDS = 'Groups',
+				ADD					= [[
+					<Property value="GcBaseBuildingEntryGroup.xml">
+						<Property name="Group" value="PLANET_TECH"/>
+						<Property name="SubGroupName" value="PLANETPORTABLE"/>
+					</Property>]]
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'S9_WEAPONTREE'},

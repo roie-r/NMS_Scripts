@@ -8,6 +8,16 @@ local mod_desc = [[
 ]]---------------------------------------
 
 local new_recipes = {
+	{--	rampant mould to nanites
+		id			= 'RECIPE_RAMMOULD5',
+		name		= 'RECIPE_BURIEDTECH',
+		make		= 75000,
+		cook		= false,
+		result		= {id='TECHFRAG',	n=4000,	tp=IT_.SBT},
+		ingredients	= {
+			{id='RAMMOULD5',	n=1,	tp=IT_.PRD}
+		}
+	},
 	{--	double nanites from mould
 		id			= 'RECIPE_MOULD2',
 		name		= 'RECIPE_BURIEDTECH',
@@ -52,7 +62,7 @@ local new_recipes = {
 			{id='DRONE_SHARD',	n=1,	tp=IT_.PRD}
 		}
 	},
-	{--	make lots of sand from ferrite
+	{--	lots of sand from ferrite
 		id			= 'RECIPE_MORESAND',
 		name		= 'UI_SANDWORD_DIET7',
 		make		= 40,
@@ -85,7 +95,7 @@ local new_recipes = {
 			{id='ROBOT1', 		n=80,	tp=IT_.SBT}
 		}
 	},
-	{--	taint mag ferrite for more taint
+	{--	taint mag ferrite for more tainted
 		id			= 'RECIPE_TAINT3',
 		name		= 'RECIPE_ASTEROID2',
 		make		= 40,
@@ -121,7 +131,7 @@ local new_recipes = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

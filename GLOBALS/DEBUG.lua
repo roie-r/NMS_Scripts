@@ -6,7 +6,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC DEBUG.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -16,6 +16,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'WeaponScale3P',						0.7},	-- 0.78	0.55
+					{'ThirdPersonIsDefaultCameraForPlayer',	false},
 					{'DisableSaveSlotSorting',				true},
 					{'AlwaysHaveFocus',						true},
 					{'ForceInitialShip',					false},

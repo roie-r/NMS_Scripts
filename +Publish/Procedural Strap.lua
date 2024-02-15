@@ -34,7 +34,7 @@ local proc_texture = [[<?xml version="1.0" encoding="utf-8"?>
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Procedural Strapping.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= {
 		-- {

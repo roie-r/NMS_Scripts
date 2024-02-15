@@ -4,10 +4,10 @@ local mod_desc = [[
 ]]-----------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TEXTURE batch various.pak',
+	MOD_FILENAME 		= '__TEXTURE various.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_BATCHNAME		= '_TEXTURES ~@~collection.pak',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

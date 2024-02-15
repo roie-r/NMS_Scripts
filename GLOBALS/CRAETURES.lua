@@ -10,7 +10,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CRAETURES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -61,6 +61,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'PetFollowRunPlayerDistance',			16},	-- 4
 					{'PetFollowRange',						10},	-- 2
 					{'PetAnimSpeedMax',						1},		-- 1.5
+					{'PetChatCooldown',						30}, 	-- 5
+
 				}
 			},
 			{

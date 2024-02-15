@@ -112,13 +112,21 @@ function icon_bg_color:GetExmlCT()
 end
 
 local prod_requirements = {
+	{--	pocket reality generator
+		id	 = 'BASE_TOYCORE',
+		subs = true,
+		req	 = {
+			{id='ANTIMATTER', 	n=1,	tp=IT_.PRD},	-- antimatter
+			{id='LAND1',	 	n=50,	tp=IT_.SBT},	-- ferrite
+		}
+	},
 	{--	cargo_bulkhead
 		id	 = 'FREI_INV_TOKEN',
 		cost = 8,
 		req	 = {
 			{id='CASING', 		n=20,	tp=IT_.PRD},	-- plating
 			{id='HYDRALIC',		n=10,	tp=IT_.PRD},	-- poly fibre
-			{id='COMPOUND6',	n=1,	tp=IT_.PRD}	-- cryo pump
+			{id='COMPOUND6',	n=1,	tp=IT_.PRD}		-- cryo pump
 		}
 	},
 	{--	wiring loom
@@ -252,6 +260,26 @@ ECT[#ECT+1] = {
 	PRECEDING_KEY_WORDS	= 'Table',
 	ADD					= ToExml({
 		ProductEntry({
+			id				= 'RAMMOULD5',
+			name			= 'RAMMOULD_NAME',
+			namelower		= 'RAMMOULD_NAME_L',
+			subtitle		= 'UI_MEGAPROD_SUBTITLE',
+			description		= 'RAMMOULD_DESC',
+			basevalue		= 8000,
+			color			= 'FFCCCCCC',
+			category		= 'Special',
+			type			= 'Tradeable',
+			rarity			= 'Rare',
+			legality		= 'Legal',
+			iscraftable		= true,
+			requirements	= {
+				{id='SPACEGUNK2', 		n=10000,	tp=IT_.SBT},
+				{id='SPACEGUNK2', 		n=10000,	tp=IT_.SBT}
+			},
+			stackmultiplier	= 12,
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.RAMMOLD.DDS'
+		}),
+		ProductEntry({
 			id				= 'ULTRAPRODX40',
 			name			= 'PRODX40_NAME',
 			namelower		= 'PRODX40_NAME_L',
@@ -298,7 +326,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

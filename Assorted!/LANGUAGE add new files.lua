@@ -16,6 +16,24 @@ local text_lines = {
 	default	= 'EN',
 	entries	= {
 	---	New text ---
+		JUMP_U_ALIEN_NAME = {
+			EN = [[ENLARGED HEART]],
+		},
+		JUMP_U_ALIEN_NAME_L = {
+			EN = [[Enlarged Heart]],
+		},
+		JUMP_U_ALIEN_DESC = {
+			EN = [[A significant reinforcement to the vital organ's fibrous metallic superstructure, allowing greater performance and more subtle movement control.]],
+		},
+		SHIELD_U_ALIEN_NAME = {
+			EN = [[HORROR NULLIFIER]]
+		},
+		SHIELD_U_ALIEN_NAME_L =	{
+			EN = [[Horror Nullifier]]
+		},
+		SHIELD_U_ALIEN_DESC = {
+			EN = [[Envelops the neurological array and erects a barrier around it against all emotional trauma.]],
+		},
 		SUPERFOOD_NAME = {
 			EN = [[GLOWING PELLETS]],
 		},
@@ -38,16 +56,25 @@ local text_lines = {
 			EN = [[Harmonious Synthetics Tracker]],
 		},
 		VEHICLESTUN_NAME = {
-			EN = [[PARALYSIS GUN]],
+			EN = [[PARALYSIS GUN]]
 		},
 		VEHICLESTUN_NAME_L = {
-			EN = [[Paralysis Gun]],
+			EN = [[Paralysis Gun]]
 		},
 		VEHICLESTUN_DESC = {
 			EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.||NCharged with <FUEL>Unstable Plasma<>.]],
 		},
 		VEHICLESTUN_SUB = {
-			EN = [[Stun Weapons]],
+			EN = [[Stun Weapons]]
+		},
+		RAMMOULD_NAME = {
+			EN = [[RAMPANT MOLD]]
+		},
+		RAMMOULD_NAME_L = {
+			EN = [[Rampant Mold]]
+		},
+		RAMMOULD_DESC = {
+			EN = [[A highly concentrated form, up to 1:5 ratio, of the runaway mold. Extremely volatile outside of its seal container! Use of power gloves recommended.]]
 		},
 		PRODX40_NAME = {
 			EN = [[FUSED STASIS ENABLER]],
@@ -97,6 +124,9 @@ local text_lines = {
 		UI_GREEN_CRYSTAL_NAME = {
 			EN = [[Ionised Cobalt Crystals]],
 			FR = [[Cristaux de cobalt ionisés]],
+		},
+		UI_EMOTE_CHAT_FEED_CREATURE_ALT = {
+			EN = [[Offer %PRODUCT%]],
 		},
 		UI_CD_EX_SYM	= { EN = [[Cd+]] },
 		UI_EM_EX_SYM	= { EN = [[Em+]] },
@@ -311,7 +341,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

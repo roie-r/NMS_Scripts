@@ -11,15 +11,29 @@ local mod_desc = [[
 local GU_ = {IGR='IgnoreName', MCT='MatchName', DNM='DoNotMatchName'}
 
 local proc_texture_files = {
+	{--	floating crystal
+		label	 = 'AIRCRYSTAL',
+		nmspath	 = 'TEXTURES/PLANETS/BIOMES/COMMON/RARERESOURCE/INAIR/',
+		layers	 = {
+			{
+				name	= 'BASE',
+				palette = 'Crystal',
+				color	= 'Primary',
+				diff	= true,
+				normal	= true,
+				masks	= true
+			}
+		}
+	},
 	{--	bioship engine flare line
 		label	 = 'PULSELINES',
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/',
 		layers	 = {
 			{
-				ly_name	= 'BASEP',
-				tx_name	= {'1'},
+				name	= 'BASEP',
 				palette = 'Paint',
 				color	= 'Primary',
+				texture	= {'1'},
 				diff	= true
 			}
 		}
@@ -29,7 +43,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/',
 		layers	 = {
 			{
-				ly_name	= 'BASE5',
+				name	= 'BASE5',
 				palette = 'Paint',
 				color	= 'Alternative1',
 				diff	= true
@@ -41,7 +55,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Custom_Head',
 				color	= 'Primary',
 				diff	= true
@@ -55,15 +69,15 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/DECALS/LOGO/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				normal	= true,
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'L15', 'L14', 'L13', 'L12', 'L11', 'L10', 'L9', 'L8', 'L7', 'L6', 'L5', 'L4', 'L3', 'L2', 'L1'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Alternative2',
+				texture	= {'L15', 'L14', 'L13', 'L12', 'L11', 'L10', 'L9', 'L8', 'L7', 'L6', 'L5', 'L4', 'L3', 'L2', 'L1'},
 				diff	= true
 			}
 		}
@@ -75,15 +89,15 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/DECALS/RECTANGLE/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				normal	= true,
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'R15', 'R14', 'R13', 'R12', 'R11', 'R10', 'R9', 'R8', 'R7', 'R6', 'R5', 'R4', 'R3', 'R2', 'R1'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Alternative2',
+				texture	= {'R15', 'R14', 'R13', 'R12', 'R11', 'R10', 'R9', 'R8', 'R7', 'R6', 'R5', 'R4', 'R3', 'R2', 'R1'},
 				diff	= true
 			}
 		}
@@ -95,15 +109,15 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/DECALS/SMALLSIGN/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				normal	= true,
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'S6', 'S5', 'S4', 'S3', 'S2', 'S1'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Alternative3',
+				texture	= {'S6', 'S5', 'S4', 'S3', 'S2', 'S1'},
 				diff	= true
 			}
 		}
@@ -115,15 +129,15 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/DECALS/NUMBER/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				normal	= true,
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Alternative1',
+				texture	= {'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'},
 				diff	= true
 			}
 		}
@@ -135,15 +149,15 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/DECALS/LETTERING/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				normal	= true,
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'LT1', 'LT2', 'LT3', 'LT4', 'LT5', 'LT6', 'LT7', 'LT8', 'LT9'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Alternative2',
+				texture	= {'LT1', 'LT2', 'LT3', 'LT4', 'LT5', 'LT6', 'LT7', 'LT8', 'LT9'},
 				diff	= true
 			}
 		}
@@ -155,13 +169,13 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/SPACE/SPACESTATION/DECALS/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				color	= 'Primary',
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'ST1', 'ST2', 'ST3', 'ST4', 'ST5', 'ST6', 'ST7'},
+				name	= 'BASE',
+				texture	= {'ST1', 'ST2', 'ST3', 'ST4', 'ST5', 'ST6', 'ST7'},
 				diff	= true
 			}
 		}
@@ -173,13 +187,13 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/SPACE/SPACESTATION/DECALS/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				color	= 'Primary',
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'},
+				name	= 'BASE',
+				texture	= {'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9'},
 				diff	= true
 			}
 		}
@@ -189,7 +203,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/WEAPONS/MULTITOOL/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Alternative2',
 				diff	= true
@@ -202,7 +216,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/WEAPONS/MULTITOOL/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Crystal',
 				color	= 'Primary',
 				diff	= true
@@ -215,12 +229,12 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAYMETAL',
-				tx_name	= {{n='SILVER', pr=0.7}, {n='GOLD', pr=0.3}},
+				name	= 'OVERLAYMETAL',
+				texture	= {{n='SILVER', pr=0.7}, {n='GOLD', pr=0.3}},
 				diff	= true
 			},
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'SpaceBottom',
 				color	= 'Primary',
 				diff	= true,
@@ -235,29 +249,29 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/',
 		layers	 = {
 			{
-				ly_name	= 'OVERLAY',
+				name	= 'OVERLAY',
 				diff	= true,
 			},
 			{
-				ly_name	= 'PRIMARY',
+				name	= 'PRIMARY',
 				palette = 'Paint',
 				color	= 'Primary',
 				diff	= true,
 			},
 			{
-				ly_name	= 'SECONDARY',
+				name	= 'SECONDARY',
 				palette = 'Paint',
 				color	= 'Alternative1',
 				diff	= true,
 			},
 			{
-				ly_name	= 'TERTIARY',
+				name	= 'TERTIARY',
 				palette = 'Paint',
 				color	= 'Alternative2',
 				diff	= true,
 			},
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				diff	= true,
 				normal	= true,
 				masks	= true
@@ -270,14 +284,14 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/',
 		layers	 = {
 			{
-				ly_name	= 'FIXED',
-				tx_name	= {'1', '2'},
+				name	= 'FIXED',
+				texture	= {'1', '2'},
 				diff	= true,
 				masks	= true
 			},
 			{
-				ly_name	= 'OVERLAY',
-				tx_name	= {
+				name	= 'OVERLAY',
+				texture	= {
 					-- needs dds flags and alt name for each tex to deal with the unconventional naming
 					{n='POLICE',	u=GU_.MCT},
 					{n='1',			u=GU_.DNM},
@@ -290,10 +304,10 @@ local proc_texture_files = {
 				masks	= true
 			},
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'1'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
+				texture	= {'1'},
 				diff	= true,
 				normal	= true,
 				masks	= true
@@ -307,7 +321,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
 				diff	= true
@@ -321,7 +335,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
 				diff	= true
@@ -335,7 +349,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/FIGHTERS/SHARED/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
 				diff	= true
@@ -349,7 +363,7 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/SPACECRAFT/SHARED/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
 				diff	= true
@@ -362,10 +376,10 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/SHARED/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'1'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
+				texture	= {'1'},
 				diff	= true
 			}
 		}
@@ -376,10 +390,10 @@ local proc_texture_files = {
 		nmspath	 = 'TEXTURES/COMMON/ROBOTS/SHARED/',
 		layers	 = {
 			{
-				ly_name	= 'BASE',
-				tx_name	= {'2'},
+				name	= 'BASE',
 				palette = 'Paint',
 				color	= 'Primary',
+				texture	= {'2'},
 				diff	= true
 			}
 		}
@@ -403,17 +417,17 @@ local function GetProcTextures(path, layer)
 	-- * An array of names
 	-- * An array of tables of the following - non-essential - properties:
 	--   {n='name', pr=0.3, u=GU_.DNM,	pt='palette', ca='colouralt'} >> u=TextureGameplayUseEnum
-	-- - None, in which case all default values will apply
-	for _,ptex in ipairs(layer.tx_name and layer.tx_name or {{n=''}}) do
+	-- * None, in which case all default values apply
+	for _,ptex in ipairs(layer.texture and layer.texture or {{n=''}}) do
 		if type(ptex) == 'string' then ptex = {n=ptex} end
 		T[#T+1] = {
 			META	= {'value', 'TkProceduralTexture.xml'},
 			Name				= ptex.n,
 			Probability			= ptex.pr or 1,
 			TextureGameplayUse	= ptex.u,
-			Diffuse				= TexPath(layer.diff,   {path, layer.ly_name, ptex.n}),
-			Normal				= TexPath(layer.normal, {path, layer.ly_name, 'NORMAL'}),
-			Mask				= TexPath(layer.masks,  {path, layer.ly_name, 'MASKS'}),
+			Diffuse				= TexPath(layer.diff,   {path, layer.name, ptex.n}),
+			Normal				= TexPath(layer.normal, {path, layer.name, 'NORMAL'}),
+			Mask				= TexPath(layer.masks,  {path, layer.name, 'MASKS'}),
 			Palette				= {
 				META	= {'Palette', 'TkPaletteTexture.xml'},
 				Palette		= ptex.pt or (layer.palette	or 'Rock'),
@@ -430,7 +444,7 @@ local function BuildProcTexListMbin(proc_tex_list)
 	for _,ly in ipairs(proc_tex_list.layers) do
 		T[#T+1] = {
 			META	= {'value', 'TkProceduralTextureLayer.xml'},
-			Name		= ly.ly_name,
+			Name		= ly.name,
 			Probability	= proc_tex_list.ly_prob	or 1,
 			Group		= proc_tex_list.group,
 			Textures	= GetProcTextures(proc_tex_list.nmspath..proc_tex_list.label, ly)
@@ -449,7 +463,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

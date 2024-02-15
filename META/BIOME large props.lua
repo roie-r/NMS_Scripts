@@ -1,10 +1,31 @@
 --------------------------------------------------------------------------------
-dofile('LIB/exml_2_lua.lua') -- ALWAYS EXCLUDED FROM BATCH
+dofile('LIB/exml_2_lua.lua')
 --------------------------------------------------------------------------------
 local mod_desc = [[
   Utilizes the SCENE files' descriptive name and path to match 'tags'
   from scale_tags table to each scene, then multiples the tags' values with the
   properties in object_spawn_prop table.
+
+  Multiple modifiers in the same scene path are averaged:
+  - Example:
+   ROCKS/LARGE/LARGEROCK.SCENE.MBIN   >> LARGE & ROCK
+   ROCKS/MEDIUM/MEDIUMROCK.SCENE.MBIN >> MEDIUM & ROCK
+   FOLIAGE/MEDIUMPLANT.SCENE.MBIN     >> FOLIAGE & MEDIUM & PLANT
+
+  - The correct tag can match anything from any scene files across all
+   biomes (MODEL), to a single instance of one scene (VOLCANO).
+  - scale_tags.biomes are modifiers for specific source files. They can match more
+   than one source: LUSH will be applied to ALL lush biomes, and LUSHBUBBLEOBJECTS
+   applied to the one source with the matching name, overwriting LUSH.
+  - The biome-specific modifiers are added to -or replace scale_tags.global table
+   and are averaged with it.
+  - Adding u=true makes a tag unique - Other matches will be ignored, unless the
+   the tag is overwritten by a biome tag.
+  - A tag with the single modifier {u=true} causes the scene to be ignored, unless
+   the same tag is overwritten by a biome tag.
+  - Other properties of GcObjectSpawnData.xml can be modded by adding a property's
+   name to object_spawn_prop with a unique key, then adding tag modifiers for it.
+  - A propery's modifier value=0 will be skipped - You 'zero out' a property.
 
   * MUST BE LAUNCHED WITH A SOURCE PRE-LOADER SCRIPT
 ]]------------------------------------------------------------------------------
@@ -22,89 +43,89 @@ local obj_spawn_data = {
 local scale_tags = {
 	biomes = {
 		{
-			biome = 'LUSH',
+			tag   = 'LUSH',
 			flora = { -- applied to all LUSH sources
 				TREE		= {n=1.15,	x=2.4,	c=0.9},
 				BUBBLELUSH	= {n=1.15,	x=1.65}
 			}
 		},
 		{
-			biome = 'LUSHBIGPROPSOBJECTSFULL',
+			tag   = 'LUSHBIGPROPSOBJECTSFULL',
 			flora = {
 				TREE		= {n=1.05,	x=2.2,	c=0.86}
 			}
 		},
 		{
-			biome = 'LUSHBUBBLEOBJECTS',
+			tag   = 'LUSHBUBBLEOBJECTS',
 			flora = {
 				TREE		= {x=2.25,	c=0.86},
 				FERN		= {n=1.4,	x=2.6}
 			}
 		},
 		{
-			biome = 'LUSHOBJECTSFULL',
+			tag   = 'LUSHOBJECTSFULL',
 			flora = {
 				FERN		= {n=1.3,	x=1.9},
 				FLOWER		= {n=1.4,	x=1.8}
 			}
 		},
 		{
-			biome = 'TENTACLEOBJECTSFULL',
+			tag   = 'TENTACLEOBJECTSFULL',
 			flora = {
 				TENTACLE	= {n=1.2,	x=1.8,	c=0.94}
 			}
 		},
 		{
-			biome = 'LUSHROOMBOBJECTS',
+			tag   = 'LUSHROOMBOBJECTS',
 			flora = {
 				SHROOMSINGL	= {n=1.8,	x=2.9,	u=true}
 			}
 		},
 		{
-			biome = 'FROZEN',
+			tag   = 'FROZEN',
 			flora = {-- applied to all FROZEN sources
 				TREE 		= {n=1.15,	x=2.45,	c=0.85}
 			}
 		},
 		{
-			biome = 'RADIOBIGPROPS',
+			tag   = 'RADIOBIGPROPS',
 			flora = {
 				ROCK		= {n=1.1,	x=1.3,	c=0.95}
 			}
 		},
 		{
-			biome = 'RADIOSPIKEPOTATO',
+			tag   = 'RADIOSPIKEPOTATO',
 			flora = {
 				WEIRD		= {x=1.4,	c=1.2} -- potato
 			}
 		},
 		{
-			biome = 'TOXIC',
+			tag   = 'TOXIC',
 			flora = {-- applied to all TOXIC sources
 				TENDRIL		= {n=1.4,	x=1.9}
 			}
 		},
 		{
-			biome = 'TOXICBIGPROPS',
+			tag   = 'TOXICBIGPROPS',
 			flora = {
 				HUGEPROPS	= {n=0.7,	x=1.05,	c=0.84}
 			}
 		},
 		{
-			biome = 'TOXICOBJECTSFULL',
+			tag   = 'TOXICOBJECTSFULL',
 			flora = {
 				LARGEBLOB	= {n=0.4,	x=0.8},
 				FUNGALTREE	= {n=1.15,	x=1.75,	c=0.86}
 			}
 		},
 		{
-			biome = 'ROCKY',
+			tag   = 'ROCKY',
 			flora = {-- less -and smaller rocks on rocky biomes
 				FACEBLEND	= {n=0.8,	x=0.9,	c=0.84,	u=true}
 			}
 		},
 		{
-			biome = 'SWAMPOBJECTSFULL',
+			tag   = 'SWAMPOBJECTSFULL',
 			flora = {
 				GROVELARGEF	= {n=1.05,	x=1.55,	c=1.1,	u=true},
 				GROVELARGE	= {n=0.8,	x=-0.7, c=0.82},
@@ -114,7 +135,7 @@ local scale_tags = {
 			}
 		},
 		{
-			biome = 'ALIEN',
+			tag   = 'ALIEN',
 			flora = {
 				LARGE		= {n=0.95,	x=1.02,	c=0.92},
 				MEDIUM		= {n=0.9,	x=1.05,	c=0.82},
@@ -122,21 +143,21 @@ local scale_tags = {
 			}
 		},
 		{
-			biome = 'LEVELONE',
+			tag   = 'LEVELONE',
 			flora = {
 				DEBRIS		= {c=0.00001,	u=true},
-				CRATE		= {c=0.00001,	u=true},
-				UNDERGROUND	= {c=0.1},
+				CRATE		= {c=0.00001},
+				UNDERGROUND	= {c=0.05},
 				WORDSTONE	= {c=0.33}
 			}
 		},
 		{
-			biome = 'PLANT',
+			tag   = 'PLANT',
 			flora = {
 				INTERACTIVE	= {n=0.48,	x=0.01,	c=1.1},
-				TENTACLEP	= {c=0.6,	u=true},
-				SPOREVENT	= {c=0.6,	u=true},
-				FLYTRAP		= {c=0.6,	u=true}
+				TENTACLEP	= {c=0.6},
+				SPOREVENT	= {c=0.6},
+				FLYTRAP		= {c=0.6}
 			}
 		}
 	},
@@ -360,6 +381,7 @@ function obj_spawn_data:copy(tag)
 	for k, d in pairs(self.mods) do
 		if k ~= 'u' then
 			d.v = tag[k] or 1
+			d.i = 1
 		end
 	end
 end
@@ -388,22 +410,19 @@ end
 -- get a merged tags list for a biome and add modifiers for every spawn
 local function SetTheScales()
 	-- return biome-specific prop scales
-	local function GetBiomeScales(src)
+	local function GetBiomeScales(mbin)
 		local tbl = {}
-		for _,d in ipairs(scale_tags.biomes) do
-			if src:find(d.biome) then
-				tbl = MergeTables({tbl, d.flora})
+		for _,biome in ipairs(scale_tags.biomes) do
+			if mbin:find(biome.tag) then
+				tbl = MergeTables({tbl, biome.flora})
 			end
 		end
 		return tbl
 	end
-	local mbin_chg_tbl = {}
-	for mbin_sf, flora in pairs(solar_biomes) do
-		local mods_tbl = {
-			MBIN_FILE_SOURCE	= mbin_sf,
-			EXML_CHANGE_TABLE	= {}
-		}
-		local worktags = MergeTables( {scale_tags.globals, GetBiomeScales(mbin_sf)} )
+	local mbin_ct = {}
+	for mbin_fs, flora in pairs(solar_biomes) do
+		local exml_ct = {}
+		local worktags = MergeTables( {scale_tags.globals, GetBiomeScales(mbin_fs)} )
 		-- use the flora properties (t_props) if I ever figure what to do with them
 		for mbin,_ in pairs(flora) do
 			local vct = {}
@@ -414,7 +433,7 @@ local function SetTheScales()
 				end
 			end
 			if #vct > 0 then
-				local spawn_props = {
+				exml_ct[#exml_ct+1] = {
 					REPLACE_TYPE 		= 'All',
 					INTEGER_TO_FLOAT	= 'Force',
 					MATH_OPERATION 		= '*',
@@ -422,18 +441,20 @@ local function SetTheScales()
 					SECTION_UP			= 1,
 					VALUE_CHANGE_TABLE 	= vct
 				}
-				table.insert(mods_tbl.EXML_CHANGE_TABLE, spawn_props)
 			end
 		end
-		table.insert(mbin_chg_tbl, mods_tbl)
+		mbin_ct[#mbin_ct+1] = {
+			MBIN_FILE_SOURCE	= mbin_fs,
+			EXML_CHANGE_TABLE	= exml_ct
+		}
 	end
-	return mbin_chg_tbl
+	return mbin_ct
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_META large props.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'UNDEFINED_VARIABLE,UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{

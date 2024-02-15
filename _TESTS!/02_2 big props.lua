@@ -5,6 +5,7 @@ local mod_desc = [[
   TESTS! -- Scale biome props
 ]]-----------------------------
 
+--- Properties of [GcObjectSpawnData.xml] being modified
 local obj_spawn_data = {
 	props = {
 		n = 'MinScale',
@@ -17,89 +18,89 @@ local obj_spawn_data = {
 local scale_tags = {
 	biomes = {
 		{
-			biome = 'LUSH',
+			tag   = 'LUSH',
 			flora = { -- applied to all LUSH sources
 				TREE		= {n=1.15,	x=2.4,	c=0.9},
 				BUBBLELUSH	= {n=1.15,	x=1.65}
 			}
 		},
 		{
-			biome = 'LUSHBIGPROPSOBJECTSFULL',
+			tag   = 'LUSHBIGPROPSOBJECTSFULL',
 			flora = {
 				TREE		= {n=1.05,	x=2.2,	c=0.86}
 			}
 		},
 		{
-			biome = 'LUSHBUBBLEOBJECTS',
+			tag   = 'LUSHBUBBLEOBJECTS',
 			flora = {
 				TREE		= {x=2.25,	c=0.86},
 				FERN		= {n=1.4,	x=2.6}
 			}
 		},
 		{
-			biome = 'LUSHOBJECTSFULL',
+			tag   = 'LUSHOBJECTSFULL',
 			flora = {
 				FERN		= {n=1.3,	x=1.9},
 				FLOWER		= {n=1.4,	x=1.8}
 			}
 		},
 		{
-			biome = 'TENTACLEOBJECTSFULL',
+			tag   = 'TENTACLEOBJECTSFULL',
 			flora = {
 				TENTACLE	= {n=1.2,	x=1.8,	c=0.94}
 			}
 		},
 		{
-			biome = 'LUSHROOMBOBJECTS',
+			tag   = 'LUSHROOMBOBJECTS',
 			flora = {
 				SHROOMSINGL	= {n=1.8,	x=2.9,	u=true}
 			}
 		},
 		{
-			biome = 'FROZEN',
+			tag   = 'FROZEN',
 			flora = {-- applied to all FROZEN sources
 				TREE 		= {n=1.15,	x=2.45,	c=0.85}
 			}
 		},
 		{
-			biome = 'RADIOBIGPROPS',
+			tag   = 'RADIOBIGPROPS',
 			flora = {
 				ROCK		= {n=1.1,	x=1.3,	c=0.95}
 			}
 		},
 		{
-			biome = 'RADIOSPIKEPOTATO',
+			tag   = 'RADIOSPIKEPOTATO',
 			flora = {
 				WEIRD		= {x=1.4,	c=1.2} -- potato
 			}
 		},
 		{
-			biome = 'TOXIC',
+			tag   = 'TOXIC',
 			flora = {-- applied to all TOXIC sources
 				TENDRIL		= {n=1.4,	x=1.9}
 			}
 		},
 		{
-			biome = 'TOXICBIGPROPS',
+			tag   = 'TOXICBIGPROPS',
 			flora = {
 				HUGEPROPS	= {n=0.7,	x=1.05,	c=0.84}
 			}
 		},
 		{
-			biome = 'TOXICOBJECTSFULL',
+			tag   = 'TOXICOBJECTSFULL',
 			flora = {
 				LARGEBLOB	= {n=0.4,	x=0.8},
 				FUNGALTREE	= {n=1.15,	x=1.75,	c=0.86}
 			}
 		},
 		{
-			biome = 'ROCKY',
+			tag   = 'ROCKY',
 			flora = {-- less -and smaller rocks on rocky biomes
 				FACEBLEND	= {n=0.8,	x=0.9,	c=0.84,	u=true}
 			}
 		},
 		{
-			biome = 'SWAMPOBJECTSFULL',
+			tag   = 'SWAMPOBJECTSFULL',
 			flora = {
 				GROVELARGEF	= {n=1.05,	x=1.55,	c=1.1,	u=true},
 				GROVELARGE	= {n=0.8,	x=-0.7, c=0.82},
@@ -109,7 +110,7 @@ local scale_tags = {
 			}
 		},
 		{
-			biome = 'ALIEN',
+			tag   = 'ALIEN',
 			flora = {
 				LARGE		= {n=0.95,	x=1.02,	c=0.92},
 				MEDIUM		= {n=0.9,	x=1.05,	c=0.82},
@@ -117,21 +118,21 @@ local scale_tags = {
 			}
 		},
 		{
-			biome = 'LEVELONE',
+			tag   = 'LEVELONE',
 			flora = {
 				DEBRIS		= {c=0.00001,	u=true},
-				CRATE		= {c=0.00001,	u=true},
-				UNDERGROUND	= {c=0.1},
+				CRATE		= {c=0.00001},
+				UNDERGROUND	= {c=0.05},
 				WORDSTONE	= {c=0.33}
 			}
 		},
 		{
-			biome = 'PLANT',
+			tag   = 'PLANT',
 			flora = {
 				INTERACTIVE	= {n=0.48,	x=0.01,	c=1.1},
-				TENTACLEP	= {c=0.6,	u=true},
-				SPOREVENT	= {c=0.6,	u=true},
-				FLYTRAP		= {c=0.6,	u=true}
+				TENTACLEP	= {c=0.6},
+				SPOREVENT	= {c=0.6},
+				FLYTRAP		= {c=0.6}
 			}
 		}
 	},
@@ -179,24 +180,25 @@ local solar_biomes = {
 }
 
 local function GetBiomeFlora(biome)
-	local flora			= {}
 	local gc_spawn_file	= LoadRuntimeMbin(biome)
-	local gc_objs		= gc_spawn_file and gc_spawn_file.template.Objects or {}
+	local gc_objs		= gc_spawn_file.template.Objects
+	local flora			= {}
 
 	for key, objs in pairs(gc_objs) do
 		if key ~= 'SelectableObjects' and key ~= 'META' then
 			for _, spn in ipairs(objs) do
-				if spn.QualityVariants then
-					c = spn.QualityVariants[#spn.QualityVariants].Coverage
-				else
-					c = spn.QualityVariantData.Coverage
-				end
-				flora[spn.Resource.Filename] = {
-					n	= spn.MinScale,
-					x	= spn.MaxScale,
-					w	= spn.ShearWindStrength,
-					c	= c
-				}
+				flora[spn.Resource.Filename] = 0
+				-- if spn.QualityVariants then
+					-- c = spn.QualityVariants[#spn.QualityVariants].Coverage
+				-- else
+					-- c = spn.QualityVariantData.Coverage
+				-- end
+				-- flora[spn.Resource.Filename] = {
+					-- n	= spn.MinScale,
+					-- x	= spn.MaxScale,
+					-- w	= spn.ShearWindStrength,
+					-- c	= c
+				-- }
 			end
 		end
 	end
@@ -207,13 +209,6 @@ end
 for mbin,_ in pairs(solar_biomes) do
 	solar_biomes[mbin] = GetBiomeFlora(mbin)
 end
-
--- for key, biome in pairs(solar_biomes) do
-	-- print('+ '..key)
-	-- for spn,_ in pairs(biome) do
-		-- print('--- '..spn)
-	-- end
--- end
 
 -- return a deep copy of a tables array in a single merged table
 -- Identical keys are overwritten
@@ -239,8 +234,8 @@ local function MergeTables(n)
 	return tbl
 end
 
---	add property modifier functions for object spawns
-function obj_spawn_data:addvals(tag)
+--	property modifier functions for object spawns
+function obj_spawn_data:addvalues(tag)
 	for k, val in pairs(tag) do
 		if val ~= 1 then
 			self.mods[k].v = self.mods[k].v + val
@@ -248,7 +243,7 @@ function obj_spawn_data:addvals(tag)
 		end
 	end
 end
-function obj_spawn_data:avgs()
+function obj_spawn_data:averages()
 	for _,d in pairs(self.mods) do
 		d.v = d.i > 0 and (d.v / d.i) or 1
 	end
@@ -257,6 +252,7 @@ function obj_spawn_data:copy(tag)
 	for k, d in pairs(self.mods) do
 		if k ~= 'u' then
 			d.v = tag[k] or 1
+			d.i = 1
 		end
 	end
 end
@@ -273,47 +269,42 @@ local function AverageScales(spawn, worktags)
 		if spawn:find(key) then
 			if tag.u or false then
 				obj_spawn_data:copy(tag)
-				return obj_spawn_data.mods
+				break
 			end
-			obj_spawn_data:addvals(tag)
+			obj_spawn_data:addvalues(tag)
 		end
 	end
-	obj_spawn_data:avgs()
+	obj_spawn_data:averages()
 end
 
 -- main work.
 -- get a merged tags list for a biome and add modifiers for every spawn
 local function SetTheScales()
 	-- return biome-specific prop scales
-	local function GetBiomeScales(src)
+	local function GetBiomeScales(mbin)
 		local tbl = {}
-		for _,d in ipairs(scale_tags.biomes) do
-			if src:find(d.biome) then
-				tbl = MergeTables({tbl, d.flora})
+		for _,biome in ipairs(scale_tags.biomes) do
+			if mbin:find(biome.tag) then
+				tbl = MergeTables({tbl, biome.flora})
 			end
 		end
 		return tbl
 	end
-	local mbin_chg_tbl = {}
-	for mbin_sf, flora in pairs(solar_biomes) do
-		local mods_tbl = {
-			MBIN_FILE_SOURCE	= mbin_sf,
-			EXML_CHANGE_TABLE	= {}
-		}
-		local worktags = MergeTables( {scale_tags.globals, GetBiomeScales(mbin_sf)} )
-		for mbin, t_props in pairs(flora) do
+	local mbin_ct = {}
+	for mbin_fs, flora in pairs(solar_biomes) do
+		local exml_ct = {}
+		local worktags = MergeTables( {scale_tags.globals, GetBiomeScales(mbin_fs)} )
+		-- use the flora properties (t_props) if I ever figure what to do with them
+		for mbin,_ in pairs(flora) do
 			local vct = {}
 			AverageScales(mbin, worktags)
 			for k, property in pairs(obj_spawn_data.props) do
 				if obj_spawn_data.mods[k].v ~= 1 then
 					vct[#vct+1] = {property, obj_spawn_data.mods[k].v}
-
-					-- use pulled data instead of internal math_op ??
-					-- vct[#vct+1] = {property, t_props[k] * obj_spawn_data.mods[k].v}
 				end
 			end
 			if #vct > 0 then
-				local spawn_props = {
+				exml_ct[#exml_ct+1] = {
 					REPLACE_TYPE 		= 'All',
 					INTEGER_TO_FLOAT	= 'Force',
 					MATH_OPERATION 		= '*',
@@ -321,12 +312,14 @@ local function SetTheScales()
 					SECTION_UP			= 1,
 					VALUE_CHANGE_TABLE 	= vct
 				}
-				table.insert(mods_tbl.EXML_CHANGE_TABLE, spawn_props)
 			end
 		end
-		table.insert(mbin_chg_tbl, mods_tbl)
+		mbin_ct[#mbin_ct+1] = {
+			MBIN_FILE_SOURCE	= mbin_fs,
+			EXML_CHANGE_TABLE	= exml_ct
+		}
 	end
-	return mbin_chg_tbl
+	return mbin_ct
 end
 
 -- naming names
@@ -336,9 +329,9 @@ local function GetSourceName(s)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '___TEST big props '..GetSourceName(solar_biomes[1])..'.pak',
+	MOD_FILENAME 		= '___TEST big props '..GetSourceName(next(solar_biomes))..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{

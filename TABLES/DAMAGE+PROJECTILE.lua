@@ -5,30 +5,30 @@ local mod_desc = [[
 
 local ECT_PR = {}
 for _,gun in ipairs({
-	{'SQUADGUN',		8, 10},	-- 40
-	{'AISHIPGUN',		1.6},	-- 15
-	{'TRADERGUN',		1.2},	-- 40
-	{'POLICEGUN',		1.6},	-- 15
-	{'FREIGHTGUN',		10},	-- 15
-	{'COP_FREIGHTGUN',	1.1},	-- 300
-	{'BASE_TURRET_M',	1.6},	-- 200
-	{'BASE_TURRET_L',	2.2},	-- 100
-	{'AI_SHIP',			4},		-- 10
-	{'AI_FREIGHTER',	4},		-- 15
-	{'COP_FREIGHTER',	15},	-- 15
-	{'ROBOTGUN',		10},	-- 1
-	{'ROBOTGUNWEAK',	10},	-- 1
-	{'ROBOTBIGGUN',		20},	-- 1
-	{'ROBOT_WALKER',	20},	-- 1
-	{'MINIROBOTGUN',	10},	-- 1
+	{id='SQUADGUN',			m=8,	r=10},	-- 40
+	{id='AISHIPGUN',		m=1.6},			-- 15
+	{id='TRADERGUN',		m=1.2},			-- 40
+	{id='POLICEGUN',		m=1.6},			-- 15
+	{id='FREIGHTGUN',		m=10},			-- 15
+	{id='COP_FREIGHTGUN',	m=1.1},			-- 300
+	{id='BASE_TURRET_M',	m=1.6},			-- 200
+	{id='BASE_TURRET_L',	m=2.2},			-- 100
+	{id='AI_SHIP',			m=4},			-- 10
+	{id='AI_FREIGHTER',		m=4},			-- 15
+	{id='COP_FREIGHTER',	m=15},			-- 15
+	{id='ROBOTGUN',			m=10},			-- 1
+	{id='ROBOTGUNWEAK',		m=10},			-- 1
+	{id='ROBOTBIGGUN',		m=20},			-- 1
+	{id='ROBOT_WALKER',		m=20},			-- 1
+	{id='MINIROBOTGUN',		m=10},			-- 1
 }) do
 	ECT_PR[#ECT_PR+1] = {
 		MATH_OPERATION 		= '*',
 		INTEGER_TO_FLOAT	= 'Preserve',
-		SPECIAL_KEY_WORDS	= {'Id', gun[1]},
+		SPECIAL_KEY_WORDS	= {'Id', gun.id},
 		VALUE_CHANGE_TABLE	= {
-			{'DefaultDamage',	gun[2]},
-			gun[3] and {'Radius', gun[3]} or nil
+			{'DefaultDamage',	gun.m},
+			gun.r and {'Radius', gun.r} or nil
 		}
 	}
 end
@@ -81,7 +81,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DAMAGE+PROJECTILE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

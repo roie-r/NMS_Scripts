@@ -1,14 +1,12 @@
 ------------------------------------------------------------------
--- EXCLUDED FROM BATCH
-------------------------------------------------------------------
-mod_desc = [[
+local mod_desc = [[
   clear skies no storms & no interruptions for testing / building
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TESTING clear conditions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.45',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

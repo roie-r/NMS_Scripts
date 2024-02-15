@@ -9,7 +9,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter wingK fixes.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.47',
+	NMS_VERSION				= '4.50',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -17,62 +17,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_K/WINGSK.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= (
-			-- function()
-				-- local vals = {
-					-- {atr='BATCHSTARTPHYSI',	37668,			41736,			53247},
-					-- {atr='VERTRSTARTPHYSI',	21866,			24590,			31380},
-					-- {atr='VERTRENDPHYSICS',	24589,			29311,			33122},
-					-- {atr='BATCHCOUNT', 		4068,			7890,			2856},
-					-- {atr='VERTRENDGRAPHIC', 2723,			4721,			1742},
-					-- {atr='BOUNDHULLST', 	212,			248,			328},
-					-- {atr='BOUNDHULLED', 	248,			292,			352},
-					-- {atr='AABBMINX', 		-2.891207,		-3.749691,		-3.733948},
-					-- {atr='AABBMINY', 		0.836564,		nil,			0.712383},
-					-- {atr='AABBMINZ', 		-1.380045,		-2.157869,		-2.149216},
-					-- {atr='AABBMAXX', 		nil,			3.749691,		3.733998},
-					-- {atr='AABBMAXY', 		1.77087,		nil,			1.885870},
-					-- {atr='AABBMAXZ', 		0.631633,		1.163431,		0.729330},
-					-- {atr='MESHLINK',		'WingsK_ALODShape1', 'WingsK_ALODShape1', 'WingsK_ALODShape1'}
-				-- }
-				-- local T = {}
-				-- for i, lod in ipairs({'WingsK_ALOD', 'SUB1WingsK_ALOD', 'SUB3WingsK_ALOD'}) do
-					-- for _,v in ipairs(vals) do
-						-- if v[i] then
-							-- T[#T+1] = {
-								-- SECTION_ACTIVE		= -1,
-								-- SPECIAL_KEY_WORDS	= {'Name', (lod..'0'), 'Name', v.atr},
-								-- VALUE_CHANGE_TABLE 	= { {'Value', v[i]} }
-							-- }
-						-- end
-					-- end
-					-- T[#T+1] = {
-						-- SPECIAL_KEY_WORDS	= {'Name', (lod..'0')},
-						-- VALUE_CHANGE_TABLE 	= { {'Name', (lod..'1')} }
-					-- }
-				-- end
-				-- T[#T+1] = {
-					-- SPECIAL_KEY_WORDS 	= {
-						-- {'Name', 'LODDIST1'},
-						-- {'Name', 'LODDIST2'},
-						-- {'Name', 'LODDIST3'},
-					-- },
-					-- REMOVE = 'Section'
-				-- }
-				-- T[#T+1] = {
-					-- SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-					-- VALUE_CHANGE_TABLE 	= { {'Value', 4} }
-				-- }
-				-- T[#T+1] = {
-					-- SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-					-- ADD_OPTION			= 'AddAfterSection',
-					-- ADD 				= ToExml({
-						-- META	= {'value', 'TkSceneNodeAttributeData.xml'},
-						-- Name	= 'ATTACHMENT',
-						-- Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
-					-- })
-				-- }
-				-- return T
-			-- end
 			function()
 				local attr = {
 					BATCHSTARTPHYSI	= {37668,			41736,			53247},

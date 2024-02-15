@@ -70,47 +70,65 @@ end
 
 local ECT_AI = {}
 for _,ai in ipairs({
-	{'PIRATE_EASY', 	1.1,	1.2,	'PIRATELOOT_EASY'},
-	{'PIRATE',		 	1.2,	1.2,	'PIRATELOOT'},
-	{'PIRATE_HARD',	 	1.2,	0.9,	'PIRATELOOT_HARD'},
-	{'POLICE',			1.1,	1,		'POLICELOOT'},
-	{'TRADER',			1.2,	1},
-	{'TRADER_ESCORT',	1.1,	0.9},
-	{'RAID_BUILDING', 	1.1,	1,		'RAIDLOOT'},
-	{'RAID_DOGFIGHT',	1.1,	1,		'RAIDLOOT'},
-	{'PLANET_FLYBY',	1.2,	2,		'PIRATELOOT_EASY'},
-	{'SQUADRON_C',		1.2,	1.1},
-	{'SQUADRON_B',		1.2,	1.1},
-	{'SQUADRON_A',		1.2,	1.1},
-	{'SQUADRON_S',		1.2,	1.1},
+	{id='PIRATE_EASY', 		hl=1.1,		eh=1.2,		rw='PIRATELOOT_EASY'},
+	{id='PIRATE',		 	hl=1.2,		eh=1.2,		rw='PIRATELOOT'},
+	{id='PIRATE_HARD',	 	hl=1.2,		eh=0.9,		rw='PIRATELOOT_HARD'},
+	{id='POLICE',			hl=1.1,		eh=1,		rw='POLICELOOT'},
+	{id='TRADER',			hl=1.2,		eh=1},
+	{id='TRADER_ESCORT',	hl=1.1,		eh=0.9},
+	{id='RAID_BUILDING', 	hl=1.1,		eh=1,		rw='RAIDLOOT'},
+	{id='RAID_DOGFIGHT',	hl=1.1,		eh=1,		rw='RAIDLOOT'},
+	{id='PLANET_FLYBY',		hl=1.2,		eh=2,		rw='PIRATELOOT_EASY'},
+	{id='SQUADRON_C',		hl=1.2,		eh=1.1},
+	{id='SQUADRON_B',		hl=1.2,		eh=1.1},
+	{id='SQUADRON_A',		hl=1.2,		eh=1.1},
+	{id='SQUADRON_S',		hl=1.2,		eh=1.1},
+	{id='SQUADRON_S',		hl=1.2,		eh=1.1},
+	{id='WEAK',				hl=1600,	rd=9},
+	{id='STRONG',						rd=9},
+	{id='FAST',							rd=4},
+	{id='FAST_STRONG',					rd=6},
 }) do
-	if ai[4] then
+	if ai.rw then
 		ECT_AI[#ECT_AI+1] = {
 			PRECEDING_FIRST		= true,
 			PRECEDING_KEY_WORDS = 'Definitions',
-			SPECIAL_KEY_WORDS	= {'Id', ai[1]},
+			SPECIAL_KEY_WORDS	= {'Id', ai.id},
 			VALUE_CHANGE_TABLE	= {
-				{'Reward', ai[4]}
+				{'Reward',		ai.rw}
 			}
 		}
 	end
-	ECT_AI[#ECT_AI+1] = {
-		PRECEDING_FIRST		= true,
-		PRECEDING_KEY_WORDS = 'Definitions',
-		MATH_OPERATION 		= '*',
-		INTEGER_TO_FLOAT	= 'Preserve',
-		SPECIAL_KEY_WORDS	= {'Id', ai[1]},
-		VALUE_CHANGE_TABLE	= {
-			{'Health',				ai[2]},
-			{'LevelledExtraHealth',	ai[3]}
+	if ai.eh then
+		ECT_AI[#ECT_AI+1] = {
+			PRECEDING_FIRST		= true,
+			PRECEDING_KEY_WORDS = 'Definitions',
+			MATH_OPERATION 		= '*',
+			INTEGER_TO_FLOAT	= 'Preserve',
+			SPECIAL_KEY_WORDS	= {'Id', ai.id},
+			VALUE_CHANGE_TABLE	= {
+				{'Health',				ai.hl},
+				{'LevelledExtraHealth',	ai.eh}
+			}
 		}
-	}
+	end
+	if ai.rd then
+		ECT_AI[#ECT_AI+1] = {
+			PRECEDING_FIRST		= true,
+			PRECEDING_KEY_WORDS = 'ShieldTable',
+			SPECIAL_KEY_WORDS	= {'Id', ai.id},
+			VALUE_CHANGE_TABLE	= {
+				{'RechargeDelayTime',	ai.rd},
+				{'Health',				ai.hl or 'IGNORE'}
+			}
+		}
+	end
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META ship spawns & health.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

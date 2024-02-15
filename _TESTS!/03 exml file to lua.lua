@@ -16,7 +16,7 @@ local src8 = 'D:/MODZ_stuff/NoMansSky/_game_mod_Folder/utopia constructor/MODELS
 -----------------------------------------------------------------------------------------
 local tbl_08 = 'exml_source'
 
-local r_src = io.open(src6, 'r')
+local r_src = io.open(src0, 'r')
 local w_src = io.open('d:/_dump/'..tbl_08..'.lua', 'w')
 w_src:write( PrintExmlAsLua( r_src:read('*a') ) )
 r_src:close()

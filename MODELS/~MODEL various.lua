@@ -10,12 +10,14 @@ local mod_desc = [[
   - Remove resource crates at portals
   - remove lowest level frigates lod
   - Re-insert the missing full mangrove tree in swamp biome
+  - null (test) anim for other mods
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
+	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -190,7 +192,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	add full mangroves
+	{--	add descriptor full mangroves
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGE.DESCRIPTOR.MBIN',
@@ -199,7 +201,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	add full mangroves
+	{--	add descriptor full mangroves
 		MBIN_FILE_SOURCE	=  'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -221,6 +223,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				VALUE_CHANGE_TABLE 	= {
 					{'Id',			'_MFULL_02LOD0'},
 					{'Name',		'_MFull_02LOD0'}
+				}
+			}
+		}
+	},
+	{--	null anim for other mods
+		MBIN_FILE_SOURCE	= 'MODELS/TESTS/EFFECTTEST.ANIM.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'FrameCount',	10}
 				}
 			}
 		}

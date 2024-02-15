@@ -753,6 +753,10 @@ local unlockable_items = {
 								META	= mt_child,
 								{
 									META = mt_ulitn,
+									Unlockable	= 'RAMMOULD5'
+								},
+								{
+									META = mt_ulitn,
 									Unlockable	= 'ULTRAPRODX40'
 								}
 							}
@@ -1722,7 +1726,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

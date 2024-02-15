@@ -5,6 +5,7 @@ dofile('LIB/scene_tools.lua')
 local mod_desc = [[
   Buildable Base Parts Additions:
   - add suit inventory slots page to the toy sphere (from CRYOCHAMBERINTERACTION)
+  - add teleporter menu to galaxy toy
    * purchases only instead of using tokens (something to do with the trigger)
   - Add the multitool upgrade menu to the base weapons master terminal
   - Add multitool salvage to the base weapons master terminal
@@ -22,11 +23,12 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL base tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{--	open |toy suit page|
+	{--	open |suit page| with toy
 		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOY_SPHERE/ENTITIES/TOY_SPHERE.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -49,6 +51,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					InteractDistance	= 5
 				})
 			}
+		}
+	},
+	{--	|add teleporter| menu to galaxy toy
+		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOY_CORE.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT' },
+				VALUE_CHANGE_TABLE 	= {
+					{'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/COMMONPARTS/TELEPORTER_NEXUS/ENTITIES/TELEPORTERNEXUSINTERACTION.ENTITY.MBIN'}
+				}
+			},
 		}
 	},
 	{--	|base multitool salvage|

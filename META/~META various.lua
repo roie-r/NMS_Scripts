@@ -1,5 +1,6 @@
 ------------------------------------------------------------------
 local mod_desc = [[
+  - Round up substances stack to 10000
   - Replace exploration mission log menu icon
   - Same underwater freighter crash site as on land
   - Restore old creature-scanned icon; Remove selected HUD icons
@@ -15,10 +16,23 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
+	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|stacks|
+		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/DIFFICULTYCONFIG.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				REPLACE_TYPE 		= 'All',
+				VALUE_MATCH			= 9999,
+				VALUE_CHANGE_TABLE 	= {
+					{'ignore',		10000}
+				}
+			}
+		}
+	},
 	{--	|exploration mission icon|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/COREMISSIONTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {

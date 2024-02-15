@@ -197,7 +197,7 @@ local include_in_category = {
 	{'UT_SHIPSHOT',		'AllShipsExceptAlien',	'AllShips'},
 	{'VEHICLE_SCAN1',	'Exocraft',				'AllVehicles'},
 	{'VEHICLE_SCAN2',	'Exocraft',				'AllVehicles'},
-	{'MECH_PROT',		'Mech',					'AllVehicles'},
+	{'MECH_PROT',		'Mech',					'AllVehicles'}
 }
 function include_in_category:GetExmlCT(T)
 	for _,cat in ipairs(self) do
@@ -648,7 +648,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.50',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
