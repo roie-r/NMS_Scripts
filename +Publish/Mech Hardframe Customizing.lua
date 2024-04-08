@@ -106,8 +106,7 @@ local function BuildProcTexListMbin(tex_layer)
 	for _=1, (8 - #tex_layer) do
 		table.insert(T, '<Property value="TkProceduralTextureLayer.xml"/>')
 	end
-	return [[<?xml version="1.0" encoding="utf-8"?>
-		<Data template="TkProceduralTextureList">
+	return [[<Data template="TkProceduralTextureList">
 		<Property name="Layers">]]..table.concat(T)..[[</Property></Data>]]
 end
 
@@ -131,7 +130,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Mech Hardframe Customizing.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddProcTexFiles()
 }

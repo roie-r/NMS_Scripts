@@ -8,9 +8,9 @@ local mod_desc = [[
 ]]------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META less storm chance_more hazards.pak',
+	MOD_FILENAME 		= '__META less storms_more hazards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

@@ -320,22 +320,22 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
-	-- MODIFICATIONS		= {{
-		-- MBIN_CHANGE_TABLE	= {
-		-- {
-			-- MBIN_FILE_SOURCE	= 'GCDEBUGOPTIONS.GLOBAL.MBIN',
-			-- EXML_CHANGE_TABLE	= {
-				-- {
-					-- PRECEDING_KEY_WORDS	= 'LocTableList',
-					-- ADD = string.format(
-						-- [[<Property value="NMSString0x20.xml"><Property name="Value" value="%s"/></Property>]],
-						-- text_lines.locale
-					-- )
-				-- }
-			-- }
-		-- }
-	-- }}}
+	MODIFICATIONS		= {{
+		MBIN_CHANGE_TABLE	= {
+		{
+			MBIN_FILE_SOURCE	= 'GCDEBUGOPTIONS.GLOBAL.MBIN',
+			EXML_CHANGE_TABLE	= {
+				{
+					PRECEDING_KEY_WORDS	= 'LocTableList',
+					ADD = string.format(
+						[[<Property value="NMSString0x20.xml"><Property name="Value" value="%s"/></Property>]],
+						text_lines.locale
+					)
+				}
+			}
+		}
+	}}}
 }

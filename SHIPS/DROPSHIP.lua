@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 -----------------------------------------------------------------------------------
 local mod_desc = [[
   dropship:
@@ -65,7 +65,7 @@ local dropship = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP dropship.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

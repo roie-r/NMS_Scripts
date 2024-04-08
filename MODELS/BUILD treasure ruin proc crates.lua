@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------------------------
 local mod_desc = [[
@@ -35,24 +35,24 @@ end
 local function AddSceneNodes()
 	local T = {}
 	for i, key in ipairs(keys) do
-		T[#T+1] = ScNode(
-			AddChar(keys.name, i), 'REFERENCE', {
-				ScTransform(key),
-				ScAttributes({
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATEKEY.SCENE.MBIN'}
-				})
+		T[#T+1] = ScNode({
+			name	= AddChar(keys.name, i),
+			stype	= 'REFERENCE',
+			form	= key,
+			attr	= {
+				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATEKEY.SCENE.MBIN'}
 			}
-		)
+		})
 	end
-	for i, lck in ipairs(locks) do
-		T[#T+1] = ScNode(
-			AddChar(locks.name, i), 'REFERENCE', {
-				ScTransform(lck),
-				ScAttributes({
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATELOCK.SCENE.MBIN'}
-				})
+	for i, lock in ipairs(locks) do
+		T[#T+1] = ScNode({
+			name	= AddChar(locks.name, i),
+			stype	= 'REFERENCE',
+			form	= lock,
+			attr	= {
+				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATELOCK.SCENE.MBIN'}
 			}
-		)
+		})
 	end
 	return T
 end
@@ -150,7 +150,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL treasure ruin proc crates.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

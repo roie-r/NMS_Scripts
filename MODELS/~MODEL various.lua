@@ -1,5 +1,7 @@
 -----------------------------------------------------------
 local mod_desc = [[
+  - Remove multiplayer comms messenger
+  - Reduce plant light intensity
   - large living crystal reward fix
   - Increase scan discovery range for rare resources
   - green cave crystal rewards cave2
@@ -16,11 +18,51 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	no |comms messenger body|
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/MESSENGER/MESSENGER.SCENE.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS	= {
+					{'Name', 'root'},
+					{'Type', 'COLLISION'},
+				},
+				REMOVE				= 'Section'
+			},
+		}
+	},
+	{--	no |comms messenger trigger|
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/MESSENGER/ENTITIES/MESSENGER.ENTITY.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_MATCH			= '{%.xml$}',
+				VALUE_MATCH_OPTIONS = '~=',
+				VALUE_CHANGE_TABLE	= {
+					{'InteractionType',	'None'}
+				}
+			}
+		}
+	},
+	{--	reduced |plant light| intensity
+		MBIN_FILE_SOURCE	= {
+			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/COMMODITYPLANT.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FUELPLANT.SCENE.MBIN',
+			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/TECHPLANT1.SCENE.MBIN'
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
+				VALUE_CHANGE_TABLE	= {
+					{'Value',		'@ * 0.2'}
+				}
+			}
+		}
+	},
 	{--	no |builder body light|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/INTERIORLIGHTS_MAT4.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {

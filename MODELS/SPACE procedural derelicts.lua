@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 local mod_desc = [[
@@ -105,16 +105,16 @@ local function AddSceneNodes()
 	for _, asset in ipairs(assets) do
 		if asset.node then
 			for i, scn in ipairs(asset) do
-				T[#T+1] = ScNode(
-					asset.name..string.char(64 + i), 'REFERENCE', {
-						ScTransform(scn.form),
-						ScAttributes({
-							{'SCENEGRAPH', scn.model},
-						--	add a spin entity to drifting wrecks
-							{'ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN.ENTITY.MBIN'}
-						})
+				T[#T+1] = ScNode({
+					name	= asset.name..string.char(64 + i),
+					stype	= 'REFERENCE',
+					form	= scn.form,
+					attr	= {
+						{'SCENEGRAPH', scn.model},
+					--	add a spin entity to drifting wrecks
+						{'ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN.ENTITY.MBIN'}
 					}
-				)
+				})
 			end
 		end
 	end
@@ -166,7 +166,7 @@ local spin_entity = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

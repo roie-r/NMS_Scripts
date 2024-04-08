@@ -16,7 +16,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -28,7 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				VALUE_MATCH			= 9999,
 				VALUE_CHANGE_TABLE 	= {
-					{'ignore',		10000}
+					{'Ignore',		10000}
 				}
 			}
 		}
@@ -153,11 +153,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'METADATA/UI/BOOTLOGOPC.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = 'DisplayTime',
 				VALUE_CHANGE_TABLE 	= {
-					{'IGNORE',		0}
+					{'Ignore',		0},
+					{'Ignore',		0},
+					{'Ignore',		0},
+					{'Ignore',		0}
 				}
 			}
 		}

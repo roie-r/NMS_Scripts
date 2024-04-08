@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
-dofile('C:/AMUMSS/ModScript/ModHelperScripts/LIB/lua_2_exml.lua')
-dofile('C:/AMUMSS/ModScript/ModHelperScripts/LIB/exml_2_lua.lua')
+dofile('C:/AMUMSS/ModScript/ModHelperScripts/LIB/_lua_2_exml.lua')
+dofile('C:/AMUMSS/ModScript/ModHelperScripts/LIB/_exml_2_lua.lua')
 -----------------------------------------------------------------------------------------
 --	Simple examples of using ToLua & ToExml (ToExml is called by FileWrapping)
 --	 The script makes all the edits on the converted lua data table, then

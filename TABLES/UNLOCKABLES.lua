@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 --------------------------------------------------------------------------------------
 local mod_desc = [[
   Rebuild and add to unlockable items tree
@@ -14,19 +14,66 @@ local mt_ulitn = {'value', 'GcUnlockableItemTreeNode.xml'}
 local mt_child = {'name', 'Children'}
 
 local unlockable_items = {
+	{--	build: decoratives1
+		parent	= 'STANDINGSIGN',
+		tree	= {
+			META	= mt_ulitn,
+			Unlockable	= 'HOLO_SMALL2',
+			{
+				META	= mt_child,
+				{
+					META = mt_ulitn,
+					Unlockable	= 'HOLO_MED1'
+				}
+			}
+		}
+	},
+	{--	build: decoratives2
+		parent	= 'STANDINGSIGN',
+		tree	= {
+			META	= mt_ulitn,
+			Unlockable	= 'HOLO_SMALL3',
+			{
+				META	= mt_child,
+				{
+					META = mt_ulitn,
+					Unlockable	= 'HOLO_MED2'
+				}
+			}
+		}
+	},	
+	{--	build: decoratives3
+		parent	= 'STANDINGSIGN',
+		rmnode	= 'HOLO_MED1',
+		tree	= {
+			META	= mt_ulitn,
+			Unlockable	= 'HOLO_EXP',
+			{
+				META	= mt_child,
+				{
+					META = mt_ulitn,
+					Unlockable	= 'HOLO_WAR',
+					{
+						META	= mt_child,
+						{
+							META = mt_ulitn,
+							Unlockable	= 'HOLO_TRA'
+						}
+					}
+				}
+			}
+		}
+	},	
 	{--	ship tech: special hyperdrive
-		parent	= {'UT_QUICKWARP'},
-		haschild= false,
+		parent	= 'UT_QUICKWARP',
 		tree	= { META = mt_ulitn,	Unlockable = 'HYPERDRIVE_SPEC' }
 	},
 	{--	ship tech: special launcher
-		parent	= {'UT_LAUNCHCHARGE'},
-		haschild= false,
+		parent	= 'UT_LAUNCHCHARGE',
 		tree	= { META = mt_ulitn, 	Unlockable = 'LAUNCHER_SPEC' }
 	},
 	{--	ship tech: pulse engine tech
-		parent	= {'UT_PULSEFUEL'},
-		haschild= true,
+		parent	= 'UT_PULSEFUEL',
 		tree	= {
 			META	= mt_ulitn,
 			Unlockable	= 'SOLAR_SAIL',
@@ -47,17 +94,15 @@ local unlockable_items = {
 		}
 	},
 	{--	vehicle tech: stun gun (custom tech)
-		parent	= {'VEHICLE_GUN'},
-		haschild= false,
+		parent	= 'VEHICLE_GUN',
 		tree	= { META = mt_ulitn,	Unlockable = 'VEHICLESTUN' }
 	},
 	{--	factory products: wiring loom
-		parent	= {'NANOTUBES'},
-		haschild= true,
+		parent	= 'NANOTUBES',
 		tree	= { META = mt_ulitn,	Unlockable = 'TECH_COMP' }
 	},
 	{--	ship tech: living ship
-		parent	= {'UI_SHIP_TECH_TREE'},
+		parent	= 'UI_SHIP_TECH_TREE',
 		after	= 'UI_TECH_TREE_SUB',
 		title   = 'UI_TECH_ALIEN_SUB',
 		cost	= 'NANITES',
@@ -120,6 +165,17 @@ local unlockable_items = {
 				},
 				{
 					META	= mt_ulitn,
+					Unlockable	= 'ROCEKT_ALIEN',
+					{
+						META	= mt_child,
+						{
+							META = mt_ulitn,
+							Unlockable	= 'ROCEKT_U_ALIEN'
+						}
+					}
+				},
+				{
+					META	= mt_ulitn,
 					Unlockable	= 'SHIPSCAN_ALIEN',
 					{
 						META	= mt_child,
@@ -169,21 +225,18 @@ local unlockable_items = {
 		}
 	},
 	{--	freighter: bulkhead
-		parent	= {'FRIGATE_FUEL_1'},
-		haschild= true,
+		parent	= 'FRIGATE_FUEL_1',
 		tree	= { META = mt_ulitn,	Unlockable = 'FREI_INV_TOKEN' }
 	},
 	{--	freighter: singularity engine
-		parent	= {'F_HDRIVEBOOST3'},
-		haschild= false,
+		parent	= 'F_HDRIVEBOOST3',
 		tree	= { META = mt_ulitn,	Unlockable = 'F_MEGAWARP' }
 	},
 	{--	base parts: tech
-		parent	= {'UI_PURCHASABLE_BASEPARTS_TREE', 'UI_BASETECH_TREE'},
-		title   = 'UI_BASETECH_TREE',
+		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
+		rmtree	= 'UI_BASETECH_TREE',
 		after	= 'UI_CUBEROOM_TREE',
 		cost	= 'SALVAGE',
-		issubs	= true,
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
 			Unlockable	= 'BUILDSAVE',
@@ -379,10 +432,10 @@ local unlockable_items = {
 		}
 	},
 	{--	multitool: exploratory
-		parent	= {'UI_WEAP_TECH_TREE', 'UI_TECH_TREE_SUB'},
+		parent	= 'UI_WEAP_TECH_TREE',
+		rmtree	= 'UI_TECH_TREE_SUB',
 		title   = 'UI_TECH_EXPLORE_SUB',
 		cost	= 'NANITES',
-		issubs	= true,
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
 			Unlockable	= 'LASER',
@@ -498,7 +551,7 @@ local unlockable_items = {
 		}
 	},
 	{--	multitool: offensive
-		parent	= {'UI_WEAP_TECH_TREE'},
+		parent	= 'UI_WEAP_TECH_TREE',
 		title   = 'UI_TECH_OFFENSE_SUB',
 		cost	= 'NANITES',
 		tree	= {
@@ -609,7 +662,7 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: factory products
-		parent	= {'UI_PURCHASABLE_BASICTECH_TREE'},
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		title   = 'UI_PRODUCT_TREE_CRAFT',
 		cost	= 'FACTORY',
 		tree	= {
@@ -767,10 +820,9 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: alloy base parts
-		parent	= {'UI_PURCHASABLE_BASICTECH_TREE', 'UI_BASIC_FIBREGLASS_SUB'},
-		title   = 'UI_BASIC_FIBREGLASS_SUB',
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
+		rmtree	= 'UI_BASIC_FIBREGLASS_SUB',
 		cost	= 'SALVAGE',
-		issubs	= true,
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
 			Unlockable	= 'F_WALL',
@@ -1004,10 +1056,9 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: stone base parts
-		parent	= {'UI_PURCHASABLE_BASICTECH_TREE', 'UI_BASIC_STONE_SUB'},
-		title   = 'UI_BASIC_STONE_SUB',
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
+		rmtree	= 'UI_BASIC_STONE_SUB',
 		cost	= 'SALVAGE',
-		issubs	= true,
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
 			Unlockable	= 'S_WALL',
@@ -1241,10 +1292,9 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: timber base parts
-		parent	= {'UI_PURCHASABLE_BASICTECH_TREE', 'UI_BASIC_TIMBER_SUB'},
-		title   = 'UI_BASIC_TIMBER_SUB',
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
+		rmtree	= 'UI_BASIC_TIMBER_SUB',
 		cost	= 'SALVAGE',
-		issubs	= true,
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
 			Unlockable	= 'T_WALL',
@@ -1478,10 +1528,9 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: tech
-		parent	= {'UI_PURCHASABLE_BASICTECH_TREE', 'UI_BASIC_TECH_SUB'},
-		title   = 'UI_BASIC_TECH_SUB',
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
+		rmtree	= 'UI_BASIC_TECH_SUB',
 		cost	= 'SALVAGE',
-		issubs	= true,
 		tree	= {
 			META	= {'Root', 'GcUnlockableItemTreeNode.xml'},
 			Unlockable	= 'BUILDSAVE',
@@ -1597,7 +1646,7 @@ local unlockable_items = {
 								META	= mt_child,
 								{
 									META	= mt_ulitn,
-									Unlockable	= 'S9_WEAPONTREE'
+									Unlockable	= 'S9_SHIPTREE' -- S9_WEAPONTREE
 								}
 							}
 						}
@@ -1665,42 +1714,29 @@ local function AddTreeToChangeTable(node)
 	--- full tree addition ---
 		local tree_root = {
 			META	= {'value', 'GcUnlockableItemTree.xml'},
-			Title		= node.title,
+			Title		= node.title or node.rmtree,
 			CostTypeID	= node.cost,
-			[1]			= node.tree
+			ItemTree	= node.tree
 		}
 		if node.after then
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'Title', node.parent[1], 'Title', node.after},
+				SPECIAL_KEY_WORDS	= {'Title', node.parent, 'Title', node.after},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD					= ToExml(tree_root)
 			}
 		else
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'Title', node.parent[1]},
+				SPECIAL_KEY_WORDS	= {'Title', node.parent},
 				PRECEDING_KEY_WORDS	= 'Trees',
 				ADD					= ToExml(tree_root)
 			}
 		end
-	elseif not node.haschild then
-	--- childless node ---
-		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'Unlockable', node.parent[1]},
-			PRECEDING_KEY_WORDS	= 'Children',
-			REMOVE				= 'Line'
-		}
-		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'Unlockable', node.parent[1]},
-			ADD					= ToExml({
-				META = {'name', 'Children'},
-				[1]	 = node.tree
-			})
-		}
 	else
 	--- regular node ---
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'Unlockable', node.parent[1]},
+			SPECIAL_KEY_WORDS	= {'Unlockable', node.parent},
 			PRECEDING_KEY_WORDS = 'Children',
+			CREATE_HOS			= true,
 			SECTION_ACTIVE		= -1,
 			ADD					= ToExml(node.tree)
 		}
@@ -1708,15 +1744,17 @@ local function AddTreeToChangeTable(node)
 	return T
 end
 
-local function AddAllTrees()
+local function ProcessAllTrees()
 	local T = {}
 	T[1] = { SKW={}, REMOVE='Section' }
-	for _,tree in ipairs(unlockable_items) do
+	for _,node in ipairs(unlockable_items) do
 		-- do all REMOVEs before adding
-		if tree.issubs then
-			T[1].SKW[#T[1].SKW + 1] = {'Title', tree.parent[1], 'Title', tree.parent[2]}
+		if node.rmnode then
+			T[1].SKW[#T[1].SKW + 1] = {'Unlockable', node.rmnode}
+		elseif node.rmtree then
+			T[1].SKW[#T[1].SKW + 1] = {'Title', node.parent, 'Title', node.rmtree}
 		end
-		for _,n in ipairs(AddTreeToChangeTable(tree)) do
+		for _,n in ipairs(AddTreeToChangeTable(node)) do
 			T[#T+1] = n
 		end
 	end
@@ -1726,13 +1764,13 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/UNLOCKABLEITEMTREES.MBIN',
-		EXML_CHANGE_TABLE	= AddAllTrees()
+		EXML_CHANGE_TABLE	= ProcessAllTrees()
 	}
 }}}}

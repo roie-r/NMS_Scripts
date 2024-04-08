@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ---------------------------------------------------------------------
 local mod_desc = [[
   restore the costruct head eye lights
@@ -7,10 +7,11 @@ local mod_desc = [[
    (done in textures script)
 ]]-------------------------------------------------------------------
 
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META costruct head eyes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -29,24 +30,32 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'METADATA/UI/CHARACTERCUSTOMISATIONUIDATA.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {
-					{'DescriptorOption', 'HEAD_ASTBOT1','Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'HEAD_ASTBOT2','Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_3',		'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_4',		'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_5',		'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_6',		'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_7',		'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_9',		'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_10',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_11',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_12',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_13',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_14',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_15',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_16',	'Title', 'CUSTOMISE_TERTIARY'},
-					{'DescriptorOption', 'BHEAD_17',	'Title', 'CUSTOMISE_TERTIARY'}
-				},
+				SPECIAL_KEY_WORDS	= (
+					function()
+						local T = {}
+						for _,head in ipairs({
+							'HEAD_ASTBOT1',
+							'HEAD_ASTBOT2',
+							'BHEAD_3',
+							'BHEAD_4',
+							'BHEAD_5',
+							'BHEAD_6',
+							'BHEAD_7',
+							'BHEAD_9',
+							'BHEAD_10',
+							'BHEAD_11',
+							'BHEAD_12',
+							'BHEAD_13',
+							'BHEAD_14',
+							'BHEAD_15',
+							'BHEAD_16',
+							'BHEAD_17'
+						}) do
+							T[#T+1] = {'DescriptorOption', head, 'Title', 'CUSTOMISE_TERTIARY'}
+						end
+						return T
+					end
+				)(),
 				ADD_OPTION			= 'AddAfterSection',
 				ADD					= ToExml({
 					META	= {'value', 'GcCustomisationColourGroup.xml'},

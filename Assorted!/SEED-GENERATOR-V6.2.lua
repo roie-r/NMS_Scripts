@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/reward_entry.lua')
 -------------------------------------------------------------------
 local mod_desc = [[
@@ -12,11 +12,11 @@ local mod_desc = [[
 ]]-----------------------------------------------------------------
 
 local seed_counter = {
-	Fighter			= 80000,
+	Fighter			= 0,
 	Dropship		= 0,
 	Scientific		= 0,
 	Shuttle			= 0,
-	Royal			= 0,
+	Royal			= 8000,
 	Bioship			= 0,
 	Sailship		= 0,
 	Sentinel		= 0,
@@ -292,9 +292,12 @@ local function PlayerEmoteEntry(mdata)
 			SECTION_EDIT 		= 'gc_player_emote',
 			VALUE_CHANGE_TABLE 	= {
 				{'Title',					mdata.modeltype},
+				{'ChatText',				''},
+				{'ChatUsesPrefix',			false},
 				{'EmoteID',					mdata.rewardId},
 				{'AnimationName',			mdata.rewardId},
 				{'Filename',				'TEXTURES/UI/FRONTEND/ICONS/'..mdata.icon},
+				{'CloseMenuOnSelect',		true},
 				{'AvailableUnderwater',		false}
 			}
 		},
@@ -337,7 +340,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.2.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

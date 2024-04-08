@@ -3,7 +3,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST 23 frigates LOD increase.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -23,7 +23,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				PRECEDING_KEY_WORDS = {'LodDistances'},
 				VALUE_CHANGE_TABLE 	= {
-					{'IGNORE',		3}
+					{'Ignore',		3}
 				}
 			},
 			-- {

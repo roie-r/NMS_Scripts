@@ -1,17 +1,23 @@
 ------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ------------------------------------------------------
 local mod_desc = [[
   Vykeen monolith accepts Effigy instead of dagger
   cheaper slots
 ]]----------------------------------------------------
 
+local function AddPrx(prx, T)
+	for i=1, #T do T[i] = {prx, T[i]} end
+	return T
+end
+
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_BATCHNAME		= '_TABLES ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{--	|SUBSTANCES|
@@ -60,16 +66,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Id', 'C_PILOT_UPGRADE'},
-					{'Id', 'C_PILOT_SLOT'},
-					{'Id', 'C_PET_SLOT'},
-					{'Id', 'C_WEAP_UPGRADE'},
-					{'Id', 'C_INV_WEAP_CR'},
-					{'Id', 'C_INV_WEAP_C'},
-					{'Id', 'C_INV_SAL_CASH'},
-					{'Id', 'C_INV_SAL_CASHR'}
-				},
+				SPECIAL_KEY_WORDS 	= AddPrx('Id', {
+					'C_PILOT_UPGRADE',
+					'C_PILOT_SLOT',
+					'C_PET_SLOT',
+					'C_WEAP_UPGRADE',
+					'C_INV_WEAP_CR',
+					'C_INV_WEAP_C',
+					'C_INV_SAL_CASH',
+					'C_INV_SAL_CASHR'
+				}),
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = 'Costs',

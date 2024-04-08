@@ -1,5 +1,5 @@
 -----------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 -----------------------------------------
 local mod_desc = [[
@@ -11,7 +11,7 @@ local new_recipes = {
 	{--	rampant mould to nanites
 		id			= 'RECIPE_RAMMOULD5',
 		name		= 'RECIPE_BURIEDTECH',
-		make		= 75000,
+		make		= 60000,
 		cook		= false,
 		result		= {id='TECHFRAG',	n=4000,	tp=IT_.SBT},
 		ingredients	= {
@@ -131,7 +131,7 @@ local new_recipes = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE RECIPE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

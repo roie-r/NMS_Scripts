@@ -1,31 +1,46 @@
 -----------------------------------------------------------------------------------------
-dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
-dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/exml_2_lua.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_lua_2_exml.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_exml_2_lua.lua')
 -----------------------------------------------------------------------------------------
 
-local src0 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/CATALOGUECRAFTING.EXML'
-local src1 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/MISSIONS/SEASONALMISSIONTABLE.EXML'
-local src2 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.EXML'
-local src3 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/REWARDTABLE.EXML'
-local src4 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.EXML'
-local src5 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.EXML'
-local src6 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SKYSETTINGS/SPACESKYCOLOURS.EXML'
-local src7 = 'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/PLANETS/CREATURES/STRIDERRIG/STRIDER.DESCRIPTOR.EXML'
-local src8 = 'D:/MODZ_stuff/NoMansSky/_game_mod_Folder/utopia constructor/MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/BLUEPRINTANALYSER_WEAP/ENTITIES/DATA.ENTITY.EXML'
+local function ConvertMbin(mbin)
+	function fileExists(path)
+		local f = io.open(path, "r")
+		return f ~= nil and io.close(f)
+	end
+	if not fileExists(mbin:gsub('.MBIN$', '.EXML')) then
+		os.execute(string.format(
+			'D:/MODZ_stuff/NoMansSky/Tools/AMUMSS/MODBUILDER/MBINCompiler.latest.exe convert -y -q --input-format=MBIN %s',
+			mbin
+		))
+	end
+end
 
+local mbin = {
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/CATALOGUEMATERIALS.MBIN',										-- 1
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/MISSIONS/SEASONALMISSIONTABLE.MBIN',							-- 2
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.MBIN',	-- 3
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/REWARDTABLE.MBIN',										-- 4
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.MBIN',							-- 5
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN',						-- 6
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SKYSETTINGS/SPACESKYCOLOURS.MBIN',		-- 7
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/BIOMES/RADIOACTIVE/RADIOACTIVEOBJECTSFULL.MBIN',	-- 8
+}
 -----------------------------------------------------------------------------------------
-local tbl_08 = 'exml_source'
+local index	 = 1
+local tbl_08 = 'EXML_SOURCE'
 
-local r_src = io.open(src0, 'r')
-local w_src = io.open('d:/_dump/'..tbl_08..'.lua', 'w')
-w_src:write( PrintExmlAsLua( r_src:read('*a') ) )
+ConvertMbin(mbin[index])
+local r_src  = io.open(mbin[index]:gsub('.MBIN$', '.EXML'), 'r')
+local w_src  = io.open('d:/_dump/'..tbl_08..'.lua', 'w')
+
+w_src:write( PrintExmlAsLua({exml=r_src:read('*a'), name=tbl_08}) )
 r_src:close()
 w_src:close()
 
 print('saved '..tbl_08..' LUA to _dump')
 ---------------------------------------------------------------------------------------
-dofile('d:/_dump/'..tbl_08..'.lua')
----@diagnostic disable-next-line: undefined-global
--- io.open('d:/_dump/'..tbl_08..'.EXML', 'w'):write(FileWrapping(exml_source))
+-- dofile('d:/_dump/'..tbl_08..'.lua')
+-- io.open('d:/_dump/'..tbl_08..'.MBIN', 'w'):write(FileWrapping(EXML_SOURCE))
 
 -- print('saved '..tbl_08..' EXML to _dump')

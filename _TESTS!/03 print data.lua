@@ -1,39 +1,67 @@
 -------------------------------------------------------------------------------------------------------------------
-dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/exml_2_lua.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_exml_2_lua.lua')
 -------------------------------------------------------------------------------------------------------------------
-function ReadExml(path)
-	local rf = io.open(path, 'r')
-	local t = ToLua(rf:read('*a'))
+local NMS = 'D:/MODZ_stuff/NoMansSky/UNPACKED/'
+
+local function ConvertMbin(mbin)
+	function fileExists(path)
+		local f = io.open(path, "r")
+		return f ~= nil and io.close(f)
+	end
+	if not fileExists(mbin:gsub('.MBIN$', '.EXML')) then
+		os.execute(string.format(
+			'D:/MODZ_stuff/NoMansSky/Tools/AMUMSS/MODBUILDER/MBINCompiler.latest.exe convert -y -q --input-format=MBIN %s',
+			mbin
+		))
+	end
+end
+
+local function ReadExml(mbin)
+	ConvertMbin(mbin)
+	local rf = io.open(mbin:gsub('.MBIN$', '.EXML'), 'r')
+	local t  = ToLua(rf:read('*a'))
 	rf:close()
 	return t
 end
 
-function PrintAsLua(path)
+local function PrintAsLua(mbin)
+	ConvertMbin(mbin)
 	local wf = io.open('d:/_dump/exml_source.lua', 'w')
-	wf:write(PrintExmlAsLua(io.open(path, 'r'):read('*a')))
+	wf:write(PrintExmlAsLua({exml=io.open(mbin:gsub('.MBIN$', '.EXML'), 'r'):read('*a')}))
 	wf:close()
 end
 -------------------------------------------------------------------------------------------------------------------
-exml = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/CATALOGUECRAFTING.EXML'
+local mbin = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN'
 
-source = ReadExml(exml)
--- PrintAsLua(exml)
+source = ReadExml(NMS..mbin)
 
-for _, dat in ipairs(source.template.Categories[7].Items) do
-	print(dat.Value)
+for _, prd in ipairs(source.template.Table) do
+	if prd.ID:find('FIGHT_') then
+		print(prd.ID)
+	end
 end
--------------------------------------------------------------------------------------------------------------------
--- exml = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.EXML'
 
--- source = ReadExml(exml)
+-------------------------------------------------------------------------------------------------------------------
+-- local mbin = 'METADATA/REALITY/CATALOGUECRAFTING.MBIN'
+
+-- source = ReadExml(NMS..mbin)
+-- -- PrintAsLua(path)
+
+-- for _, dat in ipairs(source.template.Categories[6].Items) do
+	-- print(dat.Value)
+-- end
+-------------------------------------------------------------------------------------------------------------------
+-- local mbin = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
+
+-- source = ReadExml(NMS..mbin)
 
 -- for _, dat in ipairs(source.template.Table) do
 	-- print(dat.ID..'\t:\t'..dat.ChargeAmount)
 -- end
 -------------------------------------------------------------------------------------------------------------------
--- exml = 'D:/MODZ_stuff/NoMansSky/UNPACKED/GCSPACESHIPGLOBALS.GLOBAL.EXML'
+-- local mbin = 'GCSPACESHIPGLOBALS.GLOBAL.MBIN'
 
--- source = ReadExml(exml)
+-- source = ReadExml(NMS..mbin)
 
 -- eng = source.template.ControlLight.SpaceEngine
 

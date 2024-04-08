@@ -419,8 +419,7 @@ local function BuildVehicleScanMenuTable()
 	for _,entry in ipairs(scan_menu_table) do
 		exml = exml..scan_menu_table:GetEntry(entry)
 	end
-	return [[<?xml version="1.0" encoding="utf-8"?>
-		<Data template="GcVehicleScanTable"><Property name="VehicleScanTable">]]
+	return [[<Data template="GcVehicleScanTable"><Property name="VehicleScanTable">]]
 		..exml..
 		[[</Property></Data>]]
 end
@@ -485,7 +484,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.exocraft scan upgrade.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 -----------------------------------------------------------------------------------
 local mod_desc = [[
@@ -62,7 +62,7 @@ local fighter = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -90,8 +90,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'Turbine'},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD					= ToExml({
-					ScNode('TrailFL', 'LOCATOR', {ScTransform({4.85, 1.19, -1.1})}),
-					ScNode('TrailFR', 'LOCATOR', {ScTransform({-4.85, 1.19, -1.1})})
+					ScNode({ name='TrailFL', stype='LOCATOR', form={4.85,  1.19, -1.1} }),
+					ScNode({ name='TrailFR', stype='LOCATOR', form={-4.85, 1.19, -1.1} })
 				})
 			}
 		}

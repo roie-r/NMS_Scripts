@@ -1,5 +1,5 @@
 ----------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ----------------------------------------------------
 local mod_desc = [[
   Add more water color choices
@@ -129,14 +129,14 @@ for _,pwc in ipairs(water_colors) do
 	ECT[#ECT+1] = argb
 end
 
--- dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/lua_2_exml.lua')
+-- dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_lua_2_exml.lua')
 -- io.open('e:/_dump/WATERCOLOURS.EXML', 'w'):write(FileWrapping(ECT, 'GcWaterColourSettingList'))
 -- print('saved to _dump')
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META water colors.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES 			= {
 		{

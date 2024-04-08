@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ---------------------------------------------------------------------
 local mod_desc = [[
   Generate proc texture files & include the relevant dds files
@@ -56,7 +56,7 @@ local proc_texture_files = {
 		layers	 = {
 			{
 				name	= 'BASE',
-				palette = 'Custom_Head',
+				palette = 'Paint', -- 'Custom_Head',
 				color	= 'Primary',
 				diff	= true
 			}
@@ -463,7 +463,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

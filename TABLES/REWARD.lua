@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/reward_entry.lua')
 -----------------------------------------------------------------------
 local mod_desc = [[
@@ -14,6 +14,24 @@ local mod_desc = [[
 ]]---------------------------------------------------------------------
 
 local new_rewards = {
+	{--- huge flora prop ---
+		id			= 'DE_PLANT_HUGE',
+		choice		= RC_.ALL,
+		rewardlist	= {
+			--id					Min		Max			%		function
+			{id='FUEL2',			mn=50,	mx=150,		c=100,	f=R_Substance},
+			{id='SPACEGUNK5',		mn=15,	mx=45,		c=100,	f=R_Substance},
+		}
+	},
+	{--- huge rock prop ---
+		id			= 'DE_ROCK_HUGE',
+		choice		= RC_.ALL,
+		rewardlist	= {
+			--id					Min		Max			%		function
+			{id='LAND2',			mn=50,	mx=150,		c=100,	f=R_Substance},
+			{id='GEODE_LAND', 		mn=1,	mx=2,		c=5,	f=R_DisguisedProduct,	display='LAND2'}
+		}
+	},
 	{--- sentinel salvaged glass shard ---
 		id			= 'DE_SENT_LOOT',
 		choice		= RC_.ONE,
@@ -425,18 +443,25 @@ local new_rewards = {
 		id			= 'RS_QUICKSILV_T',
 		choice		= RC_.ALL,
 		rewardlist	= {
-			{id=CU_.HG,	mx=36,	c=100,	f=R_Money}
+			{id=CU_.HG,	mx=36,			c=100,	f=R_Money}
+		}
+	},
+	{--- open page ---
+		id			= 'R_OPEN_PAGE_0',
+		choice		= RC_.ALL,
+		rewardlist	= {
+			{id='WeaponCustomisation',	c=100,	f=R_OpenPage}
 		}
 	},
 	{--- open unlockable recipe tree ---
-		id			= 'R_OPEN_TREE',
+		id			= 'R_OPEN_TREE_0',
 		choice		= RC_.ALL,
 		rewardlist	= {
-			{id='WeapTech',		c=100,	f=R_UnlockTree}
+			{id='BaseParts',			c=100,	f=R_UnlockTree}
 		}
 	},
 	{--- test 9 ---
-		id			= 'TEST_REWARD_09',
+		id			= 'TEST_09',
 		choice		= RC_.ALL,
 		rewardlist	= {
 			-- id					details					%		function
@@ -498,38 +523,65 @@ local function AddNewRewardsToChangeTable(T)
 end
 
 local function IncreasePlantHarvest(T)
-	for _,x in ipairs({
-		{'DE_COOK_ALL1',	1.3,	1.5},	--  5 10 Heptaploid Wheat
-		{'DE_COOK_ALL2',	1.3,	1.5},	--  5 10 Sweetroot
-		{'DE_COOK_ALL3',	1.3,	1.5},	--  5 10 Pulpy Roots
-		{'DE_COOK_HOT',		1.2,	1.6},	--  5 10 Fireberry
-		{'DE_COOK_RAD',		1.2,	1.6},	--  5 10 Grahberry
-		{'DE_COOK_DUST',	1.2,	1.6},	--  5 10 Aloe Flesh
-		{'DE_COOK_COLD',	1.1,	1.4},	--  5 10 Frozen Tubers
-		{'DE_COOK_TOX',		1.2,	1.6},	--  5 10 Jade Peas
-		{'DE_COOK_LUSH',	1.2,	1.6},	--  5 10 Impulse Beans
-		{'DE_COOK_WEIRD',	1.1,	1.5},	--  5 10 Hexaberry
-		{'WILD_SCORCHED',	1.6,	2.2},	-- 18 30
-		{'WILD_RADIO',		1.2,	1.6},	-- 18 30
-		{'WILD_BARREN',		1.6,	2},		-- 40 60
-		{'WILD_SNOW',		1.2,	1.6},	-- 18 30
-		{'WILD_LUSH',		1.6,	2.2},	-- 10 15
-		{'WILD_TOXIC',		1.6,	2},		-- 18 30
+	for _,flr in ipairs({
+		{
+			id = {
+				'DE_COOK_ALL1',		--  5 10 Heptaploid Wheat
+				'DE_COOK_ALL2',		--  5 10 Sweetroot
+				'DE_COOK_ALL3',		--  5 10 Pulpy Roots
+			},	mn = 1.3,	mx = 1.5
+		},
+		{
+			id = {
+				'DE_COOK_HOT',		--  5 10 Fireberry
+				'DE_COOK_RAD',		--  5 10 Grahberry
+				'DE_COOK_DUST',		--  5 10 Aloe Flesh
+				'DE_COOK_COLD',		--  5 10 Frozen Tubers
+				'DE_COOK_TOX',		--  5 10 Jade Peas
+				'DE_COOK_LUSH',		--  5 10 Impulse Beans
+				'DE_COOK_WEIRD',	--  5 10 Hexaberry
+			},	mn = 1.2,	mx = 1.6
+		},
+		{
+			id = {
+				'WILD_SCORCHED',	-- 18 30
+				'WILD_RADIO',		-- 18 30
+				'WILD_BARREN',		-- 40 60
+				'WILD_SNOW',		-- 18 30
+				'WILD_LUSH',		-- 10 15
+				'WILD_TOXIC',		-- 18 30
+
+			},	mn = 1.5,	mx = 2
+		},
+		{
+			id = {
+				'PLANT_SCORCHED',	-- 50
+				'PLANT_RADIO',		-- 50
+				'PLANT_BARREN',		-- 100
+				'PLANT_SNOW',		-- 50
+				'PLANT_LUSH',		-- 25
+				'PLANT_TOXIC',		-- 50
+				'PLANT_CREATURE',	-- 25
+				'PLANT_POOP',		-- 25
+
+			},	mn = 0.9,	mx = 1.1
+		}
 	}) do
+		for i=1, #flr.id do flr.id[i] = {'Id', flr.id[i]} end
 		T[#T+1] = {
 			MATH_OPERATION 		= '*',
 			INTEGER_TO_FLOAT	= 'Preserve',
-			SPECIAL_KEY_WORDS	= {'Id', x[1]},
+			WHERE_IN_SUBSECTION	= flr.id,
 			VALUE_CHANGE_TABLE 	= {
-				{'AmountMin',	x[2]},
-				{'AmountMax',	x[3]}
+				{'AmountMin',	flr.mn},
+				{'AmountMax',	flr.mx}
 			}
 		}
 	end
 end
 
 local function LearnMoreWords(T)
-	for _,x in ipairs({
+	for _,wrd in ipairs({
 		{'WORD',			AR_.NON,	3},
 		{'EXP_WORD',		AR_.XPR,	3},
 		{'TRA_WORD',		AR_.TRD,	3},
@@ -540,13 +592,13 @@ local function LearnMoreWords(T)
 		{'TEACHWORD_ATLAS',	AR_.ATL,	3},
 		{'TEACHWORD_BUI',	AR_.BLD,	3},
 	}) do
-		for _=1, (x[3] - 1) do
+		for _=1, (wrd[3] - 1) do
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'Id', x[1]},
+				SPECIAL_KEY_WORDS	= {'Id', wrd[1]},
 				SECTION_ACTIVE		= -1,
 				PRECEDING_KEY_WORDS = 'GcRewardTableItem.xml',
 				ADD_OPTION			= 'ADDAfterSection',
-				ADD					= ToExml(R_Word({id=x[2], mx=1, c=45}))
+				ADD					= ToExml(R_Word({id=wrd[2], mx=1, c=45}))
 			}
 		end
 	end
@@ -555,8 +607,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE REWARD.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
-	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
+	NMS_VERSION			= '4.64',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE,MULTIPLE_STATEMENTS',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

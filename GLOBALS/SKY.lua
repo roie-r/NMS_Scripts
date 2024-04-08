@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SKY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -17,19 +17,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'DayLength',							3600},	-- 1800
-					{'MinTimeBetweenStormsHigh',			360},	-- 120
-					{'MaxTimeBetweenStormsHigh',			1240},	-- 620
-					{'MinTimeBetweenStormsExtremeFallback', 480},	-- 240
-					{'MaxTimeBetweenStormsExtremeFallback',	1240},	-- 620
-					{'MinStormLengthLow',					90},	-- 120
-					{'MaxStormLengthLow',					135},	-- 180
-					{'MinStormLengthHigh',					110},	-- 150
-					{'MaxStormLengthHigh',					170},	-- 320
-					{'StormWarningTime',					20},	-- 25
-					{'WeatherBloomGain',					2.34},	-- 7.1
-					{'NoAtmosphereFogStrength',				0},		-- 0.3
-					{'NoAtmosphereFogMax',					0},		-- 0.97
+					{'DayLength',							3600	},	-- 1800
+					{'MinTimeBetweenStormsHigh',			360		},	-- 120
+					{'MaxTimeBetweenStormsHigh',			1240	},	-- 620
+					{'MinTimeBetweenStormsExtremeFallback', 480		},	-- 240
+					{'MaxTimeBetweenStormsExtremeFallback',	1240	},	-- 620
+					{'MinStormLengthLow',					90		},	-- 120
+					{'MaxStormLengthLow',					135		},	-- 180
+					{'MinStormLengthHigh',					110		},	-- 150
+					{'MaxStormLengthHigh',					170		},	-- 320
+					{'StormWarningTime',					20		},	-- 25
+					{'WeatherBloomGain',					2.34	},	-- 7.1
+					{'NoAtmosphereFogStrength',				0		},	-- 0.3
+					{'NoAtmosphereFogMax',					0		},	-- 0.97
 				}
 			},
 			{

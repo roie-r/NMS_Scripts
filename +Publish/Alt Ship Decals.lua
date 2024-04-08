@@ -198,8 +198,7 @@ local function BuildProcTexListMbin(tex_layer)
 	for _=1, (8 - #tex_layer) do
 		table.insert(T, '<Property value="TkProceduralTextureLayer.xml"/>')
 	end
-	return [[<?xml version="1.0" encoding="utf-8"?>
-		<Data template="TkProceduralTextureList">
+	return [[<Data template="TkProceduralTextureList">
 		<Property name="Layers">]]..table.concat(T)..[[</Property></Data>]]
 end
 

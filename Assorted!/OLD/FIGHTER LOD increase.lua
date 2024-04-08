@@ -50,7 +50,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP fighter LOD increase.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_BATCHNAME		= '__SHIP fighter merged.pak',
-	NMS_VERSION			= '4.47',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 	{

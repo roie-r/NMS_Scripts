@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ----------------------------------------------------------------------------------------
 local mod_desc = [[
   Add a new language file.
@@ -16,6 +16,25 @@ local text_lines = {
 	default	= 'EN',
 	entries	= {
 	---	New text ---
+		ROCEKT_ALIEN_NAME = {
+			EN = [[EMISSIVE SEEDS POD]],
+		},
+		ROCEKT_ALIEN_NAME_L = {
+			EN = [[Emissive Seeds Pod]],
+		},
+		ROCEKT_ALIEN_DESC = {
+			EN = [[A <TECHNOLOGY>long range<> starship weapon, capable of delivering a targeted seed across great distances.||NNote: explosive damage is <STELLAR>highly effective<> against <STELLAR>unshielded<> targets, but <TITLE>ineffective<> against <TITLE>shielded<> targets.||NUse <IMG>CYCLEWEAPON<> to change weapon mode. Press <IMG>SHIPFIRE<> to fire.]],
+		},
+		ROCEKT_U_ALIEN_NAME = {
+			EN = [[EXTENDED SEEDS POD]],
+		},
+		ROCEKT_U_ALIEN_NAME_L = {
+			EN = [[Extended Seeds Pod]],
+		},
+		ROCEKT_U_ALIEN_DESC = {
+			EN = [[A significant extension to emissive seeds pod's capacity, enabling enduring performance, improving exhaust performance and allowing for significantly faster <STELLAR>heat recovery<>.]],
+		},
+		
 		JUMP_U_ALIEN_NAME = {
 			EN = [[ENLARGED HEART]],
 		},
@@ -341,7 +360,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

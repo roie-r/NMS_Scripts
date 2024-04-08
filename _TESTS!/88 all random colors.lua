@@ -1,6 +1,6 @@
 ------------------------------
-dofile('LIB/lua_2_exml.lua')
-dofile('LIB/exml_2_lua.lua')
+dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_exml_2_lua.lua')
 ------------------------------
 local mod_desc = [[
   ALL random color palettes
@@ -97,7 +97,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___ALL random palettes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= ADF
 }

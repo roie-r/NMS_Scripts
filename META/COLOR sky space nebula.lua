@@ -1,5 +1,5 @@
 --------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 --------------------------------------------------------------------
 local mod_desc = [[
   Modifiers for ambient space color..near-black space and night sky
@@ -82,24 +82,25 @@ local sky_palettes = {
 	}
 }
 local sky_part = {
-	{k='SkyColour',			f=ColorData},
-	{k='SkyUpperColour',	f=ColorData},
-	{k='SkySolarColour',	f=ColorData},
-	{k='HorizonColour',		f=ColorData},
-	{k='SunColour',			f=ColorData},
-	{k='FogColour',			f=ColorData},
-	{k='HeightFogColour',	f=ColorData},
-	{k='SkyGradientSpeed',	f=VectorData},
-	{k='LightColour',		f=ColorData},
-	{k='CloudColour1',		f=ColorData},
-	{k='CloudColour2',		f=ColorData}
+	'SkyColour',
+	'SkyUpperColour',
+	'SkySolarColour',
+	'HorizonColour',
+	'SunColour',
+	'FogColour',
+	'HeightFogColour',
+	'SkyGradientSpeed',
+	'LightColour',
+	'CloudColour1',
+	'CloudColour2'
 }
 local function AddPlanetWeatherColor(skies)
 	local T = {}
 	for _, key in ipairs(skies) do
 		local pwcd = { META = {'value', 'GcPlanetWeatherColourData.xml'} }
 		for j, dat in pairs(sky_palettes[key]) do
-			pwcd[#pwcd+1] = sky_part[j].f(dat, sky_part[j].k)
+			func = sky_part[j]:find('Speed') and VectorData or ColorData
+			pwcd[#pwcd+1] = func(dat, sky_part[j])
 		end
 		T[#T+1] = pwcd
 	end
@@ -139,7 +140,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META sky dark space & nights.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

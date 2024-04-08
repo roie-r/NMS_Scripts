@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ------------------------------------------------------------------------------------------
 local mod_desc = [[
   - Adds planetary settlement, archive, ship debris, sentinel pillar, claimable base site,
@@ -429,17 +429,16 @@ local function VehicleScanEventsChangeTable()
 				}
 			}
 			T[#T+1] = {
-				SECTION_EDIT 			= 'gc_scan_event',
-				PRECEDING_KEY_WORDS		= 'BuildingClass',
-				VALUE_MATCH				= 'GcBuildingClassification.xml',
-				VALUE_MATCH_OPTIONS 	= '~=',
-				VALUE_CHANGE_TABLE 		= {
-					{'BuildingClass', ev.class}
+				SECTION_EDIT 		= 'gc_scan_event',
+				VALUE_MATCH			= '{%.xml$}',	
+				VALUE_MATCH_OPTIONS = '~=',
+				VALUE_CHANGE_TABLE 	= {
+					{'BuildingClass',	ev.class}
 				}
 			}
 			T[#T+1] = {
-				PRECEDING_KEY_WORDS 	= 'Events',
-				SECTION_ADD_NAMED 		= 'gc_scan_event'
+				PRECEDING_KEY_WORDS	= 'Events',
+				SECTION_ADD_NAMED	= 'gc_scan_event'
 			}
 		end
 	end
@@ -467,7 +466,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

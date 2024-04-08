@@ -8,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -28,6 +28,24 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
+				MATH_OPERATION 		= '+',
+				PRECEDING_KEY_WORDS	= {'Ultra', 'RegionLODRadius'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Ignore',		0},	-- 7
+					{'Ignore',		2},	-- 10
+					{'Ignore',		2},	-- 16
+					{'Ignore',		2},	-- 12
+					{'Ignore',		2},	-- 10
+					{'Ignore',		2}	-- 10
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'Ultra',
+				VALUE_CHANGE_TABLE = {
+					{'ImposterResolutionMultiplier', 4}
+				}
+			},
+			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE = {
@@ -40,23 +58,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				REPLACE_TYPE 		= 'All',
-				MATH_OPERATION 		= '*',
-				VALUE_CHANGE_TABLE = {
-					{'ImposterResolutionMultiplier', 2}
-				}
-			},
-			{
 				VALUE_CHANGE_TABLE 	= {
-					{'TerrainFadeTime',						1},		-- 2
-					{'TerrainFadeTimeInShip',				1},		-- 2
-					{'CreatureFadeTime',					0.7},	-- 1.5
-					{'FloraFadeTimeMin',					0.8},	-- 0.6
-					{'FloraFadeTimeMax',					1.6},	-- 2.25
-					{'AnimationScale',						30},	-- 50 (clouds speed)
+					{'TerrainFadeTime',						1	},	-- 2
+					{'TerrainFadeTimeInShip',				1	},	-- 2
+					{'CreatureFadeTime',					0.7	},	-- 1.5
+					{'FloraFadeTimeMin',					0.8	},	-- 0.6
+					{'FloraFadeTimeMax',					1.6	},	-- 2.25
+					{'AnimationScale',						30	},	-- 50 (clouds speed)
 					{'IndoorsLightingPlanetMax',			0.98},	-- 0.42
-					{'IndoorsLightingAbandonedFreighterMax',5},		-- 1
-					{'IndoorsLightingFreighterMax',			10},	-- 1
+					{'IndoorsLightingAbandonedFreighterMax',5	},	-- 1
+					{'IndoorsLightingFreighterMax',			10	},	-- 1
 				}
 			},
 			{

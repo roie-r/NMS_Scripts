@@ -82,8 +82,8 @@ ECT[#ECT+1] = {
 	REPLACE_TYPE 		= 'All',
 	MATH_OPERATION 		= '+',
 	VALUE_CHANGE_TABLE 	= {
-		{'OffsetYStartBias',	6},		-- 3.5	-- Warp tunnel POV
-		{'OffsetZStartBias',	60},	-- 15 50
+		{'OffsetYStartBias',	8},		-- 3.5	-- Warp tunnel POV
+		{'OffsetZStartBias',	66},	-- 15 50
 	}
 }
 ECT[#ECT+1] = {
@@ -100,7 +100,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC CAMERA.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

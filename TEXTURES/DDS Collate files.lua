@@ -8,31 +8,38 @@ local texture_collection = {
 		source = 'Blanks/',
 		target = '',
 		names  = {
-			-- binoculars screen filters
+		--	binoculars screen filters
 			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/BINOCULARS.DDS'},
 			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/SURVEYING1.DDS'},
 			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/MISSIONSURVEY.DDS'},
-			-- binoculars HUD background
+		--	binoculars HUD background
 			{s='BLANK.64.DDS',		t='UI/HUD/BINOCULARS.DDS'},
 			{s='BLANK.64.DDS',		t='UI/HUD/BINOCULARMISSION.DDS'},
 			{s='BLANK.64.DDS',		t='UI/HUD/SURVEYING.DDS'},
-			-- laser mid part & target crosshairs
+		--	laser mid part & target crosshairs
 			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRLAZERMIDDLE.DDS'},
 			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRS/LARGETARGET.DDS'},
 			{s='BLANK.64.DDS',		t='UI/HUD/CROSSHAIRTARGET.DDS'},
-			-- hide inv tab bulletpoint
+		--	hide inv tab bulletpoint
 			{s='BLANK.32.DDS',		t='UI/FONTS/BULLETPOINT.DDS'},
-			-- hide new item notification
+		--	hide new item notification
 			{s='BLANK.32.DDS',		t='UI/FRONTEND/COMPONENTS/NEWEXCLAMATION.DDS'},
-			-- just the blank
+		--	just the blank
 			{s='BLANK.64.DDS'},
 		}
 	},
-	{--	clean non-chipped fighter paint & white ship lights
-		source = 'Ship/FighterClean/',
-		target = 'COMMON/SPACECRAFT/FIGHTERS/SHARED/',
+	{--	ships
+		source = 'Ship/',
+		target = 'COMMON/SPACECRAFT/',
 		names  = {
-			{s='*.DDS'}
+		--	clean non-chipped fighter paint & white ship lights
+			{s='FighterClean/*.DDS', 	t='FIGHTERS/SHARED/*.DDS'},
+		--	B & W racer
+			{s='Racer/WRACER*.DDS',		t='FIGHTERS/WRACER*.DDS'},
+		--	blue theme speeder (and bit more reflective)
+			{s='Speeder/VRSPEEDER*.DDS',t='FIGHTERS/VRSPEEDER*.DDS'},
+		--	freighter black instead of green (non-proc fix)
+			-- {s='Freighter/*.DDS',		t='INDUSTRIAL/SHARED/*.DDS'},
 		}
 	},
 	{--	sentinel ship blue lights
@@ -42,13 +49,6 @@ local texture_collection = {
 			{s='LIGHT*.DDS'}
 		}
 
-	},
-	{--	blue theme speeder (and bit more reflective)
-		source = 'Ship/Speeder/',
-		target = 'COMMON/SPACECRAFT/FIGHTERS/',
-		names  = {
-			{s='VRSPEEDER.*.DDS'}
-		}
 	},
 	{--	vehicle buggy/bike headlights
 		source = 'Vehicle/',
@@ -140,6 +140,7 @@ local texture_collection = {
 		--	products & substances
 			{s='Products/PRODUCT.*.DDS'},
 			{s='CookingProducts/PRODUCT.*.DDS'},
+			{s='ShipIcons/*.DDS'},
 			{s='u4Products/PRODUCT.*.DDS'},
 			{s='U4Substances/SUBSTANCE.*.DDS'},
 			{s='Update3/*.DDS'},
@@ -158,7 +159,7 @@ local texture_collection = {
 			{s='THIRDPERSONSHIP.DDS', t='THIRDPERSONCHARACTER.DDS'},
 		}
 	},
-	{--	menu: galacitc map part
+	{--	menu: galactic map part
 		source = 'UI/galactic/',
 		target = 'UI/FRONTEND/GALACTICMAP/',
 		names  = {
@@ -172,7 +173,7 @@ local texture_collection = {
 			{s='*.DDS'}
 		}
 	},
-	{--	 ICONS: HUD translucent icons
+	{--	ICONS: HUD translucent icons
 		source = 'Icons/Hud/',
 		target = 'UI/HUD/ICONS/',
 		names  = {
@@ -204,7 +205,7 @@ local texture_collection = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

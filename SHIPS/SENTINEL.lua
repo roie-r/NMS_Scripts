@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 -------------------------------------------------------------------------
 local mod_desc = [[
@@ -16,7 +16,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sentinel.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -129,13 +129,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'RTbodyJNT'},
 				PRECEDING_KEY_WORDS	= 'Children',
 				CREATE_HOS			= true,
-				ADD					= ToExml(ScNode('TrailER', 'LOCATOR', {ScTransform({tx=-3.9336, ty=-0.51785, tz=-2.3462, ry=180})}))
+				ADD					= ToExml(
+					ScNode({ name='TrailER', stype='LOCATOR', form={tx=-3.9336, ty=-0.51785, tz=-2.3462, ry=180} })
+				)
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LTbodyJNT'},
 				PRECEDING_KEY_WORDS	= 'Children',
 				CREATE_HOS			= true,
-				ADD					= ToExml(ScNode('TrailEL', 'LOCATOR', {ScTransform({tx=3.9336, ty=0.51785, tz=2.3462, ry=180})}))
+				ADD					= ToExml(
+					ScNode({ name='TrailEL', stype='LOCATOR', form={tx=3.9336, ty=0.51785, tz=2.3462, ry=180} })
+				)
 			}
 		}
 	},

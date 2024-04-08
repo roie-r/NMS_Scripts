@@ -5,8 +5,7 @@ local mod_desc = [[
 ]]-------------------------------------------------------------------
 
 local function SingleLayerTextureMbin(diffuse, palette, altcolor)
-	return [[<?xml version="1.0" encoding="utf-8"?>
-	<Data template="TkProceduralTextureList">
+	return [[<Data template="TkProceduralTextureList">
 		<Property name="Layers">
 			<Property value="TkProceduralTextureLayer.xml">
 				<Property name="Name" value="BASE"/>
@@ -36,7 +35,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Ship Interior Procedural Color.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES	= {
 		{

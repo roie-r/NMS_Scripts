@@ -1,5 +1,5 @@
 -------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 -------------------------------------------------------------
 local mod_desc = [[
@@ -24,11 +24,13 @@ for _,node in ipairs({
 	{k='RefHangarCrane2',	tx=41.88,				tz=61.2},
 	{k='RefHangarCrane',	tx=-3.43,				tz=59.5},
 	{k='RefHangarCrane1',	tx=-41.96,				tz=60.9},
-	{k='RefPallet54',		tx=-52.35,	ty=-7.48,	tz=66.7,				sx=2.6,	sy=1,		sz=2.6},
+	{k='RefPallet54',		tx=-52.35,	ty=-7.48,	tz=66.7,				sx=2.6,	sy=1,	sz=2.6},
 	{k='MonitorDesk',		tx=-55.5,	ty=-7.35,	tz=63.2,	ry=305},
 	{k='RefFuelTank2',		tx=35.53,	ty=-7.34,	tz=72.55,	ry=180},
-	{k='RefPallet30',		tx=7.79,	ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,		sz=2.8},
-	{k='MidCeiling201',								tz=33.2,									sz=1.25},
+	{k='RefPallet30',		tx=7.79,	ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
+	{k='MidCeiling201',								tz=33.2,								sz=1.25},
+	{k='RefLargeCrate118',	tx=-22.6,	ty=-4.31,	tz=17.2,	rx=180,		sx=1,	sy=5,	sz=5.5},	-- R
+	{k='RefLargeCrate13',	tx=22.6,	ty=-4.32,	tz=17.2,	rx=180,		sx=5.5,	sy=5,	sz=1},		-- L
 	{k='pointLight70',				del=true},
 	{k='pointLight7501',			del=true},
 	{k='REFFreighterHangerMistVFX',	del=true}
@@ -71,159 +73,141 @@ end
 ECT[#ECT+1] = {
 	PRECEDING_KEY_WORDS = 'Children',
 	ADD					= ToExml({
-		ScNode('1RefCrossingB1',	'REFERENCE', {
-			ScTransform({tx=-45.35, ty=-7.341775, tz=66.73, ry=180}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCrossingB1',
+			stype	= 'REFERENCE',
+			form	= {tx=-45.35, ty=-7.341775, tz=66.73, ry=180},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefCrossingB2',	'REFERENCE', {
-			ScTransform({tx=0, ty=-7.341775, tz=66.73}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCrossingB2',
+			stype	= 'REFERENCE',
+			form	= {tx=0, ty=-7.341775, tz=66.73},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefCrossingB3',	'REFERENCE', {
-			ScTransform({tx=45.35, ty=-7.341775, tz=66.73, ry=180}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCrossingB3',
+			stype	= 'REFERENCE',
+			form	= {tx=45.35, ty=-7.341775, tz=66.73, ry=180},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONB.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefMonitorShip1',	'REFERENCE', {
-			ScTransform({tx=20.2, ty=-4, tz=16.2, rx=0, ry=-42, rz=180, sx=0.55, sy=0.55, sz=0.55}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'}
-			}),
-			ScChildren({
-				ScNode('ColShipSalvage1', 'COLLISION', {
-					ScTransform({ty=-3}),
-					ScAttributes({
-						{'TYPE',	'Sphere'},
-						{'RADIUS',	0.2}
-					}),
-					ScChildren({
-						ScNode('LocShipSalvage1', 'LOCATOR', {
-							ScTransform(),
-							ScAttributes({
-								{'ATTACHMENT', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/ENTITIES/SHIP_SALVAGE.ENTITY.MBIN'}
-							})
-						})
-					})
-				})
-			})
-		}),
-		ScNode('1RefMonitorShip2',	'REFERENCE', {
-			ScTransform({tx=-20.2, ty=-4, tz=16.2, rx=0, ry=42, rz=180, sx=0.55, sy=0.55, sz=0.55}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'}
-			}),
-			ScChildren({
-				ScNode('ColShipSalvage2', 'COLLISION', {
-					ScTransform({ty=-3}),
-					ScAttributes({
-						{'TYPE',	'Sphere'},
-						{'RADIUS',	0.2}
-					}),
-					ScChildren({
-						ScNode('LocShipSalvage2', 'LOCATOR', {
-							ScTransform(),
-							ScAttributes({
-								{'ATTACHMENT', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/ENTITIES/SHIP_SALVAGE.ENTITY.MBIN'}
-							})
-						})
-					})
-				})
-			})
-		}),
-		ScNode('1RefCrateMilk01',	'REFERENCE', {
-			ScTransform({tx=5.1, ty=-7.33, tz=65.54, ry=86, sx=2.7, sy=1.8, sz=2.7}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCrateMilk01',
+			stype	= 'REFERENCE',
+			form	= {tx=5.06, ty=-7.33, tz=65.54, ry=86, sx=2.7, sy=1.8, sz=2.7},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/MILKCRATE.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefCrateNexus1',	'REFERENCE', {
-			ScTransform({tx=6.8, ty=-7.4, tz=65.5, ry=90, sx=1.4, sy=1.4, sz=1.4}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'}
-			})
+		ScNode({
+			name	= '1RefCrateHazBig1',
+			stype	= 'REFERENCE',
+			form	= {tx=6.74, ty=-7.34, tz=66.5, ry=90, sx=1.7, sy=1.4, sz=1.6},
+			attr	= {
+				{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATEHAZARDOUS.SCENE.MBIN'}
+			}
 		}),
-		ScNode('1RefCrateNexus2',	'REFERENCE', {
-			ScTransform({tx=6.8, ty=-7.4, tz=67.8, sx=1.4, sy=1.4, sz=1.4}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'}
-			})
+		ScNode({
+			name	= '1RefCrateTypeb1',
+			stype	= 'REFERENCE',
+			form	= {tx=5.06, ty=-7.33, tz=67.1, ry=3, sx=0.9, sy=0.9, sz=0.9},
+			attr	= {
+				{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'}
+			}
 		}),
-		ScNode('1RefCrateNexus3',	'REFERENCE', {
-			ScTransform({tx=5.05, ty=-7.33, tz=67.15, ry=3, sx=0.8, sy=0.8, sz=0.8}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'}
-			})
+		ScNode({
+			name	= '1RefCrateTypeb2',
+			stype	= 'REFERENCE',
+			form	= {tx=5.2, ty=-7.33, tz=68.2, ry=87, sx=0.9, sy=0.9, sz=0.9},
+			attr	= {
+				{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'}
+			}
 		}),
-		ScNode('1RefCrateNexus4',	'REFERENCE', {
-			ScTransform({tx=5.05, ty=-7.33, tz=68.5, ry=87, sx=0.8, sy=0.8, sz=0.8}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'}
-			})
+		ScNode({
+			name	= '1RefCrateHazBig2',
+			stype	= 'REFERENCE',
+			form	= {tx=-53.3, ty=-6.67, tz=64.1, ry=13, rz=90, sx=0.57, sy=0.9, sz=0.9},
+			attr	= {
+				{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATEHAZARDOUS.SCENE.MBIN'}
+			}
 		}),
-		ScNode('1RefCrateNexus5',	'REFERENCE', {
-			ScTransform({tx=-53.8, ty=-7.33, tz=64.2, ry=13, sx=0.9, sy=0.9, sz=0.9}),
-			ScAttributes({
-				{'SCENEGRAPH', 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'}
-			})
-		}),
-		ScNode('1RefScreenSilo',	'REFERENCE', {
-			ScTransform({tx=-55.32, ty=-5.82, tz=63.46, ry=35.1, sx=0.36, sy=0.6, sz=0.4}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefScreenSilo',
+			stype	= 'REFERENCE',
+			form	= {tx=-55.32, ty=-5.82, tz=63.46, ry=35.1, sx=0.36, sy=0.6, sz=0.4},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/WALLMONITORS/WALLMONITORA.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefCoveredSilos',	'REFERENCE', {
-			ScTransform({tx=-54, ty=-7.33, tz=66.8, ry=-90, sx=0.75, sy=0.75, sz=0.75}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCoveredSilos',
+			stype	= 'REFERENCE',
+			form	= {tx=-54, ty=-7.33, tz=66.8, ry=-90, sx=0.75, sy=0.75, sz=0.75},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/PIRATES/COVEREDSILOS.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefCrateMould01',	'REFERENCE', {
-			ScTransform({tx=-52.8, ty=-3.65, tz=65.65, rx=10, ry=-85, rz=180, sx=1.4}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCrateMould01',
+			stype	= 'REFERENCE',
+			form	= {tx=-52.8, ty=-3.65, tz=65.65, rx=10, ry=-85, rz=180, sx=1.4},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CRATE1.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefCrateMould02',	'REFERENCE', {
-			ScTransform({tx=-52.7, ty=-3.6, tz=67.7, rx=-10, ry=85, rz=175, sx=1.4}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefCrateMould02',
+			stype	= 'REFERENCE',
+			form	= {tx=-52.7, ty=-3.6, tz=67.7, rx=-10, ry=85, rz=175, sx=1.4},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CRATE1.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefBuilderHand',	'REFERENCE', {
-			ScTransform({tx=-39.85, ty=-7.64, tz=-22.3, rx=-2, ry=-65, rz=180, sx=1.4, sy=1.4, sz=1.4}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefBuilderHand',
+			stype	= 'REFERENCE',
+			form	= {tx=-39.85, ty=-7.64, tz=-22.3, rx=-2, ry=-65, rz=180, sx=1.4, sy=1.4, sz=1.4},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/COMMON/ROBOTS/ROBOTHAND.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefBuilderHead',	'REFERENCE', {
-			ScTransform({tx=-39.8, ty=-7.64, tz=-21.6, rx=50, ry=160, rz=0, sx=1.1, sy=1.1, sz=1.1}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefBuilderHead',
+			stype	= 'REFERENCE',
+			form	= {tx=-39.8, ty=-7.64, tz=-21.6, rx=50, ry=160, rz=0, sx=1.1, sy=1.1, sz=1.1},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BUILDERHEAD.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefGeometPlant01',	'REFERENCE', {
-			ScTransform({tx=37, ty=-7.72, tz=68.3, ry=-20, rz=20, sx=0.24, sy=0.24, sz=0.24}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefGeometPlant01',
+			stype	= 'REFERENCE',
+			form	= {tx=37, ty=-7.72, tz=68.3, ry=-20, rz=20, sx=0.24, sy=0.24, sz=0.24},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefMetalStruct01',	'REFERENCE', {
-			ScTransform({tx=11.8, ty=9.5, tz=22.7, sx=0.3, sy=0.3, sz=0.3}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefMetalStruct01',
+			stype	= 'REFERENCE',
+			form	= {tx=11.8, ty=9.5, tz=22.7, sx=0.3, sy=0.3, sz=0.3},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/WEIRD/FRACTALCUBE/SHAPE1FLOAT.SCENE.MBIN'}
-			})
+			}
 		}),
-		ScNode('1RefWirecell01',	'REFERENCE', {
-			ScTransform({tx=-67, ty=14, tz=-18.2, sx=0.6, sy=0.6, sz=0.6}),
-			ScAttributes({
+		ScNode({
+			name	= '1RefWirecell01',
+			stype	= 'REFERENCE',
+			form	= {tx=-67, ty=14, tz=-18.2, sx=0.6, sy=0.6, sz=0.6},
+			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN'}
-			})
+			}
 		}),
 		ScLight({
 			--	left stairs light (copied from Relight)
@@ -247,9 +231,9 @@ ECT[#ECT+1] = {
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__MODEL ferighter.pak',
+	MOD_FILENAME 			= '__MODEL ferighter interior.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	AMUMSS_SUPPRESS_MSG		= 'MIXED_TABLE',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
@@ -280,6 +264,62 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RotY', 		-110}
 				}
 			},
+			{-- teleporter gaps fix
+				SPECIAL_KEY_WORDS 	= {'Name', 'LargeCrate20'},
+				VALUE_CHANGE_TABLE	= {
+					{'TransX',		9.45},
+					{'TransY',		-0.06},
+					{'TransZ',		-4},
+					{'RotX', 		0},
+					{'RotY', 		180},
+					{'RotZ', 		90},
+					{'ScaleX', 		3.5},
+					{'ScaleY', 		0.4},
+					{'ScaleZ', 		0.5}
+				}
+			},
+			{-- teleporter gaps fix
+				SPECIAL_KEY_WORDS 	= {'Name', 'LargeCrate'},
+				VALUE_CHANGE_TABLE	= {
+					{'TransX',		4},
+					{'TransY',		-0.07},
+					{'TransZ',		-9.45},
+					{'RotX', 		0},
+					{'RotY', 		270},
+					{'RotZ', 		90},
+					{'ScaleX', 		3.5},
+					{'ScaleY', 		0.4},
+					{'ScaleZ', 		0.5}
+				}
+			},
+			{-- teleporter gaps fix
+				SPECIAL_KEY_WORDS 	= {'Name', 'LargeCrate11'},
+				VALUE_CHANGE_TABLE	= {
+					{'TransX',		-4},
+					{'TransY',		-0.07},
+					{'TransZ',		-9.45},
+					{'RotX', 		0},
+					{'RotY', 		270},
+					{'RotZ', 		90},
+					{'ScaleX', 		3.5},
+					{'ScaleY', 		0.4},
+					{'ScaleZ', 		0.5}
+				}
+			},
+			{-- teleporter gaps fix
+				SPECIAL_KEY_WORDS 	= {'Name', 'LargeCrate30'},
+				VALUE_CHANGE_TABLE	= {
+					{'TransX',		-9.45},
+					{'TransY',		-0.08},
+					{'TransZ',		-4},
+					{'RotX', 		0},
+					{'RotY', 		180},
+					{'RotZ', 		-90},
+					{'ScaleX', 		3.5},
+					{'ScaleY', 		0.4},
+					{'ScaleZ', 		0.5}
+				}
+			},
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'CielingDrape_Trader'},
@@ -302,79 +342,50 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ADD					= ToExml(
 					ScLight({
 					--	(copied from Relight)
-						{name='pointLight59',tx=0.0, ty=7.0, tz=0.0, i=80000, r=0.95, g=1.0, b=1.0},
-						{name='pointLight60',tx=0.0, ty=2.0, tz=0.0, i=30000, r=1.0, g=0.67, b=0.361},
-						{name='pointLight61',tx=0.0, ty=5.8, tz=-11.22, rx=-90, fov =180, i=32000, r=1.0, g=0.905, b=0.685},
-						{name='pointLight62',tx=0.0, ty=8.58, tz=14.08, i=40000, r=0.6, g=0.8, b=1.0},
+						{name='pointLight59', tx=0.0,    ty=7.0,  tz=0.0,    i=80000, r=0.95, g=1.0,  b=1.0},
+						{name='pointLight60', tx=0.0,    ty=2.0,  tz=0.0,    i=30000, r=1.0,  g=0.67, b=0.361},
+						{name='pointLight61', tx=0.0,    ty=5.8,  tz=-11.22, i=32000, r=1.0,  g=0.9,  b=0.685, rx=-90, fov =180},
+						{name='pointLight62', tx=0.0,    ty=8.58, tz=14.08,  i=40000, r=0.6,  g=0.8,  b=1.0},
 						-- Tractor beam blue light
-						{name='SpaceLight0',tx=0.0, ty=-1.0, tz=-21, i=80000, r=0.3, g=0.7, b=1.0},
-						{name='SpaceLight1',tx=-13.0, ty=-1.0, tz=-18, i=80000, r=0.3, g=0.7, b=1.0},
-						{name='SpaceLight2',tx=13.0, ty=-1.0, tz=-18, i=80000, r=0.3, g=0.7, b=1.0},
-						{name='SpaceLight3',tx=0.0, ty=7.0, tz=-21, i=60000, r=0.3, g=0.7, b=1.0},
-						{name='SpaceLight4',tx=-13.0, ty=7.0, tz=-18, i=60000, r=0.3, g=0.7, b=1.0},
-						{name='SpaceLight5',tx=13.0, ty=7.0, tz=-18, i=60000, r=0.3, g=0.7, b=1.0},
+						{name='SpaceLight0',  tx=0.0,    ty=-1.0, tz=-21,    i=80000, r=0.3,  g=0.7,  b=1.0},
+						{name='SpaceLight1',  tx=-13.0,  ty=-1.0, tz=-18,    i=80000, r=0.3,  g=0.7,  b=1.0},
+						{name='SpaceLight2',  tx=13.0,   ty=-1.0, tz=-18,    i=80000, r=0.3,  g=0.7,  b=1.0},
+						{name='SpaceLight3',  tx=0.0,    ty=7.0,  tz=-21,    i=60000, r=0.3,  g=0.7,  b=1.0},
+						{name='SpaceLight4',  tx=-13.0,  ty=7.0,  tz=-18,    i=60000, r=0.3,  g=0.7,  b=1.0},
+						{name='SpaceLight5',  tx=13.0,   ty=7.0,  tz=-18,    i=60000, r=0.3,  g=0.7,  b=1.0},
 						-- White roof0 neons - left side
-						{name='NeonLeft1',tx=-5.0, ty=4.5, tz=-12.4, i=15000},
-						{name='NeonLeft2',tx=-12.7, ty=4.5, tz=-5.2, i=15000},
-						{name='NeonLeft3',tx=-12.7, ty=4.5, tz=5.2, i=15000},
-						{name='NeonLeft4',tx=-5.0, ty=4.5, tz=12.4, i=15000},
+						{name='NeonLeft1',    tx=-5.0,   ty=4.5,  tz=-12.4,  i=15000},
+						{name='NeonLeft2',    tx=-12.7,  ty=4.5,  tz=-5.2,   i=15000},
+						{name='NeonLeft3',    tx=-12.7,  ty=4.5,  tz=5.2,    i=15000},
+						{name='NeonLeft4',    tx=-5.0,   ty=4.5,  tz=12.4,   i=15000},
 						-- White roof0 neons - right side
-						{name='NeonRight1',tx=5.0, ty=4.5, tz=-12.4, i=15000},
-						{name='NeonRight2',tx=12.7, ty=4.5, tz=-5.2, i=15000},
-						{name='NeonRight3',tx=12.7, ty=4.5, tz=5.2, i=15000},
-						{name='NeonRight4',tx=5.0, ty=4.5, tz=12.4, i=15000},
+						{name='NeonRight1',   tx=5.0,    ty=4.5,  tz=-12.4,  i=15000},
+						{name='NeonRight2',   tx=12.7,   ty=4.5,  tz=-5.2,   i=15000},
+						{name='NeonRight3',   tx=12.7,   ty=4.5,  tz=5.2,    i=15000},
+						{name='NeonRight4',   tx=5.0,    ty=4.5,  tz=12.4,   i=15000},
 						-- White Floor Lights - left side
-						{name='Floor0Left1',tx=-5.42, ty=1.97, tz=-13.06, i=4000},
-						{name='Floor0Left2',tx=-13.06, ty=1.97, tz=-5.42, i=4000},
-						{name='Floor0Left3',tx=-13.06, ty=1.97, tz=5.42, i=4000},
-						{name='Floor0Left4',tx=-5.42, ty=1.97, tz=13.06, i=4000},
+						{name='Floor0Left1',  tx=-5.42,  ty=1.97, tz=-13.06, i=4000},
+						{name='Floor0Left2',  tx=-13.06, ty=1.97, tz=-5.42,  i=4000},
+						{name='Floor0Left3',  tx=-13.06, ty=1.97, tz=5.42,   i=4000},
+						{name='Floor0Left4',  tx=-5.42,  ty=1.97, tz=13.06,  i=4000},
 						-- White Floor Lights - right side
-						{name='Floor0Right1',tx=5.42, ty=1.97, tz=-13.06, i=4000},
-						{name='Floor0Right2',tx=13.06, ty=1.97, tz=-5.42, i=4000},
-						{name='Floor0Right3',tx=13.06, ty=1.97, tz=5.42, i=4000},
-						{name='Floor0Right4',tx=5.42, ty=1.97, tz=13.06, i=4000},
+						{name='Floor0Right1', tx=5.42,   ty=1.97, tz=-13.06, i=4000},
+						{name='Floor0Right2', tx=13.06,  ty=1.97, tz=-5.42,  i=4000},
+						{name='Floor0Right3', tx=13.06,  ty=1.97, tz=5.42,   i=4000},
+						{name='Floor0Right4', tx=5.42,   ty=1.97, tz=13.06,  i=4000},
 						-- White Floor Lights - left side
-						{name='Floor1Left1',tx=-6.42, ty=5.97, tz=-15.5, i=4000},
-						{name='Floor1Left2',tx=-15.5, ty=5.97, tz=-6.42, i=4000},
-						{name='Floor1Left3',tx=-15.5, ty=5.97, tz=6.42, i=4000},
-						{name='Floor1Left4',tx=-6.42, ty=5.97, tz=15.5, i=4000},
+						{name='Floor1Left1',  tx=-6.42,  ty=5.97, tz=-15.5,  i=4000},
+						{name='Floor1Left2',  tx=-15.5,  ty=5.97, tz=-6.42,  i=4000},
+						{name='Floor1Left3',  tx=-15.5,  ty=5.97, tz=6.42,   i=4000},
+						{name='Floor1Left4',  tx=-6.42,  ty=5.97, tz=15.5,   i=4000},
 						-- White Floor Lights - right side
-						{name='Floor1Right1',tx=6.42, ty=5.97, tz=-15.5, i=4000},
-						{name='Floor1Right2',tx=15.5, ty=5.97, tz=-6.42, i=4000},
-						{name='Floor1Right3',tx=15.5, ty=5.97, tz=6.42, i=4000},
-						{name='Floor1Right4',tx=6.42, ty=5.97, tz=15.5, i=4000}
+						{name='Floor1Right1', tx=6.42,   ty=5.97, tz=-15.5,  i=4000},
+						{name='Floor1Right2', tx=15.5,   ty=5.97, tz=-6.42,  i=4000},
+						{name='Floor1Right3', tx=15.5,   ty=5.97, tz=6.42,   i=4000},
+						{name='Floor1Right4', tx=6.42,   ty=5.97, tz=15.5,   i=4000}
 					})
 				)
-			},
-			{-- gaps fixes
-				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml({
-					ScNode('1RefCubeFill01',	'REFERENCE', {
-						ScTransform({tx=11.847, ty=0.23, tz=-4.3, rx=0, ry=90, rz=90, sx=0.8, sy=1.2, sz=1.2}),
-						ScAttributes({
-							{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/CUBESOLID.SCENE.MBIN'}
-						})
-					}),
-					ScNode('1RefCubeFill02',	'REFERENCE', {
-						ScTransform({tx=3.81, ty=0.23, tz=-11.857, rx=0, ry=180, rz=90, sx=0.8, sy=1.2, sz=1.2}),
-						ScAttributes({
-							{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/CUBESOLID.SCENE.MBIN'}
-						})
-					}),
-					ScNode('1RefCubeFill03',	'REFERENCE', {
-						ScTransform({tx=-11.846, ty=0.23, tz=-4.2, rx=0, ry=90, rz=90, sx=0.8, sy=1.2, sz=1.2}),
-						ScAttributes({
-							{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/CUBESOLID.SCENE.MBIN'}
-						})
-					}),
-					ScNode('1RefCubeFill04',	'REFERENCE', {
-						ScTransform({tx=-3.8, ty=0.23, tz=-11.846, rx=0, ry=0, rz=90, sx=0.8, sy=1.2, sz=1.2}),
-						ScAttributes({
-							{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/CUBESOLID.SCENE.MBIN'}
-						})
-					}),
-				})
-			},
+			}
 		}
 	},
 	{--	activate |system scan from bridge| terminal
@@ -383,27 +394,26 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Base'},
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD 				= ToExml({
-					[1] = ScNode(
-						'SystemScanner', 'LOCATOR', {
-							ScTransform({ty=1.8, sx=0.2, sz=0.2}),
-							ScAttributes({
-								{'ATTACHMENT', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINAL.INTERACTION.ENTITY.MBIN'}
-							}),
-							ScChildren({
-								ScNode(
-									'SysScanCol', 'COLLISION', {
-										ScTransform(),
-										ScAttributes({
-											{'TYPE',	'Sphere'},
-											{'RADIUS',	1}
-										})
-									}
-								)
+				ADD 				= ToExml(
+					ScNode({
+						name	= 'SystemScanner',
+						stype	= 'LOCATOR',
+						form	= {ty=1.8, sx=0.2, sz=0.2},
+						attr	= {
+							{'ATTACHMENT', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINAL.INTERACTION.ENTITY.MBIN'}
+						},
+						child	= {
+							ScNode({
+								name	= 'SysScanCol',
+								stype	= 'COLLISION',
+								attr	= {
+									{'TYPE',	'Sphere'},
+									{'RADIUS',	1}
+								}
 							})
 						}
-					)
-				})
+					})
+				)
 			}
 		}
 	},
@@ -429,12 +439,43 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	remove |hangar teleporter monitor|
+	{--	add |hangar ship outfitting|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/TELEPORTER/TELEPORTER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RefWallMonitor'},
 				REMOVE				= 'Section'
+			},
+			{
+				PRECEDING_KEY_WORDS = 'Children',
+				ADD					= ToExml( ScNode({
+					name	= '1RefMonitorShip',
+					stype	= 'REFERENCE',
+					form	= {tx=2.55, ty=0.12, tz=5.4, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
+					attr	= {
+						{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'}
+					},
+					child	= {
+						ScNode({
+							name	= 'ColShipSalvage1',
+							stype	= 'COLLISION',
+							form	= {ty=-3},
+							attr	= {
+								{'TYPE',	'Sphere'},
+								{'RADIUS',	0.2}
+							},
+							child	= {
+								ScNode({
+									name	= 'LocShipSalvage1',
+									stype	= 'LOCATOR',
+									attr	= {
+										{'ATTACHMENT', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'}
+									}
+								})
+							}
+						})
+					}
+				}) )
 			}
 		}
 	},
@@ -561,38 +602,38 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			})
 		},
-		{--	hangar ship salvage terminal entity
-			FILE_DESTINATION = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/ENTITIES/SHIP_SALVAGE.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				META = {'template','TkAttachmentData'},
-				Components = {
-					META = {'name','Components'},
-					Simple	= {
-						META = {'value','GcSimpleInteractionComponentData.xml'},
-						Name = 'UI_SALVAGE_TITLE'
-					},
-					Interaction	= {
-						META = {'value','GcInteractionComponentData.xml'},
-						InteractionAction	= 'PressButton',
-						InteractionType		= {
-							META = {'InteractionType','GcInteractionType.xml'},
-							InteractionType	= 'StoryUtility'
-						},
-						AttractDistanceSq	= 3,
-						InteractAngle		= 360,
-						InteractDistance	= 3,
-						PuzzleMissionOverrideTable = {
-							META = {'name','PuzzleMissionOverrideTable'},
-							Puzzle	= {
-								META = {'value','GcAlienPuzzleMissionOverride.xml'},
-								Mission		= 'EXPLORE_LOG', -- must be a real mission id
-								Puzzle		= 'SHIP_SALVAGE'
-							}
-						}
-					},
-					value = 'TkPhysicsComponentData.xml'
-				}
-			})
-		}
+		-- {--	hangar ship salvage terminal entity
+			-- FILE_DESTINATION = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/ENTITIES/SHIP_SALVAGE.ENTITY.EXML',
+			-- FILE_CONTENT	 = FileWrapping({
+				-- META = {'template','TkAttachmentData'},
+				-- Components = {
+					-- META = {'name','Components'},
+					-- Simple	= {
+						-- META = {'value','GcSimpleInteractionComponentData.xml'},
+						-- Name = 'UI_SALVAGE_TITLE'
+					-- },
+					-- Interaction	= {
+						-- META = {'value','GcInteractionComponentData.xml'},
+						-- InteractionAction	= 'PressButton',
+						-- InteractionType		= {
+							-- META = {'InteractionType','GcInteractionType.xml'},
+							-- InteractionType	= 'StoryUtility'
+						-- },
+						-- AttractDistanceSq	= 3,
+						-- InteractAngle		= 360,
+						-- InteractDistance	= 3,
+						-- PuzzleMissionOverrideTable = {
+							-- META = {'name','PuzzleMissionOverrideTable'},
+							-- Puzzle	= {
+								-- META = {'value','GcAlienPuzzleMissionOverride.xml'},
+								-- Mission		= 'EXPLORE_LOG', -- must be a real mission id
+								-- Puzzle		= 'SHIP_SALVAGE'
+							-- }
+						-- }
+					-- },
+					-- value = 'TkPhysicsComponentData.xml'
+				-- }
+			-- })
+		-- }
 	}
 }

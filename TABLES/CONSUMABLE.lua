@@ -23,7 +23,7 @@ local consumable_items = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE CONSUMABLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 		{
@@ -43,18 +43,26 @@ ECT[#ECT+1] = {
 --	sievert beans (cooked gamma root)
 	SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_RADFARM'},
 	VALUE_CHANGE_TABLE 	= {
-		{'RewardID',				'TEST_REWARD_09'},
+		{'RewardID',				'TEST_09'},
 		{'CloseInventoryWhenUsed',	true}
 	}
 }
--- ECT[#ECT+1] = {
--- --	glass grains (cooked frost crystal)
-	-- SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_COLDFARM'},
-	-- VALUE_CHANGE_TABLE 	= {
-		-- {'RewardID',				'R_OPEN_TREE'},
-		-- {'CloseInventoryWhenUsed',	true}
-	-- }
--- }
+ECT[#ECT+1] = {
+--	heptaploid wheat - remove wanted
+	SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_ALL1'},
+	VALUE_CHANGE_TABLE 	= {
+		{'RewardID',				'R_CLEAR_WANTED'},
+		{'CloseInventoryWhenUsed',	true}
+	}
+}
+ECT[#ECT+1] = {
+--	glass grains (cooked frost crystal)
+	SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_COLDFARM'},
+	VALUE_CHANGE_TABLE 	= {
+		{'RewardID',				'R_OPEN_TREE_0'},
+		{'CloseInventoryWhenUsed',	true}
+	}
+}
 
 ECT[#ECT+1] = {
 	SPECIAL_KEY_WORDS	= {'ID', 'ALIEN_TECHBOX'},

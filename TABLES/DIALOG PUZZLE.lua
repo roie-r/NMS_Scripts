@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
-dofile('LIB/puzzle_entry.lua')
+dofile('LIB/_lua_2_exml.lua')
+-- dofile('LIB/puzzle_entry.lua')
 -----------------------------------------------------------------------------------------
 local mod_desc = [[
   Replace freighter battles reward for each race, requires(!) additions in rewards table
@@ -11,7 +11,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DIALOG PUZZLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

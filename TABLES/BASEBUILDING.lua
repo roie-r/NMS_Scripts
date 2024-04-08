@@ -1,15 +1,29 @@
 -------------------------------------------------------------------
 local mod_desc = [[
   Disable restrictions on collision, scaling, rotating & freighter
-  Add globe to planet tech
+  Add galaxy toy to portable tech
   Increase power generation and storage
   Portable exocraft summon garage
 ]]-----------------------------------------------------------------
 
-NMS_MOD_DEFINITION_CONTAINER = {
+local function AddPrx(prx, T)
+	for i=1, #T do T[i] = {prx, T[i]} end
+	return T
+end
+
+local function AddBuildGroup(group, subgroup)
+	return string.format([[
+	<Property value="GcBaseBuildingEntryGroup.xml">
+		<Property name="Group" value="%s"/>
+		<Property name="SubGroupName" value="%s"/>
+	</Property>]], group, subgroup)
+end
+
+NMS_MOD_DEFINITION_CONTAINER = { 
 	MOD_FILENAME		= '__TABLE BASEBUILDING.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -46,14 +60,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'BASE_TOYCORE'},
 				PRECEDING_KEY_WORDS = 'Groups',
-				ADD					= [[
-					<Property value="GcBaseBuildingEntryGroup.xml">
-						<Property name="Group" value="PLANET_TECH"/>
-						<Property name="SubGroupName" value="PLANETPORTABLE"/>
-					</Property>]]
+				ADD					= AddBuildGroup('PLANET_TECH', 'PLANETPORTABLE')
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'ID', 'S9_WEAPONTREE'},
+				SPECIAL_KEY_WORDS	= AddPrx('ID', {
+					'S9_WEAPONTREE',
+					'S9_SHIPTREE'
+				}),
 				VALUE_CHANGE_TABLE 	= {
 					{'CloseMenuAfterBuild',		true},
 					{'BuildableOnFreighter',	true},
@@ -61,21 +74,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {
-					{'ID', 'S9_WEAPONTREE'},
-					{'ID', 'NPCBUILDERTERM'},
-					{'ID', 'NPCFARMTERM'},
-					{'ID', 'NPCSCIENCETERM'},
-					{'ID', 'NPCVEHICLETERM'},
-					{'ID', 'NPCWEAPONTERM'},
-					{'ID', 'HOLO_DISCO_0'}
-				},
+				SPECIAL_KEY_WORDS	= AddPrx('ID', {
+					'S9_WEAPONTREE',
+					'S9_SHIPTREE',
+					'NPCBUILDERTERM',
+					'NPCFARMTERM',
+					'NPCSCIENCETERM',
+					'NPCVEHICLETERM',
+					'NPCWEAPONTERM',
+					'HOLO_DISCO_0'
+				}),
 				PRECEDING_KEY_WORDS = 'Groups',
-				ADD					= [[
-					<Property value="GcBaseBuildingEntryGroup.xml">
-						<Property name="Group" value="FREIGHTER_TECH"/>
-						<Property name="SubGroupName" value="FRE_TECH_OTHER"/>
-					</Property>]]
+				ADD					= AddBuildGroup('FREIGHTER_TECH', 'FRE_TECH_OTHER')
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'COOKER'},
@@ -99,12 +109,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS 	= {
-					{'ID', 'U_EXTRACTOR_S'},
-					{'ID', 'U_GASEXTRACTOR'},
-					{'ID', 'U_SOLAR_S'},
-					{'ID', 'U_SILO_S'},
-				},
+				SPECIAL_KEY_WORDS 	= AddPrx('ID', {
+					'U_EXTRACTOR_S',
+					'U_GASEXTRACTOR',
+					'U_SOLAR_S',
+					'U_SILO_S',
+				}),
 				VALUE_CHANGE_TABLE 	= {
 					{'Rate',		1.2},
 					{'Storage',		2}
@@ -117,19 +127,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'ID', 'BUILDLIGHT'},
-					{'ID', 'BUILDLIGHT2'},
-					{'ID', 'BUILDLIGHT3'},
-					{'ID', 'SUMMON_GARAGE'},
-					{'ID', 'HEATER'},
-					{'ID', 'BASE_TOYCUBE'},
-					{'ID', 'BASE_TOYSPHERE'},
-					{'ID', 'BASE_TOYJELLY'},
-					{'ID', 'BASE_TOYCORE'},
-					{'ID', 'S_WATERVALVE0'},
-					{'ID', 'S_SIGN_BAR0'}
-				},
+				SPECIAL_KEY_WORDS 	= AddPrx('ID', {
+					'BUILDLIGHT',
+					'BUILDLIGHT2',
+					'BUILDLIGHT3',
+					'SUMMON_GARAGE',
+					'HEATER',
+					'BASE_TOYCUBE',
+					'BASE_TOYSPHERE',
+					'BASE_TOYJELLY',
+					'BASE_TOYCORE',
+					'S_WATERVALVE0',
+					'S_SIGN_BAR0',
+				}),
 				VALUE_CHANGE_TABLE 	= {
 					{'BaseBuildingDecorationType', 'BuildingSurfaceNormal'}
 				}
@@ -147,54 +157,54 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'ID', 'BUILDSAVE'},
-					{'ID', 'COOKER'},
-					{'ID', 'PLANTERMEGA'},
-					{'ID', 'PLANTER'},
-					{'ID', 'NPCBUILDERTERM'},
-					{'ID', 'NPCVEHICLETERM'},
-					{'ID', 'NPCWEAPONTERM'},
-					{'ID', 'NPCFARMTERM'},
-					{'ID', 'NPCSCIENCETERM'},
-					{'ID', 'BUILDTERMINAL'},
-					{'ID', 'TELEPORTER'},
-					{'ID', 'DRESSING_TABLE'},
-					{'ID', 'BUILD_REFINER3'},
-					{'ID', 'BUILD_REFINER2'},
-					{'ID', 'BUILDANTIMATTER'},
-					{'ID', 'CYLINDERSHAPE'},
-					{'ID', 'CUBESHAPE'},
-					{'ID', 'CURVEPIPESHAPE'},
-					{'ID', 'PIPESHAPE'},
-					{'ID', 'PYRAMIDSHAPE'},
-					{'ID', 'SPHERESHAPE'},
-					{'ID', 'WEDGESHAPE'},
-					{'ID', 'WEDGESMALLSHAPE'},
-					{'ID', 'BASE_NEXUS1'},
-					{'ID', 'BASE_NEXUS2'},
-					{'ID', 'BASE_NEXUS3'},
-					{'ID', 'BLD_BUI_HAND'},
-					{'ID', 'BLD_BUI_HEAD'}
-				},
+				SPECIAL_KEY_WORDS 	= AddPrx('ID', {
+					'BUILDSAVE',
+					'COOKER',
+					'PLANTERMEGA',
+					'PLANTER',
+					'NPCBUILDERTERM',
+					'NPCVEHICLETERM',
+					'NPCWEAPONTERM',
+					'NPCFARMTERM',
+					'NPCSCIENCETERM',
+					'BUILDTERMINAL',
+					'TELEPORTER',
+					'DRESSING_TABLE',
+					'BUILD_REFINER3',
+					'BUILD_REFINER2',
+					'BUILDANTIMATTER',
+					'CYLINDERSHAPE',
+					'CUBESHAPE',
+					'CURVEPIPESHAPE',
+					'PIPESHAPE',
+					'PYRAMIDSHAPE',
+					'SPHERESHAPE',
+					'WEDGESHAPE',
+					'WEDGESMALLSHAPE',
+					'BASE_NEXUS1',
+					'BASE_NEXUS2',
+					'BASE_NEXUS3',
+					'BLD_BUI_HAND',
+					'BLD_BUI_HEAD'
+				}),
 				VALUE_CHANGE_TABLE 	= {
 					{'BuildableOnFreighter', true}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'ID', 'MAINROOM_WATER'},
-					{'ID', 'MAINROOMCUBE_W'},
-					{'ID', 'MOONPOOL'},
-					{'ID', 'BUILDDOOR_WATER'},
-					{'ID', 'CORRIDOR_WATER'},
-					{'ID', 'CORRIDORL_WATER'},
-					{'ID', 'CORRIDORT_WATER'},
-					{'ID', 'CORRIDORX_WATER'},
-					{'ID', 'CORRIDORV_WATER'},
-					{'ID', 'BASE_BARNACLE'},
-					{'ID', 'GARAGE_SUB'}
-				},
+				SPECIAL_KEY_WORDS 	= AddPrx('ID', {
+					'MAINROOM_WATER',
+					'MAINROOMCUBE_W',
+					'MOONPOOL',
+					'BUILDDOOR_WATER',
+					'CORRIDOR_WATER',
+					'CORRIDORL_WATER',
+					'CORRIDORT_WATER',
+					'CORRIDORX_WATER',
+					'CORRIDORV_WATER',
+					'BASE_BARNACLE',
+					'GARAGE_SUB'
+				}),
 				VALUE_CHANGE_TABLE 	= {
 					{'BuildableAboveWater', true}
 				}
@@ -204,6 +214,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/BASEBUILDINGPARTSTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
+			-- {
+			-- --	testing my mini portal!!
+				-- SPECIAL_KEY_WORDS	= {'ID', '_BASE_TOYCORE'},
+				-- PRECEDING_KEY_WORDS = 'Model',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Filename', 'MODELS/CUSTOM/PORTAL.SCENE.MBIN'}
+				-- }
+			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'ID', '_SUMMON_GARAGE'},
 				PRECEDING_KEY_WORDS = 'Model',

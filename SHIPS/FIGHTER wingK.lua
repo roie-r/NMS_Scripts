@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ----------------------------------------------------------------------------------
 local mod_desc = [[
   Fixes fighter's wingsK missing LOD sections and increases it to to 5 LOD stages
@@ -9,7 +9,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter wingK fixes.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -19,19 +19,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= (
 			function()
 				local attr = {
-					BATCHSTARTPHYSI	= {37668,			41736,			53247},
-					VERTRSTARTPHYSI	= {21866,			24590,			31380},
-					VERTRENDPHYSICS	= {24589,			29311,			33122},
-					BATCHCOUNT		= {4068,			7890,			2856},
-					VERTRENDGRAPHIC	= {2723,			4721,			1742},
-					BOUNDHULLST		= {212,				248,			328},
-					BOUNDHULLED		= {248,				292,			352},
-					AABBMINX		= {-2.891207,		-3.749691,		-3.733948},
-					AABBMINY		= {0.836564,		nil,			0.712383},
-					AABBMINZ		= {-1.380045,		-2.157869,		-2.149216},
-					AABBMAXX		= {nil,				3.749691,		3.733998},
-					AABBMAXY		= {1.77087,			nil,			1.885870},
-					AABBMAXZ		= {0.631633,		1.163431,		0.729330},
+					BATCHSTARTPHYSI	= {37668,			41736,			53247		},
+					VERTRSTARTPHYSI	= {21866,			24590,			31380		},
+					VERTRENDPHYSICS	= {24589,			29311,			33122		},
+					BATCHCOUNT		= {4068,			7890,			2856		},
+					VERTRENDGRAPHIC	= {2723,			4721,			1742		},
+					BOUNDHULLST		= {212,				248,			328			},
+					BOUNDHULLED		= {248,				292,			352			},
+					AABBMINX		= {-2.891207,		-3.749691,		-3.733948	},
+					AABBMINY		= {0.836564,		nil,			0.712383	},
+					AABBMINZ		= {-1.380045,		-2.157869,		-2.149216	},
+					AABBMAXX		= {nil,				3.749691,		3.733998	},
+					AABBMAXY		= {1.77087,			nil,			1.885870	},
+					AABBMAXZ		= {0.631633,		1.163431,		0.729330	},
 					MESHLINK		= {'WingsK_ALODShape1', 'WingsK_ALODShape1', 'WingsK_ALODShape1'}
 				}
 				local T = {}

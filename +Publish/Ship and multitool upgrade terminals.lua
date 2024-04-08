@@ -77,7 +77,7 @@ end
 --	@param data: a lua2exml formatted table
 --	@param template: an nms file template string
 function FileWrapping(data, template)
-	local wrapper = [[<?xml version="1.0" encoding="utf-8"?><Data template="%s">%s</Data>]]
+	local wrapper = '<Data template="%s">%s</Data>'
 	if type(data) == 'string' then
 		return string.format(wrapper, template, data)
 	end
@@ -160,7 +160,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.ship and multitool upgrade terminals.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{

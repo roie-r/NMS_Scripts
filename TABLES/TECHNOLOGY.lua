@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 -------------------------------------------------------------------------------
 local mod_desc = [[
@@ -115,7 +115,7 @@ function add_edit_stats:GetExmlCT(T)
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
 					{'Bonus', '@'..tch.op..tch.bn},
-					{'Level', tch.lv or 'Ignore'}
+					{'Level', tch.lv or 'IGNORE'}
 				}
 			}
 			--- replace ---
@@ -154,6 +154,7 @@ local charge_amount = {
 	{'F_MEGAWARP',		10},
 	{'LASER',			2},
 	{'SENT_LASER',		2},
+	{'ATLAS_LASER',		2},
 	{'TERRAINEDITOR',	3},
 	{'RAILGUN',			4},
 	{'GRENADE',			1.5},
@@ -187,14 +188,6 @@ end
 
 local include_in_category = {
 	{'SHIP_TELEPORT',	'AllShipsExceptAlien',	'AllShips'},
-	{'SHIPROCKETS',		'AllShipsExceptAlien',	'AllShips'},
-	{'UT_ROCKETS',		'AllShipsExceptAlien',	'AllShips'},
-	{'SHIPMINIGUN',		'AllShipsExceptAlien',	'AllShips'},
-	{'UT_SHIPMINI',		'AllShipsExceptAlien',	'AllShips'},
-	{'SHIPPLASMA',		'AllShipsExceptAlien',	'AllShips'},
-	{'UT_SHIPBLOB',		'AllShipsExceptAlien',	'AllShips'},
-	{'SHIPSHOTGUN',		'AllShipsExceptAlien',	'AllShips'},
-	{'UT_SHIPSHOT',		'AllShipsExceptAlien',	'AllShips'},
 	{'VEHICLE_SCAN1',	'Exocraft',				'AllVehicles'},
 	{'VEHICLE_SCAN2',	'Exocraft',				'AllVehicles'},
 	{'MECH_PROT',		'Mech',					'AllVehicles'}
@@ -519,40 +512,45 @@ for _,tm in ipairs({
 	tm:GetExmlCT(ECT)
 end
 
+local function AddPrx(prx, T)
+	for i=1, #T do T[i] = {prx, T[i]} end
+	return T
+end
+
 ECT[#ECT+1] = {
-	SPECIAL_KEY_WORDS 	= {
-		{'ID',	'PROTECT'},
-		{'ID',	'ENERGY'},
-		{'ID',	'JET1'},
-		{'ID',	'SHIPJUMP1'},
-		{'ID',	'LAUNCHER'},
-		{'ID',	'HYPERDRIVE'},
-		{'ID',	'SHIPSHIELD'},
-		{'ID',	'LASER'},
-		{'ID',	'VEHICLE_ENGINE'},
-		{'ID',	'SUB_ENGINE'},
-		{'ID',	'SHIPJUMP_ALIEN'},
-		{'ID',	'LAUNCHER_ALIEN'},
-		{'ID',	'WARP_ALIEN'},
-		{'ID',	'SHIELD_ALIEN'},
-		{'ID',	'SHIPGUN_ALIEN'},
-		{'ID',	'SHIPLAS_ALIEN'},
-		{'ID',	'LAUNCHER_SPEC'},
-		{'ID',	'SHIPJUMP_SPEC'},
-		{'ID',	'HYPERDRIVE_SPEC'},
-		{'ID',	'SHIP_LIFESUP'},
-		{'ID',	'MECH_ENGINE'},
-		{'ID',	'SOLAR_SAIL'},
-		{'ID',	'LAUNCHER_ROBO'},
-		{'ID',	'SHIPJUMP_ROBO'},
-		{'ID',	'HYPERDRIVE_ROBO'},
-		{'ID',	'SHIPSHIELD_ROBO'},
-		{'ID',	'LIFESUP_ROBO'},
-		{'ID',	'SENT_LASER'},
-		{'ID',	'ATLAS_LASER'},
-		{'ID',	'F_HYPERDRIVE'},
-		{'ID',	'F_LIFESUPP'}
-	},
+	SPECIAL_KEY_WORDS 	= AddPrx('ID', {
+		'PROTECT',
+		'ENERGY',
+		'JET1',
+		'SHIPJUMP1',
+		'LAUNCHER',
+		'HYPERDRIVE',
+		'SHIPSHIELD',
+		'LASER',
+		'VEHICLE_ENGINE',
+		'SUB_ENGINE',
+		'SHIPJUMP_ALIEN',
+		'LAUNCHER_ALIEN',
+		'WARP_ALIEN',
+		'SHIELD_ALIEN',
+		'SHIPGUN_ALIEN',
+		'SHIPLAS_ALIEN',
+		'LAUNCHER_SPEC',
+		'SHIPJUMP_SPEC',
+		'HYPERDRIVE_SPEC',
+		'SHIP_LIFESUP',
+		'MECH_ENGINE',
+		'SOLAR_SAIL',
+		'LAUNCHER_ROBO',
+		'SHIPJUMP_ROBO',
+		'HYPERDRIVE_ROBO',
+		'SHIPSHIELD_ROBO',
+		'LIFESUP_ROBO',
+		'SENT_LASER',
+		'ATLAS_LASER',
+		'F_HYPERDRIVE',
+		'F_LIFESUPP',
+	}),
 	VALUE_CHANGE_TABLE 	= {
 		{'Core',		false}
 	}
@@ -586,9 +584,67 @@ ECT[#ECT+1] = {
 			},
 			basestat		= 'Vehicle_StunGun',
 			statbonuses		= {
-				{st='Vehicle_GunDamage',			bn=20,	lv=3},
-				{st='Vehicle_GunHeatTime',			bn=1,	lv=1},
-				{st='Vehicle_GunRate',				bn=0.5,	lv=1}
+				{st='Vehicle_GunDamage',					bn=20,	lv=3},
+				{st='Vehicle_GunHeatTime',					bn=1,	lv=1},
+				{st='Vehicle_GunRate',						bn=0.5,	lv=1}
+			}
+		}),
+		TechnologyEntry({-- bioship rocket launcher
+			id				= 'ROCEKT_ALIEN',
+			name			= 'ROCEKT_ALIEN_NAME',
+			namelower		= 'ROCEKT_ALIEN_NAME_L',
+			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
+			description		= 'ROCEKT_ALIEN_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/BIOTECH.ROCKET0.DDS',
+			color			= 'FF0A2E42',
+			primaryitem		= true,
+			category		= 'AlienShip',
+			rarity			= 'Impossible',
+			value			= 8,
+			fragmentcost	= 350,
+			requirements	= {
+				{id='ALIEN_TECHBOX',	n=1,	tp=IT_.PRD},
+				{id='AF_METAL',			n=120,	tp=IT_.SBT},
+				{id='SPACEGUNK2',		n=200,	tp=IT_.SBT}
+			},
+			basestat		= 'Ship_Weapons_Rockets',
+			statbonuses		= {			
+				{st='Ship_Weapons_Guns_Rate',				bn=0.5,		lv=1},
+				{st='Ship_Weapons_Guns_Dispersion',			bn=0,		lv=1},
+				{st='Ship_Weapons_Guns_BulletsPerShot',		bn=1,		lv=1},
+				{st='Ship_Weapons_Guns_HeatTime',			bn=1,		lv=1},
+				{st='Ship_Weapons_Guns_Damage',				bn=8500,	lv=1},
+				{st='Ship_Weapons_Guns_Range',				bn=5000,	lv=1},
+				{st='Ship_Weapons_Guns_Scale',				bn=2.5,		lv=1},
+				{st='Ship_Weapons_Guns_CoolTime',			bn=8,		lv=1},
+				{st='Ship_Weapons_Guns_Damage_Radius',		bn=15,		lv=1}
+			},
+			focuslocator	= 'SHOOT'
+		}),
+		TechnologyEntry({-- bioship rocket launcher
+			id				= 'ROCEKT_U_ALIEN',
+			name			= 'ROCEKT_U_ALIEN_NAME',
+			namelower		= 'ROCEKT_U_ALIEN_NAME_L',
+			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
+			description		= 'ROCEKT_U_ALIEN_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/BIOTECH.ROCKET1.DDS',
+			color			= 'FF0A2E42',
+			upgrade			= true,
+			category		= 'AlienShip',
+			rarity			= 'Impossible',
+			value			= 8,
+			fragmentcost	= 550,
+			requirements	= {
+				{id='ALIEN_TECHBOX',	n=1,	tp=IT_.PRD},
+				{id='AF_METAL',			n=120,	tp=IT_.SBT},
+				{id='SPACEGUNK2',		n=200,	tp=IT_.SBT}
+			},
+			basestat		= 'Ship_Weapons_Rockets',
+			statbonuses		= {			
+				{st='Ship_Weapons_Guns_CoolTime',			bn=0.8,		lv=3},			
+				{st='Ship_Weapons_Guns_HeatTime',			bn=1.2,		lv=1},
+				{st='Ship_Weapons_Guns_Range',				bn=1.1,		lv=1},
+				{st='Ship_Weapons_Guns_Damage',				bn=3200,	lv=1}
 			}
 		}),
 		TechnologyEntry({-- bioship pulse engine upgrade
@@ -605,8 +661,8 @@ ECT[#ECT+1] = {
 			value			= 7,
 			fragmentcost	= 520,
 			requirements	= {
-				{id='ALIEN_TECHBOX',	n=2,	tp=IT_.PRD},
-				{id='MIRROR',			n=3,	tp=IT_.PRD},
+				{id='ALIEN_TECHBOX',	n=1,	tp=IT_.PRD},
+				{id='MIRROR',			n=2,	tp=IT_.PRD},
 				{id='LAUNCHSUB2',		n=120,	tp=IT_.SBT}
 			},
 			basestat		= 'Ship_PulseDrive',
@@ -639,7 +695,7 @@ ECT[#ECT+1] = {
 			},
 			basestat		= 'Ship_Armour_Shield',
 			statbonuses		= {
-				{st='Ship_Armour_Shield_Strength',	bn=0.06, lv=3}
+				{st='Ship_Armour_Shield_Strength',			bn=0.06, lv=3}
 			}
 		})
 	})
@@ -648,8 +704,9 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

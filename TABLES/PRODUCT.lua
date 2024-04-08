@@ -1,42 +1,43 @@
 ----------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/table_entry.lua')
 ----------------------------------------
 local mod_desc = [[
   Increase stack sizes
   Custom icons & icon background color
   Add and edit crafting requirements
+  Reduce ship parts prices
   Add new products
 ]]--------------------------------------
 
 local stack_mult = {
-	{'CRAFTPROD_SUB', 				'* 4'},
-	{'FOOD_INGREDIENT_SUB', 		'* 4'},
-	{'FOOD_COOKED_SUB',				'* 4'},
-	{'LAUNCHFUEL_SUB',				'* 5'},
-	{'BP_SALVAGE_SUB',				'* 6'},
-	{'UI_SALVAGE_TECH_SUB',			'* 8'},
-	{'SUB_DEADDRONE_SUBTITLE',		'+ 2'},
-	{'UI_SHIP_BRAIN_CLEAN_SUB',		'+ 2'},
-	{'UI_SENTINEL_LOOT_SUB',		'* 8'},
-	{'UI_REPAIR_KIT_SUB',			'* 2'},
-	{'UI_STORMCRYSTAL_SUB',			'* 2'},
-	{'UI_ALLOY_COMPLEX_SUBTITLE',	'* 2'},
-	{'UI_REACTION_SUBTITLE',		'* 2'},
-	{'UI_MEGAPROD_SUBTITLE',		'* 2'},
-	{'UI_ULTRAPROD_SUBTITLE',		'* 8'},
-	{'BLD_GLITCHPROP_SUBTITLE',		'* 2'},
-	{'UI_DRONE_SHARD_SUB',			'* 12'},
-	{'UI_STAFF_PART_SUB',			'+ 1'}
+	{id='CRAFTPROD_SUB', 				op='*',	sm=4},
+	{id='FOOD_INGREDIENT_SUB', 			op='*',	sm=4},
+	{id='FOOD_COOKED_SUB',				op='*',	sm=4},
+	{id='LAUNCHFUEL_SUB',				op='*',	sm=5},
+	{id='BP_SALVAGE_SUB',				op='*',	sm=6},
+	{id='UI_SALVAGE_TECH_SUB',			op='*',	sm=8},
+	{id='SUB_DEADDRONE_SUBTITLE',		op='+',	sm=2},
+	{id='UI_SHIP_BRAIN_CLEAN_SUB',		op='+',	sm=2},
+	{id='UI_SENTINEL_LOOT_SUB',			op='*',	sm=8},
+	{id='UI_REPAIR_KIT_SUB',			op='*',	sm=2},
+	{id='UI_STORMCRYSTAL_SUB',			op='*',	sm=2},
+	{id='UI_ALLOY_COMPLEX_SUBTITLE',	op='*',	sm=2},
+	{id='UI_REACTION_SUBTITLE',			op='*',	sm=2},
+	{id='UI_MEGAPROD_SUBTITLE',			op='*',	sm=2},
+	{id='UI_ULTRAPROD_SUBTITLE',		op='*',	sm=8},
+	{id='BLD_GLITCHPROP_SUBTITLE',		op='*',	sm=2},
+	{id='UI_DRONE_SHARD_SUB',			op='*',	sm=12},
+	{id='UI_STAFF_PART_SUB',			op='+',	sm=1}
 }
 function stack_mult:GetExmlCT()
 	local T = {}
 	for _,prd in ipairs(self) do
 		T[#T+1] = {
 			REPLACE_TYPE 		= 'All',
-			SPECIAL_KEY_WORDS	= {'Value', prd[1]},
+			SPECIAL_KEY_WORDS	= {'Value', prd.id},
 			SECTION_UP			= 1,
-			VALUE_CHANGE_TABLE 	= { {'StackMultiplier', '@ '..prd[2]} }
+			VALUE_CHANGE_TABLE 	= { {'StackMultiplier', '@'..prd.op..prd.sm} }
 		}
 	end
 	return T
@@ -93,6 +94,10 @@ local icon_bg_color = {
 	{'UI_REACTION_SUBTITLE',		'FFDBA82E'}, -- Enhanced Gas Product
 	{'UI_COMPOUND_SUBTITLE',		'FFDBA82E'}, -- Manufactured Gas Product
 	{'UI_NAV_DATA_NAME',			'FF1A2733'}, -- navigation data
+	{'UI_SHIP_CORE_C_NAME',			'FF48A1B0'}, -- ship core
+	{'UI_SHIP_CORE_B_NAME',			'FF48A1B0'}, -- ship core
+	{'UI_SHIP_CORE_A_NAME',			'FF48A1B0'}, -- ship core
+	{'UI_SHIP_CORE_S_NAME',			'FF48A1B0'}, -- ship core
 }
 function icon_bg_color:GetExmlCT()
 	local function IsSingle(x, a, b)
@@ -117,7 +122,7 @@ local prod_requirements = {
 		subs = true,
 		req	 = {
 			{id='ANTIMATTER', 	n=1,	tp=IT_.PRD},	-- antimatter
-			{id='LAND1',	 	n=50,	tp=IT_.SBT},	-- ferrite
+			{id='CASING', 		n=1,	tp=IT_.PRD},	-- plating
 		}
 	},
 	{--	cargo_bulkhead
@@ -135,7 +140,7 @@ local prod_requirements = {
 			{id='MICROCHIP',	n=3,	tp=IT_.PRD},	-- microprocessor
 			{id='YELLOW2', 		n=80,	tp=IT_.SBT},	-- copper
 			{id='ASTEROID1',	n=40,	tp=IT_.SBT}		-- silver
-		}		
+		}
 	},
 	{--	anomaly detector
 		id   = 'POI_LOCATOR',
@@ -143,7 +148,7 @@ local prod_requirements = {
 			{id='GEODE_SPACE',	n=1,	tp=IT_.PRD},	-- tritium hypercluster
 			{id='ASTEROID1', 	n=20,	tp=IT_.SBT},	-- silver
 			{id='ASTEROID2', 	n=20,	tp=IT_.SBT}		-- gold
-		}		
+		}
 	},
 	{--	dream aerial
 		id   = 'WHALE_BEACON',
@@ -152,7 +157,7 @@ local prod_requirements = {
 			{id='GEODE_SPACE',	n=1,	tp=IT_.PRD},	-- tritium hypercluster
 			{id='POI_LOCATOR',	n=1,	tp=IT_.PRD},	-- anomaly detector
 			{id='FARMPROD8', 	n=1,	tp=IT_.PRD}		-- living glass
-		}		
+		}
 	},
 	{--	desk chair
 		id   = 'BUILDCHAIR',
@@ -160,7 +165,7 @@ local prod_requirements = {
 		req	 = {
 			{id='CASING', 		n=1,	tp=IT_.PRD},	-- metal plating
 			{id='FUEL2', 		n=20,	tp=IT_.SBT}		-- c carbon
-		}		
+		}
 	},
 	{--	armchair
 		id   = 'BUILDCHAIR2',
@@ -168,7 +173,7 @@ local prod_requirements = {
 		req	 = {
 			{id='CASING', 		n=1,	tp=IT_.PRD},
 			{id='FUEL2', 		n=20,	tp=IT_.SBT}
-		}		
+		}
 	},
 	{--	adjustable chair
 		id   = 'BUILDCHAIR3',
@@ -176,7 +181,7 @@ local prod_requirements = {
 		req	 = {
 			{id='CASING', 		n=1,	tp=IT_.PRD},
 			{id='FUEL2', 		n=20,	tp=IT_.SBT}
-		}		
+		}
 	},
 	{--	classic chair
 		id   = 'BUILDCHAIR4',
@@ -184,14 +189,14 @@ local prod_requirements = {
 		req	 = {
 			{id='CASING', 		n=1,	tp=IT_.PRD},
 			{id='FUEL2', 		n=20,	tp=IT_.SBT}
-		}		
+		}
 	},
 	{--	Echo Locator (builder site)
 		id   = 'CHART_BUILDER',
 		req	 = {
 			{id='CHART_SETTLE',	n=1,	tp=IT_.PRD},
 			{id='ROBOT2', 		n=20,	tp=IT_.SBT}
-		}		
+		}
 	}
 }
 function prod_requirements:GetExmlCT()
@@ -254,6 +259,20 @@ ECT[#ECT+1] = {
 	VALUE_CHANGE_TABLE 	= {
 		{'Name',		'UI_GEODE_NAME_CAVE'},
 		{'NameLower',	'UI_GEODE_NAME_CAVE_L'}
+	}
+}
+ECT[#ECT+1] = {
+--  reduce ship parts price
+	REPLACE_TYPE		= 'All',
+	SPECIAL_KEY_WORDS	= {
+		{'Ignore', 'UI_DROPSHIP_PART_SUB'},
+		{'Ignore', 'UI_FIGHTER_PART_SUB'},
+		{'Ignore', 'UI_SCIENTIFIC_PART_SUB'}
+	},
+	SECTION_UP			= 1,
+	INTEGER_TO_FLOAT	= 'Preserve',
+	VALUE_CHANGE_TABLE	= {
+		{'BaseValue',  '@ * 0.01'}
 	}
 }
 ECT[#ECT+1] = {
@@ -326,7 +345,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

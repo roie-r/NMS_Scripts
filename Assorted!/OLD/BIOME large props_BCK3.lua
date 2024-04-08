@@ -1,4 +1,6 @@
 --------------------------------------------------------------------------------
+-- EXCLUDED FROM BATCH
+--------------------------------------------------------------------------------
 dofile('LIB/exml_2_lua.lua')
 --------------------------------------------------------------------------------
 local mod_desc = [[
@@ -36,6 +38,7 @@ local obj_spawn_data = {
 		n = 'MinScale',
 		x = 'MaxScale',
 		c = 'Coverage',
+		r = 'MaxRegionRadius',
 		w = 'ShearWindStrength'
 	}
 }
@@ -84,7 +87,7 @@ local scale_tags = {
 		{
 			tag   = 'FROZEN',
 			flora = {-- applied to all FROZEN sources
-				TREE 		= {n=1.15,	x=2.45,	c=0.85}
+				TREE 		= {n=1.15,	x=2.45,	c=0.8}
 			}
 		},
 		{
@@ -179,7 +182,7 @@ local scale_tags = {
 		CURVED		= {x=1.5},
 		DROPLET		= {n=1.05,	x=1.55},
 		SPORE		= {x=1.2},
-		LARGE		= {n=1.2,	x=1.6,	c=0.94},
+		LARGE		= {n=1.2,	x=1.6,	c=0.92},
 		MEDIUM		= {n=1.05,	x=0.95},
 		SMALL		= {n=0.95,	x=0.8},
 		FIENDEGG	= {c=0.4},
@@ -308,6 +311,7 @@ local solar_biomes = {
 ---------------------------------------------------------------------------
 ---- CODING
 ---------------------------------------------------------------------------
+
 local function GetBiomeFlora(biome)
 	local gc_spawn_file	= LoadRuntimeMbin(biome)
 	local gc_objs		= gc_spawn_file.template.Objects
@@ -316,18 +320,31 @@ local function GetBiomeFlora(biome)
 	for key, objs in pairs(gc_objs) do
 		if key ~= 'SelectableObjects' and key ~= 'META' then
 			for _, spn in ipairs(objs) do
-				flora[spn.Resource.Filename] = 0
-				-- if spn.QualityVariants then
-					-- c = spn.QualityVariants[#spn.QualityVariants].Coverage
-				-- else
-					-- c = spn.QualityVariantData.Coverage
-				-- end
-				-- flora[spn.Resource.Filename] = {
-					-- n	= spn.MinScale,
-					-- x	= spn.MaxScale,
-					-- w	= spn.ShearWindStrength,
-					-- c	= c
-				-- }
+				if spn.QualityVariants then
+				--	pull highest quality
+					c = spn.QualityVariants[#spn.QualityVariants].Coverage
+					r = spn.QualityVariants[#spn.QualityVariants].MaxRegionRadius
+				else
+					c = spn.QualityVariantData.Coverage
+					r = spn.QualityVariantData.MaxRegionRadius
+				end
+				local prp = {
+					n = tonumber(spn.MinScale),
+					x = tonumber(spn.MaxScale),
+					w = tonumber(spn.ShearWindStrength),
+					c = tonumber(c),
+					r = tonumber(r)
+				}				
+				if flora[spn.Resource.Filename] then
+				--	keep highest values
+					local T = flora[spn.Resource.Filename]
+					prp.n = T.n > prp.n and T.n or prp.n
+					prp.x = T.x > prp.x and T.x or prp.x
+					prp.w = T.w > prp.w and T.w or prp.w
+					prp.c = T.c > prp.c and T.c or prp.c
+					prp.r = T.r > prp.r and T.r or prp.r
+				end
+				flora[spn.Resource.Filename] = prp
 			end
 		end
 	end
@@ -423,26 +440,43 @@ local function SetTheScales()
 	for mbin_fs, flora in pairs(solar_biomes) do
 		local exml_ct = {}
 		local worktags = MergeTables( {scale_tags.globals, GetBiomeScales(mbin_fs)} )
-		-- use the flora properties (t_props) if I ever figure what to do with them
-		for mbin,_ in pairs(flora) do
+		for mbin, prop in pairs(flora) do
 			local vct = {}
 			AverageScales(mbin, worktags)
 			for k, property in pairs(obj_spawn_data.props) do
-				if obj_spawn_data.mods[k].v ~= 1 then
-					vct[#vct+1] = {property, obj_spawn_data.mods[k].v}
+				if property ~= obj_spawn_data.props.r then
+					if obj_spawn_data.mods[k].v ~= 1 then
+						vct[#vct+1] = {property, prop[k] * obj_spawn_data.mods[k].v}
+					end
+				else
+				--	MaxRegionRadius gets its own treatment
+					vct[#vct+1] = {property, (prop[k] + 5) % 12}
 				end
 			end
 			if #vct > 0 then
 				exml_ct[#exml_ct+1] = {
 					REPLACE_TYPE 		= 'All',
-					INTEGER_TO_FLOAT	= 'Force',
-					MATH_OPERATION 		= '*',
 					SPECIAL_KEY_WORDS	= {'Filename', mbin},
 					SECTION_UP			= 1,
 					VALUE_CHANGE_TABLE 	= vct
 				}
 			end
 		end
+		--------------------------------------------
+		--	Increase spawn LOD (unrelated to scales)
+		exml_ct[#exml_ct+1] = {
+			REPLACE_TYPE 		= 'All',
+			PRECEDING_KEY_WORDS = 'LodDistances',
+			MATH_OPERATION 		= '+',
+			VALUE_CHANGE_TABLE 	= {
+				{'Ignore',		0},
+				{'Ignore',		40},
+				{'Ignore',		60},
+				{'Ignore',		80},
+				{'Ignore',		180}
+			}
+		}
+		--------------------------------------------
 		mbin_ct[#mbin_ct+1] = {
 			MBIN_FILE_SOURCE	= mbin_fs,
 			EXML_CHANGE_TABLE	= exml_ct
@@ -452,12 +486,13 @@ local function SetTheScales()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_META large props.pak',
-	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
-	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'UNDEFINED_VARIABLE,UNUSED_VARIABLE',
-	MODIFICATIONS 		= {{
+	MOD_FILENAME 			= '_META large props.pak',
+	MOD_AUTHOR				= 'lMonk',
+	NMS_VERSION				= '4.64',
+	MOD_DESCRIPTION			= mod_desc,
+	GLOBAL_INTEGER_TO_FLOAT = 'Force',
+	AMUMSS_SUPPRESS_MSG		= 'UNDEFINED_VARIABLE,UNUSED_VARIABLE',
+	MODIFICATIONS 			= {{
 		MBIN_CHANGE_TABLE	= SetTheScales()
 	}}
 }

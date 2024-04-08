@@ -6,7 +6,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Sentinel Tool Procedural Color.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -37,8 +37,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	ADD_FILES	= {
 		{
 			FILE_DESTINATION = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/PLASTICGRAIN.TEXTURE.EXML',
-			FILE_CONTENT	 = [[<?xml version="1.0" encoding="utf-8"?>
-				<Data template="TkProceduralTextureList">
+			FILE_CONTENT	 = [[<Data template="TkProceduralTextureList">
 					<Property name="Layers">
 						<Property value="TkProceduralTextureLayer.xml">
 							<Property name="Name" value="BASE"/>

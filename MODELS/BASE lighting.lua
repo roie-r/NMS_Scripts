@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------
 local mod_desc = [[
@@ -11,7 +11,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL base lighting.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -21,13 +21,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'HangingLampLOD0'},
 				PRECEDING_KEY_WORDS = 'Children',
-				REMOVE				= 'Line'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'HangingLampLOD0'},
-				ADD					= ToExml(
-					ScChildren({ ScLight({name='lamp000', i=26000, ty=12, c='FFFAE6BF'}) })
-				)
+				CREATE_HOS			= true,
+				ADD					= ToExml({ ScLight({name='lamp000', i=26000, ty=12, c='FFFAE6BF'}) })
 			}
 		}
 	},

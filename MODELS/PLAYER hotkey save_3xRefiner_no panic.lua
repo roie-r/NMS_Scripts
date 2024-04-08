@@ -1,5 +1,5 @@
 ----------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ----------------------------------------------
 local mod_desc = [[
   Add hotkey saving (quick action emote menu)
@@ -83,7 +83,7 @@ local save_trigger_components = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -145,10 +145,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SECTION_EDIT 		= 'gc_player_emote',
 				VALUE_CHANGE_TABLE 	= {
 					{'Title',					'Save'},
+					{'ChatText',				''},
+					{'ChatUsesPrefix',			false},
 					{'EmoteID',					'SAVEGAME'},
 					{'AnimationName',			'SAVEGAME'},
 					{'RidingAnimationName',		'SAVEGAME'},
 					{'Filename',				'TEXTURES/UI/HUD/ICONS/PLAYER/SAVE.DDS'},
+					{'CloseMenuOnSelect',		true},
 					{'AvailableUnderwater',		false}
 				}
 			},

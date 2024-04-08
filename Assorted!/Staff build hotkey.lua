@@ -1,5 +1,5 @@
 ---------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 ---------------------------------------------------
 local mod_desc = [[
   open staff build page from the quickmenu
@@ -9,7 +9,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__Open Staff build page hotkey.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '4.50',
+	NMS_VERSION			= '4.64',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

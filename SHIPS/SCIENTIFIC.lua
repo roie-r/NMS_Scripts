@@ -1,5 +1,5 @@
 ---------------------------------------------------
-dofile('LIB/lua_2_exml.lua')
+dofile('LIB/_lua_2_exml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------
 local mod_desc = [[
@@ -13,7 +13,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP scientific.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.50',
+	NMS_VERSION				= '4.64',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -24,10 +24,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'WingALeft'},
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD					= ToExml( ScNode(
-					'Trail', 'LOCATOR',
-					{ScTransform({8.55, 0, -0.458, 0, 180})}
-				) )
+				ADD					= ToExml(
+					ScNode({ name='Trail', stype='LOCATOR', form={8.55, 0, -0.458, 0, 180} })
+				)
 			}
 		}
 	},
@@ -37,14 +36,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'WingALeft'},
 				PRECEDING_KEY_WORDS	= 'Children',
-				ADD					= ToExml( ScNode(
-					'Trail', 'LOCATOR',
-					{ScTransform({-8.55, 0, -0.4, 0, 180})}
-				) )
+				ADD					= ToExml(
+					ScNode({ name='Trail', stype='LOCATOR', form={-8.55, 0, -0.4, 0, 180} })
+				)
 			}
 		}
 	},
-	{--	|Scientific cockpitD re-align trails|
+	{--	|Scientific cockpitD re-alignments|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITD/COCKPITD.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -89,7 +87,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|Scientific cockpitA re-center trails|
+	{--	|Scientific cockpitA alignments|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SCIENTIFIC/COCKPIT/COCKPITA/COCKPITA.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -140,9 +138,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- {
 				-- SPECIAL_KEY_WORDS	= {'Name', 'Cockpit_AData'},
 				-- PRECEDING_KEY_WORDS	= 'Children',
-				-- ADD					= ToExml( ScNode(
-					-- 'Trailm', 'LOCATOR',
-					-- {ScTransform({ty=3.3, tz=-5.4, ry=180})}
+				-- ADD					= ToExml( ScNode({
+					-- name='Trailm', stype='LOCATOR',
+					-- form={ty=3.3, tz=-5.4, ry=180} }
 				-- ) )
 			-- }
 		}
