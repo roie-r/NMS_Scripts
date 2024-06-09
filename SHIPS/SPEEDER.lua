@@ -1,5 +1,3 @@
---------------------------------------------------------------------------
--- EXCLUDED FROM BATCH
 ------------------------------------------------------------------------------------
 dofile('LIB/_lua_2_exml.lua')
 ------------------------------------------------------------------------------------
@@ -10,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP speeder.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -46,21 +44,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'Attributes',
 				SECTION_ACTIVE		= -1,
 				ADD 				= ToExml({
-					META	= {'value', 'TkSceneNodeAttributeData.xml'},
+					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
 					Name	= 'ATTACHMENT',
 					Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
 				})
 			}
 		}
 	},
-	{
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/VRSPEEDER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/LIGHTDETAILBLUE.DDS'}
-				}
-			}
-		}
-	}
+	-- {
+		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/VRSPEEDER.SCENE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/LIGHTDETAILBLUE.DDS'}
+				-- }
+			-- }
+		-- }
+	-- }
 }}}}

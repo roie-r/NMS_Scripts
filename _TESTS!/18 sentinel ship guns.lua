@@ -5,7 +5,7 @@ dofile('LIB/_lua_2_exml.lua')
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '___TEST 08 sentinel ship guns.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {

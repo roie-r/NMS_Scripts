@@ -127,9 +127,9 @@ function add_edit_stats:GetExmlCT()
 			--- add new ---
 			T[#T+1] = {
 				ADD = ToExml({
-					META	= {'value', 'GcStatsBonus.xml'},
+					meta	= {'value', 'GcStatsBonus.xml'},
 					Stat	= {
-						META		= {'Stat', 'GcStatsTypes.xml'},
+						meta		= {'Stat', 'GcStatsTypes.xml'},
 						StatsType	= x.st
 					},
 					Bonus	= x.bn,
@@ -393,10 +393,10 @@ function charge_to_top:GetExmlCT()
 				PRECEDING_KEY_WORDS = 'ChargeBy',
 				REMOVE				= x.new and 'Line' or 'Section'
 			}
-			local tmp = {META = {'name', 'ChargeBy'}}
+			local tmp = {meta = {'name', 'ChargeBy'}}
 			for _,p in ipairs(x.prd) do
 				tmp[#tmp+1] = {
-					META	= {'value', 'NMSString0x10.xml'},
+					meta	= {'value', 'NMSString0x10.xml'},
 					Value	= p
 				}
 			end
@@ -412,7 +412,7 @@ function charge_to_top:GetExmlCT()
 				SPECIAL_KEY_WORDS	= {'ID', x.id},
 				PRECEDING_KEY_WORDS = 'ChargeBy',
 				ADD					= ToExml({
-					META	= {'value', 'NMSString0x10.xml'},
+					meta	= {'value', 'NMSString0x10.xml'},
 					Value	= x.prd
 				})
 			}
@@ -452,14 +452,14 @@ local replace_requirements = {
 }
 function replace_requirements:GetExmlCT()
 	local function BuildReqs(r)
-		local reqs = {META = {'name', 'Requirements'}}
+		local reqs = {meta = {'name', 'Requirements'}}
 		for _,req in ipairs(r) do
 			reqs[#reqs+1] = {
-				META	= {'value', 'GcTechnologyRequirement.xml'},
+				meta	= {'value', 'GcTechnologyRequirement.xml'},
 				ID		= req[1],
 				Amount	= req[2],
 				Type	= {
-					META	= {'Type', 'GcInventoryType.xml'},
+					meta	= {'Type', 'GcInventoryType.xml'},
 					InventoryType	= req[3]
 				}
 			}
@@ -487,7 +487,7 @@ local source_table_tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

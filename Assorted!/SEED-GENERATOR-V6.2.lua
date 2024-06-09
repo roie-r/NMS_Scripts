@@ -13,10 +13,10 @@ local mod_desc = [[
 
 local seed_counter = {
 	Fighter			= 0,
-	Dropship		= 0,
+	Dropship		= 100000,
 	Scientific		= 0,
 	Shuttle			= 0,
-	Royal			= 8000,
+	Royal			= 0,
 	Bioship			= 0,
 	Sailship		= 0,
 	Sentinel		= 0,
@@ -35,62 +35,64 @@ local seed_counter = {
 
 local item_inventory = {
 	normal_ship = {
-		{id='HYPERDRIVE',		amount=true},
-		{id='LAUNCHER',			amount=true},
-		{id='SHIPSHIELD',		amount=true},
-		{id='SHIPJUMP1',		amount=true},
-		{id='PHOTONIX_CORE'},
-		{id='SHIPGUN1'}
+	--	Tech Id			Has Charge
+		HYPERDRIVE		= true,
+		LAUNCHER		= true,
+		SHIPSHIELD		= true,
+		SHIPJUMP1		= true,
+		PHOTONIX_CORE	= false,
+		SHIPGUN1		= false
 	},
 	bio_ship = {
-		{id='WARP_ALIEN',		amount=true},
-		{id='LAUNCHER_ALIEN',	amount=true},
-		{id='SHIELD_ALIEN',		amount=true},
-		{id='SHIPJUMP_ALIEN',	amount=true},
-		{id='SHIPLAS_ALIEN'},
-		{id='SHIPGUN_ALIEN'}
+		WARP_ALIEN		= true,
+		LAUNCHER_ALIEN	= true,
+		SHIELD_ALIEN	= true,
+		SHIPJUMP_ALIEN	= true,
+		SHIPLAS_ALIEN	= false,
+		SHIPGUN_ALIEN	= false
 	},
 	sail_ship = {
-		{id='HYPERDRIVE',		amount=true},
-		{id='LAUNCHER',			amount=true},
-		{id='SHIPSHIELD',		amount=true},
-		{id='SHIPJUMP1',		amount=true},
-		{id='SOLAR_SAIL'},
-		{id='SHIPGUN1'}
+		HYPERDRIVE		= true,
+		LAUNCHER		= true,
+		SHIPSHIELD		= true,
+		SHIPJUMP1		= true,
+		SOLAR_SAIL		= false,
+		SHIPGUN1		= false
 	},
 	sentinel_ship = {
-		{id='LAUNCHER_ROBO',	amount=true},
-		{id='SHIPJUMP_ROBO',	amount=true},
-		{id='HYPERDRIVE_ROBO',	amount=true},
-		{id='SHIPSHIELD_ROBO',	amount=true},
-		{id='SHIPGUN_ROBO'},
-		{id='LIFESUP_ROBO'}
+		LAUNCHER_ROBO	= true,
+		SHIPJUMP_ROBO	= true,
+		HYPERDRIVE_ROBO	= true,
+		SHIPSHIELD_ROBO	= true,
+		SHIPGUN_ROBO	= false,
+		LIFESUP_ROBO	= false
 	},
 	weapon = {
-		{id='LASER',			amount=true},
-		{id='TERRAINEDITOR',	amount=true},
-		{id='BOLT'},
-		{id='SCAN1'},
-		{id='SCANBINOC1'}
+		LASER			= true,
+		TERRAINEDITOR	= true,
+		BOLT			= false,
+		SCAN1			= false,
+		SCANBINOC1		= false
 	},
 	atlas_weapon = {
-		{id='ATLAS_LASER',		amount=true},
-		{id='TERRAINEDITOR',	amount=true},
-		{id='BOLT'},
-		{id='SCAN1'},
-		{id='SCANBINOC1'}
+		ATLAS_LASER		= true,
+		TERRAINEDITOR	= true,
+		BOLT			= false,
+		SCAN1			= false,
+		SCANBINOC1		= false
 	},
 	sentinel_weapon = {
-		{id='SENT_LASER',		amount=true},
-		{id='TERRAINEDITOR',	amount=true},
-		{id='UT_BUI_SCAN2',		amount=true},
-		{id='BOLT'},
-		{id='SCAN1'},
-		{id='SCANBINOC1'}
+		SENT_LASER		= true,
+		TERRAINEDITOR	= true,
+		UT_BUI_SCAN2	= true,
+		BOLT			= false,
+		SCAN1			= false,
+		SCANBINOC1		= false
 	},
 	freighter = {
-		{id='F_HYPERDRIVE',		amount=true},
-		{id='F_HDRIVEBOOST1'},
+		F_HYPERDRIVE	= true,
+		F_TELEPORT		= true,
+		F_HDRIVEBOOST1	= false
 	}
 }
 
@@ -155,15 +157,15 @@ local seed_model = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/FREIGHTER_PROC.SCENE.MBIN',
 		icon		= 'QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
 		inventory	= item_inventory.freighter,
-		modeltype	= 'Rifle', -- PlayerFreighter
-		reward		= R_Multitool
+		modeltype	= 'Freighter',
+		reward		= R_Ship
 	},
 	Capital = {
 		filename	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/CAPITALFREIGHTER_PROC.SCENE.MBIN',
 		icon		= 'QUICKMENU/BUILDINGS.CRASHEDFREIGHTER.DDS',
 		inventory	= item_inventory.freighter,
-		modeltype	= 'Rifle', -- PlayerFreighter
-		reward		= R_Multitool
+		modeltype	= 'Freighter',
+		reward		= R_Ship
 	},
 	Multitool =	{
 		filename	= 'MODELS/COMMON/WEAPONS/MULTITOOL/MULTITOOL.SCENE.MBIN',
@@ -199,7 +201,7 @@ local seed_model = {
 		inventory	= item_inventory.atlas_weapon,
 		modeltype	= 'Atlas',
 		reward		= R_Multitool
-	},
+	}
 }
 
 local function TriggerActionComponent(reward_id)
@@ -207,24 +209,24 @@ local function TriggerActionComponent(reward_id)
 		PRECEDING_KEY_WORDS	= 'GcSpringAttachmentComponentData.xml',
 		ADD_OPTION			= 'ADDAfterSection',
 		ADD 				= ToExml({
-			META = {'value', 'GcTriggerActionComponentData.xml'},
+			meta = {'value', 'GcTriggerActionComponentData.xml'},
 			{
-				META = {'name', 'States'},
+				meta = {'name', 'States'},
 				{
-					META	= {'value', 'GcActionTriggerState.xml'},
+					meta	= {'value', 'GcActionTriggerState.xml'},
 					StateID	= 'BOOT',
 					{
-						META = {'name', 'Triggers'},
+						meta = {'name', 'Triggers'},
 						{
-							META = {'value', 'GcActionTrigger.xml'},
+							meta = {'value', 'GcActionTrigger.xml'},
 							{
-								META	= {'Event', 'GcAnimFrameEvent.xml'},
+								meta	= {'Event', 'GcAnimFrameEvent.xml'},
 								Anim	= reward_id
 							},
 							{
-								META	= {'name', 'Action'},
+								meta	= {'name', 'Action'},
 								{
-									META	= {'value', 'GcGoToStateAction.xml'},
+									meta	= {'value', 'GcGoToStateAction.xml'},
 									State	= 'REWARD'
 								}
 							}
@@ -232,24 +234,24 @@ local function TriggerActionComponent(reward_id)
 					}
 				},
 				{
-					META	= {'value', 'GcActionTriggerState.xml'},
+					meta	= {'value', 'GcActionTriggerState.xml'},
 					StateID	= 'REWARD',
 					{
-						META = {'name', 'Triggers'},
+						meta = {'name', 'Triggers'},
 						{
-							META = {'value', 'GcActionTrigger.xml'},
+							meta = {'value', 'GcActionTrigger.xml'},
 							{
-								META	= {'Event', 'GcStateTimeEvent.xml'},
+								meta	= {'Event', 'GcStateTimeEvent.xml'},
 								Seconds	= 0
 							},
 							{
-								META	= {'name', 'Action'},
+								meta	= {'name', 'Action'},
 								{
-									META	= {'value', 'GcRewardAction.xml'},
+									meta	= {'value', 'GcRewardAction.xml'},
 									Reward	= reward_id
 								},
 								{
-									META	= {'value', 'GcGoToStateAction.xml'},
+									meta	= {'value', 'GcGoToStateAction.xml'},
 									State	= 'BOOT'
 								}
 							}
@@ -265,10 +267,10 @@ local function AnimationEntry(anim_id)
 	return {
 		{
 			PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
-			SECTION_SAVE_TO		= 'tk_animation_data'
+			SEC_SAVE_TO			= 'tk_animation_data'
 		},
 		{
-			SECTION_EDIT 		= 'tk_animation_data',
+			SEC_EDIT 			= 'tk_animation_data',
 			VALUE_CHANGE_TABLE 	= {
 				{'Anim',		anim_id},
 				{'Filename',	'MODELS/TESTS/EFFECTTEST.ANIM.MBIN'}
@@ -277,7 +279,7 @@ local function AnimationEntry(anim_id)
 		{
 			SPECIAL_KEY_WORDS	= {'Anim', '2H_STAFF_WALK'},
 			ADD_OPTION			= 'ADDAfterSection',
-			SECTION_ADD_NAMED 	= 'tk_animation_data'
+			SEC_ADD_NAMED		= 'tk_animation_data'
 		}
 	}
 end
@@ -286,12 +288,12 @@ local function PlayerEmoteEntry(mdata)
 	return {
 		{
 			PRECEDING_KEY_WORDS = 'GcPlayerEmote.xml',
-			SECTION_SAVE_TO		= 'gc_player_emote'
+			SEC_SAVE_TO			= 'gc_player_emote'
 		},
 		{
-			SECTION_EDIT 		= 'gc_player_emote',
+			SEC_EDIT 			= 'gc_player_emote',
 			VALUE_CHANGE_TABLE 	= {
-				{'Title',					mdata.modeltype},
+				{'Title',					mdata.rewardId},
 				{'ChatText',				''},
 				{'ChatUsesPrefix',			false},
 				{'EmoteID',					mdata.rewardId},
@@ -303,7 +305,7 @@ local function PlayerEmoteEntry(mdata)
 		},
 		{
 			PRECEDING_KEY_WORDS = 'Emotes',
-			SECTION_ADD_NAMED 	= 'gc_player_emote'
+			SEC_ADD_NAMED		= 'gc_player_emote'
 		}
 	}
 end
@@ -320,6 +322,7 @@ for model, mdata in pairs(seed_model) do
 	if seed_counter[model] > 0 then
 		print(string.format('*** Generating %s %s rewards...', seed_counter[model], model))
 		for _=1, seed_counter[model] do
+			-- sets the seed as the ship's name override
 			mdata.name = GenerateSeed()
 			mdata.seed = mdata.name
 			rwd_entries[#rwd_entries+1] = mdata.reward(mdata)
@@ -340,7 +343,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.2.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

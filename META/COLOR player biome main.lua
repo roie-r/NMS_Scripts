@@ -85,6 +85,21 @@ local base_colors = {
 			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8',
 			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8'
 		}
+	},
+	stationlights = {
+		enabled		= true,
+		name		= 'SpaceStationLights',
+		num_colors	= 'All',
+		palette		= {
+			'FFCC8482', 'FFC4C4C4', 'FFA37C62', 'FFB6B6B6', 'FFC29266', 'FFDDDDDD', 'FFEFDFC9', 'FFD5D5D5',
+			'FFD6A5A2', 'FFCE9895', 'FFBE9E88', 'FF86B6BE', 'FFC0A892', 'FFB8A18C', 'FFBDAF9C', 'FF7F9AC4',
+			'FFF27FBE', 'FFD6D6D6', 'FFF3B2D1', 'FFAFAFAF', 'FF8E87CE', 'FFC2C2C2', 'FFA881F1', 'FFB3B3B3',
+			'FFB6869D', 'FFAA8798', 'FFB692A3', 'FFB897A7', 'FFBBA7C9', 'FFB4A1C0', 'FF9688AF', 'FF84779B',
+			'FF5C68CC', 'FFD4D4D4', 'FF87D17D', 'FFEBEBEB', 'FFBAF4F7', 'FFC7C7C7', 'FFD8F1F3', 'FFCCCCCC',
+			'FF98A1B6', 'FFA0ABC5', 'FFA8B5C0', 'FFA7B1BB', 'FF97C6C9', 'FF92C1C4', 'FFB3C7C9', 'FFAFC5C7',
+			'FF6DE0E7', 'FFD6D6D6', 'FF7CF0B7', 'FFC2C2C2', 'FF65B7BB', 'FF5874BD', 'FF865756', 'FFE2A277',
+			'FF7FC7CC', 'FF7FC7CC', 'FF99C5B0', 'FF8DBBA5', 'FF887992', 'FF56ECC7', 'FFCAA17B', 'FFFF86C8'
+		}
 	}
 }
 
@@ -115,103 +130,86 @@ local function RebuildPaletteColors(gc_data)
 	end
 
 	-- exml meta for the color palette array
-	T.META = {'name', 'Colours'}
+	T.meta = {'name', 'Colours'}
 	return ToExml(T)
 end
 
-local function EditSingle(name, i, rgb)
+-- base=true for BASECOLOURPALETTE
+local function EditSingle(name, i, rgb, base)
 	if rgb == 0 then
 		rgb = {{'R', -1},{'G', -1},{'B', -1},{'A', 1}}
 	else
 		rgb = ColorFromHex(rgb)
 	end
 	return {
-		SPECIAL_KEY_WORDS	= {name, 'GcPaletteData.xml'},
+		SPECIAL_KEY_WORDS	= base and {name, 'GcPaletteData.xml'} or {'ID', name},
 		PRECEDING_KEY_WORDS = 'Colour.xml',
 		SECTION_ACTIVE		= -i,
 		VALUE_CHANGE_TABLE 	= rgb
 	}
 end
 
-local function BasePaletteChanges()
-	local T = {}
-	T[1] = {
-		SKW		= {},
-		PKW		= 'Colours',
-		REMOVE	= 'Section'
-	}
-	for _,gc_data in pairs(base_colors) do
-		if gc_data.enabled then
-			T[1].SKW[#T[1].SKW + 1] = {gc_data.name, 'GcPaletteData.xml'}
-			T[#T+1] = {
-				PRECEDING_KEY_WORDS = gc_data.name,
-				VALUE_CHANGE_TABLE 	= {
-					{'NumColours',	gc_data.num_colors}
-				}
-			}
-			T[#T+1] = {
-				PRECEDING_KEY_WORDS = gc_data.name,
-				ADD 				= RebuildPaletteColors(gc_data)
-			}
-		end
-	end
-	-- dimmer sailship gray sail
-	for i=2, 58, 8 do
-		T[#T+1] = EditSingle('SailShip_Sails', i, 'FF6F767D')
-	end
-	-- pull snow palette for copying to frozen palette
-	T[#T+1] = {
-		SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
-		SECTION_SAVE_TO		= 'gc_palette_data',
-	}
-	return T
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__META player biome main.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/COLOURS/BASECOLOURPALETTES.MBIN',
-		EXML_CHANGE_TABLE	= BasePaletteChanges()
+		EXML_CHANGE_TABLE	= (
+			function()
+				local T = {
+					{
+						SKW		= {},
+						PKW		= 'Colours',
+						REMOVE	= 'Section'
+					},
+					{
+					-- pull snow palette for copying to frozen palette
+						SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
+						SEC_SAVE_TO			= 'gc_palette_data',
+					},
+				}
+				-- dimmer sailship gray sail
+				for i=2, 58, 8 do
+					T[#T+1] = EditSingle('SailShip_Sails', i, 'FF6F767D', true)
+				end
+				for _,gc_data in pairs(base_colors) do
+					if gc_data.enabled then
+						T[1].SKW[#T[1].SKW + 1] = {gc_data.name, 'GcPaletteData.xml'}
+						T[#T+1] = {
+							PRECEDING_KEY_WORDS = gc_data.name,
+							VALUE_CHANGE_TABLE 	= {
+								{'NumColours',	gc_data.num_colors}
+							}
+						}
+						T[#T+1] = {
+							PRECEDING_KEY_WORDS = gc_data.name,
+							ADD 				= RebuildPaletteColors(gc_data)
+						}
+					end
+				end
+				return T
+			end
+		)()
 	},
 	{
 	--	|true black| in customizing palettes
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CUSTOMISATIONCOLOURPALETTES.MBIN',
 		EXML_CHANGE_TABLE	= {
-			EditSingle('Player',				20, 0),
-			EditSingle('Freighter',				20, 0),
-			EditSingle('Vehicle',				20, 0),
-			EditSingle('Vehicle_Bike',			20, 0),
-			EditSingle('Vehicle_Truck',			20, 0),
-			EditSingle('Vehicle_WheeledBike',	20, 0),
-			EditSingle('Vehicle_Submarine',		20, 0),
-			EditSingle('Vehicle_Mech',			20, 0),
-
-			EditSingle('Ship_01',				 1, 'FFC2343A'),
-			EditSingle('Ship_01',				 2, 'FFC8C52A'),
-			EditSingle('Ship_01',				 3, 'FF2E81D1'),
-			EditSingle('Ship_01',				 4, 'FF259E51'),
-			EditSingle('Ship_01',				 5, 'FF1A6387'),
-			EditSingle('Ship_01',				 6, 'FFD4AF0B'),
-			EditSingle('Ship_01',				 7, 'FF87CAE7'),
-			EditSingle('Ship_01',				 8, 'FF18703C'),
-			EditSingle('Ship_01',				 9, 'FFB4B2B5'),
-			EditSingle('Ship_01',				10, 'FFFFFFFF'),
-			EditSingle('Ship_01',				11, 'FF652B2E'),
-			EditSingle('Ship_01',				12, 'FF969420'),
-			EditSingle('Ship_01',				13, 'FF0F2D82'),
-			EditSingle('Ship_01',				14, 'FF1D6D4D'),
-			EditSingle('Ship_01',				15, 'FF174F6E'),
-			EditSingle('Ship_01',				16, 'FFBE6913'),
-			EditSingle('Ship_01',				17, 'FF5EB0DE'),
-			EditSingle('Ship_01',				18, 'FF0C4E24'),
-			EditSingle('Ship_01',				19, 'FF535353'),
-			EditSingle('Ship_01',				20, 0),
+			EditSingle('PLAYER',		20, 0),
+			EditSingle('FREIGHTER',		20, 0),
+			EditSingle('VEHICLE',		20, 0),
+			EditSingle('BIKE',			20, 0),
+			EditSingle('TRUCK',			20, 0),
+			EditSingle('WHEELEDBIKE',	20, 0),
+			EditSingle('SUBMARINE',		20, 0),
+			EditSingle('MECH',			20, 0),
+			EditSingle('SHIP',			20, 0),
+			EditSingle('SHIP_METALLIC',	20, 0),
 		}
 	},
 	{
@@ -225,7 +223,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Undercoat', 'GcPaletteData.xml'},
 				ADD_OPTION			= 'AddAfterSection',
-				SECTION_ADD_NAMED	= 'gc_palette_data'
+				SEC_ADD_NAMED		= 'gc_palette_data'
 			},
 		}
 	}

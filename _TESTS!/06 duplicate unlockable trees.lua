@@ -96,12 +96,12 @@ local function DuplicateTrees()
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'Title', tree_titles[1].title, 'Title', subt[1]},
 				SECTION_ACTIVE		= i,
-				SECTION_SAVE_TO		= 'unlockable_item_tree',
+				SEC_SAVE_TO			= 'unlockable_item_tree',
 			}
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'Title', 'UI_PURCHASABLE_BASICPARTS_TREE'},
 				PRECEDING_KEY_WORDS	= 'Trees',
-				SECTION_ADD_NAMED	= 'unlockable_item_tree',
+				SEC_ADD_NAMED		= 'unlockable_item_tree',
 			}
 		end
 	end
@@ -109,12 +109,12 @@ local function DuplicateTrees()
 		for _,subt in ipairs(tree_titles[i].subs) do
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'Title', tree_titles[i].title, 'Title', subt},
-				SECTION_SAVE_TO		= 'unlockable_item_tree',
+				SEC_SAVE_TO			= 'unlockable_item_tree',
 			}
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'Title', 'UI_PURCHASABLE_BASICTECH_TREE'},
 				PRECEDING_KEY_WORDS	= 'Trees',
-				SECTION_ADD_NAMED	= 'unlockable_item_tree',
+				SEC_ADD_NAMED		= 'unlockable_item_tree',
 			}
 		end
 	end
@@ -124,7 +124,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Construction Unit ALL.'..version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

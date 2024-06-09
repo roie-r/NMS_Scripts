@@ -20,10 +20,10 @@ function ToExml(class)
 			for _,v in ipairs(t) do self[#self+1] = v end
 		end
 		for key, cls in pairs(tlua) do
-			if key ~= 'META' then
+			if key ~= 'meta' then
 				exml[#exml+1] = '<Property '
-				if type(cls) == 'table' and cls.META then
-					local att, val = cls['META'][1], cls['META'][2]
+				if type(cls) == 'table' and cls.meta then
+					local att, val = cls['meta'][1], cls['meta'][2]
 					-- add and recurs for an inner table
 					if att == 'name' or att == 'value' then
 						exml:add({att, '="', val, '">'})
@@ -52,22 +52,22 @@ function ToExml(class)
 	-- check the table level structure and meta placement
 	-- add the needed layer for the recursion and handle multiple tables
 	local klen = len2(class)
-	if klen == 1 and class[1].META then
+	if klen == 1 and class[1].meta then
 		return exml_r(class)
-	elseif class.META and klen > 1 then
+	elseif class.meta and klen > 1 then
 		return exml_r( {class} )
 	-- concatenate unrelated exml sections, instead of nested inside each other
 	elseif type(class[1]) == 'table' and klen > 1 then
 		local T = {}
 		for _, tb in pairs(class) do
-			T[#T+1] = exml_r((tb.META and klen > 1) and {tb} or tb)
+			T[#T+1] = exml_r((tb.meta and klen > 1) and {tb} or tb)
 		end
 		return table.concat(T)
 	end
 end
 
 --	Adds the xml header and data template
---	Uses the contained template META if found (instead of the received variable)
+--	Uses the contained template meta if found (instead of the received variable)
 function FileWrapping(data, template)
 	local wrapper = [[<?xml version="1.0" encoding="utf-8"?><Data template="%s">%s</Data>]]
 	if type(data) == 'string' then
@@ -76,10 +76,10 @@ function FileWrapping(data, template)
 	-- remove the extra table added by ToLua (FIX THIS!)
 	if data.template then data = data.template end
 	-- table loaded from file
-	if data.META[1] == 'template' then
+	if data.meta[1] == 'template' then
 		-- strip mock template
-		local txt_data = ToExml(data):sub(data.META[2]:len() + 36, -12)
-		return string.format(wrapper, data.META[2], txt_data)
+		local txt_data = ToExml(data):sub(data.meta[2]:len() + 36, -12)
+		return string.format(wrapper, data.meta[2], txt_data)
 	else
 		return string.format(wrapper, template, ToExml(data))
 	end
@@ -128,7 +128,7 @@ function ToLua(exml)
 					array = att == 'name'
 					-- open new property table
 					table.insert(st_node, parent)
-					node = {META = {att , val}}
+					node = {meta = {att , val}}
 
 					 -- lookup if parent is an array
 					if st_array[#st_array] or att == 'value' then
@@ -292,7 +292,7 @@ function ColorData(t, n)
 	end
 	return {
 		-- if a name (n) is present then use 2-property tag
-		META= {n or 'value', 'Colour.xml'},
+		meta= {n or 'value', 'Colour.xml'},
 		R	= t[1] or 1,
 		G	= t[2] or 1,
 		B	= t[3] or 1,

@@ -279,10 +279,10 @@ local function AnimationEntry(anim_id)
 	return {
 		{
 			SPECIAL_KEY_WORDS	= {'Anim', '0H_TURN_L'},
-			SECTION_SAVE_TO		= 'tk_animation_data'
+			SEC_SAVE_TO			= 'tk_animation_data'
 		},
 		{
-			SECTION_EDIT 		= 'tk_animation_data',
+			SEC_EDIT 			= 'tk_animation_data',
 			VALUE_CHANGE_TABLE 	= {
 				{'Anim', anim_id},
 				{'Filename', 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/EMOTES/NULL.ANIM.MBIN'}
@@ -291,7 +291,7 @@ local function AnimationEntry(anim_id)
 		{
 			SPECIAL_KEY_WORDS	= {'Anim', '0H_GREET_MOB_04', 'Filename', 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/ANIMS/INTERACTION/GENERAL/0H_INTER_GREET_07.ANIM.MBIN'},
 			ADD_OPTION			= 'ADDAfterSection',
-			SECTION_ADD_NAMED 	= 'tk_animation_data'
+			SEC_ADD_NAMED		 	= 'tk_animation_data'
 		}
 	}
 end
@@ -300,10 +300,10 @@ local function PlayerEmoteEntry(anim_id, icon)
 	return {
 		{
 			SPECIAL_KEY_WORDS	= {'Title', 'EMOTE_WAVE'},
-			SECTION_SAVE_TO		= 'gc_player_emote'
+			SEC_SAVE_TO			= 'gc_player_emote'
 		},
 		{
-			SECTION_EDIT 		= 'gc_player_emote',
+			SEC_EDIT 			= 'gc_player_emote',
 			VALUE_CHANGE_TABLE 	= {
 				{'Title',					anim_id},
 				{'AnimationName',			anim_id},
@@ -314,17 +314,17 @@ local function PlayerEmoteEntry(anim_id, icon)
 		},
 		{
 			PRECEDING_KEY_WORDS = 'Emotes',
-			SECTION_ADD_NAMED 	= 'gc_player_emote'
+			SEC_ADD_NAMED		 	= 'gc_player_emote'
 		},
 		{
-			SECTION_EDIT 		= 'gc_player_emote',
+			SEC_EDIT 			= 'gc_player_emote',
 			VALUE_CHANGE_TABLE 	= {
 				{'AvailableUnderwater',		false}
 			}
 		},
 		{
 			PRECEDING_KEY_WORDS = 'Emotes',
-			SECTION_ADD_NAMED 	= 'gc_player_emote'
+			SEC_ADD_NAMED		 	= 'gc_player_emote'
 		}
 	}
 end

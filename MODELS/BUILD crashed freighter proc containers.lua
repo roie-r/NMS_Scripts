@@ -85,13 +85,13 @@ local function AddDescriptors()
 	local T = {}
 	for _,scn in ipairs(loot_containers) do
 		local tmp = {
-			META		= {'value', 'TkResourceDescriptorList.xml'},
+			meta		= {'value', 'TkResourceDescriptorList.xml'},
 			TypeId		= scn.name:upper(),
-			Descriptors	= {META = {'name', 'Descriptors'}}
+			Descriptors	= {meta = {'name', 'Descriptors'}}
 		}
 		for i=1, #scn.form do
 			tmp.Descriptors[#tmp.Descriptors+1] = {
-				META	= {'value', 'TkResourceDescriptorData.xml'},
+				meta	= {'value', 'TkResourceDescriptorData.xml'},
 				Id		= (scn.name..string.char(64 + i)):upper(),
 				Name	= scn.name..string.char(64 + i),
 				Chance	= 0
@@ -110,7 +110,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL crashed freighter proc containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -184,7 +184,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					'REFPlatformMistVFX',
 					'REFCrashedFreightMistVFX',
 					'REFLargeCrashedFreighterSmokeVFX9',
-					-- builder pars
+					-- builder base parts
 					'Interior_',
 					'NAV_POI',
 					'NAV_POI_CONV',

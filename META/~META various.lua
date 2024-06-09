@@ -1,8 +1,9 @@
 ------------------------------------------------------------------
 local mod_desc = [[
+  - Add vulture parts to dropship custom groups
+  - Raise green cave crystals probability
   - Round up substances stack to 10000
   - Replace exploration mission log menu icon
-  - Same underwater freighter crash site as on land
   - Restore old creature-scanned icon; Remove selected HUD icons
   - override corrupt biome filter
   - Add civilian and pirate sentinel ships
@@ -16,12 +17,60 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{--	|stacks|
+	{--	|custom dropship add vulture| parts
+		MBIN_FILE_SOURCE = 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
+		EXML_CHANGE_TABLE = {
+			{
+				SPECIAL_KEY_WORDS	= {'Value', '_COCKPIT_S13XNEVER'},
+				VALUE_CHANGE_TABLE	= {
+					{'Value',		'_COCKPIT_S13'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Value', '_ENGINES_S13xNEVER'},
+				VALUE_CHANGE_TABLE	= {
+					{'Value',		'_ENGINES_S13'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Value', '_WINGS_S13xNEVER'},
+				VALUE_CHANGE_TABLE	= {
+					{'Value',		'_WINGS_S13'}
+				}
+			}
+		}
+	},
+	{--	|cave crystal|
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/OBJECTS/CRYSTALS/CAVEFULL.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {
+					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/LARGE/CRYSTAL_LARGE_CAVE.SCENE.MBIN'},
+					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/MEDIUM/CRYSTAL_MEDIUM_CAVE.SCENE.MBIN'}
+				},
+				SECTION_UP			= 1,
+				VALUE_CHANGE_TABLE 	= {
+					{'Placement',	'CRYSTAL2'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS 	= {
+					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/SMALL/CRYSTAL_SMALL_CAVE.SCENE.MBIN'},
+					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/SMALL/CRYSTAL_FRAGMENT_CAVE.SCENE.MBIN'}
+				},
+				SECTION_UP			= 1,
+				VALUE_CHANGE_TABLE 	= {
+					{'Placement',	'CRYSTALCAVE'}
+				}
+			}
+		}
+	},
+	{--	substance |stacks|
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/DIFFICULTYCONFIG.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -73,7 +122,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					-- {'PlayerFreighter',		'GcScannerIcon.xml'},
 				},
 				VALUE_CHANGE_TABLE 	= {
-					{'Filename', 'TEXTURES/BLANK.64.DDS'}
+					{'Filename', 'TEXTURES/BLANK.BC7.64.DDS'}
 				}
 			}
 		}
@@ -128,7 +177,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|ai ship manager|
+	{--	|ai ship manager| Add civilian and pirate sentinel ships
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SPACE/AISPACESHIPMANAGER.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -137,19 +186,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS	= {'Police', 'Spaceships', 'GcAISpaceshipModelData.xml'},
-				SECTION_SAVE_TO		= 'ai_spaceship_model_data'
+				SEC_SAVE_TO			= 'ai_spaceship_model_data'
 			},
 			{
 				PRECEDING_KEY_WORDS	= {'Civilian', 'Spaceships'},
-				SECTION_ADD_NAMED 	= 'ai_spaceship_model_data'
+				SEC_ADD_NAMED		= 'ai_spaceship_model_data'
 			},
 			{
 				PRECEDING_KEY_WORDS	= {'Pirate', 'Spaceships'},
-				SECTION_ADD_NAMED 	= 'ai_spaceship_model_data'
+				SEC_ADD_NAMED		= 'ai_spaceship_model_data'
 			}
 		}
 	},
-	{--	|faster splash logo|
+	{--	|fast splash logo|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/BOOTLOGOPC.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -198,20 +247,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {--	|deeper oceans|
-		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/VOXELGENERATORSETTINGS.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- -- MATH_OPERATION 		= '+',
-				-- REPLACE_TYPE 		= 'All',
-				-- PRECEDING_KEY_WORDS = 'UnderWater',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Subtract',	true},
-					-- -- {'Height',		1000},
-					-- {'OffsetType',	'Base'}, -- Zero, Base, All, SeaLevel
-					-- {'HeightOffset',200}
-				-- }
-			-- },
-		-- }
-	-- }
 }}}}

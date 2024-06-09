@@ -20,26 +20,37 @@ local mod_desc = [[
 
 local buildparts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/'
 
--- interaction button attachment
--- component only; needs the template container for a file
-local function InteractComponent(action)
-	return {
-		META = {'value','GcInteractionComponentData.xml'},
+-- interaction button attachment; full mbin or component only
+local function InteractEntity(action, full_entity)
+	local interact = {
+		meta = {'value','GcInteractionComponentData.xml'},
 		InteractionAction	= 'PressButton',
 		InteractionType		= {
-			META = {'InteractionType','GcInteractionType.xml'},
+			meta = {'InteractionType','GcInteractionType.xml'},
 			InteractionType	= action
 		},
 		AttractDistanceSq	= 9,
 		InteractAngle		= 360,
 		InteractDistance	= 5
 	}
+	if full_entity then
+		return FileWrapping({
+			meta = {'template','TkAttachmentData'},
+			Components = {
+				meta = {'name','Components'},
+				Interaction	= interact,
+				{value = 'TkPhysicsComponentData.xml'}
+			}
+		})
+	else
+		return interact
+	end
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL base tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -55,7 +66,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Components',
-				ADD					= ToExml(InteractComponent('SuitTerminal'))
+				ADD					= ToExml(InteractEntity('SuitTerminal'))
 			}
 		}
 	},
@@ -134,7 +145,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Components',
 				ADD					= ToExml({
-					InteractComponent('WeaponUpgrade'),
+					InteractEntity('WeaponUpgrade'),
 					{value = 'TkPhysicsComponentData.xml'}
 				})
 			}
@@ -271,7 +282,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Attributes',
 				ADD 				= ToExml({
-					META	= {'value', 'TkSceneNodeAttributeData.xml'},
+					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
 					Name	= 'ATTACHMENT',
 					Value	= 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'
 				})
@@ -282,48 +293,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	ADD_FILES	= {
 		{
 			FILE_DESTINATION = buildparts..'SHAREDDATA/ENTITIES/ROBOT_SHOP.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				META = {'template','TkAttachmentData'},
-				Components = {
-					META = {'name','Components'},
-					Interaction	= (InteractComponent('RobotShop')),
-					{value = 'TkPhysicsComponentData.xml'}
-				}
-			})
+			FILE_CONTENT	 = InteractEntity('RobotShop', true)
 		},
 		{
 			FILE_DESTINATION = buildparts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				META = {'template','TkAttachmentData'},
-				Components = {
-					META = {'name','Components'},
-					Interaction	= (InteractComponent('WeaponSalvage')),
-					{value = 'TkPhysicsComponentData.xml'}
-				}
-			})
+			FILE_CONTENT	 = InteractEntity('WeaponSalvage', true)
 		},
 		{
 			FILE_DESTINATION = buildparts..'SHAREDDATA/ENTITIES/SHIP_SALVAGE.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				META = {'template','TkAttachmentData'},
-				Components = {
-					META = {'name','Components'},
-					Interaction	= (InteractComponent('ShipSalvage')),
-					{value = 'TkPhysicsComponentData.xml'}
-				}
-			})
+			FILE_CONTENT	 = InteractEntity('ShipSalvage', true)
 		},
 		{
 			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.EXML',
 			FILE_CONTENT	 = FileWrapping({
-				META = {'template', 'TkAttachmentData'},
+				meta = {'template', 'TkAttachmentData'},
 				Components = {
-					META = {'name', 'Components'},
+					meta = {'name', 'Components'},
 					Rotation = {
-						META  = {'value', 'TkRotationComponentData.xml'},
+						meta  = {'value', 'TkRotationComponentData.xml'},
 						Speed = 0.01,
 						Axis  = {
-							META = {'Axis', 'Vector3f.xml'},
+							meta = {'Axis', 'Vector3f.xml'},
 							y = 1
 						},
 						AlwaysUpdate = true,
@@ -331,7 +321,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					}
 				},
 				LodDistances = {
-					META = {'name','LodDistances'},
+					meta = {'name','LodDistances'},
 					{value	= 0},
 					{value	= 50},
 					{value	= 80},

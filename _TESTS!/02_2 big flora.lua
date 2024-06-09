@@ -331,7 +331,7 @@ for _,mbin in pairs(source_mbins) do
 	local workflora	= MergeTables({solar_modifiers.global_flora, biomeflora})
 	local workflags	= MergeTables({solar_modifiers.global_flags, biomeflags})
 	for key, objs in pairs(gc_objs) do
-		if key ~= 'SelectableObjects' and key ~= 'META' then
+		if key ~= 'SelectableObjects' and key ~= 'meta' then
 			for _, spn in ipairs(objs) do
 				spawn_data:averageScales(spn.Resource.Filename, workflora)
 				if HasRes('n') then spn.MinScale		  = spn.MinScale * spawn_data.res.n end
@@ -392,7 +392,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST big props '..GetSourceName(source_mbins[1])..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= ADF
 }

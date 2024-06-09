@@ -8,7 +8,11 @@ local mod_desc = [[
 ]]--------------------------------------------------------------
 
 --	TextureGameplayUseEnum
-local GU_ = {IGR='IgnoreName', MCT='MatchName', DNM='DoNotMatchName'}
+local GU_ = {
+	IGR='IgnoreName',	-- default
+	MCT='MatchName',
+	DNM='DoNotMatchName'
+}
 
 local proc_texture_files = {
 	{--	floating crystal
@@ -56,7 +60,7 @@ local proc_texture_files = {
 		layers	 = {
 			{
 				name	= 'BASE',
-				palette = 'Paint', -- 'Custom_Head',
+				palette = 'Paint',
 				color	= 'Primary',
 				diff	= true
 			}
@@ -411,17 +415,17 @@ local function GetProcTextures(path, layer)
 		end
 		return pth..'DDS'
 	end
-	local T = {META = {'name', 'Textures'}}
+	local T = {meta = {'name', 'Textures'}}
 
-	-- handles 3 options:
-	-- * An array of names
-	-- * An array of tables of the following - non-essential - properties:
-	--   {n='name', pr=0.3, u=GU_.DNM,	pt='palette', ca='colouralt'} >> u=TextureGameplayUseEnum
-	-- * None, in which case all default values apply
+	--	handles 3 options:
+	--	* An array of names
+	--	* An array of tables of the following - non-essential - properties:
+	--	  {n='name', pr=0.3, u=GU_.DNM,	pt='palette', ca='colouralt'} >> u=TextureGameplayUseEnum
+	--	* None, in which case all default values apply
 	for _,ptex in ipairs(layer.texture and layer.texture or {{n=''}}) do
 		if type(ptex) == 'string' then ptex = {n=ptex} end
 		T[#T+1] = {
-			META	= {'value', 'TkProceduralTexture.xml'},
+			meta	= {'value', 'TkProceduralTexture.xml'},
 			Name				= ptex.n,
 			Probability			= ptex.pr or 1,
 			TextureGameplayUse	= ptex.u,
@@ -429,7 +433,7 @@ local function GetProcTextures(path, layer)
 			Normal				= TexPath(layer.normal, {path, layer.name, 'NORMAL'}),
 			Mask				= TexPath(layer.masks,  {path, layer.name, 'MASKS'}),
 			Palette				= {
-				META	= {'Palette', 'TkPaletteTexture.xml'},
+				meta	= {'Palette', 'TkPaletteTexture.xml'},
 				Palette		= ptex.pt or (layer.palette	or 'Rock'),
 				ColourAlt	= ptex.ca or (layer.color	or 'None')
 			}
@@ -440,10 +444,10 @@ end
 
 local function BuildProcTexListMbin(proc_tex_list)
 	-- Assign the exml table with its designated meta
-	local T = { META = {'name', 'Layers'} }
+	local T = { meta = {'name', 'Layers'} }
 	for _,ly in ipairs(proc_tex_list.layers) do
 		T[#T+1] = {
-			META	= {'value', 'TkProceduralTextureLayer.xml'},
+			meta	= {'value', 'TkProceduralTextureLayer.xml'},
 			Name		= ly.name,
 			Probability	= proc_tex_list.ly_prob	or 1,
 			Group		= proc_tex_list.group,
@@ -463,7 +467,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

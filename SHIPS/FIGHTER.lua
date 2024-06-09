@@ -62,7 +62,7 @@ local fighter = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -89,10 +89,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Turbine'},
 				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml({
-					ScNode({ name='TrailFL', stype='LOCATOR', form={4.85,  1.19, -1.1} }),
-					ScNode({ name='TrailFR', stype='LOCATOR', form={-4.85, 1.19, -1.1} })
-				})
+				ADD					= ToExml( ScNode({
+					{ name='TrailFL', stype='LOCATOR', form={4.85,  1.19, -1.1} },
+					{ name='TrailFR', stype='LOCATOR', form={-4.85, 1.19, -1.1} }
+				}) )
 			}
 		}
 	},
@@ -490,7 +490,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
 							ADD_OPTION			= 'AddAfterSection',
 							ADD 				= ToExml({
-								META	= {'value', 'TkSceneNodeAttributeData.xml'},
+								meta	= {'value', 'TkSceneNodeAttributeData.xml'},
 								Name	= 'ATTACHMENT',
 								Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
 							})

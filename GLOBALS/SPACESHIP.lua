@@ -6,10 +6,10 @@ local mod_desc = [[
    * hover speed
    * greater turning angle
    * no auto leveling
-  reduced terrain avoidance protection
-  easier landing - ignoring obstacles
-  dive underwater
-  no contrails
+  Reduced terrain avoidance protection
+  Easier landing - ignoring obstacles
+  Dive underwater
+  No contrails
 ]]-----------------------------------------------------------------
 --						space					atmos					space combat			atmos combat
 local eng_props = {--	c   l   h   v			c   l   h   v			c   l   h   v			c   l   h   v
@@ -64,7 +64,7 @@ ECT[#ECT+1] = {
 		{'MaxOverspeedBrake',					900		},	-- 1000
 		{'PulseDrivePlanetApproachHeight',		4000	},	-- 6000
 		{'_3rdPersonRollAngle',					78		},	-- 75		(270)
-		{'_3rdPersonRollAngleScience',			76		},	-- 62
+		{'_3rdPersonRollAngleScience',			72		},	-- 62
 		{'_3rdPersonRollAngleDropship',			64		},	-- 45
 		{'_3rdPersonRollAngleAlien',			54		},	-- 30
 		{'_3rdPersonFlashIntensity',			0.5		},	-- 0.9
@@ -78,7 +78,7 @@ ECT[#ECT+1] = {
 		{'HoverTakeoffHeight',					68		},	-- 90
 		{'HoverLandReachedDistance',			8		},	-- 10
 		{'LandingButtonMinTime',				0.3		},	-- 0.5
-		{'LandingPushNoseUpFactor',				-0.03	},	-- 0.15
+		{'LandingPushNoseUpFactor',				-0.05	},	-- 0.15
 		{'AutoLevelMinAngle',					360		}, 	-- 5
 		{'AutoLevelMaxAngle',					0		}, 	-- 110
 		{'ShieldRechargeMinHitTime',			20		},	-- 60		(1136)
@@ -114,7 +114,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SPACESHIP.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

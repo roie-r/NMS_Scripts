@@ -17,17 +17,17 @@ local function ConvertMbin(mbin)
 end
 
 local mbin = {
-	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/CATALOGUEMATERIALS.MBIN',										-- 1
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/CATALOGUECRAFTING.MBIN',											-- 1
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/MISSIONS/SEASONALMISSIONTABLE.MBIN',							-- 2
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.MBIN',	-- 3
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/REWARDTABLE.MBIN',										-- 4
-	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.MBIN',							-- 5
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/GAMESTATE/PLAYERDATA/MODULARCUSTOMISATIONDATATABLE.MBIN',				-- 5
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN',						-- 6
-	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SKYSETTINGS/SPACESKYCOLOURS.MBIN',		-- 7
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/VOXELGENERATORSETTINGS.MBIN',						-- 7
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/BIOMES/RADIOACTIVE/RADIOACTIVEOBJECTSFULL.MBIN',	-- 8
 }
 -----------------------------------------------------------------------------------------
-local index	 = 1
+local index	 = 6
 local tbl_08 = 'EXML_SOURCE'
 
 ConvertMbin(mbin[index])
@@ -41,6 +41,6 @@ w_src:close()
 print('saved '..tbl_08..' LUA to _dump')
 ---------------------------------------------------------------------------------------
 -- dofile('d:/_dump/'..tbl_08..'.lua')
--- io.open('d:/_dump/'..tbl_08..'.MBIN', 'w'):write(FileWrapping(EXML_SOURCE))
+-- io.open('d:/_dump/'..tbl_08..'.EXML', 'w'):write(FileWrapping(EXML_SOURCE))
 
 -- print('saved '..tbl_08..' EXML to _dump')

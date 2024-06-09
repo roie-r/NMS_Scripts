@@ -34,27 +34,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		-- {--	hangar ship salvage terminal entity
 			-- FILE_DESTINATION = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/ENTITIES/SHIP_SALVAGE.ENTITY.EXML',
 			-- FILE_CONTENT	 = FileWrapping({
-				-- META = {'template','TkAttachmentData'},
+				-- meta = {'template','TkAttachmentData'},
 				-- Components = {
-					-- META = {'name','Components'},
+					-- meta = {'name','Components'},
 					-- Simple	= {
-						-- META = {'value','GcSimpleInteractionComponentData.xml'},
+						-- meta = {'value','GcSimpleInteractionComponentData.xml'},
 						-- Name = 'UI_SALVAGE_TITLE'
 					-- },
 					-- Interaction	= {
-						-- META = {'value','GcInteractionComponentData.xml'},
+						-- meta = {'value','GcInteractionComponentData.xml'},
 						-- InteractionAction	= 'PressButton',
 						-- InteractionType		= {
-							-- META = {'InteractionType','GcInteractionType.xml'},
+							-- meta = {'InteractionType','GcInteractionType.xml'},
 							-- InteractionType	= 'StoryUtility'
 						-- },
 						-- AttractDistanceSq	= 3,
 						-- InteractAngle		= 360,
 						-- InteractDistance	= 3,
 						-- PuzzleMissionOverrideTable = {
-							-- META = {'name','PuzzleMissionOverrideTable'},
+							-- meta = {'name','PuzzleMissionOverrideTable'},
 							-- Puzzle	= {
-								-- META = {'value','GcAlienPuzzleMissionOverride.xml'},
+								-- meta = {'value','GcAlienPuzzleMissionOverride.xml'},
 								-- Mission		= 'EXPLORE_LOG', -- must be a real mission id
 								-- Puzzle		= 'SHIP_SALVAGE'
 							-- }

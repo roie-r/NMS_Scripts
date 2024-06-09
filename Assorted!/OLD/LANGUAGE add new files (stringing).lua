@@ -14,6 +14,18 @@ local text_lines = {
 	default	= 'EN',
 	entries	= {
 	---	New text ---
+		PRODX40_NAME = {
+			EN = [[FUSED STASIS ENABLER]],
+			FR = [[ACTIVATEUR DE STASE FUSIBLE]],
+		},
+		PRODX40_NAME_L = {
+			EN = [[Fused Stasis Enabler]],
+			FR = [[Activateur De Stase Fusible]],
+		},
+		PRODX40_DESC = {
+			EN = [[This plain-looking custom-made device is so vanishingly rare as to be practically extinct. It's value, for the right collector, is so outrageous the technology itself is considered worthless.]],
+			FR = [[Cet appareil sur mesure d'apparence simple est si rare qu'il est pratiquement éteint. Sa valeur, pour le bon collectionneur, est si scandaleuse que la technologie elle-même est considérée comme sans valeur.]]
+		},
 		JUMP_U_ALIEN_NAME = {
 			EN = [[ENLARGED HEART]],
 		},
@@ -64,18 +76,6 @@ local text_lines = {
 		},
 		VEHICLESTUN_SUB = {
 			EN = [[Stun Weapons]],
-		},
-		PRODX40_NAME = {
-			EN = [[FUSED STASIS ENABLER]],
-			FR = [[ACTIVATEUR DE STASE FUSIBLE]],
-		},
-		PRODX40_NAME_L = {
-			EN = [[Fused Stasis Enabler]],
-			FR = [[Activateur De Stase Fusible]],
-		},
-		PRODX40_DESC = {
-			EN = [[This plain-looking custom-made device is so vanishingly rare as to be practically extinct. It's value, for the right collector, is so outrageous the technology itself is considered worthless.]],
-			FR = [[Cet appareil sur mesure d'apparence simple est si rare qu'il est pratiquement éteint. Sa valeur, pour le bon collectionneur, est si scandaleuse que la technologie elle-même est considérée comme sans valeur.]]
 		},
 		UI_TECH_EXPLORE_SUB = {
 			EN = [[Craftable Exploratory Blueprints]],
@@ -278,9 +278,7 @@ local function BuildLocaleText(lang_code)
 		T[#T+1] = string.format(
 			[[<Property value="TkLocalisationEntry.xml">
 				<Property name="Id" value="%s"/>
-				<Property name="%s" value="VariableSizeString.xml">
-					<Property name="Value" value="%s"/>
-				</Property>
+				<Property name="%s" value="%s"/>
 			</Property>]],
 			id,
 			languages[lang_code],
@@ -320,7 +318,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	MODIFICATIONS		= {{
@@ -330,10 +328,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			EXML_CHANGE_TABLE	= {
 				{
 					PRECEDING_KEY_WORDS	= 'LocTableList',
-					ADD = string.format(
-						[[<Property value="NMSString0x20.xml"><Property name="Value" value="%s"/></Property>]],
-						text_lines.locale
-					)
+					ADD					= string.format('<Property value="%s"/>', text_lines.locale)
 				}
 			}
 		}

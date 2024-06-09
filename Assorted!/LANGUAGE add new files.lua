@@ -12,7 +12,7 @@ local mod_desc = [[
 ]]--------------------------------------------------------------------------------------
 
 local text_lines = {
-	locale	= 'NMS_Loc88',
+	locale	= 'NMS_88',
 	default	= 'EN',
 	entries	= {
 	---	New text ---
@@ -34,7 +34,7 @@ local text_lines = {
 		ROCEKT_U_ALIEN_DESC = {
 			EN = [[A significant extension to emissive seeds pod's capacity, enabling enduring performance, improving exhaust performance and allowing for significantly faster <STELLAR>heat recovery<>.]],
 		},
-		
+
 		JUMP_U_ALIEN_NAME = {
 			EN = [[ENLARGED HEART]],
 		},
@@ -253,31 +253,31 @@ local text_lines = {
 		UT_SHOT_DESC = {
 			EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.||N||NCauses targets to <RED>burn<> for a short while, causing additional damage]],
 		},
-		UI_LAUNCHSUB2_SYM	= { EN = [[H2]] },
-		UI_HEXITE_SYM		= { EN = [[Ӂ]] },
-		UI_SUNGOLD_SYM		= { EN = [[Ƣ]] },
-		UI_SOULFRAG_SYM		= { EN = [[§]] },
-		UI_WORMDUST_SYM		= { EN = [[∂]] },
+		UI_LAUNCHSUB2_SYM	= { EN = [[H2]] },	-- 4
+		UI_HEXITE_SYM		= { EN = [[Ӂ]] },	-- 4
+		UI_SUNGOLD_SYM		= { EN = [[Ƣ]] },	-- 6
+		UI_SOULFRAG_SYM		= { EN = [[§]] },	-- 6
+		UI_WORMDUST_SYM		= { EN = [[∂]] },	-- 7
 
-		NOTIFY_BINOCULARS				= { EN = ' ' },
-		NOTIFY_BOOST					= { EN = ' ' },
-		NOTIFY_SHIPBOOST				= { EN = ' ' },
-		NOTIFY_SHIPJUMP					= { EN = ' ' },
-		NOTIFY_SCANNER					= { EN = ' ' },
-		NOTIFY_JETPACK					= { EN = ' ' },
-		NOTIFY_NOJETPACK				= { EN = ' ' },
-		NOTIFY_SHIPJUMP_PC				= { EN = ' ' },
-		NOTIFY_TORCH					= { EN = ' ' },
-		NOTIFY_TAKEOFF					= { EN = ' ' },
-		UI_CREATURE_MOUNT_TITLE			= { EN = ' ' },
-		UI_CREATURE_MOUNT_MSG			= { EN = ' ' },
-		UI_NEXUS_SALVAGE_TITLE			= { EN = ' ' },
-		UI_NEXUS_TECHFRAG_TITLE			= { EN = ' ' },
-		UI_NOTIFY_EXOCRAFT_TIP_TITLE	= { EN = ' ' },
-		UI_NOTIFY_SHIP_TIP_TITLE		= { EN = ' ' },
-		UI_NOTIFY_SHIP_SUMMON			= { EN = ' ' },
-		UI_NOTIFY_TAKEOFF				= { EN = ' ' },
-		UI_NOTIFY_TIP_TITLE				= { EN = ' ' },
+		NOTIFY_BINOCULARS			= { EN = ' ' },	-- 1
+		NOTIFY_BOOST				= { EN = ' ' },	-- 1
+		NOTIFY_SHIPBOOST			= { EN = ' ' },	-- 1
+		NOTIFY_SHIPJUMP				= { EN = ' ' },	-- 1
+		NOTIFY_SCANNER				= { EN = ' ' },	-- 1
+		NOTIFY_JETPACK				= { EN = ' ' },	-- 1
+		NOTIFY_NOJETPACK			= { EN = ' ' },	-- 1
+		NOTIFY_SHIPJUMP_PC			= { EN = ' ' },	-- 1
+		NOTIFY_TORCH				= { EN = ' ' },	-- 1
+		NOTIFY_TAKEOFF				= { EN = ' ' },	-- 1
+		UI_CREATURE_MOUNT_TITLE		= { EN = ' ' }, -- 5
+		UI_CREATURE_MOUNT_MSG		= { EN = ' ' }, -- 5
+		UI_NEXUS_SALVAGE_TITLE		= { EN = ' ' }, -- 5
+		UI_NEXUS_TECHFRAG_TITLE		= { EN = ' ' }, -- 5
+		UI_NOTIFY_SHIP_SUMMON		= { EN = ' ' }, -- 3
+		UI_NOTIFY_TAKEOFF			= { EN = ' ' },	-- 3
+		UI_NOTIFY_EXOCRAFT_TIP_TITLE= { EN = ' ' }, -- 4
+		UI_NOTIFY_SHIP_TIP_TITLE	= { EN = ' ' }, -- 4
+		UI_NOTIFY_TIP_TITLE			= { EN = ' ' },	-- 4
 	}
 }
 
@@ -318,18 +318,15 @@ local function InsertCharEntities(s)
 end
 
 -- return a complete TkLocalisationTable exml
--- if a locale text is missing, insert default locale text
 local function BuildLocaleText(lang_code)
-	local T = {META = {'name', 'Table'}}
+	local T = {meta = {'name', 'Table'}}
 	for id, text in pairs(text_lines.entries) do
+		-- if a locale text is missing, insert default locale text
 		local code = text[lang_code] and lang_code or text_lines.default
 		T[#T+1] = {
-			META	= {'value', 'TkLocalisationEntry.xml'},
+			meta	= {'value', 'TkLocalisationEntry.xml'},
 			Id		= id,
-			Lang	= {
-				META	= {languages[lang_code], 'VariableSizeString.xml'},
-				Value	= InsertCharEntities(text[code])
-			}
+			[languages[lang_code]] = InsertCharEntities(text[code])
 		}
 	end
 	return FileWrapping(T, 'TkLocalisationTable')
@@ -360,7 +357,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{
@@ -371,7 +368,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				-- {
 					-- PRECEDING_KEY_WORDS	= 'LocTableList',
 					-- ADD					= ToExml({
-						-- META	= {'value', 'NMSString0x20.xml'},
+						-- meta	= {'value', 'NMSString0x20.xml'},
 						-- Value	= text_lines.locale
 					-- })
 				-- }

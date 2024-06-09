@@ -7,25 +7,24 @@ local mod_desc = [[
    (done in textures script)
 ]]-------------------------------------------------------------------
 
-
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META costruct head eyes.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONTEXTUREOPTIONDATA.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYES_BUILDER'},
-				VALUE_CHANGE_TABLE 	= {
-					{'ColourAlt',	'Alternative3'} -- Alternative2
-				}
-			}
-		}
-	},
+	-- {
+		-- MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONTEXTUREOPTIONDATA.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYES_BUILDER'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'ColourAlt',	'Alternative3'} -- Alternative2
+				-- }
+			-- }
+		-- }
+	-- },
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/UI/CHARACTERCUSTOMISATIONUIDATA.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -58,10 +57,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				)(),
 				ADD_OPTION			= 'AddAfterSection',
 				ADD					= ToExml({
-					META	= {'value', 'GcCustomisationColourGroup.xml'},
+					meta	= {'value', 'GcCustomisationColourGroup.xml'},
 					Title	= 'Light Color',
 					Palette	= {
-						META		= {'Palette', 'TkPaletteTexture.xml'},
+						meta		= {'Palette', 'TkPaletteTexture.xml'},
 						Palette		= 'Custom_Head',
 						ColourAlt	= 'Alternative3'
 					}

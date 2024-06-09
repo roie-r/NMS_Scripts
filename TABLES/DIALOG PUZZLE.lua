@@ -11,7 +11,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE DIALOG PUZZLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -31,10 +31,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 
 			-- {
 				-- SPECIAL_KEY_WORDS	= {'Text', 'UI_WEAP_UPGRADE_CLASS_RES'},
-				-- SECTION_SAVE_TO		= 'gc_alien_puzzle_option'
+				-- SEC_SAVE_TO			= 'gc_alien_puzzle_option'
 			-- },
 			-- {
-				-- SECTION_EDIT 		= 'gc_alien_puzzle_option',
+				-- SEC_EDIT 			= 'gc_alien_puzzle_option',
 				-- SPECIAL_KEY_WORDS	= {'Name', 'RADIUS'},
 				-- VALUE_CHANGE_TABLE 	= {
 					-- {'Value',		1},
@@ -43,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- {
 				-- SPECIAL_KEY_WORDS	= {'Text', 'UI_WEAP_UPGRADE_CLASS_RES'},
 				-- ADD_OPTION			= 'AddAfterSection',
-				-- SECTION_ADD_NAMED 	= 'gc_alien_puzzle_option',
+				-- SEC_ADD_NAMED		 	= 'gc_alien_puzzle_option',
 			-- },
 			{
 				VALUE_MATCH			= 'FREIGHTER_SAVED',

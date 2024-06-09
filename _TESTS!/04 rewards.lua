@@ -2,7 +2,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '___TEST 04 rewards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MODIFICATIONS		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

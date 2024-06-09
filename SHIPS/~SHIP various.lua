@@ -15,7 +15,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP various.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_BATCHNAME			= '_SHIPS ~@~collection.pak',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
@@ -27,10 +27,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'S1_Fin1'},
 				VALUE_CHANGE_TABLE 	= {
-					{'TransZ',		-490},
-					{'ScaleX', 		0.66},
-					{'ScaleY', 		0.66},
-					{'ScaleZ', 		0.66}
+					{'TransX',		0},
+					{'TransY',		-180},
+					{'TransZ',		-150},
+					{'RotX', 		180},
+					{'RotY', 		180},
+					{'RotZ', 		0},
+					{'ScaleX', 		0.8},
+					{'ScaleY', 		0.8},
+					{'ScaleZ', 		0.8}
 				}
 			},
 			{
@@ -51,6 +56,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ScaleZ', 		0.48}
 				}
 			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'scaffolding1'},
+				REMOVE				= 'Section'
+			}
 		}
 	},
 	{--	|infraknife blue shot|

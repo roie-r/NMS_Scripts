@@ -20,7 +20,7 @@ MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL/ENTITIES/BUTTON.ENTITY.MBIN
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '___TEST 08 toy portal.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	-- MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 			= {{
@@ -61,11 +61,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				},
 				REMOVE				= 'Section'
 			},
-			
+
 			-- moving membrane or PlayerSpawn doesn't work - move the dialer instead (REFPortalTerminalB)?
-			
+
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'REFMembraneB'}, 
+				SPECIAL_KEY_WORDS	= {'Name', 'REFMembraneB'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransX',		-25}
 				}
@@ -224,14 +224,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 
 			-- FILE_DESTINATION = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TOY_PORTAL/ENTITIES/START_BTN.ENTITY.EXML',
 			-- FILE_CONTENT	 = FileWrapping({
-				-- META = {'template','TkAttachmentData'},
+				-- meta = {'template','TkAttachmentData'},
 				-- Components = {
-					-- META = {'name','Components'},
+					-- meta = {'name','Components'},
 					-- Interaction	= {
-						-- META = {'value','GcInteractionComponentData.xml'},
+						-- meta = {'value','GcInteractionComponentData.xml'},
 						-- InteractionAction	= 'PressButton',
 						-- InteractionType		= {
-							-- META = {'InteractionType','GcInteractionType.xml'},
+							-- meta = {'InteractionType','GcInteractionType.xml'},
 							-- InteractionType	= 'Portal'
 						-- },
 						-- AttractDistanceSq	= 6,
@@ -249,14 +249,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 
 			-- FILE_DESTINATION = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TOY_PORTAL/ENTITIES/ACTIVATION.ENTITY.EXML',
 			-- FILE_CONTENT	 = FileWrapping({
-				-- META = {'template','TkAttachmentData'},
+				-- meta = {'template','TkAttachmentData'},
 				-- Components = {
-					-- META = {'name','Components'},
+					-- meta = {'name','Components'},
 					-- Interaction	= {
-						-- META = {'value','GcInteractionComponentData.xml'},
+						-- meta = {'value','GcInteractionComponentData.xml'},
 						-- InteractionAction	= 'PressButton',
 						-- InteractionType		= {
-							-- META = {'InteractionType','GcInteractionType.xml'},
+							-- meta = {'InteractionType','GcInteractionType.xml'},
 							-- InteractionType	= 'PortalActivate' -- real activation??
 						-- },
 						-- AttractDistanceSq	= 9,

@@ -117,14 +117,14 @@ local solar_biomes = {
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENCORALOBJECTS.MBIN',					--<< preload_source_discard
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENBIGPROPSOBJECTSFULL.MBIN',				--<< preload_source_discard
 }
-			
+
 local ADF = {}
 for _,biome in ipairs(solar_biomes) do
 	local gc_object_list	= LoadRuntimeMbin(biome)
 	local gc_objs			= gc_object_list.template.Objects
 
 	if not gc_objs.DistantObjects then
-		gc_objs.DistantObjects = { META = {'name', 'DistantObjects'} }
+		gc_objs.DistantObjects = { meta = {'name', 'DistantObjects'} }
 	end
 	-- move landmarks to distant objects
 	if gc_objs.Landmarks then
@@ -136,7 +136,7 @@ for _,biome in ipairs(solar_biomes) do
 
 	-- move objects to landmarks
 	if gc_objs.Objects then
-		gc_objs.Landmarks = { META = {'name', 'Landmarks'} }
+		gc_objs.Landmarks = { meta = {'name', 'Landmarks'} }
 		for _,objs in ipairs(gc_objs.Objects) do
 			-- gc_objs.DistantObjects[#gc_objs.DistantObjects+1] = objs
 			gc_objs.Landmarks[#gc_objs.Landmarks+1] = objs
@@ -153,7 +153,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST distant props.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= ADF
 }

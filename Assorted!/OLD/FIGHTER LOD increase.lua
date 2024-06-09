@@ -50,7 +50,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP fighter LOD increase.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_BATCHNAME		= '__SHIP fighter merged.pak',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 	{
@@ -81,7 +81,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
 							ADD_OPTION			= 'AddAfterSection',
 							ADD 				= ToExml({
-								META	= {'value', 'TkSceneNodeAttributeData.xml'},
+								meta	= {'value', 'TkSceneNodeAttributeData.xml'},
 								Name	= 'ATTACHMENT',
 								Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
 							})

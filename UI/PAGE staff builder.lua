@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI staff builder substance coloring.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,10 +17,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'SLOT03GRP'},
 				SECTION_UP_SPECIAL	= 1,
-				SECTION_SAVE_TO		= 'gc_ng_uilayer_data'
+				SEC_SAVE_TO			= 'gc_ng_uilayer_data'
 			},
 			{
-				SECTION_EDIT 		= 'gc_ng_uilayer_data',
+				SEC_EDIT 			= 'gc_ng_uilayer_data',
 				SPECIAL_KEY_WORDS	= {'ID', 'SLOT03GRP'},
 				VALUE_CHANGE_TABLE 	= {
 					{'ID',			'SLOT04GRP'},
@@ -28,7 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SECTION_EDIT 		= 'gc_ng_uilayer_data',
+				SEC_EDIT 			= 'gc_ng_uilayer_data',
 				SECTION_UP_SPECIAL	= 1,
 				SPECIAL_KEY_WORDS	= {'ID', 'LABEL'},
 				VALUE_CHANGE_TABLE 	= {
@@ -39,7 +39,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'ID', 'SLOT03GRP'},
 				SECTION_UP_SPECIAL	= 1,
 				ADD_OPTION			= 'AddAfterSection',
-				SECTION_ADD_NAMED 	= 'gc_ng_uilayer_data'
+				SEC_ADD_NAMED		= 'gc_ng_uilayer_data'
 			}
 		}
 	}

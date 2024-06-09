@@ -120,8 +120,17 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.royal palette.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
+-----------------------------------------------------------------------------
+--	Comment/delete this section if you want to import the textures using a different method
+	ADD_FILES			= {
+		{
+			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Ship/Royal/*.DDS',
+			FILE_DESTINATION	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/*.DDS',
+		}
+	},	
+-----------------------------------------------------------------------------
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -164,18 +173,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-			--	add to the silly fixed length array
+			--	add to complete fixed length array
 				SPECIAL_KEY_WORDS	= {'Name', 'BASE'},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD 				= '<Property value="TkProceduralTextureLayer.xml"/>'
 			},
 		}
 	}
-}}},
-	ADD_FILES	= {
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Ship/Royal/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/*.DDS',
-		}
-	}
-}
+}}}}

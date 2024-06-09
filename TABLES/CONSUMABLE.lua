@@ -4,17 +4,14 @@ local mod_desc = [[
 ]]----------------------------------------------------
 
 local consumable_items = {
-	{
-		id		= 'HEXCORE',
+	HEXCORE = {
 		reward	= 'RS_QUICKSILV_T'
 	},
-	{
-		id		= 'SUPERFOOD',
+	SUPERFOOD = {
 		reward	= 'HEALTH_MAJOR',
 		closed	= true
 	},
-	{
-		id		= 'CHART_BUILDER',
+	CHART_BUILDER = {
 		reward	= 'R_CHART_BUILDER',
 		closed	= true
 	},
@@ -23,7 +20,7 @@ local consumable_items = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE CONSUMABLE.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 		{
@@ -66,14 +63,14 @@ ECT[#ECT+1] = {
 
 ECT[#ECT+1] = {
 	SPECIAL_KEY_WORDS	= {'ID', 'ALIEN_TECHBOX'},
-	SECTION_SAVE_TO		= 'gc_consumable_item'
+	SEC_SAVE_TO			= 'gc_consumable_item'
 }
 
-for _,item in ipairs(consumable_items) do
+for id, item in pairs(consumable_items) do
 	ECT[#ECT+1] = {
-		SECTION_EDIT 		= 'gc_consumable_item',
+		SEC_EDIT 			= 'gc_consumable_item',
 		VALUE_CHANGE_TABLE 	= {
-			{'ID',						item.id},
+			{'ID',						id},
 			{'RewardID',				item.reward},
 			{'ButtonLocID',				item.button	or 'UI_CONSUME'},
 			{'ButtonSubLocID',			''},
@@ -83,6 +80,6 @@ for _,item in ipairs(consumable_items) do
 	}
 	ECT[#ECT+1] = {
 		PRECEDING_KEY_WORDS = 'Table',
-		SECTION_ADD_NAMED 	= 'gc_consumable_item'
+		SEC_ADD_NAMED		= 'gc_consumable_item'
 	}
 end

@@ -31,6 +31,17 @@ local function PrintAsLua(mbin)
 	wf:close()
 end
 -------------------------------------------------------------------------------------------------------------------
+-- local mbin = 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/RADIOACTIVE/RADIOACTIVEOBJECTSFULL.MBIN'
+
+-- source = ReadExml(NMS..mbin)
+
+-- for _, obj in ipairs(source.template.Objects.Landmarks) do
+	-- print(obj.Resource.Filename)
+	-- -- if prd.ID:find('FIGHT_') then
+	-- -- end
+-- end
+
+-------------------------------------------------------------------------------------------------------------------
 local mbin = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN'
 
 source = ReadExml(NMS..mbin)

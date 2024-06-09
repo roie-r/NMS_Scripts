@@ -10,7 +10,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fonts units & no bars.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_BATCHNAME		= '_UI ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -138,7 +138,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			EXTERNAL_FILE_SOURCE= 'D:/MODZ_stuff/NoMansSky/Sources/+Fonts/Ubuntu-Regular.ttf',
+			EXTERNAL_FILE_SOURCE= 'D:/MODZ_stuff/NoMansSky/Sources/Fonts/Ubuntu-Regular.ttf',
 			FILE_DESTINATION	= 'UI/GAMEFONT.TTF'
 		},
 		-- {

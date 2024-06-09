@@ -3,6 +3,8 @@ dofile('LIB/_lua_2_exml.lua')
 -----------------------------------------------------------------------------------
 local mod_desc = [[
   dropship:
+  - Add vulture parts to world common use
+  - Vulture parts blue lights
   - decal placements tweaks
   - move guns below the cockpit (matches interior placement)
   - No foggy headlights cone on cockpits
@@ -15,9 +17,11 @@ local mod_desc = [[
 ]]---------------------------------------------------------------------------------
 
 local dropship = {
+	desc =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.DESCRIPTOR.MBIN',						skip=true},
 	ship =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',								skip=true},
 	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN'},
 	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN'},
+	cockpit_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITC.SCENE.MBIN'},
 	box_l =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_L.SCENE.MBIN',	add=true,	lod1=true},
 	box_r =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_R.SCENE.MBIN',	add=true,	lod1=true},
 	ball_l =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_L.SCENE.MBIN',	add=true,	lod1=true},
@@ -32,6 +36,7 @@ local dropship = {
 	engine_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESA.SCENE.MBIN',							add=true},
 	engine_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESB.SCENE.MBIN',							add=true},
 	engine_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESC.SCENE.MBIN',							add=true},
+	engine_d =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESD.SCENE.MBIN',							add=true},
 	s_wing_bl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_LEFT.SCENE.MBIN',			add=true,	lod1=true},
 	s_wing_br =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_RIGHT.SCENE.MBIN',		add=true,	lod1=true},
 	s_wing_cl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSC/SUBWINGSC_LEFT.SCENE.MBIN',			add=true},
@@ -59,17 +64,123 @@ local dropship = {
 	wing_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSA/WINGSA.SCENE.MBIN'},
 	wing_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSB/WINGSB.SCENE.MBIN'},
 	wing_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSC/WINGSC.SCENE.MBIN'},
-	wing_d =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSD/WINGSD.SCENE.MBIN'}
+	wing_d =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSD/WINGSD.SCENE.MBIN'},
+	wing_s =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSS13/WINGSS13.SCENE.MBIN'}
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP dropship.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 		MBIN_CHANGE_TABLE		= {
+		{-- |dropship add vulture desc| parts
+			MBIN_FILE_SOURCE	= dropship.desc.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {'Id', '_COCKPIT_S13XNEVER'},
+					VALUE_CHANGE_TABLE	= {
+						{'Id',			'_COCKPIT_S13'},
+						{'Name',		'_Cockpit_S13'}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Id', '_ENGINES_S13XNEVER'},
+					VALUE_CHANGE_TABLE	= {
+						{'Id',			'_ENGINES_S13'},
+						{'Name',		'_Engines_S13'}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Id', '_WINGS_S13XNEVER'},
+					VALUE_CHANGE_TABLE	= {
+						{'Id',			'_WINGS_S13'},
+						{'Name',		'_Wings_S13'}
+					}
+				}
+			}
+		},
+		{-- |dropship add vulture scene| parts
+			MBIN_FILE_SOURCE	= dropship.ship.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {'Name', '_Cockpit_S13xNEVER'},
+					VALUE_CHANGE_TABLE	= {
+						{'Name',		'_Cockpit_S13'}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Name', '_Engines_S13xNEVER'},
+					VALUE_CHANGE_TABLE	= {
+						{'Name',		'_Engines_S13'}
+					}
+				},
+				{
+					SPECIAL_KEY_WORDS	= {'Name', '_Wings_S13xNEVER'},
+					VALUE_CHANGE_TABLE	= {
+						{'Name',		'_Wings_S13'}
+					}
+				}
+			}
+		},
+		{-- |vulture engineD dim blue light|
+			MBIN_FILE_SOURCE	= dropship.engine_d.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS 	= {'Name', 'INTENSITY'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Value',		10500}
+					}
+				},
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS 	= {'Name', 'COL_R'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Value',		0.4}
+					}
+				},
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS 	= {'Name', 'COL_G'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Value',		0.2}
+					}
+				},
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS 	= {'Name', 'COL_B'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Value',		0.9}
+					}
+				}
+			}
+		},
+		{-- |vulture wing no lights|
+			MBIN_FILE_SOURCE	= dropship.wing_s.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS 	= {'Type', 'LIGHT'},
+					REMOVE			 	= 'Section'
+				}
+			}
+		},
+		{-- |vulture cockpit no foggy headlights| cone
+			MBIN_FILE_SOURCE	= dropship.cockpit_c.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS 	= {
+						{'Name', 'spotLight1'},
+						{'Name', 'spotLight2'},
+						{'Name', 'spotLight3'}
+					},
+					REMOVE				= 'Section'
+				}
+			}
+		},
 		{-- |dropship subwing_F dim lights|
 			MBIN_FILE_SOURCE	= {
 				dropship.s_wing_fl.src,
@@ -348,6 +459,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			MBIN_FILE_SOURCE	= dropship.hull_a.src,
 			EXML_CHANGE_TABLE	= {
 				{
+					SPECIAL_KEY_WORDS 	= {
+						{'Name', '_SideR_A'},
+						{'Name', '_SideL_A3'}
+					},
+					REMOVE				= 'Section'
+				},
+				{
 					SPECIAL_KEY_WORDS	= {
 						{'Name', '_SideL_A'},
 						{'Name', '_SideL_A1'}
@@ -369,13 +487,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					VALUE_CHANGE_TABLE 	= {
 						{'Value', 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_RIGHT/RECTANGLEDECAL.MATERIAL.MBIN'}
 					}
-				},
+				}
+			}
+		},
+		{--	|vulture blue lights|
+			MBIN_FILE_SOURCE	= {
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESD/INTERIORLIGHTS_MAT.MATERIAL.MBIN',
+				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSS13/WINGSS13/INTERIORLIGHTS_MAT5.MATERIAL.MBIN'
+			},
+			EXML_CHANGE_TABLE	= {
 				{
-					SPECIAL_KEY_WORDS 	= {
-						{'Name', '_SideR_A'},
-						{'Name', '_SideL_A3'}
-					},
-					REMOVE				= 'Section'
+					SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Map', 'TEXTURES/COMMON/SPACECRAFT/DROPSHIP/SHARED/INTERIORLIGHTS.DDS'}
+					}
 				}
 			}
 		},
@@ -473,7 +598,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
 								ADD_OPTION			= 'AddAfterSection',
 								ADD 				= ToExml({
-									META	= {'value', 'TkSceneNodeAttributeData.xml'},
+									meta	= {'value', 'TkSceneNodeAttributeData.xml'},
 									Name	= 'ATTACHMENT',
 									Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
 								})

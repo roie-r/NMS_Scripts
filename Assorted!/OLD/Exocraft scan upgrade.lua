@@ -336,12 +336,12 @@ local function VehicleScanEventsChangeTable()
 	local T = {
 		{
 			PRECEDING_KEY_WORDS		= 'GcScanEventData.xml',
-			SECTION_SAVE_TO			= 'gc_scan_event'
+			SEC_SAVE_TO			= 'gc_scan_event'
 		}
 	}
 	for _,ev in ipairs(scan_events) do
 		T[#T+1] = {
-			SECTION_EDIT 			= 'gc_scan_event',
+			SEC_EDIT 			= 'gc_scan_event',
 			VALUE_CHANGE_TABLE 		= {
 				{'Name',						ev.event},
 				{'EventPriority',				ev.evprior	or 'Regular'},
@@ -354,7 +354,7 @@ local function VehicleScanEventsChangeTable()
 			}
 		}
 		T[#T+1] = {
-			SECTION_EDIT 			= 'gc_scan_event',
+			SEC_EDIT 			= 'gc_scan_event',
 			PRECEDING_KEY_WORDS		= 'BuildingClass',
 			VALUE_MATCH				= 'GcBuildingClassification.xml',
 			VALUE_MATCH_OPTIONS 	= '~=',
@@ -364,7 +364,7 @@ local function VehicleScanEventsChangeTable()
 		}
 		T[#T+1] = {
 			PRECEDING_KEY_WORDS 	= 'Events',
-			SECTION_ADD_NAMED 		= 'gc_scan_event'
+			SEC_ADD_NAMED 			= 'gc_scan_event'
 		}
 	end
 	-- add/replace marker icon for found targets
@@ -388,7 +388,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.exocraft scan upgrade.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

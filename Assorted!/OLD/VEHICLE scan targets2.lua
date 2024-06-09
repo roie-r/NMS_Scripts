@@ -342,25 +342,25 @@ local scan_events = {
 local function BuildVehicleScanMenuTable()
 	local function getScanList(scans)
 		-- Assign the exml table with its designated meta
-		local Ts = {META = {'name', 'ScanList'}}
+		local Ts = {meta = {'name', 'ScanList'}}
 		for _,scn in ipairs(scans) do
 			Ts[#Ts+1] = {
-				META	= {'value', 'NMSString0x20.xml'},
+				meta	= {'value', 'NMSString0x20.xml'},
 				Value	= scn[1]
 			}
 		end
 		return Ts
 	end
-	local T = {META = {'name', 'VehicleScanTable'}}
+	local T = {meta = {'name', 'VehicleScanTable'}}
 	for _,entry in ipairs(scan_table) do
 		for _,tech in ipairs(entry.tech) do
 			T[#T+1] = {
-				META			= {'value', 'GcVehicleScanTableEntry.xml'},
+				meta			= {'value', 'GcVehicleScanTableEntry.xml'},
 				Name			= entry.name,
 				RequiredTech	= tech,
 				ScanList		= getScanList(entry.scan),
 				Icon			= {
-					META	= {'Icon', 'TkTextureResource.xml'},
+					meta	= {'Icon', 'TkTextureResource.xml'},
 					Filename	= entry.scan[1][2]
 				}
 			}
@@ -373,12 +373,12 @@ local function VehicleScanEventsChangeTable()
 	local T = {
 		{
 			PRECEDING_KEY_WORDS = 'GcScanEventData.xml',
-			SECTION_SAVE_TO		= 'gc_scan_event'
+			SEC_SAVE_TO			= 'gc_scan_event'
 		}
 	}
 	for _,ev in ipairs(scan_events) do
 		T[#T+1] = {
-			SECTION_EDIT 		= 'gc_scan_event',
+			SEC_EDIT 			= 'gc_scan_event',
 			VALUE_CHANGE_TABLE 	= {
 				{'Name',						ev.event},
 				{'EventPriority',				ev.evprior	or 'Regular'},
@@ -391,7 +391,7 @@ local function VehicleScanEventsChangeTable()
 			}
 		}
 		T[#T+1] = {
-			SECTION_EDIT 			= 'gc_scan_event',
+			SEC_EDIT 			= 'gc_scan_event',
 			PRECEDING_KEY_WORDS		= 'BuildingClass',
 			VALUE_MATCH				= 'GcBuildingClassification.xml',
 			VALUE_MATCH_OPTIONS 	= '~=',
@@ -401,7 +401,7 @@ local function VehicleScanEventsChangeTable()
 		}
 		T[#T+1] = {
 			PRECEDING_KEY_WORDS 	= 'Events',
-			SECTION_ADD_NAMED 		= 'gc_scan_event'
+			SEC_ADD_NAMED 		= 'gc_scan_event'
 		}
 	end
 	-- add/replace marker icon for found targets
@@ -425,7 +425,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

@@ -10,7 +10,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GAMEPLAY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -51,15 +51,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ResourceDirtReducer',					30	},	-- 40
 					{'ShipInteractRadius',					850	},	-- 50		5279
 					{'ZoomFindBuildingRange',				1000},	-- 600
-					{'TorchFoV',							122	},	-- 120		6102
+					{'TorchFoV',							110	},	-- 120		6102
 					{'TorchStrength',						4.8	},	-- 3.5
-					{'TorchDimFoV',							68	},	-- 65
+					{'TorchDimFoV',							70	},	-- 65
 					{'TorchDimStrength',					2.7	},	-- 1.5
-					{'InteractionTorchStrength',			1.2	},	-- 2
-					{'UndergroundTorchFoV',					66	},	-- 70
+					{'InteractionTorchFoV',					90	},	-- 120
+					{'InteractionTorchStrength',			0.8	},	-- 2
+					{'UndergroundTorchFoV',					65	},	-- 70
 					{'UndergroundTorchStrength',			3	},	-- 2.5
 					{'TorchOffsetY',						0.5	},	-- -0.5
-					{'TorchOffsetZ',						-0.85},	-- -0.75
+					{'TorchOffsetZ',						-0.8},	-- -0.75
+					{'TorchStaffOffsetY',					0.5	},	-- -0.2
+					{'TorchStaffOffsetZMin',				-0.9},	-- -2
+					{'TorchStaffOffsetZ',					-0.9},	-- -2.5
 					{'TorchFollowCameraTime',				0.08},	-- 0.15
 					{'LightStrength',						1.6	},	-- 1 (build selected item light)
 				}

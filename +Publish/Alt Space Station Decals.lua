@@ -128,9 +128,10 @@ local function AddProcTexFiles()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Alt Space Staion Decals.1.5.pak',
+	MOD_FILENAME 		= '_MOD.lMonk.Alt Space Staion Decals.1.51.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.0+',
+	NMS_VERSION			= '4.65+',
 	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	ADD_FILES			= AddProcTexFiles()
 }

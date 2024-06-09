@@ -318,7 +318,7 @@ local function GetBiomeFlora(biome)
 	local flora			= {}
 
 	for key, objs in pairs(gc_objs) do
-		if key ~= 'SelectableObjects' and key ~= 'META' then
+		if key ~= 'SelectableObjects' and key ~= 'meta' then
 			for _, spn in ipairs(objs) do
 				if spn.QualityVariants then
 				--	pull highest quality
@@ -334,7 +334,7 @@ local function GetBiomeFlora(biome)
 					w = tonumber(spn.ShearWindStrength),
 					c = tonumber(c),
 					r = tonumber(r)
-				}				
+				}
 				if flora[spn.Resource.Filename] then
 				--	keep highest values
 					local T = flora[spn.Resource.Filename]
@@ -488,7 +488,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '_META large props.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.64',
+	NMS_VERSION				= '4.72',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	AMUMSS_SUPPRESS_MSG		= 'UNDEFINED_VARIABLE,UNUSED_VARIABLE',

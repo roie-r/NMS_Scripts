@@ -13,7 +13,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -59,8 +59,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 
 					--- Extension for basebuilding
 					-- {'MaxRadiusForPlanetBases',			 	2000},	-- 1000
-					-- {'BaseRadiusExtension',					80},
-					-- {'MinRadiusForBases',					1500},
+					-- {'BaseRadiusExtension',					100},
+					-- {'MinRadiusForBases',					1600},
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
----	EXML 2 LUA (VERSION: 0.83.2) ... by lMonk
+---	EXML 2 LUA (VERSION: 0.83.6) ... by lMonk
 ---	A tool for converting exml to an equivalent lua table and back again.
 ---	Functions for converting an exml file, or sections of one, to
 ---	 a lua table during run-time, or printing the exml as a lua script.
@@ -36,35 +36,33 @@ function ToLua(exml)
 	local tag	= [[<[/]?Property[ ]?(.-[/]?)>]]
 	local tag1	= [[([%w_]+)="(.+)"[ ]?([/]?)]]
 	local tag2	= [[name="([%w_]+)" value="(.*)"[ ]?([/]?)]]
-	local tlua, st_node, st_array = {}, {}, {false}
+	local tlua, st_node, is_ord = {}, {}, {false}
 	local parent= tlua
 	local node	= nil
-	--	array=true when processing an ordered (name) section
-	local array	= false
 	for prop in UnWrap(exml):gmatch(tag) do
 		_,eql = prop:gsub('=', '')
 		if eql > 0 then
 			-- choose tag by the count of [=] in a property
 			local att, val, close = prop:match(eql > 1 and tag2 or tag1)
 			if close == '' then
-				array = att == 'name'
 				-- open new property table
 				table.insert(st_node, parent)
-				node = {META = {att , val}}
+				node = {meta = {att , val}}
 
-				 -- look up if parent is an array
-				if st_array[#st_array] or att == 'value' then
+				-- is_ord[#is_ord] == true when parent is an ordered (name) section
+				if is_ord[#is_ord] == true or att == 'value' then
 					parent[#parent+1] = node
 				elseif att == 'name' then
 					parent[val] = node
 				else
 					parent[att] = node
 				end
-				table.insert(st_array, att == 'name')
 				parent = node
+				-- keep meta if classes are ordered
+				is_ord[#is_ord+1] = att == 'name'
 			else
 				-- add property to parent table
-				if att == 'value' or array then
+				if is_ord[#is_ord] == true or att == 'value' then
 					node[#node+1] = {[att] = eval(val)}
 				-- regular property (skips stubs)
 				elseif att ~= 'name' then
@@ -74,7 +72,7 @@ function ToLua(exml)
 		else
 			-- go back to parent node
 			parent = table.remove(st_node)
-			table.remove(st_array)
+			table.remove(is_ord)
 			node = parent
 		end
 	end
@@ -83,9 +81,15 @@ end
 
 --	Converts EXML to a pretty-printed, ready-to-work, lua script.
 --	When parsing a full file, the header is stripped and a mock template is added
---	@param exml: requires complete EXML sections in the nomral format
+--	@param vars: a table containing the required properties
+--	{
+--	  exml	 = complete EXML sections in the nomral format or a full file
+--	  name	 = the table's variable name..	Default: EXML_SOURCE
+--	  indent = code indentation..			Default: [\t] (tab)
+--	  com	 = ['] or ["]..					Default: [']
+--	}
 --	* Does not handle commented lines!
-function PrintExmlAsLua(exml, indent, com)
+function PrintExmlAsLua(vars)
 	local function eval(val)
 		if #val == 0 then
 			return 'nil'
@@ -100,40 +104,38 @@ function PrintExmlAsLua(exml, indent, com)
 	local tag	= [[<[/]?Property[ ]?(.-[/]?)>]]
 	local tag1	= [[([%w_]+)="(.+)"[ ]?([/]?)]]
 	local tag2	= [[name="([%w_]+)" value="(.*)"[ ]?([/]?)]]
-	indent		= indent or '\t'
-	com			= com or [[']]
+	local ind	= vars.indent or '\t'
+	local com	= vars.com or [[']]
 	local lvl	= 0
-	local tlua	= {'exml_source'}
+	local tlua	= {(vars.name or 'EXML_SOURCE')}
 	function tlua:add(t)
 		for _,v in ipairs(t) do self[#self+1] = v end
 	end
-	--	array=true when processing an ordered (name) section
-	local array	= false
-	local st_array = {false}
-	for prop in UnWrap(exml):gmatch(tag) do
+	local is_ord = {false}
+	for prop in UnWrap(vars.exml):gmatch(tag) do
 		_,eql = prop:gsub('=', '')
 		if eql > 0 then
 			-- choose tag by the count of [=] in a property
 			local att, val, closed = prop:match(eql > 1 and tag2 or tag1)
 			if closed == '' then
 				-- opening a new table
-				array = att == 'name'
-				-- look up if parent is an array
-				if st_array[#st_array] or att == 'value' then
-					tlua:add({indent:rep(lvl), '{\n'})
+				-- is_ord[#is_ord] == true when parent is an ordered (name) section
+				if is_ord[#is_ord] == true or att == 'value' then
+					tlua:add({ind:rep(lvl), '{\n'})
 				else
-					tlua:add({indent:rep(lvl), (att == 'name' and val or att), ' = ', '{\n'})
+					tlua:add({ind:rep(lvl), (att == 'name' and val or att), ' = ', '{\n'})
 				end
-				table.insert(st_array, att == 'name')
+				-- keep meta if classes are ordered
+				is_ord[#is_ord+1] = att == 'name'
 				lvl = lvl + 1
-				tlua:add({indent:rep(lvl), 'META = {', com, att, com, ',', com, val, com, '},\n'})
+				tlua:add({ind:rep(lvl), 'meta = {', com, att, com, ',', com, val, com, '},\n'})
 			else
-				-- value property or properties in an array
-				if att == 'value' or array then
-					tlua:add({indent:rep(lvl), '{', att, ' = ', com, val, com, '},\n'})
+				-- value property or properties in an ordered array
+				if is_ord[#is_ord] == true or att == 'value' then
+					tlua:add({ind:rep(lvl), '{', att, ' = ', com, val, com, '},\n'})
 				-- regular property (skips stubs)
 				elseif att ~= 'name' then
-					tlua:add({indent:rep(lvl), att, ' = ', eval(val), ',\n'})
+					tlua:add({ind:rep(lvl), att, ' = ', eval(val), ',\n'})
 				end
 			end
 		else
@@ -141,8 +143,8 @@ function PrintExmlAsLua(exml, indent, com)
 			lvl = lvl - 1
 			-- trim the comma from the last object
 			tlua[#tlua] = tlua[#tlua]:gsub(',\n', '\n')
-			tlua:add({indent:rep(lvl), '},\n'})
-			table.remove(st_array)
+			tlua:add({ind:rep(lvl), '},\n'})
+			table.remove(is_ord)
 		end
 	end
 	-- start & end trims
@@ -151,17 +153,35 @@ function PrintExmlAsLua(exml, indent, com)
 	return table.concat(tlua)
 end
 
---	Returns a keyed table of TkSceneNodeData sections, with the Name property as keys,
---	* Use to enable direct access to nodes in a table generated with ToLua
+--	A direct access-index for a SCENE file.
+--	Returns a table with Name property as keys linking to their to TkSceneNodeData sections.
 function SceneNames(node, keys)
 	keys = keys or {}
-	if node.META[2] == 'TkSceneNodeData.xml' then
+	if node.meta[2] == 'TkSceneNodeData.xml' then
 		keys[node.Name] = node
 	end
-	for k, scn in pairs(node.Children or {}) do
-		if k ~= 'META' then SceneNames(scn, keys) end
+	for k, scn in ipairs(node.Children or {}) do
+		SceneNames(scn, keys)
 	end
 	return keys
+end
+
+-- A Union All function for an ordered array of tables
+-- Returns a copy by-value. Repeating keys's values are overwritten.
+--	@param arr: A table of tables.
+function UnionTables(arr)
+	local merged = {}
+	for _, tbl in ipairs(arr) do
+		for k, val in pairs(tbl) do
+			if type(val) == 'table' then
+				merged[k] = merged[k] or {}
+				merged[k] = UnionTables({merged[k], val})
+			else
+				merged[k] = val
+			end
+		end
+	end
+	return merged
 end
 
 --	Load an mbin from the amumss runtime processing temp folder
@@ -174,6 +194,6 @@ function LoadRuntimeMbin(path)
 		f:close()
 		return t
 	else
-		print('LoadRuntimeMbin failed to load: '..path)
+		print([[!/^\_! LoadRuntimeMbin failed to load: ]]..path)
 	end
 end

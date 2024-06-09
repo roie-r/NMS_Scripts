@@ -120,9 +120,9 @@ local props = {
 	'FoamColour'
 }
 -- Assign the exml table with its designated meta
-local ECT = { META = {'name', 'Settings'} }
+local ECT = { meta = {'name', 'Settings'} }
 for _,pwc in ipairs(water_colors) do
-	local argb = { META = {'value', 'GcPlanetWaterColourData.xml'} }
+	local argb = { meta = {'value', 'GcPlanetWaterColourData.xml'} }
 	for i, col in ipairs(pwc) do
 		argb[#argb+1] = ColorData(Convert2Rgb(col), props[i])
 	end
@@ -136,7 +136,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META water colors.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.64',
+	NMS_VERSION			= '4.72',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES 			= {
 		{
