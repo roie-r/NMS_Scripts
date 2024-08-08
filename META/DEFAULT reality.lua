@@ -90,10 +90,10 @@ local function EditDefaultReality(the_index, mbin)
 			INTEGER_TO_FLOAT	= 'Preserve',
 			PRECEDING_KEY_WORDS = 'MinAmountOfSubstanceAvailable',
 			VALUE_CHANGE_TABLE 	= {
-				{'Ignore',		1.5},
-				{'Ignore',		2.5},
-				{'Ignore',		3},
-				{'Ignore',		2}
+				{'Poor',		1.5},
+				{'Average',		2},
+				{'Wealthy',		3},
+				{'Pirate',		2}
 			}
 		},
 		{--	Higher substance amount at shops
@@ -102,10 +102,10 @@ local function EditDefaultReality(the_index, mbin)
 			INTEGER_TO_FLOAT	= 'Preserve',
 			PRECEDING_KEY_WORDS = 'MaxAmountOfSubstanceAvailable',
 			VALUE_CHANGE_TABLE 	= {
-				{'Ignore',		1.5},
-				{'Ignore',		2.5},
-				{'Ignore',		3},
-				{'Ignore',		2}
+				{'Poor',		1.5},
+				{'Average',		2},
+				{'Wealthy',		3},
+				{'Pirate',		2}
 			}
 		}
 	}
@@ -130,44 +130,56 @@ local function EditDefaultReality(the_index, mbin)
 
 	local shop_shipparts_patterns = {
 		ExpShip		= {-- mid-space korvax
-			'.-N_WING[ABCDEF].-',	-- explorer wings ABCDEF
-		},	
+			'.-N_WING[A-F].-',		-- explorer wings A-F
+			'.-L_WING[AB][A-E].-',	-- sailship wings AB
+		},
 		TraShip		= {-- mid-space gek
 			'.-S_WING[12AB].-',		-- dropship wings 12AB
 			'.-S_ENGI[AC].-',		-- dropship engines
+			'.-L_WING[CD][A-E].-',	-- sailship wings CD
 		},
 		WarShip		= {-- mid-space vykeen
 			'.-T_WING[ABDEF].-',	-- fighter wings  ABDEF
 			'.-T_ENGI.-',			-- fighter engines
+			'.-L_WING[EF][A-E].-',	-- sailship wings EF
 		},
 		LoneExp		= {-- landing pad korvax
 			'.-N_WING[GHIKLT].-',	-- explorer wings GHIKLT
+			'.-L_WING[AB][A-E].-',	-- sailship wings AB
 		},
 		LoneTra		= {-- landing pad gek
 			'.-S_WING[CDES].-',		-- dropship wings CDES
 			'.-S_ENGI[BCS].-',		-- dropship engines
+			'.-L_WING[CD][A-E].-',	-- sailship wings CD
 		},
 		LoneWar		= {-- landing pad vykeen
 			'.-T_WING[GHIJK].-',	-- fighter wings  GHIJK
 			'.-T_ENGI.-',			-- fighter engines
+			'.-L_WING[EF][A-E].-',	-- sailship wings EF
 		},
 		PirateVisitor= {-- ?
 			'.-[TSN]_COC.-',		-- cockpit all
+			'.-L_SAIL[ABC].-',		-- sailship sail
 		},
-		Shop		= {-- trade station, orb?
+		Shop		= {-- trade terminal
 			'.-S_COC.-',			-- cockpit dropship
+			'.-L_SAIL[ABC].-',		-- sailship sail
 		},
 		TechShop	= {-- minor settlement
 			'.-T_COC.-', 			-- cockpit fighter
+			'.-L_SAIL[ABC].-',		-- sailship sail
 		},
 		Scrap		= {-- station scraper
 			'.-N_COC.-',			-- cockpit explorer
+			'.-L_SAIL[ABC].-',		-- sailship sail
 		},
 		IllegalProds= {-- illegals shop pilot
 			'.-[ST]_ENGI.-',		-- engines all
+			'.-L_BODY[A-F].-',		-- sailship body
 		},
 		BuilderShop	= {-- robot camp
-			'.-[ST]_ENGI.-'			-- engines all
+			'.-[ST]_ENGI.-',		-- engines all
+			'.-L_BODY[A-F].-',		-- sailship body
 		}
 	}
 	for shop, patterns in pairs(shop_shipparts_patterns) do
@@ -203,7 +215,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META default reality.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

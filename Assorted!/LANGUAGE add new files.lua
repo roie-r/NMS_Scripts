@@ -23,7 +23,7 @@ local text_lines = {
 			EN = [[Emissive Seeds Pod]],
 		},
 		ROCEKT_ALIEN_DESC = {
-			EN = [[A <TECHNOLOGY>long range<> starship weapon, capable of delivering a targeted seed across great distances.||NNote: explosive damage is <STELLAR>highly effective<> against <STELLAR>unshielded<> targets, but <TITLE>ineffective<> against <TITLE>shielded<> targets.||NUse <IMG>CYCLEWEAPON<> to change weapon mode. Press <IMG>SHIPFIRE<> to fire.]],
+			EN = [[A <TECHNOLOGY>long range<> starship weapon, capable of delivering a targeted seed across great distances.|N|Note: explosive damage is <STELLAR>highly effective<> against <STELLAR>unshielded<> targets, but <TITLE>ineffective<> against <TITLE>shielded<> targets.|N|Use <IMG>CYCLEWEAPON<> to change weapon mode. Press <IMG>SHIPFIRE<> to fire.]],
 		},
 		ROCEKT_U_ALIEN_NAME = {
 			EN = [[EXTENDED SEEDS POD]],
@@ -60,7 +60,7 @@ local text_lines = {
 			EN = [[Glowing Pellets]],
 		},
 		SUPERFOOD_DESC = {
-			EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...||NConsuming a sample seems to be a good for you.]],
+			EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|N|Consuming a sample seems to be a good for you.]],
 		},
 		UI_STARCHART_BUILDER_NAME = {
 			EN = [[ROAMING BUILDER LOCATOR]],
@@ -81,7 +81,7 @@ local text_lines = {
 			EN = [[Paralysis Gun]]
 		},
 		VEHICLESTUN_DESC = {
-			EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.||NCharged with <FUEL>Unstable Plasma<>.]],
+			EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.|N|Charged with <FUEL>Unstable Plasma<>.]],
 		},
 		VEHICLESTUN_SUB = {
 			EN = [[Stun Weapons]]
@@ -251,7 +251,7 @@ local text_lines = {
 			EN = [[Shell Igniter]],
 		},
 		UT_SHOT_DESC = {
-			EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.||N||NCauses targets to <RED>burn<> for a short while, causing additional damage]],
+			EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.|N||N|Causes targets to <RED>burn<> for a short while, causing additional damage]],
 		},
 		UI_LAUNCHSUB2_SYM	= { EN = [[H2]] },	-- 4
 		UI_HEXITE_SYM		= { EN = [[Ӂ]] },	-- 4
@@ -309,7 +309,7 @@ local function InsertCharEntities(s)
 		{'<',	'&lt;'},
 		{'>',	'&gt;'},
 		{'"',	'&quot;'},
-		{'||N',	'&#10;'}
+		{'|N|',	'&#xA;'}
 	}
 	for _,e in ipairs(entity) do
 		s = s:gsub(e[1], e[2])
@@ -357,7 +357,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= string.format('_LANG %s_Personal.pak', text_lines.locale),
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= AddLanguageFiles(),
 	-- MODIFICATIONS		= {{

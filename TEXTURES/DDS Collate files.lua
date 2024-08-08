@@ -9,9 +9,11 @@ local texture_collection = {
 		target = '',
 		names  = {
 		--	binoculars screen filters
-			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/BINOCULARS.DDS'},
-			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/SURVEYING1.DDS'},
-			{s='BLANK.FILTER.DDS',	t='LUT/FILTERS/MISSIONSURVEY.DDS'},
+			{s='BLANK.FILTER.DDS',		t='LUT/FILTERS/BINOCULARS.DDS'},
+			{s='BLANK.FILTER.DDS',		t='LUT/FILTERS/SURVEYING1.DDS'},
+			{s='BLANK.FILTER.DDS',		t='LUT/FILTERS/MISSIONSURVEY.DDS'},
+		--	direction marker at screen edge
+			{s='BLANK.BC7.128.DDS',		t='UI/HUD/ARROW.MINI.DDS'},
 		--	binoculars HUD background
 			{s='BLANK.BC7.64.DDS',		t='UI/HUD/BINOCULARS.DDS'},
 			{s='BLANK.BC7.64.DDS',		t='UI/HUD/BINOCULARMISSION.DDS'},
@@ -40,6 +42,8 @@ local texture_collection = {
 			{s='Racer/WRACER*.DDS',		t='Fighters/WRACER*.DDS'},
 		--	blue theme speeder (and bit more reflective)
 			{s='Speeder/VRSPEEDER*.DDS',t='Fighters/VRSPEEDER*.DDS'},
+		--	black cockpit interior
+			{s='Interior/*.DDS',		t='Shared/Cockpitinteriors/*.DDS'},
 		}
 	},
 	{--	sentinel ship blue lights
@@ -61,15 +65,14 @@ local texture_collection = {
 		source = 'FriendlyRobot/',
 		target = 'COMMON/ROBOTS/',
 		names  = {
-			{s='FRIENDLYDRONE.DDS'},
-			-- {s='SENTINELSHIPGUN.DDS'}
+			{s='FRIENDLYDRONE.DDS'}
 		}
 	},
 	{--	planetary clouds replacement
 		source = 'Clouds/',
 		target = 'SPACE/ATMOSPHERE/',
 		names  = {
-			{s='ATMOSPHERE.DDS'}
+			{s='ATMOSPHERE03.DDS'}
 		}
 	},
 	{--	multitool display screen & glow parts
@@ -96,7 +99,7 @@ local texture_collection = {
 		target = 'EFFECTS/',
 		names  = {
 			{s='Beam/*.DDS'},
-			{s='HeavyAir/*.DDS'},
+			-- {s='HeavyAir/*.DDS'},
 			{s='Light/*.DDS'},
 			{s='Particles/*.DDS'},
 			{s='Ship/*.DDS'},
@@ -185,9 +188,9 @@ local texture_collection = {
 			{s='Building/*.DDS',	t='Buildings/*.DDS'},
 			{s='Pickups/*.DDS',		t='Pickups/*.DDS'},
 			{s='U4Pickups/*.DDS',	t='U4pickups/*.DDS'},
-			{s='Poles/*.DDS',		t='*.DDS'},
 			{s='Player/*.DDS',		t='Player/*.DDS'},
 			{s='BLACKHOLE.DDS',		t='Missions/Mission.BLACKHOLE.DDS'},
+			{s='PLANETPOLE*.DDS'},
 			{s='CREATURE.*.DDS'}
 		}
 	},
@@ -210,7 +213,7 @@ local texture_collection = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

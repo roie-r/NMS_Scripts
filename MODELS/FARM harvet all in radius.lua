@@ -10,7 +10,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL harvet all in radius.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -35,7 +35,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= build_parts..'TECH/CUBEROOM_PLANTERMEGA/INTERACTION.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',
+				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
 				REMOVE				= 'Section'
 			},
 			{
@@ -52,7 +52,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		EXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS	= 'TkAnimationComponentData.xml',
+				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
 				REMOVE				= 'Section'
 			},
 			{

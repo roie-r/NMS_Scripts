@@ -23,15 +23,19 @@ local buildparts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/
 -- interaction button attachment; full mbin or component only
 local function InteractEntity(action, full_entity)
 	local interact = {
-		meta = {'value','GcInteractionComponentData.xml'},
-		InteractionAction	= 'PressButton',
-		InteractionType		= {
-			meta = {'InteractionType','GcInteractionType.xml'},
-			InteractionType	= action
-		},
-		AttractDistanceSq	= 9,
-		InteractAngle		= 360,
-		InteractDistance	= 5
+			meta = {'value','LinkableNMSTemplate.xml'},
+			Template = {
+				meta = {'Template','GcInteractionComponentData.xml'},
+				InteractionAction	= 'PressButton',
+				InteractionType		= {
+					meta = {'InteractionType','GcInteractionType.xml'},
+					InteractionType	= action
+				},
+				AttractDistanceSq	= 9,
+				InteractAngle		= 360,
+				InteractDistance	= 5
+			},
+			Linked	= ''
 	}
 	if full_entity then
 		return FileWrapping({
@@ -39,7 +43,13 @@ local function InteractEntity(action, full_entity)
 			Components = {
 				meta = {'name','Components'},
 				Interaction	= interact,
-				{value = 'TkPhysicsComponentData.xml'}
+				{
+					meta = {'value','LinkableNMSTemplate.xml'},
+					Template = {
+						meta = {'Template','TkPhysicsComponentData.xml'}
+					},
+					Linked	= ''
+				}
 			}
 		})
 	else
@@ -50,7 +60,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL base tech additions.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -59,6 +69,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= buildparts..'DECORATION/TOY_SPHERE/ENTITIES/TOY_SPHERE.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
+				SPECIAL_KEY_WORDS	= {'Template', 'GcSimpleInteractionComponentData.xml'},
 				PRECEDING_KEY_WORDS	= 'GcSimpleInteractionComponentData.xml',
 				VALUE_CHANGE_TABLE 	= {
 					{'Name',		'INTRCT_SUITTERMINAL'}
@@ -146,7 +157,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'Components',
 				ADD					= ToExml({
 					InteractEntity('WeaponUpgrade'),
-					{value = 'TkPhysicsComponentData.xml'}
+					{
+						meta = {'value','LinkableNMSTemplate.xml'},
+						Template = {
+							meta = {'Template','TkPhysicsComponentData.xml'}
+						},
+						Linked	= ''
+					}
 				})
 			}
 		}
@@ -309,15 +326,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				meta = {'template', 'TkAttachmentData'},
 				Components = {
 					meta = {'name', 'Components'},
-					Rotation = {
-						meta  = {'value', 'TkRotationComponentData.xml'},
-						Speed = 0.01,
-						Axis  = {
-							meta = {'Axis', 'Vector3f.xml'},
-							y = 1
+					{
+						meta = {'value','LinkableNMSTemplate.xml'},
+						Template = {
+							meta = {'Template','TkRotationComponentData.xml'},
+							Speed = 0.01,
+							Axis  = {
+								meta = {'Axis', 'Vector3f.xml'},
+								y = 1
+							},
+							AlwaysUpdate = true,
+							SyncGroup    = -1
 						},
-						AlwaysUpdate = true,
-						SyncGroup    = -1
+						Linked	= ''
 					}
 				},
 				LodDistances = {

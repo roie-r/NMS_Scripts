@@ -33,7 +33,7 @@ local function rgb2hex(c)
 	return h
 end
 
-for _,r in ipairs(rgbs) do print(rgb2hex(r)) end
+-- for _,r in ipairs(rgbs) do print(rgb2hex(r)) end
 
 local function hex2rgb2(hex)
 	local function trunc(x, n)
@@ -133,4 +133,9 @@ local function MergeTables(tables)
 		end
 	end
 	return merged
+end
+
+function fileExists(path)
+	local f = io.open(path)
+	return f ~= nil and f:close()
 end

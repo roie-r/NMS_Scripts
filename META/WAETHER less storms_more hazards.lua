@@ -10,7 +10,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META less storms_more hazards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -109,6 +109,29 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
+	{
+	--	|No dust & fog on airless biomes|
+		MBIN_FILE_SOURCE	= {
+			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARCOLD.MBIN',
+			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARWEATHER.MBIN'
+		},
+		EXML_CHANGE_TABLE	= {
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS	= {'HeavyAir', 'GcHeavyAirSetting.xml'},
+				REMOVE				= 'Section'
+			},
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'FogStrength',			0},
+					{'FogMax',				0},
+					{'HeightFogStrength',	0},
+					{'HeightFogMax',		0},
+					{'FogHeight',			0}
+				}
+			}
+		}
+	},
 	-- {
 	-- --	|remove tornado|
 		-- MBIN_FILE_SOURCE	= {
@@ -127,27 +150,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- }
 		-- }
 	-- },
-	{
-	--	|No dust & fog on airless biomes|
-		MBIN_FILE_SOURCE	= {
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARCOLD.MBIN',
-			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARWEATHER.MBIN'
-		},
-		EXML_CHANGE_TABLE	= {
-			{
-				PRECEDING_KEY_WORDS = {'HeavyAir', 'NMSString0x80.xml'},
-				REMOVE				= 'Section'
-			},
-			{
-				REPLACE_TYPE 		= 'All',
-				VALUE_CHANGE_TABLE 	= {
-					{'FogStrength',			0},
-					{'FogMax',				0},
-					{'HeightFogStrength',	0},
-					{'HeightFogMax',		0},
-					{'FogHeight',			0}
-				}
-			}
-		}
-	}
 }}}}

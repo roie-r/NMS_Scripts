@@ -17,9 +17,6 @@ local mod_desc = [[
   - Change mech terrain editor fuel to metal
 ]]-----------------------------------------------------------------------------
 
--- TEST remove Weapon_Laser_Drain
-
-
 local function Add_Edit_Remove_Stats(T)
 	-- removing tech (must come first)
 	T[#T+1] = { SKW={}, SECTION_UP=1, REMOVE='Section' }
@@ -133,6 +130,12 @@ local function Add_Edit_Remove_Stats(T)
 		},
 		SHIP_TELEPORT	= {
 			{st='Ship_Teleport',						bn=32,		op='*'},		-- 100
+		},
+		WATER_LANDER	= {
+			{st='Ship_Launcher_TakeOffCost',			bn=0.99,	lv=3},
+		},
+		WATERLAND_ALIEN	= {
+			{st='Ship_Launcher_TakeOffCost',			bn=0.99,	lv=3},
 		},
 		SHIPMINIGUN		= {
 			{st='Ship_Weapons_Guns_Damage_Radius',		bn=1,		op='+'},		-- 3
@@ -374,6 +377,7 @@ local function Custom_Icons(T)
 		LAUNCHER_SPEC	= 'TECHNOLOGY/RENDER.LANDINGSPEC.DDS',
 		UT_LAUNCHER		= 'TECHNOLOGY/RENDER.LANDING.GREEN.DDS',
 		UT_LAUNCHCHARGE	= 'TECHNOLOGY/RENDER.LANDING.GREEN.DDS',
+		WATER_LANDER	= 'TECHNOLOGY/RENDER.LANDING.GREEN.DDS',
 		UT_SHIPLAS		= 'TECHNOLOGY/RENDER.PHASEBEAM.BLUE.DDS',
 		UT_SHIPSHOT		= 'TECHNOLOGY/RENDER.SHIPSHOT.GREEN.DDS',
 		UT_SHIPBLOB		= 'TECHNOLOGY/RENDER.IONBLAST.PINK.DDS',
@@ -443,7 +447,7 @@ local function Custom_Icons(T)
 	end
 end
 
-local function Charge_Bys(T)
+local function Edit_Charge_Bys(T)
 	-- removing section (must come first)
 	T[#T+1] = { SKW={}, REMOVE='Section' }
 	local inx = #T
@@ -561,9 +565,19 @@ Edit_Rgb(ECT)
 Fragment_Cost(ECT)
 Custom_Icons(ECT)
 Add_Edit_Remove_Stats(ECT)
-Charge_Bys(ECT)
+Edit_Charge_Bys(ECT)
 Replace_Requirements(ECT)
 
+ECT[#ECT+1] = {
+	SPECIAL_KEY_WORDS 	= {
+		{'ID',			'WATER_LANDER'},
+		{'ID',			'WATERLAND_ALIEN'},	
+	},
+	PRECEDING_KEY_WORDS	= 'BaseStat',
+	VALUE_CHANGE_TABLE 	= {
+		{'StatsType',	'Ship_Launcher'}
+	}
+}
 ECT[#ECT+1] = {
 	SPECIAL_KEY_WORDS 	= {'ID', 'MECH_PROT'},
 	PRECEDING_KEY_WORDS	= 'BaseStat',
@@ -759,7 +773,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{

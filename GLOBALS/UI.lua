@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC UI.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -122,7 +122,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Pitch',		5},
 					{'Rotate',		-43},
 					{'LightPitch',	30},
-					{'LightRotate',	290}
+					{'LightRotate',	290},
+					{'FocusType',	'DiscoveryView'}
 				}
 			},
 			{

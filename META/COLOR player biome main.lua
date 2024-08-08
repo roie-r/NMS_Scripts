@@ -9,9 +9,8 @@ local mod_desc = [[
 ]]--------------------------------------------------
 
 local base_colors = {
-	undercoat = {
+	Undercoat = {
 		enabled		= true,
-		name		= 'Undercoat',
 		num_colors	= 'All',
 		transpose	= true,
 		palette		= {
@@ -26,9 +25,8 @@ local base_colors = {
 			'FF464648',	'FF636666',	'FF4D5C57',	'FF414E45',	'FF494A3F',	'FF5C6570',	'FF3E4047',	'FF4D545C'
 		}
 	},
-	paint = {
+	Paint = {
 		enabled		= true,
-		name		= 'Paint',
 		num_colors	= 'All',
 		palette		= {
 			'FFD6D6D6',	'FFFFFFFF',	'FF555555',	'FFC7C7C7',	'FFFFFFFF',	'FF676767',	'EBEBEBFF',	000,
@@ -41,9 +39,8 @@ local base_colors = {
 			'FF103195',	'FF1740AC',	'FF310F4F',	'FF4A166C',	'FF804DB5',	'FFCF8DCE',	'FFC977B7',	'FF904683'
 		}
 	},
-	royals = {
+	SpaceBottom = {-- used for the royal ships
 		enabled		= true,
-		name		= 'SpaceBottom',
 		num_colors	= 'All',
 		palette		= {
 			'FF4356FF',	'FFC67608',	'FFB2AB00',	'FF9ADB05',	'FFD3B916',	'FF03FFC7',	'FF848E9A',	'FF06B4FF',
@@ -56,9 +53,8 @@ local base_colors = {
 			'FFC09D70',	'FF3E7A57',	'FF3E6F70',	'FF3B4A67',	'FF5E4770',	'FF8F556C',	'FFAAAAAA',	000
 		}
 	},
-	bioship_body = {
+	BioShip_Body = {
 		enabled		= false,
-		name		= 'BioShip_Body',
 		num_colors	= '_16',
 		palette		= {
 			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',	000,		000,		'FF1D120D',	'FF1D120D',
@@ -71,9 +67,8 @@ local base_colors = {
 			'FF2B76C1',	'FF2B76C1',	'FF0B2072',	'FF0B2072',	'FF3D0B5B',	'FF3D0B5B',	'FF7E3A72',	'FF7E3A72'
 		}
 	},
-	bioship_skin = {
+	BioShip_Underbelly = {
 		enabled		= false,
-		name		= 'BioShip_Underbelly',
 		num_colors	= '_16',
 		palette		= {
 			'FFFFFFFF',	'F5FFF5F5',	'FFFFFFFF',	'F3FFEDF2',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
@@ -86,9 +81,8 @@ local base_colors = {
 			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8'
 		}
 	},
-	stationlights = {
+	SpaceStationLights = {
 		enabled		= true,
-		name		= 'SpaceStationLights',
 		num_colors	= 'All',
 		palette		= {
 			'FFCC8482', 'FFC4C4C4', 'FFA37C62', 'FFB6B6B6', 'FFC29266', 'FFDDDDDD', 'FFEFDFC9', 'FFD5D5D5',
@@ -152,7 +146,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__META player biome main.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -175,19 +169,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 				-- dimmer sailship gray sail
 				for i=2, 58, 8 do
-					T[#T+1] = EditSingle('SailShip_Sails', i, 'FF6F767D', true)
+					T[#T+1] = EditSingle('SailShip_Sails', i, 0, true)
 				end
-				for _,gc_data in pairs(base_colors) do
+				for palette, gc_data in pairs(base_colors) do
 					if gc_data.enabled then
-						T[1].SKW[#T[1].SKW + 1] = {gc_data.name, 'GcPaletteData.xml'}
+						T[1].SKW[#T[1].SKW + 1] = {palette, 'GcPaletteData.xml'}
 						T[#T+1] = {
-							PRECEDING_KEY_WORDS = gc_data.name,
+							PRECEDING_KEY_WORDS = palette,
 							VALUE_CHANGE_TABLE 	= {
 								{'NumColours',	gc_data.num_colors}
 							}
 						}
 						T[#T+1] = {
-							PRECEDING_KEY_WORDS = gc_data.name,
+							PRECEDING_KEY_WORDS = palette,
 							ADD 				= RebuildPaletteColors(gc_data)
 						}
 					end

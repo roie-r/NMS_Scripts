@@ -39,7 +39,7 @@ local function Stack_Multiplier(T)
 	end
 end
 
-local function Replace_Icons(T)
+local function Custom_Icons(T)
 	for id, icon in pairs({
 		CARBON_SEAL		= 'PRODUCTS/PRODUCT.MSEAL.DDS',
 		STATION_KEY		= 'PRODUCTS/PRODUCT.STATION.OVERRIDE.DDS',
@@ -54,19 +54,24 @@ local function Replace_Icons(T)
 		FOOD_M_DRILL	= 'COOKINGPRODUCTS/PRODUCT.MEAT.SINEW.DDS',
 		FOOD_M_FISH		= 'COOKINGPRODUCTS/PRODUCT.MEAT.FISH.DDS',
 		FOOD_M_FLYER	= 'COOKINGPRODUCTS/PRODUCT.MEAT.WING.DDS',
+		FOOD_M_HORROR	= 'COOKINGPRODUCTS/PRODUCT.MEAT.HORROR.DDS',
 		FOOD_M_MEAT		= 'COOKINGPRODUCTS/PRODUCT.MEAT.CHUNKY.DDS',
 		FOOD_M_MOLE		= 'COOKINGPRODUCTS/PRODUCT.MEAT.MOLE.DDS',
 		FOOD_M_REX		= 'COOKINGPRODUCTS/PRODUCT.MEAT.SCALE.DDS',
 		FOOD_M_STRIDER	= 'COOKINGPRODUCTS/PRODUCT.MEAT.SAUSAGE1.DDS',
+		FOOD_V_BUG		= 'COOKINGPRODUCTS/PRODUCT.R.BUG.DDS',
 		FOOD_V_GEK		= 'COOKINGPRODUCTS/PRODUCT.MILK.PROTO.DDS',
 		FOOD_V_FLYER	= 'COOKINGPRODUCTS/PRODUCT.MILK.CRAW.DDS',
 		FOOD_V_MILK		= 'COOKINGPRODUCTS/PRODUCT.MILK.WILD.DDS',
 		FOOD_R_BONEMILK	= 'COOKINGPRODUCTS/PRODUCT.MILK.BONE.DDS',
+		FOOD_R_HORROR	= 'COOKINGPRODUCTS/PRODUCT.R.HORROR.DDS',
 		FOOD_V_BONE		= 'COOKINGPRODUCTS/PRODUCT.BONE.PIECE.DDS',
 		FOOD_V_CAT		= 'COOKINGPRODUCTS/PRODUCT.MEAT.KIDNEY.DDS',
 		FOOD_V_CRAB		= 'COOKINGPRODUCTS/PRODUCT.BONE.CRAB.DDS',
 		FOOD_V_DIPLO	= 'COOKINGPRODUCTS/PRODUCT.EGG.GIANT.DDS',
+		FOOD_V_ROBOT	= 'COOKINGPRODUCTS/PRODUCT.ROBOT.WIRE.DDS',
 		FOOD_V_STRIDER	= 'COOKINGPRODUCTS/PRODUCT.EGG.TALL.DDS',
+		FOOD_W_CASE		= 'COOKINGPRODUCTS/PRODUCT.MEAT.DDS',
 		GEODE_CAVE		= 'U4PRODUCTS/PRODUCT.GEODECAVE.DDS',
 		SHIPCHARGE		= 'U4PRODUCTS/PRODUCT.SHIPCHARGE.DDS',
 	---	personal
@@ -83,12 +88,17 @@ local function Replace_Icons(T)
 	end
 end
 
---- if NAME then apply color to single item, else apply to SUBTITLE group
 local function Icon_Bg_Color(T)
-	local function IsSingle(x, a, b)
+--- if NAME then apply color to single item, else apply to SUBTITLE group
+	local function isSingle(x, a, b)
 		return x:find('NAME') and a or b
 	end
 	for key, rgb in pairs({
+		FOOD_HORROR_MEAT_NAME		= 'FFBB3830', -- rancid flesh
+		FOOD_R_HORROR_NAME			= 'FFBB3830', -- purged rib
+		UI_GRUB_POD_NAME			= 'FFBB3830', -- juicy grub
+		FOOD_BUG_VEG_NAME			= 'FFBB3830', -- nourishing slime
+		FOOD_EVIL_STEW_NAME			= 'FFBB3830', -- worst stew
 		COMMODITY6_NAME				= 'FFF3A923', -- Antimatter
 		FUEL_JELLY_NAME				= 'FFF3A923', -- dihydrogen jelly
 		UI_TECHMOD_NAME				= 'FFF3A923', -- Wiring Loom
@@ -115,15 +125,15 @@ local function Icon_Bg_Color(T)
 		UI_SHIP_CORE_S_NAME			= 'FF48A1B0', -- ship core
 	}) do
 		T[#T+1] = {
-			REPLACE_TYPE 		= IsSingle(key, nil, 'All'),
+			REPLACE_TYPE 		= isSingle(key, nil, 'All'),
 			INTEGER_TO_FLOAT	= 'Force',
-			SPECIAL_KEY_WORDS	= {IsSingle(key, 'Name', 'Subtitle'), key},
+			SPECIAL_KEY_WORDS	= {isSingle(key, 'Name', 'Subtitle'), key},
 			VALUE_CHANGE_TABLE 	= ColorFromHex(rgb)
 		}
 	end
 end
 
-local function Prod_Requirements(T)
+local function Replace_Requirements(T)
 	local requirements = {
 		BASE_TOYCORE	= {-- pocket reality generator
 			subs = true,
@@ -218,11 +228,6 @@ local function Prod_Requirements(T)
 end
 
 local ECT = {}
-Stack_Multiplier(ECT)
-Replace_Icons(ECT)
-Icon_Bg_Color(ECT)
-Prod_Requirements(ECT)
-
 ECT[#ECT+1] = {
 	SPECIAL_KEY_WORDS	= {'ID', 'DRONE_SHARD'},
 	VALUE_CHANGE_TABLE 	= {
@@ -263,6 +268,12 @@ ECT[#ECT+1] = {
 		{'BaseValue',  '@ * 0.01'}
 	}
 }
+
+Stack_Multiplier(ECT)
+Custom_Icons(ECT)
+Icon_Bg_Color(ECT)
+Replace_Requirements(ECT)
+
 ECT[#ECT+1] = {
 	PRECEDING_KEY_WORDS	= 'Table',
 	ADD					= ToExml({
@@ -273,7 +284,7 @@ ECT[#ECT+1] = {
 			subtitle		= 'UI_MEGAPROD_SUBTITLE',
 			description		= 'RAMMOULD_DESC',
 			basevalue		= 8000,
-			color			= 'FFCCCCCC',
+			color			= 'FFBBBBBB',
 			category		= 'Special',
 			type			= 'Tradeable',
 			rarity			= 'Rare',
@@ -293,7 +304,7 @@ ECT[#ECT+1] = {
 			subtitle		= 'CURIO4_SUBTITLE',
 			description		= 'PRODX40_DESC',
 			basevalue		= 624000000,
-			color			= 'FFCCCCCC',
+			color			= 'FFBBBBBB',
 			category		= 'Special',
 			type			= 'Tradeable',
 			rarity			= 'Rare',
@@ -313,16 +324,16 @@ ECT[#ECT+1] = {
 			subtitle		= 'PROD_NIP_SUBTITLE',
 			description		= 'SUPERFOOD_DESC',
 			basevalue		= 2,
-			color			= 'FF1A273D',
+			color			= 'FF4F442A',
 			category		= 'Exotic',
 			type			= 'Consumable',
 			rarity			= 'Rare',
 			legality		= 'Legal',
 			consumable		= true,
 			requirements	= {
-				{id='SENTINEL_LOOT',	n=2,	pt=IT_.PRD},
-				{id='FOOD_V_ROBOT',		n=2,	pt=IT_.PRD},
-				{id='STELLAR2',			n=50,	pt=IT_.SBT}
+				{id='SENTINEL_LOOT',	n=2,	tp=IT_.PRD},
+				{id='FOOD_V_ROBOT',		n=2,	tp=IT_.PRD},
+				{id='STELLAR2',			n=50,	tp=IT_.SBT}
 			},
 			stackmultiplier	= 20,
 			icon			= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/PRODUCT.GLOWPELLET.DDS'
@@ -333,7 +344,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

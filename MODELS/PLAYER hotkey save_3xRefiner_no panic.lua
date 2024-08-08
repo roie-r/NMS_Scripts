@@ -9,81 +9,80 @@ local mod_desc = [[
 
 local save_trigger_components = {
 	{
-		meta	= {'value', 'GcSimpleInteractionComponentData.xml'},
-		SimpleInteractionType	= 'Save',
-		TriggerAction			= 'INACTIVE',
-		HideContents			= true,
-	------------------------------------------
-		-- InteractIsCrime			= true,
-		-- InteractCrimeLevel		= 4,
-		-- InteractFiendCrimeChance= 100,
-		-- FiendCrime	= {
-			-- meta	= {'InteractFiendCrimeType', 'GcFiendCrime.xml'},
-			-- FiendCrime	= 'EggDestroyed' --	EggDestroyed / EggCollected
-		-- }
-	------------------------------------------
+		meta = {'value','LinkableNMSTemplate.xml'},
+		Template = {
+			meta	= {'Template', 'GcSimpleInteractionComponentData.xml'},
+			SimpleInteractionType	= 'Save',
+			TriggerAction			= 'INACTIVE',
+			HideContents			= true			
+		},
+		Linked	= ''
 	},
 	{
-		meta	= {'value', 'GcTriggerActionComponentData.xml'},
-		{
-			meta	= {'name', 'States'},
+		meta = {'value','LinkableNMSTemplate.xml'},
+		Template = {
+			meta	= {'Template', 'GcTriggerActionComponentData.xml'},
 			{
-				meta	= {'value', 'GcActionTriggerState.xml'},
-				StateID	= 'BOOT',
+				meta	= {'name', 'States'},
 				{
-					meta	= {'name', 'Triggers'},
+					meta	= {'value', 'GcActionTriggerState.xml'},
+					StateID	= 'BOOT',
 					{
-						meta	= {'value', 'GcActionTrigger.xml'},
+						meta	= {'name', 'Triggers'},
 						{
-							meta	= {'Event', 'GcAnimFrameEvent.xml'},
-							Anim	= 'SAVEGAME'
-						},
-						{
-							meta	= {'name', 'Action'},
+							meta	= {'value', 'GcActionTrigger.xml'},
 							{
-								meta	= {'value', 'GcGoToStateAction.xml'},
-								State	= 'SAVE'
+								meta	= {'Event', 'GcAnimFrameEvent.xml'},
+								Anim	= 'SAVEGAME'
+							},
+							{
+								meta	= {'name', 'Action'},
+								{
+									meta	= {'value', 'GcGoToStateAction.xml'},
+									State	= 'SAVE'
+								}
 							}
 						}
 					}
-				}
-			},
-			{
-				meta	= {'value', 'GcActionTriggerState.xml'},
-				StateID	= 'SAVE',
+				},
 				{
-					meta	= {'name', 'Triggers'},
+					meta	= {'value', 'GcActionTriggerState.xml'},
+					StateID	= 'SAVE',
 					{
-						meta	= {'value', 'GcActionTrigger.xml'},
+						meta	= {'name', 'Triggers'},
 						{
-							meta	= {'Event', 'GcStateTimeEvent.xml'},
-							Seconds	= 0
-						},
-						{
-							meta	= {'name', 'Action'},
-							-- where the save is actually triggered
-							value	= 'GcFireSimpleInteractionAction.xml',
+							meta	= {'value', 'GcActionTrigger.xml'},
 							{
-								meta			= {'value', 'GcPlayAudioAction.xml'},
-								Sound			= 'SignalScanner',
-								OcclusionRadius	= 2
+								meta	= {'Event', 'GcStateTimeEvent.xml'},
+								Seconds	= 0
 							},
 							{
-								meta	= {'value', 'GcGoToStateAction.xml'},
-								State	= 'BOOT'
+								meta	= {'name', 'Action'},
+								-- where the save is actually triggered
+								value	= 'GcFireSimpleInteractionAction.xml',
+								{
+									meta			= {'value', 'GcPlayAudioAction.xml'},
+									Sound			= 'SignalScanner',
+									OcclusionRadius	= 2
+								},
+								{
+									meta	= {'value', 'GcGoToStateAction.xml'},
+									State	= 'BOOT'
+								}
 							}
 						}
 					}
 				}
 			}
-		}
+		},
+		Linked	= ''
 	}
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -116,6 +115,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ADD 				= ToExml(save_trigger_components)
 			},
 			{
+				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
 				PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
 				SEC_SAVE_TO			= 'tk_animation_data'
 			},
@@ -127,7 +127,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'TkAnimationComponentData.xml', 'Anims'},
+				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
+				PRECEDING_KEY_WORDS = 'Anims',
 				ADD_OPTION			= 'AddEndSection',
 				SEC_ADD_NAMED		= 'tk_animation_data'
 			}
@@ -152,7 +153,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'RidingAnimationName',		'SAVEGAME'},
 					{'Filename',				'TEXTURES/UI/HUD/ICONS/PLAYER/SAVE.DDS'},
 					{'CloseMenuOnSelect',		true},
-					{'AvailableUnderwater',		false}
+					{'AvailableUnderwater',		true}
 				}
 			},
 			{
@@ -162,7 +163,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SEC_EDIT 			= 'gc_player_emote',
 				VALUE_CHANGE_TABLE 	= {
-					{'AvailableUnderwater',		true}
+					{'AvailableUnderwater',		false}
 				}
 			},
 			{

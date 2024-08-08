@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SKY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -32,13 +32,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'NoAtmosphereFogMax',					0	},	-- 0.97
 				}
 			},
-			{
-				PRECEDING_KEY_WORDS	= 'PhotoModeVignette',
-				VALUE_CHANGE_TABLE 	= {
-					{'x',			1},
-					{'y',			1}
-				}
-			},
+			-- {
+				-- PRECEDING_KEY_WORDS	= 'PhotoModeVignette',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'x',			1},
+					-- {'y',			1}
+				-- }
+			-- },
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
@@ -84,20 +84,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'FogHeight',			2}		-- 128
 				}
 			},
-			{
-				PRECEDING_KEY_WORDS = 'SpaceSkyMin',
-				VALUE_CHANGE_TABLE 	= {
-					{'SpaceFogMax',			0.44},	-- 0.7
-					{'SpaceFogPlanetMax',	0.5},	-- 0
-				}
-			},
-			{
-				PRECEDING_KEY_WORDS = 'SpaceSkyMax',
-				VALUE_CHANGE_TABLE 	= {
-					{'SpaceFogMax',			0.52},	-- 0.7
-					{'SpaceFogPlanetMax',	0.54},	-- 0
-				}
-			}
+			-- {
+				-- PRECEDING_KEY_WORDS = 'SpaceSkyMin',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'SpaceFogMax',			0.44},	-- 0.7
+					-- {'SpaceFogPlanetMax',	0.5},	-- 0
+				-- }
+			-- },
+			-- {
+				-- PRECEDING_KEY_WORDS = 'SpaceSkyMax',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'SpaceFogMax',			0.52},	-- 0.7
+					-- {'SpaceFogPlanetMax',	0.54},	-- 0
+				-- }
+			-- }
 		}
 	}
 }}}}

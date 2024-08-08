@@ -1,5 +1,6 @@
 ------------------------------------------------------------
 local mod_desc = [[
+  Ship builder palette placement tweak
   Add space in the menu's Units display for larger numbers
   Remove cinematic black bars
   smaller item slot amount font
@@ -10,11 +11,23 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__UI fonts units & no bars.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_BATCHNAME		= '_UI ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|ship builder UI| palette tweak
+		MBIN_FILE_SOURCE  	= 'UI/SHIP_BUILDER_PAGE.MBIN',
+		EXML_CHANGE_TABLE 	= {
+			{
+				SPECIAL_KEY_WORDS	= {'ID','COLOUR'},
+				VALUE_CHANGE_TABLE	= {
+					{'PositionY',	44},
+					{'Height',		580}
+				}
+			}
+		}
+	},
 	{--	|ship discovery screen| fix
 		MBIN_FILE_SOURCE  	= 'UI/HUD/SHIP/SIDESCREENSOLARSYSTEM.MBIN',
 		EXML_CHANGE_TABLE 	=

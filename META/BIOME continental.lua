@@ -85,7 +85,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__META biome continental buildings.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

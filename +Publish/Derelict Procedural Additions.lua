@@ -4,7 +4,7 @@ local mod_desc = [[
   items to the derelict freighter encounter mission.
   Adds a slow tumble to floating items to make the scene more dynamic
 ]]-------------------------------------------------------------------------
-local mod_version = '1.01'
+local mod_version = '1.02'
 
 -------------------------------------------------------------------------------
 ---	LUA 2 EXML (VERSION: 0.83.2) ... by lMonk
@@ -324,7 +324,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Derelict Procedural Additions.'..mod_version..'.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -351,17 +351,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				meta = {'template', 'TkAttachmentData'},
 				Components = {
 					meta = {'name', 'Components'},
-					rotate = {
-						meta  = {'value', 'TkRotationComponentData.xml'},
-						Speed = 0.001,
-						Axis  = {
-							meta = {'Axis', 'Vector3f.xml'},
-							x = 1,
-							y = -1,
-							z = 1
+					{
+						meta = {'value','LinkableNMSTemplate.xml'},
+						Template = {
+							meta = {'Template','TkRotationComponentData.xml'},
+							Speed = 0.001,
+							Axis  = {
+								meta = {'Axis', 'Vector3f.xml'},
+								x = 1,
+								y = 1,
+								z = 1
+							},
+							AlwaysUpdate = true,
+							SyncGroup    = -1
 						},
-						AlwaysUpdate = true,
-						SyncGroup    = -1
+						Linked	= ''
 					}
 				}
 			})

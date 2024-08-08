@@ -5,8 +5,8 @@ dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_exml_2_lua.lua')
 
 local function ConvertMbin(mbin)
 	function fileExists(path)
-		local f = io.open(path, "r")
-		return f ~= nil and io.close(f)
+		local f = io.open(path)
+		return f ~= nil and f:close()
 	end
 	if not fileExists(mbin:gsub('.MBIN$', '.EXML')) then
 		os.execute(string.format(
@@ -25,9 +25,10 @@ local mbin = {
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN',						-- 6
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/VOXELGENERATORSETTINGS.MBIN',						-- 7
 	'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/BIOMES/RADIOACTIVE/RADIOACTIVEOBJECTSFULL.MBIN',	-- 8
+	'D:/MODZ_stuff/NoMansSky/UNPACKED/MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DOOR/ENTITIES/MAINDOOR.ENTITY.MBIN',	-- 9
 }
 -----------------------------------------------------------------------------------------
-local index	 = 6
+local index	 = 8
 local tbl_08 = 'EXML_SOURCE'
 
 ConvertMbin(mbin[index])

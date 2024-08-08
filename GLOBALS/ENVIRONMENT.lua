@@ -8,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -42,19 +42,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Ultra',
 				VALUE_CHANGE_TABLE = {
-					{'ImposterResolutionMultiplier', 4}
+					{'ImposterResolutionMultiplier', 2}
 				}
 			},
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE = {
-					{'PlanetObjectSwitch',        3},
-					{'PlanetLodSwitch0',          3},
-					{'PlanetLodSwitch0Elevation', 3},
-					{'PlanetLodSwitch1',          3},
-					{'PlanetLodSwitch2',          3},
-					{'PlanetLodSwitch3',          3},
+					{'PlanetObjectSwitch',        2},
+					{'PlanetLodSwitch0',          2},
+					{'PlanetLodSwitch0Elevation', 2},
+					{'PlanetLodSwitch1',          2},
+					{'PlanetLodSwitch2',          2},
+					{'PlanetLodSwitch3',          2},
 				}
 			},
 			{

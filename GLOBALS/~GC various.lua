@@ -1,11 +1,11 @@
 ------------------------------------------------------------
 local mod_desc = [[
-  settlement longer alret cycle, higher population
+  uncache terrain for better LOD
   longer building detection range; longer base wiring
   longer terrain edit beam
   limit the freighter base NPC crowd
-  uncache terrain for better LOD
   disable ladder auto-grab; disable falling camera-view
+  settlement longer alret cycle, higher population
   same (dark mode) warp tunnel in teleports
   lower water level to avoid invisible water at shoreline
 ]]----------------------------------------------------------
@@ -13,31 +13,30 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{--	|GC FLEET|
-		MBIN_FILE_SOURCE	= 'GCFLEETGLOBALS.GLOBAL.MBIN',
+	{--	|GC GRAPHICS|
+		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
+			-- {
+				-- INTEGER_TO_FLOAT	= 'Force',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'LUTDistanceFlightMultiplier',	1	},	-- 0
+					-- {'SunLightIntensity',			3.2	},	-- 3
+					-- {'DOFFarStrengthWater',			0.2	},	-- 0
+					-- {'ForceUncachedTerrain',		true},
+				-- }
+			-- },
 			{
+				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset.xml'},
 				VALUE_CHANGE_TABLE 	= {
-					{'MinFrigateDistanceFromFreighter',			500	}, -- 400
-					{'MaxFrigateDistanceFromFreighter',			1400}, -- 1200
-					{'FrigateDistanceMultiplierIfNoCaptialShip',0.6	}, -- 0.66
-				}
-			}
-		}
-	},
-	{--	|GC SETTLEMENT|
-		MBIN_FILE_SOURCE	= 'GCSETTLEMENTGLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'SettlementMiniExpeditionSuccessChance',	0.85}, 	-- 0.7
-					{'MaxNPCPopulation',						40	}, 	-- 30
-					{'AlertCycleDurationInSeconds',				72000},	-- 2600
+					{'FFXSR2Quality',				'Quality'		},
+					{'MetalFXQuality',				'UltraQuality'	},
+					{'AnisotropyLevel',				'_16'			},
+					{'AntiAliasing',				'FFXSR2'		},
 				}
 			}
 		}
@@ -70,7 +69,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'TerrainEditBeamMaxRange',	100	}	-- 40
+					{'TerrainEditBeamMaxRange',	120	}	-- 40
 				}
 			},
 			{
@@ -80,6 +79,30 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Ignore',					-0.2},	-- 0.8
 					{'Ignore',					0.2	},	-- 1.6
 					{'Ignore',					0.4	}	-- 3.2
+				}
+			}
+		}
+	},
+	{--	|GC FLEET|
+		MBIN_FILE_SOURCE	= 'GCFLEETGLOBALS.GLOBAL.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'MinFrigateDistanceFromFreighter',			500	}, -- 400
+					{'MaxFrigateDistanceFromFreighter',			1400}, -- 1200
+					{'FrigateDistanceMultiplierIfNoCaptialShip',0.6	}, -- 0.66
+				}
+			}
+		}
+	},
+	{--	|GC SETTLEMENT|
+		MBIN_FILE_SOURCE	= 'GCSETTLEMENTGLOBALS.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'SettlementMiniExpeditionSuccessChance',	0.85}, 	-- 0.7
+					{'MaxNPCPopulation',						40	}, 	-- 30
+					{'AlertCycleDurationInSeconds',				72000},	-- 2600
 				}
 			}
 		}
@@ -102,29 +125,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'WorkerBio',				3	},	-- 6
 					{'WorkerTech',				3	},	-- 6
 					{'WorkerIndustry',			3	},	-- 6
-				}
-			}
-		}
-	},
-	{--	|GC GRAPHICS|
-		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				INTEGER_TO_FLOAT	= 'Force',
-				VALUE_CHANGE_TABLE 	= {
-					{'LUTDistanceFlightMultiplier',	1	},	-- 0
-					{'SunLightIntensity',			3.2	},	-- 3
-					{'DOFFarStrengthWater',			0.2	},	-- 0
-					{'ForceUncachedTerrain',		true},
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset.xml'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FFXSR2Quality',				'Quality'		},
-					{'MetalFXQuality',				'UltraQuality'	},
-					{'AnisotropyLevel',				'_16'			},
-					{'AntiAliasing',				'FFXSR2'		},
 				}
 			}
 		}
@@ -159,10 +159,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					-- {'SpaceStationFile',			'MODELS/SPACE/SPACESTATION/SPACESTATIONTYPEB.SCENE.MBIN'},
-					-- {'AbandonedSpaceStationFile',	'MODELS/SPACE/SPACESTATION/SPACESTATIONTYPEB.SCENE.MBIN'},
-					-- {'PirateSystemSpaceStationFile','MODELS/SPACE/SPACESTATION/SPACESTATIONTYPEB.SCENE.MBIN'},
-
 					{'WarpTunnelScale',			180},
 					{'WarpTunnelFile',			'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'BlackHoleTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},

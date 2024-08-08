@@ -94,7 +94,7 @@ ECT[#ECT+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sailship.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
@@ -159,10 +159,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'MaterialFlag', '_F38_NO_DEFORM'},
-				VALUE_CHANGE_TABLE 	= {
-					{'MaterialFlag', '_F10_NORECEIVESHADOW'}
-				}
+				PRECEDING_KEY_WORDS = 'Flags',				
+				ADD					= ToExml({
+					meta = {'value', 'TkMaterialFlags.xml'},
+					MaterialFlag = '_F10_NORECEIVESHADOW'
+				})
 			}
 		}
 	}

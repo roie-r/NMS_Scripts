@@ -8,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '_MOD.lMonk.Sentinel cockpit no red glow.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
@@ -24,7 +24,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Name', 'Lightbase'},		 	-- map base center
 					{'Name', 'MonitorL1'},			-- L monitor
 					{'Name', 'MonitorL2'},			-- R monitor
-					-- {'Name', 'Red2'},				-- canopy scroll, Red1 ?
+					-- {'Name', 'Red2'},			-- canopy scroll
 				},
 				REMOVE = 'Section'
 			}

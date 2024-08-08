@@ -16,7 +16,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP sentinel.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '5.03',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -75,11 +75,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		EXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_FIRST		= true,
-				PRECEDING_KEY_WORDS = 'TkAnimationComponentData.xml',
+				-- PRECEDING_FIRST		= true,
+				-- PRECEDING_KEY_WORDS = 'TkAnimationData.xml',
 				SPECIAL_KEY_WORDS	= {
-					{'Anim', 'LANDING'},
-					{'Anim', 'TAKEOFF'}
+					{'Template', 'TkAnimationComponentData.xml', 'Anim', 'LANDING'},
+					{'Template', 'TkAnimationComponentData.xml', 'Anim', 'TAKEOFF'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'Speed',		0.624}

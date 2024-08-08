@@ -111,7 +111,7 @@ material_cat4.Items[#material_cat4.Items+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META wiki catalogs.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= {
 		{

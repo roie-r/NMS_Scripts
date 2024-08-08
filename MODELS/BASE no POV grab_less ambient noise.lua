@@ -9,7 +9,7 @@ local path = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/'
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL no POV grab_less ambient noise.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,7 +17,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= path..'PARTS/BUILDABLEPARTS/SPACEBASE/PROPS/DATA_PAD/ENTITIES/DATA_PAD.ENTITY.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS = 'GcInteractionComponentData.xml',
+				SPECIAL_KEY_WORDS	= {'Template', 'GcInteractionComponentData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'InteractDistance',	2},
 					{'UseInteractCamera',	false}
@@ -53,7 +53,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		EXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS = 'GcInteractionComponentData.xml',
+				SPECIAL_KEY_WORDS	= {'Template', 'GcInteractionComponentData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'UseInteractCamera', false}
 				}
@@ -80,7 +80,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		EXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS = 'TkAudioComponentData.xml',
+				SPECIAL_KEY_WORDS	= {'Template', 'TkAudioComponentData.xml'},
 				REMOVE				= 'Section'
 			}
 		}

@@ -2,15 +2,15 @@
 dofile('LIB/_lua_2_exml.lua')
 ---------------------------------------------------------------------
 local mod_desc = [[
-  restore the costruct head eye lights
-  * requires changing palette colorAlt in BUILDERLIGHTS.TEXTURE.MBIN
+  - restore the costruct head eye lights
+   * requires changing palette colorAlt in BUILDERLIGHTS.TEXTURE.MBIN
    (done in textures script)
 ]]-------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META costruct head eyes.pak',
+	MOD_FILENAME 		= '__META builder eye color.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -18,10 +18,29 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		-- MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONTEXTUREOPTIONDATA.MBIN',
 		-- EXML_CHANGE_TABLE	= {
 			-- {
-				-- SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'EYES_BUILDER'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'ColourAlt',	'Alternative3'} -- Alternative2
-				-- }
+			
+			-- --	check if texture names in 'Tips' scetion is not optional !!
+			
+				-- SPECIAL_KEY_WORDS	= {'MultiTextureOptionsID', 'SHIP_FIGHT'},
+				-- PRECEDING_KEY_WORDS = 'Options',
+				-- ADD_OPTION			= 'AddEndSection',
+				-- ADD					= (
+					-- function()
+						-- local T = {}
+						-- for _,tex in ipairs(ship_textures) do
+							-- T[#T+1] = {
+								-- meta	= {'value', 'GcCustomisationMultiTextureOptionList.xml'},
+								-- TextureOptionsID	= tex,
+								-- SubOptions			= {
+									-- meta	= {'value', 'GcCustomisationMultiTextureSubOption.xml'},
+									-- Layer	= 'BASE',
+									-- Option	= tex
+								-- }
+							-- }
+						-- end
+						-- return ToExml(T)
+					-- end
+				-- )()
 			-- }
 		-- }
 	-- },

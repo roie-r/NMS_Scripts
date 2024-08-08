@@ -13,7 +13,7 @@ local mod_desc = [[
 
 local seed_counter = {
 	Fighter			= 0,
-	Dropship		= 100000,
+	Dropship		= 80000,
 	Scientific		= 0,
 	Shuttle			= 0,
 	Royal			= 0,
@@ -343,7 +343,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SEED-GENERATOR-v6.2.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

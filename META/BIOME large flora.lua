@@ -15,7 +15,7 @@ local mod_desc = [[
    ROCKS/MEDIUM/MEDIUMROCK.SCENE.MBIN >> MEDIUM & ROCK
    FOLIAGE/MEDIUMPLANT.SCENE.MBIN     >> FOLIAGE & MEDIUM & PLANT
 
-  - The correct tag can match anything from any scene files across all
+  - The correct tag can match anything from any scene file across all
    biomes (MODEL), to a single instance of one scene (VOLCANO).
   - solar_modifiers.biomes are modifiers for specific source files.
    They can match more than one source: LUSH will be applied to ALL lush biomes,
@@ -27,16 +27,14 @@ local mod_desc = [[
   - A tag with the single modifier {i=true} causes the scene to be ignored.
   - Other properties of GcObjectSpawnData.xml can be modded by adding a property's
    name to object_spawn_prop with a unique key, then adding tag modifiers for it.
-
-  * MUST BE LAUNCHED WITH A SOURCE PRE-LOADER SCRIPT
 ]]-------------------------------------------------------------------------------------
 
 --	Properties of [GcObjectSpawnData.xml] being modified
 local spawn_data = {
 	calcs = {
-		n	= 'MinScale',				-- [*]
+		n	= 'MinScale',				-- [*] multiplier modifier
 		x	= 'MaxScale',				-- [*]
-		a	= 'MaxAngle',				-- [+]
+		a	= 'MaxAngle',				-- [+] additive modifier
 		w	= 'ShearWindStrength',		-- [*]
 		c	= 'Coverage',				-- [*]
 		l	= 'LodDistances',			-- [*]
@@ -57,7 +55,7 @@ local solar_modifiers = {
 		{
 			biotg = 'LUSH',
 			flora = { -- applied to all LUSH sources
-				TREE		= {n=1.15,	x=2.4,	c=0.9,	l=1.24},
+				TREE		= {n=1.15,	x=2.4,	c=0.9,	l=1.25},
 				BUBBLELUSH	= {n=1.15,	x=1.65,	f=2.6}
 			}
 		},
@@ -97,7 +95,7 @@ local solar_modifiers = {
 		{
 			biotg = 'FROZEN',
 			flora = {-- applied to all FROZEN sources
-				TREE 		= {n=1.15,	x=2.45,	c=0.8},
+				TREE 		= {n=1.15,	x=2.45,	c=0.8,	l=1.25},
 				LIVINGSHIP	= {r=-1,	l=1.02}
 			}
 		},
@@ -183,6 +181,14 @@ local solar_modifiers = {
 				SPOREVENT	= {c=0.5},
 				FLYTRAP		= {c=0.5}
 			}
+		},
+		{
+			biotg = 'WATERCRYSTAL',
+			flora = {
+				CRYSTAL		= {x=0.9,	c=0.65, 	o=true},
+				-- CRYSTALSSHAPE/LARGE				
+				LARGE		= {x=1.02, 				o=true}
+			}
 		}
 	},
 	global_flora = {
@@ -190,15 +196,15 @@ local solar_modifiers = {
 		SPIRE		= {n=1.15,	x=1.3},
 		ROCK		= {n=1.2,	x=1.75},
 		CACTUS		= {n=1.1,	x=1.55},
-		TREE		= {n=1.15,	x=2.4,	l=1.75},
+		TREE		= {n=1.15,	x=2.4,	l=1.8},
 		SHROOM		= {n=1.05,	x=2.5},
 		FOLIAGE		= {n=1.1,	x=1.3},
 		FLOWERS		= {x=1.2,			f=1.4},
-		CROSS		= {n=0.95,	x=1.1,	f=2.0,	d=0.9,	l=1.55},	-- grass   (add fix with maximum value !?!)
-		LBOARD		= {n=0.95,	x=1.1,	f=1.8,	d=0.9,	l=1.55},	-- grass
-		LUSHGRASS	= {x=1.4,			f=1.6,	d=0.9,	l=1.55},	-- grass
-		BUBBLELUSH	= {x=1.15,			f=2.2,			l=1.55},	-- grass
-		TOXICGRASS	= {n=1.2,	x=1.6,	f=1.4,	w=0},				-- shrooms not grass!
+		CROSS		= {n=0.95,	x=1.1,	f=2.0,	d=0.9,	l=1.5},	-- grass   (add fix with maximum value !?!)
+		LBOARD		= {n=0.95,	x=1.1,	f=1.8,	d=0.9,	l=1.5},	-- grass
+		LUSHGRASS	= {x=1.4,			f=1.6,	d=0.9,	l=1.5},	-- grass
+		BUBBLELUSH	= {x=1.15,			f=2.2,			l=1.5},	-- grass
+		TOXICGRASS	= {n=1.2,	x=1.6,	f=1.4,	w=0},			-- shrooms not grass!
 		PLANT		= {n=0.94,	x=1.5},
 		TENDRIL		= {n=1.1,	x=1.55,	f=1.4},
 		BOULDER		= {n=1.1,	x=1.4},
@@ -211,7 +217,7 @@ local solar_modifiers = {
 		FIENDEGG	= {c=0.4},
 
 	--- global lod multiplier
-		SCENE		= {l=1.25},
+		SCENE		= {l=1.2},
 
 	---	skipped
 		LAVA		= {i=true},
@@ -230,6 +236,7 @@ local source_mbins = {
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENHQOBJECTSFULL.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENINFESTEDOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENOBJECTSFULL.MBIN',
+	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENPEACOCKOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENROCKYOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BARREN/BARRENROCKYWEIRDOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/DEAD/DEADBIGPROPSOBJECTSFULL.MBIN',
@@ -238,7 +245,6 @@ local source_mbins = {
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/DEAD/FROZENDEADWEIRDOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENALIENOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENBIGPROPSOBJECTSFULL.MBIN',
-	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENHQOBJECTSMID.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENOBJECTSFULL.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENPILLAROBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENROCKYOBJECTS.MBIN',
@@ -297,6 +303,7 @@ local source_mbins = {
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/TOXIC/TOXICOBJECTSFULL.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/TOXIC/TOXICSPORESOBJECTS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/TOXIC/TOXICTENTACLESOBJECTS.MBIN',
+	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/UNDERWATER/UNDERWATERCRYSTALS.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/BEAMSTONE/BEAMSOBJECTSDEAD.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/BONESPIRE/BONESPIREOBJECTSDEAD.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/CONTOUR/CONTOUROBJECTSDEAD.MBIN',
@@ -307,7 +314,7 @@ local source_mbins = {
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/IRRISHELLS/IRRISHELLSOBJECTSDEAD.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/MSTRUCTURES/MSTRUCTOBJECTSDEAD.MBIN',
 	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/SHARDS/SHARDSOBJECTSDEAD.MBIN',
-	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/WIRECELLS/WIRECELLSOBJECTSDEAD.MBIN',
+	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/WEIRD/WIRECELLS/WIRECELLSOBJECTSDEAD.MBIN'
 }
 
 ---------------------------------------------------------------------------
@@ -412,6 +419,24 @@ end
 --	main work.
 --	Receives the converted exml file from amumss
 local function ProcessBiome(exml, mbin)
+	local function getHighVariant(qvars)
+	-- Select the highest GcObjectSpawnDataVariant (between LOW STANDARD ULTRA)
+	-- Add ULTRA section if flagged and return it for editing
+		for _,qv in ipairs(qvars) do
+			qvars.meta[qv.ID] = qv
+		end
+		local qhigh = qvars.meta.STANDARD
+		if qvars.meta.ULTRA then
+			qhigh = qvars.meta.ULTRA
+		end
+		if not qvars.meta.ULTRA and spawn_data.ultra then
+			-- add ultra quality
+			qhigh			= UnionTables({qhigh})
+			qhigh.ID		= 'ULTRA'
+			qvars[#qvars+1] = qhigh
+		end
+		return qhigh
+	end
 	local solar_biome = ToLua(exml)
 
 	local biomeflora, biomeflags = solar_modifiers:getModifiers(mbin)
@@ -431,33 +456,27 @@ local function ProcessBiome(exml, mbin)
 				if HasMod('a') then spn.MaxAngle		  = spn.MaxAngle + spawn_data.res.a end
 				if HasMod('w') then spn.ShearWindStrength = spn.ShearWindStrength * spawn_data.res.w end
 
-				-- loop thourgh GcObjectSpawnDataVariant objects
-				for _,qvr in ipairs(spn.QualityVariants) do
-					if HasMod('d') then
-						qvr.FlatDensity  = qvr.FlatDensity * spawn_data.res.d
-						qvr.SlopeDensity = qvr.FlatDensity * 1.1
-					end
-					if HasMod('f') then
-						qvr.FadeOutStartDistance = qvr.FadeOutStartDistance * spawn_data.res.f
-						qvr.FadeOutEndDistance	 = qvr.FadeOutStartDistance + 20
-					end
-					if HasMod('c') then qvr.Coverage = qvr.Coverage * spawn_data.res.c end
-
-					lod = HasMod('l') and spawn_data.res.l or 1.25 -- default overwritten by SCENE global
-					for i=2, #qvr.LodDistances do
-						qvr.LodDistances[i].value = qvr.LodDistances[i].value * lod
-					end
-					if HasMod('r') then
-						qvr.MaxRegionRadius = qvr.MaxRegionRadius + spawn_data.res.r
-					else
-						mr = tonumber(qvr.MaxRegionRadius)
-						qvr.MaxRegionRadius = qvr.MaxRegionRadius + ((mr < 15 and mr > 6) and 1 or 4)
-					end
+				-- edit GcObjectSpawnDataVariant
+				local qvr = getHighVariant(spn.QualityVariants)
+				if HasMod('d') then
+					qvr.FlatDensity  = qvr.FlatDensity * spawn_data.res.d
+					qvr.SlopeDensity = qvr.FlatDensity * 1.1
 				end
-				-- add ultra quality (duplicates standard)
-				if #spn.QualityVariants == 1 and spawn_data.ultra then
-					spn.QualityVariants[2]    = UnionTables({spn.QualityVariants[1]})
-					spn.QualityVariants[2].ID = 'ULTRA'
+				if HasMod('f') then
+					qvr.FadeOutStartDistance = qvr.FadeOutStartDistance * spawn_data.res.f
+					qvr.FadeOutEndDistance	 = qvr.FadeOutStartDistance + 20
+				end
+				if HasMod('c') then qvr.Coverage = qvr.Coverage * spawn_data.res.c end
+
+				lod = HasMod('l') and spawn_data.res.l or 1.2 -- default overwritten by SCENE global
+				for i=2, #qvr.LodDistances do
+					qvr.LodDistances[i].value = qvr.LodDistances[i].value * lod
+				end
+				if HasMod('r') then
+					qvr.MaxRegionRadius = qvr.MaxRegionRadius + spawn_data.res.r
+				else
+					mr = tonumber(qvr.MaxRegionRadius)
+					qvr.MaxRegionRadius = qvr.MaxRegionRadius + ((mr < 15 and mr > 6) and 1 or 4)
 				end
 				--	loop through boolean flags
 				spawn_data:getFlags(spn.Resource.Filename, workflags)
@@ -483,7 +502,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_META large flora.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{

@@ -392,7 +392,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '___TEST big props '..GetSourceName(source_mbins[1])..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= ADF
 }

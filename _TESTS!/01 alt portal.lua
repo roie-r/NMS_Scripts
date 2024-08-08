@@ -10,7 +10,7 @@
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '___TEST 01 toy portal.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '4.72',
+	NMS_VERSION				= '4.7',
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	-- MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 			= {{

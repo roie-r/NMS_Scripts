@@ -10,14 +10,13 @@ local mod_desc = [[
   - Remove tiny cargo pod frigates
   - Faster screen text
   - hide inventory change tab marker (bulletpoint) and slashes
-  - better cloud map
   - keep whale song mission active
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -109,6 +108,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
+				REPLACE_TYPE 		= 'All',
+				PRECEDING_KEY_WORDS = {'SpaceAtlas', 'Highlight'},
+				VALUE_CHANGE_TABLE 	= {
+					{'ScannerIconHighlightType', 'Octagon'}
+				}
+			},
+			{
 				PRECEDING_KEY_WORDS = {'RareEgg', 'Main'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/HUD/ICONS/PICKUPS/PICKUP.HAZARDEGG.DDS'}
@@ -118,8 +124,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS = {
 					{'MessageBeacon',		'GcScannerIcon.xml'},
 					{'MessageBeaconSmall',	'GcScannerIcon.xml'},
-					{'FreighterBase',		'GcScannerIcon.xml'},
-					-- {'PlayerFreighter',		'GcScannerIcon.xml'},
+					{'FreighterBase',		'GcScannerIcon.xml'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/BLANK.BC7.64.DDS'}
@@ -209,17 +214,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Ignore',		0},
 					{'Ignore',		0},
 					{'Ignore',		0}
-				}
-			}
-		}
-	},
-	{--	|better clouds|
-		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE.DDS'}
 				}
 			}
 		}

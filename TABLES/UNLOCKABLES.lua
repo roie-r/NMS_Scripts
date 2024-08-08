@@ -64,6 +64,11 @@ local unlockable_items = {
 			}
 		}
 	},
+	{--	ship tech: move Sub-Light Amplifier
+		parent	= 'UT_SHIPDRIFT',
+		rmnode	= 'UT_PULSESPEED',
+		tree	= { meta = mt_ulitn,	Unlockable = 'UT_PULSESPEED' }
+	},
 	{--	ship tech: special hyperdrive
 		parent	= 'UT_QUICKWARP',
 		tree	= { meta = mt_ulitn,	Unlockable = 'HYPERDRIVE_SPEC' }
@@ -107,6 +112,57 @@ local unlockable_items = {
 		rmnode	= 'EXO_PROT_TOX',
 		tree	= { meta = mt_ulitn,	Unlockable = 'EXO_PROT_TOX' }
 	},
+	{--	vehicle tech: (add tree) miontaur body
+		parent	= 'UI_EXOCRAFT_TECH_TREE',
+		title   = 'UI_TECH_TREE_SUB',
+		toend	= true,
+		cost	= 'NANITES',
+		tree	= {
+			meta	= {'Root', 'GcUnlockableItemTreeNode.xml'},
+			Unlockable	= 'MECH_PILOT',
+			{
+				meta	= mt_child,
+				{
+					meta	= mt_ulitn,
+					Unlockable	= 'MECH_SENT_HEAD',
+					{
+						meta	= mt_child,
+						{
+							meta = mt_ulitn,
+							Unlockable	= 'MECH_SENT_LEGS'
+						},
+						{
+							meta = mt_ulitn,
+							Unlockable	= 'MECH_SENT_R_ARM'
+						},
+						{
+							meta = mt_ulitn,
+							Unlockable	= 'MECH_SENT_L_ARM'
+						}					
+					}
+				},
+				{
+					meta	= mt_ulitn,
+					Unlockable	= 'MECH_ARMY_HEAD',
+					{
+						meta	= mt_child,
+						{
+							meta = mt_ulitn,
+							Unlockable	= 'MECH_ARMY_LEGS'
+						},
+						{
+							meta = mt_ulitn,
+							Unlockable	= 'MECH_ARMY_R_ARM'
+						},
+						{
+							meta = mt_ulitn,
+							Unlockable	= 'MECH_ARMY_L_ARM'
+						}					
+					}
+				}
+			}
+		}
+	},
 	{--	factory products: wiring loom
 		parent	= 'NANOTUBES',
 		tree	= { meta = mt_ulitn,	Unlockable = 'TECH_COMP' }
@@ -149,7 +205,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	ship tech: living ship
+	{--	ship tech: (add tree) living ship
 		parent	= 'UI_SHIP_TECH_TREE',
 		title   = 'UI_TECH_ALIEN_SUB',
 		toend	= true,
@@ -206,7 +262,14 @@ local unlockable_items = {
 						meta	= mt_child,
 						{
 							meta = mt_ulitn,
-							Unlockable	= 'CHARGER_ALIEN'
+							Unlockable	= 'CHARGER_ALIEN',
+							{
+								meta	= mt_child,
+								{
+									meta = mt_ulitn,
+									Unlockable	= 'WATERLAND_ALIEN'
+								}
+							}
 						}
 					}
 				},
@@ -279,7 +342,7 @@ local unlockable_items = {
 		parent	= 'F_HDRIVEBOOST3',
 		tree	= { meta = mt_ulitn,	Unlockable = 'F_MEGAWARP' }
 	},
-	{--	base parts: tech
+	{--	base parts: (replace tree) tech
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		rmtree	= 'UI_BASETECH_TREE',
 		after	= 'UI_CUBEROOM_TREE',
@@ -478,7 +541,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	multitool: offensive
+	{--	multitool: (replace tree) offensive
 		parent	= 'UI_WEAP_TECH_TREE',
 		rmtree	= 'UI_TECH_TREE_SUB',
 		title   = 'UI_TECH_OFFENSE_SUB',
@@ -590,7 +653,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	multitool: exploratory
+	{--	multitool: (add tree) exploratory
 		parent	= 'UI_WEAP_TECH_TREE',
 		title   = 'UI_TECH_EXPLORE_SUB',
 		toend	= true,
@@ -709,7 +772,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	construction unit: tech
+	{--	construction unit: (replace tree) tech
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_TECH_SUB',
 		cost	= 'SALVAGE',
@@ -888,7 +951,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	construction unit: factory products
+	{--	construction unit: (add tree) factory products
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		title   = 'UI_PRODUCT_TREE_CRAFT',
 		toend	= true,
@@ -1047,7 +1110,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	construction unit: timber base parts
+	{--	construction unit: (replace tree) timber base parts
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_TIMBER_SUB',
 		toend	= true,
@@ -1284,7 +1347,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	construction unit: alloy base parts
+	{--	construction unit: (replace tree) alloy base parts
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_FIBREGLASS_SUB',
 		toend	= true,
@@ -1521,7 +1584,7 @@ local unlockable_items = {
 			}
 		}
 	},
-	{--	construction unit: stone base parts
+	{--	construction unit: (replace tree) stone base parts
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_STONE_SUB',
 		toend	= true,
@@ -1799,7 +1862,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TABLE UNLOCKABLES.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

@@ -162,8 +162,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
-	-- AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
+	NMS_VERSION			= '5.03',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -189,17 +189,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				meta = {'template', 'TkAttachmentData'},
 				Components = {
 					meta = {'name', 'Components'},
-					rotate = {
-						meta  = {'value', 'TkRotationComponentData.xml'},
-						Speed = 0.001,
-						Axis  = {
-							meta = {'Axis', 'Vector3f.xml'},
-							x = 1,
-							y = 1,
-							z = 1
+					{
+						meta = {'value','LinkableNMSTemplate.xml'},
+						Template = {
+							meta = {'Template','TkRotationComponentData.xml'},
+							Speed = 0.001,
+							Axis  = {
+								meta = {'Axis', 'Vector3f.xml'},
+								x = 1,
+								y = 1,
+								z = 1
+							},
+							AlwaysUpdate = true,
+							SyncGroup    = -1
 						},
-						AlwaysUpdate = true,
-						SyncGroup    = -1
+						Linked	= ''
 					}
 				}
 			})

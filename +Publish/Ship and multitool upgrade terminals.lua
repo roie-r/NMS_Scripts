@@ -4,7 +4,7 @@ local mod_desc = [[
   The multitool upgrade and salvage menus from the weapons specialist terminal.
   The ship salavage and upgrade menu from the old monitor station.
 ]]------------------------------------------------------------------------------
-local mod_version = '1.82'
+local mod_version = '1.83'
 
 --	Generate an EXML-tagged text from a lua table representation of exml class
 --	@param class: a lua2exml formatted table
@@ -164,12 +164,49 @@ function ScNode(props)
 	return T
 end
 
+-- interaction button attachment; full mbin or component only
+local function InteractEntity(action, full_entity)
+	local interact = {
+			meta = {'value','LinkableNMSTemplate.xml'},
+			Template = {
+				meta = {'Template','GcInteractionComponentData.xml'},
+				InteractionAction	= 'PressButton',
+				InteractionType		= {
+					meta = {'InteractionType','GcInteractionType.xml'},
+					InteractionType	= action
+				},
+				AttractDistanceSq	= 9,
+				InteractAngle		= 360,
+				InteractDistance	= 5
+			},
+			Linked	= ''
+	}
+	if full_entity then
+		return FileWrapping({
+			meta = {'template','TkAttachmentData'},
+			Components = {
+				meta = {'name','Components'},
+				Interaction	= interact,
+				{
+					meta = {'value','LinkableNMSTemplate.xml'},
+					Template = {
+						meta = {'Template','TkPhysicsComponentData.xml'}
+					},
+					Linked	= ''
+				}
+			}
+		})
+	else
+		return interact
+	end
+end
+
 local buildparts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/'
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.ship and multitool upgrade terminals.'..mod_version..'.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '4.72',
+	NMS_VERSION			= '5.03',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,MIXED_TABLE',
 	MODIFICATIONS 		= {{
@@ -198,19 +235,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Components',
 				ADD					= ToExml({
+					InteractEntity('WeaponUpgrade'),
 					{
-						meta = {'value', 'GcInteractionComponentData.xml'},
-						{
-							meta = {'InteractionType', 'GcInteractionType.xml'},
-							InteractionType	= 'WeaponUpgrade'
+						meta = {'value','LinkableNMSTemplate.xml'},
+						Template = {
+							meta = {'Template','TkPhysicsComponentData.xml'}
 						},
-						InteractionAction	= 'PressButton',
-						AttractDistanceSq	= 9,
-						InteractAngle		= 360,
-						InteractDistance	= 3
-					},
-					-- component stub
-					{value = 'TkPhysicsComponentData.xml'}
+						Linked	= ''
+					}
 				})
 			}
 		}
@@ -277,24 +309,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	ADD_FILES	= {
 		{
 			FILE_DESTINATION = buildparts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				meta = {'template','TkAttachmentData'},
-				Components = {
-					meta = {'name','Components'},
-					Interaction	= {
-						meta = {'value','GcInteractionComponentData.xml'},
-						InteractionAction	= 'PressButton',
-						InteractionType		= {
-							meta = {'InteractionType','GcInteractionType.xml'},
-							InteractionType	= 'WeaponSalvage'
-						},
-						AttractDistanceSq	= 9,
-						InteractAngle		= 360,
-						InteractDistance	= 5
-					},
-					{value = 'TkPhysicsComponentData.xml'}
-				}
-			})
+			FILE_CONTENT	 = InteractEntity('WeaponSalvage', true)
 		}
 	}
 }
