@@ -6,7 +6,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC DEBUG.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -15,7 +15,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'WeaponScale3P',						0.7},	-- 0.78	0.55
+					-- {'WeaponScale3P',						0.7},	-- 0.7	0.55
 					{'ThirdPersonIsDefaultCameraForPlayer',	false},
 					{'DisableSaveSlotSorting',				true},
 					{'AlwaysHaveFocus',						true},
@@ -25,11 +25,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MultiplePlayerFreightersInASystem',	true},
 					{'DisableFileWatcher',					true},
 
-					-- {'EnableBaseMovingOption',				true},
-					-- {'MoveBaseIndex',						3},
-
-					--- FOR TESTING!
-					-- {'ForceSunAngle',						30},
+					--- FOR TESTING! ---
+					-- {'ForceExtremeWeather',					true},
 					-- {'EnableDayNightCycle',					false},
 					-- {'DisableStorms',						true},
 				}

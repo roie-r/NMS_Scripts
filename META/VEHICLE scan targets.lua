@@ -1,12 +1,10 @@
-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 dofile('LIB/_lua_2_exml.lua')
-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 local mod_desc = [[
-  - Adds planetary settlement, archive, ship debris, sentinel pillar, claimable base site,
-   minor settlement, secure facility, ancient plaque, remote terminal, treasure ruin,
-   traveler grave, distress signals and underwater locations to exocraft scanner.
+  - Adds all possible building sites (except the portal) to the exocraft scanner.
   - Adds custom icons to found scan targets.
-]]---------------------------------------------------------------------------------------
+]]--------------------------------------------------------------------------------
 
 local scan_event = {
 	TERMINAL =	{-- trade terminal
@@ -95,7 +93,7 @@ local scan_event = {
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.DRONEHIVE.DDS'
 	},
 	SENT_CRASH = {-- crashed sentinel ship
-		replace	= true,
+		revent	= true,
 		class	= 'SentinelDistressSignal',
 		osd		= 'UI_CRASH_REVEAL_OSD',
 		mlabel	= 'UI_CRASH_REVEAL_MARKER',
@@ -103,22 +101,22 @@ local scan_event = {
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SENTINELCRASH.MSHOP.DDS'
 	},
 	ROBOT_CAMP = {-- autophage camp
-		replace	= true,
+		revent	= true,
 		class	= 'AbandonedRobotCamp',
 		osd		= 'UI_CAMP_REVEAL_OSD',
 		mlabel	= 'UI_CAMP_REVEAL_MARKER',
 		tip		= 'UI_CAMP_REVEAL_MSG',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.ROBOTHEAD.DDS'
 	},
-	-- ANY_BUILDER = {-- ??
-		-- Intert	= 'NPC',
-		-- replace	= true,
-		-- buildt	= 'AnyRobotSite',
-		-- osd		= 'UI_BUILDER_SE_OSD',
-		-- mlabel	= 'UI_BUILDER_SE_MARKER',
-		-- tip		= 'UI_BUILDER_SE_MSG',
-		-- icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.ROBOTHEAD.DDS'
-	-- },
+	PORTAL = {-- planetry portal
+		class	= 'Portal',
+		osd		= 'SIGNAL_PORTAL',
+		tip		= 'TIP_PORTAL',
+		blocal	= 'PlanetSearch',
+		widernd	= true,
+		fportal	= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.PORTAL.DDS'
+	},
 	MONOLITH =	{--	monolith
 		org		= true,
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUNE.DDS'
@@ -168,7 +166,10 @@ local scan_event = {
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.DEPOTRAID.MSHOP.DDS'
 	},
 	RUIN =		{-- ruin
-		org		= true,
+		-- original. ancient bug fix
+		class	= 'Ruin',
+		osd		= 'UI_SIGNAL_TREASURERUIN',
+		tip		= 'UI_TIP_TREASURERUIN',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUINS.DDS'
 	},
 	DROPPOD =	{-- drop pod
@@ -334,14 +335,6 @@ local scan_menu_table = {
 			'ROBOT_CAMP'
 		}
 	},
-	-- {--	autophage camp / any builder
-		-- name  = 'UI_GUIDE_BUI_NAME', -- 'UI_ABAND_ROBOT_CAMP_NAME',
-		-- tech  = {'VEHICLE_SCAN1'},
-		-- icon  = scan_event.ROBOT_CAMP.icon,
-		-- scan  = {
-			-- 'ANY_BUILDER'
-		-- }
-	-- },
 	{--	unclaimed base site
 		name  = 'UI_RECOVER_BASE_MARKER',
 		tech  = {'VEHICLE_SCAN2'},
@@ -362,6 +355,12 @@ local scan_menu_table = {
 		tech  = {'VEHICLE_SCAN2'},
 		icon  = scan_event.SETTLEMENT.icon,
 		scan  = { 'SETTLEMENT' }
+	},
+	{--	portal
+		name  = 'BUILDING_PORTAL_L',
+		tech  = {'VEHICLE_SCAN2'},
+		icon  = scan_event.PORTAL.icon,
+		scan  = { 'PORTAL' }
 	},
 	{--	submarine: underwater building
 		name  = 'SUB_RADAR_SCAN_ABANDON',
@@ -419,19 +418,25 @@ local function VehicleScanEventsChangeTable()
 		if not prp.org then
 			T[#T+1] = {
 				SEC_EDIT 			= 'gc_scan_event',
-				VALUE_MATCH			= '{%.xml$}',
-				VALUE_MATCH_OPTIONS = '~=',
 				VALUE_CHANGE_TABLE 	= {
 					{'Name',						event},
-					{'InteractionType',				prp.Intert	or 'IGNORE'},
 					{'EventPriority',				prp.evprior	or 'Regular'},
 					{'BuildingLocation',			prp.blocal	or 'Nearest'},
-					{'ReplaceEventIfAlreadyActive',	prp.replace	or false},
+					{'ForceWideRandom',				prp.widernd	or false},
+					{'ReplaceEventIfAlreadyActive',	prp.revent	or false},
 					{'BuildingType',				prp.buildt	or 'BuildingClass'},
-					{'BuildingClass',				prp.class	or 'None'},
 					{'MarkerLabel',					prp.mlabel	or ''},
+					{'ForceResetPortal',			prp.fportal	or false},
 					{'OSDMessage',					prp.osd},
 					{'TooltipMessage',				prp.tip}
+				}
+			}
+			T[#T+1] = {
+				SEC_EDIT 			= 'gc_scan_event',
+				PRECEDING_KEY_WORDS = 'BuildingClass',
+				REPLACE_TYPE 		= 'OnceInside',
+				VALUE_CHANGE_TABLE 	= {
+					{'BuildingClass',				prp.class	or 'None'}
 				}
 			}
 			T[#T+1] = {
@@ -450,21 +455,13 @@ local function VehicleScanEventsChangeTable()
 			}
 		}
 	end
-	-- ancient bug fix
-	T[#T+1] = {
-		SPECIAL_KEY_WORDS	= {'Name', 'RUIN'},
-		VALUE_CHANGE_TABLE 	= {
-			{'OSDMessage',		scan_event.T_RUIN.osd},
-			{'TooltipMessage',	scan_event.T_RUIN.tip}
-		}
-	}
 	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META vehicle scan targets.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES = {
 		{

@@ -1,5 +1,6 @@
 ------------------------------------------------------------------
 local mod_desc = [[
+  - Add back top fins to scientific cockpit parts
   - Add vulture parts to dropship custom groups
   - Raise green cave crystals probability
   - Round up substances stack to 10000
@@ -10,20 +11,27 @@ local mod_desc = [[
   - Remove tiny cargo pod frigates
   - Faster screen text
   - hide inventory change tab marker (bulletpoint) and slashes
-  - keep whale song mission active
+  -! keep whale song mission active
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__META various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_BATCHNAME		= '_META ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{--	|custom dropship add vulture| parts
+	{--	|customization desc| parts
 		MBIN_FILE_SOURCE = 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
 		EXML_CHANGE_TABLE = {
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS	= {'Id', 'SCIEN_COCK'},
+				PRECEDING_KEY_WORDS = 'Descriptors',
+				ADD_OPTION			= 'AddEndSection',
+				ADD					= '<Property value="NMSString0x20.xml"><Property name="Value" value="_BACKACC_1"/></Property>'
+			},
 			{
 				SPECIAL_KEY_WORDS	= {'Value', '_COCKPIT_S13XNEVER'},
 				VALUE_CHANGE_TABLE	= {
@@ -82,8 +90,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{--	|exploration mission icon|
-		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/COREMISSIONTABLE.MBIN',
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/TABLES/COREMISSIONTABLE.MBIN',
 		EXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIcon', 'TkTextureResource.xml'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.EXPLORATIONLOG.SYSTEM.OFF.DDS'}
+				}
+			},
 			{
 				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconSelected', 'TkTextureResource.xml'},
 				VALUE_CHANGE_TABLE 	= {
@@ -98,9 +112,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|alt HUD icons|
+	{--	|HUD scanner icons|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
 		EXML_CHANGE_TABLE	= {
+			{
+			--	bug fix... doesn't work (hardcoded?)
+				PRECEDING_FIRST		= true,
+				PRECEDING_KEY_WORDS = 'ScannableIconsBinocs',
+				SPECIAL_KEY_WORDS = {'Terrain', 'GcScannerIcon.xml'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/HUD/ICONS/SCANNING/PICKUP.TERRAIN.DDS'}
+				}
+			},
 			{
 				PRECEDING_KEY_WORDS = 'CreatureDiscovered',
 				VALUE_CHANGE_TABLE 	= {
@@ -218,27 +241,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|keep whale song mission active|
-		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/SPACEPOIMISSIONTABLE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
-				PRECEDING_KEY_WORDS	= 'CancelingConditions',
-				REMOVE				= 'Section',
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
-				SECTION_ACTIVE		= -1,
-				VALUE_CHANGE_TABLE	= {
-					{'RestartOnCompletion', 'True'}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG', 'Stage', 'GcMissionSequenceCreateSpecificPulseEncounter.xml'},
-				VALUE_CHANGE_TABLE	= {
-					{'PulseEncounterID', 'BIO_FRIG'}
-				}
-			}
-		}
-	},
+	-- {--	|keep whale song mission active|
+		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/SPACEPOIMISSIONTABLE.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
+				-- PRECEDING_KEY_WORDS	= 'CancelingConditions',
+				-- REMOVE				= 'Section',
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
+				-- SECTION_ACTIVE		= -1,
+				-- VALUE_CHANGE_TABLE	= {
+					-- {'RestartOnCompletion', 'True'}
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG', 'Stage', 'GcMissionSequenceCreateSpecificPulseEncounter.xml'},
+				-- VALUE_CHANGE_TABLE	= {
+					-- {'PulseEncounterID', 'BIO_FRIG'}
+				-- }
+			-- }
+		-- }
+	-- },
 }}}}

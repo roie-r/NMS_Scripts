@@ -8,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC ENVIRONMENT.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -16,6 +16,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 		MBIN_FILE_SOURCE	= 'GCENVIRONMENTGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
+			-- {
+				-- MATH_OPERATION 		= '*',
+				-- SPECIAL_KEY_WORDS	= {'Name', '.-WIND'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'OverallWindStrength', 0.4},	-- 0.5 1
+					-- {'LdsWindStrength',		0.4},	-- 0.2 0.3
+					-- {'LdsWindSpeed',		0.4}	-- 1.5 2.5
+				-- }
+			-- },
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS	= {'Ultra', 'LODAdjust'},
@@ -42,7 +51,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Ultra',
 				VALUE_CHANGE_TABLE = {
-					{'ImposterResolutionMultiplier', 2}
+					-- {'NumberOfImposterViews',		16},	-- 8
+					{'ImposterResolutionMultiplier',4}		-- 1
 				}
 			},
 			{
@@ -59,6 +69,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				VALUE_CHANGE_TABLE 	= {
+					{'WaterChangeTime',						160	}, -- 90
+					{'WaterConditionTransitionTime',		22	}, -- 12
 					{'TerrainFadeTime',						1	},	-- 2
 					{'TerrainFadeTimeInShip',				1	},	-- 2
 					{'CreatureFadeTime',					0.7	},	-- 1.5
@@ -66,8 +78,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'FloraFadeTimeMax',					1.6	},	-- 2.25
 					{'AnimationScale',						30	},	-- 50 (clouds speed)
 					{'IndoorsLightingPlanetMax',			0.98},	-- 0.42
-					{'IndoorsLightingAbandonedFreighterMax',5	},	-- 1
-					{'IndoorsLightingFreighterMax',			10	},	-- 1
+					{'IndoorsLightingAbandonedFreighterMax',4.8	},	-- 1
+					{'IndoorsLightingFreighterMax',			1.4	},	-- 1
 				}
 			},
 			{

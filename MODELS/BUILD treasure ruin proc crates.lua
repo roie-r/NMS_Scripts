@@ -36,29 +36,29 @@ local function AddChar(n, i, u)
 	return u and s:upper() or s
 end
 
-local function AddSceneNodes()
+local function AddCrateAndKey()
 	local T = {}
 	for i, f in ipairs(key_nodes.form) do
-		T[#T+1] = ScNode({
+		T[#T+1] = {
 			name	= AddChar(key_nodes.name, i),
-			stype	= 'REFERENCE',
+			ntype	= 'REFERENCE',
 			form	= f,
 			attr	= {
-				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATEKEY.SCENE.MBIN'}
+				SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATEKEY.SCENE.MBIN'
 			}
-		})
+		}
 	end
 	for i, f in ipairs(lock_nodes.form) do
-		T[#T+1] = ScNode({
+		T[#T+1] = {
 			name	= AddChar(lock_nodes.name, i),
-			stype	= 'REFERENCE',
+			ntype	= 'REFERENCE',
 			form	= f,
 			attr	= {
-				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATELOCK.SCENE.MBIN'}
+				SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATELOCK.SCENE.MBIN'
 			}
-		})
+		}
 	end
-	return T
+	return AddSceneNodes(T)
 end
 
 local function GenerateDescriptor()
@@ -157,7 +157,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL treasure ruin proc crates.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -180,7 +180,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Layout_1'},
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD 				= ToExml(AddSceneNodes())
+				ADD 				= AddCrateAndKey()
 			}
 		}
 	}

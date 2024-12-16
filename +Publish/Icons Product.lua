@@ -1,15 +1,14 @@
-----------------------------------------------------------------------
+---------------------------------------------------------------
 local mod_desc = [[
   edit/replace/update/improve product icons
 
-  * The ADD_FILES section can be safely disabled/ignored if you prefer
-   to add the texture files in a different method.
-]]--------------------------------------------------------------------
-local mod_version = '1.52'
+  * ADD_FILES will skipped SILENTLY if new files are not found!
+]]-------------------------------------------------------------
 
 local prod_icons = {
 	CARBON_SEAL		= 'PRODUCTS/PRODUCT.MSEAL.DDS',
 	STATION_KEY		= 'PRODUCTS/PRODUCT.STATION.OVERRIDE.DDS',
+	FISHBAIT_1		= 'COOKINGPRODUCTS/PRODUCT.BAIT.WORMS.DDS',
 	FOOD_M_BALL		= 'COOKINGPRODUCTS/PRODUCT.MEAT.BRAIN.DDS',
 	FOOD_M_BEETLE	= 'COOKINGPRODUCTS/PRODUCT.MEAT.CARAPACE.DDS',
 	FOOD_M_BONE		= 'COOKINGPRODUCTS/PRODUCT.BONE.CRYSTAL.DDS',
@@ -31,6 +30,7 @@ local prod_icons = {
 	FOOD_V_FLYER	= 'COOKINGPRODUCTS/PRODUCT.MILK.CRAW.DDS',
 	FOOD_V_MILK		= 'COOKINGPRODUCTS/PRODUCT.MILK.WILD.DDS',
 	FOOD_R_BONEMILK	= 'COOKINGPRODUCTS/PRODUCT.MILK.BONE.DDS',
+	FOOD_R_EYEBALLS	= 'COOKINGPRODUCTS/PRODUCT.R.EYEBALLS.DDS',
 	FOOD_R_HORROR	= 'COOKINGPRODUCTS/PRODUCT.R.HORROR.DDS',
 	FOOD_V_BONE		= 'COOKINGPRODUCTS/PRODUCT.BONE.PIECE.DDS',
 	FOOD_V_CAT		= 'COOKINGPRODUCTS/PRODUCT.MEAT.KIDNEY.DDS',
@@ -40,13 +40,13 @@ local prod_icons = {
 	FOOD_V_STRIDER	= 'COOKINGPRODUCTS/PRODUCT.EGG.TALL.DDS',
 	FOOD_W_CASE		= 'COOKINGPRODUCTS/PRODUCT.MEAT.DDS',
 	GEODE_CAVE		= 'U4PRODUCTS/PRODUCT.GEODECAVE.DDS',
-	SHIPCHARGE		= 'U4PRODUCTS/PRODUCT.SHIPCHARGE.DDS',
+	SHIPCHARGE		= 'U4PRODUCTS/PRODUCT.SHIPCHARGE.DDS'
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Product Icons.'..mod_version..'.pak',
+	MOD_FILENAME 		= '_MOD.lMonk.Product Icons.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -59,9 +59,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					T[#T+1] = {
 						SPECIAL_KEY_WORDS	= {'ID', id},
 						PRECEDING_KEY_WORDS = 'Icon',
-						VALUE_CHANGE_TABLE 	= { {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..icon} }
+						VALUE_CHANGE_TABLE 	= {
+							{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..icon}
+						}
 					}
-				end				
+				end
 				T[#T+1] = {
 					SPECIAL_KEY_WORDS	= {
 						{'ID', 'FOOD_M_HORROR'},
@@ -71,6 +73,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						{'ID', 'FOOD_STEW_EVIL'}
 					},
 					PRECEDING_KEY_WORDS = 'Colour',
+					INTEGER_TO_FLOAT	= 'Force',
 					VALUE_CHANGE_TABLE 	= {
 						{'R',	0.73333335},
 						{'G',	0.21960784},
@@ -82,26 +85,25 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		)()
 	}
 }}},
-	ADD_FILES	= {
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Products/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/*.DDS',
-		},
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/CookingProducts/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/COOKINGPRODUCTS/*.DDS',
-		},
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/ShipIcons/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/SHIPICONS/*.DDS',
-		},
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/u4Products/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/U4PRODUCTS/*.DDS',
-		},
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Update3/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/UPDATE3/*.DDS',
-		}
-	}
+	ADD_FILES	= (
+		function()
+			local T = {}
+			local tex_path = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/'
+			for _,folder in ipairs({
+				'Products',
+				'CookingProducts',
+				'ShipIcons',
+				'u4Products',
+				'Update3'
+			}) do
+				if lfs.attributes(tex_path..folder) then
+					T[#T+1] = {
+						EXTERNAL_FILE_SOURCE = tex_path..folder..'/*.DDS',
+						FILE_DESTINATION	 = 'TEXTURES/UI/FRONTEND/ICONS/'..folder..'/*.DDS',
+					}
+				end
+			end
+			return #T > 0 and T or nil
+		end
+	)()
 }

@@ -1,17 +1,18 @@
 -------------------------------------------------------------------------------
----	Model scene tools (VERSION: 0.84.1) ... by lMonk
+---	Model scene tools (VERSION: 0.85.9) ... by lMonk
 ---	Helper function for adding new TkSceneNodeData nodes and properties
 ---	* Requires _lua_2_exml.lua !
 ---	* This script should be in [AMUMSS folder]\ModScript\ModHelperScripts\LIB
 -------------------------------------------------------------------------------
 
---	Build a single -or list of scene nodes
+--	Build a single -or list of TkSceneNodeData classes
 --	@param props: a keyed table for scene class properties.
 --	{
 --	  name	= scene node name (NameHash is calculated automatically)
---	  stype	= scene node type
+--	  ntype	= scene node type
 --	  form	= [optional] Transform data. a list of 9 ordered values or keyed values,
 --			  but NOT a combination of the two!
+--	  pxlud = [optional] PlatformExclusion
 --	  attr	= [optional] Attributes table of {name, value} pairs
 --	  child	= [optional] Children table for ScNode tables
 --	}
@@ -35,54 +36,55 @@ function ScNode(nodes)
 	local function sceneNode(props)
 		local T	= {
 			meta	= {'value', 'TkSceneNodeData.xml'},
-			Name 		= props.name,
-			NameHash	= jenkinsHash(props.name),
-			Type		= props.stype
+			Name 				= props.name,
+			NameHash			= jenkinsHash(props.name),
+			Type				= props.ntype,
+			PlatformExclusion	= props.pxlud or nil
 		}
 		--	add TkTransformData class
 		props.form = props.form or {}
 		T.Form = {
 			meta	= {'Transform', 'TkTransformData.xml'},
-			TransX	= (props.form.tx or props.form[1]) or 0,
-			TransY	= (props.form.ty or props.form[2]) or 0,
-			TransZ	= (props.form.tz or props.form[3]) or 0,
-			RotX	= (props.form.rx or props.form[4]) or 0,
-			RotY	= (props.form.ry or props.form[5]) or 0,
-			RotZ	= (props.form.rz or props.form[6]) or 0,
+			TransX	= (props.form.tx or props.form[1]) or nil,
+			TransY	= (props.form.ty or props.form[2]) or nil,
+			TransZ	= (props.form.tz or props.form[3]) or nil,
+			RotX	= (props.form.rx or props.form[4]) or nil,
+			RotY	= (props.form.ry or props.form[5]) or nil,
+			RotZ	= (props.form.rz or props.form[6]) or nil,
 			ScaleX	= (props.form.sx or props.form[7]) or 1,
 			ScaleY	= (props.form.sy or props.form[8]) or 1,
 			ScaleZ	= (props.form.sz or props.form[9]) or 1
 		}
+		--	if present, add attributes list
 		if props.attr then
-		--	add attributes list if found
+			-- add accompanying attribute to scenegraph
+			if props.attr.SCENEGRAPH then
+				props.attr.EMBEDGEOMETRY = 'TRUE'
+			end
 			T.Attr = { meta = {'name', 'Attributes'} }
-			for _,at in ipairs(props.attr) do
+			for nm, val in pairs(props.attr) do
 				T.Attr[#T.Attr+1] = {
 					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
-					Name	= at[1],
-					Value	= at[2]
+					Name	= nm,
+					Value	= val
 				}
 			end
 		end
 		if props.child then
 		--	add children list if found
-			local tc = { meta = {'name', 'Children'} }
-			for _,pc in ipairs(props.child) do tc[#tc+1] = pc end
-			T[#T+1]	= tc
+			local k,_ = next(props.child)
+			cnd = ScNode(props.child)
+			T.Child	= k == 1 and cnd or {cnd}
+			T.Child.meta = {'name', 'Children'}
 		end
 		return T
 	end
-	-----------------------------------------------------------------
-	local k,_ = next(nodes)
-	if k == 1 then
-	-- k=1 means the first of a list of unrelated, non-nested, nodes
-		local T = {}
-		for _,nd in pairs(nodes) do
-				T[#T+1] = sceneNode(nd)
-		end
-		return T
-	end
-	return sceneNode(nodes)
+	return processOnenAll(nodes, sceneNode)
+end
+
+--	Wrapper function. Accepts lua scene nodes and Returns an exml string.
+function AddSceneNodes(nodes)
+	return ToExml(ScNode(nodes))
 end
 
 --	Builds light TkSceneNodeData sections.
@@ -94,43 +96,48 @@ end
 --	  tx=	0,		ty=	0,		tz=	0,
 --	  rx=	0,		ry=	0,		rz=	0,
 --	  sx=	1,		sy=	1,		sz=	1
+--	  mt=	MATERIALS/LIGHT.MATERIAL.MBIN
 function ScLight(lights)
-	local function lightNode(light)
-		if light.c then
+	local function lightNode(lgt)
+		if lgt.c then
+			lgt.c = lgt.c:sub(#lgt.c > 6 and 3 or 1, #lgt.c) -- remove alpha if present
 			for i, col in ipairs({'r', 'g', 'b'}) do
-				--  skip the alpha if present
-				light[col] = Hex2Percent(light.c, #light.c > 6 and i+1 or i)
+				lgt[col] = hex2Percent(lgt.c, i)
 			end
 		end
-		return ScNode({
-			name	= light.name or 'n9',
-			stype	= 'LIGHT',
-			form	= light,
+		return {
+			name	= lgt.name or 'n9',
+			ntype	= 'LIGHT',
+			form	= lgt,
 			attr	= {
-				{'FOV',		 	light.fov or 360},
-				{'FALLOFF',	 	(light.f and light.f:sub(1,1) == 'l') and 'linear' or 'quadratic'},
-				{'FALLOFF_RATE',light.fr or 2},
-				{'INTENSITY',	light.i  or 30000},
-				{'COL_R',		light.r  or 1},
-				{'COL_G',		light.g  or 1},
-				{'COL_B',		light.b  or 1},
-				{'VOLUMETRIC',	light.v  or 0},
-				{'COOKIE_IDX',	-1},
-				{'MATERIAL',	'MATERIALS/LIGHT.MATERIAL.MBIN'}
+				FOV			= lgt.fov or 360,
+				FALLOFF		= (lgt.f and lgt.f:sub(1,1) == 'l') and 'linear' or 'quadratic',
+				FALLOFF_RATE= lgt.fr or 2,
+				INTENSITY	= lgt.i  or 30000,
+				COL_R		= lgt.r  or 1,
+				COL_G		= lgt.g  or 1,
+				COL_B		= lgt.b  or 1,
+				VOLUMETRIC	= lgt.v  or nil,
+				COOKIE_IDX	= -1,
+				MATERIAL	= lgt.mt or 'MATERIALS/LIGHT.MATERIAL.MBIN'
 			}
-		})
+		}
 	end
 	-----------------------------------------------------------------
 	if lights then
-		local k,_ = next(lights)
-		if k == 1 then
-		-- k=1 means the first of a list of tables
+		-- first key=1 means a list of light nodes
+		if next(lights) == 1 then
 			local T = {}
-			for _,lght in pairs(lights) do
-				T[#T+1] = lightNode(lght)
+			for _,l in pairs(lights) do
+				T[#T+1] = lightNode(l)
 			end
-			return T
+			return ScNode(T)
 		end
 	end
-	return lightNode(lights)
+	return ScNode(lightNode(lights))
+end
+
+--	Wrapper function. Accepts lua light nodes and Returns an exml string.
+function AddLightNodes(lights)
+	return ToExml(ScLight(lights))
 end

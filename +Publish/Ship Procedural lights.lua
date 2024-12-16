@@ -3,6 +3,7 @@ local mod_desc = [[
   All those small, glowing lights; the old, fake, light beams;
     various headlights, will will match the ship's main color.
 
+  * ADD_FILES will skipped SILENTLY if new files are not found!
   * Affects fighter, dropship, shuttle & sailship
   * Restore procedural sail lights who match the sail's color
 
@@ -76,28 +77,28 @@ local function GetProceduralTextureLayer(textures, name)
 end
 
 local function BuildProcTextureLayers(tex)
-	local exml = {}
-	table.insert(exml, GetProceduralTextureLayer(GetProceduralTexture(tex), 'BASE'))
+	local T = {}
+	T[#T+1] = GetProceduralTextureLayer(GetProceduralTexture(tex), 'BASE')
 	-- silly fixed length array
 	for _=1, 7 do
-		table.insert(exml, GetProceduralTextureLayer())
+		T[#T+1] = GetProceduralTextureLayer()
 	end
 	return [[<Data template="TkProceduralTextureList">
-		<Property name="Layers">]]..table.concat(exml)..[[</Property></Data>]]
+		<Property name="Layers">]]..table.concat(T)..[[</Property></Data>]]
 end
 
 local function add_tex_layers_files()
 	local T = {}
 	for _,lt in ipairs(layered_textures) do
-		table.insert(T, {
+		T[#T+1] = {
 			FILE_CONTENT		= BuildProcTextureLayers(lt),
 			FILE_DESTINATION	= lt.path..lt.diff..'.TEXTURE.EXML'
-		})
-		if lt.dds then
-			table.insert(T, {
+		}
+		if lt.dds and lfs.attributes(lt.dds) then
+			T[#T+1] = {
 				EXTERNAL_FILE_SOURCE= lt.dds,
 				FILE_DESTINATION	= lt.path..lt.diff..'.BASE.DDS'
-			})
+			}
 		end
 	end
 	return T
@@ -106,7 +107,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.ship procedural lights.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= add_tex_layers_files(),
 	MODIFICATIONS 		= {{

@@ -2,14 +2,14 @@
 dofile('LIB/_lua_2_exml.lua')
 ----------------------------------------------------------------------------------
 local mod_desc = [[
-  Fixes fighter's wingsK missing LOD sections and increases it to to 5 LOD stages
+  Fixes fighter's wingsK missing LOD sections and increases it to to 4 LOD stages
   Fixes the "unusual" decals descriptor choices so all decals show together
 ]]--------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP fighter wingK fixes.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{

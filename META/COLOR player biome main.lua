@@ -9,8 +9,7 @@ local mod_desc = [[
 ]]--------------------------------------------------
 
 local base_colors = {
-	Undercoat = {
-		enabled		= true,
+	Undercoat = {-- colors enum
 		num_colors	= 'All',
 		transpose	= true,
 		palette		= {
@@ -26,7 +25,6 @@ local base_colors = {
 		}
 	},
 	Paint = {
-		enabled		= true,
 		num_colors	= 'All',
 		palette		= {
 			'FFD6D6D6',	'FFFFFFFF',	'FF555555',	'FFC7C7C7',	'FFFFFFFF',	'FF676767',	'EBEBEBFF',	000,
@@ -40,7 +38,6 @@ local base_colors = {
 		}
 	},
 	SpaceBottom = {-- used for the royal ships
-		enabled		= true,
 		num_colors	= 'All',
 		palette		= {
 			'FF4356FF',	'FFC67608',	'FFB2AB00',	'FF9ADB05',	'FFD3B916',	'FF03FFC7',	'FF848E9A',	'FF06B4FF',
@@ -54,7 +51,7 @@ local base_colors = {
 		}
 	},
 	BioShip_Body = {
-		enabled		= false,
+		unused		= true,
 		num_colors	= '_16',
 		palette		= {
 			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',	000,		000,		'FF1D120D',	'FF1D120D',
@@ -68,7 +65,7 @@ local base_colors = {
 		}
 	},
 	BioShip_Underbelly = {
-		enabled		= false,
+		unused		= true,
 		num_colors	= '_16',
 		palette		= {
 			'FFFFFFFF',	'F5FFF5F5',	'FFFFFFFF',	'F3FFEDF2',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
@@ -82,7 +79,6 @@ local base_colors = {
 		}
 	},
 	SpaceStationLights = {
-		enabled		= true,
 		num_colors	= 'All',
 		palette		= {
 			'FFCC8482', 'FFC4C4C4', 'FFA37C62', 'FFB6B6B6', 'FFC29266', 'FFDDDDDD', 'FFEFDFC9', 'FFD5D5D5',
@@ -130,23 +126,18 @@ end
 
 -- base=true for BASECOLOURPALETTE
 local function EditSingle(name, i, rgb, base)
-	if rgb == 0 then
-		rgb = {{'R', -1},{'G', -1},{'B', -1},{'A', 1}}
-	else
-		rgb = ColorFromHex(rgb)
-	end
 	return {
 		SPECIAL_KEY_WORDS	= base and {name, 'GcPaletteData.xml'} or {'ID', name},
 		PRECEDING_KEY_WORDS = 'Colour.xml',
 		SECTION_ACTIVE		= -i,
-		VALUE_CHANGE_TABLE 	= rgb
+		VALUE_CHANGE_TABLE 	= Hex2VCT(rgb)
 	}
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__META player biome main.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -161,18 +152,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						PKW		= 'Colours',
 						REMOVE	= 'Section'
 					},
-					{
-					-- pull snow palette for copying to frozen palette
-						SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
-						SEC_SAVE_TO			= 'gc_palette_data',
-					},
+					-- {
+					-- -- pull snow palette for copying to frozen palette
+						-- SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
+						-- SEC_SAVE_TO			= 'gc_palette_data',
+					-- },
 				}
 				-- dimmer sailship gray sail
 				for i=2, 58, 8 do
 					T[#T+1] = EditSingle('SailShip_Sails', i, 0, true)
 				end
 				for palette, gc_data in pairs(base_colors) do
-					if gc_data.enabled then
+					if not gc_data.unused then
 						T[1].SKW[#T[1].SKW + 1] = {palette, 'GcPaletteData.xml'}
 						T[#T+1] = {
 							PRECEDING_KEY_WORDS = palette,
@@ -206,19 +197,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			EditSingle('SHIP_METALLIC',	20, 0),
 		}
 	},
-	{
-	--	replace frozen snow palette with base
-		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENCOLOURPALETTES.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
-				REMOVE				= 'Section'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Undercoat', 'GcPaletteData.xml'},
-				ADD_OPTION			= 'AddAfterSection',
-				SEC_ADD_NAMED		= 'gc_palette_data'
-			},
-		}
-	}
+	-- {
+	-- --	replace frozen snow palette with base
+		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENCOLOURPALETTES.MBIN',
+		-- EXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
+				-- REMOVE				= 'Section'
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Undercoat', 'GcPaletteData.xml'},
+				-- ADD_OPTION			= 'AddAfterSection',
+				-- SEC_ADD_NAMED		= 'gc_palette_data'
+			-- },
+		-- }
+	-- }
 }}}}

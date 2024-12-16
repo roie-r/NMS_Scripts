@@ -1,14 +1,103 @@
 ---------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
----------------------------------------------------------------------
 local mod_desc = [[
   Adds in-game customizing for the hardframe and Liquidator mech!
   (Customizing is done through the mech's geobay menu)
 
-  * If you want to pack the texture files with the script,
-   you'll need to set a relevant file path for them.
-   If you use ModExtraFilesToInclude, just comment/delete 'source'
+  * ADD_FILES will skipped SILENTLY if new files are not found!
 ]]-------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+---	LUA 2 EXML ... by lMonk
+---	A tool for converting exml to an equivalent lua table and back again.
+---	Helper functions for color class, vector class and string arrays
+---	* This script should be in [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+-------------------------------------------------------------------------------
+
+--	Generate an EXML-tagged text from a lua table representation of exml class
+--	@param class: a lua2exml formatted table
+function ToExml(class)
+	--	replace a boolean with its text equivalent (ignore otherwise)
+	--	@param b: any value
+	function bool(b)
+		return (type(b) == 'boolean') and ((b == true) and 'True' or 'False') or b
+	end
+	--	get the count of ALL objects in a table (non-recursive)
+	--	@param t: any table
+	function len2(t)
+		i=0; for _ in pairs(t) do i=i+1 end; return i
+	end
+	
+	local function exml_r(tlua)
+		local exml = {}
+		function exml:add(t)
+			for _,v in ipairs(t) do self[#self+1] = v end
+		end
+		for key, cls in pairs(tlua) do
+			if key ~= 'meta' then
+				exml[#exml+1] = '<Property '
+				if type(cls) == 'table' and cls.meta then
+					local att, val = cls['meta'][1], cls['meta'][2]
+					-- add and recurs for an inner table
+					if att == 'name' or att == 'value' then
+						exml:add({att, '="', val, '">'})
+					else
+						exml:add({'name="', att, '" value="', val, '">'})
+					end
+					exml:add({exml_r(cls), '</Property>'})
+				else
+					-- add a regular property
+					if type(cls) == 'table' then
+						key, cls = next(cls)
+					end
+					if key == 'name' or key == 'value' then
+						exml:add({key, '="', bool(cls), '"/>'})
+					else
+						exml:add({'name="', key, '" value="', bool(cls), '"/>'})
+					end
+				end
+			end
+		end
+		return table.concat(exml)
+	end
+	-------------------------------------------------------------------------
+	-- check the table level structure and meta placement
+	-- add the needed layer for the recursion and handle multiple tables
+	local klen = len2(class)
+	if klen == 1 and class[1].meta then
+		return exml_r(class)
+	elseif class.meta and klen > 1 then
+		return exml_r( {class} )
+	-- concatenate unrelated exml sections, instead of nested inside each other
+	elseif type(class[1]) == 'table' and klen > 1 then
+		local T = {}
+		for _, tb in pairs(class) do
+			T[#T+1] = exml_r((tb.meta and klen > 1) and {tb} or tb)
+		end
+		return table.concat(T)
+	end
+end
+
+--	Adds the xml header and data template
+--	Uses the contained template meta if found (instead of the received variable)
+--	@param data: a lua2exml formatted table
+--	@param template: an nms file template string
+function FileWrapping(data, template)
+	local wrapper = '<Data template="%s">%s</Data>'
+	if type(data) == 'string' then
+		return string.format(wrapper, template, data)
+	end
+	-- remove the extra table added by ToLua
+	if data.template then data = data.template end
+	-- table loaded from file
+	if data.meta[1] == 'template' then
+		-- strip mock template
+		local txt_data = ToExml(data):sub(#data.meta[2] + 36, -12)
+		return string.format(wrapper, data.meta[2], txt_data)
+	else
+		return string.format(wrapper, template, ToExml(data))
+	end
+end
+-------------------------------------------------------------------------------
 
 local proc_texture_files = {
 	{--	mech hardframe
@@ -75,7 +164,6 @@ local proc_texture_files = {
 			{
 				name	= 'BASE',
 				diff	= true,
-				noname	= true, -- omit name from mask & normal path
 				normal	= true,
 				masks	= true
 			}
@@ -166,9 +254,10 @@ local function BuildProcTexListMbin(proc_tex_list)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Mech Hardframe Customizing.pak',
+	MOD_FILENAME 		= '_MOD.lMonk.Mech Customizing.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.02',
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()
@@ -179,7 +268,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						FILE_CONTENT	 = BuildProcTexListMbin(ptf),
 						FILE_DESTINATION = ptf.nmspath..ptf.label..'.TEXTURE.EXML'
 					}
-					if ptf.source then
+					if ptf.source and lfs.attributes(ptf.source) then
 						T[#T+1] = {
 							EXTERNAL_FILE_SOURCE = ptf.source..ptf.label..'*.DDS',
 							FILE_DESTINATION	 = ptf.nmspath..'*.DDS'

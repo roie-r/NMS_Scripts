@@ -1,21 +1,15 @@
-------------------------------------------------------------
+----------------------------------------------------------------
 local mod_desc = [[
   Restore the scanned fauna icon to the white circle
 
-  ** CREATURE.SCANNED2.DDS is NOT an original game resource
-]]----------------------------------------------------------
+  * ADD_FILES will skipped SILENTLY if new files are not found!
+]]--------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.scanned fauna icon replace.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
-	MOD_DESCRIPTION		= mod_desc,
-	ADD_FILES = {
-		{
-			EXTERNAL_FILE_SOURCE= 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Hud/CREATURE.GREEN2.DDS',
-			FILE_DESTINATION	= 'TEXTURES/UI/HUD/CREATURE.GREEN2.DDS'
-		}
-	},
+	NMS_VERSION			= '5.29',
+	MOD_DESCRIPTION		= mod_desc,		
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -29,4 +23,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	}
-}}}}
+}}},
+	ADD_FILES	= (
+		function()
+			local tex_path = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Icons/Hud/CREATURE.GREEN2.DDS'
+			if lfs.attributes(tex_path) then
+				return {{
+					EXTERNAL_FILE_SOURCE = tex_path,
+					FILE_DESTINATION	 = 'TEXTURES/UI/HUD/CREATURE.GREEN2.DDS'
+				}}
+			end
+			return nil
+		end
+	)()
+}

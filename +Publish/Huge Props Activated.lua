@@ -48,7 +48,15 @@ local source_mbins = {
 	{
 		mbin = {'MODELS/PLANETS/BIOMES/HUGEPROPS/HUGEUW/HUGESTRANDS.SCENE.MBIN'},
 		cat  = 'PLANT',
-		node = { '_Strand_1' }
+		node = {
+			'_Strands_1LOD0',
+			'_Strands_2LOD0',
+			'_Strands_3LOD0',
+			'_Strands_4LOD0',
+			'_Strands_5LOD0',
+			'_Strands_7LOD0',
+			'_Strands_8LOD0'
+		}
 	},
 	{
 		mbin = {'MODELS/PLANETS/BIOMES/HUGEPROPS/HUGEUW/HUGESWIRLPLANT.SCENE.MBIN'},
@@ -68,6 +76,11 @@ local source_mbins = {
 		mbin = {'MODELS/PLANETS/BIOMES/WEIRD/CONTOUR/CONTOURTOWER.SCENE.MBIN'},
 		cat  = 'PLANT',
 		node = { 'Tower' }
+	},
+	{
+		mbin = {'MODELS/PLANETS/BIOMES/UNDERWATER/UPDATEPROPS/UNDERWATERCONTOURPOD.SCENE.MBIN'},
+		cat  = 'PLANT',
+		node = { 'Pod_LOD0' }
 	}
 }
 
@@ -164,7 +177,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Huge Props Activated.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= MBIN_CT

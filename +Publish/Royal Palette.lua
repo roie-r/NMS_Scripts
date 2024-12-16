@@ -8,6 +8,8 @@ local mod_desc = [[
     percentage	[0 - 1.0]:	{0.87, 0.16, 0.44}
     standard	[0 - 255]:	{221,  32,   112}
 	hex code 	'string' :	'DD2070'
+
+  * ADD_FILES will skipped SILENTLY if new files are not found!
 ]]---------------------------------------------------------------------------
 
 local palette_for_royals = {
@@ -120,17 +122,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.royal palette.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
------------------------------------------------------------------------------
---	Comment/delete this section if you want to import the textures using a different method
-	ADD_FILES			= {
-		{
-			EXTERNAL_FILE_SOURCE = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Ship/Royal/*.DDS',
-			FILE_DESTINATION	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/*.DDS',
-		}
-	},	
------------------------------------------------------------------------------
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -180,4 +173,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	}
-}}}}
+}}},
+	ADD_FILES	= (
+		function()
+			local tex_path = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Ship/Royal/'
+			if lfs.attributes(tex_path) then
+				return {{
+					EXTERNAL_FILE_SOURCE = tex_path..'*.DDS',
+					FILE_DESTINATION	 = 'TEXTURES/COMMON/SPACECRAFT/S-CLASS/*.DDS'
+				}}
+			end
+			return nil
+		end
+	)()
+}

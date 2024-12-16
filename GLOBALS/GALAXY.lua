@@ -9,7 +9,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC GALAXY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -48,19 +48,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Yellow'},
-				VALUE_CHANGE_TABLE	= ColorFromHex('4dfac905')
+				VALUE_CHANGE_TABLE	= Hex2VCT('4dfac905')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Green'},
-				VALUE_CHANGE_TABLE	= ColorFromHex('8025bd03')
+				VALUE_CHANGE_TABLE	= Hex2VCT('8025bd03')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Blue'},
-				VALUE_CHANGE_TABLE	= ColorFromHex('801852f5')
+				VALUE_CHANGE_TABLE	= Hex2VCT('801852f5')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Red'},
-				VALUE_CHANGE_TABLE	= ColorFromHex('80fc2933')
+				VALUE_CHANGE_TABLE	= Hex2VCT('80fc2933')
 			}
 		}
 	}

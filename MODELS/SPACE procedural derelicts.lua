@@ -80,7 +80,7 @@ local assets = {
 				model	= 'MODELS/SPACE/POI/PILLARPOI.SCENE.MBIN'
 			},
 			{
-				form	= {420, 385, -720, 120, 210, 190, 2, 2, 2},
+				form	= {460, 405, -750, 120, 210, 190, 2, 2, 2},
 				model	= 'MODELS/SPACE/POI/SPACECLOCK.SCENE.MBIN'
 			},
 			{
@@ -88,7 +88,7 @@ local assets = {
 				model	= 'MODELS/SPACE/POI/8PRONGEDSPINNER.SCENE.MBIN'
 			},
 			{
-				form	= {-320, 246, -700, 120, 210, 190, 2, 2, 2},
+				form	= {-360, 286, -740, 120, 210, 190, 2, 2, 2},
 				model	= 'MODELS/SPACE/POI/ATLASBEACON.SCENE.MBIN'
 			}
 		}
@@ -115,25 +115,25 @@ local assets = {
 	}
 }
 
-local function AddSceneNodes()
+local function AddSpaceAssets()
 	local T = {}
 	for _,group in ipairs(assets) do
 		if group.node then
 			for i, scene in ipairs(group.node) do
-				T[#T+1] = ScNode({
+				T[#T+1] = {
 					name	= group.name..string.char(64 + i),
-					stype	= 'REFERENCE',
+					ntype	= 'REFERENCE',
 					form	= scene.form,
 					attr	= {
-						{'SCENEGRAPH', scene.model},
+						SCENEGRAPH	= scene.model,
 					--	add a spin to 'drifting' wrecks
-						{'ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.MBIN'}
+						ATTACHMENT	= 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.MBIN'
 					}
-				})
+				}
 			end
 		end
 	end
-	return ToExml(T)
+	return AddSceneNodes(T)
 end
 
 local function GenerateDescriptor()
@@ -147,11 +147,18 @@ local function GenerateDescriptor()
 			TypeId		= group.name:upper(),
 			Descriptors	= {meta = {'name', 'Descriptors'}}
 		}
-		for i,_ in ipairs(group.node or group.desc) do
+		for i, scene in ipairs(group.node or group.desc) do
 			tmp.Descriptors[#tmp.Descriptors+1] = {
 				meta	= {'value', 'TkResourceDescriptorData.xml'},
 				Id		= (group.name..string.char(64 + i)):upper(),
 				Name	= group.name..string.char(64 + i),
+				ReferencePaths	= type(scene) == 'table' and {
+					meta = {'name','ReferencePaths'},
+					{
+						meta	= {'value', 'VariableSizeString.xml'},
+						Value	= scene.model
+					}
+				} or nil
 			}
 		end
 		T.List[#T.List+1] = tmp
@@ -162,7 +169,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -173,7 +180,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RefDungeonEntrance'},
 				ADD_OPTION			= 'AddAfterSection',
-				ADD 				= AddSceneNodes()
+				ADD 				= AddSpaceAssets()
 			}
 		}
 	}

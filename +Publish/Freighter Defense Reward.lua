@@ -5,8 +5,6 @@ local mod_desc = [[
   * (the lists are non-random because a bug causes them to misbehave)
 ]]------------------------------------------------------------------------
 
-local mod_version = '1.51'
-
 local function bool(b)
 	return (b == true) and 'True' or 'False'
 end
@@ -187,9 +185,9 @@ local function AddNewRewardsToChangeTable()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Freighter Defense Rewards.'..mod_version..'.pak',
+	MOD_FILENAME 		= '_MOD.lMonk.Freighter Defense Rewards.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -203,7 +201,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_MATCH			= 'FREIGHTER_SAVED',
-				SPECIAL_KEY_WORDS	= {'Id', '?FREIGHTER', 'AlienRace', 'Warriors'},
+				SPECIAL_KEY_WORDS	= {'Id', '%?FREIGHTER', 'AlienRace', 'Warriors'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
 					{'Value',		'FREIGHTERSAVE_W'}
@@ -211,7 +209,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				VALUE_MATCH			= 'FREIGHTER_SAVED',
-				SPECIAL_KEY_WORDS	= {'Id', '?FREIGHTER', 'AlienRace', 'Explorers'},
+				SPECIAL_KEY_WORDS	= {'Id', '%?FREIGHTER', 'AlienRace', 'Explorers'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
 					{'Value',		'FREIGHTERSAVE_E'}
@@ -219,7 +217,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				VALUE_MATCH			= 'FREIGHTER_SAVED',
-				SPECIAL_KEY_WORDS	= {'Id', '?FREIGHTER', 'AlienRace', 'Traders'},
+				SPECIAL_KEY_WORDS	= {'Id', '%?FREIGHTER', 'AlienRace', 'Traders'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
 					{'Value',		'FREIGHTERSAVE_T'}

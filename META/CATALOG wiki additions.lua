@@ -9,36 +9,52 @@ local mod_desc = [[
 
 local tech_catalog = {
 	UI_PORTAL_CAT_TECH_SUIT		= {
-		{'SUIT_REFINER2',	22}
+		pattern	= {'^U_.+[1234X]$'}
 	},
 	UI_PORTAL_CAT_TECH_SHIP		= {
-		{'PHOTONIX_CORE',	4},
-		{'LAUNCHER_SPEC'},
-		{'SHIPJUMP_SPEC'},
-		{'HYPERDRIVE_SPEC'},
-		{'SHIP_LIFESUP'}
+		pattern	= {'^U_.+[1234X]$'},
+		add		= {
+			{'PHOTONIX_CORE',	4},
+			{'LAUNCHER_SPEC'},
+			{'SHIPJUMP_SPEC'},
+			{'HYPERDRIVE_SPEC'},
+			{'SHIP_LIFESUP'}
+		}
 	},
 	UI_PORTAL_CAT_TECH_TOOL		= {
-		{'LASER_XO',		3},
-		{'ATLAS_LASER',		5},
-		{'SENT_LASER',		5},
-		{'UT_BUI_SCAN2',	12},
-		{'UT_S10_SCAN',		12},
-		{'UT_BUI_SCAN',		12}
+		pattern	= {'^U_.+[1234X]$'},
+		add		= {
+			{'LASER_XO',		3},
+			{'UT_BUI_SCAN2',	12},
+			{'UT_S10_SCAN',		12},
+			{'UT_BUI_SCAN',		12},
+			{'SUN_LASER'},
+			{'SOUL_LASER'},
+			{'SENT_LASER'},
+			{'ATLAS_LASER'}
+		}
 	},
 	UI_PORTAL_CAT_TECH_GUN		= {
-		{'BOLT_SM',			3},
-		{'FLAME',			20}
+		pattern	= {'^U_.+[1234X]$'},
+		add		= {
+			{'BOLT_SM',			3},
+			{'FLAME',			20}
+		}
+	},
+	UI_PORTAL_CAT_TECH_FRE		= {
+		pattern	= {'^U_FR_.+[123]$'}
+	},
+	UI_PORTAL_CAT_TECH_VEH		= {
+		pattern	= {'^U_.+[1234X]$'}
 	},
 	UI_PORTAL_CAT_TECH_WEIRD	= {
-		{'STORY_TRANSLATE',	3},
-		{'F_LIFESUPP',		15},
-		{'SHIPGUN_ROBO',	15},
-		{'SHIPSHIELD_ROBO',	15},
-		{'HYPERDRIVE_ROBO',	15},
-		{'SHIPJUMP_ROBO',	15},
-		{'LAUNCHER_ROBO',	15},
-		{'LIFESUP_ROBO',	15},
+		pattern	= {
+			'UT_BUI_SCAN2',
+			'.-LASER$',
+		},
+		add		= {
+			{'F_LIFESUPP',		15},
+		}
 	}
 }
 
@@ -54,16 +70,19 @@ local function ProcessCatalogCraft(the_index, norm_path)
 	local mbin_craft = ToLua(table.concat(the_index.ModdedEXMLs[norm_path]))
 
 	for _,cat in ipairs(mbin_craft.template.Categories) do
-		local pattern	= cat.CategoryID:find('_FRE') and '^U_FR_.+[123]$' or '^U_.+[1234X]$'
-		for i=#cat.Items, 1, -1 do
-			-- filter proc-tech from the lists except top level freighter proc-tech
-			if cat.Items[i].Value:find(pattern) then
-				table.remove(cat.Items, i)
+		if tech_catalog[cat.CategoryID].pattern then
+			-- remove by pattern
+			for _,ptrn in ipairs(tech_catalog[cat.CategoryID].pattern) do
+				for i=#cat.Items, 1, -1 do
+					if cat.Items[i].Value:find(ptrn) then
+						table.remove(cat.Items, i)
+					end
+				end
 			end
 		end
-		if tech_catalog[cat.CategoryID] then
+		if tech_catalog[cat.CategoryID].add then
 			-- add extras
-			for _,item in ipairs(tech_catalog[cat.CategoryID]) do
+			for _,item in ipairs(tech_catalog[cat.CategoryID].add) do
 				table.insert(
 					cat.Items,
 					item[2] or #cat.Items + 1,
@@ -147,7 +166,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '__META wiki catalogs.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -156,7 +175,3 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXT_FUNC		 = {'ProcessRawExml'}
 	}
 }}}}
-
--- keep S 				>> {^U_.+[124X]X$}
--- keep freighter S		>> {^U_FR_.+[123]$}
--- remove all proc tech	>> {^U_.+[1234X]$}

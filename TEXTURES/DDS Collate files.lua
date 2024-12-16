@@ -9,50 +9,47 @@ local texture_collection = {
 		target = '',
 		names  = {
 		--	binoculars screen filters
-			{s='BLANK.FILTER.DDS',		t='LUT/FILTERS/BINOCULARS.DDS'},
-			{s='BLANK.FILTER.DDS',		t='LUT/FILTERS/SURVEYING1.DDS'},
-			{s='BLANK.FILTER.DDS',		t='LUT/FILTERS/MISSIONSURVEY.DDS'},
+			{s='BLANK.FILTER.DDS',			t='LUT/FILTERS/BINOCULARS.DDS'},
+			{s='BLANK.FILTER.DDS',			t='LUT/FILTERS/SURVEYING1.DDS'},
+			{s='BLANK.FILTER.DDS',			t='LUT/FILTERS/MISSIONSURVEY.DDS'},
 		--	direction marker at screen edge
-			{s='BLANK.BC7.128.DDS',		t='UI/HUD/ARROW.MINI.DDS'},
+			{s='BLANK.BC7.128.DDS',			t='UI/HUD/ARROW.MINI.DDS'},
 		--	binoculars HUD background
-			{s='BLANK.BC7.64.DDS',		t='UI/HUD/BINOCULARS.DDS'},
-			{s='BLANK.BC7.64.DDS',		t='UI/HUD/BINOCULARMISSION.DDS'},
-			{s='BLANK.BC7.64.DDS',		t='UI/HUD/SURVEYING.DDS'},
+			{s='BLANK.BC7.64.DDS',			t='UI/HUD/BINOCULARS.DDS'},
+			{s='BLANK.BC7.64.DDS',			t='UI/HUD/BINOCULARMISSION.DDS'},
+			{s='BLANK.BC7.64.DDS',			t='UI/HUD/SURVEYING.DDS'},
 		--	laser mid part & target crosshairs
-			{s='BLANK.BC7.64.DDS',		t='UI/HUD/CROSSHAIRLAZERMIDDLE.DDS'},
-			{s='BLANK.BC7.64.DDS',		t='UI/HUD/CROSSHAIRS/LARGETARGET.DDS'},
-			{s='BLANK.BC7.64.DDS',		t='UI/HUD/CROSSHAIRTARGET.DDS'},
+			{s='BLANK.BC7.64.DDS',			t='UI/HUD/CROSSHAIRLAZERMIDDLE.DDS'},
+			{s='BLANK.BC7.64.DDS',			t='UI/HUD/CROSSHAIRS/LARGETARGET.DDS'},
+			{s='BLANK.BC7.64.DDS',			t='UI/HUD/CROSSHAIRTARGET.DDS'},
 		--	inv tab bulletpoint
-			{s='BLANK.BC7.32.DDS',		t='UI/FONTS/BULLETPOINT.DDS'},
+			{s='BLANK.BC7.32.DDS',			t='UI/FONTS/BULLETPOINT.DDS'},
 		--	'new item' notification in menus
-			{s='BLANK.BC7.32.DDS',		t='UI/FRONTEND/COMPONENTS/NEWEXCLAMATION.DDS'},
+			{s='BLANK.BC7.32.DDS',			t='UI/FRONTEND/COMPONENTS/NEWEXCLAMATION.DDS'},
 		--	just the blank
 			{s='BLANK.BC7.64.DDS'}
 		}
 	},
 	{--	ships
 		source = 'Ship/',
-		target = 'COMMON/SPACECRAFT/',
+		target = 'COMMON/',
 		names  = {
+		--	ship fabricator additions
+			{s='Embossed/Ship_2048/*.DDS',	t='Spacecraft/Fighters/Shared/*.DDS'},
+			{s='Embossed/Scientific/*.DDS', t='Spacecraft/Scientific/Shared/*.DDS'},
 		--	clean non-chipped fighter paint & white ship lights
-			{s='FighterClean/*.DDS', 	t='Fighters/Shared/*.DDS'},
+			{s='FighterClean/*.DDS', 		t='Spacecraft/Fighters/Shared/*.DDS'},
 		--	dropship vulture lights
-			{s='Dropship/*.DDS', 		t='Dropship/Shared/*.DDS'},
+			{s='Dropship/*.DDS', 			t='Spacecraft/Dropship/Shared/*.DDS'},
 		--	B & W racer
-			{s='Racer/WRACER*.DDS',		t='Fighters/WRACER*.DDS'},
+			{s='Racer/WRACER*.DDS',			t='Spacecraft/Fighters/WRACER*.DDS'},
 		--	blue theme speeder (and bit more reflective)
-			{s='Speeder/VRSPEEDER*.DDS',t='Fighters/VRSPEEDER*.DDS'},
+			{s='Speeder/VRSPEEDER*.DDS',	t='Spacecraft/Fighters/VRSPEEDER*.DDS'},
 		--	black cockpit interior
-			{s='Interior/*.DDS',		t='Shared/Cockpitinteriors/*.DDS'},
+			{s='Interior/*.DDS',			t='Spacecraft/Shared/Cockpitinteriors/*.DDS'},
+		--	sentinel ship blue lights
+			{s='Sentinel/LIGHT*.DDS',		t='Robots/Shared/LIGHT*.DDS'},
 		}
-	},
-	{--	sentinel ship blue lights
-		source = 'Ship/Sentinel/',
-		target = 'COMMON/ROBOTS/SHARED/',
-		names  = {
-			{s='LIGHT*.DDS'}
-		}
-
 	},
 	{--	vehicle buggy/bike headlights
 		source = 'Vehicle/',
@@ -99,19 +96,18 @@ local texture_collection = {
 		target = 'EFFECTS/',
 		names  = {
 			{s='Beam/*.DDS'},
-			-- {s='HeavyAir/*.DDS'},
 			{s='Light/*.DDS'},
 			{s='Particles/*.DDS'},
 			{s='Ship/*.DDS'},
-			{s='Trails/*.DDS',		t='TRAILS/HOT/*.DDS'}
+			{s='Trails/*.DDS',				t='TRAILS/HOT/*.DDS'}
 		}
 	},
 	{--	black carbon crystals
 		source = 'BlackCarbon/',
 		target = 'PLANETS/BIOMES/',
 		names  = {
-			{s='*.RED.DDS',			t='Common/Crystals/*.RED.DDS'},
-			{s='MINERAL2.BASE.DDS',	t='Crystal/Largeprop/MINERAL2.BASE.DDS'}
+			{s='*.RED.DDS',					t='Common/Crystals/*.RED.DDS'},
+			{s='MINERAL2.BASE.DDS',			t='Crystal/Largeprop/MINERAL2.BASE.DDS'}
 		}
 	},
 	{--	Stations: crane, atlas red beam
@@ -119,18 +115,18 @@ local texture_collection = {
 		target = 'SPACE/',
 		names  = {
 			{s='ATLASSTATION/*.DDS'},
-			{s='PirateStation/*.DDS',	t='Spacestation/PIRATES/*.DDS'}
+			{s='PirateStation/*.DDS',		t='Spacestation/PIRATES/*.DDS'}
 		}
 	},
 	{--	building parts: cleaner glass panes, decal replacers
 		source = 'Building/',
 		target = 'PLANETS/BIOMES/COMMON/BUILDINGS/SHARED/BUILDABLEBUILDINGS/',
 		names  = {
-			{s='Glass/*.DDS',		t='*.DDS'},
-			{s='Decals/*.DDS',		t='Decals/*.DDS'}
+			{s='Glass/*.DDS',				t='*.DDS'},
+			{s='Decals/*.DDS',				t='Decals/*.DDS'}
 		}
 	},
-	{--	ICONS: general
+	{--	ICONS: FRONTEND general
 		source = 'Icons/',
 		target = 'UI/FRONTEND/ICONS/',
 		names  = {
@@ -158,13 +154,26 @@ local texture_collection = {
 			{s='Technology/Vehicle/*.DDS'},
 		}
 	},
+	{--	ICONS: HUD translucent icons
+		source = 'Icons/Hud/',
+		target = 'UI/HUD/ICONS/',
+		names  = {
+			{s='Building/*.DDS',			t='Buildings/*.DDS'},
+			{s='Pickups/*.DDS',				t='Pickups/*.DDS'},
+			{s='U4Pickups/*.DDS',			t='U4pickups/*.DDS'},
+			{s='Player/*.DDS',				t='Player/*.DDS'},
+			{s='BLACKHOLE.DDS',				t='Missions/Mission.BLACKHOLE.DDS'},
+			{s='PLANETPOLE*.DDS'},
+			{s='CREATURE.*.DDS'}
+		}
+	},
 	{--	ICONS: quickmenu
 		source = 'Icons/Quickmenu/',
 		target = 'UI/FRONTEND/ICONS/QUICKMENU/',
 		names  = {
 			{s='*.DDS'},
 			-- THIRDPERSONSHIP is copied twice
-			{s='THIRDPERSONSHIP.DDS', t='THIRDPERSONCHARACTER.DDS'},
+			{s='THIRDPERSONSHIP.DDS', 		t='THIRDPERSONCHARACTER.DDS'},
 		}
 	},
 	{--	menu: galactic map part
@@ -179,19 +188,6 @@ local texture_collection = {
 		target = 'UI/FRONTEND/BACKGROUNDS/',
 		names  = {
 			{s='*.DDS'}
-		}
-	},
-	{--	ICONS: HUD translucent icons
-		source = 'Icons/Hud/',
-		target = 'UI/HUD/ICONS/',
-		names  = {
-			{s='Building/*.DDS',	t='Buildings/*.DDS'},
-			{s='Pickups/*.DDS',		t='Pickups/*.DDS'},
-			{s='U4Pickups/*.DDS',	t='U4pickups/*.DDS'},
-			{s='Player/*.DDS',		t='Player/*.DDS'},
-			{s='BLACKHOLE.DDS',		t='Missions/Mission.BLACKHOLE.DDS'},
-			{s='PLANETPOLE*.DDS'},
-			{s='CREATURE.*.DDS'}
 		}
 	},
 	{--	player: vkyeen gloves
@@ -213,7 +209,7 @@ local texture_collection = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__TEXTURE collate dds files.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	ADD_FILES			= (
 		function()

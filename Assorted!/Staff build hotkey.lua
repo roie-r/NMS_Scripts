@@ -9,7 +9,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__Open Staff build page hotkey.pak',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -23,7 +23,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SEC_EDIT 			= 'tk_animation_data',
 				VALUE_CHANGE_TABLE 	= {
 					{'Anim',		'STAFF_IT_PAGE'},
-					{'Filename',	'MODELS/TESTS/EFFECTTEST.ANIM.MBIN'}
+					{'Filename',	'MODELS/COMMON/SHARED/NULL.ANIM.MBIN'}
 				}
 			},
 			{

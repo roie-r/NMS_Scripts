@@ -1,14 +1,16 @@
 ------------------------------------------------------------------------------------
 dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/scene_tools.lua')
 ------------------------------------------------------------------------------------
 local mod_desc = [[
   Fix speeder LOD to match other ships (same ancient bug as from the fighter model)
+  docking fix
 ]]----------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__SHIP speeder.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -50,15 +52,5 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				})
 			}
 		}
-	},
-	-- {
-		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/FIGHTERS/VRSPEEDER.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/LIGHTDETAILBLUE.DDS'}
-				-- }
-			-- }
-		-- }
-	-- }
+	}
 }}}}

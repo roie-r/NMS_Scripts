@@ -14,7 +14,7 @@ local save_trigger_components = {
 			meta	= {'Template', 'GcSimpleInteractionComponentData.xml'},
 			SimpleInteractionType	= 'Save',
 			TriggerAction			= 'INACTIVE',
-			HideContents			= true			
+			HideContents			= true
 		},
 		Linked	= ''
 	},
@@ -82,7 +82,7 @@ local save_trigger_components = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -123,7 +123,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SEC_EDIT 			= 'tk_animation_data',
 				VALUE_CHANGE_TABLE 	= {
 					{'Anim',		'SAVEGAME'},
-					{'Filename',	'MODELS/TESTS/EFFECTTEST.ANIM.MBIN'}
+					{'Filename',	'MODELS/COMMON/SHARED/NULL.ANIM.MBIN'}
 				}
 			},
 			{

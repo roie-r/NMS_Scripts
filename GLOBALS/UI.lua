@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC UI.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -83,14 +83,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'Suit'},
+				SPECIAL_KEY_WORDS	= {'Suit', 'TkModelRendererData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'LightPitch',	60},
 					{'LightRotate',	0}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'Weapon'},
+				SPECIAL_KEY_WORDS	= {'Weapon', 'TkModelRendererData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Distance',	3.2},	-- 2.4
 					{'x',			-0.6},	-- -0.4
@@ -102,7 +102,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'Ship'},
+				SPECIAL_KEY_WORDS	= {'Ship', 'TkModelRendererData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Distance',	0.44},	-- 1.3
 					{'x',			-0.21},	-- -0.3
@@ -115,7 +115,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'Vehicle'},
+				SPECIAL_KEY_WORDS	= {'Vehicle', 'TkModelRendererData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'x',			-3.5},
 					{'y',			0.06},
@@ -123,11 +123,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Rotate',		-43},
 					{'LightPitch',	30},
 					{'LightRotate',	290},
-					{'FocusType',	'DiscoveryView'}
+					-- {'FocusType',	'DiscoveryView'}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'TradeCompareShips'},
+				SPECIAL_KEY_WORDS	= {'TradeCompareShips', 'TkModelRendererData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'y',			-0.015},
 					{'Pitch',		15},
@@ -136,7 +136,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = {'ModelViews', 'ModelViews', 'Freighter'},
+				SPECIAL_KEY_WORDS	= {'Freighter', 'TkModelRendererData.xml'},
 				VALUE_CHANGE_TABLE 	= {
 					{'x',			-0.05},
 					{'z',			-0.05},

@@ -64,24 +64,24 @@ local loot_containers = {
 	}
 }
 
-local function AddSceneNodes()
+local function AddContainerScenes()
 	local T = {}
 	for _,scn in ipairs(loot_containers) do
 		for i=1, #scn.form do
-			T[#T+1] = ScNode({
+			T[#T+1] = {
 				name	= scn.name..string.char(64 + i),
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= scn.form[i],
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/PARTS/CRASH_CONTAINER.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/PARTS/CRASH_CONTAINER.SCENE.MBIN'
 				}
-			})
+			}
 		end
 	end
-	return T
+	return AddSceneNodes(T)
 end
 
-local function AddDescriptors()
+local function AddContainerDescriptors()
 	local T = {}
 	for _,scn in ipairs(loot_containers) do
 		local tmp = {
@@ -99,7 +99,7 @@ local function AddDescriptors()
 		end
 		T[#T+1] = tmp
 	end
-	return T
+	return ToExml(T)
 end
 
 local function AddPrx(prx, T)
@@ -110,7 +110,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__MODEL crashed freighter proc containers.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
@@ -170,7 +170,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LargeCargoRoomRef'},
 				ADD_OPTION			= 'AddAfterSection',
-				ADD 				= ToExml(AddSceneNodes())
+				ADD 				= AddContainerScenes()
 			}
 		}
 	},
@@ -232,7 +232,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'List',
-				ADD					= ToExml(AddDescriptors())
+				ADD					= AddContainerDescriptors()
 			}
 		}
 	},

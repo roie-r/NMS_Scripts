@@ -8,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC VEHICLE.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -44,7 +44,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
-					{'VehicleBoostMaxSpeed', 		1.24},
+					{'VehicleBoostMaxSpeed', 		2.1},
 					{'VehicleBoostTime', 			1.6},
 					{'VehicleBoostRechargeTime', 	0.8}
 				}
@@ -52,6 +52,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'BIKE'},
 				VALUE_CHANGE_TABLE 	= {
+					-- {'DriveOnTopOfWater',			false},
+					{'TopSpeedForward', 			19},	-- 18
 					{'VehicleGravity',				18},	-- 17.5
 					{'VehicleGravityWater',			15.5},	-- 17.5
 					{'VehicleJumpAirControlForce', 	140},	-- 100

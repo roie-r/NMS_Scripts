@@ -32,20 +32,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'JetpackDrainHorizontalFactor',		1.7	},	-- 2.5
 					{'MeleeBoostAirForce',					3.6	},	-- 3
 					{'RocketBootsDoubleTapTime',			0.24},	-- 0.2		791
-					-- {'RocketBootsBoostForce',				72	},	-- 68
-					-- {'RocketBootsDriftForce',				36	},	-- 30
 					{'RocketBootsMaxSpeed',					30	},	-- 20
-					{'RocketBootsDriftEndTime',				0.8	},	-- 2	0.4
+					{'RocketBootsDriftEndTime',				0.8	},	-- 2
+					{'RocketBootsDriftBraking',				1.0	},	-- 0.6
 					{'StealthMinLevel',						0.5	},	-- 0.15
 					{'StealthDrainRate',					3	},	-- 15
 					{'StealthRechargeRate',					20	},	-- 12
-					-- {'JetpackForce',						36	},	-- 31
 					{'JetpackMaxSpeed',						8	},	-- 5
-					-- {'JetpackMaxUpSpeed',					32	},	-- 30
-					-- {'JetpackUpForce',						32	},	-- 30
-					-- {'JetpackIgnitionForce',				64	},	-- 60
-					-- {'JetpackIgnitionTime',					0.6	},	-- 0.4
-					-- {'JetpackMinIgnitionTime',				0.3	},	-- 0.2
+					{'JetpackIgnitionTime',					0.2	},	-- 0.4
 					{'JetpackFillRate',						0.7	},	-- 0.5
 					{'SpaceJetpackMaxSpeed',				15	},	-- 10
 					{'SpaceJetpackDrainRate',				0.06},	-- 0.3

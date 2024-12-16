@@ -236,7 +236,7 @@ function edit_rgb:GetExmlCT()
 		SKW					= {},
 		INTEGER_TO_FLOAT	= 'Force',
 		PRECEDING_KEY_WORDS	= 'Colour',
-		VALUE_CHANGE_TABLE 	= ColorFromHex('095c77ff')
+		VALUE_CHANGE_TABLE 	= Hex2VCT('095c77ff')
 	}
 	for _,x in ipairs(self) do
 		if #x < 2 then
@@ -247,7 +247,7 @@ function edit_rgb:GetExmlCT()
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'ID', x[1]},
 				PRECEDING_KEY_WORDS	= 'UpgradeColour',
-				VALUE_CHANGE_TABLE 	= ColorFromHex(x[2])
+				VALUE_CHANGE_TABLE 	= Hex2VCT(x[2])
 			}
 		end
 	end

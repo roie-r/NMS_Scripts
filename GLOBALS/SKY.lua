@@ -7,7 +7,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__GC SKY.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -30,6 +30,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'WeatherBloomGain',					2.34},	-- 7.1
 					{'NoAtmosphereFogStrength',				0	},	-- 0.3
 					{'NoAtmosphereFogMax',					0	},	-- 0.97
+					--- disable nights ---
+					-- {'MinNightFade',						1	}, -- 0.62
+					-- {'MaxNightFade',						1	}, -- 0.68
 				}
 			},
 			-- {

@@ -12,7 +12,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL effects lines trails mist.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
@@ -138,7 +138,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|custom empty line material|
+	{--	dupe line material
 		MBIN_FILE_SOURCE	= {
 			{
 				'MATERIALS/LINE3D.MATERIAL.MBIN',
@@ -147,7 +147,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	empty the dupe line
 		MBIN_FILE_SOURCE	= 'MATERIALS/LINE3D.EMPTY.MATERIAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
@@ -156,7 +156,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|no lines|
+	{--	no lines
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/LINES/LINERENDERER.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{

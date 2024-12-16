@@ -4,23 +4,58 @@ local mod_desc = [[
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TESTING clear conditions.pak',
+	MOD_FILENAME 		= '__TESTING sunny skies.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
+		MBIN_FILE_SOURCE	= 'GCSKYGLOBALS.GLOBALS.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'MinTimeBetweenStormsHigh',			7200},	-- 120
+					{'MaxTimeBetweenStormsHigh',			7400},	-- 620
+					{'MinTimeBetweenStormsExtremeFallback', 7200},	-- 240
+					{'MaxTimeBetweenStormsExtremeFallback',	7400},	-- 620
+					{'MinStormLengthLow',					1	},	-- 120
+					{'MaxStormLengthLow',					2	},	-- 180
+					{'MinStormLengthHigh',					1	},	-- 150
+					{'MaxStormLengthHigh',					2	},	-- 320
+					{'NoAtmosphereFogStrength',				0	},	-- 0.3
+					{'NoAtmosphereFogMax',					0	},	-- 0.97
+					--- disable nights ---
+					{'MinNightFade',						1	},	-- 0.62
+					{'MaxNightFade',						1	}	-- 0.68
+				}
+			}
+		}
+	},
+	{
 		MBIN_FILE_SOURCE	= 'GCBUILDINGGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
 			{
-				MATH_OPERATION 		= '+',
 				VALUE_CHANGE_TABLE 	= {
-					{'MarkerLineWidth',						-3},	-- 4
-					{'MaxRadiusForPlanetBases',			 	2400},	-- 1000
-					{'BuildingPlacementMaxConnectionLength',3000},	-- 200
-					{'BaseRadiusExtension',					200},
-					{'MinRadiusForBases',					2500},
+					{'UnknownBuildingRange',				800	},	-- 600
+					{'MarkerLineWidth',						2	},	-- 4
+					{'MaxShipScanBuildings',				3	},	-- 2
+					{'BuildingPlacementMaxConnectionLength',1800},	-- 200
+					{'BuildingPlacementDefaultMinDistance',	1	},	-- 3
+					{'MaxRadiusForPlanetBases',			 	2000},	-- 1000
+					{'BaseRadiusExtension',					100	},
+					{'MinRadiusForBases',					1600}
+				}
+			}
+		}
+	},
+	{
+		MBIN_FILE_SOURCE	= 'GCROBOTGLOBALS.MBIN',
+		EXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'DroneInvestigateMinWitnessRange',		  0	},
+					{'DroneInvestigateMinWitnessRangeCantSee',0	}
 				}
 			}
 		}
@@ -30,22 +65,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
+					{'WeaponScale3P',						0.7},
 					{'DisableSaveSlotSorting',				true},
+					{'AlwaysHaveFocus',						true},
 					{'DisableBaseBuildingLimits',			true},
-					{'ForceSunAngle',						35},	-- 0
-					{'EnableDayNightCycle',					false},
-					{'DisableStorms',						true},
-				}
-			}
-		}
-	},
-	{
-		MBIN_FILE_SOURCE	= 'GCGAMEPLAYGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'AggressiveSentinelProbability',		0.001},
-					{'LowSentinelProbability',				0.999},
+					{'DisableFileWatcher',					true},
+					{'DisableStorms',						true}
 				}
 			}
 		}

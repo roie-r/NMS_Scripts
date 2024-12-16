@@ -41,7 +41,7 @@ local function AddSceneNodes()
 	for i, f in ipairs(key_nodes.form) do
 		T[#T+1] = ScNode({
 			name	= AddChar(key_nodes.name, i),
-			stype	= 'REFERENCE',
+			ntype	= 'REFERENCE',
 			form	= f,
 			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATEKEY.SCENE.MBIN'}
@@ -51,7 +51,7 @@ local function AddSceneNodes()
 	for i, f in ipairs(lock_nodes.form) do
 		T[#T+1] = ScNode({
 			name	= AddChar(lock_nodes.name, i),
-			stype	= 'REFERENCE',
+			ntype	= 'REFERENCE',
 			form	= f,
 			attr	= {
 				{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/PARTS/CRATELOCK.SCENE.MBIN'}
@@ -151,7 +151,6 @@ local function GenerateDescriptor()
 			Name	= AddChar(lock_nodes.name, i)
 		})
 	end
-	print(FileWrapping(T))
 	return T
 end
 
@@ -159,7 +158,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '_MOD.lMonk.Treasure Ruin Procedural Crates.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MODIFICATIONS 		= {{

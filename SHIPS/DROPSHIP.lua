@@ -5,6 +5,7 @@ local mod_desc = [[
   dropship:
   - Add vulture parts to world common use
   - Vulture parts blue lights
+  - docking fix
   - decal placements tweaks
   - move guns below the cockpit (matches interior placement)
   - No foggy headlights cone on cockpits
@@ -19,6 +20,8 @@ local mod_desc = [[
 local dropship = {
 	desc =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.DESCRIPTOR.MBIN',						skip=true},
 	ship =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',								skip=true},
+	inter_a = 	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA_INTERIOR.SCENE.MBIN',					skip=true},
+	inter_b = 	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB_INTERIOR.SCENE.MBIN',					skip=true},
 	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN'},
 	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN'},
 	cockpit_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITC.SCENE.MBIN'},
@@ -32,6 +35,7 @@ local dropship = {
 	neck_4 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_4.SCENE.MBIN',					add=true},
 	neck_5 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_5.SCENE.MBIN',					add=true},
 	neck_6 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_6.SCENE.MBIN',					add=true},
+	land_f =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/LANDINGGEAR/LANDINGGEARFRONT.SCENE.MBIN',	skip=true},
 	hull_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/HULL/HULLA.SCENE.MBIN'},
 	engine_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESA.SCENE.MBIN',							add=true},
 	engine_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESB.SCENE.MBIN',							add=true},
@@ -71,11 +75,40 @@ local dropship = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__SHIP dropship.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 		MBIN_CHANGE_TABLE		= {
+		{-- |dropship interior lights|
+			MBIN_FILE_SOURCE	= {
+				dropship.inter_a.src,
+				dropship.inter_b.src,
+			},
+			EXML_CHANGE_TABLE	= {
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
+					VALUE_CHANGE_TABLE	= {
+						{'Value',		'@ * 0.6'}
+					}
+				},
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS	= {'Name', 'COL_R'},
+					VALUE_CHANGE_TABLE	= {
+						{'Value',		0.8}
+					}
+				},
+				{
+					REPLACE_TYPE 		= 'All',
+					SPECIAL_KEY_WORDS	= {'Name', 'COL_B'},
+					VALUE_CHANGE_TABLE	= {
+						{'Value',		0.2}
+					}
+				},
+			}
+		},
 		{-- |dropship add vulture desc| parts
 			MBIN_FILE_SOURCE	= dropship.desc.src,
 			EXML_CHANGE_TABLE	= {
@@ -122,12 +155,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					VALUE_CHANGE_TABLE	= {
 						{'Name',		'_Wings_S13'}
 					}
-				}
+				},
 			}
 		},
 		{-- |vulture engineD dim blue light|
 			MBIN_FILE_SOURCE	= dropship.engine_d.src,
 			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS 	= {
+						{'Name', 'DecalL'},
+						{'Name', 'DecalR'}
+					},
+					VALUE_CHANGE_TABLE 	= {
+						{'RotZ',		26}
+					}
+				},
 				{
 					REPLACE_TYPE 		= 'All',
 					SPECIAL_KEY_WORDS 	= {'Name', 'INTENSITY'},
@@ -455,6 +497,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		},
+		{-- |dropship landgear front| metal
+			MBIN_FILE_SOURCE	= dropship.land_f.src,
+			EXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {'Name', 'SUB1LandingGear_F', 'Name', 'MATERIAL'},
+					VALUE_CHANGE_TABLE 	= {
+						{'Value', 'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/LANDINGGEAR/LANDINGGEARFRONT/TRIMS.MATERIAL.MBIN'}
+					}
+				}
+			}
+		},
 		{-- |dropship hull| decal fixs
 			MBIN_FILE_SOURCE	= dropship.hull_a.src,
 			EXML_CHANGE_TABLE	= {
@@ -508,7 +561,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			MBIN_FILE_SOURCE	= {
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB/TERTIARY1.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_5/TERTIARY.MATERIAL.MBIN',
-				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/LANDINGGEAR/LANDINGGEARFRONT/PRIMARY.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_LEFT/TERTIARY1.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_RIGHT/TERTIARY1.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT/TERTIARY1.MATERIAL.MBIN',
@@ -575,13 +627,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						T[inx] = {
 							MBIN_FILE_SOURCE	= part.src,
 							EXML_CHANGE_TABLE	= {
-								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-								VALUE_CHANGE_TABLE 	= {
-									{'Value',		4}
+								{
+									SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+									VALUE_CHANGE_TABLE 	= {
+										{'Value',		4}
+									}
 								}
 							}
 						}
-						ect = T[inx].EXML_CHANGE_TABLE
+						local ect = T[inx].EXML_CHANGE_TABLE
 						if not part.lod1 then
 							ect[#ect+1] = {
 								SPECIAL_KEY_WORDS 	= {

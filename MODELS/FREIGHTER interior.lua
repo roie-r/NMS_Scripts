@@ -10,7 +10,7 @@ local mod_desc = [[
   - Hangar and bridge loitering NPC repositioned
 ]]-----------------------------------------------------------
 
-local ECT = { {SKW={}, REMOVE='Section'} }
+local hgr_ect = { {SKW={}, REMOVE='Section'} }
 for node, form in pairs({
 	NPC_01			= {tx=-9.507,	ty=-3.35,	tz=-28.34},
 	NPC_02			= {tx=-56,		ty=-7.34,	tz=62.5,	ry=-150},
@@ -23,6 +23,10 @@ for node, form in pairs({
 	RefHangarCrane1	= {tx=-41.96,				tz=60.9},
 	MonitorDesk		= {tx=-55.5,	ty=-7.35,	tz=63.2,	ry=305},
 	RefFuelTank2	= {tx=35.53,	ty=-7.34,	tz=72.55,	ry=180},
+	RefLargeCrate103= {tx=-22.65,	ty=-4.31,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt R
+	RefLargeCrate113= {tx=22.65,	ty=-4.315,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt L
+	RefLargeCrate10	= {tx=7,		ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- cross gap M
+	RefLargeCrate6	= {tx=-52.35,	ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- cross gap R
 	RefPallet30		= {tx=7.79,		ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
 	MidCeiling201	= {							tz=33.2,								sz=1.25},
 	pointLight70				= {del=true},
@@ -30,9 +34,9 @@ for node, form in pairs({
 	REFFreighterHangerMistVFX	= {del=true}
 }) do
 	if form.del then
-		ECT[1].SKW[#ECT[1].SKW+1] = {'Name', node}
+		hgr_ect[1].SKW[#hgr_ect[1].SKW+1] = {'Name', node}
 	else
-		ECT[#ECT+1] = {
+		hgr_ect[#hgr_ect+1] = {
 			SPECIAL_KEY_WORDS	= {'Name', node},
 			VALUE_CHANGE_TABLE	= {
 				{'TransX',	form.tx or 'IGNORE'},
@@ -54,7 +58,7 @@ for atr, val in pairs({
 	COL_G		= 0.5,
 	COL_B		= 0.6
 }) do
-	ECT[#ECT+1] = {
+	hgr_ect[#hgr_ect+1] = {
 		SPECIAL_KEY_WORDS 	= {
 			{'Name', 'lightorange1', 'Name', atr},
 			{'Name', 'pointLight8', 'Name', atr}
@@ -64,184 +68,152 @@ for atr, val in pairs({
 		}
 	}
 end
-ECT[#ECT+1] = {
+hgr_ect[#hgr_ect+1] = {
 	PRECEDING_KEY_WORDS = 'Children',
 	ADD					= ToExml({
 		ScNode({
 			{
 				name	= '1RefBarrelBaz1',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=8.18, ty=-7.02, tz=66.4, rx=270, sx=0.9, sy=1.4, sz=0.9},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/BARREL1.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/BARREL1.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrossingB1',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-45.35, ty=-7.341775, tz=66.73, ry=180},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrossingB2',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=0, ty=-7.341775, tz=66.73},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrossingB3',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=45.35, ty=-7.341775, tz=66.73, ry=180},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONB.SCENE.MBIN'}
-				}
-			},
-			{
-				name	= '1RefBoxTeleport_R',
-				stype	= 'REFERENCE',
-				form	= {tx=-22.65, ty=-4.48, tz=17.22, sx=0.85, sy=1, sz=0.175},
-				attr	= {
-					{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
-				}
-			},
-			{
-				name	= '1RefBoxTeleport_L',
-				stype	= 'REFERENCE',
-				form	= {tx=22.65, ty=-4.48, tz=17.22, sx=0.85, sy=1, sz=0.175},
-				attr	= {
-					{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
-				}
-			},
-			{
-				name	= '1RefBoxPanel_R',
-				stype	= 'REFERENCE',
-				form	= {tx=-52.35, ty=-7.51, tz=66.72, sx=0.75, sy=1, sz=0.75},
-				attr	= {
-					{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
-				}
-			},
-			{
-				name	= '1RefBoxPanel_M',
-				stype	= 'REFERENCE',
-				form	= {tx=7, ty=-7.52, tz=66.72, sx=0.75, sy=1, sz=0.75},
-				attr	= {
-					{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONB.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateMilk01',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=5.06, ty=-7.33, tz=65.54, ry=86, sx=2.7, sy=1.8, sz=2.7},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/MILKCRATE.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/MILKCRATE.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateHazBig1',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=6.74, ty=-7.34, tz=66.5, ry=90, sx=1.7, sy=1.4, sz=1.6},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATEHAZARDOUS.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATEHAZARDOUS.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateTypeb1',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=5.06, ty=-7.33, tz=67.1, ry=3, sx=0.9, sy=0.9, sz=0.9},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateTypeb2',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=5.2, ty=-7.33, tz=68.2, ry=87, sx=0.9, sy=0.9, sz=0.9},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateHazBig2',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-53.3, ty=-6.67, tz=64.1, ry=13, rz=90, sx=0.57, sy=0.9, sz=0.9},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATEHAZARDOUS.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATEHAZARDOUS.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefScreenSilo',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-55.32, ty=-5.82, tz=63.46, ry=35.1, sx=0.36, sy=0.6, sz=0.4},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/WALLMONITORS/WALLMONITORA.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/WALLMONITORS/WALLMONITORA.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCoveredSilos',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-54, ty=-7.33, tz=66.8, ry=-90, sx=0.75, sy=0.75, sz=0.75},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/PIRATES/COVEREDSILOS.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/PIRATES/COVEREDSILOS.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateMould01',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-52.8, ty=-3.65, tz=65.65, rx=10, ry=-85, rz=180, sx=1.4},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CRATE1.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CRATE1.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateMould02',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-52.7, ty=-3.6, tz=67.7, rx=-10, ry=85, rz=175, sx=1.4},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CRATE1.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CRATE1.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefBuilderHand',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-39.85, ty=-7.64, tz=-22.3, rx=-2, ry=-65, rz=180, sx=1.4, sy=1.4, sz=1.4},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/COMMON/ROBOTS/ROBOTHAND.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/COMMON/ROBOTS/ROBOTHAND.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefBuilderHead',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-39.8, ty=-7.64, tz=-21.6, rx=50, ry=160, rz=0, sx=1.1, sy=1.1, sz=1.1},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BUILDERHEAD.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BUILDERHEAD.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefGeometPlant01',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=37, ty=-7.72, tz=68.3, ry=-20, rz=20, sx=0.24, sy=0.24, sz=0.24},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefMetalStruct01',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=11.8, ty=9.5, tz=22.7, sx=0.3, sy=0.3, sz=0.3},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/WEIRD/FRACTALCUBE/SHAPE1FLOAT.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/WEIRD/FRACTALCUBE/SHAPE1FLOAT.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefWirecell01',
-				stype	= 'REFERENCE',
+				ntype	= 'REFERENCE',
 				form	= {tx=-67, ty=14, tz=-18.2, sx=0.6, sy=0.6, sz=0.6},
 				attr	= {
-					{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN'}
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN'
 				}
 			}
 		}),
@@ -274,7 +246,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '__MODEL ferighter interior.pak',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.03',
+	NMS_VERSION				= '5.29',
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS,MIXED_TABLE',
 	MOD_DESCRIPTION			= mod_desc,
 	GLOBAL_INTEGER_TO_FLOAT = 'Force',
@@ -282,7 +254,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE		= {
 	{--	|freighter hangar|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARINTERIOR.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= ECT
+		EXML_CHANGE_TABLE	= hgr_ect
 	},
 	{--	|bridge lighting and tweaks|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGE.SCENE.MBIN',
@@ -307,40 +279,40 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{-- teleporter gaps fix
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml( ScNode({
+				ADD					= AddSceneNodes({
 					{
 						name	= '1RefBoxTeleport_1',
-						stype	= 'REFERENCE',
-						form	= {tx=9.53, ty=0.16, tz=-3.98, sx=0.03, sy=10, sz=0.05},
+						ntype	= 'REFERENCE',
+						form	= {tx=9.497, ty=-0.738, tz=-3.95, sx=0.3, sy=9, sz=1},
 						attr	= {
-							{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
+							SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/STORAGEBOXES/STORAGEBOXB.SCENE.MBIN'
 						}
 					},
 					{
 						name	= '1RefBoxTeleport_2',
-						stype	= 'REFERENCE',
-						form	= {tx=-9.53, ty=0.16, tz=-3.98, sx=0.03, sy=10, sz=0.05},
+						ntype	= 'REFERENCE',
+						form	= {tx=-9.497, ty=-0.738, tz=-3.98, sx=0.3, sy=9, sz=1},
 						attr	= {
-							{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
+							SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/STORAGEBOXES/STORAGEBOXB.SCENE.MBIN'
 						}
 					},
 					{
 						name	= '1RefBoxTeleport_3',
-						stype	= 'REFERENCE',
-						form	= {tx=-3.98, ty=0.163, tz=-9.528, sx=0.05, sy=10, sz=0.03},
+						ntype	= 'REFERENCE',
+						form	= {tx=-4.0, ty=-0.735, tz=-9.497, sx=1, sy=9, sz=0.3},
 						attr	= {
-							{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
+							SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/STORAGEBOXES/STORAGEBOXB.SCENE.MBIN'
 						}
 					},
 					{
 						name	= '1RefBoxTeleport_4',
-						stype	= 'REFERENCE',
-						form	= {tx=3.98, ty=0.163, tz=-9.528, sx=0.05, sy=10, sz=0.03},
+						ntype	= 'REFERENCE',
+						form	= {tx=4.0, ty=-0.739, tz=-9.55, sx=1, sy=9, sz=0.3},
 						attr	= {
-							{'SCENEGRAPH', 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN'}
+							SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/STORAGEBOXES/STORAGEBOXB.SCENE.MBIN'
 						}
 					}
-				}) )
+				})
 			},
 			{
 				SPECIAL_KEY_WORDS 	= AddPrx('Name', {
@@ -364,7 +336,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{--	lights (copied from Relight)
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml( ScLight({
+				ADD					= AddLightNodes({
 				--	(copied from Relight)
 					{name='pointLight59', tx=0.0,    ty=7.0,  tz=0.0,    i=80000, r=0.95, g=1.0,  b=1.0},
 					{name='pointLight60', tx=0.0,    ty=2.0,  tz=0.0,    i=30000, r=1.0,  g=0.67, b=0.361},
@@ -407,7 +379,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{name='Floor1Right2', tx=15.5,   ty=5.97, tz=-6.42,  i=4000},
 					{name='Floor1Right3', tx=15.5,   ty=5.97, tz=6.42,   i=4000},
 					{name='Floor1Right4', tx=6.42,   ty=5.97, tz=15.5,   i=4000}
-				}) )
+				})
 			}
 		}
 	},
@@ -420,24 +392,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Base'},
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD 				= ToExml( ScNode({
+				ADD 				= AddSceneNodes({
 					name	= 'SystemScanner',
-					stype	= 'LOCATOR',
+					ntype	= 'LOCATOR',
 					form	= {ty=1.8, sx=0.2, sz=0.2},
 					attr	= {
-						{'ATTACHMENT', 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINAL.INTERACTION.ENTITY.MBIN'}
+						ATTACHMENT = 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINAL.INTERACTION.ENTITY.MBIN'
 					},
 					child	= {
-						ScNode({
-							name	= 'SysScanCol',
-							stype	= 'COLLISION',
-							attr	= {
-								{'TYPE',	'Sphere'},
-								{'RADIUS',	1}
-							}
-						})
+						name	= 'SysScanCol',
+						ntype	= 'COLLISION',
+						attr	= {
+							TYPE	= 'Sphere',
+							RADIUS	= 1
+						}
 					}
-				}) )
+				})
 			}
 		}
 	},
@@ -458,8 +428,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REMOVE				= 'Section'
 			}
 		}
-	},	
-	
+	},
 	{--	|freighter landing pad lights|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/ACCESSORIES/LANDINGPAD_HANGAR.SCENE.MBIN',
 		EXML_CHANGE_TABLE	= {
@@ -471,14 +440,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'OrangeLights'},
 				ADD_OPTION			= 'AddAfterSection',
-				ADD 				= ToExml( ScLight({
+				ADD 				= AddLightNodes({
 					{name='left',  fov=100, tx=16,  ty=10, rx=-22, ry=90,  f='l', fr=1.2,		c='FFF5F7FA'},
 					{name='right', fov=100, tx=-16, ty=10, rx=-22, ry=-90, f='l', fr=1.2,		c='FFF5F7FA'},
 					{name='ne',	i=44000, fov=120, tx=4.8,	ty=0.25, tz=4.8,  rx=30, ry=45,		c='FFF5F7FA'},
 					{name='nw',	i=44000, fov=120, tx=-4.8,	ty=0.25, tz=4.8,  rx=30, ry=-45,	c='FFF5F7FA'},
 					{name='se',	i=44000, fov=120, tx=4.8,	ty=0.25, tz=-4.8, rx=30, ry=135,	c='FFF5F7FA'},
 					{name='sw',	i=44000, fov=120, tx=-4.8,	ty=0.25, tz=-4.8, rx=30, ry=-135,	c='FFF5F7FA'}
-				}) )
+				})
 			}
 		}
 	},
@@ -491,34 +460,30 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml( ScNode({
+				ADD					= AddSceneNodes({
 					name	= '1RefMonitorShip',
-					stype	= 'REFERENCE',
+					ntype	= 'REFERENCE',
 					form	= {tx=2.55, ty=0.12, tz=5.4, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
 					attr	= {
-						{'SCENEGRAPH', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'}
+						SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'
 					},
 					child	= {
-						ScNode({
-							name	= 'ColShipSalvage1',
-							stype	= 'COLLISION',
-							form	= {ty=-3},
+						name	= 'ColShipSalvage1',
+						ntype	= 'COLLISION',
+						form	= {ty=-3},
+						attr	= {
+							TYPE	= 'Sphere',
+							RADIUS	= 0.2
+						},
+						child	= {
+							name	= 'LocShipSalvage1',
+							ntype	= 'LOCATOR',
 							attr	= {
-								{'TYPE',	'Sphere'},
-								{'RADIUS',	0.2}
-							},
-							child	= {
-								ScNode({
-									name	= 'LocShipSalvage1',
-									stype	= 'LOCATOR',
-									attr	= {
-										{'ATTACHMENT', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'}
-									}
-								})
+								ATTACHMENT = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'
 							}
-						})
+						}
 					}
-				}) )
+				})
 			}
 		}
 	},
@@ -620,56 +585,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	plain box
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/TESTS/BUILDINGS/1X1X1_0.SCENE.MBIN',
-				'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN',
-				'REMOVE'
-			}
-		}
-	},
-	{--	plain box details
-		MBIN_FILE_SOURCE	= 'MODELS/TESTS/BUILDINGS/BOX.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= AddPrx('Name', {
-					'Floor3',
-					'pCube10',
-					'pCube9',
-					'pCube11',
-					'w'
-				}),
-				REMOVE 				= 'Section'
-			},
-			{
-				PRECEDING_KEY_WORDS	= 'Children',
-				ADD 				= ToExml(
-					ScNode({
-						name	= 'Floor4_col',
-						stype	= 'COLLISION',
-						attr	= {
-							{'TYPE',	'Box'},
-							{'WIDTH',	5.31},
-							{'HEIGHT',	0.33},
-							{'DEPTH',	5.31}
-						}
-					})
-				)
-			}
-		}
-	},
-	{--	plain box color
-		MBIN_FILE_SOURCE	= 'MODELS/TESTS/BUILDINGS/1X1X1_0/LAMBERT1.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS 	= {'Name', 'gMaterialColourVec4'},
-				VALUE_CHANGE_TABLE	= {
-					{'x',	0.12},
-					{'y',	0.12},
-					{'z',	0.12}
-				}
-			}
-		}
-	}
 }}}}

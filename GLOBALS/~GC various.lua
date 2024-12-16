@@ -13,7 +13,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '__GC various.pak',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.03',
+	NMS_VERSION			= '5.29',
 	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -21,15 +21,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{--	|GC GRAPHICS|
 		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
 		EXML_CHANGE_TABLE	= {
-			-- {
+			{
 				-- INTEGER_TO_FLOAT	= 'Force',
-				-- VALUE_CHANGE_TABLE 	= {
+				VALUE_CHANGE_TABLE 	= {
 					-- {'LUTDistanceFlightMultiplier',	1	},	-- 0
 					-- {'SunLightIntensity',			3.2	},	-- 3
 					-- {'DOFFarStrengthWater',			0.2	},	-- 0
-					-- {'ForceUncachedTerrain',		true},
-				-- }
-			-- },
+					{'ForceUncachedTerrain',		true},
+				}
+			},
 			{
 				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset.xml'},
 				VALUE_CHANGE_TABLE 	= {
@@ -51,10 +51,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxShipScanBuildings',					3	},	-- 2
 
 					--- normal game
-					{'BaseRadiusExtension',						30	},	-- 50
-					{'MinRadiusForBases',						150	},	-- 300
+					{'BuildingPlacementMaxDistance',			100	},	-- 50
 					{'BuildingPlacementMaxConnectionLength',	1800},	-- 200
 					{'BuildingPlacementDefaultMinDistance',		1	},	-- 3
+					{'BaseRadiusExtension',						30	},	-- 50
+					{'MinRadiusForBases',						150	},	-- 300
 
 					--- Extension for basebuilding
 					-- {'MaxRadiusForPlanetBases',			 	2000},	-- 1000
