@@ -6,9 +6,9 @@ local mod_desc = [[
 ]]----------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__UI cargo on top.pak',
+	MOD_FILENAME 		= '+ UI cargo on top',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,16 +17,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'UI/INVENTORYPAGE.MBIN',
 			'UI/BUYSCREEN.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS 	= {
-					{'ID', 'INV_TECH_LABEL'}, -- TECH HEADER
-					{'ID', 'TECHICON'},
-					{'ID', 'INV_MAIN_LABEL'}, -- CARGO HEADER
-					{'ID', 'CARGOICON'}
+					{'ID', 'INV_.-_LABEL'},	-- tech + cargo headers
+					{'ID', '.-ICON'},		-- tech + cargo icons
 				},
-				SECTION_UP			= 1,
+				SECTION_UP			= 2,
 				REMOVE			 	= 'Section'
 			}
 		}
@@ -36,12 +35,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'UI/COMPONENTS/INVENTORY/SQU_INV_BOXTECH.MBIN',
 			'UI/INVENTORYPAGE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'ID', 'SQU_INV_TECH'},
 				VALUE_CHANGE_TABLE 	= {
-					{'PositionY',	1230} -- 735
+					{'Position Y',	1230} -- 735
 				}
 			}
 		}
@@ -51,12 +51,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'UI/COMPONENTS/INVENTORY/SQU_INV_BOXREGULAR.MBIN',
 			'UI/INVENTORYPAGE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'ID', 'SQU_INV_REGULAR'},
 				VALUE_CHANGE_TABLE 	= {
-					{'PositionY',	735} -- 1070
+					{'Position Y',	735} -- 1070
 				}
 			}
 		}
@@ -64,17 +65,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 	--	switch inventory window expansion icons placement
 		MBIN_FILE_SOURCE	= 'UI/COMPONENTS/PAGESELECTBARSIDE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'TECH_EXPAND'},
 				VALUE_CHANGE_TABLE 	= {
-					{'PositionY',	440} -- 380
+					{'Position Y',	440} -- 380
 				}
 			},
 			{
 				SPECIAL_KEY_WORDS	= {'ID', 'ITEM_EXPAND'},
 				VALUE_CHANGE_TABLE 	= {
-					{'PositionY',	380} -- 440
+					{'Position Y',	380} -- 440
 				}
 			}
 		}
