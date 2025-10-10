@@ -1,5 +1,6 @@
 -------------------------------------------------------------
 local mod_desc = [[
+  - Increase scan discovery range for rare resources
   - green cave crystal rewards cave2
   - large living crystal reward fix
   - organic rock bio gunk reward
@@ -9,10 +10,10 @@ local mod_desc = [[
 ]]-----------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL placed planet props.pak',
+	MOD_FILENAME 		= '+ MODEL placed planet props',
 	MOD_AUTHOR			= 'Lo2k',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -22,7 +23,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/GROUND/METALFORMATION/ENTITIES/METALFORMATION.ENTITY.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/INAIR/FLOATINGGASBAGS/ENTITIES/FLOATINGGASBAG.ENTITY.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'ScanRange',		1600},		-- 400
@@ -38,19 +40,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/SMALL/CRYSTAL_SMALL_CAVE/ENTITIES/CYSTAL_SMALL_CAVE.ENTITY.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/SMALL/CRYSTAL_FRAGMENT_CAVE/ENTITIES/SHARDS_CAVE.ENTITY.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'GivesReward',	'PLANT_TECH'},
-					{'ScanName',	'UI_GREEN_CRYSTAL_NAME'}, -- UI_CAVE2_NAME_L
-					{'ScanIconType','CaveSubstance'}
+					{'GivesReward',		'PLANT_TECH'},
+					{'ScanName',		'UI_GREEN_CRYSTAL_NAME'}, -- UI_CAVE2_NAME_L
+					{'ScanIconType',	'CaveSubstance'}
 				}
 			}
 		}
 	},
 	{--	|large crystal shard| reward fix
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/SENTINELCRYSTALDRONE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
 				VALUE_CHANGE_TABLE	= {
@@ -61,9 +64,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	Barren biome |organic rock bio reward| instead of mordite
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/RARERESOURCE/CRYSTALS/GEMCRYSTALS/ENTITIES/GEMCRYSTAL.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcSimpleInteractionComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcSimpleInteractionComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Id',			'R_BREAK_BIO'}
 				}
@@ -72,7 +76,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	black carbon
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/LARGE/CRYSTAL_LARGE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'pointLight1', 'Name', 'COL_R'},
 				VALUE_CHANGE_TABLE 	= {
@@ -89,15 +93,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	black carbon
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/LARGE/CRYSTAL_LARGE/CRYSTAL_LARGE.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gCustomParams01Vec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'t',			0}
+					{'W',			0}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS	= {'Samplers', 'TkMaterialSampler.xml'},
+				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Map',			'TEXTURES/PLANETS/BIOMES/COMMON/CRYSTALS/LARGECRYSTAL2.RED.DDS'}
 				}
@@ -109,7 +113,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/MEDIUM/CRYSTAL_MEDIUM.SCENE.MBIN',
 			'MODELS/EFFECTS/DEBRIS/RESOURCEDEBRIS.SCENE.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'pointLight1', 'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE 	= {
@@ -142,9 +146,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/SMALL/CRYSTAL_FRAGMENT/ICEFORMATION_MAT.MATERIAL.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/SMALL/CRYSTAL_SMALL/ICEFORMATION_MAT.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS	= {'Samplers', 'TkMaterialSampler.xml'},
+				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Map',			'TEXTURES/PLANETS/BIOMES/COMMON/CRYSTALS/MEDIUMCRYSTAL2.RED.DDS'}
 				}
@@ -153,15 +157,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/DEBRIS/RESOURCEDEBRIS/GEMTHINGS_MINERALMAT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gCustomParams01Vec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'t',			0}
+					{'W',			0}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS	= {'Samplers', 'TkMaterialSampler.xml'},
+				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Map',			'TEXTURES/PLANETS/BIOMES/CRYSTAL/LARGEPROP/MINERAL2.BASE.DDS'}
 				}
@@ -174,7 +178,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FUELPLANT.SCENE.MBIN',
 			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/TECHPLANT1.SCENE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE	= {
@@ -183,39 +187,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	add descriptor full mangroves
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGE.DESCRIPTOR.MBIN',
-				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
-				'REMOVE'
-			}
-		}
-	},
-	{--	add descriptor full mangroves
-		MBIN_FILE_SOURCE	=  'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'TypeId',		'_MFULL_'}
-				}
-			},
-			{
-				PRECEDING_KEY_WORDS	= 'TkResourceDescriptorData.xml',
-				SECTION_ACTIVE		= -1,
-				VALUE_CHANGE_TABLE 	= {
-					{'Id',			'_MFULL_01LOD0'},
-					{'Name',		'_MFull_01LOD0'}
-				}
-			},
-			{
-				PRECEDING_KEY_WORDS	= 'TkResourceDescriptorData.xml',
-				SECTION_ACTIVE		= -2,
-				VALUE_CHANGE_TABLE 	= {
-					{'Id',			'_MFULL_02LOD0'},
-					{'Name',		'_MFull_02LOD0'}
-				}
-			}
-		}
-	},
 }}}}
+
+	-- {--	|cave pool fishing|
+		-- MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/CAVE/MEDIUMPROP/MEDIUMROCKPOOL.SCENE.MBIN',
+		-- MXML_CHANGE_TABLE	= {
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Value', 'MODELS/PLANETS/BIOMES/GAS/CRATER_LIQUID/ENTITIES/CRATER.ENTITY.MBIN'}
+				-- }
+			-- }
+		-- }
+	-- },
+	-- {--	|crashed crate reward|
+		-- MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRASHEDFREIGHTER/PARTS/CONTAINERTERMINAL/ENTITIES/TERMINALCHAR.ENTITY.MBIN',
+		-- MXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Components', 'GcSimpleInteractionComponentData'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Id', 'CRASHCONT_AD2'}
+				-- }
+			-- }
+		-- }
+	-- },

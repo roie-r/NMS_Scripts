@@ -4,27 +4,24 @@ local mod_desc = [[
 ]]------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL diverse shelters.pak',
+	MOD_FILENAME 		= '+ MODEL diverse shelters',
 	MOD_AUTHOR			= 'Lo2k',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/SHACK/SHACK_SCIENTIFIC.LSYSTEM.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'nShack'},
-				PRECEDING_KEY_WORDS	= 'TkLSystemRestrictionData.xml',
-				SECTION_ACTIVE		= -1,
+				SPECIAL_KEY_WORDS	= {'Name', 'nShack', 'Restriction', 'AtLeast'},
 				VALUE_CHANGE_TABLE	= {
 					{'Amount',		0}	-- 1
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'nShack'},
-				PRECEDING_KEY_WORDS	= 'TkLSystemRestrictionData.xml',
-				SECTION_ACTIVE		= -2,
+				SPECIAL_KEY_WORDS	= {'Name', 'nShack', 'Restriction', 'NoMoreThan'},
 				VALUE_CHANGE_TABLE	= {
 					{'Amount',		3}	-- 2
 				},
@@ -42,19 +39,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/SHACK/SHACK_TRADER.LSYSTEM.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'nShack'},
-				PRECEDING_KEY_WORDS	= 'TkLSystemRestrictionData.xml',
-				SECTION_ACTIVE		= -1,
+				SPECIAL_KEY_WORDS	= {'Name', 'nShack', 'Restriction', 'AtLeast'},
 				VALUE_CHANGE_TABLE	= {
 					{'Amount',		0}	-- 1
 				},
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Name','nShack'},
-				PRECEDING_KEY_WORDS	= 'TkLSystemRestrictionData.xml',
-				SECTION_ACTIVE		= -2,
+				SPECIAL_KEY_WORDS	= {'Name', 'nShack', 'Restriction', 'NoMoreThan'},
 				VALUE_CHANGE_TABLE	= {
 					{'Amount',		3}	-- 2
 				},
@@ -69,19 +63,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/SHACK/SHACK_WARRIOR.LSYSTEM.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'nShack'},
-				PRECEDING_KEY_WORDS	= 'TkLSystemRestrictionData.xml',
-				SECTION_ACTIVE		= -1,
+				SPECIAL_KEY_WORDS	= {'Name', 'nShack', 'Restriction', 'AtLeast'},
 				VALUE_CHANGE_TABLE	= {
 					{'Amount',		0}	-- 1
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'nShack'},
-				PRECEDING_KEY_WORDS	= 'TkLSystemRestrictionData.xml',
-				SECTION_ACTIVE		= -2,
+				SPECIAL_KEY_WORDS	= {'Name', 'nShack', 'Restriction', 'NoMoreThan'},
 				VALUE_CHANGE_TABLE	= {
 					{'Amount',		3}	-- 2
 				}

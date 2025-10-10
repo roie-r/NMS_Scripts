@@ -1,12 +1,10 @@
 -----------------------------------------------------------
 local mod_desc = [[
+  - remove bubbles from classic backpack
   - trading post landing pad fix
   - Remove multiplayer comms messenger
   - remove builder body lights
   - change builder cloth texture
-  - Increase scan discovery range for rare resources
-  - Activate planetary portal without cost
-  - remove gunk from damaged machinery
   - Remove resource crates at portals
   - remove lowest level frigates lod
   - better cloud map
@@ -14,16 +12,25 @@ local mod_desc = [[
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL various.pak',
+	MOD_FILENAME 		= '+ MODEL various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
-	MOD_BATCHNAME		= '_MODELS ~@~collection.pak',
+	NMS_VERSION			= '6.06',
+	MOD_BATCHNAME		= '+MODELS ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|backpack no bubbles|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PARTS/BACKPACK/BACKPACKCLASSIC.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'BubblesHorizontal'},
+				REMOVE				= 'Section'
+			}
+		}
+	},
 	{--	|trade post pad| fix
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/TRADINGPOST/LANDINGPAD.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'EXIT'},
 				VALUE_CHANGE_TABLE	= {
@@ -34,7 +41,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	no |comms messenger body|
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/MESSENGER/MESSENGER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {
@@ -47,7 +54,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	no |comms messenger trigger|
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/MESSENGER/ENTITIES/MESSENGER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'InteractionType',
 				REPLACE_TYPE 		= 'OnceInside',
@@ -59,7 +67,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	no |builder body light|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/INTERIORLIGHTS_MAT4.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Samplers',
 				REMOVE				= 'Section'
@@ -71,7 +79,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/BCLOTHTILEABLEPAD1.MATERIAL.MBIN',
 			'MODELS/COMMON/PLAYER/PLAYERCHARACTER/NPCROBOT/BCLOTHTILEABLEPAD1.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 				VALUE_CHANGE_TABLE	= {
@@ -94,7 +102,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|No crates at portal|
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PORTAL/PORTAL.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '^_Clump[1-6]'},
 				REMOVE				= 'Section'
@@ -145,17 +153,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|better clouds|
-		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE03.DDS'}
-				}
-			}
-		}
-	},
+	-- {--	|better clouds|
+		-- MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
+		-- MXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE03.DDS'}
+				-- }
+			-- }
+		-- }
+	-- },
 	{--	null anim for other mods
 		MBIN_FILE_SOURCE	= {
 			{
@@ -167,7 +175,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	null anim for other mods
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SHARED/NULL.ANIM.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'FrameCount',	10}

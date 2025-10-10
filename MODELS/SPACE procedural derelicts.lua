@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 local mod_desc = [[
@@ -126,7 +126,7 @@ local function AddSpaceAssets()
 					form	= scene.form,
 					attr	= {
 						SCENEGRAPH	= scene.model,
-					--	add a spin to 'drifting' wrecks
+						--	add a spin to 'drifting' wrecks
 						ATTACHMENT	= 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.MBIN'
 					}
 				}
@@ -138,26 +138,23 @@ end
 
 local function GenerateDescriptor()
 	local T = {
-		meta = {'template', 'TkModelDescriptorList'},
-		List = {meta = {'name', 'List'}}
+		meta = {template='cTkModelDescriptorList'},
+		List = {meta = {name='List'}}
 	}
 	for _,group in ipairs(assets) do
 		local tmp = {
-			meta		= {'value', 'TkResourceDescriptorList.xml'},
+			meta		= {name='List', value='TkResourceDescriptorList'},
 			TypeId		= group.name:upper(),
-			Descriptors	= {meta = {'name', 'Descriptors'}}
+			Descriptors	= {meta = {name='Descriptors'}}
 		}
 		for i, scene in ipairs(group.node or group.desc) do
 			tmp.Descriptors[#tmp.Descriptors+1] = {
-				meta	= {'value', 'TkResourceDescriptorData.xml'},
+				meta	= {name='Descriptors', value='TkResourceDescriptorData'},
 				Id		= (group.name..string.char(64 + i)):upper(),
 				Name	= group.name..string.char(64 + i),
 				ReferencePaths	= type(scene) == 'table' and {
-					meta = {'name','ReferencePaths'},
-					{
-						meta	= {'value', 'VariableSizeString.xml'},
-						Value	= scene.model
-					}
+					meta = {name='ReferencePaths'},
+					ReferencePaths = scene.model
 				} or nil
 			}
 		end
@@ -167,16 +164,16 @@ local function GenerateDescriptor()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL procedural derelicts.pak',
+	MOD_FILENAME 		= '+ MODEL procedural derelicts',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/SPACE/POI/DUNGEON.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RefDungeonEntrance'},
 				ADD_OPTION			= 'AddAfterSection',
@@ -187,31 +184,38 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			FILE_DESTINATION = 'MODELS/SPACE/POI/DUNGEON.DESCRIPTOR.EXML',
-			FILE_CONTENT	 = FileWrapping(GenerateDescriptor())
+			FILE_DESTINATION = 'MODELS/SPACE/POI/DUNGEON.DESCRIPTOR.MXML',
+			FILE_CONTENT	 = ToMxmlFile(GenerateDescriptor())
 		},
 		{
-			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				meta = {'template', 'TkAttachmentData'},
+			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.MXML',
+			FILE_CONTENT	 = ToMxmlFile({
+				meta = {template='cTkAttachmentData'},
 				Components = {
-					meta = {'name', 'Components'},
-					{
-						meta = {'value','LinkableNMSTemplate.xml'},
-						Template = {
-							meta = {'Template','TkRotationComponentData.xml'},
-							Speed = 0.001,
-							Axis  = {
-								meta = {'Axis', 'Vector3f.xml'},
-								x = 1,
-								y = 1,
-								z = 1
+					meta = {name='Components'},
+					Rotation = {
+						meta = {name='Components', value='TkRotationComponentData'},
+						TkRotationComponentData = {
+							meta = {name='TkRotationComponentData'},
+							Speed = 0.002,
+							Axis = {
+								meta = {name='Axis'},
+								X = 1,
+								Y = 1,
+								Z = 1
 							},
 							AlwaysUpdate = true,
-							SyncGroup    = -1
-						},
-						Linked	= ''
+							SyncGroup = -1
+						}
 					}
+				},
+				LodDistances = {
+					meta = {name='LodDistances'},
+					0,
+					50,
+					80,
+					150,
+					500
 				}
 			})
 		}

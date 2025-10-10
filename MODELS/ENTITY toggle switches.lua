@@ -107,9 +107,9 @@ local entities = {
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL entity toggle switches.pak',
+	MOD_FILENAME 		= '+ MODEL entity toggle switches',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= (
@@ -119,7 +119,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				local T = {}
 				if flg.nocam then
 					T[#T+1] = {
-						SPECIAL_KEY_WORDS	= {'Template', 'GcInteractionComponentData.xml'},
+						SPECIAL_KEY_WORDS	= {'Components', 'GcInteractionComponentData'},
 						VALUE_CHANGE_TABLE 	= {
 							{'UseInteractCamera', false}
 						}
@@ -127,7 +127,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				end
 				if flg.dist then
 					T[#T+1] = {
-						SPECIAL_KEY_WORDS	= {'Template', 'GcInteractionComponentData.xml'},
+						SPECIAL_KEY_WORDS	= {'Components', 'GcInteractionComponentData'},
 						VALUE_CHANGE_TABLE 	= {
 							{'InteractDistance', flg.dist}
 						}
@@ -135,27 +135,26 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				end
 				if flg.silent then
 					T[#T+1] = {
-						SPECIAL_KEY_WORDS	= {'Template', 'TkAudioComponentData.xml'},
-						SECTION_UP			= 1,
+						SPECIAL_KEY_WORDS	= {'Components', 'TkAudioComponentData'},
 						REMOVE				= 'Section'
 					}
 				end
 				if flg.nosound then
 					T[#T+1] = {
 						SPECIAL_KEY_WORDS	= {'Sound', flg.nosound},
+						SECTION_UP			= 1,
 						REMOVE				= 'Section'
 					}
 				end
 				if flg.nomaint then
 					T[#T+1] = {
-						SPECIAL_KEY_WORDS	= {'Template', 'GcMaintenanceComponentData.xml'},
-						SECTION_UP			= 1,
+						SPECIAL_KEY_WORDS	= {'Components', 'GcMaintenanceComponentData'},
 						REMOVE				= 'Section'
 					}
 				end
 				if flg.mech then
 					T[#T+1] = {
-						SPECIAL_KEY_WORDS	= {'Template', 'GcSimpleInteractionComponentData.xml'},
+						SPECIAL_KEY_WORDS	= {'Components', 'GcSimpleInteractionComponentData'},
 						VALUE_CHANGE_TABLE 	= {
 							{'CanCollectInMech', true}
 						}
@@ -164,7 +163,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				if #T > 0 then
 					mct[#mct+1] = {
 						MBIN_FILE_SOURCE	= src:match('^MODEL.-') and src or 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/'..src,
-						EXML_CHANGE_TABLE	= T
+						EXML_CREATE			= false,
+						MXML_CHANGE_TABLE	= T
 					}
 				end
 			end

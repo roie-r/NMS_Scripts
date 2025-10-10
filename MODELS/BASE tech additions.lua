@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 -----------------------------------------------------------------------------------------
 local mod_desc = [[
@@ -25,32 +25,28 @@ local buildparts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/
 -- interaction button attachment; full mbin or component only
 local function InteractEntity(action, full_entity)
 	local interact = {
-			meta = {'value','LinkableNMSTemplate.xml'},
-			Template = {
-				meta = {'Template','GcInteractionComponentData.xml'},
-				InteractionAction	= 'PressButton',
-				InteractionType		= {
-					meta = {'InteractionType','GcInteractionType.xml'},
-					InteractionType	= action
-				},
-				AttractDistanceSq	= 9,
-				InteractAngle		= 360,
-				InteractDistance	= 5
+		meta = {name='Components', value='GcInteractionComponentData'},
+		{
+			meta = {name='GcInteractionComponentData'},
+			InteractionAction = 'PressButton',
+			InteractionType = {
+				meta = {name='InteractionType', value='GcInteractionType'},
+				InteractionType = action
 			},
-			Linked	= ''
+			AttractDistanceSq	= 9,
+			InteractAngle		= 360,
+			InteractDistance	= 5,
+		}
 	}
 	if full_entity then
-		return FileWrapping({
-			meta = {'template','TkAttachmentData'},
+		return ToMxmlFile({
+			meta = {template='cTkAttachmentData'},
 			Components = {
-				meta = {'name','Components'},
-				Interaction	= interact,
-				{
-					meta = {'value','LinkableNMSTemplate.xml'},
-					Template = {
-						meta = {'Template','TkPhysicsComponentData.xml'}
-					},
-					Linked	= ''
+				meta = {name='Components'},
+				interact,
+				physics = {
+					meta = {name='Components', value='TkPhysicsComponentData'},
+					{name='TkPhysicsComponentData'}
 				}
 			}
 		})
@@ -60,32 +56,33 @@ local function InteractEntity(action, full_entity)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL base tech additions.pak',
+	MOD_FILENAME 		= '+ MODEL base tech additions',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{--	open |suit inv upgrade| with toy sphere
 		MBIN_FILE_SOURCE	= buildparts..'DECORATION/TOY_SPHERE/ENTITIES/TOY_SPHERE.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcSimpleInteractionComponentData.xml'},
-				PRECEDING_KEY_WORDS	= 'GcSimpleInteractionComponentData.xml',
+				SPECIAL_KEY_WORDS	= {'Components', 'GcSimpleInteractionComponentData'},
+				PRECEDING_KEY_WORDS	= 'GcSimpleInteractionComponentData',
 				VALUE_CHANGE_TABLE 	= {
 					{'Name',		'INTRCT_SUITTERMINAL'}
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Components',
-				ADD					= ToExml(InteractEntity('SuitTerminal'))
+				ADD					= ToMxml(InteractEntity('SuitTerminal'))
 			}
 		}
 	},
-	{--	open |teleporter menu| to galaxy toy
+	{--	|galaxy |toy open teleporter| menu
 		MBIN_FILE_SOURCE	= buildparts..'DECORATION/TOY_CORE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
 				VALUE_CHANGE_TABLE 	= {
@@ -96,7 +93,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|multitool salvage base|
 		MBIN_FILE_SOURCE	= buildparts..'NPCROOMS/NPC_WEAPONS.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Workstation'},
 				PRECEDING_KEY_WORDS = 'Children',
@@ -120,7 +117,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|multitool salvage freighter|
 		MBIN_FILE_SOURCE	= buildparts..'FREIGHTERBASE/ROOMS/NPCWEAROOM/PARTS/FLOOR0.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Workstation'},
 				ADD_OPTION			= 'AddAfterSection',
@@ -144,17 +141,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|multitool upgrade menu|
 		MBIN_FILE_SOURCE	= buildparts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAPON5SPIN.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Components',
-				ADD					= ToExml({
+				ADD					= ToMxml({
 					InteractEntity('WeaponUpgrade'),
-					{
-						meta = {'value','LinkableNMSTemplate.xml'},
-						Template = {
-							meta = {'Template','TkPhysicsComponentData.xml'}
-						},
-						Linked	= ''
+					Physics = {
+						meta = {name='Components', value='TkPhysicsComponentData'},
+						{name='TkPhysicsComponentData'}
 					}
 				})
 			}
@@ -162,10 +157,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|ship upgrade menu|
 		MBIN_FILE_SOURCE	= buildparts..'DECORATION/NEXUSORBPILLAR.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'DATA'},
-				INTEGER_TO_FLOAT	= 'Force',
+				SPECIAL_KEY_WORDS	= {'Name', 'Data'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransY',		0.7}
 				}
@@ -178,20 +172,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|ship salvage| with the utopia ship tech unit
-		MBIN_FILE_SOURCE	= buildparts..'TECH/BLUEPRINTANALYSER_SHIP.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'Data', 'Name', 'ATTACHMENT'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Value',	buildparts..'SHAREDDATA/ENTITIES/SHIP_SALVAGE.ENTITY.MBIN'}
-				}
-			}
-		}
-	},
 	{--	|staff build page| with the utopia weapon tech unit
 		MBIN_FILE_SOURCE	= buildparts..'TECH/BLUEPRINTANALYSER_WEAP.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Data', 'Name', 'ATTACHMENT'},
 				VALUE_CHANGE_TABLE 	= {
@@ -211,21 +194,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	heater entity
 		MBIN_FILE_SOURCE	= buildparts..'TECH/BEACON/ENTITIES/HEATER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'VolumeTriggerType', 'HazardProtection'}
-				}
-			}
-		}
-	},
-	{--	add |antenna0 scanner| entity
-		MBIN_FILE_SOURCE	= buildparts..'DECORATION/BAZAAR/ANTENNA0.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Value',	buildparts..'TECH/SIGNALSCANNER/ENTITIES/SIGNALSCANNER.ENTITY.MBIN'}
 				}
 			}
 		}
@@ -234,13 +207,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= {
 			buildparts..'TECH/BEACON.SCENE.MBIN',
 			buildparts..'TECH/COOKER.SCENE.MBIN',
-			buildparts..'DECORATION/BAZAAR/ANTENNA0.SCENE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				SECTION_ACTIVE		= -1,
-				ADD 				= ToExml({
+				ADD 				= ToMxml({
 					ScNode({
 						name	= 'ShieldSphere',
 						ntype	= 'LOCATOR',
@@ -261,12 +232,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|skiff hazard protection|
 		MBIN_FILE_SOURCE	= buildparts..'TECH/FISHINGPLATFORM.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'HazardProtection'},
 				PRECEDING_KEY_WORDS	= 'Children',
 				CREATE_HOS			= true,
-				SECTION_ACTIVE		= -1,
 				ADD 				= AddSceneNodes({
 					name	= 'HazardCollision',
 					ntype	= 'COLLISION',
@@ -279,32 +249,36 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|cook fish| access fish storage from cooker
-		MBIN_FILE_SOURCE	= buildparts..'TECH/COOKER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+	{--	|skiff scan icon|
+		MBIN_FILE_SOURCE	= buildparts..'TECH/FISHINGPLATFORM/ENTITIES/FISHINGPLATFORM.ENTITY.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Components', 'GcScannableComponentData'},
+				VALUE_CHANGE_TABLE 	= {
+					{'ScanIconType',	'FishPlatform'},
+					-- {'ScannableType',	'Marker'}
+				}
+			}
+		}
+	},
+	{--	access fish storage from |fish flask|
+		MBIN_FILE_SOURCE	= buildparts..'DECORATION/BAZAAR/MILKBOTTLE.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				SECTION_ACTIVE		= -1,
 				ADD 				= AddSceneNodes({
 					name	= 'LocFishBottle',
 					ntype	= 'LOCATOR',
-					form	= {tx=-0.72, ty=0.785, tz=0.62, sx=0.8, sy=0.8, sz=0.8},
 					attr	= {ATTACHMENT = buildparts..'TECH/FISHINGPLATFORM/ENTITIES/FISHCASES.ENTITY.MBIN'},
 					child	= {
 						{
 							name	= 'FishBottleCollision',
 							ntype	= 'COLLISION',
-							form	= {ty=0.2},
+							form	= {ty=0.15},
 							attr	= {
 								TYPE	= 'Sphere',
-								RADIUS	= 0.26
-							}
-						},
-						{
-							name	= 'RefFishBottle',
-							ntype	= 'REFERENCE',
-							attr	= {
-								SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/MILKBOTTLE.SCENE.MBIN'
+								RADIUS	= 0.2
 							}
 						}
 					}
@@ -312,9 +286,30 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
+	{--	|cook fish| access fish storage from cooker
+		MBIN_FILE_SOURCE	= buildparts..'TECH/COOKER.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'DEPTH'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		1.2}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'Children',
+				ADD 				= AddSceneNodes({
+					name	= 'RefFishBottle',
+					ntype	= 'REFERENCE',
+					form	= {tx=-0.72, ty=0.785, tz=0.62, sx=0.8, sy=0.8, sz=0.8},
+					attr	= {SCENEGRAPH = buildparts..'DECORATION/BAZAAR/MILKBOTTLE.SCENE.MBIN'}
+				})
+			}
+		}
+	},
 	{--	|freighter extractor| capacity
 		MBIN_FILE_SOURCE	= buildparts..'FREIGHTERBASE/ROOMS/EXTRROOM/PARTS/FLOOR0/ENTITIES/EXTRACTORTERMINAL.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				VALUE_MATCH			= 1,
@@ -338,59 +333,58 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			buildparts..'FOLIAGE/BEAMSTONE.SCENE.MBIN',
 			buildparts..'FOLIAGE/ENGINEORB.SCENE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Attributes',
-				ADD 				= ToExml({
-					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
+				ADD 				= ToMxml({
+					meta	= {name='value', value='TkSceneNodeAttributeData'},
 					Name	= 'ATTACHMENT',
 					Value	= 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'
 				})
 			}
 		}
-	}
+	},
 }}},
 	ADD_FILES	= {
 		{
-			FILE_DESTINATION = buildparts..'SHAREDDATA/ENTITIES/ROBOT_SHOP.ENTITY.EXML',
+			FILE_DESTINATION = buildparts..'SHAREDDATA/ENTITIES/ROBOT_SHOP.ENTITY.MXML',
 			FILE_CONTENT	 = InteractEntity('RobotShop', true)
 		},
 		{
-			FILE_DESTINATION = buildparts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.EXML',
+			FILE_DESTINATION = buildparts..'NPCROOMS/NPC_WEAPONS/ENTITIES/WEAP_SALVAGE.ENTITY.MXML',
 			FILE_CONTENT	 = InteractEntity('WeaponSalvage', true)
 		},
 		{
-			FILE_DESTINATION = buildparts..'SHAREDDATA/ENTITIES/SHIP_SALVAGE.ENTITY.EXML',
+			FILE_DESTINATION = buildparts..'SHAREDDATA/ENTITIES/SHIP_SALVAGE.ENTITY.MXML',
 			FILE_CONTENT	 = InteractEntity('ShipSalvage', true)
 		},
 		{
-			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				meta = {'template', 'TkAttachmentData'},
+			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MXML',
+			FILE_CONTENT	 = ToMxmlFile({
+				meta = {template='cTkAttachmentData'},
 				Components = {
-					meta = {'name', 'Components'},
+					meta = {name='Components'},
 					{
-						meta = {'value','LinkableNMSTemplate.xml'},
-						Template = {
-							meta = {'Template','TkRotationComponentData.xml'},
+						meta = {name='Components', value='TkRotationComponentData'},
+						TkRotationComponentData = {
+							meta = {name='TkRotationComponentData'},
 							Speed = 0.01,
-							Axis  = {
-								meta = {'Axis', 'Vector3f.xml'},
-								y = 1
+							Axis = {
+								meta = {name='Axis'},
+								Y = 1,
 							},
 							AlwaysUpdate = true,
-							SyncGroup    = -1
-						},
-						Linked	= ''
+							SyncGroup = -1
+						}
 					}
 				},
 				LodDistances = {
-					meta = {'name','LodDistances'},
-					{value	= 0},
-					{value	= 50},
-					{value	= 80},
-					{value	= 150},
-					{value	= 500}
+					meta = {name='LodDistances'},
+					0,
+					50,
+					80,
+					150,
+					500
 				}
 			})
 		}

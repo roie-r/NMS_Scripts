@@ -10,11 +10,10 @@ local mod_desc = [[
 ]]-----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__MODEL effects lines trails mist.pak',
+	MOD_FILENAME 			= '+ MODEL effects lines trails mist',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{--	|remove mists|
@@ -39,6 +38,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/EFFECTS/NEXUS/RIGHTSIDEGROUNDMIST.SCENE.MBIN',
 			'MODELS/EFFECTS/NEXUS/SPIDERGROUNDMIST.SCENE.MBIN',
 			-- space station
+			'MODELS/EFFECTS/STATION/LARGEPADMIST.SCENE.MBIN', -- used in nexus corvette pad
 			'MODELS/EFFECTS/STATION/GENERALFLOATINGSMOKE.SCENE.MBIN',
 			'MODELS/EFFECTS/STATION/LAUNCHTUBEFILLMIST.SCENE.MBIN',
 			'MODELS/EFFECTS/STATION/LAUNCHTUBEPIPESTEAM.SCENE.MBIN',
@@ -75,11 +75,33 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- 'MODELS/EFFECTS/DEBRIS/LARGECRASHEDFREIGHTERCLOUDS.SCENE.MBIN',
 			-- 'MODELS/EFFECTS/DEBRIS/LARGECRASHEDFREIGHTERSMOKE.SCENE.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
 				REMOVE				= 'Section'
 			}
+		}
+	},
+	{--	|bubbles|
+		MBIN_FILE_SOURCE	= {
+			'MODELS/EFFECTS/HEAVYAIR/BUBBLE/BUBBLE.HEAVYAIR.MBIN',
+			'MODELS/EFFECTS/HEAVYAIR/BUBBLE/STORMBUBBLE.HEAVYAIR.MBIN',
+		},
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'Number Of Particles',	'@ * 0.36'},-- 4000
+					{'Max Visible Speed',	'@ * 0.4'} 	-- 1500
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = 'Scale Range',
+				VALUE_CHANGE_TABLE 	= {
+					{'X',			'@ * 0.4'},
+					{'Y',			'@ * 0.4'}
+				}
+			},
 		}
 	},
 	{--	|varied rain|
@@ -90,51 +112,48 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/EFFECTS/HEAVYAIR/TOXIC/TOXICRAIN1.HEAVYAIR.MBIN',
 			'MODELS/EFFECTS/HEAVYAIR/TOXIC/TOXICRAIN2.HEAVYAIR.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'NumberOfParticles',	700} -- 800
+					{'Number Of Particles',	'@ * 0.8'}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = 'AmplitudeMin',
+				PRECEDING_KEY_WORDS = 'Amplitude Min',
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			-1},
-					{'y',			-1}
+					{'X',			-1},
+					{'Y',			-1}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS = 'AmplitudeMax',
+				PRECEDING_KEY_WORDS = 'Amplitude Max',
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			1},
-					{'y',			1}
+					{'X',			1},
+					{'Y',			1}
 				}
 			}
 		}
 	},
 	{--	|snow1 partice|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/HEAVYAIR/SNOW/SNOW1.HEAVYAIR.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'MinParticleLifetime',	5},
-					{'MaxParticleLifetime',	10},
-					{'FadeTime',			0.5}
+					{'Min Particle Lifetime',	5},
+					{'Max Particle Lifetime',	10},
+					{'Fade Time',				0.5}
 				}
 			}
 		}
 	},
 	{--	|clean space| of dust and plasma clouds
-		MBIN_FILE_SOURCE	= {
-			'MODELS/EFFECTS/HEAVYAIR/SPACE/SPACE2.HEAVYAIR.MBIN',
-			'MODELS/EFFECTS/HEAVYAIR/SPACE/SPACEPLASMA.HEAVYAIR.MBIN',
-		},
-		EXML_CHANGE_TABLE	= {
+		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/HEAVYAIR/SPACE/SPACE.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
 			{
-				VALUE_CHANGE_TABLE 	= {
-					{'NumberOfParticles',	0},
-					{'Radius',				0}
-				}
+				PRECEDING_KEY_WORDS	= 'Children',
+				REMOVE				= 'Section'
 			}
 		}
 	},
@@ -149,7 +168,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	empty the dupe line
 		MBIN_FILE_SOURCE	= 'MATERIALS/LINE3D.EMPTY.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Samplers',
 				REMOVE				= 'Section'
@@ -158,7 +177,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	no lines
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/LINES/LINERENDERER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'MATERIAL'},
 				VALUE_CHANGE_TABLE 	= {
@@ -180,12 +199,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/EFFECTS/SPEEDLINES/MINIJUMPSPEEDLINES3.SPEEDLINE.MBIN',
 			'MODELS/EFFECTS/SPEEDLINES/MINIJUMPSPEEDLINES4.SPEEDLINE.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				INTEGER_TO_FLOAT	= 'Preserve',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
-					{'NumberOfParticles',	0.05},
+					{'Number Of Particles',	0.05},
 					{'Length',				2},
 					{'RemoveCylinderRadius',2},
 					{'FadeTime',			0.5}
@@ -199,12 +219,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/EFFECTS/SPEEDLINES/SPACE2.SPEEDLINE.MBIN',
 			'MODELS/EFFECTS/SPEEDLINES/SPACEBIG.SPEEDLINE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				INTEGER_TO_FLOAT	= 'Preserve',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
-					{'NumberOfParticles',	0.02},
+					{'Number Of Particles',	0.02},
 					{'Length',				2},
 					{'RemoveCylinderRadius',2},
 				}
@@ -226,7 +247,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/EFFECTS/PLAYER/JETPACKEFFECTS/MECHJETPACKFX/EMITTERS/MECHJETEMBEREMITTER.PARTICLE.MBIN',
 			'MODELS/EFFECTS/PLAYER/JETPACKEFFECTS/MECHJETPACKFX/EMITTERS/MECHJETSMOKEEMITTER.PARTICLE.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE	= {
 					{'StartEnabled', false}
@@ -244,10 +266,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/EFFECTS/TRAILS/SPACECRAFT/CONTRAIL/CONTRAILTRAIL.TRAIL.MBIN',
 			'MODELS/EFFECTS/TRAILS/MECH/MECHCONTRAIL.TRAIL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
+				INTEGER_TO_FLOAT	= 'Preserve',
 				VALUE_CHANGE_TABLE 	= {
-					{'MaxPointsPerFrame', 0}
+					{'Width',				0},
+					{'Points',				0},
+					{'MaxPointsPerFrame',	0},
+					{'DistanceThreshold',	0},
+					{'PointLife',			0},
+					{'FrontPoints',			0},
+					{'FrontUvEnd',			0}
 				}
 			}
 		}

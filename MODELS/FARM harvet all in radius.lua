@@ -8,9 +8,9 @@ local mod_desc = [[
 local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/'
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL harvet all in radius.pak',
+	MOD_FILENAME 		= '+ MODEL harvet all in radius',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -33,9 +33,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= build_parts..'TECH/CUBEROOM_PLANTERMEGA/INTERACTION.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'TkAnimationComponentData'},
 				REMOVE				= 'Section'
 			},
 			{
@@ -50,9 +51,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			build_parts..'DECORATION/TOYDRONE/INTERACTION.ENTITY.MBIN',
 			build_parts..'DECORATION/BAZAAR/WATERVALVE/INTERACTION.ENTITY.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'TkAnimationComponentData'},
 				REMOVE				= 'Section'
 			},
 			{
@@ -64,8 +66,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= build_parts..'BIOROOM.SCENE.MBIN',
-		MBIN_FS_DISCARD		= 'TRUE',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Interaction'},
 				SEC_SAVE_TO			= 'harvest_entity_scene_node',
@@ -74,11 +75,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= build_parts..'DECORATION/TOYDRONE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SEC_EDIT 			= 'harvest_entity_scene_node',
 				SPECIAL_KEY_WORDS	= {'Name', 'Interaction'},
-				SECTION_ACTIVE		= -1,
 				VALUE_CHANGE_TABLE 	= {
 					{'TransY',		1},
 				}
@@ -99,14 +99,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				SECTION_ACTIVE		= -1,
 				SEC_ADD_NAMED		= 'harvest_entity_scene_node',
 			}
 		}
 	},
 	{
 		MBIN_FILE_SOURCE	= build_parts..'DECORATION/BAZAAR/WATERVALVE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SEC_EDIT 			= 'harvest_entity_scene_node',
 				SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
@@ -116,14 +115,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				SECTION_ACTIVE		= -1,
 				SEC_ADD_NAMED		= 'harvest_entity_scene_node',
 			}
 		}
 	},
 	{
 		MBIN_FILE_SOURCE	= build_parts..'TECH/CUBEROOM_PLANTERMEGA.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'INTERACT'},
 				REMOVE				= 'Section'
@@ -137,7 +135,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS	= 'Children',
-				SECTION_ACTIVE		= -1,
 				SEC_ADD_NAMED		= 'harvest_entity_scene_node',
 			}
 		}

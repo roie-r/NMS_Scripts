@@ -1,5 +1,5 @@
 -------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 -------------------------------------------------------------
 local mod_desc = [[
@@ -10,33 +10,35 @@ local mod_desc = [[
   - Hangar and bridge loitering NPC repositioned
 ]]-----------------------------------------------------------
 
-local hgr_ect = { {SKW={}, REMOVE='Section'} }
+local mx_ct = { {SKW={}, REMOVE='Section'} }
 for node, form in pairs({
-	NPC_01			= {tx=-9.507,	ty=-3.35,	tz=-28.34},
-	NPC_02			= {tx=-56,		ty=-7.34,	tz=62.5,	ry=-150},
-	NPC_03			= {tx=-8.337,	ty=-3.35,	tz=-28.03},
-	NPC_04			= {tx=38.4,		ty=-7.34,	tz=69.35,	ry=35},
-	NPC_06			= {tx=-21.92,	ty=-4.18,	tz=5.5},
-	NPC_07			= {tx=-57.8,	ty=8.12,	tz=57.14,	ry=270},
-	RefHangarCrane2	= {tx=41.88,				tz=61.2},
-	RefHangarCrane	= {tx=-3.43,				tz=59.5},
-	RefHangarCrane1	= {tx=-41.96,				tz=60.9},
-	MonitorDesk		= {tx=-55.5,	ty=-7.35,	tz=63.2,	ry=305},
-	RefFuelTank2	= {tx=35.53,	ty=-7.34,	tz=72.55,	ry=180},
-	RefLargeCrate103= {tx=-22.65,	ty=-4.31,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt R
-	RefLargeCrate113= {tx=22.65,	ty=-4.315,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt L
-	RefLargeCrate10	= {tx=7,		ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- cross gap M
-	RefLargeCrate6	= {tx=-52.35,	ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- cross gap R
-	RefPallet30		= {tx=7.79,		ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
-	MidCeiling201	= {							tz=33.2,								sz=1.25},
-	pointLight70				= {del=true},
-	pointLight7501				= {del=true},
-	REFFreighterHangerMistVFX	= {del=true}
+	NPC_01				= {tx=-9.507,	ty=-3.35,	tz=-28.34},
+	NPC_02				= {tx=-56,		ty=-7.34,	tz=62.5,	ry=-150},
+	NPC_03				= {tx=-8.337,	ty=-3.35,	tz=-28.03},
+	NPC_04				= {tx=38.4,		ty=-7.34,	tz=69.35,	ry=35},
+	NPC_06				= {tx=-21.92,	ty=-4.18,	tz=5.5},
+	NPC_07				= {tx=-57.8,	ty=8.12,	tz=57.14,	ry=270},
+	RefHangarCrane2		= {tx=41.88,				tz=61.2},
+	RefHangarCrane		= {tx=-3.43,				tz=59.5},
+	RefHangarCrane1		= {tx=-41.96,				tz=60.9},
+	MonitorDesk			= {tx=-55.5,	ty=-7.35,	tz=63.2,	ry=305},
+	RefFuelTank2		= {tx=35.53,	ty=-7.34,	tz=72.55,	ry=180},
+	RefLargeCrate103	= {tx=-22.65,	ty=-4.31,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt entrance gap R
+	RefLargeCrate113	= {tx=22.65,	ty=-4.315,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt entrance gap L
+	RefLargeCrate10		= {tx=7,		ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- crossing gap M
+	RefLargeCrate6		= {tx=-52.35,	ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- crossing gap R
+	RefPallet30			= {tx=7.79,		ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
+	MidCeiling201		= {							tz=33.2,								sz=1.25},
+	RefBiggsTeleporter			= {	del=true},
+	RefBiggsTeleporter1			= {	del=true},
+	pointLight70				= {	del=true},
+	pointLight7501				= {	del=true},
+	REFFreighterHangerMistVFX	= {	del=true}
 }) do
 	if form.del then
-		hgr_ect[1].SKW[#hgr_ect[1].SKW+1] = {'Name', node}
+		mx_ct[1].SKW[#mx_ct[1].SKW+1] = {'Name', node}
 	else
-		hgr_ect[#hgr_ect+1] = {
+		mx_ct[#mx_ct+1] = {
 			SPECIAL_KEY_WORDS	= {'Name', node},
 			VALUE_CHANGE_TABLE	= {
 				{'TransX',	form.tx or 'IGNORE'},
@@ -58,7 +60,7 @@ for atr, val in pairs({
 	COL_G		= 0.5,
 	COL_B		= 0.6
 }) do
-	hgr_ect[#hgr_ect+1] = {
+	mx_ct[#mx_ct+1] = {
 		SPECIAL_KEY_WORDS 	= {
 			{'Name', 'lightorange1', 'Name', atr},
 			{'Name', 'pointLight8', 'Name', atr}
@@ -68,9 +70,9 @@ for atr, val in pairs({
 		}
 	}
 end
-hgr_ect[#hgr_ect+1] = {
+mx_ct[#mx_ct+1] = {
 	PRECEDING_KEY_WORDS = 'Children',
-	ADD					= ToExml({
+	ADD					= ToMxml({
 		ScNode({
 			{
 				name	= '1RefBarrelBaz1',
@@ -107,7 +109,7 @@ hgr_ect[#hgr_ect+1] = {
 			{
 				name	= '1RefCrateMilk01',
 				ntype	= 'REFERENCE',
-				form	= {tx=5.06, ty=-7.33, tz=65.54, ry=86, sx=2.7, sy=1.8, sz=2.7},
+				form	= {tx=5.06, ty=-7.33, tz=65.05, ry=86, sx=2.7, sy=1.8, sz=2.7},
 				attr	= {
 					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/MILKCRATE.SCENE.MBIN'
 				}
@@ -123,17 +125,17 @@ hgr_ect[#hgr_ect+1] = {
 			{
 				name	= '1RefCrateTypeb1',
 				ntype	= 'REFERENCE',
-				form	= {tx=5.06, ty=-7.33, tz=67.1, ry=3, sx=0.9, sy=0.9, sz=0.9},
+				form	= {tx=4.92, ty=-7.33, tz=66.7, ry=3, sx=0.9, sy=0.9, sz=0.9},
 				attr	= {
-					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'
+					SCENEGRAPH = 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefCrateTypeb2',
 				ntype	= 'REFERENCE',
-				form	= {tx=5.2, ty=-7.33, tz=68.2, ry=87, sx=0.9, sy=0.9, sz=0.9},
+				form	= {tx=4.95, ty=-7.33, tz=68.2, ry=87, sx=0.9, sy=0.9, sz=0.9},
 				attr	= {
-					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTSTYPEB/DOCK/PROPS/CRATE.SCENE.MBIN'
+					SCENEGRAPH = 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'
 				}
 			},
 			{
@@ -213,7 +215,7 @@ hgr_ect[#hgr_ect+1] = {
 				ntype	= 'REFERENCE',
 				form	= {tx=-67, ty=14, tz=-18.2, sx=0.6, sy=0.6, sz=0.6},
 				attr	= {
-					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN'
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WCUBE_NONE.SCENE.MBIN'
 				}
 			}
 		}),
@@ -238,27 +240,21 @@ hgr_ect[#hgr_ect+1] = {
 	})
 }
 
-local function AddPrx(prx, T)
-	for i=1, #T do T[i] = {prx, T[i]} end
-	return T
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__MODEL ferighter interior.pak',
+	MOD_FILENAME 			= '+ MODEL ferighter interior',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS,MIXED_TABLE',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{--	|freighter hangar|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARINTERIOR.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= hgr_ect
+		MXML_CHANGE_TABLE	= mx_ct
 	},
 	{--	|bridge lighting and tweaks|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'NPC_1'},
 				VALUE_CHANGE_TABLE	= {
@@ -315,23 +311,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				})
 			},
 			{
-				SPECIAL_KEY_WORDS 	= AddPrx('Name', {
-					'LargeCrate',
-					'LargeCrate11',
-					'LargeCrate20',
-					'LargeCrate30',
-					'CielingDrape_Trader',
-					'CielingDrape_Trader1',
+				SPECIAL_KEY_WORDS 	= {
+					{'Name', 'LargeCrate'},
+					{'Name', 'LargeCrate11'},
+					{'Name', 'LargeCrate20'},
+					{'Name', 'LargeCrate30'},
+					{'Name', 'CielingDrape_Trader.-'},
 					-- lights (copied from Relight)
-					'Lightpath08',
-					'pointLight124',
-					'pointLight59',
-					'pointLight60',
-					'pointLight61',
-					'pointLight62',
-					'SmallLight',
-					'SmallLight1',
-				}),
+					{'Name', 'Lightpath08'},
+					{'Name', 'pointLight124'},
+					{'Name', 'pointLight59'},
+					{'Name', 'pointLight60'},
+					{'Name', 'pointLight61'},
+					{'Name', 'pointLight62'},
+					{'Name', 'SmallLight.-'},
+				},
 				REMOVE				= 'Section'
 			},
 			{--	lights (copied from Relight)
@@ -388,7 +382,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINAL.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINALPIRATE.SCENE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Base'},
 				PRECEDING_KEY_WORDS = 'Children',
@@ -411,7 +405,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	system scan entity
+	{--	system scan entity 1
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FREIGHTERBASE/ROOMS/SCANROOM/PARTS/FLOOR0/ENTITIES/SCANROOMINTERACTION.ENTITY.MBIN',
@@ -420,18 +414,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	system scan entity
+	{--	system scan entity 2
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/BRIDGETERMINAL.INTERACTION.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcMaintenanceComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcMaintenanceComponentData'},
 				REMOVE				= 'Section'
 			}
 		}
 	},
 	{--	|freighter landing pad lights|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/ACCESSORIES/LANDINGPAD_HANGAR.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE		= 'All',
 				SPECIAL_KEY_WORDS	= {'Type', 'LIGHT'},
@@ -451,9 +445,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	add |hangar ship outfitting|
+	{--	|hangar teleport room| add outfitting and corvette beam
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/TELEPORTER/TELEPORTER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RefWallMonitor'},
 				REMOVE				= 'Section'
@@ -461,25 +455,72 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS = 'Children',
 				ADD					= AddSceneNodes({
-					name	= '1RefMonitorShip',
-					ntype	= 'REFERENCE',
-					form	= {tx=2.55, ty=0.12, tz=5.4, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
-					attr	= {
-						SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'
-					},
-					child	= {
-						name	= 'ColShipSalvage1',
-						ntype	= 'COLLISION',
-						form	= {ty=-3},
+					{--	add ship outfitting
+						name	= '1LocShipSalvage',
+						ntype	= 'LOCATOR',
+						form	= {tx=2.55, ty=1.4, tz=5.4},
 						attr	= {
-							TYPE	= 'Sphere',
-							RADIUS	= 0.2
+							ATTACHMENT = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'
 						},
 						child	= {
-							name	= 'LocShipSalvage1',
-							ntype	= 'LOCATOR',
+							name	= 'ColShipSalvage',
+							ntype	= 'COLLISION',
 							attr	= {
-								ATTACHMENT = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'
+								TYPE	= 'Sphere',
+								RADIUS	= 0.3
+							},
+							child	= {
+								{
+									name	= 'RefMonitorShipSalvage',
+									ntype	= 'REFERENCE',
+									form	= {ty=-1.1, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
+									attr	= {
+										SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'
+									}
+								},
+								{
+									name	= 'RefBaseShipSalvage',
+									ntype	= 'REFERENCE',
+									form	= {ty=-1.8, sx=1.3, sy=1.3, sz=1.3},
+									attr	= {
+										SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CANISTER0.SCENE.MBIN'
+									}
+								}
+							}
+						}
+					},
+					{--	corvette beam trigger
+						name	= '1LocCorvTeleport',
+						ntype	= 'LOCATOR',
+						form	= {tx=-1.97, ty=1.38, tz=4.55},
+						attr	= {
+							ATTACHMENT = 'MODELS/COMMON/SPACECRAFT/BIGGS/BIGGSTELEPORTER_FREIGHTERS/ENTITIES/BIGGSTELEPORTER_FREIGHTERS.ENTITY.MBIN'
+						},
+						child	= {
+							{
+								name	= 'ColCorvTeleport',
+								ntype	= 'COLLISION',
+								form	= {ry=180},
+								attr	= {
+									TYPE		= 'Sphere',
+									RADIUS		= 0.4
+								}
+							},
+							{--	corvette beam button
+								name	= 'RefCorvButton',
+								ntype	= 'REFERENCE',
+								form	= {ry=180, sx=0.77, sy=0.77, sz=0.77},
+								attr	= {
+									SCENEGRAPH = 'MODELS/COMMON/SPACECRAFT/BIGGS/TELECONTROL.SCENE.MBIN'
+								}
+							},
+							{--	corvette beam button base
+								name	= '1RefCorvSign',
+								ntype	= 'REFERENCE',
+								form	= {tz=-0.06, rx=90, rz=-90, sx=0.7, sy=0.7, sz=0.6},
+								attr	= {
+									SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ABANDONED/WARNINGSIGN_1.SCENE.MBIN'
+								}
 							}
 						}
 					}
@@ -489,7 +530,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|freighter extend buildable| area
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGAR.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'BaseBuildingArea'},
 				VALUE_CHANGE_TABLE	= {
@@ -497,7 +538,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ScaleX',		1.3},
 					{'ScaleZ',		1.3}
 				}
-
 			}
 		}
 	},
@@ -511,13 +551,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	floor section 1 - remove parts
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONB.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= AddPrx('Name', {
-					'RefBarrier',
-					'RefBarrier1',
-					'RefBarrier2'
-				}),
+				SPECIAL_KEY_WORDS 	= {'Name', 'RefBarrier.-'},
 				REMOVE				= 'Section'
 			}
 		}
@@ -533,16 +569,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	floor section 2 - remove parts
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= AddPrx('Name', {
-					'RefBarrier',
-					'RefBarrier1',
-					'RefBarrier2',
-					'SUB1HangarFloorSectionA',
-					'SUB2HangarFloorSectionA',
-					'SUB3HangarFloorSectionA'
-				}),
+				SPECIAL_KEY_WORDS 	= {
+					{'Name', 'RefBarrier.-'},
+					{'Name', 'SUB[1-3]HangarFloorSectionA'}
+				},
 				REMOVE				= 'Section'
 			}
 		}
@@ -558,7 +590,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	inactive geometric plant
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'ATTACHMENT'},
 				REMOVE				= 'Section'
@@ -569,14 +601,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WEIRDCUBE.SCENE.MBIN',
-				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN',
+				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WCUBE_NONE.SCENE.MBIN',
 				'REMOVE'
 			}
 		}
 	},
 	{--	inactive wirecell cube
-		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WCUBE_NONE.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'CuboidSmallLOD0', 'Name', 'ATTACHMENT'},
 				VALUE_CHANGE_TABLE	= {
@@ -584,5 +616,5 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		}
-	},
+	}
 }}}}

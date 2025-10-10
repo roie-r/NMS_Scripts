@@ -4,15 +4,15 @@ local mod_desc = [[
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL dark warp tunnel.pak',
+	MOD_FILENAME 		= '+ MODEL dark warp tunnel',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'AnimatedLights'},
@@ -107,7 +107,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|warp tunnel MAT1|
 		MBIN_FILE_SOURCE	= 'MATERIALS/LIGHT_WARPTUNNEL.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'Class', 'Translucent'},
@@ -128,7 +128,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|warp tunnel MAT1|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL/TUNNELMAT1.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'Class', 'Translucent'},
@@ -137,18 +137,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|warp tunnel GLOW|
-		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/WARP/WARPTUNNEL/ENGGLOWCAPMAT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gCustomParams01Vec4'},
-				VALUE_CHANGE_TABLE 	= {
-                    {'x',			0},
-                    {'y',			0},
-                    {'z',			0},
-                    {'t',			0}
-				}
-			}
-		}
-	}
 }}}}

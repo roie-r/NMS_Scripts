@@ -103,9 +103,10 @@ local mbin_ct = {
 	},
 	{
 		MBIN_FILE_SOURCE	= entity.plant_huge,
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcDestructableComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcDestructableComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'GivesReward',			'DE_PLANT_HUGE'},
 					{'DestroyForce',		2},
@@ -115,7 +116,7 @@ local mbin_ct = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcShootableComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcShootableComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Health',		20000},
 				}
@@ -141,9 +142,10 @@ local mbin_ct = {
 	},
 	{
 		MBIN_FILE_SOURCE	= entity.rock_huge,
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcDestructableComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcDestructableComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'GivesReward',			'DE_ROCK_HUGE'},
 					{'DestroyForce',		2},
@@ -153,7 +155,7 @@ local mbin_ct = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcShootableComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcShootableComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Health',		24000},
 					{'RequiredTech',''},
@@ -169,7 +171,7 @@ for _,src in ipairs(source_mbins) do
 			SPECIAL_KEY_WORDS	= {'Name', node},
 			PRECEDING_KEY_WORDS = 'Attributes',
 			ADD 				= [[
-				<Property value="TkSceneNodeAttributeData.xml">
+				<Property name="Attributes" value="TkSceneNodeAttributeData">
 					<Property name="Name" value="ATTACHMENT"/>
 					<Property name="Value" value="]]..src.cat..[["/>
 				</Property>]]
@@ -177,14 +179,14 @@ for _,src in ipairs(source_mbins) do
 	end
 	mbin_ct[#mbin_ct+1] = {
 		MBIN_FILE_SOURCE	= src.mbin,
-		EXML_CHANGE_TABLE	= ect
+		MXML_CHANGE_TABLE	= ect
 	}
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL active huge props.pak',
+	MOD_FILENAME 		= '+ MODEL active huge props',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= mbin_ct

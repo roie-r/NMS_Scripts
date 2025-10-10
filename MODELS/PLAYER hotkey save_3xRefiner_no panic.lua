@@ -1,5 +1,5 @@
 ----------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ----------------------------------------------
 local mod_desc = [[
   Add hotkey saving (quick action emote menu)
@@ -9,87 +9,111 @@ local mod_desc = [[
 
 local save_trigger_components = {
 	{
-		meta = {'value','LinkableNMSTemplate.xml'},
-		Template = {
-			meta	= {'Template', 'GcSimpleInteractionComponentData.xml'},
+		meta = {name='Components', value='GcSimpleInteractionComponentData'},
+		{
+			meta = {name='value', value='GcSimpleInteractionComponentData'},
 			SimpleInteractionType	= 'Save',
 			TriggerAction			= 'INACTIVE',
 			HideContents			= true
-		},
-		Linked	= ''
+		}
 	},
 	{
-		meta = {'value','LinkableNMSTemplate.xml'},
-		Template = {
-			meta	= {'Template', 'GcTriggerActionComponentData.xml'},
-			{
-				meta	= {'name', 'States'},
+		meta = {name='Components', value='GcTriggerActionComponentData'},
+		{
+			meta = {name='value', value='GcTriggerActionComponentData'},
+			States = {
+				meta = {name='States'},
 				{
-					meta	= {'value', 'GcActionTriggerState.xml'},
-					StateID	= 'BOOT',
-					{
-						meta	= {'name', 'Triggers'},
+					meta = {name='States', value='GcActionTriggerState'},
+					StateID = 'BOOT',
+					Triggers = {
+						meta = {name='Triggers'},
 						{
-							meta	= {'value', 'GcActionTrigger.xml'},
-							{
-								meta	= {'Event', 'GcAnimFrameEvent.xml'},
-								Anim	= 'SAVEGAME'
+							meta = {name='Triggers', value='GcActionTrigger'},
+							Event = {
+								meta = {name='Event', value='GcAnimFrameEvent'},
+								GcAnimFrameEvent = {
+									meta = {name='GcAnimFrameEvent'},
+									Anim = 'SAVEGAME'
+								}
 							},
-							{
-								meta	= {'name', 'Action'},
+							Action = {
+								meta = {name='Action'},
 								{
-									meta	= {'value', 'GcGoToStateAction.xml'},
-									State	= 'SAVE'
+									meta = {name='Action', value='GcGoToStateAction'},
+									GcGoToStateAction = {
+										meta = {name='GcGoToStateAction'},
+										State = 'SAVE',
+										{
+											meta = {name='BroadcastLevel', value='GcBroadcastLevel'},
+											BroadcastLevel = 'Scene'
+										}
+									}
 								}
 							}
 						}
 					}
 				},
 				{
-					meta	= {'value', 'GcActionTriggerState.xml'},
-					StateID	= 'SAVE',
-					{
-						meta	= {'name', 'Triggers'},
+					meta = {name='States', value='GcActionTriggerState'},
+					StateID = 'SAVE',
+					Triggers = {
+						meta = {name='Triggers'},
 						{
-							meta	= {'value', 'GcActionTrigger.xml'},
-							{
-								meta	= {'Event', 'GcStateTimeEvent.xml'},
-								Seconds	= 0
+							meta = {name='Triggers', value='GcActionTrigger'},
+							Event = {
+								meta = {name='Event', value='GcStateTimeEvent'},
+								GcStateTimeEvent = {
+									meta = {name='GcStateTimeEvent'},
+									Seconds = 0.1
+								}
 							},
-							{
-								meta	= {'name', 'Action'},
-								-- where the save is actually triggered
-								value	= 'GcFireSimpleInteractionAction.xml',
+							Action = {
+								meta = {name='Action'},
 								{
-									meta			= {'value', 'GcPlayAudioAction.xml'},
-									Sound			= 'SignalScanner',
-									OcclusionRadius	= 2
+									meta = {name='Action', value='GcPlayAudioAction'},
+									GcPlayAudioAction = {
+										meta = {name='GcPlayAudioAction'},
+										Sound = 'SignalScanner',
+										OcclusionRadius = 2
+									}
 								},
 								{
-									meta	= {'value', 'GcGoToStateAction.xml'},
-									State	= 'BOOT'
+									meta = {name='Action', value='GcGoToStateAction'},
+									GcGoToStateAction = {
+										meta = {name='GcGoToStateAction'},
+										State = 'BOOT',
+										{
+											meta = {name='BroadcastLevel', value='GcBroadcastLevel'},
+											BroadcastLevel = 'Scene'
+										}
+									}
+								},
+								{
+									meta = {name='Action', value='GcFireSimpleInteractionAction'},
+									{name = 'GcFireSimpleInteractionAction'}
 								}
 							}
 						}
 					}
 				}
 			}
-		},
-		Linked	= ''
+		}
 	}
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL hotkey save_3xRefiner_no panic.pak',
+	MOD_FILENAME 		= '+ MODEL hotkey save_3xRefiner_no panic',
 	MOD_AUTHOR			= 'lMonk (original by Mjjstral)',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/ENTITIES/PLAYERCHARACTER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 			---	disable panic fall anime
 				SPECIAL_KEY_WORDS	= {'Id', '0H_AIRBORNE', 'AnimId', '0H_FALL_PANIC'},
@@ -112,11 +136,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'Components',
 				ADD_OPTION			= 'AddEndSection',
-				ADD 				= ToExml(save_trigger_components)
+				ADD 				= ToMxml(save_trigger_components)
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
-				PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'TkAnimationComponentData'},
+				PRECEDING_KEY_WORDS = {'Anims', 'Anims'},
 				SEC_SAVE_TO			= 'tk_animation_data'
 			},
 			{
@@ -127,19 +151,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'TkAnimationComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'TkAnimationComponentData'},
 				PRECEDING_KEY_WORDS = 'Anims',
 				ADD_OPTION			= 'AddEndSection',
 				SEC_ADD_NAMED		= 'tk_animation_data'
 			}
-
 		}
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/UI/EMOTEMENU.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				PRECEDING_KEY_WORDS = 'GcPlayerEmote.xml',
+				SPECIAL_KEY_WORDS	= {'Emotes', 'GcPlayerEmote'},
 				SEC_SAVE_TO			= 'gc_player_emote'
 			},
 			{

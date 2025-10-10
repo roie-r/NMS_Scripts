@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------------------------
 local mod_desc = [[
@@ -64,39 +64,45 @@ end
 local function GenerateDescriptor()
 	local function Rsrc3Group(name, ix, cmb)
 		return {
-			meta	= {'value','TkResourceDescriptorData.xml'},
+			meta	= {name='Descriptors', value='TkResourceDescriptorData'},
 			Id		= AddChar(name, cmb[1], true),
 			Name	= AddChar(name, cmb[1]),
 			Children= {
-				meta = {'name','Children'},
+				meta = {name='Children'},
 				{
-					meta = {'value','TkModelDescriptorList.xml'},
-					List = {
-						meta = {'name','List'},
-						{
-							meta	= {'value','TkResourceDescriptorList.xml'},
-							TypeId	= AddChar(name..'ID2_', ix, true),
-							Descriptors = {
-								meta = {'name','Descriptors'},
-								{
-									meta	= {'value','TkResourceDescriptorData.xml'},
-									Id		= AddChar(name, cmb[2], true),
-									Name	= AddChar(name, cmb[2]),
-									Children= {
-										meta = {'name','Children'},
-										{
-											meta = {'value','TkModelDescriptorList.xml'},
-											List = {
-												meta = {'name','List'},
-												{
-													meta	= {'value','TkResourceDescriptorList.xml'},
-													TypeId	= AddChar(name..'ID3_', ix, true),
-													Descriptors = {
-														meta = {'name','Descriptors'},
+					meta = {name='Children', value='TkModelDescriptorList'},
+					TkModelDescriptorList = {
+						meta = {name='TkModelDescriptorList'},
+						List = {
+							meta = {name='List'},
+							{
+								meta	= {name='List', value='TkResourceDescriptorList'},
+								TypeId	= AddChar(name..'ID2_', ix, true),
+								Descriptors = {
+									meta = {name='Descriptors'},
+									{
+										meta	= {name='Descriptors', value='TkResourceDescriptorData'},
+										Id		= AddChar(name, cmb[2], true),
+										Name	= AddChar(name, cmb[2]),
+										Children= {
+											meta = {name='Children'},
+											{
+												meta = {name='Children', value='TkModelDescriptorList'},
+												TkModelDescriptorList = {
+													meta = {name='TkModelDescriptorList'},
+													List = {
+														meta = {name='List'},
 														{
-															meta	= {'value','TkResourceDescriptorData.xml'},
-															Id		= AddChar(name, cmb[3], true),
-															Name	= AddChar(name, cmb[3])
+															meta	= {name='List', value='TkResourceDescriptorList'},
+															TypeId	= AddChar(name..'ID3_', ix, true),
+															Descriptors = {
+																meta = {name='Descriptors'},
+																{
+																	meta	= {name='Descriptors', value='TkResourceDescriptorData'},
+																	Id		= AddChar(name, cmb[3], true),
+																	Name	= AddChar(name, cmb[3])
+																}
+															}
 														}
 													}
 												}
@@ -112,21 +118,25 @@ local function GenerateDescriptor()
 		}
 	end
 	local T = {
-		--	file wrapper template
-		meta = {'template', 'TkModelDescriptorList'},
+		-- file wrapper template
+		meta = {template='cTkModelDescriptorList'},
 		List = {
-			meta = {'name', 'List'},
+			meta = {name='List'},
 			Keys = {
 			-- keys descriptor
-				meta		= {'value', 'TkResourceDescriptorList.xml'},
+				meta		= {name='List', value='TkResourceDescriptorList'},
 				TypeId		= key_nodes.tid,
-				Descriptors	= {meta = {'name', 'Descriptors'}}
+				Descriptors	= {
+					meta = {name='Descriptors'}
+				}
 			},
 			Locks = {
 			-- locks descriptor
-				meta		= {'value', 'TkResourceDescriptorList.xml'},
+				meta		= {name='List', value='TkResourceDescriptorList'},
 				TypeId		= lock_nodes.tid,
-				Descriptors	= {meta = {'name', 'Descriptors'}}
+				Descriptors	= {
+					meta = {name='Descriptors'}
+				}
 			}
 		}
 	}
@@ -146,7 +156,7 @@ local function GenerateDescriptor()
 	-- Add lock crates
 	for i=1, #lock_nodes.form do
 		table.insert(T.List.Locks.Descriptors, {
-			meta	= {'value', 'TkResourceDescriptorData.xml'},
+			meta	= {name='Descriptors', value='TkResourceDescriptorData'},
 			Id		= AddChar(lock_nodes.name, i, true),
 			Name	= AddChar(lock_nodes.name, i)
 		})
@@ -155,26 +165,18 @@ local function GenerateDescriptor()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL treasure ruin proc crates.pak',
+	MOD_FILENAME 		= '+ MODEL treasure ruin proc crates',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/UNDERGROUNDRUINS.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', 'RefCrateKey'},
-					{'Name', 'RefCrateKey1'},
-					{'Name', 'RefCrateKey2'},
-					{'Name', 'RefCrateKey3'},
-					{'Name', 'RefCrateKey7'},
-					{'Name', 'RefCrateKey8'},
-					{'Name', 'RefCrateLock'}
-				},
+				SPECIAL_KEY_WORDS 	= {'Name', 'RefCrate.-'},
 				REMOVE				= 'Section'
 			},
 			{
@@ -187,8 +189,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			FILE_DESTINATION = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/UNDERGROUNDRUINS.DESCRIPTOR.EXML',
-			FILE_CONTENT	 = FileWrapping(GenerateDescriptor())
+			FILE_DESTINATION = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/RUINS/UNDERGROUNDRUINS.DESCRIPTOR.MXML',
+			FILE_CONTENT	 = ToMxmlFile(GenerateDescriptor())
 		}
 	}
 }

@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 local mod_desc = [[
@@ -14,16 +14,50 @@ local mod_desc = [[
 ]]-------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__MODEL vehicles various.pak',
+	MOD_FILENAME 			= '+ MODEL vehicles various',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
+	{--	|submarine tweaks|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/SUBMARINE/SUBMARINEPRES.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '.-FinLight', 'Name', 'VOLUMETRIC'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		0.06}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'pointLight[12]', 'Name', 'VOLUMETRIC'}, -- boost
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		0.08}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'spotLight[12]', 'Name', 'VOLUMETRIC'}, -- front lights
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		0}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'spotLight[56]', 'Name', 'INTENSITY'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		40000}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'spotLight[56]', 'Name', 'VOLUMETRIC'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		0.06}
+				}
+			}
+		}
+	},
 	{--	|nomad tweaks|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKEPRES.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'EngineCenterRotate'},
 				VALUE_CHANGE_TABLE 	= {
@@ -53,22 +87,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', 'spotLight4'},
-					{'Name', 'spotLight5'}
-				},
+				SPECIAL_KEY_WORDS 	= {'Name', 'spotLight[45]'},
 				REMOVE				= 'Section'
 			}
 		}
 	},
 	{--	|buggy no fog cone|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BUGGY/BUGGYPRES.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', 'spotLight3'},
-					{'Name', 'spotLight4'}
-				},
+				SPECIAL_KEY_WORDS 	= {'Name', 'spotLight[34]'},
 				REMOVE				= 'Section'
 			}
 		}
@@ -78,42 +106,43 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTFADE_MAT.MATERIAL.MBIN',	-- green
 			'MODELS/COMMON/VEHICLES/WHEELEDBIKE/WHEELEDBIKEPRES/LIGHTS_MAT.MATERIAL.MBIN',		-- green
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			0.56},
-					{'y',			0.52},
-					{'z',			0.86}
+					{'X',			0.56},
+					{'Y',			0.52},
+					{'Z',			0.86}
 				}
 			}
 		}
 	},
 	{--	|hardframe blue neon|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/MECH_SUIT/MECH_SUIT/REDGLOW_MAT5.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			0.1},
-					{'y',			0.1},
-					{'z',			0.45}
+					{'X',			0.1},
+					{'Y',			0.1},
+					{'Z',			0.45}
 				}
 			}
 		}
 	},
 	{--	|mech faster step| animation speed
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/MECH_SUIT/MECH_SUIT/ENTITIES/MECH.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'TkPhysicsComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'TkPhysicsComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Mass',		40},	-- 10
 					-- {'Gravity',		20},	-- 20
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Template', 'GcCreatureFullBodyIKComponentData.xml'},
+				SPECIAL_KEY_WORDS	= {'Components', 'GcCreatureFullBodyIKComponentData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'MaxHeadYaw',		120},	-- 125
 					{'MaxFootAngle',	65},	-- 45
@@ -136,32 +165,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	remove |bike glow|
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKEPRES/LIGHTS_ENGINEGLOW_MAT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gCustomParams01Vec4'},
-				VALUE_CHANGE_TABLE	= {
-					{'y',			1},	-- 15
-				}
-			}
-		}
-	},
-	{--	remove |vehicle glow|
-		MBIN_FILE_SOURCE	= {
-			'MODELS/COMMON/VEHICLES/BUGGY/BUGGYPRES/ENGINEGLOW_MAT.MATERIAL.MBIN',
-			'MODELS/COMMON/VEHICLES/ROVER/ROVERPRES/ENGINEGLOW_MAT1.MATERIAL.MBIN',
-		},
-		EXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'MaterialFlag', '_F34_GLOW'},
-				REMOVE				= 'Section'
-			},
-		}
-	},
 	{--	Add |turret spotlight| to vehicle
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/SHARED/MININGLASER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'GunLight'},
 				VALUE_CHANGE_TABLE 	= {
@@ -179,7 +185,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					name='turret_light',
 					tx=	0.25,	ty=	0.45,	tz=	0.4,
 					rx= 10.6,	ry=	180,
-					fov=62,		i = 100000,	c=	'FFF0F5FF',
+					fov=58,		i = 120000,	c=	'FFF0F5FF',
 					f=	'l',	fr= 1.0
 				})
 			}
@@ -187,68 +193,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|no vehicle muzzle flare|
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/MUZZLE/VEHICLELASERMUZZLE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Flare'},
 				REMOVE				= 'Section'
 			}
 		}
-	},
-	-- {--	copy buoyancy component
-		-- MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/FISHINGPLATFORM/ENTITIES/FISHINGPLATFORM.ENTITY.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Template', 'GcBuoyancyComponentData.xml'},
-				-- SECTION_UP			= 1,
-				-- SEC_SAVE_TO			= 'gc_buoyancy_component'
-			-- }
-		-- }
-	-- },
-	-- {--	nomad float
-		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKE/ENTITIES/BIKE.ENTITY.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Template', 'TkPhysicsComponentData.xml'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Mass',		30},	-- 10 500
-					-- {'Gravity',		5},		-- 20 0
-				-- }
-			-- },
-			-- {
-				-- SEC_EDIT 			= 'gc_buoyancy_component',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'SetAnchorOnPrepare',			false},	-- True
-					-- {'TargetSurfaceHeightRough',	7.0},	-- 3.5
-					-- {'TargetSurfaceHeightCalm',		1.5},	-- 0.75
-					-- {'TargetHeightBufferFactor',	0.2},	-- 0.7
-					-- {'AirborneSpringTime',			0.75},	-- 0.75
-					-- {'UnderwaterSpringTime',		0.1},	-- 0.1
-					-- {'SelfRightingStrength',		0},		-- 200
-					-- {'MinimumForce',				800},	-- 400
-					-- {'MaximumForce',				3200},	-- 1500
-					-- {'UpwardRotationFactor',		0.5},	-- 0.1
-					-- {'WaveRotationFactor',			5},		-- 0
-					-- {'AnchorArrivalTime',			-1},	-- 5
-					-- {'MaximumAnchorForce',			-1},	-- 100
-				-- }
-			-- },
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'Components',
-				-- SEC_ADD_NAMED		= 'gc_buoyancy_component'
-			-- }
-		-- }
-	-- },
-	-- {--	|No vehicle gun tech inventory check| bugged since waypoint update
-	-- --	fixed - no longer needed
-		-- MBIN_FILE_SOURCE	= {
-			-- 'MODELS/COMMON/VEHICLES/BUGGY/ENTITIES/GUN.ENTITY.MBIN',
-			-- 'MODELS/COMMON/VEHICLES/SHARED/MININGLASER/ENTITIES/GUN.ENTITY.MBIN'
-		-- },
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- PRECEDING_KEY_WORDS = 'GcTechnologyAttachmentComponentData.xml',
-				-- REMOVE				= 'Section'
-			-- }
-		-- }
-	-- },
+	}
 }}}}
