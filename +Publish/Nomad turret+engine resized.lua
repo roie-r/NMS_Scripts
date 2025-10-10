@@ -5,17 +5,16 @@ local mod_desc = [[
 ]]------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.nomad turret and engine scaled.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.nomad turret and engine scaled',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/BIKE/BIKEPRES.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Name', 'Gun'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransY',		0.78},
@@ -26,7 +25,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Name', 'EngineCenterRotate'},
 				VALUE_CHANGE_TABLE 	= {
 					{'ScaleX',		1.52},
@@ -35,7 +33,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Name', 'EngineCircles'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransY',		0.585},

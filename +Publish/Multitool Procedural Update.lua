@@ -1,7 +1,10 @@
------------------------------------------------------
+--------------------------------------------------------------------
 local mod_desc = [[
-  Adds procedural colors for the sentinel multitools
-]]---------------------------------------------------
+  Adds procedural colors for the sentinel multitool and staff strap
+  Adds procedural colors for the multitool glow parts
+
+  * DDS files import is skipped SILENTLY if file paths are not found!
+]]------------------------------------------------------------------
 
 local function OneLayerProcTexFile(t)
 	return ([[<Data template="cTkProceduralTextureList">
@@ -40,44 +43,38 @@ local function OneLayerProcTexFile(t)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= 'MOD.lMonk.Sentinel Tool Procedural Color',
+	MOD_FILENAME 		= 'MOD.lMonk.Multitool Procedural Update',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
-	MODIFICATIONS 		= {{
-	MBIN_CHANGE_TABLE	= {
-	{
-		MBIN_FILE_SOURCE	= 'MODELS/COMMON/WEAPONS/MULTITOOL/SENTINELMULTITOOL/ORANGEMETALMAT.MATERIAL.MBIN',
-		MXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/PAINTEDMETALPROC.BASE.DDS'}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gMasksMap'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/PAINTEDMETALPROC.MASKS.DDS'}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Name', 'gNormalMap'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/PAINTEDMETALPROC.NORMAL.DDS'}
-				}
-			}
-		}
-	},
-}}},
-	ADD_FILES	= {
+	ADD_FILES			= {
 		{
-			FILE_DESTINATION = 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/PLASTICGRAIN.TEXTURE.MXML',
-			FILE_CONTENT	 = OneLayerProcTexFile({
-				palette	= 'Custom_Head',
-				color	= 'Primary',
-				texture	= 'TEXTURES/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/PLASTICGRAIN.BASE.DDS'
+			FILE_DESTINATION	= 'TEXTURES/COMMON/WEAPONS/MULTITOOL/STRAP.TEXTURE.MXML',
+			FILE_CONTENT		= OneLayerProcTexFile({
+				palette	= 'Paint',
+				color	= 'Alternative2',
+				texture	= 'TEXTURES/COMMON/WEAPONS/MULTITOOL/STRAP.BASE.DDS'
 			})
-		}
+		},
+		{
+			FILE_DESTINATION 	= 'TEXTURES/COMMON/WEAPONS/MULTITOOL/MULTITOOLGLOW.TEXTURE.MXML',
+			FILE_CONTENT		= OneLayerProcTexFile({
+				palette	= 'Crystal',
+				color	= 'Primary',
+				texture	= 'TEXTURES/COMMON/WEAPONS/MULTITOOL/MULTITOOLGLOW.BASE.DDS'
+			})
+		},
+		(
+			function()
+				local tex_path = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures_mod_source/textures/common/weapons/multitool/MULTITOOLGLOW.BASE.DDS'
+				if lfs.attributes(tex_path) then
+					return {
+						EXTERNAL_FILE_SOURCE = tex_path,
+						FILE_DESTINATION	 = 'TEXTURES/COMMON/WEAPONS/MULTITOOL/MULTITOOLGLOW.BASE.DDS'
+					}
+				end
+				return nil
+			end
+		)()
 	}
 }

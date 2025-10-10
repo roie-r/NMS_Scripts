@@ -6,9 +6,9 @@ local mod_desc = [[
 ]]------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Exocraft turret Restored.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.Exocraft turret Restored',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -17,7 +17,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/VEHICLES/BUGGY/ENTITIES/GUN.ENTITY.MBIN',
 			'MODELS/COMMON/VEHICLES/SHARED/MININGLASER/ENTITIES/GUN.ENTITY.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'GcTechnologyAttachmentComponentData.xml',
 				REMOVE				= 'Section'

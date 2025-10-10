@@ -1,185 +1,13 @@
+dofile('LIB/_lua_2_mxml.lua')
+dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 local mod_desc = [[
   Adds procedural parts, more wrecks and a few wreck -and space-encounter
   items to the derelict freighter encounter mission.
   Adds a slow tumble to floating items to make the scene more dynamic
 ]]-------------------------------------------------------------------------
----	LUA 2 EXML (VERSION: 0.85.7) ... by lMonk
----	A tool for converting exml to an equivalent lua table and back again.
---- The complete tool can be found at: https://github.com/roie-r/exml_2_lua
--------------------------------------------------------------------------------
---	Generate an EXML-tagged text from a lua table representation of exml class
---	@param class: a lua2exml formatted table
-local function ToExml(class)
-	--	replace a boolean with its text equivalent (ignore otherwise)
-	--	@param b: any value
-	function bool(b)
-		return (type(b) == 'boolean') and ((b == true) and 'True' or 'False') or b
-	end
+--<<M2L marker>>--
 
-	--	get the count of ALL objects in a table (non-recursive)
-	--	@param t: any table
-	function len2(t)
-		i=0; for _ in pairs(t) do i=i+1 end; return i
-	end
-	local function exml_r(tlua)
-		local exml = {}
-		function exml:add(t)
-			for _,v in ipairs(t) do self[#self+1] = v end
-		end
-		for key, cls in pairs(tlua) do
-			if key ~= 'meta' then
-				exml[#exml+1] = '<Property '
-				if type(cls) == 'table' and cls.meta then
-					local att, val = cls['meta'][1], cls['meta'][2]
-					-- add and recurs for an inner table
-					if att == 'name' or att == 'value' then
-						exml:add({att, '="', val, '">'})
-					else
-						exml:add({'name="', att, '" value="', val, '">'})
-					end
-					exml:add({exml_r(cls), '</Property>'})
-				else
-					-- add normal property
-					if type(cls) == 'table' then
-						key, cls = next(cls)
-					end
-					if key == 'name' or key == 'value' then
-						exml:add({key, '="', bool(cls), '"/>'})
-					else
-						exml:add({'name="', key, '" value="', bool(cls), '"/>'})
-					end
-				end
-			end
-		end
-		return table.concat(exml)
-	end
-	-------------------------------------------------------------------------
-	-- check the table level structure and meta placement
-	-- add the needed layer for the recursion and handle multiple tables
-	local klen = len2(class)
-	if klen == 1 and class[1].meta then
-		return exml_r(class)
-	elseif class.meta and klen > 1 then
-		return exml_r( {class} )
-	-- concatenate unrelated exml sections, instead of nested inside each other
-	elseif type(class[1]) == 'table' and klen > 1 then
-		local T = {}
-		for _, tb in pairs(class) do
-			T[#T+1] = exml_r((tb.meta and klen > 1) and {tb} or tb)
-		end
-		return table.concat(T)
-	end
-end
-
---	Adds the xml header and data template
---	Uses the contained template meta if found (instead of the received variable)
---	@param data: a lua2exml formatted table
---	@param template: an nms file template string
-local function FileWrapping(data, template)
-	local wrapper = '<Data template="%s">%s</Data>'
-	if type(data) == 'string' then
-		return string.format(wrapper, template, data)
-	end
-	-- remove the extra table added by ToLua
-	if data.template then data = data.template end
-	-- table loaded from file
-	if data.meta[1] == 'template' then
-		-- strip mock template
-		local txt_data = ToExml(data):sub(#data.meta[2] + 36, -12)
-		return string.format(wrapper, data.meta[2], txt_data)
-	else
-		return string.format(wrapper, template, ToExml(data))
-	end
-end
-
---	Build a single -or list of TkSceneNodeData classes
---	@param props: a keyed table for scene class properties.
---	{
---	  name	= scene node name (NameHash is calculated automatically)
---	  ntype	= scene node type
---	  form	= [optional] Transform data. a list of 9 ordered values or keyed values,
---			  but NOT a combination of the two!
---	  pxlud = [optional] PlatformExclusion
---	  attr	= [optional] Attributes table of {name, value} pairs
---	  child	= [optional] Children table for ScNode tables
---	}
-local function ScNode(nodes)
-	--	returns a jenkins hash from a string (by lyravega)
-	local function jenkinsHash(input)
-		local hash = 0
-		local t_chars = {string.byte(input:upper(), 1, #input)}
-
-		for i = 1, #input do
-			hash = (hash + t_chars[i]) & 0xffffffff
-			hash = (hash + (hash << 10)) & 0xffffffff
-			hash = (hash ~ (hash >> 6)) & 0xffffffff
-		end
-		hash = (hash + (hash << 3)) & 0xffffffff
-		hash = (hash ~ (hash >> 11)) & 0xffffffff
-		hash = (hash + (hash << 15)) & 0xffffffff
-		return tostring(hash)
-	end
-	--	Build a TkSceneNodeData class
-	local function sceneNode(props)
-		local T	= {
-			meta	= {'value', 'TkSceneNodeData.xml'},
-			Name 				= props.name,
-			NameHash			= jenkinsHash(props.name),
-			Type				= props.ntype,
-			PlatformExclusion	= props.pxlud or nil
-		}
-		--	add TkTransformData class
-		props.form = props.form or {}
-		T.Form = {
-			meta	= {'Transform', 'TkTransformData.xml'},
-			TransX	= (props.form.tx or props.form[1]) or nil,
-			TransY	= (props.form.ty or props.form[2]) or nil,
-			TransZ	= (props.form.tz or props.form[3]) or nil,
-			RotX	= (props.form.rx or props.form[4]) or nil,
-			RotY	= (props.form.ry or props.form[5]) or nil,
-			RotZ	= (props.form.rz or props.form[6]) or nil,
-			ScaleX	= (props.form.sx or props.form[7]) or 1,
-			ScaleY	= (props.form.sy or props.form[8]) or 1,
-			ScaleZ	= (props.form.sz or props.form[9]) or 1
-		}
-		--	if present, add attributes list
-		if props.attr then
-			-- add accompanying attribute to scenegraph
-			if props.attr.SCENEGRAPH then
-				props.attr.EMBEDGEOMETRY = 'TRUE'
-			end
-			T.Attr = { meta = {'name', 'Attributes'} }
-			for nm, val in pairs(props.attr) do
-				T.Attr[#T.Attr+1] = {
-					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
-					Name	= nm,
-					Value	= val
-				}
-			end
-		end
-		if props.child then
-		--	add children list if found
-			local k,_ = next(props.child)
-			cnd = ScNode(props.child)
-			T.Child	= k == 1 and cnd or {cnd}
-			T.Child.meta = {'name', 'Children'}
-		end
-		return T
-	end
-	-----------------------------------------------------------------
-	local k,_ = next(nodes)
-	if k == 1 then
-	-- k=1 means the first of a list of unrelated, non-nested, nodes
-		local T = {}
-		for _,nd in ipairs(nodes) do
-				T[#T+1] = sceneNode(nd)
-		end
-		return T
-	end
-	return sceneNode(nodes)
-end
--------------------------------------------------------------------------------
 local assets = {
 	{
 		name = '_Derelict_',
@@ -304,31 +132,28 @@ local function AddSpaceAssets()
 			end
 		end
 	end
-	return ToExml(ScNode(T))
+	return ToMxml(ScNode(T))
 end
 
 local function GenerateDescriptor()
 	local T = {
-		meta = {'template', 'TkModelDescriptorList'},
-		List = {meta = {'name', 'List'}}
+		meta = {template='cTkModelDescriptorList'},
+		List = {meta = {name='List'}}
 	}
 	for _,group in ipairs(assets) do
 		local tmp = {
-			meta		= {'value', 'TkResourceDescriptorList.xml'},
+			meta = {name='List', value='TkResourceDescriptorList'},
 			TypeId		= group.name:upper(),
-			Descriptors	= {meta = {'name', 'Descriptors'}}
+			Descriptors	= {meta = {name='Descriptors'}}
 		}
 		for i, scene in ipairs(group.node or group.desc) do
 			tmp.Descriptors[#tmp.Descriptors+1] = {
-				meta	= {'value', 'TkResourceDescriptorData.xml'},
+				meta = {name='Descriptors', value='TkResourceDescriptorData'},
 				Id		= (group.name..string.char(64 + i)):upper(),
 				Name	= group.name..string.char(64 + i),
 				ReferencePaths	= type(scene) == 'table' and {
-					meta = {'name','ReferencePaths'},
-					{
-						meta	= {'value', 'VariableSizeString.xml'},
-						Value	= scene.model
-					}
+					meta = {name='ReferencePaths'},
+					ReferencePaths = scene.model
 				} or nil
 			}
 		end
@@ -338,16 +163,16 @@ local function GenerateDescriptor()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Derelict Procedural Additions.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.Derelict Procedural Additions',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,MIXED_TABLE',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/SPACE/POI/DUNGEON.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RefDungeonEntrance'},
 				ADD_OPTION			= 'AddAfterSection',
@@ -358,31 +183,38 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= {
 		{
-			FILE_DESTINATION = 'MODELS/SPACE/POI/DUNGEON.DESCRIPTOR.EXML',
-			FILE_CONTENT	 = FileWrapping(GenerateDescriptor())
+			FILE_DESTINATION = 'MODELS/SPACE/POI/DUNGEON.DESCRIPTOR.MXML',
+			FILE_CONTENT	 = ToMxmlFile(GenerateDescriptor())
 		},
 		{
-			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.EXML',
-			FILE_CONTENT	 = FileWrapping({
-				meta = {'template', 'TkAttachmentData'},
+			FILE_DESTINATION = 'MODELS/COMMON/SHARED/ENTITIES/SPIN001.ENTITY.MXML',
+			FILE_CONTENT	 = ToMxmlFile({
+				meta = {template='cTkAttachmentData'},
 				Components = {
-					meta = {'name', 'Components'},
+					meta = {name='Components'},
 					{
-						meta = {'value','LinkableNMSTemplate.xml'},
-						Template = {
-							meta = {'Template','TkRotationComponentData.xml'},
-							Speed = 0.001,
-							Axis  = {
-								meta = {'Axis', 'Vector3f.xml'},
-								x = 1,
-								y = 1,
-								z = 1
+						meta = {name='Components', value='TkRotationComponentData'},
+						TkRotationComponentData = {
+							meta = {name='TkRotationComponentData'},
+							{Speed = 0.01},
+							{
+								meta = {name='Axis'},
+								{X = 1},
+								{Y = 1},
+								{Z = 1}
 							},
-							AlwaysUpdate = true,
-							SyncGroup    = -1
-						},
-						Linked	= ''
+							{AlwaysUpdate = true},
+							{SyncGroup = -1}
+						}
 					}
+				},
+				LodDistances = {
+					meta = {name='LodDistances'},
+					0,
+					50,
+					80,
+					150,
+					500
 				}
 			})
 		}

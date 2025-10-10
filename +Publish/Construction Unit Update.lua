@@ -1,3 +1,4 @@
+dofile('LIB/_lua_2_mxml.lua')
 -----------------------------------------------------------------------------------------
 local mod_desc = [[
   Add more tech recipes, some factory products, and a larger selection of building parts
@@ -6,9 +7,10 @@ local mod_desc = [[
 
 local unlockable_items = {
 	{--	construction unit: (replace tree) tech
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
-		rmtree	= 'UI_BASIC_TECH_SUB',
-		cost	= 'SALVAGE',
+		title	= 'UI_BASIC_TECH_SUB',
+		isfull	= true,
 		tree	= {
 			'BUILDSAVE',{ -- save point
 				{
@@ -119,9 +121,11 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (add tree) factory products
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		title   = 'UI_PRODUCT_TREE_CRAFT',
 		cost	= 'FACTORY',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'AM_HOUSING',{ -- antimatter housing
@@ -207,10 +211,11 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) timber base parts
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
-		rmtree	= 'UI_BASIC_TIMBER_SUB',
+		title	= 'UI_BASIC_TIMBER_SUB',
 		toend	= true,
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'T_WALL',{ -- timber wall
 				{
@@ -355,9 +360,10 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) alloy base parts
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
-		rmtree	= 'UI_BASIC_FIBREGLASS_SUB',
-		cost	= 'SALVAGE',
+		title	= 'UI_BASIC_FIBREGLASS_SUB',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'F_WALL',{ -- alloy wall
@@ -503,9 +509,10 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) stone base parts
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
-		rmtree	= 'UI_BASIC_STONE_SUB',
-		cost	= 'SALVAGE',
+		title	= 'UI_BASIC_STONE_SUB',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'S_WALL',{ -- stone wall
@@ -650,10 +657,160 @@ local unlockable_items = {
 			}
 		}
 	},
+	{--	construction unit: builder (salvaged) base parts
+		root	= 'BasicTechParts',
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
+		title	= 'UI_BASIC_BUILDERS_SUB',
+		isfull	= true,
+		toend	= true,
+		tree	= {
+			'B_WALL',{ -- salvaged wall
+				{
+					'B_FLOOR',{ -- salvaged floor panel
+						{
+							'B_GFLOOR',{ -- salvaged floor grille
+								{
+									'B_FLOOR_Q' -- small salvaged panel
+								}
+							}
+						},
+						{
+							'B_RAMP',{ -- salvaged ramp
+								{
+									'B_RAMP_H',{ -- salvaged half ramp
+										{
+											'B_RAMP_Q_TOP' -- salvaged half ramp platform
+										}
+									}
+								}
+							}
+						},
+						{
+							'B_TRIFLOOR',{ -- salvaged triangle
+								{
+									'B_TRIFLOOR_Q',{ -- small salvaged triangle
+										{
+											'B_WALLDIAGONAL' -- sloping salvaged panel
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_WALL_H',{ -- thin salvaged wall
+						{
+							'B_WALL_Q',{ -- small salvaged wall a
+								{
+									'B_WALL_Q1' -- small salvaged wall b
+								}
+							}
+						},
+						{
+							'B_WALL_Q_H',{ -- short salvaged wall a
+								{
+									'B_WALL_Q_H1' -- short salvaged wall b
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_CHEV_WALL',{ -- extruded salvaged wall
+						{
+							'B_CHEV_DOOR',{ -- extruded salvaged door
+								{
+									'B_CHEV_WALL_H_C' -- extruded salvaged wall cap
+								}
+							}
+						},
+						{
+							'B_CHEV_WIN0',{ -- extruded salvaged grille a
+								{
+									'B_CHEV_WIN1',{ -- extruded salvaged circle window
+										{
+											'B_CHEV_WIN2' -- extruded salvaged grille b
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_DOOR_H',{ -- salvaged doorway
+						{
+							'B_DOORWINDOW',{ -- salvaged frontage
+								{
+									'B_WALL_WIN1',{ -- salvaged grille window
+										{
+											'B_WALL_WIN2' -- salvaged large window
+										},
+										{
+											'B_WALL_WIN3' -- salvaged circle window
+										}
+									}
+								},
+								{
+									'B_WALL_WINDOW' -- salvaged slit window
+								}
+							}
+						},
+						{
+							'B_DOOR',{ -- salvaged arch door
+								{
+									'B_DOOR1',{ -- salvaged rectangular door
+										{
+											'B_GDOOR' -- salvaged power door
+										}
+									}
+								}
+							}
+						},
+						{
+							'B_ARCH',{ -- salvaged arch
+								{
+									'B_ARCH_H' -- salvaged half arch
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_ROOF3',{ -- flat salvaged roof
+						{
+							'B_ROOF_M',{ -- salvaged roof panel
+								{
+									'B_ROOF_M_Q',{ -- sloping salvaged roof panel
+										{
+											'B_ROOF_E_Q' -- sloping salvaged roof gable
+										}
+									}
+								}
+							}
+						},
+						{
+							'B_ROOF2',{ -- angled flat salvaged roof
+								{
+									'B_ROOF0',{ -- rounded flat salvaged roof
+										{
+											'B_ROOF_M_CAP' -- salvaged roof cap
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
 	{--	base parts: re-add basic concrete shelter parts tree
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_CONCRETE_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'C_WALL',{ -- concrete wall
@@ -741,9 +898,10 @@ local unlockable_items = {
 		}
 	},
 	{--	base parts: re-add basic metal shelter parts tree
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_METAL_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'M_WALL',{ -- metal wall
@@ -831,9 +989,10 @@ local unlockable_items = {
 		}
 	},
 	{--	base parts: re-add basic wooden shelter parts tree
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_WOOD_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'W_WALL',{ -- wooden wall
@@ -921,85 +1080,18 @@ local unlockable_items = {
 		}
 	}
 }
---------------------------------------------------------------------------------
----	LUA 2 EXML (VERSION: 0.84.2) ... by lMonk
----	A tool for converting exml to an equivalent lua table and back again.
----	Helper functions for color class, vector class and string arrays
---- The complete tool can be found at: https://github.com/roie-r/exml_2_lua
 
---	Generate an EXML-tagged text from a lua table representation of exml class
---	@param class: a lua2exml formatted table
-local function ToExml(class)
-	--	replace a boolean with its text equivalent (ignore otherwise)
-	--	@param b: any value
-	local function bool(b)
-		return (type(b) == 'boolean') and ((b == true) and 'True' or 'False') or b
-	end
-	--	get the count of ALL objects in a table (non-recursive)
-	--	@param t: any table
-	local function len2(t)
-		i=0; for _ in pairs(t) do i=i+1 end; return i
-	end
-	local function exml_r(tlua)
-		local exml = {}
-		function exml:add(t)
-			for _,v in ipairs(t) do self[#self+1] = v end
-		end
-		for key, cls in pairs(tlua) do
-			if key ~= 'meta' then
-				exml[#exml+1] = '<Property '
-				if type(cls) == 'table' and cls.meta then
-					local att, val = cls['meta'][1], cls['meta'][2]
-					-- add and recurs for an inner table
-					if att == 'name' or att == 'value' then
-						exml:add({att, '="', val, '">'})
-					else
-						exml:add({'name="', att, '" value="', val, '">'})
-					end
-					exml:add({exml_r(cls), '</Property>'})
-				else
-					-- add a regular property
-					if type(cls) == 'table' then
-						key, cls = next(cls)
-					end
-					if key == 'name' or key == 'value' then
-						exml:add({key, '="', bool(cls), '"/>'})
-					else
-						exml:add({'name="', key, '" value="', bool(cls), '"/>'})
-					end
-				end
-			end
-		end
-		return table.concat(exml)
-	end
-	-------------------------------------------------------------------------
-	-- check the table level structure and meta placement
-	-- add the needed layer for the recursion and handle multiple tables
-	local klen = len2(class)
-	if klen == 1 and class[1].meta then
-		return exml_r(class)
-	elseif class.meta and klen > 1 then
-		return exml_r( {class} )
-	-- concatenate unrelated exml sections, instead of nested inside each other
-	elseif type(class[1]) == 'table' and klen > 1 then
-		local T = {}
-		for _, tb in pairs(class) do
-			T[#T+1] = exml_r((tb.meta and klen > 1) and {tb} or tb)
-		end
-		return table.concat(T)
-	end
-end
---------------------------------------------------------------------------------
+--<<M2L marker>>--
 
 -- add the meta for a proper e2l UnlockableItemTree
 local function BuildTree(node)
 	local function traverse(tree)
 		local T = {
-			meta = {'value', 'GcUnlockableItemTreeNode.xml'},
+			meta = {name='Children', value='GcUnlockableItemTreeNode'},
 			Unlockable = tree[1]
 		}
 		if tree[2] then
-			T.Children = { meta = {'name', 'Children'} }
+			T.Children = { meta = {name='Children'} }
 			for _,t in ipairs(tree[2]) do
 				T.Children[#T.Children+1] = traverse(t)
 			end
@@ -1007,81 +1099,75 @@ local function BuildTree(node)
 		return T
 	end
 	local e2l = traverse(node.tree)
-	if node.cost then e2l.meta[1] = 'Root' end
+	if node.isfull then e2l.meta.name = 'Root' end
 	return e2l
 end
 
 local function AddTreeToChangeTable(node)
-	if node.cost then
+	if node.isfull then
 	--- full tree addition ---
 		local tree_root = {
-			meta	= {'value', 'GcUnlockableItemTree.xml'},
+			meta	= {name='Trees', value='GcUnlockableItemTree'},
 			Title		= node.title or node.rmtree,
-			CostTypeID	= node.cost,
-			ItemTree	= BuildTree(node)
+			CostTypeID	= node.cost or 'SALVAGE',
+			Root		= BuildTree(node)
 		}
 		if node.after then
 			return {
-				SPECIAL_KEY_WORDS	= {'Title', node.parent, 'Title', node.after},
-				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml(tree_root)
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Title', node.parent, 'Title', node.after},
+				ADD_OPTION	= 'AddAfterSection',
+				ADD			= ToMxml(tree_root)
 			}
 		else
 			return {
-				SPECIAL_KEY_WORDS	= {'Title', node.parent},
-				PRECEDING_KEY_WORDS	= 'Trees',
-				ADD_OPTION			= node.toend and 'AddEndSection' or nil,
-				ADD					= ToExml(tree_root)
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Title', node.parent},
+				PKW			= 'Trees',
+				ADD_OPTION	= node.toend and 'AddEndSection' or nil,
+				ADD			= ToMxml(tree_root)
 			}
 		end
 	else
 	--- regular node ---
 		if node.after then
 			return  {
-				SPECIAL_KEY_WORDS	= {'Unlockable', node.parent, 'Unlockable', node.after},
-				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml(BuildTree(node))
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Unlockable', node.parent, 'Unlockable', node.after},
+				ADD_OPTION	= 'AddAfterSection',
+				ADD			= ToMxml(BuildTree(node))
 			}
 		else
 			return  {
-				SPECIAL_KEY_WORDS	= {'Unlockable', node.parent},
-				PRECEDING_KEY_WORDS = 'Children',
-				SECTION_ACTIVE		= -1,
-				ADD_OPTION			= node.toend and 'AddEndSection' or nil,
-				CREATE_HOS			= not node.toend,
-				ADD					= ToExml(BuildTree(node))
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Unlockable', node.parent},
+				PKW			= 'Children',
+				ADD_OPTION	= node.toend and 'AddEndSection' or nil,
+				CREATE_HOS	= not node.toend,
+				ADD			= ToMxml(BuildTree(node))
 			}
 		end
 	end
 end
 
+local mx_ct = {
+	{
+		REPLACE_TYPE= 'All',
+		SKW			= {'BasicTechParts', 'GcUnlockableItemTrees', 'Trees', 'GcUnlockableItemTree'},
+		REMOVE		= 'Section'
+	}
+}
+-- process changes/additions to all trees
+for _,node in ipairs(unlockable_items) do
+	mx_ct[#mx_ct+1] = AddTreeToChangeTable(node)
+end
+
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Construction Unit Update.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.Construction Unit Update',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',	
+	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/UNLOCKABLEITEMTREES.MBIN',
-		EXML_CHANGE_TABLE	= (
-			function()
-				local T = { { SKW={}, REMOVE='Section' } }
-
-				for _,node in ipairs(unlockable_items) do
-					if not node.unused then
-						-- do all REMOVEs before adding
-						if node.rmnode then
-							T[1].SKW[#T[1].SKW + 1] = {'Unlockable', node.rmnode}
-						elseif node.rmtree then
-							T[1].SKW[#T[1].SKW + 1] = {'Title', node.parent, 'Title', node.rmtree}
-						end
-						T[#T+1] = AddTreeToChangeTable(node)
-					end
-				end
-				return T
-			end
-		)()
+		MXML_CHANGE_TABLE	= mx_ct
 	}
 }}}}

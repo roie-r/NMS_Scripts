@@ -5,43 +5,18 @@ local mod_desc = [[
 ]]---------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.living ship upgrades.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.living ship upgrades',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	-- {
-		-- MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- MATH_OPERATION 		= '*',
-				-- SPECIAL_KEY_WORDS	= {'ID', 'SHIP_TELEPORT'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Bonus',			24}
-				-- }
-			-- },
-			-- {
-				-- SPECIAL_KEY_WORDS	= {
-					-- {'ID', 'SHIP_TELEPORT',  'TechnologyCategory', 'AllShipsExceptAlien'},
-					-- {'ID', 'SHIPSCAN_COMBAT','TechnologyCategory', 'AllShipsExceptAlien'},
-					-- {'ID', 'SHIPSCAN_ECON',  'TechnologyCategory', 'AllShipsExceptAlien'},
-					-- {'ID', 'CARGOSHIELD',	 'TechnologyCategory', 'AllShipsExceptAlien'}
-					
-				-- },
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'TechnologyCategory', 'AllShips'}
-				-- }
-			-- }
-		-- }
-	-- },
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '+',
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Template', 'A_SHIPJUMP', 'StatsType', 'Ship_Boost'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
@@ -52,7 +27,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '+',
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Template', 'A_SHIPJUMP', 'StatsType', 'Ship_BoostManeuverability'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
@@ -63,7 +37,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '+',
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Template', 'A_SHIPJUMP', 'StatsType', 'Ship_Maneuverability'},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {

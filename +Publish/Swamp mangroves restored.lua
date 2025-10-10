@@ -4,13 +4,13 @@ local mod_desc = [[
 ]]--------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.Swamp Mnagroves Restored.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.Swamp Mnagroves Restored',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
+	{--	add descriptor full mangroves
 		MBIN_FILE_SOURCE	= {
 			{
 				'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGE.DESCRIPTOR.MBIN',
@@ -19,30 +19,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	add descriptor full mangroves
 		MBIN_FILE_SOURCE	=  'MODELS/PLANETS/BIOMES/SWAMP/LARGEPLANT/MANGROVELARGEFULL.DESCRIPTOR.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'TypeId',		'_MFULL_'}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS	= 'TkResourceDescriptorData.xml',
-				SECTION_ACTIVE		= -1,
+				SPECIAL_KEY_WORDS	= {'Id', '_MLARGE_01LOD0'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Id',			'_MFULL_01LOD0'},
 					{'Name',		'_MFull_01LOD0'}
 				}
 			},
 			{
-				PRECEDING_KEY_WORDS	= 'TkResourceDescriptorData.xml',
-				SECTION_ACTIVE		= -2,
+				SPECIAL_KEY_WORDS	= {'Id', '_MLARGE_02LOD0'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Id',			'_MFULL_02LOD0'},
 					{'Name',		'_MFull_02LOD0'}
 				}
-			},
+			}
 		}
 	}
 }}}}

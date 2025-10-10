@@ -1,3 +1,5 @@
+dofile('LIB/_lua_2_mxml.lua')
+dofile('LIB/scene_tools.lua')
 --------------------------------------------------------------------------------
 local mod_desc = [[
   Freighter hangar interior changes and additions.
@@ -7,202 +9,54 @@ local mod_desc = [[
   - Loitering NPCs repositioned.
   - Starship outfitting consoles added near the teleport entrances.
 
-  * ADD_FILES will skipped SILENTLY if new files are not found!
+  * DDS files import is skipped SILENTLY if file paths are not found!
 ]]------------------------------------------------------------------------------
----	LUA 2 EXML (VERSION: 0.85.0) ... by lMonk
----	A tool for converting exml to an equivalent lua table and back again.
---- The complete tool can be found at: https://github.com/roie-r/exml_2_lua
--------------------------------------------------------------------------------
---	Generate an EXML-tagged text from a lua table representation of exml class
---	@param class: a lua2exml formatted table
-local function ToExml(class)
-	--	replace a boolean with its text equivalent (ignore otherwise)
-	--	@param b: any value
-	function bool(b)
-		return (type(b) == 'boolean') and ((b == true) and 'True' or 'False') or b
-	end
+--<<M2L marker>>--
 
-	--	get the count of ALL objects in a table (non-recursive)
-	--	@param t: any table
-	function len2(t)
-		i=0; for _ in pairs(t) do i=i+1 end; return i
-	end
-	local function exml_r(tlua)
-		local exml = {}
-		function exml:add(t)
-			for _,v in ipairs(t) do self[#self+1] = v end
-		end
-		for key, cls in pairs(tlua) do
-			if key ~= 'meta' then
-				exml[#exml+1] = '<Property '
-				if type(cls) == 'table' and cls.meta then
-					local att, val = cls['meta'][1], cls['meta'][2]
-					-- add and recurs for an inner table
-					if att == 'name' or att == 'value' then
-						exml:add({att, '="', val, '">'})
-					else
-						exml:add({'name="', att, '" value="', val, '">'})
-					end
-					exml:add({exml_r(cls), '</Property>'})
-				else
-					-- add normal property
-					if type(cls) == 'table' then
-						key, cls = next(cls)
-					end
-					if key == 'name' or key == 'value' then
-						exml:add({key, '="', bool(cls), '"/>'})
-					else
-						exml:add({'name="', key, '" value="', bool(cls), '"/>'})
-					end
-				end
-			end
-		end
-		return table.concat(exml)
-	end
-	-------------------------------------------------------------------------
-	-- check the table level structure and meta placement
-	-- add the needed layer for the recursion and handle multiple tables
-	local klen = len2(class)
-	if klen == 1 and class[1].meta then
-		return exml_r(class)
-	elseif class.meta and klen > 1 then
-		return exml_r( {class} )
-	-- concatenate unrelated exml sections, instead of nested inside each other
-	elseif type(class[1]) == 'table' and klen > 1 then
-		local T = {}
-		for _, tb in pairs(class) do
-			T[#T+1] = exml_r((tb.meta and klen > 1) and {tb} or tb)
-		end
-		return table.concat(T)
-	end
-end
-
---	Build a single -or list of TkSceneNodeData classes
---	@param props: a keyed table for scene class properties.
---	{
---	  name	= scene node name (NameHash is calculated automatically)
---	  ntype	= scene node type
---	  form	= [optional] Transform data. a list of 9 ordered values or keyed values,
---			  but NOT a combination of the two!
---	  pxlud = [optional] PlatformExclusion
---	  attr	= [optional] Attributes table of {name, value} pairs
---	  child	= [optional] Children table for ScNode tables
---	}
-function ScNode(nodes)
-	--	returns a jenkins hash from a string (by lyravega)
-	local function jenkinsHash(input)
-		local hash = 0
-		local t_chars = {string.byte(input:upper(), 1, #input)}
-
-		for i = 1, #input do
-			hash = (hash + t_chars[i]) & 0xffffffff
-			hash = (hash + (hash << 10)) & 0xffffffff
-			hash = (hash ~ (hash >> 6)) & 0xffffffff
-		end
-		hash = (hash + (hash << 3)) & 0xffffffff
-		hash = (hash ~ (hash >> 11)) & 0xffffffff
-		hash = (hash + (hash << 15)) & 0xffffffff
-		return tostring(hash)
-	end
-	--	Build a TkSceneNodeData class
-	local function sceneNode(props)
-		local T	= {
-			meta	= {'value', 'TkSceneNodeData.xml'},
-			Name 				= props.name,
-			NameHash			= jenkinsHash(props.name),
-			Type				= props.ntype,
-			PlatformExclusion	= props.pxlud or nil
-		}
-		--	add TkTransformData class
-		props.form = props.form or {}
-		T.Form = {
-			meta	= {'Transform', 'TkTransformData.xml'},
-			TransX	= (props.form.tx or props.form[1]) or nil,
-			TransY	= (props.form.ty or props.form[2]) or nil,
-			TransZ	= (props.form.tz or props.form[3]) or nil,
-			RotX	= (props.form.rx or props.form[4]) or nil,
-			RotY	= (props.form.ry or props.form[5]) or nil,
-			RotZ	= (props.form.rz or props.form[6]) or nil,
-			ScaleX	= (props.form.sx or props.form[7]) or 1,
-			ScaleY	= (props.form.sy or props.form[8]) or 1,
-			ScaleZ	= (props.form.sz or props.form[9]) or 1
-		}
-		--	if present, add attributes list
-		if props.attr then
-			-- add accompanying attribute to scenegraph
-			if props.attr.SCENEGRAPH then
-				props.attr.EMBEDGEOMETRY = 'TRUE'
-			end
-			T.Attr = { meta = {'name', 'Attributes'} }
-			for nm, val in pairs(props.attr) do
-				T.Attr[#T.Attr+1] = {
-					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
-					Name	= nm,
-					Value	= val
-				}
-			end
-		end
-		if props.child then
-		--	add children list if found
-			local k,_ = next(props.child)
-			cnd = ScNode(props.child)
-			T.Child	= k == 1 and cnd or {cnd}
-			T.Child.meta = {'name', 'Children'}
-		end
-		return T
-	end
-	-----------------------------------------------------------------
-	local k,_ = next(nodes)
-	if k == 1 then
-	-- k=1 means the first of a list of unrelated, non-nested, nodes
-		local T = {}
-		for _,nd in ipairs(nodes) do
-				T[#T+1] = sceneNode(nd)
-		end
-		return T
-	end
-	return sceneNode(nodes)
-end
--------------------------------------------------------------------------------
-
-local ECT = {}
+local mx_ct = { {SKW={}, REMOVE='Section'} }
 for node, form in pairs({
-	NPC_01			= {tx=-9.507,	ty=-3.35,	tz=-28.34},
-	NPC_02			= {tx=-56,		ty=-7.34,	tz=62.5,	ry=-150},
-	NPC_03			= {tx=-8.337,	ty=-3.35,	tz=-28.03},
-	NPC_04			= {tx=38.4,		ty=-7.34,	tz=69.35,	ry=35},
-	NPC_06			= {tx=-21.92,	ty=-4.18,	tz=5.5},
-	NPC_07			= {tx=-57.8,	ty=8.12,	tz=57.14,	ry=270},
-	RefHangarCrane2	= {tx=41.88,				tz=61.2},
-	RefHangarCrane	= {tx=-3.43,				tz=59.5},
-	RefHangarCrane1	= {tx=-41.96,				tz=60.9},
-	MonitorDesk		= {tx=-55.5,	ty=-7.35,	tz=63.2,	ry=305},
-	RefFuelTank2	= {tx=35.53,	ty=-7.34,	tz=72.55,	ry=180},
-	RefLargeCrate103= {tx=-22.65,	ty=-4.31,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt R
-	RefLargeCrate113= {tx=22.65,	ty=-4.315,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt L
-	RefLargeCrate10	= {tx=7,		ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- cross gap M
-	RefLargeCrate6	= {tx=-52.35,	ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- cross gap R
-	RefPallet30		= {tx=7.79,		ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
-	MidCeiling201	= {							tz=33.2,								sz=1.25},
+	NPC_01				= {tx=-9.507,	ty=-3.35,	tz=-28.34},
+	NPC_02				= {tx=-56,		ty=-7.34,	tz=62.5,	ry=-150},
+	NPC_03				= {tx=-8.337,	ty=-3.35,	tz=-28.03},
+	NPC_04				= {tx=38.4,		ty=-7.34,	tz=69.35,	ry=35},
+	NPC_06				= {tx=-21.92,	ty=-4.18,	tz=5.5},
+	NPC_07				= {tx=-57.8,	ty=8.12,	tz=57.14,	ry=270},
+	RefHangarCrane2		= {tx=41.88,				tz=61.2},
+	RefHangarCrane		= {tx=-3.43,				tz=59.5},
+	RefHangarCrane1		= {tx=-41.96,				tz=60.9},
+	MonitorDesk			= {tx=-55.5,	ty=-7.35,	tz=63.2,	ry=305},
+	RefFuelTank2		= {tx=35.53,	ty=-7.34,	tz=72.55,	ry=180},
+	RefLargeCrate103	= {tx=-22.65,	ty=-4.31,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt entrance gap R
+	RefLargeCrate113	= {tx=22.65,	ty=-4.315,	tz=17.17,	rx=180,		sx=4.1},		-- teleoprt entrance gap L
+	RefLargeCrate10		= {tx=7,		ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- crossing gap M
+	RefLargeCrate6		= {tx=-52.35,	ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- crossing gap R
+	RefPallet30			= {tx=7.79,		ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
+	MidCeiling201		= {							tz=33.2,								sz=1.25},
+	RefBiggsTeleporter	= {del=true},
+	RefBiggsTeleporter1	= {del=true}
 }) do
-	ECT[#ECT+1] = {
-		SPECIAL_KEY_WORDS	= {'Name', node},
-		VALUE_CHANGE_TABLE	= {
-			{'TransX',	form.tx or 'IGNORE'},
-			{'TransY',	form.ty or 'IGNORE'},
-			{'TransZ',	form.tz or 'IGNORE'},
-			{'RotX',	form.rx or 'IGNORE'},
-			{'RotY',	form.ry or 'IGNORE'},
-			{'RotZ',	form.rz or 'IGNORE'},
-			{'ScaleX',	form.sx or 'IGNORE'},
-			{'ScaleY',	form.sy or 'IGNORE'},
-			{'ScaleZ',	form.sz or 'IGNORE'}
+	if form.del then
+		mx_ct[1].SKW[#mx_ct[1].SKW+1] = {'Name', node}
+	else
+		mx_ct[#mx_ct+1] = {
+			SPECIAL_KEY_WORDS	= {'Name', node},
+			VALUE_CHANGE_TABLE	= {
+				{'TransX',	form.tx or 'IGNORE'},
+				{'TransY',	form.ty or 'IGNORE'},
+				{'TransZ',	form.tz or 'IGNORE'},
+				{'RotX',	form.rx or 'IGNORE'},
+				{'RotY',	form.ry or 'IGNORE'},
+				{'RotZ',	form.rz or 'IGNORE'},
+				{'ScaleX',	form.sx or 'IGNORE'},
+				{'ScaleY',	form.sy or 'IGNORE'},
+				{'ScaleZ',	form.sz or 'IGNORE'}
+			}
 		}
-	}
+	end
 end
-ECT[#ECT+1] = {
+mx_ct[#mx_ct+1] = {
 	PRECEDING_KEY_WORDS = 'Children',
-	ADD					= ToExml( ScNode({
+	ADD					= ToMxml( ScNode({
 		{
 			name	= '1RefBarrelBaz1',
 			ntype	= 'REFERENCE',
@@ -350,53 +204,94 @@ ECT[#ECT+1] = {
 	}) )
 }
 
-local function AddPrx(prx, T)
-	for i=1, #T do T[i] = {prx, T[i]} end
-	return T
-end
-
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '_MOD.lMonk.Freighter Hangar Changes.pak',
+	MOD_FILENAME 			= 'MOD.lMonk.Freighter Hangar Changes',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS',
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARINTERIOR.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= ECT
+		MXML_CHANGE_TABLE	= mx_ct
 	},
-	{--	add |hangar ship outfitting|
+	{--	|hangar teleport room| add outfitting and corvette beam
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/TELEPORTER/TELEPORTER.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RefWallMonitor'},
 				REMOVE				= 'Section'
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml( ScNode({
-					name	= '1RefMonitorShip',
-					ntype	= 'REFERENCE',
-					form	= {tx=2.55, ty=0.12, tz=5.4, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
-					attr	= {
-						SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'
-					},
-					child	= {
-						name	= 'ColShipSalvage1',
-						ntype	= 'COLLISION',
-						form	= {ty=-3},
+				ADD					= ToMxml( ScNode({
+					{--	add ship outfitting
+						name	= '1LocShipSalvage',
+						ntype	= 'LOCATOR',
+						form	= {tx=2.55, ty=1.4, tz=5.4},
 						attr	= {
-							TYPE	= 'Sphere',
-							RADIUS	= 0.2
+							ATTACHMENT = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'
 						},
 						child	= {
-							name	= 'LocShipSalvage1',
-							ntype	= 'LOCATOR',
+							name	= 'ColShipSalvage',
+							ntype	= 'COLLISION',
 							attr	= {
-								ATTACHMENT = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/TECH/OBJECTSPAWNER/ENTITIES/SHIPSALVAGETERMINAL.ENTITY.MBIN'
+								TYPE	= 'Sphere',
+								RADIUS	= 0.3
+							},
+							child	= {
+								{
+									name	= 'RefMonitorShipSalvage',
+									ntype	= 'REFERENCE',
+									form	= {ty=-1.1, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
+									attr	= {
+										SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'
+									}
+								},
+								{
+									name	= 'RefBaseShipSalvage',
+									ntype	= 'REFERENCE',
+									form	= {ty=-1.8, sx=1.3, sy=1.3, sz=1.3},
+									attr	= {
+										SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CANISTER0.SCENE.MBIN'
+									}
+								}
+							}
+						}
+					},
+					{--	corvette beam trigger
+						name	= '1LocCorvTeleport',
+						ntype	= 'LOCATOR',
+						form	= {tx=-1.97, ty=1.38, tz=4.55},
+						attr	= {
+							ATTACHMENT = 'MODELS/COMMON/SPACECRAFT/BIGGS/BIGGSTELEPORTER_FREIGHTERS/ENTITIES/BIGGSTELEPORTER_FREIGHTERS.ENTITY.MBIN'
+						},
+						child	= {
+							{
+								name	= 'ColCorvTeleport',
+								ntype	= 'COLLISION',
+								form	= {ry=180},
+								attr	= {
+									TYPE		= 'Sphere',
+									RADIUS		= 0.4
+								}
+							},
+							{--	corvette beam button
+								name	= 'RefCorvButton',
+								ntype	= 'REFERENCE',
+								form	= {ry=180, sx=0.77, sy=0.77, sz=0.77},
+								attr	= {
+									SCENEGRAPH = 'MODELS/COMMON/SPACECRAFT/BIGGS/TELECONTROL.SCENE.MBIN'
+								}
+							},
+							{--	corvette beam button base
+								name	= '1RefCorvSign',
+								ntype	= 'REFERENCE',
+								form	= {tz=-0.06, rx=90, rz=-90, sx=0.7, sy=0.7, sz=0.6},
+								attr	= {
+									SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ABANDONED/WARNINGSIGN_1.SCENE.MBIN'
+								}
 							}
 						}
 					}
@@ -414,13 +309,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	floor section 1 - remove parts
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONB.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= AddPrx('Name', {
-					'RefBarrier',
-					'RefBarrier1',
-					'RefBarrier2'
-				}),
+				SPECIAL_KEY_WORDS 	= {
+					{'Name', 'RefBarrier'},
+					{'Name', 'RefBarrier1'},
+					{'Name', 'RefBarrier2'},
+				},
 				REMOVE				= 'Section'
 			}
 		}
@@ -436,16 +331,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	floor section 2 - remove parts
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARPROPS/HANGARFLOORSECTIONC.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= AddPrx('Name', {
-					'RefBarrier',
-					'RefBarrier1',
-					'RefBarrier2',
-					'SUB1HangarFloorSectionA',
-					'SUB2HangarFloorSectionA',
-					'SUB3HangarFloorSectionA'
-				}),
+				SPECIAL_KEY_WORDS 	= {
+					{'Name', 'RefBarrier'},
+					{'Name', 'RefBarrier1'},
+					{'Name', 'RefBarrier2'},
+					{'Name', 'SUB1HangarFloorSectionA'},
+					{'Name', 'SUB2HangarFloorSectionA'},
+					{'Name', 'SUB3HangarFloorSectionA'},
+				},
 				REMOVE				= 'Section'
 			}
 		}
@@ -461,7 +356,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	inactive geometric plant
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'ATTACHMENT'},
 				REMOVE				= 'Section'
@@ -479,7 +374,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	inactive wirecell cube
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WIRECUBE.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'CuboidSmallLOD0', 'Name', 'ATTACHMENT'},
 				VALUE_CHANGE_TABLE	= {
@@ -491,7 +386,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 }}},
 	ADD_FILES	= (
 		function()
-			local tex_path = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures/Building/PirateStation/'
+			local tex_path = 'D:/MODZ_stuff/NoMansSky/Sources/_Textures_mod_source/textures/space/spacestation/PIRATES/'
 			if lfs.attributes(tex_path) then
 				return {{
 					EXTERNAL_FILE_SOURCE = tex_path..'*.DDS',
