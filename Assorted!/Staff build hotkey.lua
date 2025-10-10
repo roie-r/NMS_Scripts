@@ -1,20 +1,20 @@
 ---------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ---------------------------------------------------
 local mod_desc = [[
   open staff build page from the quickmenu
 ]]-------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__Open Staff build page hotkey.pak',
+	MOD_FILENAME 		= '+ Open Staff build page hotkey',
 	MOD_AUTHOR			= 'lMonk',
 	MOD_DESCRIPTION		= mod_desc,
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PLAYER/PLAYERCHARACTER/PLAYERCHARACTER/ENTITIES/PLAYERCHARACTER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = {'Anims', 'TkAnimationData.xml'},
 				SEC_SAVE_TO			= 'tk_animation_data'
@@ -34,7 +34,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				PRECEDING_KEY_WORDS	= 'GcSpringAttachmentComponentData.xml',
 				ADD_OPTION			= 'ADDAfterSection',
-				ADD 				= ToExml({
+				ADD 				= ToMxml({
 					meta = {'value', 'GcTriggerActionComponentData.xml'},
 					{
 						meta = {'name', 'States'},
@@ -92,7 +92,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/UI/EMOTEMENU.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Title', 'EMOTE_WAVE'},
 				SEC_SAVE_TO			= 'gc_player_emote'

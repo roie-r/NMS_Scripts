@@ -6,15 +6,15 @@ local mod_desc = [[
 local Timer_mult = 0.1
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= 'MISSION living ship shorter timer.pak',
+	MOD_FILENAME 		= 'MISSION living ship shorter timer',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/SPACEPOIMISSIONTABLE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '*',
 				FOREACH_SKW_GROUP 	= {
@@ -23,7 +23,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Message', 'UI_BIO_SHIP_MISSION3_MSG3'},
 					{'Message', 'UI_BIO_SHIP_MISSION4_MSG3'}
 				},
-				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
 					{'Time',		Timer_mult},
 					{'Randomness',	Timer_mult * 3}

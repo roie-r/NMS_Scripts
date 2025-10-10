@@ -4,15 +4,15 @@ local mod_desc = [[
 ]]-------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__metal masks.pak',
+	MOD_FILENAME 		= '+ metal masks',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'TEXTURES/COMMON/SPACECRAFT/SHUTTLE/SHARED/SHUTTLE.TEXTURE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RUST'},
 				PRECEDING_KEY_WORDS = 'Textures',
@@ -178,14 +178,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/SPACE/SPACESTATION/MODULARPARTS/EXTERIOR/STATION_SPHERE_ABANDONED/FRONTFACE_TRIANGLE_METALHORZAO_MAT.MATERIAL.MBIN',
 			'MODELS/SPACE/SPACESTATION/MODULARPARTS/EXTERIOR/STATION_SPHERE_PIRATE/FRONTFACE_TRIANGLE_METALHORZAO_MAT.MATERIAL.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = 'Flags',
 				ADD					= [[
-					<Property value="TkMaterialFlags.xml">
-					  <Property name="MaterialFlag" value="_F39_METALLIC_MASK" />
-					</Property>
-				]]
+					<Property name="Flags" value="TkMaterialFlags">
+						<Property name="MaterialFlag" value="_F39_METALLIC_MASK" />
+					</Property>]]
 			}
 		}
 	}

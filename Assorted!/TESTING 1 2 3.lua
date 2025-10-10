@@ -4,15 +4,15 @@ local mod_desc = [[
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TESTING sunny skies.pak',
+	MOD_FILENAME 		= '+ TESTING sunny skies',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCSKYGLOBALS.GLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'MinTimeBetweenStormsHigh',			7200},	-- 120
@@ -34,7 +34,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'GCBUILDINGGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'UnknownBuildingRange',				800	},	-- 600
@@ -51,7 +51,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'GCROBOTGLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'DroneInvestigateMinWitnessRange',		  0	},
@@ -62,7 +62,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'GCDEBUGOPTIONS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'WeaponScale3P',						0.7},
