@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 --------------------------------------------------------------------------------------
 local mod_desc = [[
   Rebuild and add to unlockable items tree
@@ -11,6 +11,7 @@ local mod_desc = [[
 
 local unlockable_items = {
 	{--	build: decoratives1
+		root	= 'BaseParts',
 		parent	= 'STANDINGSIGN',
 		tree	= {
 			'HOLO_SMALL2',{ -- small holographic display b
@@ -21,6 +22,7 @@ local unlockable_items = {
 		}
 	},
 	{--	build: decoratives2
+		root	= 'BaseParts',
 		parent	= 'STANDINGSIGN',
 		tree	= {
 			'HOLO_SMALL3',{ -- small holographic display c
@@ -31,6 +33,7 @@ local unlockable_items = {
 		}
 	},
 	{--	build: decoratives3
+		root	= 'BaseParts',
 		parent	= 'STANDINGSIGN',
 		rmnode	= 'HOLO_MED1',
 		tree	= {
@@ -46,23 +49,28 @@ local unlockable_items = {
 		}
 	},
 	{--	suit tech: anomaly supprssor
+		root	= 'SuitTech',
 		parent	= 'UT_PROTECT',
 		tree	= { 'SPOOK_PACK' } -- anomaly suppressor
 	},
 	{--	ship tech: move Sub-Light Amplifier
+		root	= 'ShipTech',
 		parent	= 'UT_SHIPDRIFT',
 		rmnode	= 'UT_PULSESPEED',
 		tree	= { 'UT_PULSESPEED' } -- sub-light amplifier
 	},
 	{--	ship tech: special hyperdrive
+		root	= 'ShipTech',
 		parent	= 'UT_QUICKWARP',
 		tree	= { 'HYPERDRIVE_SPEC' } -- frameshift catapult
 	},
 	{--	ship tech: special launcher
+		root	= 'ShipTech',
 		parent	= 'UT_LAUNCHCHARGE',
 		tree	= { 'LAUNCHER_SPEC' } -- advanced launch system
 	},
 	{--	ship tech: pulse engine tech
+		root	= 'ShipTech',
 		parent	= 'UT_PULSEFUEL',
 		tree	= {
 			'SOLAR_SAIL',{ -- vesper sail
@@ -77,22 +85,27 @@ local unlockable_items = {
 		}
 	},
 	{--	vehicle tech: stun gun (custom tech)
+		root	= 'ExocraftTech',
 		parent	= 'VEHICLE_GUN',
 		tree	= { 'VEHICLESTUN' } -- (custom) stun gun
 	},
 	{--	vehicle tech: hazard protection 1
+		root	= 'ExocraftTech',
 		parent	= 'EXO_PROT_HOT',
 		rmnode	= 'EXO_PROT_COLD',
 		tree	= { 'EXO_PROT_COLD' } -- megawatt heater
 	},
 	{--	vehicle tech: hazard protection 2
+		root	= 'ExocraftTech',
 		parent	= 'EXO_PROT_RAD',
 		rmnode	= 'EXO_PROT_TOX',
 		tree	= { 'EXO_PROT_TOX' } -- air filtration unit
 	},
 	{--	vehicle tech: (add tree) miontaur body
+		root	= 'ExocraftTech',
 		parent	= 'UI_EXOCRAFT_TECH_TREE',
 		title   = 'UI_TECH_TREE_SUB',
+		isfull	= true,
 		cost	= 'NANITES',
 		toend	= true,
 		tree	= {
@@ -127,10 +140,12 @@ local unlockable_items = {
 		}
 	},
 	{--	factory products: wiring loom
+		root	= 'CraftProducts',
 		parent	= 'NANOTUBES',
 		tree	= { 'TECH_COMP' } -- wiring loom
 	},
 	{--	factory products: atlas access
+		root	= 'CraftProducts',
 		parent	= 'PRODFUEL2',
 		rmnode	= 'HYPERFUEL1',
 		toend	= true,
@@ -147,6 +162,7 @@ local unlockable_items = {
 		}
 	},
 	{--	factory products: warp fuel
+		root	= 'CraftProducts',
 		parent	= 'PRODFUEL2',
 		after	= 'JELLY',
 		tree	= {
@@ -154,7 +170,7 @@ local unlockable_items = {
 				{
 					'HYPERFUEL1',{ -- warp cell
 						{
-						'HYPERFUEL2' -- warp hypercore
+							'HYPERFUEL2' -- warp hypercore
 						}
 					}
 				}
@@ -162,8 +178,10 @@ local unlockable_items = {
 		}
 	},
 	{--	ship tech: (add tree) living ship
+		root	= 'ShipTech',
 		parent	= 'UI_SHIP_TECH_TREE',
 		title   = 'UI_TECH_ALIEN_SUB',
+		isfull	= true,
 		cost	= 'NANITES',
 		toend	= true,
 		tree	= {
@@ -244,18 +262,109 @@ local unlockable_items = {
 		}
 	},
 	{--	freighter: bulkhead
+		root	= 'FreighterTech',
 		parent	= 'FRIGATE_FUEL_1',
 		tree	= { 'FREI_INV_TOKEN' } -- Cargo Bulkhead
 	},
 	{--	freighter: singularity engine
+		root	= 'FreighterTech',
 		parent	= 'F_HDRIVEBOOST3',
 		tree	= { 'F_MEGAWARP' }
 	},
+	{--	freighter: move system access drives & add purple
+		root	= 'FreighterTech',
+		parent	= 'FRIGATE_FUEL_1',
+		rmnode	= 'F_HACCESS1',
+		after	= 'F_HDRIVEBOOST1',
+		tree	= {
+			'F_HACCESS1',{ -- amplified warp shielding
+				{
+					'F_HACCESS2',{ -- chromatic warp shielding
+						{
+							'F_HACCESS3',{ -- temporal warp computer
+								{
+									'F_HACCESS4' -- resonance matrix
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	{--	freighter: move exterior platform
+		root	= 'FreighterTech',
+		parent	= 'FRE_EXT_WALKWAY',
+		rmnode	= 'FRE_EXT_PLATFOR',
+		tree	= { 'FRE_EXT_PLATFOR' } -- exterior platform
+	},
+	{--	freighter: move scanner room
+		root	= 'FreighterTech',
+		parent	= 'FRE_ROOM_TECH',
+		rmnode	= 'FRE_ROOM_SCAN',
+		tree	= { 'FRE_ROOM_SCAN' } -- scanner room
+	},
+	{--	freighter: base parts move
+		root	= 'FreighterTech',
+		parent	= 'FRE_CORR_A',
+		rmnode	= 'FRE_ROOM_REFINE',
+		after	= 'FRE_ROOM_PLANT1',
+		tree	= {
+			'FRE_ROOM_STORE0',{ -- storage room
+				{
+					'FRE_ROOM_REFINE',{ -- refiner room
+						{
+							'FRE_ROOM_EXTR' -- stellar extractor room
+						}
+					}
+				},
+				{
+					'FRE_ROOM_IND',{ -- industrial room
+						{
+							'FRE_ROOM_VEHICL' -- orbital exocraft materialiser
+						}
+					}
+				}
+			}
+		}
+	},
+	{--	freighter: add legacy base parts
+		root	= 'FreighterTech',
+		parent	= 'FRE_CORR_A',
+		toend	= true,
+		tree	= {
+			'CUBEROOM_SPACE',{ -- freighter room a
+				{
+					'CUBEROOMB_SPACE',{ -- freighter room b
+						{
+							'CUBEROOMC_SPACE',{ -- freighter room c
+								{
+									'CORRIDORX_SPACE' -- freighter cross junction
+								}
+							}
+						}
+					}
+				},
+				{
+					'CORRIDOR_SPACE',{ -- freighter corridor
+						{
+							'CORRIDORL_SPACE',{ -- curved freighter corridor
+								{
+									'CORRIDORT_SPACE' -- freighter room c
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
 	{--	base parts: (replace tree) tech
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		rmtree	= 'UI_BASETECH_TREE',
 		after	= 'UI_CUBEROOM_TREE',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'BUILDSAVE',{ -- save point
 				{
@@ -383,10 +492,11 @@ local unlockable_items = {
 		}
 	},
 	{--	base parts: re-add basic concrete shelter parts tree
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_CONCRETE_SUB',
 		after	= 'UI_BASIC_FIBREGLASS_ROOFS_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'C_WALL',{ -- concrete wall
 				{
@@ -473,10 +583,11 @@ local unlockable_items = {
 		}
 	},
 	{--	base parts: re-add basic metal shelter parts tree
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_METAL_SUB',
 		after	= 'UI_BASIC_FIBREGLASS_ROOFS_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'M_WALL',{ -- metal wall
 				{
@@ -563,10 +674,11 @@ local unlockable_items = {
 		}
 	},
 	{--	base parts: re-add basic wooden shelter parts tree
+		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_WOOD_SUB',
 		after	= 'UI_BASIC_FIBREGLASS_ROOFS_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'W_WALL',{ -- wooden wall
 				{
@@ -653,9 +765,11 @@ local unlockable_items = {
 		}
 	},
 	{--	multitool: (replace tree) offensive
+		root	= 'WeapTech',
 		parent	= 'UI_WEAP_TECH_TREE',
 		rmtree	= 'UI_TECH_TREE_SUB',
 		title   = 'UI_TECH_OFFENSE_SUB',
+		isfull	= true,
 		cost	= 'NANITES',
 		tree	= {
 			'BOLT',{ -- boltcaster
@@ -726,8 +840,10 @@ local unlockable_items = {
 		}
 	},
 	{--	multitool: (add tree) exploratory
+		root	= 'WeapTech',
 		parent	= 'UI_WEAP_TECH_TREE',
 		title   = 'UI_TECH_EXPLORE_SUB',
+		isfull	= true,
 		cost	= 'NANITES',
 		toend	= true,
 		tree	= {
@@ -806,9 +922,10 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) tech
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_TECH_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'BUILDSAVE',{ -- save point
 				{
@@ -919,8 +1036,10 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (add tree) factory products
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		title   = 'UI_PRODUCT_TREE_CRAFT',
+		isfull	= true,
 		cost	= 'FACTORY',
 		toend	= true,
 		tree	= {
@@ -1021,10 +1140,11 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) timber base parts
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_TIMBER_SUB',
 		toend	= true,
-		cost	= 'SALVAGE',
+		isfull	= true,
 		tree	= {
 			'T_WALL',{ -- timber wall
 				{
@@ -1169,9 +1289,10 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) alloy base parts
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_FIBREGLASS_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'F_WALL',{ -- alloy wall
@@ -1317,9 +1438,10 @@ local unlockable_items = {
 		}
 	},
 	{--	construction unit: (replace tree) stone base parts
+		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_STONE_SUB',
-		cost	= 'SALVAGE',
+		isfull	= true,
 		toend	= true,
 		tree	= {
 			'S_WALL',{ -- stone wall
@@ -1463,6 +1585,154 @@ local unlockable_items = {
 				}
 			}
 		}
+	},
+	{--	construction unit: builder (salvaged) base parts
+		root	= 'BasicTechParts',
+		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
+		isfull	= true,
+		toend	= true,
+		tree	= {
+			'B_WALL',{ -- salvaged wall
+				{
+					'B_FLOOR',{ -- salvaged floor panel
+						{
+							'B_GFLOOR',{ -- salvaged floor grille
+								{
+									'B_FLOOR_Q' -- small salvaged panel
+								}
+							}
+						},
+						{
+							'B_RAMP',{ -- salvaged ramp
+								{
+									'B_RAMP_H',{ -- salvaged half ramp
+										{
+											'B_RAMP_Q_TOP' -- salvaged half ramp platform
+										}
+									}
+								}
+							}
+						},
+						{
+							'B_TRIFLOOR',{ -- salvaged triangle
+								{
+									'B_TRIFLOOR_Q',{ -- small salvaged triangle
+										{
+											'B_WALLDIAGONAL' -- sloping salvaged panel
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_WALL_H',{ -- thin salvaged wall
+						{
+							'B_WALL_Q',{ -- small salvaged wall a
+								{
+									'B_WALL_Q1' -- small salvaged wall b
+								}
+							}
+						},
+						{
+							'B_WALL_Q_H',{ -- short salvaged wall a
+								{
+									'B_WALL_Q_H1' -- short salvaged wall b
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_CHEV_WALL',{ -- extruded salvaged wall
+						{
+							'B_CHEV_DOOR',{ -- extruded salvaged door
+								{
+									'B_CHEV_WALL_H_C' -- extruded salvaged wall cap
+								}
+							}
+						},
+						{
+							'B_CHEV_WIN0',{ -- extruded salvaged grille a
+								{
+									'B_CHEV_WIN1',{ -- extruded salvaged circle window
+										{
+											'B_CHEV_WIN2' -- extruded salvaged grille b
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_DOOR_H',{ -- salvaged doorway
+						{
+							'B_DOORWINDOW',{ -- salvaged frontage
+								{
+									'B_WALL_WIN1',{ -- salvaged grille window
+										{
+											'B_WALL_WIN2' -- salvaged large window
+										},
+										{
+											'B_WALL_WIN3' -- salvaged circle window
+										}
+									}
+								},
+								{
+									'B_WALL_WINDOW' -- salvaged slit window
+								}
+							}
+						},
+						{
+							'B_DOOR',{ -- salvaged arch door
+								{
+									'B_DOOR1',{ -- salvaged rectangular door
+										{
+											'B_GDOOR' -- salvaged power door
+										}
+									}
+								}
+							}
+						},
+						{
+							'B_ARCH',{ -- salvaged arch
+								{
+									'B_ARCH_H' -- salvaged half arch
+								}
+							}
+						}
+					}
+				},
+				{
+					'B_ROOF3',{ -- flat salvaged roof
+						{
+							'B_ROOF_M',{ -- salvaged roof panel
+								{
+									'B_ROOF_M_Q',{ -- sloping salvaged roof panel
+										{
+											'B_ROOF_E_Q' -- sloping salvaged roof gable
+										}
+									}
+								}
+							}
+						},
+						{
+							'B_ROOF2',{ -- angled flat salvaged roof
+								{
+									'B_ROOF0',{ -- rounded flat salvaged roof
+										{
+											'B_ROOF_M_CAP' -- salvaged roof cap
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -1470,11 +1740,11 @@ local unlockable_items = {
 local function BuildTree(node)
 	local function traverse(tree)
 		local T = {
-			meta = {'value', 'GcUnlockableItemTreeNode.xml'},
+			meta = {name='Children', value='GcUnlockableItemTreeNode'},
 			Unlockable = tree[1]
 		}
 		if tree[2] then
-			T.Children = { meta = {'name', 'Children'} }
+			T.Children = { meta = {name='Children'} }
 			for _,t in ipairs(tree[2]) do
 				T.Children[#T.Children+1] = traverse(t)
 			end
@@ -1482,81 +1752,215 @@ local function BuildTree(node)
 		return T
 	end
 	local e2l = traverse(node.tree)
-	if node.cost then e2l.meta[1] = 'Root' end
+	if node.isfull then e2l.meta.name = 'Root' end
 	return e2l
 end
 
 local function AddTreeToChangeTable(node)
-	if node.cost then
+	if node.isfull then
 	--- full tree addition ---
 		local tree_root = {
-			meta	= {'value', 'GcUnlockableItemTree.xml'},
+			meta	= {name='Trees', value='GcUnlockableItemTree'},
 			Title		= node.title or node.rmtree,
-			CostTypeID	= node.cost,
-			ItemTree	= BuildTree(node)
+			CostTypeID	= node.cost or 'SALVAGE',
+			Root		= BuildTree(node)
 		}
 		if node.after then
 			return {
-				SPECIAL_KEY_WORDS	= {'Title', node.parent, 'Title', node.after},
-				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml(tree_root)
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Title', node.parent, 'Title', node.after},
+				ADD_OPTION	= 'AddAfterSection',
+				ADD			= ToMxml(tree_root)
 			}
 		else
 			return {
-				SPECIAL_KEY_WORDS	= {'Title', node.parent},
-				PRECEDING_KEY_WORDS	= 'Trees',
-				ADD_OPTION			= node.toend and 'AddEndSection' or nil,
-				ADD					= ToExml(tree_root)
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Title', node.parent},
+				PKW			= 'Trees',
+				ADD_OPTION	= node.toend and 'AddEndSection' or nil,
+				ADD			= ToMxml(tree_root)
 			}
 		end
 	else
 	--- regular node ---
 		if node.after then
 			return  {
-				SPECIAL_KEY_WORDS	= {'Unlockable', node.parent, 'Unlockable', node.after},
-				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml(BuildTree(node))
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Unlockable', node.parent, 'Unlockable', node.after},
+				ADD_OPTION	= 'AddAfterSection',
+				ADD			= ToMxml(BuildTree(node))
 			}
 		else
 			return  {
-				SPECIAL_KEY_WORDS	= {'Unlockable', node.parent},
-				PRECEDING_KEY_WORDS = 'Children',
-				SECTION_ACTIVE		= -1,
-				ADD_OPTION			= node.toend and 'AddEndSection' or nil,
-				CREATE_HOS			= not node.toend,
-				ADD					= ToExml(BuildTree(node))
+				SKW			= {node.root, 'GcUnlockableItemTrees', 'Unlockable', node.parent},
+				PKW			= 'Children',
+				ADD_OPTION	= node.toend and 'AddEndSection' or nil,
+				CREATE_HOS	= not node.toend,
+				ADD			= ToMxml(BuildTree(node))
 			}
 		end
 	end
 end
 
+local nexus_trees = {
+	{
+		root	= 'BaseParts',
+		title	= 'UI_PURCHASABLE_BASEPARTS_TREE',
+		subs	= {
+			'UI_MAINROOM_TREE',
+			'UI_CUBEROOM_TREE',
+			'UI_BASETECH_TREE',
+			'UI_EXOCRAFT_TREE',
+			'UI_WATER_TREE',
+			'UI_DECALS_TREE',
+			'UI_POSTERS_TREE',
+			{'UI_DECORATION_TREE', {1,2,3,4,5,6,7}},
+			'UI_FOSSILS_TREE',
+			'UI_LIGHTS_TREE',
+			'UI_POWER_TREE',
+			'UI_FARMING_TREE',
+			'UI_BASIC_TIMBER_SUB',
+			'UI_BASIC_TIMBER_ROOFS_SUB',
+			'UI_BASIC_STONE_SUB',
+			'UI_BASIC_STONE_ROOFS_SUB',
+			'UI_BASIC_FIBREGLASS_SUB',
+			'UI_BASIC_FIBREGLASS_ROOFS_SUB',
+			'UI_BASIC_BUILDERS_SUB',
+			'UI_BASIC_BUILDERS_ROOFS_SUB',
+			'UI_SHAPES_TREE',
+			'UI_STORAGE_TREE',
+		}
+	},
+	{
+		root	= 'FreighterTech',
+		title	= 'UI_FREIGHTER_TREE',
+		subs	= {
+			'UI_TECH_TREE_SUB',
+			'UI_FRE_BASE_TREE'
+		}
+	},
+	{
+		root	= 'SuitTech',
+		title	= 'UI_SUIT_TECH_TREE',
+		subs	= {
+			'UI_TECH_TREE_SUB'
+		}
+	},
+	{
+		root	= 'WeapTech',
+		title	= 'UI_WEAP_TECH_TREE',
+		subs	= {
+			'UI_TECH_TREE_SUB'
+		}
+	},
+	{
+		root	= 'ShipTech',
+		title	= 'UI_SHIP_TECH_TREE',
+		subs	= {
+			'UI_TECH_TREE_SUB'
+		}
+	},
+	{
+		root	= 'FreighterTech',
+		title	= 'UI_FREIGHTER_TREE',
+		subs	= {
+			'UI_TECH_TREE_SUB'
+		}
+	},
+	{
+		root	= 'ExocraftTech',
+		title	= 'UI_EXOCRAFT_TECH_TREE',
+		subs	= {
+			'UI_TECH_TREE_SUB'
+		}
+	},
+	{
+		root	= 'CraftProducts',
+		title	= 'UI_PRODUCT_TREE',
+		subs	= {
+			'UI_PRODUCT_TREE_FARM',
+			'UI_PRODUCT_TREE_CRAFT'
+		}
+	},
+	-- {
+		-- root	= 'CorvetteParts',
+		-- title	= 'UI_BIGGS_BASEPARTS_TREE',
+		-- subs	= {
+			-- 'UI_BIGGS_COCKPIT_TREE',
+			-- 'UI_BIGGS_HAB_TREE',
+			-- 'UI_BIGGS_STRUCT_TREE',
+			-- 'UI_BIGGS_WINGS_TREE',
+			-- 'UI_BIGGS_GENERATOR_TREE',
+			-- 'UI_BIGGS_MISC_TREE',
+			-- 'UI_BIGGS_INT_DEC_TREE',
+			-- 'UI_BIGGS_INT_STR_TREE'
+		-- }
+	-- }
+}
+
+local mx_ct = {}
+
+---- duplicate all nexus trees to basic parts tree
+-- mx_ct[#mx_ct+1] = {
+	-- SKW		= {'Title', 'UI_PURCHASABLE_BASICPARTS_TREE', 'Title', 'UI_BASIC_.-'},
+	-- REMOVE	= 'Section'
+-- }
+-- for _,node in ipairs(nexus_trees) do
+	-- for _,s in ipairs(node.subs) do
+		-- local subt, act = s[1] or s, s[2] or nil
+		-- mx_ct[#mx_ct+1] = {
+			-- SKW				= {node.root, 'GcUnlockableItemTrees', 'Title', node.title, 'Title', subt},
+			-- SECTION_ACTIVE	= act,
+			-- SEC_COPY		= 'unlockable_item_tree'
+		-- }
+		-- mx_ct[#mx_ct+1] = {
+			-- SKW				= {'BasicBaseParts', 'GcUnlockableItemTrees', 'Title', 'UI_PURCHASABLE_BASICPARTS_TREE'},
+			-- PKW				= 'Trees',
+			-- ADD_OPTION		= 'AddEndSection',
+			-- SEC_PASTE		= 'unlockable_item_tree'
+		-- }
+	-- end
+-- end
+
+local rem = #mx_ct + 1
+mx_ct[rem] = {SKW={}, REMOVE='Section'}
+
+-- process changes/additions to all trees
+for _,node in ipairs(unlockable_items) do
+	if node.active == nil or node.active == true then
+		-- do all REMOVEs before adding
+		if node.rmnode then
+			mx_ct[rem].SKW[#mx_ct[rem].SKW + 1] = {node.root, 'GcUnlockableItemTrees', 'Unlockable', node.rmnode}
+		elseif node.rmtree then
+			mx_ct[rem].SKW[#mx_ct[rem].SKW + 1] = {node.root, 'GcUnlockableItemTrees', 'Title', node.parent, 'Title', node.rmtree}
+		end
+		mx_ct[#mx_ct+1] = AddTreeToChangeTable(node)
+	end
+end
+
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__REALITY UNLOCKABLES.pak',
+	MOD_FILENAME 		= '+ REALITY unlockable item tree',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
-	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
+	NMS_VERSION			= '6.06',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE,UNUSED_VARIABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/UNLOCKABLEITEMTREES.MBIN',
-		EXML_CHANGE_TABLE	= (
-			function()
-				local T = { { SKW={}, REMOVE='Section' } }
-
-				for _,node in ipairs(unlockable_items) do
-					if not node.unused then
-						-- do all REMOVEs before adding
-						if node.rmnode then
-							T[1].SKW[#T[1].SKW + 1] = {'Unlockable', node.rmnode}
-						elseif node.rmtree then
-							T[1].SKW[#T[1].SKW + 1] = {'Title', node.parent, 'Title', node.rmtree}
-						end
-						T[#T+1] = AddTreeToChangeTable(node)
-					end
-				end
-				return T
-			end
-		)()
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= mx_ct
 	}
 }}}}
+
+--- locale texts will exported to a locTable mod
+local __locale_text_import__ = {
+---	New text ---
+	UI_TECH_EXPLORE_SUB = {
+		EN = [[Craftable Exploratory Blueprints]],
+	},
+	UI_TECH_OFFENSE_SUB = {
+		EN = [[Craftable Offensive Blueprints]],
+	},
+	UI_TECH_ALIEN_SUB = {
+		EN = [[Craftable Sentient Vessel Blueprints]],
+	}
+
+}--- __locale_text_import__ (do not delete)

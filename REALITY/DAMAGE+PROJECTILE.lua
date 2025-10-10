@@ -3,7 +3,7 @@ local mod_desc = [[
   Increase hit damage all around - player, enemies & NPC
 ]]-------------------------------------------------------
 
-local ect_pr = {}
+local mxc_pr = {}
 for id, dmg in pairs({
 	SQUADGUN		= 8,	-- 40
 	AISHIPGUN		= 1.6,	-- 15
@@ -22,7 +22,7 @@ for id, dmg in pairs({
 	ROBOT_WALKER	= 20,	-- 1
 	MINIROBOTGUN	= 10,	-- 1
 }) do
-	ect_pr[#ect_pr+1] = {
+	mxc_pr[#mxc_pr+1] = {
 		MATH_OPERATION 		= '*',
 		INTEGER_TO_FLOAT	= 'Preserve',
 		SPECIAL_KEY_WORDS	= {'Id', id},
@@ -32,7 +32,7 @@ for id, dmg in pairs({
 	}
 end
 
-local ect_dm = {}
+local mxc_dm = {}
 for id, dmg in pairs({
 	BASICDAMAGE		= {ml=2},		-- 1
 	LASERDAMAGE		= {ml=2},		-- 3
@@ -50,8 +50,7 @@ for id, dmg in pairs({
 	MINIDRONE_DMG	= {ml=1.5},		-- 6
 	-- ['MP.-']		= {ml=0.001},
 }) do
-	ect_dm[#ect_dm+1] = {
-		INTEGER_TO_FLOAT	= 'Force',
+	mxc_dm[#mxc_dm+1] = {
 		MATH_OPERATION 		= '*',
 		SPECIAL_KEY_WORDS	= {'Id', id},
 		VALUE_CHANGE_TABLE	= {
@@ -61,18 +60,20 @@ for id, dmg in pairs({
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__REALITY DAMAGE+PROJECTILE.pak',
+	MOD_FILENAME 		= '+ REALITY damage-projectile',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/PROJECTILES/PROJECTILETABLE.MBIN',
-		EXML_CHANGE_TABLE	= ect_pr
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= mxc_pr
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/DAMAGETABLE.MBIN',
-		EXML_CHANGE_TABLE	= ect_dm
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= mxc_dm
 	}
 }}}}

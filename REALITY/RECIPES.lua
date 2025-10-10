@@ -1,5 +1,5 @@
 -----------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/table_entry.lua')
 -----------------------------------------
 local mod_desc = [[
@@ -85,13 +85,25 @@ local new_recipes = {
 			{id='DRONE_SHARD',	n=1,	tp=IT_.PRD}
 		}
 	},
-	{--	lots of sand from ferrite
-		id			= 'RECIPE_MORESAND',
-		name		= 'UI_SANDWORD_DIET7',
+	-- {--	lots of sand from ferrite
+		-- id			= 'RECIPE_MORESAND',
+		-- name		= 'UI_SANDWORD_DIET7',
+		-- make		= 40,
+		-- cook		= false,
+		-- result		= {id='SAND1',		n=6,	tp=IT_.SBT},
+		-- ingredients	= {
+			-- {id='LAND1',		n=1,	tp=IT_.SBT},
+			-- {id='LAND1',		n=1,	tp=IT_.SBT}
+		-- }
+	-- },
+	{--	quick mag ferrite
+		id			= 'RECIPE_3XFERRITE',
+		name		= 'RECIPE_LAND2',
 		make		= 40,
 		cook		= false,
-		result		= {id='SAND1',		n=6,	tp=IT_.SBT},
+		result		= {id='LAND3',		n=2,	tp=IT_.SBT},
 		ingredients	= {
+			{id='LAND1',		n=1,	tp=IT_.SBT},
 			{id='LAND1',		n=1,	tp=IT_.SBT},
 			{id='LAND1',		n=1,	tp=IT_.SBT}
 		}
@@ -152,15 +164,16 @@ local new_recipes = {
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__REALITY RECIPE.pak',
+	MOD_FILENAME 		= '+ REALITY recipe',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCRECIPETABLE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
@@ -175,16 +188,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TimeToMake',	40}
 				}
 			},
+			{--	remove shard to nanites
+				SPECIAL_KEY_WORDS	= {'Id', 'REFINERECIPE_328'},
+				REMOVE				= 'Section'
+			},
 			{--	process-expensive plant product
-				SPECIAL_KEY_WORDS	= {'Id', 'RECIPE_2%d'},
-				PRECEDING_KEY_WORDS = 'Ingredients',
+				SPECIAL_KEY_WORDS	= {'Result', 'GcRefinerRecipeElement', 'Id', 'FOOD_P_.-'},
+				SECTION_UP			= 1,
+				AFTER_KEY_WORDS		= 'Ingredients',
 				VALUE_CHANGE_TABLE 	= {
 					{'Amount',		10}
 				}
 			},
 			{
 				PRECEDING_KEY_WORDS = 'Table',
-				ADD 				= ToExml(RefinerRecipeEntry(new_recipes))
+				ADD 				= ToMxml(RefinerRecipeEntry(new_recipes))
 			}
 		}
 	}

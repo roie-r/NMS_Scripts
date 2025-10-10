@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/table_entry.lua')
 --------------------------------------------------------------------------
 local mod_desc = [[
@@ -20,7 +20,8 @@ local edit_stats = {
 		{st='Suit_Jetpack_Ignition',			op='+',					mx=0.03}
 	},
 	UP_UNW			= {
-		{st='Suit_Protection_WaterDrain',		mn=0.1,		mx=0.2,		wc='MaxIsUncommon',	ac=true}
+		{st='Suit_Protection_WaterDrain',		mn=0.1,		mx=0.2,		wc='MaxIsUncommon',	ac=true},
+		{st='Suit_Protection_Pressure',			mn=1.5,		mx=1.9,		wc='MaxIsUncommon',	ac=true}
 	},
 ---	multitool
 	UP_SMG			= {
@@ -77,7 +78,7 @@ local edit_stats = {
 		{st='Freighter_Hyperdrive_JumpsPerCell',op='*',		mn=0.35,	mx=0.4}
 	},
 }
-local ECT = {{
+local mx_ct = {{
 	SKW			 = {},
 	REPLACE_TYPE = 'All',
 	SECTION_UP   = 1,
@@ -87,9 +88,8 @@ for id, stats in pairs(edit_stats) do
 	for _,stat in ipairs(stats) do
 		if stat.op then
 			--- edit ---
-			ECT[#ECT+1] = {
+			mx_ct[#mx_ct+1] = {
 				REPLACE_TYPE		= 'All',
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Name', id, 'StatsType', stat.st},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE	= {
@@ -99,28 +99,29 @@ for id, stats in pairs(edit_stats) do
 			}
 		elseif stat.mx then
 			--- add new ---
-			ECT[#ECT+1] = {
+			mx_ct[#mx_ct+1] = {
 				REPLACE_TYPE		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', id},
 				PRECEDING_KEY_WORDS	= 'StatLevels',
-				ADD 				= ToExml(ProcTechStatLevel(stat))
+				ADD 				= ToMxml(ProcTechStatLevel(stat))
 			}
 		else
 			--- remove ---
-			ECT[1].SKW[#ECT[1].SKW + 1] = {'Name', id, 'StatsType', stat.st}
+			mx_ct[1].SKW[#mx_ct[1].SKW + 1] = {'Name', id, 'StatsType', stat.st}
 		end
 	end
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__REALITY PROC TECH.pak',
+	MOD_FILENAME 		= '+ REALITY proc-tech',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE.MBIN',
-		EXML_CHANGE_TABLE	= ECT
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= mx_ct
 	}
 }}}}

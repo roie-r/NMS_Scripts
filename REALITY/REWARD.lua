@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/reward_entry.lua')
 -----------------------------------------------------------------------
 local mod_desc = [[
@@ -7,7 +7,7 @@ local mod_desc = [[
   - freighter defense reward (requires changes in AlienPuzzle)
   - crashed freighter containers
   - salvaged glass (sentinel loot)
-  - pirate ships battle loot
+  - pirate battles loot
   - jetpack boost bonuses
   - wild plants harvest higher and more varid yield
   - caltivated plants harvest varid yield
@@ -15,8 +15,20 @@ local mod_desc = [[
 ]]---------------------------------------------------------------------
 
 local new_rewards = {
-	{--- huge flora prop ---
-		id			= 'DE_PLANT_HUGE',
+	DE_RARE_GOLD = {	--- "metal fingers" rare resource
+		active		= true,
+		choice		= RC_.ONE,
+		overwrite	= true,
+		itemlist	= {
+			--id					Min		Max			%		function
+			{id='ASTEROID2',		mn=100,	mx=200,		c=90,	f=R_Substance,	bb=true},
+			{id='RADIO1',			mn=200,	mx=250,		c=80,	f=R_Substance,	bb=true},
+			{id='DUSTY1',			mn=120,	mx=240,		c=40,	f=R_Substance,	bb=true},
+			{id='YELLOW2',			mn=210,	mx=260,		c=40,	f=R_Substance,	bb=true},
+		}
+	},
+	DE_PLANT_HUGE = {	--- huge flora prop
+		active		= true,
 		choice		= RC_.ALL,
 		itemlist	= {
 			--id					Min		Max			%		function
@@ -24,8 +36,8 @@ local new_rewards = {
 			{id='SPACEGUNK5',		mn=15,	mx=45,		c=100,	f=R_Substance},
 		}
 	},
-	{--- huge rock prop ---
-		id			= 'DE_ROCK_HUGE',
+	DE_ROCK_HUGE = {	--- huge rock prop
+		active		= true,
 		choice		= RC_.ALL,
 		itemlist	= {
 			--id					Min		Max			%		function
@@ -33,10 +45,10 @@ local new_rewards = {
 			{id='GEODE_LAND', 		mn=1,	mx=2,		c=10,	f=R_DisguisedProduct,	display='LAND2'}
 		}
 	},
-	{--- sentinel salvaged glass shard ---
-		id			= 'DE_SENT_LOOT',
+	DE_SENT_LOOT = {	--- sentinel salvaged glass shard
+		active		= true,
 		choice		= RC_.ONE,
-		replacement	= true,
+		overwrite	= true,
 		itemlist	= {
 			--id					Min		Max			%		function
 			{id='CHART_HIVE',				mx=1,		c=2,	f=R_Product},
@@ -61,363 +73,447 @@ local new_rewards = {
 			{id=CU_.HG,				mn=100,	mx=160,		c=10,	f=R_Money}
 		}
 	},
-	{--- crashed freighter containers ---
-		id			= 'CRASHCONT_M',
+	CRASHCONT_M = {		--- crashed freighter containers
+		active		= true,
+		overwrite	= true,
 		choice		= RC_.ONE,
-		replacement	= true,
 		itemlist	= {
 			{id=CU_.UT,	mn=25000,	mx=75000,	c=50,	f=R_Money},
 			{
 				f	= R_MultiItem,
 				c	= 45,
-				list= {
-					{id='LAUNCHFUEL',		mn=1, 	tp=MI_.PRD},
-					{id='BP_SALVAGE',		mn=3, 	tp=MI_.PRD},
-					{pid=PC_.DTC, 			qt=2,	tp=MI_.PRP}
+				lst	= {
+					{id='LAUNCHFUEL',		am=1, 	mi=MI_.PRD},
+					{id='BP_SALVAGE',		am=3, 	mi=MI_.PRD},
+					{pc=PC_.DTC, 			qt=2,	mi=MI_.PRP}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 45,
-				list= {
-					{id='ANTIMATTER',		mn=2, 	tp=MI_.PRD},
-					{id='AM_HOUSING',		mn=2, 	tp=MI_.PRD},
-					{id='TECHFRAG',			mn=230, tp=MI_.SBT}
+				lst	= {
+					{id='ANTIMATTER',		am=2, 	mi=MI_.PRD},
+					{id='AM_HOUSING',		am=2, 	mi=MI_.PRD},
+					{id='TECHFRAG',			am=230, mi=MI_.SBT}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 35,
-				list= {
-					{id='FRIG_TOKEN',		mn=1, 	tp=MI_.PRD},
-					{id='TIMEMILK',			mn=94, 	tp=MI_.SBT}
+				lst	= {
+					{id='FRIG_TOKEN',		am=1, 	mi=MI_.PRD},
+					{id='TIMEMILK',			am=94, 	mi=MI_.SBT}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 35,
-				list= {
-					{id='WEAP_INV_TOKEN',	mn=1, 	tp=MI_.PRD},
-					{id='AF_METAL',			mn=117, tp=MI_.SBT}
+				lst	= {
+					{id='WEAP_INV_TOKEN',	am=1, 	mi=MI_.PRD},
+					{id='AF_METAL',			am=117, mi=MI_.SBT}
 				}
 			},
 			{id=CU_.UT,	mn=150000,	mx=260000,	c=20,	f=R_Money},
 			{
 				f	= R_MultiItem,
 				c	= 25,
-				list= {
-					{id='FARMPROD1',		mn=1, 	tp=MI_.PRD},	-- Acid
-					{id='WATER1',			mn=243, tp=MI_.SBT}
+				lst	= {
+					{id='FARMPROD1',		am=1, 	mi=MI_.PRD},	-- Acid
+					{id='WATER1',			am=243, mi=MI_.SBT}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 25,
-				list= {
-					{id='FARMPROD5',		mn=1, 	tp=MI_.PRD},	-- Poly Fibre
-					{id='WATER2',			mn=189, tp=MI_.SBT}
+				lst	= {
+					{id='FARMPROD5',		am=1, 	mi=MI_.PRD},	-- Poly Fibre
+					{id='WATER2',			am=189, mi=MI_.SBT}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 25,
-				list= {
-					{id='SALVAGE_TECH8',	mn=1, 	tp=MI_.PRD},	-- Subatomic Regulators
-					{id='ROBOT1',			mn=203, tp=MI_.SBT}
+				lst	= {
+					{id='SALVAGE_TECH8',	am=1, 	mi=MI_.PRD},	-- Subatomic Regulators
+					{id='ROBOT1',			am=203, mi=MI_.SBT}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 25,
-				list= {
-					{id='SALVAGE_TECH7',	mn=1, 	tp=MI_.PRD},	-- Recycled Circuitry
-					{id='ROBOT2',			mn=180, tp=MI_.SBT}
+				lst	= {
+					{id='SALVAGE_TECH7',	am=1, 	mi=MI_.PRD},	-- Recycled Circuitry
+					{id='ROBOT2',			am=180, mi=MI_.SBT}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{id='FREI_INV_TOKEN',	mn=2, 	tp=MI_.PRD},	-- freighter inv
-					{id='SENTFREI_PROD',	mn=3, 	tp=MI_.PRD}		-- AI Fragment
+				lst	= {
+					{id='FREI_INV_TOKEN',	am=2, 	mi=MI_.PRD},	-- freighter inv
+					{id='SENTFREI_PROD',	am=3, 	mi=MI_.PRD}		-- AI Fragment
 				}
 			},
 			-- freighter hyper
 			{
 				f	= R_MultiItem,
 				c	= 5,
-				list= {
-					{pid=PC_.FRH, 			qt=0,	tp=MI_.PRP},
-					{id='CASING',			mn=5, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRH, 			qt=0,	mi=MI_.PRP},
+					{id='CASING',			am=5, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{pid=PC_.FRH, 			qt=1,	tp=MI_.PRP},
-					{id='COMPOUND6',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRH, 			qt=1,	mi=MI_.PRP},
+					{id='COMPOUND6',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRH, 			qt=2,	tp=MI_.PRP},
-					{id='PRODFUEL2',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRH, 			qt=2,	mi=MI_.PRP},
+					{id='PRODFUEL2',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRH, 			qt=3,	tp=MI_.PRP},
-					{id='ILLEGAL_PROD6',	mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRH, 			qt=3,	mi=MI_.PRP},
+					{id='ILLEGAL_PROD6',	am=1, 	mi=MI_.PRD}
 				}
 			},
 			-- freighter fuel
 			{
 				f	= R_MultiItem,
 				c	= 5,
-				list= {
-					{pid=PC_.FRF, 			qt=0,	tp=MI_.PRP},
-					{id='NANOTUBES',		mn=5, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRF, 			qt=0,	mi=MI_.PRP},
+					{id='NANOTUBES',		am=5, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{pid=PC_.FRF, 			qt=1,	tp=MI_.PRP},
-					{id='COMPOUND5',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRF, 			qt=1,	mi=MI_.PRP},
+					{id='COMPOUND5',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRF, 			qt=2,	tp=MI_.PRP},
-					{id='REPAIRKIT',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRF, 			qt=2,	mi=MI_.PRP},
+					{id='REPAIRKIT',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRF, 			qt=3,	tp=MI_.PRP},
-					{id='ILLEGAL_PROD5',	mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRF, 			qt=3,	mi=MI_.PRP},
+					{id='ILLEGAL_PROD5',	am=1, 	mi=MI_.PRD}
 				}
 			},
 			-- freighter trade
 			{
 				f	= R_MultiItem,
 				c	= 5,
-				list= {
-					{pid=PC_.FRT, 			qt=0,	tp=MI_.PRP},
-					{id='JELLY',			mn=5, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRT, 			qt=0,	mi=MI_.PRP},
+					{id='JELLY',			am=5, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{pid=PC_.FRT, 			qt=1,	tp=MI_.PRP},
-					{id='COMPOUND4',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRT, 			qt=1,	mi=MI_.PRP},
+					{id='COMPOUND4',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRT, 			qt=2,	tp=MI_.PRP},
-					{id='BIO',				mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRT, 			qt=2,	mi=MI_.PRP},
+					{id='BIO',				am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRT, 			qt=3,	tp=MI_.PRP},
-					{id='ILLEGAL_PROD4',	mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRT, 			qt=3,	mi=MI_.PRP},
+					{id='ILLEGAL_PROD4',	am=1, 	mi=MI_.PRD}
 				}
 			},
 			-- freighter combat
 			{
 				f	= R_MultiItem,
 				c	= 5,
-				list= {
-					{pid=PC_.FRC, 			qt=0,	tp=MI_.PRP},
-					{id='POWERCELL',		mn=5, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRC, 			qt=0,	mi=MI_.PRP},
+					{id='POWERCELL',		am=5, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{pid=PC_.FRC, 			qt=1,	tp=MI_.PRP},
-					{id='COMPOUND3',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRC, 			qt=1,	mi=MI_.PRP},
+					{id='COMPOUND3',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRC, 			qt=2,	tp=MI_.PRP},
-					{id='MIRROR',			mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRC, 			qt=2,	mi=MI_.PRP},
+					{id='MIRROR',			am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRC, 			qt=3,	tp=MI_.PRP},
-					{id='ILLEGAL_PROD3',	mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRC, 			qt=3,	mi=MI_.PRP},
+					{id='ILLEGAL_PROD3',	am=1, 	mi=MI_.PRD}
 				}
 			},
 			-- freighter mining
 			{
 				f	= R_MultiItem,
 				c	= 5,
-				list= {
-					{pid=PC_.FRM, 			qt=0,	tp=MI_.PRP},
-					{id='HYDRALIC',			mn=3, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRM, 			qt=0,	mi=MI_.PRP},
+					{id='HYDRALIC',			am=3, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{pid=PC_.FRM, 			qt=1,	tp=MI_.PRP},
-					{id='COMPOUND2',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRM, 			qt=1,	mi=MI_.PRP},
+					{id='COMPOUND2',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRM, 			qt=2,	tp=MI_.PRP},
-					{id='MICROCHIP',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRM, 			qt=2,	mi=MI_.PRP},
+					{id='MICROCHIP',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRM, 			qt=3,	tp=MI_.PRP},
-					{id='ILLEGAL_PROD2',	mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRM, 			qt=3,	mi=MI_.PRP},
+					{id='ILLEGAL_PROD2',	am=1, 	mi=MI_.PRD}
 				}
 			},
 			-- freighter explore
 			{
 				f	= R_MultiItem,
 				c	= 5,
-				list= {
-					{pid=PC_.FRE, 			qt=0,	tp=MI_.PRP},
-					{id='CARBON_SEAL',		mn=3, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRE, 			qt=0,	mi=MI_.PRP},
+					{id='CARBON_SEAL',		am=3, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 2,
-				list= {
-					{pid=PC_.FRE, 			qt=1,	tp=MI_.PRP},
-					{id='COMPOUND1',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRE, 			qt=1,	mi=MI_.PRP},
+					{id='COMPOUND1',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRE, 			qt=2,	tp=MI_.PRP},
-					{id='TRA_ENERGY5',		mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRE, 			qt=2,	mi=MI_.PRP},
+					{id='TRA_ENERGY5',		am=1, 	mi=MI_.PRD}
 				}
 			},
 			{
 				f	= R_MultiItem,
 				c	= 1,
-				list= {
-					{pid=PC_.FRE, 			qt=3,	tp=MI_.PRP},
-					{id='ILLEGAL_PROD1',	mn=1, 	tp=MI_.PRD}
+				lst	= {
+					{pc=PC_.FRE, 			qt=3,	mi=MI_.PRP},
+					{id='ILLEGAL_PROD1',	am=1, 	mi=MI_.PRD}
 				}
 			}
 		}
 	},
-	{--- freighter defense :: explorer ---
-		id			= 'FREIGHTERSAVE_E',
+	FREIGHTERSAVE_E = {	--- freighter defense :: explorer
+		active		= true,
 		choice		= RC_.ALL,
 		itemlist	= {
 			{
 				f	= R_MultiItem,
 				c	= 100,
-				list= {
-					{id='HYPERFUEL1',		mn=1, 		tp=MI_.PRD},	-- Hyperdrive fuel
-					{id='SCRAP_TECH',		mn=1, 		tp=MI_.PRD},
-					{id='FREI_INV_TOKEN',	mn=1, 		tp=MI_.PRD},	-- freighter inv slot
-					{id='ASTEROID3',		mn=169, 	tp=MI_.SBT},	-- Platinum
-					{pid=PC_.SPB,			qt=1,		tp=MI_.PRP},	-- Space Bones Procedural
+				lst	= {
+					{id='HYPERFUEL1',		am=1, 		mi=MI_.PRD},	-- Hyperdrive fuel
+					{id='SCRAP_TECH',		am=1, 		mi=MI_.PRD},
+					{id='FREI_INV_TOKEN',	am=1, 		mi=MI_.PRD},	-- freighter inv slot
+					{id='ASTEROID3',		am=169, 	mi=MI_.SBT},	-- Platinum
+					{pc=PC_.SPB,			qt=1,		mi=MI_.PRP},	-- Space Bones Procedural
 				}
 			},
 			{id=CU_.HG,	mn=50,		mx=60,		c=100,	f=R_Money},
 		}
 	},
-	{--- freighter defense :: trader ---
-		id			= 'FREIGHTERSAVE_T',
+	FREIGHTERSAVE_T = {	--- freighter defense :: trader
+		active		= true,
 		choice		= RC_.ALL,
 		itemlist	= {
 			{
 				f	= R_MultiItem,
 				c	= 100,
-				list= {
-					{id='HYPERFUEL1',		mn=1, 		tp=MI_.PRD},
-					{id='GEODE_RARE',		mn=1, 		tp=MI_.PRD},
-					{id='FREI_INV_TOKEN',	mn=1, 		tp=MI_.PRD},
-					{id='ASTEROID1',		mn=523, 	tp=MI_.SBT},	-- silver
-					{pid=PC_.SLV,			qt=1,		tp=MI_.PRP},	-- Salvage Procedural
+				lst	= {
+					{id='HYPERFUEL1',		am=1, 		mi=MI_.PRD},
+					{id='GEODE_RARE',		am=1, 		mi=MI_.PRD},
+					{id='FREI_INV_TOKEN',	am=1, 		mi=MI_.PRD},
+					{id='ASTEROID1',		am=523, 	mi=MI_.SBT},	-- silver
+					{pc=PC_.SLV,			qt=1,		mi=MI_.PRP},	-- Salvage Procedural
 				}
 			},
 			{id=CU_.UT,	mn=35100,	mx=50200,	c=100,	f=R_Money},
 		}
 	},
-	{--- freighter defense :: warior ---
-		id			= 'FREIGHTERSAVE_W',
+	FREIGHTERSAVE_W = {	--- freighter defense :: warior
+		active		= true,
 		choice		= RC_.ALL,
 		itemlist	= {
 			{
 				f	= R_MultiItem,
 				c	= 100,
-				list= {
-					{id='HYPERFUEL1',		mn=1, 		tp=MI_.PRD},
-					{id='SCRAP_WEAP',		mn=1, 		tp=MI_.PRD},
-					{id='FREI_INV_TOKEN',	mn=1, 		tp=MI_.PRD},
-					{id='ASTEROID2',		mn=387, 	tp=MI_.SBT},	-- gold
-					{pid=PC_.DTC,			qt=1,		tp=MI_.PRP}		-- Procedural
+				lst	= {
+					{id='HYPERFUEL1',		am=1, 		mi=MI_.PRD},
+					{id='SCRAP_WEAP',		am=1, 		mi=MI_.PRD},
+					{id='FREI_INV_TOKEN',	am=1, 		mi=MI_.PRD},
+					{id='ASTEROID2',		am=387, 	mi=MI_.SBT},	-- gold
+					{pc=PC_.DTC,			qt=1,		mi=MI_.PRP}		-- Procedural
 				}
 			},
 			{id=CU_.NN,	mn=190,		mx=270,		c=100,	f=R_Money},
 		}
 	},
-	{--- pirate attack :: easy ---
-		id			= 'PIRATELOOT_EASY',
-		choice		= RC_.ONE_S,
+	R_PIR_TRIBUTE = {	--- pirate freighter defeat tribute
+		active		= true,
+		choice		= RC_.ONE,
+		overwrite	= true,
+		itemlist	= {
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{tg='SENTINEL_GUN_NAME_L',	qt=3,	mi=MI_.PRT,	sen=true},
+					{tg='SENTINEL_SUIT_NAME_L',	qt=3,	mi=MI_.PRT,	sen=true},
+					{id='MEGAPROD3',					mi=MI_.PRD}
+				},
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{pc=PC_.FRH,				qt=3,	mi=MI_.PRP},
+					{id='MEGAPROD2',					mi=MI_.PRD}
+				},
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{pc=PC_.FRC,				qt=3,	mi=MI_.PRP},
+					{id='MEGAPROD1',					mi=MI_.PRD}
+				},
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{tg='CANNON_NAME_L',		qt=4,	mi=MI_.PRT,	igl=true},
+					{tg='RAILGUN1_NAME_L',		qt=4,	mi=MI_.PRT,	igl=true},
+					{id='MEGAPROD3',					mi=MI_.PRD}
+				}
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{tg='BOLTSHOTGUN_NAME_L',	qt=4,	mi=MI_.PRT,	igl=true},
+					{tg='LASER_NAME_L',			qt=4,	mi=MI_.PRT,	igl=true},
+					{id='MEGAPROD3',					mi=MI_.PRD}
+				}
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{tg='UI_RAD_NAME_CORE_L',	qt=4,	mi=MI_.PRT,	igl=true},
+					{tg='UI_TOX_NAME_CORE_L',	qt=4,	mi=MI_.PRT,	igl=true},
+					{id='MEGAPROD3',					mi=MI_.PRD}
+				}
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{tg='UI_ENERGY_NAME_CORE_L',qt=4,	mi=MI_.PRT,	igl=true},
+					{tg='UI_JETPACK_NAME_CORE_L',qt=4,	mi=MI_.PRT,	igl=true},
+					{id='MEGAPROD3',					mi=MI_.PRD}
+				}
+			},
+			{
+				f	= R_MultiItem,
+				c	= 100,
+				lst	= {
+					{tg='SHIPMINIGUN_NAME_L',	qt=4,	mi=MI_.PRT,	igl=true},
+					{tg='SHIPJUMP_NAME_L',		qt=4,	mi=MI_.PRT,	igl=true},
+					{id='MEGAPROD2',					mi=MI_.PRD}
+				}
+			}
+		},
+		multiadd	= {
+			{id='STATION_KEY',					mi=MI_.PRD},
+			{id='FREI_INV_TOKEN',		am=2,	mi=MI_.PRD}
+		}
+	},
+	PIRATELOOT_EASY = {	--- pirate attack :: easy
+		active		= true,
+		choice 		= RC_.G1_ONE,
+		zeroseed 	= true,
 		itemlist	= {
 			--id					Min			Max			%		function
+			{id='PIRATE_PROD',					mx=1,		c=0,	f=R_Product},
 			{id='SHIPCHARGE',					mx=1,		c=50,	f=R_Product},
 			{id='TRA_ALLOY1',		mn=1,		mx=2,		c=40,	f=R_Product},
 			{id='TRA_ENERGY1',		mn=1,		mx=2,		c=40,	f=R_Product},
 			{id='TRA_EXOTICS1',		mn=1,		mx=2,		c=40,	f=R_Product},
 			{id='ILLEGAL_PROD3',	mn=1,		mx=2,		c=40,	f=R_Product},
-			{id=PC_.DBI,			rt=RT_.C,				c=30,	f=R_Procedural},
-			{id=PC_.DTC,			rt=RT_.C,				c=30,	f=R_Procedural},
+			{pc=PC_.DBI,			rt=RT_.C,				c=30,	f=R_ProcProduct},
+			{pc=PC_.DTC,			rt=RT_.C,				c=30,	f=R_ProcProduct},
 			{id=CU_.UT,				mn=18000,	mx=30000,	c=30,	f=R_Money}
 		}
 	},
-	{--- pirate attack :: normal ---
-		id			= 'PIRATELOOT',
-		choice 		= RC_.ONE_S,
+	PIRATELOOT = {		--- pirate attack :: normal
+		active		= true,
+		choice 		= RC_.G1_ONE,
 		zeroseed 	= true,
-		replacement	= true,
+		overwrite	= true,
 		itemlist	= {
 			--id					Min			Max			%		function
+			{id='PIRATE_PROD',					mx=1,		c=0,	f=R_Product},
 			{id='SHIPCHARGE',		mn=1,		mx=2,		c=50,	f=R_Product},
 			{id='SCRAP_GOODS',					mx=1,		c=60,	f=R_Product},
 			{id='SCRAP_TECH',					mx=1,		c=60,	f=R_Product},
@@ -428,17 +524,18 @@ local new_rewards = {
 			{id='TRA_MINERALS3',	mn=1,		mx=3,		c=40,	f=R_Product},
 			{id='ILLEGAL_PROD4',	mn=1,		mx=2,		c=30,	f=R_Product},
 			{id='AF_METAL',			mn=100,		mx=130,		c=30,	f=R_Substance},
-			{id=PC_.DBI,			ort=true,	rt=RT_.U,	c=30,	f=R_Procedural},
-			{id=PC_.DTC,			ort=true,	rt=RT_.U,	c=30,	f=R_Procedural},
+			{pc=PC_.DBI,			ort=true,	rt=RT_.U,	c=30,	f=R_ProcProduct},
+			{pc=PC_.DTC,			ort=true,	rt=RT_.U,	c=30,	f=R_ProcProduct},
 			{id=CU_.NN,				mn=100,		mx=250,		c=20,	f=R_Money}
 		}
 	},
-	{--- pirate attack :: hard level ---
-		id			= 'PIRATELOOT_HARD',
-		choice		= RC_.ONE_S,
+	PIRATELOOT_HARD = {	--- pirate attack :: hard level
+		active		= true,
+		choice 		= RC_.G1_ONE,
 		zeroseed	= true,
 		itemlist	= {
 			--id					Min			Max			%		function
+			{id='PIRATE_PROD',					mx=1,		c=0,	f=R_Product},
 			{id='SHIPCHARGE',		mn=1,		mx=3,		c=50,	f=R_Product},
 			{id='WATER2',			mn=260,		mx=360,		c=40,	f=R_Substance},
 			{id='EX_GREEN',			mn=150,		mx=250,		c=40,	f=R_Substance},
@@ -453,103 +550,118 @@ local new_rewards = {
 			{id='TRA_TECH4',		mn=1,		mx=3,		c=50,	f=R_Product},
 			{id='ILLEGAL_PROD5',	mn=1,		mx=2,		c=30,	f=R_Product},
 			{id='GEODE_RARE',					mx=1,		c=20,	f=R_Product},
-			{id=PC_.DBI,			ort=true,	rt=RT_.U,	c=20,	f=R_Procedural},
-			{id=PC_.DTC,			ort=true,	rt=RT_.U,	c=20,	f=R_Procedural},
+			{pc=PC_.DBI,			ort=true,	rt=RT_.U,	c=20,	f=R_ProcProduct},
+			{pc=PC_.DTC,			ort=true,	rt=RT_.U,	c=20,	f=R_ProcProduct},
 			{id=CU_.NN,				mn=300,		mx=400,		c=20,	f=R_Money}
 		}
 	},
-	{--- pirate attack :: building raid ---
-		id			= 'RAIDLOOT',
-		choice		= RC_.ONE_S,
+	RAIDLOOT = {		--- pirate attack :: building raid
+		active		= true,
+		choice 		= RC_.G1_ONE,
+		zeroseed	= true,
 		itemlist	= {
 			--id					Min			Max			%		function
+			{id='PIRATE_PROD',					mx=1,		c=0,	f=R_Product},
 			{id='SHIPCHARGE',					mx=1,		c=50,	f=R_Product},
 			{id='SCRAP_GOODS',					mx=1,		c=40,	f=R_Product},
 			{id='SCRAP_TECH',					mx=1,		c=40,	f=R_Product},
 			{id='ILLEGAL_PROD2',	mn=1,		mx=4,		c=30,	f=R_Product},
 			{id='WATER2',			mn=260,		mx=280,		c=30,	f=R_Substance},
 			{id='GEODE_RARE',					mx=1,		c=20,	f=R_Product},
-			{id=PC_.DBI,			ort=true,	rt=RT_.U,	c=20,	f=R_Procedural},
-			{id=PC_.DTC,			ort=true,	rt=RT_.U,	c=20,	f=R_Procedural},
+			{pc=PC_.DBI,			ort=true,	rt=RT_.U,	c=20,	f=R_ProcProduct},
+			{pc=PC_.DTC,			ort=true,	rt=RT_.U,	c=20,	f=R_ProcProduct},
 			{id=CU_.UT,				mn=25000,	mx=35000,	c=20,	f=R_Money}
 		}
 	},
-	{--- jetpack boost :: tech plant ---
-		id			= 'JETPACK_BOOST',
+	JETPACK_BOOST = {	--- jetpack boost :: tech plant
+		active		= true,
 		choice		= RC_.ALL,
-		replacement	= true,
+		overwrite	= true,
 		itemlist	= {
 			{id='jetboost',			tm=5,	pw=1.25,	c=100,	f=R_Jetboost}
 		}
 	},
-	{--- jetpack boost :: ? ---
-		id			= 'MIXER_JETPACK',
+	MIXER_JETPACK = {	--- jetpack boost :: ?
+		active		= true,
 		choice		= RC_.ALL,
-		replacement	= true,
+		overwrite	= true,
 		itemlist	= {
 			{id='jetboost',			tm=4,	pw=1.2,		c=100,	f=R_Jetboost}
 		}
 	},
-	{--- jetpack boost :: consumable product ---
-		id			= 'DE_FOOD_JETPACK',
+	DE_FOOD_JETPACK = {	--- jetpack boost :: consumable product
+		active		= true,
 		choice		= RC_.ALL,
-		replacement	= true,
+		overwrite	= true,
 		itemlist	= {
 			{id='jetboost',			tm=3,	pw=1.15,	c=100,	f=R_Jetboost}
 		}
 	},
-	{--- health + shield + stamina + hazard + jetboost = balatant cheat! ---
-		id			= 'HEALTH_MAJOR',
+	HEALTH_MAJOR = {	--- health + shield + stamina + hazard + jetboost = balatant cheat!
+		active		= true,
 		choice		= RC_.ALL_S,
 		itemlist	= {
 			{id='wanted_level',		lvl=0,				c=98,	f=R_Wanted},
 			{id='no_sentinels',		tm=20,				c=98,	f=R_NoSentinels},
 			{id='health',			mn=3,	mx=5,		c=98,	f=R_Health},
 			{id='shield',			mn=70,	mx=100,		c=98,	f=R_Shield},
-			{id='hazard',			hz=80,				c=98,	f=R_Hazard},
+			{id='hazard',			am=-80,				c=98,	f=R_Hazard},
 			{id='stamina',			tm=6,				c=98,	f=R_Stamina},
 			{id='jetboost',			tm=4,	pw=1.2,		c=98,	f=R_Jetboost}
 		}
 	},
-	{--- quicksilver tiny=30 ---
-		id			= 'RS_QUICKSILV_T',
+	RS_QUICKSILV_T = {	--- quicksilver tiny=30
+		active		= true,
 		choice		= RC_.ALL,
 		itemlist	= {
 			{id=CU_.HG,	mx=36,			c=100,	f=R_Money}
 		}
 	},
-	{--- open page ---
-		id			= 'R_OPEN_PAGE_0',
+	REFRESH_HAZ = {		--- restore hazard protection w/extras
+		active		= true,
+		choice		= RC_.ALL,
+		overwrite	= true,
+		itemlist	= {
+			{id='hazard',	bl='UI_RESTORE_HAZARD',	am=-100,	c=100,	f=R_Hazard},
+			{
+				id={'STRONGLASER', 'VEHICLESTUN'},
+				nm='tech list',					c=100,	f=R_TechnologyList},
+			{
+				id={'SUPERFOOD', 'RAMMOULD5'},
+				nm='prod recipe list',			c=100,	f=R_ProductRecipeList
+			}
+		}
+	},
+	R_OPEN_PAGE_0 = {	--- open page
+		active		= false,
 		choice		= RC_.ALL,
 		itemlist	= {
 			{id='WeaponCustomisation',	c=100,	f=R_OpenPage}
 		}
 	},
-	{--- open unlockable recipe tree ---
-		id			= 'R_OPEN_TREE_0',
+	R_OPEN_TREE_0 = {	--- open unlockable recipe tree
+		active		= false,
 		choice		= RC_.ALL,
 		itemlist	= {
 			{id='BaseParts',			c=100,	f=R_UnlockTree}
 		}
 	},
-	{--- test 9 ---
-		id			= 'TEST_09',
-		choice		= RC_.ALL,
+	TEST_09 = {			--- test 9
+		active		= true,
+		choice		= RC_.ONE,
 		itemlist	= {
-			-- id					details					%		function
-			{id='storm',			tm=180,					c=95,	f=R_Storm},
-			-- {id=PC_.PLT,			rt=RT_.R,				c=92,	f=R_Procedural},
-			-- {id=PC_.SPH,			rt=RT_.U,				c=2,	f=R_Procedural},
-			-- {id='BIO',				mn=1,		mx=2,		c=92,	f=R_Product},
-			-- {id='FOOD_CM_JHOT',		mn=1,		mx=2,		c=2,	f=R_Product},
+			-- {id='storm',			tm=180,					c=95,	f=R_Storm},
+			{id='FOOD_CM_JHOT',					mx=1,		c=98,	f=R_Product},
+			{id='BIO',				mn=1,		mx=2,		c=92,	f=R_Product},
+			-- {tg='BOLT_NAME_L',					w4=92,		c=95,	f=R_ProcTechProduct},
+			-- {pc=PC_.PLT,			rt=RT_.R,				c=92,	f=R_ProcProduct},
 			-- {id='SCRAP_WEAP',					mx=1,		c=52,	f=R_Product},
 			-- {id='WATER2',			mn=260,		mx=280,		c=2,	f=R_Substance},
-			{id='WORMDUST',			mn=1060,	mx=1180,	c=2,	f=R_Substance},
+			-- {id='WORMDUST',			mn=1060,	mx=1180,	c=2,	f=R_Substance},
 		}
 	},
-	{--- more tests ---
-		unused		= true,
-		id			= 'TEST_99',
+	TEST_99 = {			--- more tests
+		active		= false,
 		choice		= RC_.ONE,
 		itemlist	= {
 			-- id					details					%		function
@@ -558,12 +670,11 @@ local new_rewards = {
 			{id='flyby',			tm=5,					c=95,	f=R_FlyBy},
 			{id='ROGUE_HAZBOX',					mx=1,		c=10,	f=R_Product},
 			{id='UT_SHIPLAS',					mx=1,		c=10,	f=R_Product},
-			{id=PC_.FOS,			rt=RT_.R,				c=10,	f=R_Procedural},
-			{id=PC_.SPH,			rt=RT_.U,				c=10,	f=R_Procedural},
+			{pc=PC_.FOS,			rt=RT_.R,				c=10,	f=R_ProcProduct},
+			{pc=PC_.SPH,			rt=RT_.U,				c=10,	f=R_ProcProduct},
 			{id='SCRAP_WEAP',					mx=1,		c=10,	f=R_Product},
 			{id='STEALTH',			sl=true,				c=10,	f=R_Technology},
 			{id='ACCESS1',			sl=true,				c=10,	f=R_ProductRecipe},
-			{id={'ALLOY7','ALLOY8'},mn=2,		mx=5,		c=2,	f=R_ProductSysList},
 			{id={'ALLOY4','ALLOY5'},						c=2,	f=R_ProductAllList},
 			{id=CU_.NN,				mn=101,		mx=202,		c=100,	f=R_Money}
 		}
@@ -576,12 +687,23 @@ local function AddNewRewardsToChangeTable(T)
 	local rw_rd = #T+1
 	T[rw_rd] = { SKW={}, REMOVE='Section' }
 
-	for _,rwd in ipairs(new_rewards) do
-		-- collect exisitng rewards to be removed in SKW
-		if not rwd.unused then
-			if rwd.replacement then
-				T[rw_rd].SKW[#T[rw_rd].SKW+1] = {'Id', rwd.id}
+	for id, rwd in pairs(new_rewards) do
+		if rwd.active == nil or rwd.active == true then
+			if rwd.overwrite then
+			-- collect existing rewards for removal
+				T[rw_rd].SKW[#T[rw_rd].SKW+1] = {'Ignore', 'GcGenericRewardTableEntry', 'Id', id}
 			end
+			if rwd.multiadd then
+			-- add repeating items to MultiItem
+				for _,rw in ipairs(rwd.itemlist) do
+					if rw.f == R_MultiItem then
+						for _,ad in ipairs(rwd.multiadd) do
+							rw.lst[#rw.lst + 1] = ad
+						end
+					end
+				end
+			end
+			rwd.id = id
 			rewards[#rewards+1] = R_RewardTableEntry(rwd)
 		end
 	end
@@ -590,7 +712,7 @@ local function AddNewRewardsToChangeTable(T)
 
 	T[#T+1] = {
 		PRECEDING_KEY_WORDS	= 'GenericTable',
-		ADD					= ToExml(rewards)
+		ADD					= ToMxml(rewards)
 	}
 end
 
@@ -626,47 +748,47 @@ local function LearnMoreWords(T)
 		for _=1, (word.n - 1) do
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'Id', id},
-				SECTION_ACTIVE		= -1,
-				PRECEDING_KEY_WORDS = 'GcRewardTableItem.xml',
-				ADD_OPTION			= 'ADDAfterSection',
-				ADD					= ToExml(R_Word({ar=word.ar, mx=1, c=45}))
+				PRECEDING_KEY_WORDS = {'List', 'List'},
+				ADD					= ToMxml(R_Word({ar=word.ar, mx=1, c=45}))
 			}
 		end
 	end
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__REALITY REWARD.pak',
+	MOD_FILENAME 		= '+ REALITY reward',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN',
-		EXML_CHANGE_TABLE	= (
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= (
 			function()
-				local ECT = {}
-				AddNewRewardsToChangeTable(ECT)
-				IncreasePlantHarvest(ECT)
-				LearnMoreWords(ECT)
+				local mx_ct = {}
+				AddNewRewardsToChangeTable(mx_ct)
+				IncreasePlantHarvest(mx_ct)
+				LearnMoreWords(mx_ct)
 
-				ECT[#ECT+1] = {
+				mx_ct[#mx_ct+1] = {
 					REPLACE_TYPE 		= 'All',
-					MATH_OPERATION 		= '*',
-					SPECIAL_KEY_WORDS	= {'Currency', 'Specials'},
-					SECTION_UP			= 1,
 					VALUE_CHANGE_TABLE 	= {
-						{'AmountMin',	2},
-						{'AmountMax',	2}
+						{'DoAerialScan', false}
 					}
 				}
-				-- ECT[#ECT+1] = {
-					-- SPECIAL_KEY_WORDS	= {'Id', 'REFRESH_HAZ', 'LabelID', 'UI_RESTORE_HAZARD'},
-					-- ADD_OPTION			= 'ADDAfterSection',
-					-- ADD					= ToExml(R_ProductRecipe({id='RAMMOULD5', c=100, sl=true}))
+				-- mx_ct[#mx_ct+1] = {
+					-- REPLACE_TYPE 		= 'All',
+					-- MATH_OPERATION 		= '*',
+					-- SPECIAL_KEY_WORDS	= {'Currency', 'Specials'},
+					-- SECTION_UP			= 1,
+					-- VALUE_CHANGE_TABLE 	= {
+						-- {'AmountMin',	2},
+						-- {'AmountMax',	2}
+					-- }
 				-- }
-				return ECT
+				return mx_ct
 			end
 		)()
 	}
