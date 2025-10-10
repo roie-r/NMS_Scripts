@@ -8,18 +8,18 @@ local mod_desc = [[
 ]]------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META less storms_more hazards.pak',
+	MOD_FILENAME 		= '+ META less storms_more hazards',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 	--	|varied meteors|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/WEATHEREFFECTS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Id', 'METEOR_EFFECT'},
 				VALUE_CHANGE_TABLE 	= {
 					{'MinSpawnScale',				0.5},	-- 1
@@ -31,9 +31,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{
 	--	|varied storm hazard|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/WEATHERHAZARDS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'MaxHazardsOfThisTypeActive',		'@-2'}, 	-- 5
+					-- {'SpawnChancePerSecondPerAttempt',	'@*0.4'}, 	-- 0.1
+				-- }
+			-- },
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Id', 'METEOR'},
 				VALUE_CHANGE_TABLE 	= {
 					{'MinSpawnScale',				0.5},	-- 1
@@ -49,7 +56,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Id', 'TORNADO'},
 				VALUE_CHANGE_TABLE 	= {
 					{'MaxHazardsOfThisTypeActive',	3}, 	-- 5
@@ -64,13 +70,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SuckUpHeight',				55},	-- 50
 					{'SuckUpHeightCutoff',			90},	-- 80
 				}
-			}
+			},
 		}
 	},
 	-- {
 	-- --	|spooky weather|
 		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/WEIRDWEATHER.MBIN',
-		-- EXML_CHANGE_TABLE	= {
+		-- EXML_CREATE			= false,
+		-- MXML_CHANGE_TABLE	= {
 			-- {
 				-- PRECEDING_KEY_WORDS = {'SpookLevel', 'Ambient'},
 				-- VALUE_CHANGE_TABLE 	= {
@@ -103,10 +110,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/LAVAWEATHER.MBIN',
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/FIRESTORMWEATHER.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '*',
-				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
 					{'LowStormsChance',		0.7},
 					{'HighStormsChance',	0.6},
@@ -116,9 +123,37 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 	{
+	--	|Decrease storms occurrence| chance
+		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SNOWWEATHER.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Fog', 'GcFogProperties'},
+				VALUE_CHANGE_TABLE 	= {
+					{'FogStrength',			0.12}	-- 0.15
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'StormFog', 'GcFogProperties'},
+				VALUE_CHANGE_TABLE 	= {
+					{'FogStrength',			0.4}	-- 0.8
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = 'Storms',
+				PRECEDING_FIRST		= true,
+				SPECIAL_KEY_WORDS	= {'Fog', 'GcFogProperties'},
+				VALUE_CHANGE_TABLE 	= {
+					{'FogStrength',			0.9}	-- 1.5
+				}
+			},
+		}
+	},
+	{
 	--	|harmless lush weather|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS = {'Temperature', 'Storm'},
 				VALUE_CHANGE_TABLE 	= {
@@ -134,10 +169,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARCOLD.MBIN',
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARWEATHER.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
-				SPECIAL_KEY_WORDS	= {'HeavyAir', 'GcHeavyAirSetting.xml'},
+				SPECIAL_KEY_WORDS	= {'HeavyAir', 'GcHeavyAirSetting'},
 				REMOVE				= 'Section'
 			},
 			{
@@ -151,22 +187,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-	-- --	|remove tornado|
-		-- MBIN_FILE_SOURCE	= {
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/DUSTWEATHER.MBIN',
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/RADIOACTIVE.MBIN',
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SCORCHED.MBIN',
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SNOWWEATHER.MBIN',
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SWAMPWEATHER.MBIN',
-			-- 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/TOXIC.MBIN'
-		-- },
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Value', 'TORNADO'},
-				-- REMOVE 				= 'Section'
-			-- }
-		-- }
-	-- },
 }}}}

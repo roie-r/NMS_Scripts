@@ -1,5 +1,5 @@
 ----------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ----------------------------------------------------
 local mod_desc = [[
   true black for ships & customizing palettes
@@ -27,14 +27,27 @@ local base_colors = {
 	Paint = {
 		num_colors	= 'All',
 		palette		= {
-			'FFD6D6D6',	'FFFFFFFF',	'FF555555',	'FFC7C7C7',	'FFFFFFFF',	'FF676767',	'EBEBEBFF',	000,
-			000,		'FFB3B3B3',	'FF808080',	'FF4D4D4D',	'FF262626',	000,		'FF181818',	'FF060606',
+			'FFD6D6D6',	'FFFFFFFF',	'FF555555',	'FFC7C7C7',	'FFFFFFFF',	'FF676767',	'EBEBEBFF',			0,
+					0,	'FFB3B3B3',	'FF808080',	'FF4D4D4D',	'FF262626',			0,	'FF181818',	'FF060606',
 			'FF490910',	'FF5A0B12',	'FF7F1521',	'FF991924',	'FF4D0008',	'FF63000B',	'FF7F0B11',	'FF991919',
 			'FFAD421B',	'FFC1551F',	'FFD8732B',	'FFC16911',	'FFD37D1F',	'FFDAAE03',	'FFECD409',	'FFFFF319',
 			'FFFFFA42',	'FFF7FF66',	'FFA5DD39',	'FF7CC731',	'FF4E952A',	'FF104C29',	'FF135B31',	'FF18713D',
 			'FF1E8D47',	'FF22A251',	'FF176761',	'FF1F8A81',	'FF4DBAB1',	'FF15506E',	'FF1B688F',	'FF2691C6',
 			'FF5EB8E5',	'FF89CBE5',	'FF083980',	'FF1746A0',	'FF1B5EB6',	'FF2C82D3',	'FF051766',	'FF0E227A',
 			'FF103195',	'FF1740AC',	'FF310F4F',	'FF4A166C',	'FF804DB5',	'FFCF8DCE',	'FFC977B7',	'FF904683'
+		}
+	},
+	SpaceCloud = {-- grayscale for sentinel ship
+		num_colors	= '_4',
+		palette		= {
+			'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',
+			'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',
+			'FF5A5A5A',			0,	'FF5A5A5A',			0,	'FF5A5A5A',			0,	'FF5A5A5A',			0,
+			'FF5A5A5A',			0,	'FF5A5A5A',			0,	'FF5A5A5A',			0,	'FF5A5A5A',			0,
+			'FFF8F8F8',			0,	'FFF8F8F8',			0,	'FFF8F8F8',			0,	'FFF8F8F8',			0,
+			'FFF8F8F8',			0,	'FFF8F8F8',			0,	'FFF8F8F8',			0,	'FFF8F8F8',			0,
+			'FF808080',	'FFC8C8C8',	'FF808080',	'FFC8C8C8',	'FF808080',	'FFC8C8C8',	'FF808080',	'FFC8C8C8',
+			'FF808080',	'FFC8C8C8',	'FF808080',	'FFC8C8C8',	'FF808080',	'FFC8C8C8',	'FF808080',	'FFC8C8C8',
 		}
 	},
 	SpaceBottom = {-- used for the royal ships
@@ -47,35 +60,7 @@ local base_colors = {
 			'FF480D67',	'FF637805',	'FF4199EA',	'FF6392FF',	'FF5F8E53',	'FF733233',	'FF2C4F8F',	'FFB5842D',
 			'FF824965',	'FFA72727',	'FF5E397B',	'FF741142',	'FF106345',	'FF866B6B',	'FF81362F',	'FF0B0942',
 			'FF74C9BA',	'FF3C90DE',	'FFAD86CF',	'FFE584C2',	'FFFFFFFF',	'FF4C4C4C',	'FF8C3737',	'FF8A5E47',
-			'FFC09D70',	'FF3E7A57',	'FF3E6F70',	'FF3B4A67',	'FF5E4770',	'FF8F556C',	'FFAAAAAA',	000
-		}
-	},
-	BioShip_Body = {
-		unused		= true,
-		num_colors	= '_16',
-		palette		= {
-			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',	000,		000,		'FF1D120D',	'FF1D120D',
-			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',	000,		000,		'FF1D120D',	'FF1D120D',
-			'FF630005',	'FF630005',	'FFAD421B',	'FFAD421B',	'FFC16911',	'FFC16911',	'FFDAAE03',	'FFDAAE03',
-			'FF630005',	'FF630005',	'FFAD421B',	'FFAD421B',	'FFC16911',	'FFC16911',	'FFDAAE03',	'FFDAAE03',
-			'FFF2E81B',	'FFF2E81B',	'FF6EB527',	'FF6EB527',	'FF094C25',	'FF094C25',	'FF139099',	'FF139099',
-			'FFF2E81B',	'FFF2E81B',	'FF6EB527',	'FF6EB527',	'FF094C25',	'FF094C25',	'FF139099',	'FF139099',
-			'FF2B76C1',	'FF2B76C1',	'FF0B2072',	'FF0B2072',	'FF3D0B5B',	'FF3D0B5B',	'FF7E3A72',	'FF7E3A72',
-			'FF2B76C1',	'FF2B76C1',	'FF0B2072',	'FF0B2072',	'FF3D0B5B',	'FF3D0B5B',	'FF7E3A72',	'FF7E3A72'
-		}
-	},
-	BioShip_Underbelly = {
-		unused		= true,
-		num_colors	= '_16',
-		palette		= {
-			'FFFFFFFF',	'F5FFF5F5',	'FFFFFFFF',	'F3FFEDF2',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
-			'FFFFFFFF',	'FFFFFFFF',	'FFFFFFFF',	'FFFFFFFF',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
-			'FFDA837D',	'FFDA837D',	'FFF6A980',	'FFF6A980',	'FFFECE8B',	'FFFECE8B',	'FFFFEC8F',	'FFFFEC8F',
-			'FFDA837D',	'FFDA837D',	'FFF6A980',	'FFF6A980',	'FFFECE8B',	'FFFECE8B',	'FFFFEC8F',	'FFFFEC8F',
-			'FFFFFF92',	'FFFFFF92',	'FFD7F699',	'FFD7F699',	'FFB7EFA4',	'FFB7EFA4',	'FFA5EDD5',	'FFA5EDD5',
-			'FFFFFF92',	'FFFFFF92',	'FFD7F699',	'FFD7F699',	'FFB7EFA4',	'FFB7EFA4',	'FFA5EDD5',	'FFA5EDD5',
-			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8',
-			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8'
+			'FFC09D70',	'FF3E7A57',	'FF3E6F70',	'FF3B4A67',	'FF5E4770',	'FF8F556C',	'FFAAAAAA',			0
 		}
 	},
 	SpaceStationLights = {
@@ -89,6 +74,34 @@ local base_colors = {
 			'FF98A1B6', 'FFA0ABC5', 'FFA8B5C0', 'FFA7B1BB', 'FF97C6C9', 'FF92C1C4', 'FFB3C7C9', 'FFAFC5C7',
 			'FF6DE0E7', 'FFD6D6D6', 'FF7CF0B7', 'FFC2C2C2', 'FF65B7BB', 'FF5874BD', 'FF865756', 'FFE2A277',
 			'FF7FC7CC', 'FF7FC7CC', 'FF99C5B0', 'FF8DBBA5', 'FF887992', 'FF56ECC7', 'FFCAA17B', 'FFFF86C8'
+		}
+	},
+	BioShip_Body = {
+		active		= false,
+		num_colors	= '_16',
+		palette		= {
+			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',			0,			0,	'FF1D120D',	'FF1D120D',
+			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',			0,			0,	'FF1D120D',	'FF1D120D',
+			'FF630005',	'FF630005',	'FFAD421B',	'FFAD421B',	'FFC16911',	'FFC16911',	'FFDAAE03',	'FFDAAE03',
+			'FF630005',	'FF630005',	'FFAD421B',	'FFAD421B',	'FFC16911',	'FFC16911',	'FFDAAE03',	'FFDAAE03',
+			'FFF2E81B',	'FFF2E81B',	'FF6EB527',	'FF6EB527',	'FF094C25',	'FF094C25',	'FF139099',	'FF139099',
+			'FFF2E81B',	'FFF2E81B',	'FF6EB527',	'FF6EB527',	'FF094C25',	'FF094C25',	'FF139099',	'FF139099',
+			'FF2B76C1',	'FF2B76C1',	'FF0B2072',	'FF0B2072',	'FF3D0B5B',	'FF3D0B5B',	'FF7E3A72',	'FF7E3A72',
+			'FF2B76C1',	'FF2B76C1',	'FF0B2072',	'FF0B2072',	'FF3D0B5B',	'FF3D0B5B',	'FF7E3A72',	'FF7E3A72'
+		}
+	},
+	BioShip_Underbelly = {
+		active		= false,
+		num_colors	= '_16',
+		palette		= {
+			'FFFFFFFF',	'F5FFF5F5',	'FFFFFFFF',	'F3FFEDF2',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
+			'FFFFFFFF',	'FFFFFFFF',	'FFFFFFFF',	'FFFFFFFF',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
+			'FFDA837D',	'FFDA837D',	'FFF6A980',	'FFF6A980',	'FFFECE8B',	'FFFECE8B',	'FFFFEC8F',	'FFFFEC8F',
+			'FFDA837D',	'FFDA837D',	'FFF6A980',	'FFF6A980',	'FFFECE8B',	'FFFECE8B',	'FFFFEC8F',	'FFFFEC8F',
+			'FFFFFF92',	'FFFFFF92',	'FFD7F699',	'FFD7F699',	'FFB7EFA4',	'FFB7EFA4',	'FFA5EDD5',	'FFA5EDD5',
+			'FFFFFF92',	'FFFFFF92',	'FFD7F699',	'FFD7F699',	'FFB7EFA4',	'FFB7EFA4',	'FFA5EDD5',	'FFA5EDD5',
+			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8',
+			'FFA7E2FB',	'FFA7E2FB',	'FF96B9FE',	'FF96B9FE',	'FFC2ADED',	'FFC2ADED',	'FFF4CEF8',	'FFF4CEF8'
 		}
 	}
 }
@@ -106,73 +119,65 @@ local function RebuildPaletteColors(gc_data)
 		end
 		return color
 	end
-	local T = {}
+	local T = { meta = {name='Colours'} }
 	if gc_data.transpose then
 		for i=1, 64, 8 do
 			for j=0, 7 do
-				T[#T+1] = ColorData(Convert2Rgb(gc_data.palette[i+j]))
+				T[#T+1] = ColorData(Convert2Rgb(gc_data.palette[i+j]), 'Colours')
 			end
 		end
 	else
 		for _,col in ipairs(gc_data.palette) do
-			T[#T+1] = ColorData(Convert2Rgb(col))
+			T[#T+1] = ColorData(Convert2Rgb(col), 'Colours')
 		end
 	end
-
-	-- exml meta for the color palette array
-	T.meta = {'name', 'Colours'}
-	return ToExml(T)
+	return ToMxml(T)
 end
 
 -- base=true for BASECOLOURPALETTE
 local function EditSingle(name, i, rgb, base)
 	return {
-		SPECIAL_KEY_WORDS	= base and {name, 'GcPaletteData.xml'} or {'ID', name},
-		PRECEDING_KEY_WORDS = 'Colour.xml',
-		SECTION_ACTIVE		= -i,
+		SPECIAL_KEY_WORDS	= base and {name, 'GcPaletteData'} or {'ID', name},
+		PRECEDING_KEY_WORDS = 'Colours',
+		SECTION_ACTIVE		= i,
 		VALUE_CHANGE_TABLE 	= Hex2VCT(rgb)
 	}
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__META player biome main.pak',
+	MOD_FILENAME 			= '+ META player biome main',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/COLOURS/BASECOLOURPALETTES.MBIN',
-		EXML_CHANGE_TABLE	= (
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= (
 			function()
 				local T = {
 					{
 						SKW		= {},
 						PKW		= 'Colours',
 						REMOVE	= 'Section'
-					},
-					-- {
-					-- -- pull snow palette for copying to frozen palette
-						-- SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
-						-- SEC_SAVE_TO			= 'gc_palette_data',
-					-- },
+					}
 				}
-				-- dimmer sailship gray sail
-				for i=2, 58, 8 do
+				for i=1, 57, 8 do
+					-- dim sailship gray sail
 					T[#T+1] = EditSingle('SailShip_Sails', i, 0, true)
 				end
 				for palette, gc_data in pairs(base_colors) do
-					if not gc_data.unused then
-						T[1].SKW[#T[1].SKW + 1] = {palette, 'GcPaletteData.xml'}
+					if gc_data.active == nil or gc_data.active == true then
+						T[1].SKW[#T[1].SKW + 1] = {palette, 'GcPaletteData'}
 						T[#T+1] = {
-							PRECEDING_KEY_WORDS = palette,
+							SPECIAL_KEY_WORDS 	= {palette, 'GcPaletteData'},
 							VALUE_CHANGE_TABLE 	= {
 								{'NumColours',	gc_data.num_colors}
 							}
 						}
 						T[#T+1] = {
-							PRECEDING_KEY_WORDS = palette,
+							SPECIAL_KEY_WORDS 	= {palette, 'GcPaletteData'},
 							ADD 				= RebuildPaletteColors(gc_data)
 						}
 					end
@@ -182,34 +187,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		)()
 	},
 	{
-	--	|true black| in customizing palettes
+	--	|true custom black| customizing palettes
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/CUSTOMISATIONCOLOURPALETTES.MBIN',
-		EXML_CHANGE_TABLE	= {
-			EditSingle('PLAYER',		20, 0),
-			EditSingle('FREIGHTER',		20, 0),
-			EditSingle('VEHICLE',		20, 0),
-			EditSingle('BIKE',			20, 0),
-			EditSingle('TRUCK',			20, 0),
-			EditSingle('WHEELEDBIKE',	20, 0),
-			EditSingle('SUBMARINE',		20, 0),
-			EditSingle('MECH',			20, 0),
-			EditSingle('SHIP',			20, 0),
-			EditSingle('SHIP_METALLIC',	20, 0),
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			EditSingle('PLAYER',		19, 0),
+			EditSingle('VEHICLE',		19, 0),
+			EditSingle('SHIP',			19, 0),
+			EditSingle('BIKE',			19, 0),
+			EditSingle('TRUCK',			19, 0),
+			EditSingle('WHEELEDBIKE',	19, 0),
+			EditSingle('WHEELEDBIKE',	19, 0),
+			EditSingle('SUBMARINE',		19, 0),
+			EditSingle('MECH',			19, 0),
+			EditSingle('FREIGHTER',		19, 0),
+			EditSingle('SHIP_METALLIC',	19, 0)
 		}
-	},
-	-- {
-	-- --	replace frozen snow palette with base
-		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/FROZEN/FROZENCOLOURPALETTES.MBIN',
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Snow', 'GcPaletteData.xml'},
-				-- REMOVE				= 'Section'
-			-- },
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Undercoat', 'GcPaletteData.xml'},
-				-- ADD_OPTION			= 'AddAfterSection',
-				-- SEC_ADD_NAMED		= 'gc_palette_data'
-			-- },
-		-- }
-	-- }
+	}
 }}}}

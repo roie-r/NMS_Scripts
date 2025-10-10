@@ -1,5 +1,6 @@
 ------------------------------------------------------------------
 local mod_desc = [[
+  - restore fauna to abandoned systems
   - Add back top fins to scientific cockpit parts
   - Add vulture parts to dropship custom groups
   - Raise green cave crystals probability
@@ -15,46 +16,66 @@ local mod_desc = [[
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META various.pak',
+	MOD_FILENAME 		= '+ META various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
-	MOD_BATCHNAME		= '_META ~@~collection.pak',
+	NMS_VERSION			= '6.06',
+	MOD_BATCHNAME		= '+META ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|abandoned fauna|
+		MBIN_FILE_SOURCE = 'METADATA/SIMULATION/ECOSYSTEM/CREATUREGENERATIONDATA.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE = {
+			{
+				PRECEDING_KEY_WORDS = 'AbandonedSystemSpecific',
+				VALUE_CHANGE_TABLE 	= {
+					{'OverrideAllDomains', false}
+				}
+			}
+		}
+	},
 	{--	|customization desc| parts
 		MBIN_FILE_SOURCE = 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
-		EXML_CHANGE_TABLE = {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE = {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Id', 'SCIEN_COCK'},
 				PRECEDING_KEY_WORDS = 'Descriptors',
 				ADD_OPTION			= 'AddEndSection',
-				ADD					= '<Property value="NMSString0x20.xml"><Property name="Value" value="_BACKACC_1"/></Property>'
+				ADD					= '<Property name="Descriptors" value="_BACKACC_1" />'
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Value', '_COCKPIT_S13XNEVER'},
+				SPECIAL_KEY_WORDS	= {'GroupID', 'DROPS_COCKS13'},
+				PRECEDING_KEY_WORDS = 'Descriptors',
+				REPLACE_TYPE		= 'OnceInside',
 				VALUE_CHANGE_TABLE	= {
-					{'Value',		'_COCKPIT_S13'}
+					{'Descriptors',	'_COCKPIT_S13'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Value', '_ENGINES_S13xNEVER'},
+				SPECIAL_KEY_WORDS	= {'GroupID', 'DROPS_ENGIS13'},
+				PRECEDING_KEY_WORDS = 'Descriptors',
+				REPLACE_TYPE		= 'OnceInside',
 				VALUE_CHANGE_TABLE	= {
-					{'Value',		'_ENGINES_S13'}
+					{'Descriptors',	'_ENGINES_S13'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Value', '_WINGS_S13xNEVER'},
+				SPECIAL_KEY_WORDS	= {'GroupID', 'DROPS_WINGS13'},
+				PRECEDING_KEY_WORDS = 'Descriptors',
+				REPLACE_TYPE		= 'OnceInside',
 				VALUE_CHANGE_TABLE	= {
-					{'Value',		'_WINGS_S13'}
+					{'Descriptors',	'_WINGS_S13'}
 				}
 			}
 		}
 	},
 	{--	|cave crystal|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/OBJECTS/CRYSTALS/CAVEFULL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Filename', 'MODELS/PLANETS/BIOMES/COMMON/CRYSTALS/LARGE/CRYSTAL_LARGE_CAVE.SCENE.MBIN'},
@@ -79,7 +100,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	substance |stacks|
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/DIFFICULTYCONFIG.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				VALUE_MATCH			= 9999,
@@ -91,21 +113,22 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|exploration mission icon|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/TABLES/COREMISSIONTABLE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIcon', 'TkTextureResource.xml'},
+				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIcon', 'TkTextureResource'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.EXPLORATIONLOG.SYSTEM.OFF.DDS'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconSelected', 'TkTextureResource.xml'},
+				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconSelected', 'TkTextureResource'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.EXPLORATIONLOG.SYSTEM.ON.DDS'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconNotSelected', 'TkTextureResource.xml'},
+				SPECIAL_KEY_WORDS	= {'MissionID', 'EXPLORE_LOG', 'MissionIconNotSelected', 'TkTextureResource'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.EXPLORATIONLOG.SYSTEM.OFF.DDS'}
 				}
@@ -114,14 +137,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|HUD scanner icons|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/HUD/SCANNERICONS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 			--	bug fix... doesn't work (hardcoded?)
 				PRECEDING_FIRST		= true,
 				PRECEDING_KEY_WORDS = 'ScannableIconsBinocs',
-				SPECIAL_KEY_WORDS = {'Terrain', 'GcScannerIcon.xml'},
+				SPECIAL_KEY_WORDS = {'Terrain', 'GcScannerIcon', 'Main', 'TkTextureResource'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/UI/HUD/ICONS/SCANNING/PICKUP.TERRAIN.DDS'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'WheeledBike',	'GcScannerIcon', 'Main', 'TkTextureResource'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/HUD/ICONS/PLAYER/WHEELEDBIKE.DDS'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Submarine',	'GcScannerIcon', 'Main', 'TkTextureResource'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Filename', 'TEXTURES/UI/HUD/ICONS/PLAYER/SUBMARINE.DDS'}
 				}
 			},
 			{
@@ -145,9 +181,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				SPECIAL_KEY_WORDS = {
-					{'MessageBeacon',		'GcScannerIcon.xml'},
-					{'MessageBeaconSmall',	'GcScannerIcon.xml'},
-					{'FreighterBase',		'GcScannerIcon.xml'}
+					{'MessageBeacon.-',	'GcScannerIcon'},
+					{'FreighterBase',	'GcScannerIcon'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'Filename', 'TEXTURES/BLANK.BC7.64.DDS'}
@@ -157,7 +192,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|screen filters|
 		MBIN_FILE_SOURCE	= 'METADATA/EFFECTS/SCREENFILTERS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Filename', 'TEXTURES/LUT/FILTERS/BINOCULARS.DDS'},
@@ -178,7 +214,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|text images styles|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/SPECIALSTYLESIMAGESDATA.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'BULLETPOINT'},
 				VALUE_CHANGE_TABLE 	= {
@@ -193,10 +230,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|Faster screen text|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/SPECIALTEXTPUNCTUATIONDELAYDATA.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
-				INTEGER_TO_FLOAT	= 'Force',
 				MATH_OPERATION 		= '*',
 				VALUE_CHANGE_TABLE 	= {
 					{'Delay',			0.1},
@@ -207,28 +244,29 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|ai ship manager| Add civilian and pirate sentinel ships
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SPACE/AISPACESHIPMANAGER.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Filename', 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/FREIGHTERTINY_PROC.SCENE.MBIN'},
 				REMOVE				= 'Section'
 			},
 			{
-				PRECEDING_KEY_WORDS	= {'Police', 'Spaceships', 'GcAISpaceshipModelData.xml'},
+				PRECEDING_KEY_WORDS	= {'Police', 'Spaceships', 'Spaceships'},
 				SEC_SAVE_TO			= 'ai_spaceship_model_data'
 			},
 			{
-				PRECEDING_KEY_WORDS	= {'Civilian', 'Spaceships'},
-				SEC_ADD_NAMED		= 'ai_spaceship_model_data'
-			},
-			{
-				PRECEDING_KEY_WORDS	= {'Pirate', 'Spaceships'},
+				PRECEDING_KEY_WORDS	= {
+					{'Civilian',	'Spaceships'},
+					{'Pirate',		'Spaceships'}
+				},
 				SEC_ADD_NAMED		= 'ai_spaceship_model_data'
 			}
 		}
 	},
 	{--	|fast splash logo|
 		MBIN_FILE_SOURCE	= 'METADATA/UI/BOOTLOGOPC.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = 'DisplayTime',
@@ -243,7 +281,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	-- {--	|keep whale song mission active|
 		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/SPACEPOIMISSIONTABLE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
+		-- EXML_CREATE			= false,
+		-- MXML_CHANGE_TABLE	= {
 			-- {
 				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
 				-- PRECEDING_KEY_WORDS	= 'CancelingConditions',
@@ -251,13 +290,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- },
 			-- {
 				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG'},
-				-- SECTION_ACTIVE		= -1,
 				-- VALUE_CHANGE_TABLE	= {
 					-- {'RestartOnCompletion', 'True'}
 				-- }
 			-- },
 			-- {
-				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG', 'Stage', 'GcMissionSequenceCreateSpecificPulseEncounter.xml'},
+				-- SPECIAL_KEY_WORDS	= {'MissionID', 'BIO_FRIG', 'Stage', 'GcMissionSequenceCreateSpecificPulseEncounter'},
 				-- VALUE_CHANGE_TABLE	= {
 					-- {'PulseEncounterID', 'BIO_FRIG'}
 				-- }

@@ -1,98 +1,212 @@
-----------------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
-----------------------------------------------------------------------------------
+------------------------------------------------------------------
+dofile('LIB/_lua_2_mxml.lua')
+------------------------------------------------------------------
 local mod_desc = [[
-  - Adds all possible building sites (except the portal) to the exocraft scanner.
+  - Adds all possible building sites to the exocraft scanner.
   - Adds custom icons to found scan targets.
-]]--------------------------------------------------------------------------------
+]]----------------------------------------------------------------
 
-local scan_event = {
-	TERMINAL =	{-- trade terminal
+local events_data = {
+	{-- monolith
+		id		= 'MONOLITH',
+		org		= true,	-- existing item in SCANEVENTTABLEVEHICLE
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUNE.DDS'
+	},
+	{-- radiotower
+		id		= 'RADIOTOWER',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SIGNAL.DDS'
+	},
+	{-- factory
+		id		= 'FACTORY',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.FACTORY.DDS'
+	},
+	{-- abandoned
+		id		= 'ABANDONED',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.ABANDONED.DDS'
+	},
+	{-- trading post
+		id		= 'OUTPOST',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.OUTPOST.DDS'
+	},
+		{-- shop
+		id		= 'SHOP',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SMALLBUILDING.DDS'
+	},
+	{-- observatory
+		id		= 'OBSERVATORY',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.OBSERVATORY.DDS'
+	},
+	{-- crashed ship
+		id		= 'DISTRESS',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SHIP.DDS'
+	},
+	{-- crashed freighter
+		id		= 'CRASHED_FREIGHTER',
+		org		= true,
+		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.FREIGHTER.MSHOP.DDS'
+	},
+	{-- NPC in distress
+		id		= 'DISTRESS_NPC',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SHIP.DDS'
+	},
+	{-- harvester
+		id		= 'HARVESTER',
+		org		= true,
+		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SCIENCEMISSIONS.MSHOP.DDS'
+	},
+		{-- sentinel depot
+		id		= 'DEPOT',
+		org		= true,
+		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.DEPOTRAID.MSHOP.DDS'
+	},
+		{-- ruin
+		id		= 'RUIN',
+		org		= true,
+		osd		= 'UI_SIGNAL_TREASURERUIN',
+		tip		= 'UI_SIGNAL_RUIN_TIP', -- UI_TIP_TREASURERUIN
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUINS.DDS'
+	},
+	{-- drop pod
+		id		= 'DROPPOD',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.POD.DDS'
+	},
+	{-- underwater crashed ship
+		id		= 'UW_SHIPCRASH',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.SHIP.DDS'
+	},
+	{-- underwater crashed freighter
+		id		= 'UW_FREIGHTCRASH',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.FREIGHTER.DDS'
+	},
+	{-- underwater building
+		id		= 'UW_ABANDONED',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.ABANDONED.DDS'
+	},
+	{-- underwater ruin
+		id		= 'UW_RUIN',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.RUIN.DDS'
+	},
+	{-- trade terminal
+		id		= 'TERMINAL',
 		class	= 'Terminal',
 		osd		= 'SIGNAL_TERMINAL',
 		tip		= 'TIP_TERMINAL',
 		icon	= 'TEXTURES/UI/HUD/ICONS/WIKI/TRADE3.DDS'
 	},
-	T_RUIN =	{-- locked chest ruin
+	{-- locked chest ruin
+		id		= 'T_RUIN',
 		class	= 'TreasureRuins',
 		osd		= 'UI_SIGNAL_TREASURERUIN',
 		tip		= 'UI_TIP_TREASURERUIN',
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.COLLECT.MSHOP.DDS'
 	},
-	DEBRIS =	{-- damaged machine
+	{-- damaged machine
+		id		= 'DEBRIS',
 		class	= 'Debris',
 		osd		= 'SIGNAL_DEBRIS',
 		tip		= 'TIP_DEBRIS',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.COG.DDS'
 	},
-	BEACON =	{-- shop beacon
+	{-- shop beacon
+		id		= 'BEACON',
 		class	= 'Beacon',
 		osd		= 'SIGNAL_BEACON',
 		tip		= 'TIP_BEACON',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.BEACON.DDS'
 	},
-	DEBRIS_NPC = {-- NPC in distress
+	{-- NPC in distress
+		id		= 'DEBRIS_NPC',
 		class	= 'NPCDebris',
 		osd		= 'SIGNAL_DEBRIS',
 		tip		= 'TIP_DEBRIS',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SHIP.DDS'
 	},
-	PLAQUE =	{-- plaque (mionor monolith)
+	{-- plaque (mionor monolith)
+		id		= 'PLAQUE',
 		class	= 'Plaque',
 		osd		= 'SIGNAL_PLAQUE',
 		tip		= 'TIP_PLAQUE',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUNE.DDS'
 	},
-	NEW_BASE =	{-- unclaimed base site
+	{-- unclaimed base site
+		id		= 'NEW_BASE',
 		class	= 'Base',
 		osd		= 'SIGNAL_BASE',
 		tip		= 'TIP_BASE',
 		icon	= 'TEXTURES/UI/HUD/ICONS/WIKI/BASE1.DDS'
 	},
-	LIBRARY =	{-- library building
+	{-- library building
+		id		= 'LIBRARY',
 		class	= 'LargeBuilding',
 		osd		= 'SIGNAL_LIBRARY',
 		tip		= 'TIP_LIBRARY',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.LIBRARY.DDS'
 	},
-	SETTLEMENT = {-- unclaimed settlement
-		evprior	= 'High',
-		blocal	= 'AllNearest',
-		buildt	= 'UnownedSettlement',
+	{-- unowned settlement
+		id		= 'SETTLEMENT',
+		search	= 'UnownedSettlement',
+		blocal	= 'PlanetSearch',
 		class	= 'Settlement_Hub',
+		wider	= true,
 		osd		= 'UI_SETTLEMENT_LOCATED_OSD',
 		tip		= 'UI_SETTLEMENT_LOCATED',
 		icon	= 'TEXTURES/UI/HUD/ICONS/WIKI/WIKI.SETTLEMENT.DDS'
 	},
-	BOUND_GLITCH = {-- glitched planet building
-		name	= 'BUILDING_GLITCHYSTORYBOX_L',
+	{-- unowned builder settlement
+		id		= 'SETTLEMENT_BUILDERS',
+		search	= 'UnownedSettlement_Builders',
+		blocal	= 'PlanetSearch',
+		class	= 'Settlement_Hub_Builders',
+		wider	= true,
+		osd		= 'UI_SETTLEMENT_BUI_LOCATED_OSD',
+		mlabel	= 'UI_SETTLEMENT_BUI_LABEL',
+		tip		= 'UI_SETTLEMENT_BUI_LOCATED',
+		icon	= 'TEXTURES/UI/HUD/ICONS/WIKI/WIKI.SETTLEMENT.DDS'
+	},
+	{-- glitched (Boundary Failure)
+		id		= 'BOUND_GLITCH',
 		class	= 'StoryGlitch',
-		osd		= 'UI_MP_PORTALQUEST_RIFT_OSD',
-		tip		= 'TUT_BASEBUILD_SURVEY_OSD',
+		osd		= 'UI_EXPED13_GRAVE_OSD',
+		tip		= 'UI_EXPED13_GRAVE_MSG6',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.GLITCH.DDS'
 	},
-	GRAVE =		{-- traveler grave
-		name	= 'SCAN_GRAVE',
+		{-- traveler grave
+		id		= 'GRAVE',
 		class	= 'GraveInCave',
-		osd		= 'UI_BIOSHIP5_SURVEY_OSD',
-		tip		= 'UI_MP_PLANTKILL_GRAVE_SURV_OSD2',
+		osd		= 'UI_SIGNAL_GRAVE',		-- UI_BIOSHIP5_SURVEY_OSD
+		tip		= 'UI_SIGNAL_GRAVE_TIP',	-- UI_MP_PLANTKILL_GRAVE_SURV_OSD2
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.ATLASPATH.MSHOP.DDS'
 	},
-	HOLO_TOWER = {-- holographic hub comms tower
-		name	= 'UI_CORE_HOLOHUB_MARKER',
+	{-- holo terminus
+		id		= 'HOLO_TOWER',
 		class	= 'MissionTower',
 		osd		= 'UI_CORE_A1S4_SURVEY_OSD',
-		tip		= 'UI_CORE_HOLOHUB_OSD1',
+		tip		= 'UI_EXPED_VISIT_TOWER_MSG6',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.HOLOHUB.DDS'
 	},
-	DRONE_HIVE = {-- drone hive pillar
+	{-- drone hive pillar
+		id		= 'DRONE_HIVE',
 		class	= 'DroneHive',
 		osd		= 'UI_DRONEHIVE_LOCATED_OSD',
 		mlabel	= 'UI_SENTINEL_HIVE_NAME',
 		tip		= 'UI_DRONEHIVE_LOCATED',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.DRONEHIVE.DDS'
 	},
-	SENT_CRASH = {-- crashed sentinel ship
+	{-- crashed sentinel ship
+		id		= 'SENT_CRASH',
 		revent	= true,
 		class	= 'SentinelDistressSignal',
 		osd		= 'UI_CRASH_REVEAL_OSD',
@@ -100,7 +214,8 @@ local scan_event = {
 		tip		= 'UI_CRASH_REVEAL_MSG',
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SENTINELCRASH.MSHOP.DDS'
 	},
-	ROBOT_CAMP = {-- autophage camp
+	{-- autophage camp
+		id		= 'ROBOT_CAMP',
 		revent	= true,
 		class	= 'AbandonedRobotCamp',
 		osd		= 'UI_CAMP_REVEAL_OSD',
@@ -108,89 +223,28 @@ local scan_event = {
 		tip		= 'UI_CAMP_REVEAL_MSG',
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.ROBOTHEAD.DDS'
 	},
-	PORTAL = {-- planetry portal
+	{-- palaeontological digsite
+		id		= 'DIGSITE',
+		class	= 'DigSite',
+		osd		= 'SIGNAL_DIGSITE',
+		tip		= 'UI_SIGNAL_DIGSITE_TIP', -- UI_MP_DIGSITE_NPC_OSD
+		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.FOSSIL.MSHOP.DDS'
+	},
+	{-- ancient guardian (stone effigy)
+		id		= 'OLDGUARD',
+		class	= 'AncientGuardian',
+		osd		= 'UI_SIGNAL_OLDGUARD',
+		tip		= 'UI_SIGNAL_OLDGUARD_TIP',
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.OLDGUARD.DDS'
+	},
+	{-- planetary portal
+		id		= 'PORTAL',
+		blocal	= 'PlanetSearch',
 		class	= 'Portal',
+		wider	= true,
 		osd		= 'SIGNAL_PORTAL',
 		tip		= 'TIP_PORTAL',
-		blocal	= 'PlanetSearch',
-		widernd	= true,
-		fportal	= true,
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.PORTAL.DDS'
-	},
-	MONOLITH =	{--	monolith
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUNE.DDS'
-	},
-	RADIOTOWER = {-- radiotower
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SIGNAL.DDS'
-	},
-	FACTORY =	{--	factory
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.FACTORY.DDS'
-	},
-	ABANDONED =	{--	abandoned
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.ABANDONED.DDS'
-	},
-	OUTPOST =	{--	trading post
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.OUTPOST.DDS'
-	},
-	SHOP =		{--	shop
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SMALLBUILDING.DDS'
-	},
-	OBSERVATORY = {-- observatory
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.OBSERVATORY.DDS'
-	},
-	DISTRESS =	{--	crashed ship
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SHIP.DDS'
-	},
-	CRASHED_FREIGHTER =	{--	crashed freighter
-		org		= true,
-		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.FREIGHTER.MSHOP.DDS'
-	},
-	DISTRESS_NPC = {--	NPC in distress
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SHIP.DDS'
-	},
-	HARVESTER =	{--	harvester
-		org		= true,
-		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SCIENCEMISSIONS.MSHOP.DDS'
-	},
-	DEPOT =		{--	sentinel depot
-		org		= true,
-		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.DEPOTRAID.MSHOP.DDS'
-	},
-	RUIN =		{-- ruin
-		-- original. ancient bug fix
-		class	= 'Ruin',
-		osd		= 'UI_SIGNAL_TREASURERUIN',
-		tip		= 'UI_TIP_TREASURERUIN',
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.RUINS.DDS'
-	},
-	DROPPOD =	{-- drop pod
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.POD.DDS'
-	},
-	UW_SHIPCRASH = {-- underwater crashed ship
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.SHIP.DDS'
-	},
-	UW_FREIGHTCRASH = {-- underwater crashed freighter
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.FREIGHTER.DDS'
-	},
-	UW_ABANDONED = {-- underwater building
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.ABANDONED.DDS'
-	},
-	UW_RUIN =	{--	underwater ruin
-		org		= true,
-		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.W.RUIN.DDS'
 	}
 }
 
@@ -198,7 +252,6 @@ local scan_menu_table = {
 	{--	all possible targets
 		name  = 'SHIP_CLOSESTTARGET',
 		tech  = {'VEHICLE_SCAN', 'MECH_SCAN'},
-		icon  = scan_event.BOUND_GLITCH.icon,
 		scan  = {
 			'BOUND_GLITCH',
 			'OUTPOST',
@@ -229,8 +282,11 @@ local scan_menu_table = {
 			'LIBRARY',
 			'DRONE_HIVE',
 			'ROBOT_CAMP',
-			'SENT_CRASH_CORRUPT',
+			'SENT_CRASH',
 			'SETTLEMENT',
+			'SETTLEMENT_BUILDERS',
+			'DIGSITE',
+			'OLDGUARD',
 			'DEBRIS',
 			'BEACON'
 		}
@@ -238,7 +294,6 @@ local scan_menu_table = {
 	{--	shop / trading post
 		name  = 'VEHICLE_BUILDING_OUTPOST',
 		tech  = {'VEHICLE_SCAN', 'MECH_SCAN'},
-		icon  = scan_event.OUTPOST.icon,
 		scan  = {
 			'OUTPOST',
 			'SHOP'
@@ -247,7 +302,6 @@ local scan_menu_table = {
 	{--	sentinel depot / store terminal
 		name  = 'VEHICLE_BUILDING_DEPOT',
 		tech  = {'VEHICLE_SCAN', 'MECH_SCAN'},
-		icon  = scan_event.DEPOT.icon,
 		scan  = {
 			'DEPOT',
 			'TERMINAL'
@@ -256,24 +310,22 @@ local scan_menu_table = {
 	{--	drop pod
 		name  = 'VEHICLE_BUILDING_DAMAGEDMACHINE',
 		tech  = {'VEHICLE_SCAN1'},
-		icon  = scan_event.DROPPOD.icon,
 		scan  = { 'DROPPOD' }
 	},
 	{--	abandoned building
 		name  = 'VEHICLE_BUILDING_ABANDONED',
 		tech  = {'VEHICLE_SCAN1'},
-		icon  = scan_event.ABANDONED.icon,
 		scan  = {
 			'ABANDONED',
 			'UW_ABANDONED'
 		}
 	},
-	{--	treasure / underwater / regular ruin
+	{--	regular ruin / treasure / underwater
 		name  = 'VEHICLE_BUILDING_RUIN',
 		tech  = {'VEHICLE_SCAN2'},
-		icon  = scan_event.RUIN.icon,
 		scan  = {
 			'RUIN',
+			'RUIN', -- not a bug
 			'T_RUIN',
 			'UW_RUIN'
 		}
@@ -281,7 +333,6 @@ local scan_menu_table = {
 	{--	monolith / plaque
 		name  = 'VEHICLE_BUILDING_NPC',
 		tech  = {'VEHICLE_SCAN2'},
-		icon  = scan_event.PLAQUE.icon,
 		scan  = {
 			'MONOLITH',
 			'PLAQUE'
@@ -290,7 +341,6 @@ local scan_menu_table = {
 	{--	radio / observatory
 		name  = 'BUILDING_RADIOTOWER_L',
 		tech  = {'VEHICLE_SCAN', 'MECH_SCAN'},
-		icon  = scan_event.RADIOTOWER.icon,
 		scan  = {
 			'RADIOTOWER',
 			'OBSERVATORY'
@@ -299,7 +349,6 @@ local scan_menu_table = {
 	{--	factory / harvester
 		name  = 'MECH_SCAN_FACT',
 		tech  = {'VEHICLE_SCAN1'},
-		icon  = scan_event.FACTORY.icon,
 		scan  = {
 			'FACTORY',
 			'HARVESTER'
@@ -308,19 +357,17 @@ local scan_menu_table = {
 	{--	crashed ship / sentinel / NPC / underwater ship
 		name  = 'MECH_SCAN_CRASH',
 		tech  = {'VEHICLE_SCAN', 'MECH_SCAN'},
-		icon  = scan_event.DISTRESS.icon,
 		scan  = {
 			'DISTRESS',
 			'DISTRESS_NPC',
 			'DEBRIS_NPC',
-			'SENT_CRASH_CORRUPT',
+			'SENT_CRASH',
 			'UW_SHIPCRASH'
 		}
 	},
 	{--	crashed freighter / underwater freighter
 		name  = 'SUB_RADAR_SCAN_FREIGHTER',
 		tech  = {'VEHICLE_SCAN1'},
-		icon  = scan_event.CRASHED_FREIGHTER.icon,
 		scan  = {
 			'CRASHED_FREIGHTER',
 			'UW_FREIGHTCRASH'
@@ -329,150 +376,165 @@ local scan_menu_table = {
 	{--	sentinel hive pillar
 		name  = 'UI_SENTINEL_HIVE_NAME',
 		tech  = {'VEHICLE_SCAN2'},
-		icon  = scan_event.DRONE_HIVE.icon,
 		scan  = {
 			'DRONE_HIVE',
 			'ROBOT_CAMP'
 		}
 	},
+	{--	palaeontological dig
+		name  = 'UI_DIGSITE_NAME',
+		tech  = {'VEHICLE_SCAN1'},
+		scan  = {
+			'DIGSITE',
+			'DIGSITE', -- not a bug
+			'OLDGUARD'
+		}
+	},
 	{--	unclaimed base site
 		name  = 'UI_RECOVER_BASE_MARKER',
 		tech  = {'VEHICLE_SCAN2'},
-		icon  = scan_event.NEW_BASE.icon,
 		scan  = { 'NEW_BASE' }
 	},
 	{--	library / glitched building
 		name  = 'UI_LIBRARY_ENTRANCE_DESC',
 		tech  = {'VEHICLE_SCAN1'},
-		icon  = scan_event.LIBRARY.icon,
 		scan  = {
 			'LIBRARY',
 			'BOUND_GLITCH'
 		}
 	},
-	{--	unclaimed settlement
+	{--	unowned settlement
 		name  = 'UI_SETTLEMENT_LABEL',
 		tech  = {'VEHICLE_SCAN2'},
-		icon  = scan_event.SETTLEMENT.icon,
-		scan  = { 'SETTLEMENT' }
+		scan  = {
+			'SETTLEMENT',
+			'SETTLEMENT', -- not a bug
+			'SETTLEMENT_BUILDERS'
+		}
 	},
-	{--	portal
+	{--	planetary portal
 		name  = 'BUILDING_PORTAL_L',
-		tech  = {'VEHICLE_SCAN2'},
-		icon  = scan_event.PORTAL.icon,
+		tech  = {'VEHICLE_SCAN1'},
 		scan  = { 'PORTAL' }
 	},
 	{--	submarine: underwater building
 		name  = 'SUB_RADAR_SCAN_ABANDON',
 		tech  = {'SUB_BINOCS'},
-		icon  = scan_event.UW_ABANDONED.icon,
 		scan  = { 'UW_ABANDONED' }
 	},
 	{--	submarine: underwater ruin
 		name  = 'SUB_RADAR_SCAN_RUIN',
 		tech  = {'SUB_BINOCS'},
-		icon  = scan_event.UW_RUIN.icon,
 		scan  = { 'UW_RUIN' }
 	},
 	{--	submarine: underwater crashed ship
 		name  = 'SUB_RADAR_SCAN_CRASH',
 		tech  = {'SUB_BINOCS'},
-		icon  = scan_event.UW_SHIPCRASH.icon,
 		scan  = { 'UW_SHIPCRASH' }
 	},
 	{--	submarine: underwater crashed freighter
 		name  = 'SUB_RADAR_SCAN_FREIGHTER',
 		tech  = {'SUB_BINOCS'},
-		icon  = scan_event.UW_FREIGHTCRASH.icon,
 		scan  = { 'UW_FREIGHTCRASH' }
 	}
 }
 
-local function BuildVehicleScanMenuTable()
-	local T = {meta = {'name', 'VehicleScanTable'}}
-	for _,entry in ipairs(scan_menu_table) do
-		for _,tech in ipairs(entry.tech) do
-			T[#T+1] = {
-				meta			= {'value', 'GcVehicleScanTableEntry.xml'},
-				Name			= entry.name,
-				RequiredTech	= tech,
-				ScanList		= StringArray(entry.scan, 'ScanList', 20),
-				Icon			= {
-					meta	= {'Icon', 'TkTextureResource.xml'},
-					Filename	= entry.icon
-				}
+local sve_ct = {{
+	SPECIAL_KEY_WORDS	= {'Events', 'GcScanEventData'},
+	SEC_SAVE_TO			= 'gc_scan_event'
+}}
+for _,evnt in ipairs(events_data) do
+	if not evnt.org then
+		sve_ct[#sve_ct+1] = {
+			SEC_EDIT 			= 'gc_scan_event',
+			VALUE_CHANGE_TABLE 	= {
+				{'Name',						evnt.id},
+				{'ReplaceEventIfAlreadyActive',	evnt.revent	or false},
+				{'BuildingLocation',			evnt.blocal	or 'Nearest'},
+				{'SearchType',					evnt.search	or 'FindBuildingClass'},
+				{'BuildingClass',				evnt.class	or 'None'},
+				{'ForceWideRandom',				evnt.wider	or false},
+				{'Filename',					evnt.icon},
+				{'OSDMessage',					evnt.osd},
+				{'MarkerLabel',					evnt.mlabel	or ''},
+				{'TooltipMessage',				evnt.tip}
 			}
-		end
+		}
+		sve_ct[#sve_ct+1] = {
+			PRECEDING_KEY_WORDS	= 'Events',
+			ADD_OPTION			= 'AddEndSection',
+			SEC_ADD_NAMED		= 'gc_scan_event'
+		}
+	else
+	--	changes/fixes to original events
+		sve_ct[#sve_ct+1] = {
+			SPECIAL_KEY_WORDS	= {'Name', evnt.id},
+			VALUE_CHANGE_TABLE	= {
+				{'Filename',					evnt.icon	or 'IGNORE'},
+				{'OSDMessage',					evnt.osd	or 'IGNORE'},
+				{'TooltipMessage',				evnt.tip	or 'IGNORE'}
+			}
+		}
 	end
-	return FileWrapping(T, 'GcVehicleScanTable')
+	-- add events_data key access
+	events_data[evnt.id] = evnt
 end
 
-local function VehicleScanEventsChangeTable()
-	local T = {
-		{
-			PRECEDING_KEY_WORDS = 'GcScanEventData.xml',
-			SEC_SAVE_TO			= 'gc_scan_event'
-		}
-	}
-	for event, prp in pairs(scan_event) do
-		if not prp.org then
-			T[#T+1] = {
-				SEC_EDIT 			= 'gc_scan_event',
-				VALUE_CHANGE_TABLE 	= {
-					{'Name',						event},
-					{'EventPriority',				prp.evprior	or 'Regular'},
-					{'BuildingLocation',			prp.blocal	or 'Nearest'},
-					{'ForceWideRandom',				prp.widernd	or false},
-					{'ReplaceEventIfAlreadyActive',	prp.revent	or false},
-					{'BuildingType',				prp.buildt	or 'BuildingClass'},
-					{'MarkerLabel',					prp.mlabel	or ''},
-					{'ForceResetPortal',			prp.fportal	or false},
-					{'OSDMessage',					prp.osd},
-					{'TooltipMessage',				prp.tip}
-				}
-			}
-			T[#T+1] = {
-				SEC_EDIT 			= 'gc_scan_event',
-				PRECEDING_KEY_WORDS = 'BuildingClass',
-				REPLACE_TYPE 		= 'OnceInside',
-				VALUE_CHANGE_TABLE 	= {
-					{'BuildingClass',				prp.class	or 'None'}
-				}
-			}
-			T[#T+1] = {
-				PRECEDING_KEY_WORDS	= 'Events',
-				SEC_ADD_NAMED		= 'gc_scan_event'
-			}
-		end
-	end
-	-- add/replace marker icon for the events
-	for event, prp in pairs(scan_event) do
-		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {'Name', event},
-			PRECEDING_KEY_WORDS	= 'MarkerIcon',
-			VALUE_CHANGE_TABLE	= {
-				{'Filename',	prp.icon}
+local sqm_ct = {meta = {name='VehicleScanTable'}}
+for _,entry in ipairs(scan_menu_table) do
+	for _,tech in ipairs(entry.tech) do
+		sqm_ct[#sqm_ct+1] = {
+			meta			= {name='VehicleScanTable', value='GcVehicleScanTableEntry'},
+			Name			= entry.name,
+			RequiredTech	= tech,
+			ScanList		= StringArray(entry.scan, 'ScanList'),
+			Icon			= {
+				meta	= {name='Icon', value='TkTextureResource'},
+				Filename	= events_data[entry.scan[1]].icon
 			}
 		}
 	end
-	return T
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META vehicle scan targets.pak',
+	MOD_FILENAME 		= '+ META vehicle scan targets',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
-	ADD_FILES = {
-		{
-			FILE_DESTINATION = 'METADATA/SIMULATION/SCANNING/VEHICLESCANTABLE.EXML',
-			FILE_CONTENT	 = BuildVehicleScanMenuTable()
-		}
-	},
 	MODIFICATIONS 		= {{
-	MBIN_CHANGE_TABLE	= {
-	{
-		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SCANNING/SCANEVENTTABLEVEHICLE.MBIN',
-		EXML_CHANGE_TABLE	= VehicleScanEventsChangeTable()
+		MBIN_CHANGE_TABLE	= {
+			{
+				MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SCANNING/SCANEVENTTABLEVEHICLE.MBIN',
+				EXML_CREATE			= false,
+				MXML_CHANGE_TABLE	= sve_ct
+			}
+		}
+	}},
+	ADD_FILES			= {
+		{
+			FILE_DESTINATION 	= 'METADATA/SIMULATION/SCANNING/VEHICLESCANTABLE.MXML',
+			FILE_CONTENT	 	= ToMxmlFile(sqm_ct, 'cGcVehicleScanTable')
+		}
 	}
-}}}}
+}
+
+local __locale_text_import__ = {
+	UI_SIGNAL_OLDGUARD = {
+		EN = [[Stone Guardian Detected]],
+	},
+	UI_SIGNAL_OLDGUARD_TIP = {
+		EN = [[<SPECIAL>Ancient Effigy Signal Detected<>|N|Reach the marked location and investigate the remains. Carefully!]],
+	},
+	UI_SIGNAL_DIGSITE_TIP = {
+		EN = [[<SPECIAL>Active Digsite Detected<>|N|Investigate the palaeontological fossil to find more about it and barter with the locals]],
+	},
+	UI_SIGNAL_GRAVE = {
+		EN = [[Traveler Grave Signal Detected]],
+	},
+	UI_SIGNAL_GRAVE_TIP = {
+		EN = [[<SPECIAL>Grave Signal Detected<>|N|Reach the marked location and investigate the late owner's fate.]],
+	},
+	UI_SIGNAL_RUIN_TIP = {
+		EN = [[<TITLE>Ancient ruined site detected<>|N|Investigate the marked location to find knowledge of the past.]],
+	},
+}--- __locale_text_import__ (do not delete)

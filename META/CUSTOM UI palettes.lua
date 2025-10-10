@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ---------------------------------------------------------------------
 local mod_desc = [[
   - Add cusomization options for the skiff.
@@ -9,28 +9,29 @@ local mod_desc = [[
 ]]-------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META ui cutomization palettes.pak',
+	MOD_FILENAME 		= '+ META ui cutomization palettes',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/UI/CHARACTERCUSTOMISATIONUIDATA.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Skiff', 'GcCustomisationUI.xml'},
+				SPECIAL_KEY_WORDS	= {'Skiff', 'GcCustomisationUI'},
 				VALUE_CHANGE_TABLE 	= {
 					{'ForceShowAllColourOptions', true}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Skiff', 'GcCustomisationUI.xml'},
+				SPECIAL_KEY_WORDS	= {'Skiff', 'GcCustomisationUI'},
 				PRECEDING_KEY_WORDS = 'ColourGroups',
 				REMOVE				= 'Section'
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Vehicle_Mech', 'GcCustomisationUI.xml'},
+				SPECIAL_KEY_WORDS	= {'Vehicle_Mech', 'GcCustomisationUI'},
 				PRECEDING_KEY_WORDS = 'ColourGroups',
 				SEC_SAVE_TO			= 'mech_colour_groups'
 			},
@@ -45,43 +46,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Skiff', 'GcCustomisationUI.xml'},
-				PRECEDING_KEY_WORDS = 'GcCustomisationGroup.xml',
+				SPECIAL_KEY_WORDS	= {'Skiff', 'GcCustomisationUI'},
+				PRECEDING_KEY_WORDS = 'GcCustomisationGroup',
 				SEC_ADD_NAMED		= 'mech_colour_groups'
 			},
 			{
-				SPECIAL_KEY_WORDS	= (
-					function()
-						local T = {}
-						for _,head in ipairs({
-							'HEAD_ASTBOT1',
-							'HEAD_ASTBOT2',
-							'BHEAD_3',
-							'BHEAD_4',
-							'BHEAD_5',
-							'BHEAD_6',
-							'BHEAD_7',
-							'BHEAD_9',
-							'BHEAD_10',
-							'BHEAD_11',
-							'BHEAD_12',
-							'BHEAD_13',
-							'BHEAD_14',
-							'BHEAD_15',
-							'BHEAD_16',
-							'BHEAD_17'
-						}) do
-							T[#T+1] = {'DescriptorOption', head, 'Title', 'CUSTOMISE_TERTIARY'}
-						end
-						return T
-					end
-				)(),
+				SPECIAL_KEY_WORDS	= {
+					{'DescriptorOption', 'HEAD_ASTBOT[12]',	'Title', 'CUSTOMISE_TERTIARY'},
+					{'DescriptorOption', 'BHEAD_%d.-',		'Title', 'CUSTOMISE_TERTIARY'}
+				},
 				ADD_OPTION			= 'AddAfterSection',
-				ADD					= ToExml({
-					meta	= {'value', 'GcCustomisationColourGroup.xml'},
+				ADD					= ToMxml({
+					meta	= {name='ColourGroups', value='GcCustomisationColourGroup'},
 					Title	= 'Light Color',
 					Palette	= {
-						meta		= {'Palette', 'TkPaletteTexture.xml'},
+						meta		= {name='Palette', value='TkPaletteTexture'},
 						Palette		= 'Custom_Head',
 						ColourAlt	= 'Alternative3'
 					}

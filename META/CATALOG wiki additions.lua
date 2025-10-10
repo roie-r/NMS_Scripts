@@ -1,6 +1,7 @@
 ----------------------------------------------------
-dofile('LIB/_exml_2_lua.lua')
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_mxml_2_lua.lua')
+dofile('LIB/_lua_2_mxml.lua')
+dofile('Dictionary.lua')
 ----------------------------------------------------
 local mod_desc = [[
   remove proc-tech and add extras in tech catalog
@@ -57,24 +58,16 @@ local tech_catalog = {
 		}
 	}
 }
-
-local source_mbins = {
-	'METADATA/REALITY/CATALOGUECRAFTING.MBIN',
-	'METADATA/REALITY/CATALOGUEMATERIALS.MBIN',
-	'METADATA/REALITY/CATALOGUERECIPES.MBIN',
-	'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN'
-}
-
 -----------------------------------------------------------------------------------------
 local function ProcessCatalogCraft(the_index, norm_path)
 	local mbin_craft = ToLua(table.concat(the_index.ModdedEXMLs[norm_path]))
 
-	for _,cat in ipairs(mbin_craft.template.Categories) do
+	for _,cat in ipairs(mbin_craft.Categories) do
 		if tech_catalog[cat.CategoryID].pattern then
 			-- remove by pattern
 			for _,ptrn in ipairs(tech_catalog[cat.CategoryID].pattern) do
 				for i=#cat.Items, 1, -1 do
-					if cat.Items[i].Value:find(ptrn) then
+					if cat.Items[i]:find(ptrn) then
 						table.remove(cat.Items, i)
 					end
 				end
@@ -83,73 +76,66 @@ local function ProcessCatalogCraft(the_index, norm_path)
 		if tech_catalog[cat.CategoryID].add then
 			-- add extras
 			for _,item in ipairs(tech_catalog[cat.CategoryID].add) do
-				table.insert(
-					cat.Items,
-					item[2] or #cat.Items + 1,
-					{
-						meta	= {'value', 'NMSString0x10.xml'},
-						Value	= item[1]
-					}
-				)
+				table.insert(cat.Items, item[2] or #cat.Items + 1, item[1])
 			end
 		end
 	end
-	return FileWrapping(mbin_craft)
+	return ToMxmlFile(mbin_craft)
 end
 
 -----------------------------------------------------------------------------------------
 local function ProcessCatalogMaterial(the_index, norm_path)
 	local mbin_material = ToLua(table.concat(the_index.ModdedEXMLs[norm_path]))
-	local material_cat4	= mbin_material.template.Categories[4]
+	local material_cat4	= mbin_material.Categories[4]
 
-	material_cat4.Items[#material_cat4.Items+1] = {
-		meta	= {'value', 'NMSString0x10.xml'},
-		Value	= 'ULTRAPRODX40'
-	}
-	material_cat4.Items[#material_cat4.Items+1] = {
-		meta	= {'value', 'NMSString0x10.xml'},
-		Value	= 'RAMMOULD5'
-	}
-	return FileWrapping(mbin_material)
+	material_cat4.Items[#material_cat4.Items+1] = 'ULTRAPRODX40'
+	material_cat4.Items[#material_cat4.Items+1] = 'RAMMOULD5'
+
+	return ToMxmlFile(mbin_material)
 end
 
 -----------------------------------------------------------------------------------------
 local function ProcessCatalogRecipe(the_index, norm_path)
-	-- just to pull data, will be discarded
-	local gc_products		= ToLua(table.concat(the_index.ModdedEXMLs[NormalizePath(source_mbins[4], true)]))
-
 	local mbin_recipe		= ToLua(table.concat(the_index.ModdedEXMLs[norm_path]))
-	local recipe_categories	= mbin_recipe.template.Categories
-	-- copy table by value
+	local recipe_categories	= mbin_recipe.Categories
 	local new_category 		= UnionTables({recipe_categories[1]})
 
 	for _,head in ipairs({
-		{f='UI_FIGHTER_PART_SUB',		t='UI_SHIP_TAB_STARSHIP'},
-		{f='UI_DROPSHIP_PART_SUB',		t='UI_SHIP_TAB_DROPSHIP'},
-		{f='UI_SCIENTIFIC_PART_SUB',	t='UI_SHIP_TAB_SCIENTIFIC'},
+		{f='FIGHT.-',	t='UI_SHIP_TAB_STARSHIP'},
+		{f='DROPS.-',	t='UI_SHIP_TAB_DROPSHIP'},
+		{f='SAIL.-',	t='UI_SHIP_TAB_SAILSHIP'},
+		{f='SCIEN.-',	t='UI_SHIP_TAB_SCIENTIFIC'},
 	}) do
 		new_category.CategoryID			= head.t
 		new_category.CategoryIDUpper	= head.t
 		new_category.IconOn.Filename	= 'TEXTURES/UI/FRONTEND/ICONS/WIKI/WIKI.TECH.SHIP.ON.DDS'
 		new_category.IconOff.Filename	= 'TEXTURES/UI/FRONTEND/ICONS/WIKI/WIKI.TECH.SHIP.OFF.DDS'
 		new_category.Type.WikiTopicType	= 'CustomItemList'
+		new_category[1] = nil -- remove stubs
+		new_category[2] = nil
 
-		-- read prodcut list
+		-- search custom parts list
 		local parts = {}
-		for _,prd in ipairs(gc_products.template.Table) do
-			if prd.Subtitle:find(head.f) then
-				parts[#parts+1] = prd.ID
+		for id, dat in pairs(DICTIONARY) do
+			if id:find(head.f) and dat.source == 'ModularCustomisationProducts' and dat.category == 'CustomisationPart' then
+				parts[#parts+1] = id
 			end
 		end
 		new_category.Items = StringArray(parts, 'Items')
 		recipe_categories[#recipe_categories+1] = UnionTables({new_category})
 	end
-	return FileWrapping(mbin_recipe)
+	return ToMxmlFile(mbin_recipe)
 end
 
 -----------------------------------------------------------------------------------------
-ProcessRawExml = nil
-function ProcessRawExml(the_index) -- called by AMUMSS
+local source_mbins = {
+	'METADATA/REALITY/CATALOGUECRAFTING.MBIN',
+	'METADATA/REALITY/CATALOGUEMATERIALS.MBIN',
+	'METADATA/REALITY/CATALOGUERECIPES.MBIN'
+}
+
+ProcessRawMxml = nil
+function ProcessRawMxml(the_index) -- called by AMUMSS
 	local T = {}
 	for i, func in ipairs({
 		ProcessCatalogCraft,
@@ -161,17 +147,17 @@ function ProcessRawExml(the_index) -- called by AMUMSS
 	end
 	return T
 end
-
 -----------------------------------------------------------------------------------------
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME		= '__META wiki catalogs.pak',
+	MOD_FILENAME		= '+ META wiki catalogs',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
-		MBIN_FILE_SOURCE = source_mbins,
-		EXT_FUNC		 = {'ProcessRawExml'}
+		MBIN_FILE_SOURCE	= source_mbins,
+		EXML_CREATE			= false,
+		EXT_FUNC			= {'ProcessRawMxml'}
 	}
 }}}}

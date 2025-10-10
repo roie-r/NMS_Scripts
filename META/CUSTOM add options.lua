@@ -1,6 +1,7 @@
 -------------------------------------------------------
-dofile('LIB/_exml_2_lua.lua')
 dofile('LIB/shared_lists.lua')
+-- dofile('LIB/item_dictionary.lua')
+dofile('Dictionary.lua')
 -------------------------------------------------------
 local mod_desc = [[
   - Add texture options to ship builder menu
@@ -8,16 +9,12 @@ local mod_desc = [[
    * (UI added in UI/MULTITOOL_BUILDER_PAGE.MBIN)
 ]]-----------------------------------------------------
 
-local mbin_substances = 'METADATA/REALITY/TABLES/NMS_REALITY_GCSUBSTANCETABLE.MBIN'
-local mbin_mod_custom = 'METADATA/GAMESTATE/PLAYERDATA/MODULARCUSTOMISATIONDATATABLE.MBIN'
-local mbin_chr_custom = 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONTEXTUREOPTIONDATA.MBIN'
-
-local function AddToModCustom(the_index, mbin)
+local function AddToModCustom()
 	local T = {}
-	for _,ship in ipairs({'Fighter', 'Dropship', 'Sail'}) do
+	for _,ship in ipairs({'Fighter', 'Dropship', 'Sail'}) do -- 'Sail'
 		-- ship :: copy GcModularCustomisationColourData
 		T[#T+1] = {
-			SPECIAL_KEY_WORDS	= {ship, 'GcModularCustomisationConfig.xml', 'RequiredTextureOption', 'PANELS'},
+			SPECIAL_KEY_WORDS	= {ship, 'GcModularCustomisationConfig', 'RequiredTextureOption', 'PANELS'},
 			SEC_SAVE_TO			= 'customisation_colour_data',
 		}
 		-- ship :: insert new texture options
@@ -31,7 +28,7 @@ local function AddToModCustom(the_index, mbin)
 					}
 				}
 				T[#T+1] = {
-					SPECIAL_KEY_WORDS	= {ship, 'GcModularCustomisationConfig.xml'},
+					SPECIAL_KEY_WORDS	= {ship, 'GcModularCustomisationConfig'},
 					PRECEDING_KEY_WORDS = 'ColourDataPriorityList',
 					ADD_OPTION			= 'AddEndSection',
 					SEC_ADD_NAMED		= 'customisation_colour_data'
@@ -39,11 +36,37 @@ local function AddToModCustom(the_index, mbin)
 			end
 		end
 	end
+	-- Sailship :: copy GcModularCustomisationColourData
+	T[#T+1] = {
+		SPECIAL_KEY_WORDS	= {'Sail', 'GcModularCustomisationConfig', 'RequiredTextureOption', 'PANELS'},
+		SEC_SAVE_TO			= 'customisation_colour_data',
+	}
+	-- Sailship :: insert new texture options
+	for _,snk in ipairs(new_ship_texture) do
+		if not snk.org then
+			T[#T+1] = {
+				SEC_EDIT 			= 'customisation_colour_data',
+				VALUE_CHANGE_TABLE 	= {
+					{'RequiredTextureOption',	snk.name},
+					{'PaletteID',				snk.metal and 'SHIP_METALLIC' or 'SHIP'},
+				}
+			}
+			T[#T+1] = {
+				SPECIAL_KEY_WORDS	= {'Sail', 'GcModularCustomisationConfig'},
+				PRECEDING_KEY_WORDS = 'ColourDataPriorityList',
+				ADD_OPTION			= 'AddEndSection',
+				SEC_ADD_NAMED		= 'customisation_colour_data'
+			}
+		end
+	end
+
 	-- Scientific :: ready and insert new options
 	T[#T+1] = {
 		REPLACE_TYPE 		= 'All',
-		SPECIAL_KEY_WORDS	= {'Scientific', 'GcModularCustomisationConfig.xml'},
-		PRECEDING_KEY_WORDS = 'GcModularCustomisationColourData.xml',
+		SPECIAL_KEY_WORDS	= {
+			'Scientific', 'GcModularCustomisationConfig',
+			'ColourDataPriorityList', 'GcModularCustomisationColourData'
+		},
 		REMOVE				= 'Section'
 	}
 	T[#T+1] = {
@@ -72,7 +95,7 @@ local function AddToModCustom(the_index, mbin)
 				}
 			end
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'Scientific', 'GcModularCustomisationConfig.xml'},
+				SPECIAL_KEY_WORDS	= {'Scientific', 'GcModularCustomisationConfig'},
 				PRECEDING_KEY_WORDS = 'ColourDataPriorityList',
 				ADD_OPTION			= 'AddEndSection',
 				SEC_ADD_NAMED		= 'customisation_colour_data'
@@ -106,7 +129,7 @@ local function AddToModCustom(the_index, mbin)
 	}
 	T[#T+1] = {
 		SEC_EDIT 			= 'customisation_config',
-		SPECIAL_KEY_WORDS	= {'SlotEmptyCustomisation', 'GcModularCustomisationSlotItemData.xml'},
+		SPECIAL_KEY_WORDS	= {'SlotEmptyPreviewCustomisation', 'GcModularCustomisationSlotItemData'},
 		VALUE_CHANGE_TABLE 	= {
 			{'ActivatedDescriptorGroupID', ''}
 		}
@@ -114,22 +137,26 @@ local function AddToModCustom(the_index, mbin)
 	T[#T+1] = {
 		REPLACE_TYPE 		= 'All',
 		SEC_EDIT 			= 'customisation_config',
-		PRECEDING_KEY_WORDS = 'GcModularCustomisationSlotItemData.xml',
+		SPECIAL_KEY_WORDS	= {'SlottableItems', 'GcModularCustomisationSlotItemData'},
 		REMOVE				= 'Section'
 	}
 	-- staff :: insert new slotable items
-	for _,sbt in ipairs(the_index.substance_ids) do
-		T[#T+1] = {
-			SEC_EDIT 			= 'customisation_slot_item',
-			VALUE_CHANGE_TABLE 	= {
-				{'ItemID',		sbt}
+	for id, dat in pairs(DICTIONARY) do
+		if dat.source == 'Substance' and not id:match('^SET_.-') and not id:match('.-STAND.-') then
+	-- for id, dat in pairs(DICTIONARY) do
+		-- if dat.source == 'Substance' and dat.category ~= 'Currency' then
+			T[#T+1] = {
+				SEC_EDIT 			= 'customisation_slot_item',
+				VALUE_CHANGE_TABLE 	= {
+					{'ItemID',		id}
+				}
 			}
-		}
-		T[#T+1] = {
-			SEC_EDIT 			= 'customisation_config',
-			PRECEDING_KEY_WORDS = 'SlottableItems',
-			SEC_ADD_NAMED		= 'customisation_slot_item',
-		}
+			T[#T+1] = {
+				SEC_EDIT 			= 'customisation_config',
+				PRECEDING_KEY_WORDS = 'SlottableItems',
+				SEC_ADD_NAMED		= 'customisation_slot_item',
+			}
+		end
 	end
 	-- staff :: add new slot header
 	T[#T+1] = {
@@ -137,19 +164,15 @@ local function AddToModCustom(the_index, mbin)
 		ADD_OPTION			= 'AddAfterSection',
 		SEC_ADD_NAMED		= 'customisation_config',
 	}
-	-- Add to MBIN_CT
-	the_index.MBIN_CT[#the_index.MBIN_CT+1] = {
-		MBIN_FILE_SOURCE	= mbin,
-		EXML_CHANGE_TABLE	= T
-	}
+	return T
 end
 
-local function AddToCharCustom(the_index, mbin)
+local function AddToCharCustom()
 	local T = {}
-	local str20 = '<Property value="NMSString0x20.xml"><Property name="Value" value="%s"/></Property>'
+	local prp_val = '<Property name="%s" value="%s"/>'
 	-- ship :: copy multilayer
 	T[#T+1] = {
-		SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'COATING'},
+		SPECIAL_KEY_WORDS	= {'MultiTextureOptionsID', 'SHIP_FIGHT', 'TextureOptionsID', 'COATING'},
 		SEC_SAVE_TO			= 'multi_texture_option',
 	}
 	-- ship :: insert new multilayers
@@ -163,80 +186,121 @@ local function AddToCharCustom(the_index, mbin)
 				}
 			}
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'MultiTextureOptionsID', 'SHIP_FIGHT'},
+				SPECIAL_KEY_WORDS	= {
+					{'MultiTextureOptionsID', 'SHIP_FIGHT'},
+					{'MultiTextureOptionsID', 'SHIP_SAIL'},
+				},
 				PRECEDING_KEY_WORDS = 'Options',
 				ADD_OPTION			= 'AddEndSection',
 				SEC_ADD_NAMED		= 'multi_texture_option'
 			}
 			T[#T+1] = {
-				SPECIAL_KEY_WORDS	= {'MultiTextureOptionsID', 'SHIP_FIGHT'},
+				SPECIAL_KEY_WORDS	= {
+					{'MultiTextureOptionsID', 'SHIP_FIGHT'},
+					{'MultiTextureOptionsID', 'SHIP_SAIL'},
+				},
 				PRECEDING_KEY_WORDS = 'Tips',
 				ADD_OPTION			= 'AddEndSection',
-				ADD					= string.format(str20, snk.name)
+				ADD					= prp_val:format('Tips', snk.tip)
 			}
-
 			-- scientific :: add options and tips
 			if snk.sci then
 				T[#T+1] = {
 					SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'SHIP_SCI'},
 					PRECEDING_KEY_WORDS = 'Options',
 					ADD_OPTION			= 'AddEndSection',
-					ADD					= string.format(str20, snk.name)
+					ADD					= prp_val:format('Options', snk.name)
 				}
 				T[#T+1] = {
 					SPECIAL_KEY_WORDS	= {'TextureOptionsID', 'SHIP_SCI'},
 					PRECEDING_KEY_WORDS = 'Tips',
 					ADD_OPTION			= 'AddEndSection',
-					ADD					= string.format(str20, snk.name)
+					ADD					= prp_val:format('Tips', snk.tip)
 				}
 			end
 		end
 	end
-	-- Add to MBIN_CT
-	the_index.MBIN_CT[#the_index.MBIN_CT+1] = {
-		MBIN_FILE_SOURCE	= mbin,
-		EXML_CHANGE_TABLE	= T
-	}
+	return T
 end
 
-local function ReadSubstances(the_index, mbin)
-	local gc_subs = ToLua(table.concat(the_index.ModdedEXMLs[NormalizePath(mbin, true)]))
-	-- read substances ids
-	local ids = {}
-	for _,subs in ipairs(gc_subs.template.Table) do
-		if subs.Symbol ~= 'UI_REWARDPOP_SYM' and not subs.ID:find('TECH') then
-			ids[#ids+1] = subs.ID
-		end
-	end
-	the_index.substance_ids = ids
-	return 'IGNORE'
-end
-
-ProcessRawExml = nil -- to silence unused_variable
-function ProcessRawExml(the_index) -- called by AMUMSS
-	return {
-		[NormalizePath(mbin_substances, true)] = ReadSubstances(the_index, mbin_substances),
-		[NormalizePath(mbin_mod_custom, true)] = AddToModCustom(the_index, mbin_mod_custom),
-		[NormalizePath(mbin_chr_custom, true)] = AddToCharCustom(the_index, mbin_chr_custom)
-	}
-end
--------------------------------------------------------------------------------------
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META add customization options.pak',
+	MOD_FILENAME 		= '+ META add customization options',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 	{
 		MBIN_CHANGE_TABLE	= {
 			{
-				MBIN_FILE_SOURCE 	= {
-					mbin_substances,
-					mbin_mod_custom,
-					mbin_chr_custom
-				},
-				EXT_FUNC		 	= {'ProcessRawExml'}
+				MBIN_FILE_SOURCE 	= 'METADATA/GAMESTATE/PLAYERDATA/MODULARCUSTOMISATIONDATATABLE.MBIN',
+				EXML_CREATE			= false,
+				MXML_CHANGE_TABLE	= AddToModCustom()
+			},
+			{
+				MBIN_FILE_SOURCE 	= 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONTEXTUREOPTIONDATA.MBIN',
+				EXML_CREATE			= false,
+				MXML_CHANGE_TABLE	= AddToCharCustom()
 			}
 		}
-	},
+	}
 }}
+
+local __locale_text_import__ = {
+---	New text ---
+	UI_TIP_SHIP_TOPOMAP		    = {
+		EN = [[Topography]],
+	},
+	UI_TIP_SHIP_PAINTSWIRL	    = {
+		EN = [[Swirling Colours]],
+	},
+	UI_TIP_SHIP_MEZO			= {
+		EN = [[Mezo Central]],
+	},
+	UI_TIP_SHIP_MAYA_SNAKE	    = {
+		EN = [[Mayan Stone Serpent]],
+	},
+	UI_TIP_SHIP_MAYA_WALL		= {
+		EN = [[Mayan Story]],
+	},
+	UI_TIP_SHIP_AZTEC_DRAGON	= {
+		EN = [[Aztec Dragon]],
+	},
+	UI_TIP_SHIP_AZTEC_FACE	    = {
+		EN = [[Aztec Scream]],
+	},
+	UI_TIP_SHIP_CELTIC		    = {
+		EN = [[Celt Knot]],
+	},
+	UI_TIP_SHIP_POLYNESIA		= {
+		EN = [[Polynesian Interlocks]],
+	},
+	UI_TIP_SHIP_POLYNESIA_SEA	= {
+		EN = [[One With The Sea]],
+	},
+	UI_TIP_SHIP_MAORI_FACE	    = {
+		EN = [[Maori Marked]],
+	},
+	UI_TIP_SHIP_EASTERN		    = {
+		EN = [[Eastern Wise]],
+	},
+	UI_TIP_SHIP_WOVEN			= {
+		EN = [[Woven Craft]],
+	},
+	UI_TIP_SHIP_WOVEN2		    = {
+		EN = [[Woven Excellence]],
+	},
+	UI_TIP_SHIP_DEMON			= {
+		EN = [[Floral Demon]],
+	},
+	UI_TIP_SHIP_TARGET		    = {
+		EN = [[Vertical Target]],
+	},
+	UI_TIP_SHIP_SKULLS		    = {
+		EN = [[Crystal Skulls]],
+	},
+	UI_TIP_SHIP_THE_HARING	    = {
+		EN = [[All Haring]],
+	},
+---	Existing text overwritten ---
+
+}--- __locale_text_import__ (do not delete)
