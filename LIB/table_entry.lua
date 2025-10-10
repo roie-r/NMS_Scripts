@@ -1,29 +1,36 @@
 -------------------------------------------------------------------------------
----	Reality tables entries (VERSION: 0.85.2) ... by lMonk
----	Build full table entries, conversion-ready with ToExml; For technology,
---	 proc-tech, product, recipe, basebuild objects and basebuild parts.
----	* Not ALL properties of the tables' classes are included. Some properties
----	 who are unused/deprecated/can stay with a default value are omitted.
----	* Requires _lua_2_exml.lua !
----	* This script should be in [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+---	MXML 2 LUA ... by lMonk
+---	A tool for converting between mxml file format and lua table.
+--- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
+-------------------------------------------------------------------------------
+---	Reality tables entries ... version: 1.02.2
+---	Build full table entries for technology, proc-tech, product, recipe,
+---  and basebuild objects and basebuild parts.
+---	* Not ALL class properties are included. Some who are unused/deprecated
+---	 or can safely remain with a default value are omitted.
 -------------------------------------------------------------------------------
 
 IT_={--	InventoryType Enum
 	SBT='Substance',	TCH='Technology',	PRD='Product'
-}
+}-- Enum
 
---	build the requirements table for tech and products
+--	=> Return true if value is nil
+local function orTrue(b)
+	return b == nil and true or b
+end
+
+--	=> build the requirements table for tech and products
 --	receives a table of {id, amount, product/substance} items
 function GetRequirements(r)
 	if not r then return nil end
-	local reqs = {meta = {'name', 'Requirements'}}
+	local reqs = {meta = {name='Requirements'}}
 	for _,req in ipairs(r) do
 		reqs[#reqs+1] = {
-			meta	= {'value', 'GcTechnologyRequirement.xml'},
+			meta	= {name='Requirements', value='GcTechnologyRequirement'},
 			ID		= req.id,
 			Amount	= req.n,							--	i
 			Type	= {
-				meta	= {'Type', 'GcInventoryType.xml'},
+				meta	= {name='Type', value='GcInventoryType'},
 				InventoryType = req.tp					--	Enum
 			}
 		}
@@ -31,12 +38,12 @@ function GetRequirements(r)
 	return reqs
 end
 
---	receives a table of {type, bonus, level} items
+--	=> receives a table of {type, bonus, level} items
 function TechStatBonus(tsb)
 	return {
-		meta	= {'value', 'GcStatsBonus.xml'},
+		meta	= {name='StatBonuses', value='GcStatsBonus'},
 		Stat	= {
-			meta		= {'Stat', 'GcStatsTypes.xml'},
+			meta		= {name='Stat', value='GcStatsTypes'},
 			StatsType	= tsb.st					--	Enum
 		},
 		Bonus	= tsb.bn,							--	f
@@ -44,12 +51,12 @@ function TechStatBonus(tsb)
 	}
 end
 
---	Build an entry for NMS_REALITY_GCTECHNOLOGYTABLE
---	sub lists (requirements and color) are entered in separate tables
+--	=> Build an entry for NMS_REALITY_GCTECHNOLOGYTABLE
+--	* handles multiple entries
 function TechnologyEntry(items)
 	local function techEntry(tech)
 		return {
-			meta			= {'value', 'GcTechnology.xml'},
+			meta			= {name='Table', value='GcTechnology'},
 			ID				= tech.id,
 			Group			= tech.group,									--	s
 			Name			= tech.name,									--	s
@@ -60,7 +67,7 @@ function TechnologyEntry(items)
 			HintStart		= tech.hintstart,
 			HintEnd			= tech.hintend,
 			Icon			= {
-				meta	= {'Icon', 'TkTextureResource.xml'},
+				meta	= {name='Icon', value='TkTextureResource'},
 				Filename	= tech.icon,									--	s
 			},
 			Colour			= ColorData(tech.color, 'Colour'),				--	rgb/hex
@@ -68,7 +75,7 @@ function TechnologyEntry(items)
 			Chargeable		= tech.chargeable,								--	b
 			ChargeAmount	= tech.chargeamount	or 100,						--	i
 			ChargeType		= {
-				meta	= {'ChargeType', 'GcRealitySubstanceCategory.xml'},
+				meta	= {name='ChargeType', value='GcRealitySubstanceCategory'},
 				SubstanceCategory = (tech.chargetype or 'Earth'),			--	E
 			},
 			ChargeBy		= StringArray(tech.chargeby, 'ChargeBy'),		--	Id
@@ -79,24 +86,25 @@ function TechnologyEntry(items)
 			PrimaryItem		= tech.primaryitem,								--	b
 			Upgrade			= tech.upgrade,									--	b
 			Core			= tech.core,									--	b
+			RepairTech		= false,
 			Procedural		= tech.istemplate,								--	not a bug
 			Category		= {
-				meta	= {'Category', 'GcTechnologyCategory.xml'},
+				meta	= {name='Category', value='GcTechnologyCategory'},
 				TechnologyCategory = tech.category,							--	Enum
 			},
 			Rarity			= {
-				meta	= {'Rarity', 'GcTechnologyRarity.xml'},
+				meta	= {name='Rarity', value='GcTechnologyRarity'},
 				TechnologyRarity = tech.rarity	or 'Normal',				--	Enum
 			},
 			Value			= tech.value		or 10,						--	i
 			Requirements	= GetRequirements(tech.requirements),
 			BaseStat		= {
-				meta	= {'BaseStat', 'GcStatsTypes.xml'},
+				meta	= {name='BaseStat', value='GcStatsTypes'},
 				StatsType	= tech.basestat,								--	Enum
 			},
 			StatBonuses		= (
 				function()
-					local stats = {meta = {'name', 'StatBonuses'}}
+					local stats = {meta = {name='StatBonuses'}}
 					for _,tsb in ipairs(tech.statbonuses) do
 						stats[#stats+1] = TechStatBonus(tsb)
 					end
@@ -111,51 +119,56 @@ function TechnologyEntry(items)
 			RequiredRank	= tech.requiredrank	or 1,
 			FragmentCost	= tech.fragmentcost	or 1,
 			TechShopRarity	= {
-				meta	= {'TechShopRarity', 'GcTechnologyRarity.xml'},
+				meta	= {name='TechShopRarity', value='GcTechnologyRarity'},
 				TechnologyRarity = tech.rarity	or 'Normal',				--	E
 			},
 			WikiEnabled		= tech.wikienabled,								--	b
-			IsTemplate		= tech.istemplate								--	b
+			DamagedDescription = tech.damagedesc,							--	s
+			IsTemplate		= tech.istemplate,								--	b
+			ExclusivePrimaryStat= tech.exclusiveprimarystat					--	b
 		}
 	end
-	return processOnenAll(items, techEntry)
+	return ProcessOnenAll(items, techEntry)
 end
 
---	Build an entry for NMS_REALITY_GCPRODUCTTABLE
---	sub lists (requirements and color) are entered in separate tables
+--	=> Build an entry for NMS_REALITY_GCPRODUCTTABLE
+--	* handles multiple entries
 function ProductEntry(items)
 	local function prodEntry(prod)
 		return {
-			meta	= {'value', 'GcProductData.xml'},
-			ID			= prod.id,
-			Name		= prod.name,									--	s
-			NameLower	= prod.namelower,								--	s
-			Subtitle	= prod.subtitle,								--	s
-			Description	= prod.description,								--	s
-			DebrisFile	= {
-				meta	= {'DebrisFile', 'TkModelResource.xml'},
+			meta	= {name='value', value='GcProductData'},
+			ID						= prod.id,
+			Name					= prod.name,						--	s
+			NameLower				= prod.namelower,					--	s
+			Subtitle				= prod.subtitle,					--	s
+			Description				= prod.description,					--	s
+			BuildableShipTechID		= prod.buildableshiptechid,			--	s
+			GroupID					= prod.groupid,						--	s
+			DebrisFile				= {
+				meta	= {name='DebrisFile', value='TkModelResource'},
 				Filename= 'MODELS/EFFECTS/DEBRIS/TERRAINDEBRIS/TERRAINDEBRIS4.SCENE.MBIN'
 			},
-			BaseValue	= prod.basevalue or 1,							--	i
-			Icon		= {
-				meta	= {'Icon', 'TkTextureResource.xml'},
+			BaseValue				= prod.basevalue or 1,				--	i
+			Level					= prod.level,						--	i
+			Icon					= {
+				meta	= {name='Icon', value='TkTextureResource'},
 				Filename= prod.icon										--	s
 			},
-			Colour		= ColorData(prod.color, 'Colour'),				--	rgb/hex
+			Colour					= ColorData(prod.color, 'Colour'),	--	rgb/hex
 			Category	= {
-				meta	= {'Category', 'GcRealitySubstanceCategory.xml'},
+				meta	= {name='Category', value='GcRealitySubstanceCategory'},
 				SubstanceCategory	= prod.category	or 'Earth'			--	Enum
 			},
-			Type		= {
-				meta	= {'Type', 'GcProductCategory.xml'},
+			Type					= {
+				meta	= {name='Type', value='GcProductCategory'},
 				ProductCategory		= prod.type		or 'Component'		--	Enum
 			},
-			Rarity		= {
-				meta	= {'Rarity', 'GcRarity.xml'},
+			Rarity					= {
+				meta	= {name='Rarity', value='GcRarity'},
 				Rarity				= prod.rarity	or 'Common'			--	Enum
 			},
-			Legality	= {
-				meta	= {'Legality', 'GcLegality.xml'},
+			Legality				= {
+				meta	= {name='Legality', value='GcLegality'},
 				Legality			= prod.legality	or 'Legal'			--	Enum
 			},
 			Consumable				= prod.consumable,					--	b
@@ -165,8 +178,8 @@ function ProductEntry(items)
 			CraftAmountStepSize		= prod.craftstep		or 1,
 			CraftAmountMultiplier	= prod.crafmultiplier	or 1,
 			Requirements			= GetRequirements(prod.requirements),
-			Cost		= {
-				meta	= {'Cost', 'GcItemPriceModifiers.xml'},
+			Cost					= {
+				meta	= {name='Cost', value='GcItemPriceModifiers'},
 				SpaceStationMarkup	= prod.spacestationmarkup,
 				LowPriceMod			= prod.lowpricemod		or -0.1,
 				HighPriceMod		= prod.highpricemod		or 0.1,
@@ -177,11 +190,19 @@ function ProductEntry(items)
 			SpecificChargeOnly		= prod.specificchargeonly,			--	b
 			NormalisedValueOnWorld	= prod.normalisedvalueonworld,		--	f
 			NormalisedValueOffWorld	= prod.normalisedvalueoffworld,		--	f
-			TradeCategory= {
-				meta	= {'TradeCategory', 'GcTradeCategory.xml'},
+			TradeCategory			= {
+				meta	= {name='TradeCategory', value='GcTradeCategory'},
 				TradeCategory	= prod.tradecategory or 'None'			--	Enum
 			},
-			WikiCategory				= prod.wikicategory or 'NotEnabled',
+			WikiCategory			= prod.wikicategory or 'NotEnabled',
+			FossilCategory			= {
+				meta	= {name='FossilCategory', value='GcFossilCategory'},
+				FossilCategory	= prod.fossilcategory or 'None'			--	Enum
+			},
+			CorvettePartCategory	= {
+				meta	= {name='CorvettePartCategory', value='GcCorvettePartCategory'},
+				CorvettePartCategory = prod.corvettepartcategory or 'None'-- Enum
+			},
 			IsCraftable					= prod.iscraftable,				--	b
 			DeploysInto					= prod.deploysinto,				--	Id
 			EconomyInfluenceMultiplier	= prod.economyinfluence,		--	i
@@ -189,38 +210,45 @@ function ProductEntry(items)
 			PinObjectiveTip				= prod.pinobjectivetip,			--	s
 			CookingIngredient			= prod.cookingingredient,		--	b
 			CookingValue				= prod.cookingvalue,			--	i
+			FoodBonusStat				= {
+				meta	= {name='FoodBonusStat', value='GcStatsTypes'},
+				StatsType	= prod.foodbonusstat or 'Unspecified'		--	Enum
+			},
+			FoodBonusStatAmount			= prod.foodbonusstatamount,		--	f
 			GoodForSelling				= prod.goodforselling,			--	b
+			GiveRewardOnSpecialPurchase	= prod.rewardspecialpurchase,	--	b
 			EggModifierIngredient		= prod.eggmodifier,				--	b
 			IsTechbox					= prod.istechbox,				--	b
-			CanSendToOtherPlayers		= prod.sendtoplayer				--	b
+			CanSendToOtherPlayers		= orTrue(prod.sendtoplayer)		--	b
 		}
 	end
-	return processOnenAll(items, prodEntry)
+	return ProcessOnenAll(items, prodEntry)
 end
 
---	receives a table of {type, min, max, weightcurve, always} items
+--	=> receives a table of {type, min, max, weightcurve, always} items
 function ProcTechStatLevel(tsl)
 	return {
-		meta		= {'value', 'GcProceduralTechnologyStatLevel.xml'},
+		meta		= {name='value', value='GcProceduralTechnologyStatLevel'},
 		Stat		= {
-			meta = {'Stat', 'GcStatsTypes.xml'},
+			meta = {name='Stat', value='GcStatsTypes'},
 			StatsType = tsl.st,							--	Enum
 		},
 		ValueMin	= tsl.mn and tsl.mn or tsl.mx,		--	f
 		ValueMax	= tsl.mx,							--	f
 		WeightingCurve = {
-			meta = {'WeightingCurve', 'GcWeightingCurve.xml'},
+			meta = {name='WeightingCurve', value='GcWeightingCurve'},
 			WeightingCurve = tsl.wc or 'NoWeighting',	--	Enum
 		},
 		AlwaysChoose= tsl.ac							--	b
 	}
 end
 
---	Build an entry for NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE
+--	=> Build an entry for NMS_REALITY_GCPROCEDURALTECHNOLOGYTABLE
+--	* handles multiple entries
 function ProcTechEntry(items)
 	local function proctechEntry(tech)
 		return {
-			meta	= {'value', 'GcProceduralTechnologyData.xml'},
+			meta	= {name='value', value='GcProceduralTechnologyData'},
 			ID				= tech.id,
 			Template		= tech.template,
 			Name			= tech.name,
@@ -231,19 +259,19 @@ function ProcTechEntry(items)
 			Colour			= ColorData(tech.color, 'Colour'),			--	rgb/hex
 			Quality			= tech.quality or 'Normal',					--	Enum
 			Category		= {
-				meta = {'Category', 'GcProceduralTechnologyCategory.xml'},
+				meta = {name='Category', value='GcProceduralTechnologyCategory'},
 				ProceduralTechnologyCategory = tech.category,			--	Enum
 			},
 			NumStatsMin		= tech.numstatsmin,							--	i
 			NumStatsMax		= tech.numstatsmax,							--	i
 			WeightingCurve	= {
-				meta = {'WeightingCurve', 'GcWeightingCurve.xml'},
+				meta = {name='WeightingCurve', value='GcWeightingCurve'},
 				WeightingCurve = tech.weightingcurve or 'NoWeighting',	--	Enum
 			},
 			UpgradeColour	= ColorData(tech.upgradecolor, 'UpgradeColour'),
 			StatLevels		= (
 				function()
-					local stats = {meta = {'name', 'StatLevels'}}
+					local stats = {meta = {name='StatLevels'}}
 					for _,sl in ipairs(tech.statlevels) do
 						stats[#stats+1] = ProcTechStatLevel(sl)
 					end
@@ -252,44 +280,54 @@ function ProcTechEntry(items)
 			)()
 		}
 	end
-	return processOnenAll(items, proctechEntry)
+	return ProcessOnenAll(items, proctechEntry)
 end
 
---	Build an entry for BASEBUILDINGOBJECTSTABLE
+--	=> Build an entry for BASEBUILDINGOBJECTSTABLE
+--	* handles multiple entries
 function BaseBuildObjectEntry(items)
 	local function baseObjectEntry(bpart)
 		return {
-			meta = {'value', 'GcBaseBuildingEntry.xml'},
+			meta = {name='value', value='GcBaseBuildingEntry'},
 			ID							= bpart.id,
 			Style						= {
-				meta		= {'Style', 'GcBaseBuildingPartStyle.xml'},
+				meta		= {name='Style', value='GcBaseBuildingPartStyle'},
 				Style		= bpart.style or 'None'						--	Enum
 			},
 			PlacementScene				= {
-				meta		= {'PlacementScene', 'TkModelResource.xml'},
+				meta		= {name='PlacementScene', value='TkModelResource'},
 				Filename	= bpart.placementscene
 			},
+			SinglePartID				= bpart.singlepartid,			--	s
 			DecorationType				= {
-				meta		= {'DecorationType', 'GcBaseBuildingObjectDecorationTypes.xml'},
+				meta		= {name='DecorationType', value='GcBaseBuildingObjectDecorationTypes'},
 				BaseBuildingDecorationType = bpart.decorationtype or 'Normal'--	Enum
 			},
 			IsPlaceable					= bpart.isplaceable,			--	b
 			IsDecoration				= bpart.isdecoration,			--	b
-			BuildableOnPlanetBase 		= bpart.onplanetbase,			--	b
-			BuildableOnFreighter		= bpart.onfreighter,			--	b
+			BuildableOnPlanetBase 		= orTrue(bpart.onplanetbase),	--	b
+			BuildableOnFreighter		= orTrue(bpart.onfreighter),	--	b
+			BuildableInShipStructural	= orTrue(bpart.inshipstructural),--	b
+			BuildableInShipDecorative	= orTrue(bpart.inshipdecorative),--	b
 			BuildableOnPlanet			= bpart.onplanet,				--	b
 			BuildableUnderwater			= true,
 			BuildableAboveWater			= true,
+			PlanetLimit					= bpart.planetlimit or 0,		--	i
+			RegionLimit					= bpart.regionlimit or 0,		--	i
+			PlanetBaseLimit				= bpart.planetbaselimit or 0,	--	i
+			FreighterBaseLimit			= bpart.freighterbaselimit or 0,--	i
+			CorvetteBaseLimit			= bpart.corvettebaselimit or 0,	--	i
 			CheckPlayerCollision		= false,
+			CanStack					= true,
 			CanRotate3D					= true,
 			CanScale					= true,
 			Groups						= (
 				function()
 					if not bpart.groups then return nil end
-					local T = {meta = {'name', 'Groups'}}
+					local T = {meta = {name='Groups'}}
 					for _,v in ipairs(bpart.groups) do
 						T[#T+1] = {
-							meta	= {'value', 'GcBaseBuildingEntryGroup.xml'},
+							meta	= {name='value', value='GcBaseBuildingEntryGroup'},
 							Group			= v.group,
 							SubGroupName	= v.subname
 						}
@@ -297,7 +335,11 @@ function BaseBuildObjectEntry(items)
 					return T
 				end
 			)(),
-			StorageContainerIndex 		= -1,							--	i
+			StorageContainerIndex 		= bpart.storageindex or -1,		--	i
+			ColourPaletteGroupId		= bpart.palettegroupid,			--	s
+			DefaultColourPaletteId		= bpart.defaultpaletteid,		--	s
+			MaterialGroupId				= bpart.materialgroupid,		--	s
+			DefaultMaterialId			= bpart.defaultmaterialid,		--	s
 			CanChangeColour				= true,
 			CanChangeMaterial			= true,
 			CanPickUp					= bpart.canpickup,				--	b
@@ -311,13 +353,13 @@ function BaseBuildObjectEntry(items)
 			BaseTerrainEditShape		= 'Cube',						--	Enum
 			MinimumDeleteDistance		= 1,							--	i
 			IsSealed					= bpart.issealed,				--	b
-			CloseMenuAfterBuild			= bpart.closemenuafterbuild,
+			CloseMenuAfterBuild			= bpart.closemenuafterbuild,	--	b
 			LinkGridData				= {
-				meta = {'LinkGridData', 'GcBaseLinkGridData.xml'},
+				meta = {name='LinkGridData', value='GcBaseLinkGridData'},
 				Connection = {
-					meta	= {'Connection', 'GcBaseLinkGridConnectionData.xml'},
+					meta	= {name='Connection', value='GcBaseLinkGridConnectionData'},
 					Network	= {
-						meta = {'Network', 'GcLinkNetworkTypes.xml'},
+						meta = {name='Network', value='GcLinkNetworkTypes'},
 						LinkNetworkType = bpart.linknetwork or 'Power'	--	Enum
 					},
 					NetworkSubGroup		= bpart.networksubgroup,		--	i
@@ -333,59 +375,61 @@ function BaseBuildObjectEntry(items)
 			RegionSpawnLOD				= 1
 		}
 	end
-	return processOnenAll(items, baseObjectEntry)
+	return ProcessOnenAll(items, baseObjectEntry)
 end
 
---	Build an entry for BASEBUILDINGPARTSTABLE
+--	=> Build an entry for BASEBUILDINGPARTSTABLE
+--	* handles multiple entries
 function BaseBuildPartEntry(items)
 	local function basePartEntry(bpart)
 		local T = {
-			meta	= {'value', 'GcBaseBuildingPart.xml'},
+			meta	= {name='value', value='GcBaseBuildingPart'},
 			ID		= bpart.id,
-			StyleModels = {meta = {'name', 'StyleModels'}}
+			StyleModels = {meta = {name='StyleModels'}}
 		}
 		for _,src in ipairs(bpart.stylemodels) do
 			T.StyleModels[#T.StyleModels+1] = {
-				meta = {'value', 'GcBaseBuildingPartStyleModel.xml'},
+				meta = {name='value', value='GcBaseBuildingPartStyleModel'},
 				Style = {
-					meta = {'Style', 'GcBaseBuildingPartStyle.xml'},
+					meta = {name='Style', value='GcBaseBuildingPartStyle'},
 					Style = src.style or 'None',						--	Enum
 				},
 				Model = {
-					meta = {'Model', 'TkModelResource.xml'},
-					Filename = src.act,
+					meta = {name='Model', value='TkModelResource'},
+					Filename = src.model,
 				},
 				Inactive = {
-					meta = {'Inactive', 'TkModelResource.xml'},
+					meta = {name='Inactive', value='TkModelResource'},
 					Filename = src.lod
 				}
 			}
 		end
 		return T
 	end
-	return processOnenAll(items, basePartEntry)
+	return ProcessOnenAll(items, basePartEntry)
 end
 
---	Build an entry for NMS_REALITY_GCRECIPETABLE
+--	=> Build an entry for NMS_REALITY_GCRECIPETABLE
+--	* handles multiple entries
 function RefinerRecipeEntry(items)
 	local function addIngredient(elem, result)
 		return {
-			meta	= {result and 'Result' or 'value', 'GcRefinerRecipeElement.xml'},
+			meta	= {name=(result and 'Result' or 'value'), value='GcRefinerRecipeElement'},
 			Id		= elem.id,
 			Amount	= elem.n,										--	i
 			Type	= {
-				meta			= {'Type', 'GcInventoryType.xml'},
+				meta			= {name='Type', value='GcInventoryType'},
 				InventoryType	= elem.tp							--	Enum
 			}
 		}
 	end
 	local function refinerecipeEntry(recipe)
-		local igrds = {meta = {'name', 'Ingredients'}}
+		local igrds = {meta = {name='Ingredients'}}
 		for _,elem in ipairs(recipe.ingredients) do
 			igrds[#igrds+1] = addIngredient(elem)
 		end
 		return {
-			meta	= {'value', 'GcRefinerRecipe.xml'},
+			meta	= {name='value', value='GcRefinerRecipe'},
 			Id			= recipe.id,
 			RecipeType	= recipe.name,									--	s
 			RecipeName	= recipe.name,									--	s
@@ -394,6 +438,61 @@ function RefinerRecipeEntry(items)
 			Result		= addIngredient(recipe.result, true),
 			Ingredients	= igrds
 		}
-	end	
-	return processOnenAll(items, refinerecipeEntry)
+	end
+	return ProcessOnenAll(items, refinerecipeEntry)
+end
+
+--	=> builds a LocalisationTable from text entries.
+--	receives a table of items in the following structure
+--	UNIQUE_ID = {
+--	  EN = [[your text line here]],
+--	  FR = [[votre ligne de texte ici]],
+--	}
+function LocalisationTable(texts)
+	local languages = {
+		EN = 'English',
+		FR = 'French',
+		IT = 'Italian',
+		DE = 'German',
+		ES = 'Spanish',
+		RU = 'Russian',
+		PL = 'Polish',
+		NL = 'Dutch',
+		PT = 'Portuguese',
+		LA = 'LatinAmericanSpanish',
+		BR = 'BrazilianPortuguese',
+		Z1 = 'SimplifiedChinese',
+		ZH = 'TraditionalChinese',
+		Z2 = 'TencentChinese',
+		KO = 'Korean',
+		JA = 'Japanese',
+		US = 'USEnglish'
+	}
+	-- replace problematic characters with char entities
+	local function insertCharEntities(s)
+		local entity = {
+			{'&',	'&amp;'}, -- must be first
+			{'<',	'&lt;'},
+			{'>',	'&gt;'},
+			{'"',	'&quot;'},
+			{'|N|',	'&#xA;'}
+		}
+		for _,e in ipairs(entity) do
+			s = s:gsub(e[1], e[2])
+		end
+		return s
+	end
+	if not texts then return nil end
+	local l_txt = {meta = {name='Table'}}
+	for id, text in pairs(texts) do
+		local inx = #l_txt+1
+		l_txt[inx] = {
+			meta	= {name='Table', value='TkLocalisationEntry'},
+			Id		= id
+		}
+		for code, txt in pairs(text) do
+			l_txt[inx][languages[code]] = insertCharEntities(txt)
+		end
+	end
+	return l_txt
 end

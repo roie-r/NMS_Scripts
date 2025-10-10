@@ -1,11 +1,13 @@
 -------------------------------------------------------------------------------
----	Model scene tools (VERSION: 0.85.9) ... by lMonk
----	Helper function for adding new TkSceneNodeData nodes and properties
----	* Requires _lua_2_exml.lua !
----	* This script should be in [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+---	MXML 2 LUA ... by lMonk
+---	A tool for converting between mxml file format and lua table.
+--- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
+-------------------------------------------------------------------------------
+---	Model scene tools ... version: 1.0.02
+---	Build nested TkSceneNodeData nodes
 -------------------------------------------------------------------------------
 
---	Build a single -or list of TkSceneNodeData classes
+--	=> Build a single -or list of TkSceneNodeData classes
 --	@param props: a keyed table for scene class properties.
 --	{
 --	  name	= scene node name (NameHash is calculated automatically)
@@ -35,7 +37,7 @@ function ScNode(nodes)
 	--	Build a TkSceneNodeData class
 	local function sceneNode(props)
 		local T	= {
-			meta	= {'value', 'TkSceneNodeData.xml'},
+			meta	= {name='Children', value='TkSceneNodeData'},
 			Name 				= props.name,
 			NameHash			= jenkinsHash(props.name),
 			Type				= props.ntype,
@@ -44,7 +46,7 @@ function ScNode(nodes)
 		--	add TkTransformData class
 		props.form = props.form or {}
 		T.Form = {
-			meta	= {'Transform', 'TkTransformData.xml'},
+			meta	= {name='Transform', value='TkTransformData'},
 			TransX	= (props.form.tx or props.form[1]) or nil,
 			TransY	= (props.form.ty or props.form[2]) or nil,
 			TransZ	= (props.form.tz or props.form[3]) or nil,
@@ -57,14 +59,16 @@ function ScNode(nodes)
 		}
 		--	if present, add attributes list
 		if props.attr then
-			-- add accompanying attribute to scenegraph
+			-- add accompanying attributes
 			if props.attr.SCENEGRAPH then
 				props.attr.EMBEDGEOMETRY = 'TRUE'
+			elseif props.attr.TYPE then
+				props.attr.NAVIGATION = 'FALSE'
 			end
-			T.Attr = { meta = {'name', 'Attributes'} }
+			T.Attr = { meta = {name='Attributes'} }
 			for nm, val in pairs(props.attr) do
 				T.Attr[#T.Attr+1] = {
-					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
+					meta	= {name='Attributes', value='TkSceneNodeAttributeData'},
 					Name	= nm,
 					Value	= val
 				}
@@ -73,21 +77,21 @@ function ScNode(nodes)
 		if props.child then
 		--	add children list if found
 			local k,_ = next(props.child)
-			cnd = ScNode(props.child)
+			local cnd = ScNode(props.child)
 			T.Child	= k == 1 and cnd or {cnd}
-			T.Child.meta = {'name', 'Children'}
+			T.Child.meta = {name='Children'}
 		end
 		return T
 	end
-	return processOnenAll(nodes, sceneNode)
+	return ProcessOnenAll(nodes, sceneNode)
 end
 
---	Wrapper function. Accepts lua scene nodes and Returns an exml string.
+--	=> Wrapper function. Accepts lua scene nodes and Returns an mxml string.
 function AddSceneNodes(nodes)
-	return ToExml(ScNode(nodes))
+	return ToMxml(ScNode(nodes))
 end
 
---	Builds light TkSceneNodeData sections.
+--	=> Builds light TkSceneNodeData sections.
 --	receives a table, or a table of tables, with the following (optional) parameters
 --	  name= 'n9',	fov= 360,	v=	0,
 --	  i=	30000,	f= 'q',		fr=	2,
@@ -102,7 +106,7 @@ function ScLight(lights)
 		if lgt.c then
 			lgt.c = lgt.c:sub(#lgt.c > 6 and 3 or 1, #lgt.c) -- remove alpha if present
 			for i, col in ipairs({'r', 'g', 'b'}) do
-				lgt[col] = hex2Percent(lgt.c, i)
+				lgt[col] = Hex2Percent(lgt.c, i)
 			end
 		end
 		return {
@@ -137,7 +141,7 @@ function ScLight(lights)
 	return ScNode(lightNode(lights))
 end
 
---	Wrapper function. Accepts lua light nodes and Returns an exml string.
+--	=> Wrapper function. Accepts lua light nodes and Returns an mxml string.
 function AddLightNodes(lights)
-	return ToExml(ScLight(lights))
+	return ToMxml(ScLight(lights))
 end

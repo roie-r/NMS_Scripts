@@ -25,6 +25,7 @@ new_ship_texture = {
 	},
 	{
 		name	= 'TOPOMAP',
+		tip		= 'UI_TIP_SHIP_TOPOMAP',
 		metal	= true,
 		sci		= true,
 		palette	= {
@@ -34,143 +35,104 @@ new_ship_texture = {
 	},
 	{
 		name	= 'PAINTSWIRL',
+		tip		= 'UI_TIP_SHIP_PAINTSWIRL',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'MEZO',
+		tip		= 'UI_TIP_SHIP_MEZO',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'MAYA_SNAKE',
+		tip		= 'UI_TIP_SHIP_MAYA_SNAKE',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'MAYA_WALL',
+		tip		= 'UI_TIP_SHIP_MAYA_WALL',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'AZTEC_DRAGON',
+		tip		= 'UI_TIP_SHIP_AZTEC_DRAGON',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'AZTEC_FACE',
+		tip		= 'UI_TIP_SHIP_AZTEC_FACE',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'CELTIC',
+		tip		= 'UI_TIP_SHIP_CELTIC',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'POLYNESIA',
+		tip		= 'UI_TIP_SHIP_POLYNESIA',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'POLYNESIA_SEA',
+		tip		= 'UI_TIP_SHIP_POLYNESIA_SEA',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'MAORI_FACE',
+		tip		= 'UI_TIP_SHIP_MAORI_FACE',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'EASTERN',
+		tip		= 'UI_TIP_SHIP_EASTERN',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'WOVEN',
+		tip		= 'UI_TIP_SHIP_WOVEN',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'WOVEN2',
+		tip		= 'UI_TIP_SHIP_WOVEN2',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'DEMON',
+		tip		= 'UI_TIP_SHIP_DEMON',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'TARGET',
+		tip		= 'UI_TIP_SHIP_TARGET',
 		metal	= false,
 		sci		= true
 	},
 	{
 		name	= 'SKULLS',
+		tip		= 'UI_TIP_SHIP_SKULLS',
 		metal	= true,
 		sci		= true
 	},
 	{
 		name	= 'THE_HARING',
+		tip		= 'UI_TIP_SHIP_THE_HARING',
 		metal	= true,
 		sci		= true
-	}
-}
-
---	language IDs for new tech
-new_tech = {
-	VEHICLESTUN = {
-		name		= 'VEHICLESTUN_NAME',
-		namelower	= 'VEHICLESTUN_NAME_L',
-		subtitle	= 'VEHICLESTUN_SUB',
-		description	= 'VEHICLESTUN_DESC'
-	},
-	ROCEKT_ALIEN = {
-		name		= 'ROCEKT_ALIEN_NAME',
-		namelower	= 'ROCEKT_ALIEN_NAME_L',
-		subtitle	= 'UI_ALIENSHIP_TECH_SUB',
-		description	= 'ROCEKT_ALIEN_DESC'
-	},
-	ROCEKT_U_ALIEN = {
-		name		= 'ROCEKT_U_ALIEN_NAME',
-		namelower	= 'ROCEKT_U_ALIEN_NAME_L',
-		subtitle	= 'UI_ALIENSHIP_TECH_SUB',
-		description	= 'ROCEKT_U_ALIEN_DESC'
-	},
-	JUMP_U_ALIEN = {
-		name		= 'JUMP_U_ALIEN_NAME',
-		namelower	= 'JUMP_U_ALIEN_NAME_L',
-		subtitle	= 'UI_ALIENSHIP_TECH_SUB',
-		description	= 'JUMP_U_ALIEN_DESC'
-	},
-	SHIELD_U_ALIEN = {
-		name		= 'SHIELD_U_ALIEN_NAME',
-		namelower	= 'SHIELD_U_ALIEN_NAME_L',
-		subtitle	= 'UI_ALIENSHIP_TECH_SUB',
-		description	= 'SHIELD_U_ALIEN_DESC'
-	},
-}
-
---	language IDs for new products
-new_product = {
-	RAMMOULD5 = {
-		name		= 'RAMMOULD_NAME',
-		namelower	= 'RAMMOULD_NAME_L',
-		subtitle	= 'UI_MEGAPROD_SUBTITLE',
-		description	= 'RAMMOULD_DESC'
-	},
-	ULTRAPRODX40 = {
-		name		= 'PRODX40_NAME',
-		namelower	= 'PRODX40_NAME_L',
-		subtitle	= 'CURIO4_SUBTITLE',
-		description	= 'PRODX40_DESC'
-	},
-	SUPERFOOD = {
-		name		= 'SUPERFOOD_NAME',
-		namelower	= 'SUPERFOOD_NAME_L',
-		subtitle	= 'PROD_NIP_SUBTITLE',
-		description	= 'SUPERFOOD_DESC'
 	}
 }

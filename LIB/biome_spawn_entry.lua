@@ -1,39 +1,45 @@
 -------------------------------------------------------------------------------
----	Build GcObjectSpawnData entries (VERSION: 0.50) ... by lMonk
----	* Requires _lua_2_exml.lua !
----	* This script should be in [AMUMSS folder]\ModScript\ModHelperScripts\LIB
+---	MXML 2 LUA ... by lMonk
+---	A tool for converting between mxml file format and lua table.
+--- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
+-------------------------------------------------------------------------------
+---	Build GcObjectSpawnData entries ... version: 1.0.02
 -------------------------------------------------------------------------------
 
+--	=> Build a GcObjectSpawnData entry for biome object files
 function ObjectSpawnEntry(items)
+	local function orTrue(b)
+		return b == nil and true or b
+	end
 	local function spawnEntry(osd)
 		return {
-			meta	= {'value','GcObjectSpawnData.xml'},
+			meta	= {name=(osd.class or 'Objects'), value='GcObjectSpawnData'},
 			Type		= osd.type or 'Instanced',								-- Enum
 			Resource	= {
-				meta	= {'Resource','GcResourceElement.xml'},
+				meta	= {name='Resource', value='GcResourceElement'},
 				Filename	= osd.filename,										-- s
 				Seed		= {
-					meta = {'Seed','GcSeed.xml'},
+					meta = {name='Seed', value='GcSeed'},
 					Seed			= osd.resourceseed,							-- i
 					UseSeedValue	= osd.resourceseed ~= nil
 				},
 				ProceduralTexture	= osd.texturesamplers and {
-					meta = {'ProceduralTexture','TkProceduralTextureChosenOptionList.xml'},
+					meta = {name='ProceduralTexture', value='TkProceduralTextureChosenOptionList'},
 					Samplers = (
 						function()
-							local T = { meta = {'name','Samplers'} }
+							local T = { meta = {name='Samplers'} }
 							for _,ptco in ipairs(osd.texturesamplers) do
 								local tsam = {
-									meta = {'value','TkProceduralTextureChosenOptionSampler.xml'},
-									Options = { meta = {'name','Options'} }
+									meta = {name='Samplers', value='TkProceduralTextureChosenOptionSampler'},
+									Options = { meta = {name='Options'} }
 								}
 								for _, opt in ipairs(ptco) do
 									tsam.Options[#tsam.Options+1] = {
-										meta = {'value','TkProceduralTextureChosenOption.xml'},
+										meta = {name='Options', value='TkProceduralTextureChosenOption'},
 										Layer			= opt.layer,						-- s
 										Group			= opt.group,						-- s
 										Palette			= {
-											meta = {'Palette','TkPaletteTexture.xml'},
+											meta = {name='Palette', value='TkPaletteTexture'},
 											Palette		= opt.palette	or 'Rock',			-- Enum
 											ColourAlt	= opt.colouralt	or 'None'			-- Enum
 										},
@@ -51,7 +57,7 @@ function ObjectSpawnEntry(items)
 			},
 			Placement					= osd.placement,						-- s
 			Seed = {
-				meta = {'Seed','GcSeed.xml'},
+				meta = {name='Seed', value='GcSeed'},
 				Seed			= osd.spawnseed,								-- i
 				UseSeedValue	= osd.spawnseed ~= nil
 			},
@@ -60,7 +66,7 @@ function ObjectSpawnEntry(items)
 			OverlapStyle				= osd.overlap or 'None',				-- Enum
 			MinHeight					= osd.minheight or -1,					-- f
 			MaxHeight					= osd.maxheight or 128,					-- f
-			RelativeToSeaLevel			= osd.relativetosea or true,			-- b
+			RelativeToSeaLevel			= orTrue(osd.relativetosea),			-- b
 			MinAngle					= osd.minangle,							-- f
 			MaxAngle					= osd.maxangle,							-- f
 			MatchGroundColour			= osd.matchground,						-- b
@@ -68,7 +74,7 @@ function ObjectSpawnEntry(items)
 			SwapPrimaryForSecondaryColour=osd.swap1stfor2nd,					-- b
 			SwapPrimaryForRandomColour	= osd.swap1stforRand,					-- b
 			AlignToNormal				= osd.aligntonormal,					-- b
-			MinScale					= osd.minscale,							-- f
+			['MinScale ']				= osd.minscale,							-- f
 			MaxScale					= osd.maxscale,							-- f
 			MinScaleY					= osd.minscaley,						-- f
 			MaxScaleY					= osd.maxscaley,						-- f
@@ -77,22 +83,22 @@ function ObjectSpawnEntry(items)
 			MaxXZRotation				= osd.maxxzrotation,					-- f
 			AutoCollision				= osd.autocollision,					-- b
 			CollideWithPlayer			= osd.collidewithplayer,				-- b
-			CollideWithPlayerVehicle	= osd.collidewithvehicle or true,		-- b
-			DestroyedByPlayerVehicle	= osd.destroyedbyvehicle or true,		-- b
-			DestroyedByPlayerShip		= osd.destroyedbyship or true,			-- b
-			DestroyedByTerrainEdit		= osd.destroyedbyterrainedit or true,	-- b
+			CollideWithPlayerVehicle	= orTrue(osd.collidewithvehicle),		-- b
+			DestroyedByPlayerVehicle	= orTrue(osd.destroyedbyvehicle),		-- b
+			DestroyedByPlayerShip		= orTrue(osd.destroyedbyship),			-- b
+			DestroyedByTerrainEdit		= orTrue(osd.destroyedbyterrainedit),	-- b
 			IsFloatingIsland			= osd.isfloatingisland,					-- b
-			InvisibleToCamera			= osd.invisibletocamera or true,		-- b
+			InvisibleToCamera			= orTrue(osd.invisibletocamera),		-- b
 			CreaturesCanEat				= osd.creaturescaneat,					-- b
 			ShearWindStrength			= osd.shearwind,						-- f
 			SupportsScanToReveal		= osd.scantoreveal,						-- b
 			DestroyedByVehicleEffect	= osd.vehicleeffect or 'VEHICLECRASH',	-- s
 			QualityVariants = (													-- list
 				function()
-					local T = {meta = {'name','QualityVariants'}}
+					local T = {meta = {name='QualityVariants'}}
 					for i, osdv in ipairs(osd.qualityvariants) do
 						T[#T+1] = {
-							meta	= {'value','GcObjectSpawnDataVariant.xml'},
+							meta	= {name='QualityVariants', value='GcObjectSpawnDataVariant'},
 							ID						= i == 1 and 'STANDARD' or 'ULTRA',
 							Coverage				= osdv.coverage,			-- f
 							FlatDensity				= osdv.flatdensity,			-- f
@@ -104,12 +110,12 @@ function ObjectSpawnEntry(items)
 							FadeOutEndDistance		= osdv.fadeoutend or 9999,	-- f
 							FadeOutOffsetDistance	= osdv.fadeoutoffset or nil,-- f
 							LodDistances	= {									-- list
-								meta = {'name','LodDistances'},
-								{value	= 0},
-								{value	= osdv.lod and osdv.lod[1] or 20},	-- f
-								{value	= osdv.lod and osdv.lod[2] or 60},	-- f
-								{value	= osdv.lod and osdv.lod[3] or 150},	-- f
-								{value	= osdv.lod and osdv.lod[4] or 500}	-- f
+								meta = {name='LodDistances'},
+								0,
+								osdv.lod and osdv.lod[1] or 20,					-- f
+								osdv.lod and osdv.lod[2] or 60,					-- f
+								osdv.lod and osdv.lod[3] or 150,				-- f
+								osdv.lod and osdv.lod[4] or 500					-- f
 							}
 						}
 					end
@@ -118,5 +124,5 @@ function ObjectSpawnEntry(items)
 			)()
 		}
 	end
-	return processOnenAll(items, spawnEntry)
+	return ProcessOnenAll(items, spawnEntry)
 end
