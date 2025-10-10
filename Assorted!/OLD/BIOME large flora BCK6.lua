@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------
-dofile('LIB/_exml_2_lua.lua')
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_mxml_2_lua.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ---------------------------------------------------------------------------------------
 local mod_desc = [[
   Utilizes the SCENE files' descriptive name and path to match 'tags'
@@ -513,11 +513,11 @@ local function ProcessBiome(exml, mbin)
 			end
 		end
 	end
-	return FileWrapping(solar_biome)
+	return ToMxmlFile(solar_biome)
 end
 
 -----------------------------------------------------------------------------------------
-function ProcessRawExml(the_index) -- called by AMUMSS
+function ProcessRawMxml(the_index) -- called by AMUMSS
 	local T = {}
 	for _,mbin in ipairs(source_mbins) do
 		local norm_path	= NormalizePath(mbin, true)
@@ -527,15 +527,15 @@ function ProcessRawExml(the_index) -- called by AMUMSS
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META large flora.pak',
+	MOD_FILENAME 		= '+ META large flora',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '5.5+',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE = source_mbins,
-		EXT_FUNC		 = { 'ProcessRawExml' }
+		EXT_FUNC		 = { 'ProcessRawMxml' }
 	}
 }}}}

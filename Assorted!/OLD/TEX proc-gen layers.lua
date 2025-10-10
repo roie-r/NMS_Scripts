@@ -308,7 +308,7 @@ local function BuildProcTexListMbin(tex_layer)
 		table.insert(T, '<Property value="TkProceduralTextureLayer.xml"/>')
 	end
 	return [[<?xml version="1.0" encoding="utf-8"?>
-		<Data template="TkProceduralTextureList">
+		<Data template="cTkProceduralTextureList">
 		<Property name="Layers">]]..table.concat(T)..[[</Property></Data>]]
 end
 
@@ -332,7 +332,7 @@ local function AddProcTexFiles()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TEXTURE build proc-gen layers.pak',
+	MOD_FILENAME 		= '+ TEXTURE build proc-gen layers',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,

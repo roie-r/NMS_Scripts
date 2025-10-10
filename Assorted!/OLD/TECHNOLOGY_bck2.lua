@@ -126,7 +126,7 @@ function add_edit_stats:GetExmlCT()
 		elseif x.bn then
 			--- add new ---
 			T[#T+1] = {
-				ADD = ToExml({
+				ADD = ToMxml({
 					meta	= {'value', 'GcStatsBonus.xml'},
 					Stat	= {
 						meta		= {'Stat', 'GcStatsTypes.xml'},
@@ -402,7 +402,7 @@ function charge_to_top:GetExmlCT()
 			end
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'ID', x.id},
-				ADD					= ToExml(tmp)
+				ADD					= ToMxml(tmp)
 			}
 		else
 			if not x.new then
@@ -411,7 +411,7 @@ function charge_to_top:GetExmlCT()
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'ID', x.id},
 				PRECEDING_KEY_WORDS = 'ChargeBy',
-				ADD					= ToExml({
+				ADD					= ToMxml({
 					meta	= {'value', 'NMSString0x10.xml'},
 					Value	= x.prd
 				})
@@ -464,7 +464,7 @@ function replace_requirements:GetExmlCT()
 				}
 			}
 		end
-		return ToExml(reqs)
+		return ToMxml(reqs)
 	end
 	local T = {}
 	T[1] = {
@@ -485,7 +485,7 @@ end
 local source_table_tech = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TABLE TECHNOLOGY.pak',
+	MOD_FILENAME 		= '+ TABLE TECHNOLOGY',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -493,7 +493,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= source_table_tech,
-		EXML_CHANGE_TABLE	= (
+		MXML_CHANGE_TABLE	= (
 			function()
 				local T = {}
 				for _,tm in ipairs({
@@ -516,7 +516,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_tech,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'ID', 'MECH_MINER'},
@@ -565,7 +565,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS	= 'Table',
-				ADD					= ToExml(TechnologyEntry({
+				ADD					= ToMxml(TechnologyEntry({
 					id				= 'BODYSHIELD',
 					name			= 'BODYSHIELD_NAME',
 					namelower		= 'BODYSHIELD_NAME_L',

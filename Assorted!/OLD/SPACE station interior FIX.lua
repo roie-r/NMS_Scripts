@@ -1,5 +1,5 @@
 ----------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 ----------------------------------------------------
 local mod_desc = [[
@@ -8,7 +8,7 @@ local mod_desc = [[
 ]]--------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL station interior FIX.pak',
+	MOD_FILENAME 		= '+ MODEL station interior FIX',
 	MOD_AUTHOR			= 'Lo2k, lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -24,7 +24,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/SHOPS/WEAPONSHOP.SCENE.MBIN',
 			'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/SHOPS/MAPSHOP.SCENE.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LODDIST1'},
 				VALUE_CHANGE_TABLE	= {
@@ -47,7 +47,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/BACK_SECTION/ENTITIES/LEFTSECTIONTRIGGER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'StateID', 'LEFTOFF'},
 				REMOVE				= 'Section'
@@ -61,7 +61,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 	'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/BACK_SECTION/ENTITIES/RIGHTSECTIONTRIGGER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'StateID', 'RIGHTOFF'},
 				REMOVE				= 'Section'
@@ -75,7 +75,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 	'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/BACK_SECTION/ENTITIES/SHOP_LIGHTTRIGGER.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				VALUE_CHANGE_TABLE	= {
@@ -86,7 +86,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|station landing pad lights|
 		MBIN_FILE_SOURCE 	= 'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/LANDINGPAD.SCENE.MBIN',
-		EXML_CHANGE_TABLE 	= {
+		MXML_CHANGE_TABLE 	= {
 			{
 				SPECIAL_KEY_WORDS	= {
 					{'Name', 'spotLight7'},
@@ -98,7 +98,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LightLOD0'},
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml(
+				ADD					= ToMxml(
 					ScLight({
 						name='Light0',	fov=70,	i=70000, f='l',	fr=1,	c='FFF3F3D9',
 						tx=0.1,	ty=25,	tz=2.3,	rz=-90,	sx=20,	sy=20,	sz=20
@@ -108,7 +108,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LightLOD1'},
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml(
+				ADD					= ToMxml(
 					ScLight({
 						name='Light1',	fov=70, i=60000, f='l',	fr=1,	c='FFF3F3D9',
 						tx=0.1,	ty=25,	tz=2.3,	rz=-90,	sx=20,	sy=20,	sz=20
@@ -118,7 +118,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LightLOD2'},
 				PRECEDING_KEY_WORDS = 'Children',
-				ADD					= ToExml(
+				ADD					= ToMxml(
 					ScLight({
 						name='Light2',	fov=70,	i=50000, f='l',	fr=1, c='FFF3F3D9',
 						tx=0.1,	ty=25,	tz=2.3,	rz=-90,	sx=20,	sy=20,	sz=20

@@ -5,7 +5,7 @@ local mod_desc = [[
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__GC BUILDING.pak',
+	MOD_FILENAME 		= '+ GC BUILDING',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -13,7 +13,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCBUILDINGGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'UnknownBuildingRange',				800},	-- 600

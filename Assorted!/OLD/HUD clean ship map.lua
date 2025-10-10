@@ -4,7 +4,7 @@ local mod_desc = [[
 ]]---------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__SHIP clean HUD map.pak',
+	MOD_FILENAME 		= '+ SHIP clean HUD map',
 	MOD_AUTHOR			= 'Lo2k; script by lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -12,7 +12,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/HUD/SPACEMAPHORIZON/HORZ_MAT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'CastShadow',	false}

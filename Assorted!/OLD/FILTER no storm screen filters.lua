@@ -7,7 +7,7 @@ local mod_desc = [[
 ]]--------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META screen filters.pak',
+	MOD_FILENAME 		= '+ META screen filters',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -15,7 +15,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/EFFECTS/SCREENFILTERS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				WHERE_IN_SUBSECTION	= {
 					{'Filename',	'TEXTURES/LUT/FILTERS/DEFAULTSTORM.DDS'},

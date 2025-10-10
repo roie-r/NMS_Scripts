@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- EXCLUDED FROM BATCH
 -------------------------------------------------------
-dofile('LIB/_exml_2_lua.lua')
+dofile('LIB/_mxml_2_lua.lua')
 -------------------------------------------------------
 local mod_desc = [[
   Add substances to the staff parts customization list
@@ -32,7 +32,7 @@ function ProcessExmlData(arg) -- called by AMUMSS
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META staff customization upgrade.pak',
+	MOD_FILENAME 		= '+ META staff customization upgrade',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -44,7 +44,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/GAMESTATE/PLAYERDATA/MODULARCUSTOMISATIONDATATABLE.MBIN',
-		EXML_CHANGE_TABLE	= (
+		MXML_CHANGE_TABLE	= (
 			function()
 				local T = {}
 				-- staff :: copy new slot header

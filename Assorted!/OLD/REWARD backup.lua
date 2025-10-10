@@ -845,7 +845,7 @@ end
 local source_table_reward = 'METADATA/REALITY/TABLES/REWARDTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TABLE REWARD.pak',
+	MOD_FILENAME 		= '+ TABLE REWARD',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -854,11 +854,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= AddNewRewardsToChangeTable()
+		MXML_CHANGE_TABLE	= AddNewRewardsToChangeTable()
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'TECHDEBRIS', 'ID', 'LAUNCHFUEL'},
 				SECTION_UP			= 1,
@@ -874,10 +874,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(plant_harvest)
+		MXML_CHANGE_TABLE	= BuildExmlChangeTable(plant_harvest)
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_reward,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(learn_more_words)
+		MXML_CHANGE_TABLE	= BuildExmlChangeTable(learn_more_words)
 	}
 }}}}

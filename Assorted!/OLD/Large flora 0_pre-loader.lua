@@ -7,8 +7,8 @@ local mod_desc = [[
 ]]--------------------------------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME		= '_mbin_preloader.pak',
-	MOD_BATCHNAME		= '_MOD.lMonk.large flora.2.11.pak',
+	MOD_FILENAME		= '_mbin_preloader',
+	MOD_BATCHNAME		= '._MOD.lMonk.large flora.2.11',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,

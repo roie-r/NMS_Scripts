@@ -366,7 +366,7 @@ local function BuildVehicleScanMenuTable()
 			}
 		end
 	end
-	return FileWrapping(T, 'GcVehicleScanTable')
+	return ToMxmlFile(T, 'cGcVehicleScanTable')
 end
 
 local function VehicleScanEventsChangeTable()
@@ -423,7 +423,7 @@ local function VehicleScanEventsChangeTable()
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__META vehicle scan targets.pak',
+	MOD_FILENAME 		= '+ META vehicle scan targets',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -437,6 +437,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SCANNING/SCANEVENTTABLEVEHICLE.MBIN',
-		EXML_CHANGE_TABLE	= VehicleScanEventsChangeTable()
+		MXML_CHANGE_TABLE	= VehicleScanEventsChangeTable()
 	}
 }}}}

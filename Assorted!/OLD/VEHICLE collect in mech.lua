@@ -5,9 +5,9 @@ local mod_desc = [[
 ]]-----------------------------------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__MODEL collect in mech.pak',
+	MOD_FILENAME 		= '+ MODEL collect in mech',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '5.5+',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -52,7 +52,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/PLANETS/CREATURES/FISH/CLAM/ENTITIES/PEARL.ENTITY.MBIN',
 			'MODELS/PLANETS/CREATURES/FISH/PARTS/GRABBYPLANTEYE/ENTITIES/GRABBYPLANTEYE.ENTITY.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'CanCollectInMech', true}
@@ -62,7 +62,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|gunkless crate| (remove rusted metal)
 		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/CRATE/CRATE_LARGE_RARE/ENTITIES/CRATE_LARGE_RARE.ENTITY.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Template', 'GcMaintenanceComponentData.xml'},
 				REMOVE				= 'Section'

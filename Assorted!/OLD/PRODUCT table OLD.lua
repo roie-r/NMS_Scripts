@@ -173,7 +173,7 @@ end
 local source_table_product = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN'
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TABLE PRODUCT.pak',
+	MOD_FILENAME 		= '+ TABLE PRODUCT',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
@@ -181,7 +181,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= source_table_product,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Id', 'JELLY'},
 				SECTION_ACTIVE		= 2,
@@ -213,18 +213,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_product,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(stack_mult)
+		MXML_CHANGE_TABLE	= BuildExmlChangeTable(stack_mult)
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_product,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(replace_icons)
+		MXML_CHANGE_TABLE	= BuildExmlChangeTable(replace_icons)
 	},
 	{
 		MBIN_FILE_SOURCE	= source_table_product,
-		EXML_CHANGE_TABLE	= BuildExmlChangeTable(icon_bg_color)
+		MXML_CHANGE_TABLE	= BuildExmlChangeTable(icon_bg_color)
 	},
 	-- {
 		-- MBIN_FILE_SOURCE	= source_table_product,
-		-- EXML_CHANGE_TABLE	= BuildExmlChangeTable(req_substance)
+		-- MXML_CHANGE_TABLE	= BuildExmlChangeTable(req_substance)
 	-- }
 }}}}

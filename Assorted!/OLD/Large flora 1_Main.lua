@@ -208,7 +208,7 @@ local solar_modifiers = {
 
 ---------------------------------------------------------------------------
 ---- EXML 2 LUA (VERSION: 0.83.6) ... by lMonk
----	A tool for converting exml to an equivalent lua table and back again.
+---	A tool for converting mxml to an equivalent lua table and back again.
 --- The complete tool can be found at: https://github.com/roie-r/exml_2_lua
 -------------------------------------------------------------------------------
 
@@ -287,7 +287,7 @@ end
 
 --	Generate an EXML-tagged text from a lua table representation of exml class
 --	@param class: a lua2exml formatted table
-local function ToExml(class)
+local function ToMxml(class)
 	--	replace a boolean with its text equivalent (ignore otherwise)
 	--	@param b: any value
 	local function bool(b)
@@ -297,9 +297,9 @@ local function ToExml(class)
 	--	get the count of ALL objects in a table (non-recursive)
 	--	@param t: any table
 	local function len2(t)
-		i=0; for _ in pairs(t) do i=i+1 end; return i
+		tlen=0; for _ in pairs(t) do tlen=tlen+1 end; return tlen
 	end
-	local function exml_r(tlua)
+	local function mxml_r(tlua)
 		local exml = {}
 		function exml:add(t)
 			for _,v in ipairs(t) do self[#self+1] = v end
@@ -315,7 +315,7 @@ local function ToExml(class)
 					else
 						exml:add({'name="', att, '" value="', val, '">'})
 					end
-					exml:add({exml_r(cls), '</Property>'})
+					exml:add({mxml_r(cls), '</Property>'})
 				else
 					-- add normal property
 					if type(cls) == 'table' then
@@ -336,14 +336,14 @@ local function ToExml(class)
 	-- add the needed layer for the recursion and handle multiple tables
 	local klen = len2(class)
 	if klen == 1 and class[1].meta then
-		return exml_r(class)
+		return mxml_r(class)
 	elseif class.meta and klen > 1 then
-		return exml_r( {class} )
+		return mxml_r( {class} )
 	-- concatenate unrelated exml sections, instead of nested inside each other
 	elseif type(class[1]) == 'table' and klen > 1 then
 		local T = {}
 		for _, tb in pairs(class) do
-			T[#T+1] = exml_r((tb.meta and klen > 1) and {tb} or tb)
+			T[#T+1] = mxml_r((tb.meta and klen > 1) and {tb} or tb)
 		end
 		return table.concat(T)
 	end
@@ -353,7 +353,7 @@ end
 --	Uses the contained template meta if found (instead of the received variable)
 --	@param data: a lua2exml formatted table
 --	@param template: an nms file template string
-local function FileWrapping(data, template)
+local function ToMxmlFile(data, template)
 	local wrapper = '<Data template="%s">%s</Data>'
 	if type(data) == 'string' then
 		return string.format(wrapper, template, data)
@@ -363,10 +363,10 @@ local function FileWrapping(data, template)
 	-- table loaded from file
 	if data.meta[1] == 'template' then
 		-- strip mock template
-		local txt_data = ToExml(data):sub(#data.meta[2] + 36, -12)
+		local txt_data = ToMxml(data):sub(#data.meta[2] + 36, -12)
 		return string.format(wrapper, data.meta[2], txt_data)
 	else
-		return string.format(wrapper, template, ToExml(data))
+		return string.format(wrapper, template, ToMxml(data))
 	end
 end
 
@@ -651,7 +651,7 @@ local function ProcessBiome(exml, path)
 			end
 		end
 	end
-	return FileWrapping(solar_biome)
+	return ToMxmlFile(solar_biome)
 end
 
 -----------------------------------------------------------------------------------------
@@ -665,7 +665,7 @@ function ProcessExmlData(arg) -- called by AMUMSS
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '_MOD.lMonk.large flora.'..mod_version..'.pak',
+	MOD_FILENAME 		= 'MOD.lMonk.large flora.'..mod_version..'',
 	MOD_AUTHOR			= 'lMonk',
 	NMS_VERSION			= '4.7',
 	MOD_DESCRIPTION		= mod_desc,
