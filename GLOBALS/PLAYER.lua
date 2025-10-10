@@ -4,24 +4,24 @@ local mod_desc = [[
 ]]--------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__GC PLAYER.pak',
+	MOD_FILENAME 		= '+ GC player',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= 4.73,
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCPLAYERGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
 					{'SummonArcRange',						200	},	-- 40
 					{'GroundWalkSpeed', 					5.2	}, 	-- 4.4		452
 					{'GroundRunSpeed',						9.8	},	-- 8
 					{'GroundWalkSpeedLowG',					2.8	},	-- 1.6
 					{'GroundRunSpeedLowG',					4.4	},	-- 3.5
-					{'UnderwaterMaxSpeed',					5	},	-- 4
+					-- {'UnderwaterMaxSpeed',					5	},	-- 4
 					{'UnderwaterForce',						18	},	-- 15
 					{'UnderwaterMaxJetpackSpeed',			10	},	-- 8
 					{'UnderwaterJetpackForce',				28	},	-- 25

@@ -5,16 +5,16 @@ local mod_desc = [[
 ]]---------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__GC SKY.pak',
+	MOD_FILENAME 			= '+ GC sky',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCSKYGLOBALS.GLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'DayLength',							3600},	-- 1800
@@ -35,17 +35,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					-- {'MaxNightFade',						1	}, -- 0.68
 				}
 			},
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'PhotoModeVignette',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'x',			1},
-					-- {'y',			1}
-				-- }
-			-- },
+			{
+				PRECEDING_KEY_WORDS	= 'PhotoModeVignette',
+				VALUE_CHANGE_TABLE 	= {
+					{'X',			1},
+					{'Y',			1}
+				}
+			},
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetFog', 'GcFogProperties.xml'},
+				SPECIAL_KEY_WORDS	= {'PlanetFog', 'GcFogProperties'},
 				VALUE_CHANGE_TABLE 	= {
 					{'FogMax',				0.94},	-- 1
 					{'Alpha1',				0.94},	-- 1
@@ -55,7 +55,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetExtremeFog', 'GcFogProperties.xml'},
+				SPECIAL_KEY_WORDS	= {'PlanetExtremeFog', 'GcFogProperties'},
 				VALUE_CHANGE_TABLE 	= {
 					{'FogStrength',			0.78},	-- 0.5
 					{'FogMax',				0.95},	-- 0.9
@@ -67,7 +67,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetStormFog', 'GcFogProperties.xml'},
+				SPECIAL_KEY_WORDS	= {'PlanetStormFog', 'GcFogProperties'},
 				VALUE_CHANGE_TABLE 	= {
 					{'FogStrength',			0.88},	-- 1.5
 					{'FogMax',				0.95},	-- 0.95
@@ -79,7 +79,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				REPLACE_TYPE 		= 'All',
 				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetFlightFog', 'GcFogProperties.xml'},
+				SPECIAL_KEY_WORDS	= {'PlanetFlightFog', 'GcFogProperties'},
 				VALUE_CHANGE_TABLE 	= {
 					{'FogStrength',			0.9},	-- 0.04
 					{'FogMax',				0.95},	-- 1

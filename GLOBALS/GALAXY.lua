@@ -1,5 +1,5 @@
 ------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ------------------------------------------------------
 local mod_desc = [[
   Change solar system to faster moving & more varied
@@ -7,16 +7,16 @@ local mod_desc = [[
 ]]----------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__GC GALAXY.pak',
+	MOD_FILENAME 			= '+ GC galaxy',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCGALAXYGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'FinalTransitionMaxSpeed',	400},	-- 350
@@ -48,20 +48,52 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Yellow'},
-				VALUE_CHANGE_TABLE	= Hex2VCT('4dfac905')
+				VALUE_CHANGE_TABLE	= Hex2VCT('60fae007')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Green'},
-				VALUE_CHANGE_TABLE	= Hex2VCT('8025bd03')
+				VALUE_CHANGE_TABLE	= Hex2VCT('a018bd06')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Blue'},
-				VALUE_CHANGE_TABLE	= Hex2VCT('801852f5')
+				VALUE_CHANGE_TABLE	= Hex2VCT('a01f3af5')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Red'},
-				VALUE_CHANGE_TABLE	= Hex2VCT('80fc2933')
+				VALUE_CHANGE_TABLE	= Hex2VCT('a0fc2933')
+			},
+			{
+				PRECEDING_KEY_WORDS = {'BaseStarDefaultColours', 'ColourByStarType', 'Purple'},
+				VALUE_CHANGE_TABLE	= Hex2VCT('afa424f0')
 			}
 		}
 	}
 }}}}
+
+-- BaseStarDefaultColours
+-- 33FFCF10
+-- 663EEF13
+-- 664B85FF
+-- 66F10B39
+-- 8C903FFF
+
+-- BaseStarProtanopiaColours
+-- FFFFFC63
+-- FFFE6100
+-- FF785EF0
+-- FFDC267F
+-- B32EF00259
+
+-- BaseStarDeuteranopiaColours
+-- FFFFE410
+-- FFD219A5
+-- FF40B1F5
+-- FF9300FD
+-- B32EFCF259
+
+-- BaseStarTritanopiaColours
+-- FFFFCF10
+-- FFBCCEFE
+-- FF715BD6
+-- FFE3157A
+-- B32EF00259

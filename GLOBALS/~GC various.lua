@@ -6,23 +6,46 @@ local mod_desc = [[
   limit the freighter base NPC crowd
   disable ladder auto-grab; disable falling camera-view
   settlement longer alret cycle, higher population
+  settlement add MEGAPROD3 opion to builders
   same (dark mode) warp tunnel in teleports
-  lower water level to avoid invisible water at shoreline
 ]]----------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__GC various.pak',
+	MOD_FILENAME 		= '+ GC various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
-	MOD_BATCHNAME		= '_GLOBALS ~@~collection.pak',
+	NMS_VERSION			= '6.06',
+	MOD_BATCHNAME		= '+GLOBALS ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{--	|GC GRAPHICS|
-		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+	{--	|GC buildableship|
+		MBIN_FILE_SOURCE	= 'GCBUILDABLESHIPGLOBALS.GLOBAL.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				-- INTEGER_TO_FLOAT	= 'Force',
+				VALUE_CHANGE_TABLE 	= {
+					{'ComplexityLimitWarningNX',80	},	-- 40
+					{'ComplexityLimitWarning',	200	}	-- 100
+				}
+			}
+		}
+	},
+	{--	|GC fishing|
+		MBIN_FILE_SOURCE	= 'GCFISHINGGLOBALS.GLOBAL.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'FishingRange', 50}	-- 25
+				}
+			}
+		}
+	},
+	{--	|GC graphics|
+		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
 				VALUE_CHANGE_TABLE 	= {
 					-- {'LUTDistanceFlightMultiplier',	1	},	-- 0
 					-- {'SunLightIntensity',			3.2	},	-- 3
@@ -31,7 +54,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset.xml'},
+				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset'},
 				VALUE_CHANGE_TABLE 	= {
 					{'FFXSR2Quality',				'Quality'		},
 					{'MetalFXQuality',				'UltraQuality'	},
@@ -41,9 +64,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC BUILDING|
+	{--	|GC building|
 		MBIN_FILE_SOURCE	= 'GCBUILDINGGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'UnknownBuildingRange',					800	},	-- 600
@@ -56,37 +80,46 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'BuildingPlacementDefaultMinDistance',		1	},	-- 3
 					{'BaseRadiusExtension',						30	},	-- 50
 					{'MinRadiusForBases',						150	},	-- 300
+					{'MaxRadiusForPlanetBases',				 	2000},	-- 1000
 
 					--- Extension for basebuilding
-					-- {'MaxRadiusForPlanetBases',			 	2000},	-- 1000
 					-- {'BaseRadiusExtension',					100},
 					-- {'MinRadiusForBases',					1600},
 				}
 			}
 		}
 	},
-	{--	|GC TERRAIN|
+	{--	|GC terrain|
 		MBIN_FILE_SOURCE	= 'GCTERRAINGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'TerrainEditBeamMaxRange',	120	}	-- 40
 				}
 			},
 			{
-				MATH_OPERATION 		= '+',
-				PRECEDING_KEY_WORDS = 'SubtractSizes',
+				PRECEDING_KEY_WORDS = 'FlatteningSizes',
+				REPLACE_TYPE 		= 'OnceInside',
 				VALUE_CHANGE_TABLE 	= {
-					{'Ignore',					-0.2},	-- 0.8
-					{'Ignore',					0.2	},	-- 1.6
-					{'Ignore',					0.4	}	-- 3.2
+					{'FlatteningSizes',			4}		-- 2
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = 'SubtractSizes',
+				REPLACE_TYPE 		= 'OnceInside',
+				VALUE_CHANGE_TABLE 	= {
+					{'Ignore',					0.4},	-- 0.8
+					{'Ignore',					2.0},	-- 1.6
+					{'Ignore',					3.8}	-- 3.2
 				}
 			}
 		}
 	},
-	{--	|GC FLEET|
+	{--	|GC fleet|
 		MBIN_FILE_SOURCE	= 'GCFLEETGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'MinFrigateDistanceFromFreighter',			500	}, -- 400
@@ -96,21 +129,40 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC SETTLEMENT|
+	{--	|GC settlement|
 		MBIN_FILE_SOURCE	= 'GCSETTLEMENTGLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'SettlementMiniExpeditionSuccessChance',	0.85}, 	-- 0.7
+					{'BuildingRevealCutsceneLength',			5	}, 	-- 10
+					{'SettlementMiniExpeditionSuccessChance',	0.8	}, 	-- 0.7
 					{'MaxNPCPopulation',						40	}, 	-- 30
-					{'AlertCycleDurationInSeconds',				72000},	-- 2600
+					{'AlertCycleDurationInSeconds',				34000},	-- 3400
 				}
-			}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Product', 'FARMPROD8'},
+				SEC_SAVE_TO			= 'settlement_production_element',
+			},
+			{
+				SEC_EDIT 			= 'settlement_production_element',
+				VALUE_CHANGE_TABLE 	= {
+					{'Product',		'MEGAPROD3'}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS	= 'AutophageProductionElementsSelectable',
+				ADD_OPTION			= 'AddEndSection',
+				SEC_ADD_NAMED		= 'settlement_production_element',
+			},
+
 		}
 	},
-	{--	|GC FREIGHTERBASE|
+	{--	|GC freighterbase|
 		MBIN_FILE_SOURCE	= 'GCFREIGHTERBASEGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'MaxTotalNPCCount',		12	},	-- 24
@@ -130,9 +182,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC CHARACTER|
+	{--	|GC character|
 		MBIN_FILE_SOURCE	= 'GCCHARACTERGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'LadderDistanceToAutoMount',			0	},	-- 0.4
@@ -143,9 +196,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC ROBOT|
+	{--	|GC robot|
 		MBIN_FILE_SOURCE	= 'GCROBOTGLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'FriendlyDroneChatCooldown',			12	},	-- 5
@@ -155,27 +209,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC SIMULATION|
+	{--	|GC simulation|
 		MBIN_FILE_SOURCE	= 'GCSIMULATIONGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'WarpTunnelScale',			180},
-					{'WarpTunnelFile',			'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'BlackHoleTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'TeleportTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'PortalTunnelFile',		'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'},
 					{'PortalStoryTunnelFile',	'MODELS/EFFECTS/WARP/WARPTUNNEL.SCENE.MBIN'}
-				}
-			}
-		}
-	},
-	{--	|GC WATER|
-		MBIN_FILE_SOURCE	= 'GCWATERGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'WaveHeight',	-0.2}	-- 1.5
 				}
 			}
 		}

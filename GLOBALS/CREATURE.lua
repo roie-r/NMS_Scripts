@@ -8,17 +8,17 @@ local mod_desc = [[
 ]]-------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__GC CREATURE.pak',
+	MOD_FILENAME 		= '+ GC creature',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCCREATUREGLOBALS.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				VALUE_CHANGE_TABLE 	= {
 					-- {'CreatureInteractionRangeBoostHuge',	3.2	},	-- 1.5
 					-- {'CreatureInteractionRangeBoostLarge',	2.8	},	-- 1.2
@@ -44,7 +44,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SandWormSpawnTimer',					220	},	-- 300
 					{'SandWormSpawnChanceMin',				0.07},	-- 0.01
 					{'SandWormSpawnChanceMax',				0.05},	-- 0.2
-					{'SandWormSpawnChanceInfested',			-0.2},	-- 1
+					{'SandWormSpawnChanceInfested',			0.6	},	-- 1
 					{'PercentagePlayerPredators',			0.25},	-- 0.5
 					{'PlayerPredatorBoredomDistance',		64	},	-- 80
 					{'PredatorRegainInterestTime',			20	},	-- 30
@@ -67,7 +67,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				INTEGER_TO_FLOAT	= 'Force',
 				PRECEDING_KEY_WORDS = 'PetOffPlanetEffect',
 				VALUE_CHANGE_TABLE 	= {
 					{'R',			0.2},

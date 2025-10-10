@@ -6,20 +6,21 @@ local mod_desc = [[
 ]]--------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__GC SOLAR.pak',
+	MOD_FILENAME 		= '+ GC solar',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '5.29',
+	NMS_VERSION			= '6.06',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCSOLARGENERATIONGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'PlanetInvalidAsteroidZone',				14000},	-- 10000
-					{'SparseAsteroidSpread',					-1010},	-- -7
-					{'AsteroidSpaceStationAvoidRadius',			6500},	-- 5000
+					{'Planet Invalid Asteroid Zone',			12000},	-- 10000
+					{'Sparse Asteroid Spread',					-800},	-- -7
+					{'Asteroid Space Station Avoid Radius',		6600},	-- 5000
 					{'AsteroidCreatureRichSystemProbability',	0.008}	-- 0.005
 				}
 			},
@@ -29,12 +30,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Yellow',		0.1},		-- 0.25
 					{'Green',		0.08},		-- 0.15
 					{'Blue',		0.08},		-- 0.15
-					{'Red',			0.75},		-- 0.5
+					{'Red',			0.6},		-- 0.5
+					{'Purple',		0.06},		-- 0.05
 				}
 			},
 			{
 				INTEGER_TO_FLOAT	= 'Preserve',
-				PRECEDING_KEY_WORDS = 'CommonAsteroidData',
+				PRECEDING_KEY_WORDS = 'Common Asteroid Data',
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		2000},		-- 1000
 					{'Spacing',		'@*1.4'},	-- 645
@@ -42,21 +44,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				INTEGER_TO_FLOAT	= 'Preserve',
-				PRECEDING_KEY_WORDS = 'LargeAsteroidData',
+				PRECEDING_KEY_WORDS = 'Large Asteroid Data',
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		1200},		-- 400
 					{'Spacing',		'@*2'},		-- 9000
-					{'FadeRange',	8100}		-- 9000
+					{'Fade Range',	8100}		-- 9000
 				}
 			},
 			{
 				INTEGER_TO_FLOAT	= 'Preserve',
-				PRECEDING_KEY_WORDS = 'RareAsteroidData',
+				PRECEDING_KEY_WORDS = 'Rare Asteroid Data',
 				VALUE_CHANGE_TABLE	= {
 					{'Health',		1800},		-- 1400
 					{'Spacing',		'@*4'},		-- 850
-					{'FadeRange',	8100},		-- 9000
-					{'NoiseScale',	'@*2.1'},	-- 50000
+					{'Fade Range',	8100},		-- 9000
+					{'Noise Scale',	'@*2.1'},	-- 50000
 				}
 			},
 			{

@@ -1,5 +1,5 @@
 ------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 ------------------------------------------------------
 local mod_desc = [[
   Decrease binoc scan and charge times
@@ -8,16 +8,16 @@ local mod_desc = [[
 ]]----------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__GC GAMEPLAY.pak',
+	MOD_FILENAME 			= '+ GC gameplay',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCGAMEPLAYGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			-- {
 				-- MATH_OPERATION 		= '+',
 				-- PRECEDING_KEY_WORDS = 'ChanceOfPirateFreighterBattleOnWarpToSystem',
@@ -44,11 +44,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ShipScanPlanetRechargeMultiplier',	0.5		},	-- 1
 					{'ShipScanSpaceRechargeMultiplier',		0.2		},	-- 0.3
 					{'LowSentinelProbability',				0.6		},	-- 0.55
-					{'FreighterStartPecent',				50		},	-- 60
 					{'ResourceReducer',						8		},	-- 10
+					{'ResourceMinAmount',					2		},	-- 1
 					{'ResourceMaxAmount',					3		},	-- 2
 					{'ResourceCommonReducer',				4		},	-- 5
+					{'ResourceCommonMinAmount',				2		},	-- 8
 					{'ResourceDirtReducer',					30		},	-- 40
+					{'ResourceDirtMinAmount',				2		},	-- 8
+					{'ResourceDirtMaxAmount',				10		},	-- 8
 					{'ShipInteractRadius',					850		},	-- 50		5279
 					{'ZoomFindBuildingRange',				1000	},	-- 600
 					{'TorchFoV',							110		},	-- 120		6102
@@ -59,6 +62,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'InteractionTorchStrength',			0.8		},	-- 2
 					{'UndergroundTorchFoV',					65		},	-- 70
 					{'UndergroundTorchStrength',			3		},	-- 2.5
+					{'UnderwaterTorchStrengthMax',			7.2		}, -- 6
+					{'UnderwaterAmbientLightStrength',		0.78	}, -- 0.75
+					{'UnderwaterTorchVolumetricStrength',	0.0005	}, -- 0.005
 					{'TorchOffsetY',						0.5		},	-- -0.5
 					{'TorchOffsetZ',						-0.8	},	-- -0.75
 					{'TorchStaffOffsetY',					0.5		},	-- -0.2
@@ -70,7 +76,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'TorchColour',
-				VALUE_CHANGE_TABLE 	= Hex2VCT('FFD1F7F7')
+				VALUE_CHANGE_TABLE 	= Hex2VCT('ffd1f7f7')
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedEffect',
@@ -81,19 +87,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedColour',
-				VALUE_CHANGE_TABLE 	= Hex2VCT('770F1F2B')
+				VALUE_CHANGE_TABLE 	= Hex2VCT('770f1f2b')
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BinocularSelectedUnknownColour',
-				VALUE_CHANGE_TABLE 	= Hex2VCT('AAE04E4E')
+				VALUE_CHANGE_TABLE 	= Hex2VCT('aae04e4e')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'PassiveScanEffect', 'Colour'},
-				VALUE_CHANGE_TABLE 	= Hex2VCT('77FFEEDD')
+				VALUE_CHANGE_TABLE 	= Hex2VCT('77ffeedd')
 			},
 			{
 				PRECEDING_KEY_WORDS = {'BuildingScanEffect', 'Colour'},
-				VALUE_CHANGE_TABLE 	= Hex2VCT('FF1F5C7A')
+				VALUE_CHANGE_TABLE 	= Hex2VCT('ff1f5c7a')
 			},
 			{
 				PRECEDING_KEY_WORDS = 'BuildingScanEffect',
@@ -107,48 +113,48 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = {'FreighterTimers', 'High'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			4},	-- 10
-					{'y',			4}	-- 30
+					{'X',			3},	-- 10
+					{'Y',			3}	-- 30
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = {'FreighterTimers', 'Normal'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			3},	-- 60
-					{'y',			2}	-- 240
+					{'X',			2},	-- 60
+					{'Y',			1.5}-- 240
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = {'FlybyTimers', 'High'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			5},	-- 20
-					{'y',			7}	-- 40
+					{'X',			5},	-- 20
+					{'Y',			7}	-- 40
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = {'FlybyTimers', 'Normal'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			4},	-- 60
-					{'y',			5}	-- 60
+					{'X',			4},	-- 60
+					{'Y',			5}	-- 60
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = {'FlybyTimers', 'Low'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			1.5},-- 200
-					{'y',			2.5} -- 600
+					{'X',			1.5},-- 200
+					{'Y',			2.5} -- 600
 				}
 			},
 			{
 				MATH_OPERATION 		= '*',
 				PRECEDING_KEY_WORDS = 'FrigateFlybyTimer',
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			6},	-- 600
-					{'y',			6},	-- 1200
+					{'X',			6},	-- 600
+					{'Y',			6},	-- 1200
 				}
 			}
 		}

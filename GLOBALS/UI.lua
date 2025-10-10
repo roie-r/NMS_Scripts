@@ -5,20 +5,21 @@ local mod_desc = [[
 ]]----------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__GC UI.pak',
+	MOD_FILENAME 			= '+ GC ui',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCUIGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'MilestoneStingDisplayTime',				1.5		},	-- 6
 					{'StageStingDisplayTime',					1.5		},	-- 6
+					{'BigPicking',								false	},
 					{'StackSizeRateChangeRate',					2		},	-- 1.25			800
 					{'StackSizeChangeMinRate',					1		},	-- 2
 					{'StackSizeChangeMaxRate',					180		},	-- 60
@@ -70,44 +71,63 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	 = {
-					{'RefinerParallax',			'Vector2f.xml'},
-					{'ModelViewWorldParallax',	'Vector2f.xml'},
-					{'NGuiModelParallax',		'Vector2f.xml'},
-					{'NGuiShipInteractParallax','Vector2f.xml'},
-					{'InteractionWorldParallax','Vector2f.xml'}
-				},
+				PRECEDING_KEY_WORDS = 'PickingCursorOffset',
 				VALUE_CHANGE_TABLE 	= {
-					{'x', 			0},
-					{'y', 			0}
+					{'X', 			0},
+					{'Y', 			0}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Suit', 'TkModelRendererData.xml'},
+				PRECEDING_KEY_WORDS = 'InWorldNGuiParallax',
+				VALUE_CHANGE_TABLE 	= {
+					{'X', 			0},
+					{'Y', 			0}
+				}
+			},
+			{
+				PRECEDING_KEY_WORDS = 'NGuiMin2DParallax',
+				VALUE_CHANGE_TABLE 	= {
+					{'X', 			0},
+					{'Y', 			0}
+				}
+			},
+			{
+			-- NGuiModelParallax
+			-- NGuiShipInteractParallax
+			-- InteractionWorldParallax
+
+				PRECEDING_KEY_WORDS = 'NGuiMax2DParallax',
+				VALUE_CHANGE_TABLE 	= {
+					{'X', 			0},
+					{'Y', 			0}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Suit', 'TkModelRendererData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'LightPitch',	60},
 					{'LightRotate',	0}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Weapon', 'TkModelRendererData.xml'},
+				SPECIAL_KEY_WORDS	= {'Weapon', 'TkModelRendererData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Distance',	3.2},	-- 2.4
-					{'x',			-0.6},	-- -0.4
-					{'y',			0.06},	-- 0.02
-					{'z',			0.0},	-- 0.1
+					{'X',			-0.6},	-- -0.4
+					{'Y',			0.06},	-- 0.02
+					{'Z',			0.0},	-- 0.1
 					{'LightPitch',	30},
 					{'LightRotate',	-30},
 					{'FocusType',	'ResourceBoundingHeight'}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Ship', 'TkModelRendererData.xml'},
+				SPECIAL_KEY_WORDS	= {'Ship', 'TkModelRendererData'},
 				VALUE_CHANGE_TABLE 	= {
 					{'Distance',	0.44},	-- 1.3
-					{'x',			-0.21},	-- -0.3
-					{'y',			0.035},	-- 0.077
-					{'z',			0.6},	-- 0
+					{'X',			-0.21},	-- -0.3
+					{'Y',			0.035},	-- 0.077
+					{'Z',			0.6},	-- 0
 					{'Pitch',		20},	-- 0
 					{'Rotate',		-40},	-- -45
 					{'LightPitch',	35},
@@ -115,10 +135,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Vehicle', 'TkModelRendererData.xml'},
+				SPECIAL_KEY_WORDS	= {'Vehicle', 'TkModelRendererData'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			-3.5},
-					{'y',			0.06},
+					{'X',			-3.5},
+					{'Y',			0.06},
 					{'Pitch',		5},
 					{'Rotate',		-43},
 					{'LightPitch',	30},
@@ -127,19 +147,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'TradeCompareShips', 'TkModelRendererData.xml'},
+				SPECIAL_KEY_WORDS	= {'TradeCompareShips', 'TkModelRendererData'},
 				VALUE_CHANGE_TABLE 	= {
-					{'y',			-0.015},
+					{'Y',			-0.015},
 					{'Pitch',		15},
 					{'Rotate',		-15},
 					{'Fov',			10}
 				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Freighter', 'TkModelRendererData.xml'},
+				SPECIAL_KEY_WORDS	= {'Freighter', 'TkModelRendererData'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			-0.05},
-					{'z',			-0.05},
+					{'X',			-0.05},
+					{'Z',			-0.05},
 					{'Pitch',		15},
 					{'LightPitch',	35},
 					{'LightRotate',	250}

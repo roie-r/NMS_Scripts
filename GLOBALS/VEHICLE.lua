@@ -6,16 +6,16 @@ local mod_desc = [[
 ]]----------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__GC VEHICLE.pak',
+	MOD_FILENAME 			= '+ GC vehicle',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.06',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCVEHICLEGLOBALS.GLOBAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'MechJetpackTurnSpeed',				1.8	},	-- 3
@@ -25,7 +25,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MechJetpackForce',					78	},	-- 70
 					{'MechJetpackMaxSpeed',					42	},	-- 20
 					{'MechJetpackMaxUpSpeed',				28	},	-- 20
-					{'MechJetpackFallForce',				58	},	-- 80
+					{'MechJetpackFallForce',				68	},	-- 80
 					{'MechArmPitchAngleMin',				-45	},	-- -30
 					{'MechArmPitchAngleMax',				75	},	-- 60
 					{'MechPlayerGroundTurnSpeed',			0.7	},	-- 0.5
@@ -52,7 +52,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'BIKE'},
 				VALUE_CHANGE_TABLE 	= {
-					-- {'DriveOnTopOfWater',			false},
 					{'TopSpeedForward', 			19},	-- 18
 					{'VehicleGravity',				18},	-- 17.5
 					{'VehicleGravityWater',			15.5},	-- 17.5
@@ -96,10 +95,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'SUBMARINE'},
 				VALUE_CHANGE_TABLE 	= {
-					{'UnderwaterEnginePower',		7},		-- 6
-					{'UnderwaterEngineMaxSpeed',	17},	-- 15
-					{'UnderwaterEngineFalloff', 	0.4},	-- 0.7
-					{'TopSpeedForward', 			17},	-- 15
+					{'UnderwaterEnginePower',		10.5},	-- 10
+					{'UnderwaterEngineMaxSpeed',	22.5},	-- 22
+					{'UnderwaterEngineFalloff', 	0.35},	-- 0.7
+					{'TopSpeedForward', 			22.5},	-- 22
 					{'VehicleGravityWater',			16.5},	-- 17.5
 				}
 			},
