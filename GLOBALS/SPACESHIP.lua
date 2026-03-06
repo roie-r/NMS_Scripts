@@ -75,7 +75,7 @@ mx_ct[#mx_ct+1] = {
 		{'WarpInTimeNexus',						2.2		},	-- 1
 		{'WarpNexusDistance',					-8000	},	-- -9000
 		{'MaxOverspeedBrake',					900		},	-- 1000
-		{'PulseDrivePlanetApproachHeight',		4000	},	-- 6000
+		{'PulseDrivePlanetApproachHeight',		5000	},	-- 6000
 		{'3rdPersonRollAngle',					78		},	-- 75		(270)
 		{'3rdPersonRollAngleScience',			72		},	-- 62
 		{'3rdPersonRollAngleDropship',			64		},	-- 45
@@ -94,7 +94,7 @@ mx_ct[#mx_ct+1] = {
 		{'LandingPushNoseUpFactor',				-0.05	},	-- 0.15
 		{'AutoLevelMinAngle',					360		}, 	-- 5
 		{'AutoLevelMaxAngle',					0		}, 	-- 110
-		{'ShieldRechargeMinHitTime',			20		},	-- 60		(1136)
+		{'ShieldRechargeMinHitTime',			30		},	-- 60		(1136)
 		{'PowerSettingEngineMul',				1.4		},	-- 1.33
 		{'PowerSettingEngineDamper',			0.85	},	-- 0.85
 		{'PowerSettingWeaponMul',				1.2		},	-- 1.15
@@ -118,11 +118,13 @@ mx_ct[#mx_ct+1] = {
 		{'MiniWarpHUDArrowNumMarkersToBeDense',	3		},	-- 6
 		{'CorvetteAutopilotSpeed',				120		},	-- 60
 		{'CorvetteAutopilotSpeedSpace',			480		},	-- 240
+		{'WarpOnFootInCorvetteMaxWaitTime',		120		},	-- 45
 		{'CombatBoostTurnDamp',					0.75	},	-- 0.9
 		{'DockingRotateSpeed',					0.7		},	-- 1
 		{'ShakeMaxPower',						0.9		},	-- 1.3
 		{'GroundHeightSmoothTime',				3		},	-- 0
 		{'MaxSpeedUpVelocity',					80		},	-- 100
+		{'HUDBoostUpgradeMultiplier',			1		},	-- 10
 	}
 }
 mx_ct[#mx_ct+1] = {
@@ -137,13 +139,12 @@ mx_ct[#mx_ct+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ GC spaceship',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCSPACESHIPGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= mx_ct
 	}
 }}}}

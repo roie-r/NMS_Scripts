@@ -3,7 +3,7 @@
 ---	A tool for converting between mxml file format and lua table.
 --- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
 -------------------------------------------------------------------------------
----	Reality tables entries ... version: 1.02.2
+---	Reality tables entries ... version: 1.03.01
 ---	Build full table entries for technology, proc-tech, product, recipe,
 ---  and basebuild objects and basebuild parts.
 ---	* Not ALL class properties are included. Some who are unused/deprecated
@@ -14,7 +14,8 @@ IT_={--	InventoryType Enum
 	SBT='Substance',	TCH='Technology',	PRD='Product'
 }-- Enum
 
---	=> Return true if value is nil
+--	=> Return true if received value is nil
+--	Used for defaulting bool properties to true.
 local function orTrue(b)
 	return b == nil and true or b
 end
@@ -203,11 +204,14 @@ function ProductEntry(items)
 				meta	= {name='CorvettePartCategory', value='GcCorvettePartCategory'},
 				CorvettePartCategory = prod.corvettepartcategory or 'None'-- Enum
 			},
+			CorvetteRewardFrequency		= prod.corvetterewardfrequency,	--	i
 			IsCraftable					= prod.iscraftable,				--	b
 			DeploysInto					= prod.deploysinto,				--	Id
 			EconomyInfluenceMultiplier	= prod.economyinfluence,		--	i
 			PinObjective				= prod.pinobjective,			--	s
 			PinObjectiveTip				= prod.pinobjectivetip,			--	s
+			PinObjectiveMessage			= prod.PinObjectiveMessage,		--	s
+			PinObjectiveScannableType	= prod.PinObjectiveScannableType,-- Enum
 			CookingIngredient			= prod.cookingingredient,		--	b
 			CookingValue				= prod.cookingvalue,			--	i
 			FoodBonusStat				= {
@@ -250,18 +254,19 @@ function ProcTechEntry(items)
 		return {
 			meta	= {name='value', value='GcProceduralTechnologyData'},
 			ID				= tech.id,
-			Template		= tech.template,
-			Name			= tech.name,
-			NameLower		= tech.namelower,
-			Group			= tech.namelower, -- not a bug
-			Subtitle		= tech.subtitle,
-			Description		= tech.description,
+			Template		= tech.template,							--	s
+			Group			= tech.group or tech.name,					--	s
+			Name			= tech.name,								--	s
+			NameLower		= tech.namelower,							--	s
+			Subtitle		= tech.subtitle,							--	s
+			Description		= tech.description,							--	s
 			Colour			= ColorData(tech.color, 'Colour'),			--	rgb/hex
 			Quality			= tech.quality or 'Normal',					--	Enum
 			Category		= {
 				meta = {name='Category', value='GcProceduralTechnologyCategory'},
 				ProceduralTechnologyCategory = tech.category,			--	Enum
 			},
+			IsBiggsProcTech	= tech.isbiggs,								--	b
 			NumStatsMin		= tech.numstatsmin,							--	i
 			NumStatsMax		= tech.numstatsmax,							--	i
 			WeightingCurve	= {
@@ -475,7 +480,9 @@ function LocalisationTable(texts)
 			{'<',	'&lt;'},
 			{'>',	'&gt;'},
 			{'"',	'&quot;'},
-			{'|N|',	'&#xA;'}
+			{"'",	'&apos;'},
+			{'|NL|','&#xA;'},
+			{'|CR|','&#xD;'}
 		}
 		for _,e in ipairs(entity) do
 			s = s:gsub(e[1], e[2])

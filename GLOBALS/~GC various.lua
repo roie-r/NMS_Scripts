@@ -13,14 +13,25 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ GC various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_BATCHNAME		= '+GLOBALS ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{--	|GC buildableship|
+	{--	|GC gravitygun|
+		MBIN_FILE_SOURCE	= 'GCGRAVITYGUNGLOBALS.GLOBAL.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'PushForceUpComponent',	0.12},	-- 0.16
+					{'PushPower',				22},	-- 20
+					{'PushPowerSentinel',		10},	-- 5
+				}
+			}
+		}
+	},
+	{--	|GC buildableship| corvette
 		MBIN_FILE_SOURCE	= 'GCBUILDABLESHIPGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -30,44 +41,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC fishing|
-		MBIN_FILE_SOURCE	= 'GCFISHINGGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'FishingRange', 50}	-- 25
-				}
-			}
-		}
-	},
-	{--	|GC graphics|
-		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					-- {'LUTDistanceFlightMultiplier',	1	},	-- 0
-					-- {'SunLightIntensity',			3.2	},	-- 3
-					-- {'DOFFarStrengthWater',			0.2	},	-- 0
-					{'ForceUncachedTerrain',		true},
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FFXSR2Quality',				'Quality'		},
-					{'MetalFXQuality',				'UltraQuality'	},
-					{'AnisotropyLevel',				'_16'			},
-					{'AntiAliasing',				'FFXSR2'		},
-				}
-			}
-		}
-	},
 	{--	|GC building|
 		MBIN_FILE_SOURCE	= 'GCBUILDINGGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS = 'BuildingPlacementScaleMinMax',
+				VALUE_CHANGE_TABLE 	= {
+					{'X',						0.1	},	-- 0.25
+					{'Y',						5	}	-- 3
+				}
+			},
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'UnknownBuildingRange',					800	},	-- 600
@@ -75,8 +58,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'MaxShipScanBuildings',					3	},	-- 2
 
 					--- normal game
-					{'BuildingPlacementMaxDistance',			100	},	-- 50
 					{'BuildingPlacementMaxConnectionLength',	1800},	-- 200
+					{'BuildingPlacementMaxDistance',			100	},	-- 50
+					{'BuildingPlacementMaxShipBaseRadius',		100	},	-- 40
 					{'BuildingPlacementDefaultMinDistance',		1	},	-- 3
 					{'BaseRadiusExtension',						30	},	-- 50
 					{'MinRadiusForBases',						150	},	-- 300
@@ -86,15 +70,82 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					-- {'BaseRadiusExtension',					100},
 					-- {'MinRadiusForBases',					1600},
 				}
+			},
+		}
+	},
+	{--	|GC fishing|
+		MBIN_FILE_SOURCE	= 'GCFISHINGGLOBALS.GLOBAL.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'FishingRange', 			50	}	-- 25
+				}
 			}
+		}
+	},
+	{--	|GC graphics|
+		MBIN_FILE_SOURCE	= 'GCGRAPHICSGLOBALS.GLOBAL.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Ultra', 'TkGraphicsDetailPreset'},
+				VALUE_CHANGE_TABLE 	= {
+					{'FFXSR2Quality',			'Quality'		},
+					{'MetalFXQuality',			'UltraQuality'	},
+					{'AnisotropyLevel',			'_16'			},
+					{'AntiAliasing',			'FFXSR2'		}
+				}
+			}
+		}
+	},
+	{--	|GC fleet|
+		MBIN_FILE_SOURCE	= 'GCFLEETGLOBALS.GLOBAL.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'MinFrigateDistanceFromFreighter',			500	}, -- 400
+					{'MaxFrigateDistanceFromFreighter',			1400}, -- 1200
+					{'FrigateDistanceMultiplierIfNoCaptialShip',0.6	}, -- 0.66
+				}
+			}
+		}
+	},
+	{--	|GC settlement|
+		MBIN_FILE_SOURCE	= 'GCSETTLEMENTGLOBALS.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				VALUE_CHANGE_TABLE 	= {
+					{'BuildingRevealCutsceneLength',			5	}, 	-- 10
+					{'SettlementMiniExpeditionSuccessChance',	0.8	}, 	-- 0.7
+					{'MaxNPCPopulation',						40	}, 	-- 30
+					{'AlertCycleDurationInSeconds',				24000},	-- 3400
+					{'BugAttackCycleDurationInSeconds',			36000},	-- 9000
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Product', 'FARMPROD8'},
+				SEC_SAVE_TO			= 'settlement_production_element',
+			},
+			{
+				SEC_EDIT 			= 'settlement_production_element',
+				VALUE_CHANGE_TABLE 	= {
+					{'Product',		'MEGAPROD3'}
+				}
+			},
+			{-- add MEGAPROD3 opion to builders
+				PRECEDING_KEY_WORDS	= 'AutophageProductionElementsSelectable',
+				ADD_OPTION			= 'AddEndSection',
+				SEC_ADD_NAMED		= 'settlement_production_element',
+			},
+
 		}
 	},
 	{--	|GC terrain|
 		MBIN_FILE_SOURCE	= 'GCTERRAINGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
+					{'SeaLevelGasGiant',		70},	-- 35
+					{'SeaLevelMoon',			20},	-- 10
 					{'TerrainEditBeamMaxRange',	120	}	-- 40
 				}
 			},
@@ -116,52 +167,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|GC fleet|
-		MBIN_FILE_SOURCE	= 'GCFLEETGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'MinFrigateDistanceFromFreighter',			500	}, -- 400
-					{'MaxFrigateDistanceFromFreighter',			1400}, -- 1200
-					{'FrigateDistanceMultiplierIfNoCaptialShip',0.6	}, -- 0.66
-				}
-			}
-		}
-	},
-	{--	|GC settlement|
-		MBIN_FILE_SOURCE	= 'GCSETTLEMENTGLOBALS.MBIN',
-		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'BuildingRevealCutsceneLength',			5	}, 	-- 10
-					{'SettlementMiniExpeditionSuccessChance',	0.8	}, 	-- 0.7
-					{'MaxNPCPopulation',						40	}, 	-- 30
-					{'AlertCycleDurationInSeconds',				34000},	-- 3400
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Product', 'FARMPROD8'},
-				SEC_SAVE_TO			= 'settlement_production_element',
-			},
-			{
-				SEC_EDIT 			= 'settlement_production_element',
-				VALUE_CHANGE_TABLE 	= {
-					{'Product',		'MEGAPROD3'}
-				}
-			},
-			{
-				PRECEDING_KEY_WORDS	= 'AutophageProductionElementsSelectable',
-				ADD_OPTION			= 'AddEndSection',
-				SEC_ADD_NAMED		= 'settlement_production_element',
-			},
-
-		}
-	},
 	{--	|GC freighterbase|
 		MBIN_FILE_SOURCE	= 'GCFREIGHTERBASEGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -184,7 +191,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|GC character|
 		MBIN_FILE_SOURCE	= 'GCCHARACTERGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -198,7 +204,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|GC robot|
 		MBIN_FILE_SOURCE	= 'GCROBOTGLOBALS.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -211,7 +216,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|GC simulation|
 		MBIN_FILE_SOURCE	= 'GCSIMULATIONGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {

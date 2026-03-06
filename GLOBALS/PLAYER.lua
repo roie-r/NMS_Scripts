@@ -6,13 +6,12 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ GC player',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCPLAYERGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -21,7 +20,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'GroundRunSpeed',						9.8	},	-- 8
 					{'GroundWalkSpeedLowG',					2.8	},	-- 1.6
 					{'GroundRunSpeedLowG',					4.4	},	-- 3.5
-					-- {'UnderwaterMaxSpeed',					5	},	-- 4
+					{'UnderwaterMaxSpeedTotal',				9	},	-- 8
 					{'UnderwaterForce',						18	},	-- 15
 					{'UnderwaterMaxJetpackSpeed',			10	},	-- 8
 					{'UnderwaterJetpackForce',				28	},	-- 25
@@ -44,7 +43,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SpaceJetpackMaxSpeed',				15	},	-- 10
 					{'SpaceJetpackDrainRate',				0.06},	-- 0.3
 					{'ShieldRechargeMinTimeSinceDamage',	15	},	-- 30		991
-					{'StaminaRate',							0.04},	-- 0.1		pet ride stamina
+					{'StaminaRate',							0.01},	-- 0.1		pet ride stamina
 					{'ReloadButtonHoldTimeToHolster',		0.4	},	-- 0.5		1470
 					{'WeaponLowerDelay',					4	},	-- 3
 					{'WeaponLag',							2	},	-- 0.6

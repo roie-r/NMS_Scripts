@@ -3,7 +3,7 @@
 ---	A tool for converting between mxml file format and lua table.
 --- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
 -------------------------------------------------------------------------------
----	Construct reward table entries ... version: 1.0.05
+---	Construct reward table entries ... version: 1.01.0
 -------------------------------------------------------------------------------
 
 --  * Default is first
@@ -68,8 +68,7 @@ function R_RewardTableEntry(rte)
 			name		= 'GenericTable',
 			value		= 'GcGenericRewardTableEntry',
 			_id			= rte.id,
-			_overwrite	= rte.overwrite	or nil,
-			_remove		= rte.remove	or nil
+			_overwrite	= rte.overwrite	or nil
 		},
 		Id	 = rte.id,
 		List = {
@@ -147,8 +146,21 @@ function R_Product(item)
 		item,
 		'GcRewardSpecificProduct',
 		{
-			ID		= item.id,
-			Silent	= item.sl									-- b
+			ID				= item.id,
+			Silent			= item.sl,							-- b
+			RequiresTech	= item.req							-- s
+		}
+	)
+end
+
+--	=> Build GcRewardSpecificProductFromList
+function R_ProductFromList(item)
+	return R_tableItem(
+		item,
+		'GcRewardSpecificProductFromList',
+		{
+			IncrementGlobalStatOnSuccess = item.igs, 				-- s
+			ProductList = StringArray(item.id, 'ProductList')
 		}
 	)
 end
@@ -163,7 +175,8 @@ function R_ProcProduct(item)
 				meta = {name='Type', value='GcProceduralProductCategory'},
 				ProceduralProductCategory = item.pc or PC_.LOT	-- Enum
 			},
-			OverrideRarity	= item.rt ~= nil,
+			SubIfPlayerAlreadyHasOne	= item.sub,				-- b
+			OverrideRarity				= item.rt ~= nil,
 			Rarity	= {
 				meta = {name='Rarity', value='GcRarity'},
 				Rarity	= item.rt or RT_.C						-- Enum
@@ -197,7 +210,7 @@ function R_DisguisedProduct(item)
 		'GcRewardDisguisedProduct',
 		{
 			ID						= item.id,
-			DisplayAs				= item.display,				-- s
+			DisplayAs				= item.idd,					-- s
 			UseDisplayIDWhenInShip	= true,						-- b
 		}
 	)
@@ -277,8 +290,12 @@ function R_Word(item)
 		{
 			Race = {
 				meta		= {name='Race', value='GcAlienRace'},
-				AlienRace	= item.ar							-- Enum
-			}
+				AlienRace	= item.ar or AR_.TRD				-- Enum
+			},
+			Category		= item.cat and {
+				meta		= {name='Category', value='GcWordCategoryTableEnum'},
+				wordcategorytableEnum	= item.cat				-- Enum
+			} or nil
 		}
 	)
 end
@@ -349,7 +366,7 @@ function R_Health(item)
 		item,
 		'GcRewardHealth',
 		{
-			SilentUnlessShieldAtMax = item.sl
+			SilentUnlessShieldAtMax = item.sl					-- b
 		}
 	)
 end
@@ -416,6 +433,21 @@ function R_OpenPage(item)
 	)
 end
 
+--	=> Build GcRewardStanding
+function R_Standing(item)
+	return R_tableItem(
+		item,
+		'GcRewardStanding',
+		{
+			meta = {name='GcRewardStanding'},
+			Race = {
+				meta = {name='Race', value='GcAlienRace'},
+				AlienRace = item.ar or AR_.NON					-- Enum
+			}
+		}
+	)
+end
+
 --	=> Build GcRewardOpenUnlockTree
 function R_UnlockTree(item)
 	return R_tableItem(
@@ -425,7 +457,8 @@ function R_UnlockTree(item)
 			TreeToOpen = {
 				meta	= {name='TreeToOpen', value='GcUnlockableItemTreeGroups'},
 				UnlockableItemTree = item.id					-- Enum
-			}
+			},
+			PageIndexOverride	= item.inx						-- i
 		}
 	)
 end

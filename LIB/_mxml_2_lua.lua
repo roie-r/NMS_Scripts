@@ -3,7 +3,7 @@
 ---	A tool for converting between mxml file format and lua table.
 --- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
 -------------------------------------------------------------------------------
----	Convert mxml to lua ... version: 1.0.03
+---	Convert mxml to lua ... version: 1.0.05
 ---	Parse mxml file -or sections and convert to lua during run-time
 ---	 or pretty-print the mxml as a ready-to-load lua file.
 -------------------------------------------------------------------------------
@@ -24,10 +24,11 @@ end
 
 --	=> Parse attributes from xml tag and return them in a table
 --	* Keys with [_] suffix are ignored by ToMxml
+--	Tags: (lst_:Is a list | cls_:Is a class | ord_: writing order)
 --	@param prop: string containing xml tag attributes
 local function parseTag(prop)
 	if #prop < 1 then return nil end
-	local attr = {-- the attribute container for each tag
+	local attr = {-- attributes container for the tags
 		opn_ = prop:sub(-1) ~= '/',
 		ord_ = {} -- keep order for writing attributes to file
 	}
@@ -46,8 +47,9 @@ end
 --	=> Returns a table representation of MXML sections
 --	When parsing a full file, the header is stripped and a mock template is added
 --	* Does not handle commented lines!
---	@param mxml: requires complete MXML sections in the nomral format
+--	@param mxml: requires complete MXML sections in the normal format
 --	@param use_id: use _id as section key where possible [Default: false]
+--	* Attention: Enabling use_id will scrable ordered tables!!
 function ToLua(mxml, use_id)
 	local function eval(val)
 		if val == 'true' then
@@ -111,7 +113,7 @@ end
 --	* Does not handle commented lines!
 --	@param vars: a table containing the following required properties
 --	{
---	  mxml	 = A full file or complete MXML sections in the nomral format
+--	  mxml	 = A full file or complete MXML sections in the normal format
 --	  indent = code indentation..			Default: [\t] (tab)
 --	  com	 = ['] or ["]..					Default: [']
 --	  sq_k	 = enclose keys in bracers..	Default: false
@@ -124,7 +126,7 @@ function PrintMxmlAsLua(vars)
 		if val == 'true' or val == 'false' then
 			return val
 		elseif tonumber(val) and #val < 18 and not val:match('^0x') then
-			return val
+			return tonumber(val)
 		else
 			return '[['..val..']]'
 		end
@@ -204,21 +206,8 @@ function PrintMxmlAsLua(vars)
 	return table.concat(tlua)
 end
 
---	=> A direct access-index for a SCENE file.
---	Returns a table with Name property as keys linking to their to TkSceneNodeData sections.
-function SceneNames(node, keys)
-	keys = keys or {}
-	if node.meta[2] == 'TkSceneNodeData' then
-		keys[node.Name] = node
-	end
-	for _, scn in ipairs(node.Children or {}) do
-		SceneNames(scn, keys)
-	end
-	return keys
-end
-
 --	=> A Union All function for an ordered array of tables. Last in the array wins
---	Returns a by-value copy. A repeating keys's values are overwritten.
+--	Returns a by-value copy. A repeating key's values are overwritten.
 --	@param arr: A table of tables.
 function UnionTables(arr)
 	local merged = {}

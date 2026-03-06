@@ -10,13 +10,12 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ GC gameplay',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCGAMEPLAYGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			-- {
 				-- MATH_OPERATION 		= '+',
@@ -30,17 +29,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- },
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'WarpsBetweenBattles',					7		},	-- 5
-					{'HoursBetweenBattles',					4		},	-- 3
 					{'UseSecondaryBiomeSubstances',			true	},
-					{'CargoShieldStrength',					0.65	},	-- 0.5		4425
+					{'CargoShieldStrength',					0.65	},	-- 0.5
+					{'SpaceSpeedReadoutMultiplier',			1		},	-- 2
+					{'CombatSpeedReadoutMultiplier',		1		},	-- 1
+					{'WarpsBetweenBattles',					7		},	-- 5		771
+					{'HoursBetweenBattles',					4		},	-- 3
 					{'NormalModeHeatBonus',					3		},	-- 2
 					{'ShipMiningMul',						0.8		},	-- 0.2
 					{'OverheatGenerosity',					1.1		},	-- 1.05
 					{'SurveyBeginScanPercentage',			0.007	},	-- 0.01
 					{'SurveyMaxDistance',					600		},	-- 400
-					{'TechDamageChanceShieldedMax',			0.2		},	-- 0.5
-					{'TechDamageChanceShieldLevelMax',		0.2		},	-- 0.75
+					{'TechDamageChanceShieldedMax',			0.25	},	-- 0.5
+					{'TechDamageChanceShieldLevelMax',		0.5		},	-- 0.75
 					{'ShipScanPlanetRechargeMultiplier',	0.5		},	-- 1
 					{'ShipScanSpaceRechargeMultiplier',		0.2		},	-- 0.3
 					{'LowSentinelProbability',				0.6		},	-- 0.55
@@ -52,7 +53,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'ResourceDirtReducer',					30		},	-- 40
 					{'ResourceDirtMinAmount',				2		},	-- 8
 					{'ResourceDirtMaxAmount',				10		},	-- 8
-					{'ShipInteractRadius',					850		},	-- 50		5279
+					{'ShipInteractRadius',					500		},	-- 50		5279
 					{'ZoomFindBuildingRange',				1000	},	-- 600
 					{'TorchFoV',							110		},	-- 120		6102
 					{'TorchStrength',						4.8		},	-- 3.5
@@ -149,14 +150,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Y',			2.5} -- 600
 				}
 			},
-			{
-				MATH_OPERATION 		= '*',
-				PRECEDING_KEY_WORDS = 'FrigateFlybyTimer',
-				VALUE_CHANGE_TABLE 	= {
-					{'X',			6},	-- 600
-					{'Y',			6},	-- 1200
-				}
-			}
+			-- {
+				-- MATH_OPERATION 		= '*',
+				-- PRECEDING_KEY_WORDS = 'FrigateFlybyTimer',
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'X',			5},	-- 600
+					-- {'Y',			5},	-- 1200
+				-- }
+			-- }
 		}
 	}
 }}}}

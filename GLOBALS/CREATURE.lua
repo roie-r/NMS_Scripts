@@ -10,13 +10,12 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ GC creature',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCCREATUREGLOBALS.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -45,6 +44,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'SandWormSpawnChanceMin',				0.07},	-- 0.01
 					{'SandWormSpawnChanceMax',				0.05},	-- 0.2
 					{'SandWormSpawnChanceInfested',			0.6	},	-- 1
+					{'FishPlayerAttractionFrontDist',		30},	-- 40
+					{'FishPlayerAttractionMinDist',			6},		-- 5
+					{'FishPlayerAttractionMaxDist',			20},	-- 35
+					{'FishPlayerAttractionStrength',		0.5},	-- 1
 					{'PercentagePlayerPredators',			0.25},	-- 0.5
 					{'PlayerPredatorBoredomDistance',		64	},	-- 80
 					{'PredatorRegainInterestTime',			20	},	-- 30

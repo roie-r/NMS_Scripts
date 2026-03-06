@@ -8,43 +8,36 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ GC environment',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCENVIRONMENTGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
-			-- {
-				-- MATH_OPERATION 		= '*',
-				-- SPECIAL_KEY_WORDS	= {'Ultra', 'TkLODSettingsData'},
-				-- PRECEDING_KEY_WORDS	= 'LODAdjust',
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Ignore',		2},
-					-- {'Ignore',		2},
-					-- {'Ignore',		2},
-					-- {'Ignore',		2},
-					-- {'Ignore',		2}
-				-- }
-			-- },
+			{
+				MATH_OPERATION 		= '+',
+				SPECIAL_KEY_WORDS	= {'Ultra', 'TkLODSettingsData'},
+				PRECEDING_KEY_WORDS	= 'LODAdjust',
+				VALUE_CHANGE_TABLE 	= {
+					{'Ignore',		1},
+					{'Ignore',		1},
+					{'Ignore',		1},
+					{'Ignore',		1},
+					{'Ignore',		1}
+				}
+			},
 			{
 				MATH_OPERATION 		= '+',
 				SPECIAL_KEY_WORDS	= {'Ultra', 'TkLODSettingsData'},
 				PRECEDING_KEY_WORDS	= 'RegionLODRadius',
 				VALUE_CHANGE_TABLE 	= {
-					{'Ignore',		0},	-- 7	0
-					{'Ignore',		4},	-- 10	7
-					{'Ignore',		2},	-- 16	3
-					{'Ignore',		2},	-- 12	3
-					{'Ignore',		4},	-- 10	5
-					{'Ignore',		2}	-- 10	3
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'Ultra', 'TkLODSettingsData'},
-				VALUE_CHANGE_TABLE = {
-					{'ImposterResolutionMultiplier', 2} -- 1
+					{'Ignore',		0},	-- 7
+					{'Ignore',		5},	-- 10
+					{'Ignore',		2},	-- 16
+					{'Ignore',		2},	-- 12
+					{'Ignore',		3},	-- 10
+					{'Ignore',		3}	-- 10
 				}
 			},
 			{

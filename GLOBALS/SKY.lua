@@ -7,13 +7,12 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ GC sky',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{
 		MBIN_FILE_SOURCE	= 'GCSKYGLOBALS.GLOBALS.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
@@ -42,51 +41,51 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Y',			1}
 				}
 			},
-			{
-				REPLACE_TYPE 		= 'All',
-				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetFog', 'GcFogProperties'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FogMax',				0.94},	-- 1
-					{'Alpha1',				0.94},	-- 1
-					{'Alpha2',				0.94}	-- 1
-				}
-			},
-			{
-				REPLACE_TYPE 		= 'All',
-				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetExtremeFog', 'GcFogProperties'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FogStrength',			0.78},	-- 0.5
-					{'FogMax',				0.95},	-- 0.9
-					{'HeightFogStrength',	0.75},	-- 0.3
-					{'Alpha1',				0.9},	-- 1
-					{'Alpha2',				0.9}	-- 1
-				}
-			},
-			{
-				REPLACE_TYPE 		= 'All',
-				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetStormFog', 'GcFogProperties'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FogStrength',			0.88},	-- 1.5
-					{'FogMax',				0.95},	-- 0.95
-					{'HeightFogStrength',	0.85},	-- 0.5
-					{'Alpha1',				0.9},	-- 1
-					{'Alpha2',				0.9}	-- 1
-				}
-			},
-			{
-				REPLACE_TYPE 		= 'All',
-				MATH_OPERATION 		= '*',
-				SPECIAL_KEY_WORDS	= {'PlanetFlightFog', 'GcFogProperties'},
-				VALUE_CHANGE_TABLE 	= {
-					{'FogStrength',			0.9},	-- 0.04
-					{'FogMax',				0.95},	-- 1
-					{'HeightFogStrength',	0.8},	-- 0.15
-					{'FogHeight',			2}		-- 128
-				}
-			},
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- MATH_OPERATION 		= '*',
+				-- SPECIAL_KEY_WORDS	= {'PlanetFog', 'GcFogProperties'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'FogMax',				0.94},	-- 1
+					-- {'Alpha1',				0.94},	-- 1
+					-- {'Alpha2',				0.94}	-- 1
+				-- }
+			-- },
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- MATH_OPERATION 		= '*',
+				-- SPECIAL_KEY_WORDS	= {'PlanetExtremeFog', 'GcFogProperties'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'FogStrength',			0.78},	-- 0.5
+					-- {'FogMax',				0.95},	-- 0.9
+					-- {'HeightFogStrength',	0.75},	-- 0.3
+					-- {'Alpha1',				0.9},	-- 1
+					-- {'Alpha2',				0.9}	-- 1
+				-- }
+			-- },
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- MATH_OPERATION 		= '*',
+				-- SPECIAL_KEY_WORDS	= {'PlanetStormFog', 'GcFogProperties'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'FogStrength',			0.88},	-- 1.5
+					-- {'FogMax',				0.95},	-- 0.95
+					-- {'HeightFogStrength',	0.85},	-- 0.5
+					-- {'Alpha1',				0.9},	-- 1
+					-- {'Alpha2',				0.9}	-- 1
+				-- }
+			-- },
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- MATH_OPERATION 		= '*',
+				-- SPECIAL_KEY_WORDS	= {'PlanetFlightFog', 'GcFogProperties'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'FogStrength',			0.9},	-- 0.04
+					-- {'FogMax',				0.95},	-- 1
+					-- {'HeightFogStrength',	0.8},	-- 0.15
+					-- {'FogHeight',			2}		-- 128
+				-- }
+			-- },
 			-- {
 				-- PRECEDING_KEY_WORDS = 'SpaceSkyMin',
 				-- VALUE_CHANGE_TABLE 	= {

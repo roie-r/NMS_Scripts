@@ -13,8 +13,8 @@ for cam, prop in pairs({
 	BuggyFollowCam			={			oy=3.1,		oz=-0.7,	bn=16,		bx=24.5,	un=-2,		ux=-2,		},
 	SubmarineFollowCam		={			oy=3.1,		oz=-2.5,	bn=20.2,	bx=30.2,	un=3,		ux=4,		},
 	BikeFollowCam			={			oy=0.52,	oz=-0.4,	bn=16.5,	bx=23,		un=1.2,		ux=4.5,		},
-	WheeledBikeFollowCam	={			oy=0.6,		oz=-0.7,	bn=15.25,	bx=24.5,				ux=1,		},
-	TruckFollowCam			={			oy=4.7,		oz=3.1,		bn=16,		bx=31,		un=1,					},
+	WheeledBikeFollowCam	={			oy=1.6,		oz=-0.7,	bn=15.25,	bx=24.5,				ux=1,		},
+	TruckFollowCam			={			oy=4.5,		oz=3.1,		bn=16,		bx=31,		un=1,					},
 	MechFollowCam			={ox=2.5,	oy=1.4,					bn=11.5,	bx=17,		un=0.1,		ux=1,		},
 	MechCombatCam			={ox=3,		oy=0.6,					bn=11.5,	bx=17,		un=0.1,		ux=1,		},
 	MechJetpackCam			={ox=1.4,							bn=13,		bx=23,		un=0.5,		ux=1.5,		},
@@ -48,10 +48,7 @@ cam_ect[#cam_ect+1] = {
 	VALUE_CHANGE_TABLE 	= {
 		{'CenterStartTime',		42},
 		{'VertRotationMin',		-80},
-		{'VertRotationMax',		80},
-		-- {'Time',				0}, -- disable charting arial view
-		-- {'PauseTime',			0},
-		-- {'TimeBack',			0},
+		{'VertRotationMax',		80}
 	}
 }
 cam_ect[#cam_ect+1] = {
@@ -71,7 +68,7 @@ cam_ect[#cam_ect+1] = {
 		{'BuildingModeMaxDistance',			1500},	-- 60
 		{'MechCamSpringStrengthMin',		0.1	},	-- 0.6
 		{'MechCamSpringStrengthMax',		0.1	},	-- 0.6
-		{'ModelViewMouseRotateSpeed',		1.2	},	-- 1.6	-- inventory models
+		{'ModelViewMouseRotateSpeed',		1.2	},	-- 1.6		inventory models
 		{'ModelViewMouseRotateSnapStrength',0.38},	-- 0.94
 		{'BobAmountAbandFreighter',			0.08},	-- 0.1		6129
 		{'FirstPersonCamHeight',			0.79},	-- 0.85
@@ -110,13 +107,12 @@ cam_ect[#cam_ect+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ GC camera',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'GCCAMERAGLOBALS.GLOBAL.MBIN',
-		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= cam_ect
 	}
 }}}}

@@ -3,7 +3,7 @@
 ---	A tool for converting between mxml file format and lua table.
 --- The complete tool can be found at: https://github.com/roie-r/mxml_2_lua
 -------------------------------------------------------------------------------
----	Build GcObjectSpawnData entries ... version: 1.0.02
+---	Build GcObjectSpawnData entries ... version: 1.0.05
 -------------------------------------------------------------------------------
 
 --	=> Build a GcObjectSpawnData entry for biome object files
@@ -14,15 +14,10 @@ function ObjectSpawnEntry(items)
 	local function spawnEntry(osd)
 		return {
 			meta	= {name=(osd.class or 'Objects'), value='GcObjectSpawnData'},
-			Type		= osd.type or 'Instanced',								-- Enum
 			Resource	= {
 				meta	= {name='Resource', value='GcResourceElement'},
 				Filename	= osd.filename,										-- s
-				Seed		= {
-					meta = {name='Seed', value='GcSeed'},
-					Seed			= osd.resourceseed,							-- i
-					UseSeedValue	= osd.resourceseed ~= nil
-				},
+				Seed		= osd.resourceseed or 'NONE',
 				ProceduralTexture	= osd.texturesamplers and {
 					meta = {name='ProceduralTexture', value='TkProceduralTextureChosenOptionList'},
 					Samplers = (
@@ -55,44 +50,15 @@ function ObjectSpawnEntry(items)
 					)()
 				} or nil
 			},
-			Placement					= osd.placement,						-- s
-			Seed = {
-				meta = {name='Seed', value='GcSeed'},
-				Seed			= osd.spawnseed,								-- i
-				UseSeedValue	= osd.spawnseed ~= nil
+			Type		= osd.type or 'Instanced',								-- Enum
+			ImposterActivation = {
+				meta = {name='ImposterActivation', value='TkImposterActivation'},
+				ImposterActivation		= osd.impactive or 'Default'			-- Enum
 			},
-			PlacementPriority			= osd.priority or 'Normal',				-- Enum
-			LargeObjectCoverage			= osd.largeobject or 'AlwaysPlace',		-- Enum
-			OverlapStyle				= osd.overlap or 'None',				-- Enum
-			MinHeight					= osd.minheight or -1,					-- f
-			MaxHeight					= osd.maxheight or 128,					-- f
-			RelativeToSeaLevel			= orTrue(osd.relativetosea),			-- b
-			MinAngle					= osd.minangle,							-- f
-			MaxAngle					= osd.maxangle,							-- f
-			MatchGroundColour			= osd.matchground,						-- b
-			GroundColourIndex			= osd.groundcolour or 'Auto',			-- Enum
-			SwapPrimaryForSecondaryColour=osd.swap1stfor2nd,					-- b
-			SwapPrimaryForRandomColour	= osd.swap1stforRand,					-- b
-			AlignToNormal				= osd.aligntonormal,					-- b
-			['MinScale ']				= osd.minscale,							-- f
-			MaxScale					= osd.maxscale,							-- f
-			MinScaleY					= osd.minscaley,						-- f
-			MaxScaleY					= osd.maxscaley,						-- f
-			SlopeScaling				= osd.slopescaling,						-- f
-			PatchEdgeScaling			= osd.edgescaling,						-- f
-			MaxXZRotation				= osd.maxxzrotation,					-- f
-			AutoCollision				= osd.autocollision,					-- b
-			CollideWithPlayer			= osd.collidewithplayer,				-- b
-			CollideWithPlayerVehicle	= orTrue(osd.collidewithvehicle),		-- b
-			DestroyedByPlayerVehicle	= orTrue(osd.destroyedbyvehicle),		-- b
-			DestroyedByPlayerShip		= orTrue(osd.destroyedbyship),			-- b
-			DestroyedByTerrainEdit		= orTrue(osd.destroyedbyterrainedit),	-- b
-			IsFloatingIsland			= osd.isfloatingisland,					-- b
-			InvisibleToCamera			= orTrue(osd.invisibletocamera),		-- b
-			CreaturesCanEat				= osd.creaturescaneat,					-- b
-			ShearWindStrength			= osd.shearwind,						-- f
-			SupportsScanToReveal		= osd.scantoreveal,						-- b
-			DestroyedByVehicleEffect	= osd.vehicleeffect or 'VEHICLECRASH',	-- s
+			ImposterType = {
+				meta = {name='ImposterType', value='TkImposterType'},
+				ImposterType			= osd.imptype or 'Hemispherical'		-- Enum
+			},
 			QualityVariants = (													-- list
 				function()
 					local T = {meta = {name='QualityVariants'}}
@@ -121,7 +87,47 @@ function ObjectSpawnEntry(items)
 					end
 					return T
 				end
-			)()
+			)(),
+			Placement					= osd.placement,						-- s
+			PlacementPriority			= osd.priority or 'Normal',				-- Enum
+			AlignToNormal				= osd.aligntonormal,					-- b
+			['MinScale ']				= osd.minscale,							-- f
+			MaxScale					= osd.maxscale,							-- f
+			MinScaleY					= osd.minscaley,						-- f
+			MaxScaleY					= osd.maxscaley,						-- f
+			SlopeScaling				= osd.slopescaling,						-- f
+			PatchEdgeScaling			= osd.edgescaling,						-- f
+			MaxXZRotation				= osd.maxxzrotation,					-- f
+			MaxYRotation				= osd.maxyrotation,						-- f
+			MaxRaise					= osd.maxraise,							-- f
+			MaxLower					= osd.maxlower,							-- f
+			UseMultipleUpgradeRays		= osd.usemultirays,						-- b
+			Order						= osd.order,							-- i
+			Seed 						= osd.spawnseed or 'NONE',
+			LargeObjectCoverage			= osd.largeobject or 'AlwaysPlace',		-- Enum
+			OverlapStyle				= osd.overlap or 'None',				-- Enum
+			MinAngle					= osd.minangle,							-- f
+			MaxAngle					= osd.maxangle,							-- f
+			MinHeight					= osd.minheight or -1,					-- f
+			MaxHeight					= osd.maxheight or 128,					-- f
+			RelativeToSeaLevel			= orTrue(osd.relativetosea),			-- b
+			MatchGroundColour			= osd.matchground,						-- b
+			GroundColourIndex			= osd.groundcolour or 'Auto',			-- Enum
+			SwapPrimaryForSecondaryColour=osd.swap1stfor2nd,					-- b
+			SwapPrimaryForRandomColour	= osd.swap1stforRand,					-- b
+			AutoCollision				= osd.autocollision,					-- b
+			CollideWithPlayer			= osd.collidewithplayer,				-- b
+			CollideWithPlayerVehicle	= orTrue(osd.collidewithvehicle),		-- b
+			DestroyedByPlayerVehicle	= orTrue(osd.destroyedbyvehicle),		-- b
+			DestroyedByPlayerShip		= orTrue(osd.destroyedbyship),			-- b
+			DestroyedByTerrainEdit		= orTrue(osd.destroyedbyterrainedit),	-- b
+			InvisibleToCamera			= orTrue(osd.invisibletocamera),		-- b
+			CreaturesCanEat				= osd.creaturescaneat,					-- b
+			ShearWindStrength			= osd.shearwind,						-- f
+			SupportsScanToReveal		= osd.scantoreveal,						-- b
+			MoveToGroundOnUpgrade		= true,
+			IsFloatingIsland			= osd.isfloatingisland,					-- b
+			DestroyedByVehicleEffect	= osd.vehicleeffect or 'VEHICLECRASH',	-- s
 		}
 	end
 	return ProcessOnenAll(items, spawnEntry)
