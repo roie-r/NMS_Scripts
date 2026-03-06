@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------
 local mod_desc = [[
   - change atlas white glare parts to blue (monolith=blue, atlas=red, artemis=b&w)
-  - add procedual color to the pistol sentinel tool
+  - add procedural color to the pistol sentinel tool
   - change sentinel tool red glow to blue
   - reduce staff tool blue glow
   - remove laser horizontal flare
@@ -11,7 +11,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ MODEL multitool various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{

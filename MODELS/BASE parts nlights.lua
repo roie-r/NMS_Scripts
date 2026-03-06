@@ -12,7 +12,7 @@ local build_parts = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ MODEL base parts nlights',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MODIFICATIONS 		= {{
@@ -24,7 +24,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'HangingLampLOD0'},
 				PRECEDING_KEY_WORDS = 'Children',
 				CREATE_HOS			= true,
-				ADD					= AddLightNodes({name='lamp000', i=22000, ty=2.6, c='FFFAE6BF', v=0.01})
+				ADD					= AddLightNodes({name='lamp000', i=4.8, ty=2.6, c='FFFAE6BF', v=0.01})
 			}
 		}
 	},
@@ -38,7 +38,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE	= {
-					{'Value',		24000}
+					{'Value',		5.75}
 				}
 			},
 			{
@@ -61,7 +61,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{-- |wall lights intensity| increase
 		MBIN_FILE_SOURCE	= {
 			build_parts..'DECORATION/WALLLIGHT_BLUE.SCENE.MBIN',
 			build_parts..'DECORATION/WALLLIGHT_GREEN.SCENE.MBIN',
@@ -95,24 +95,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {
-		-- MBIN_FILE_SOURCE	= {
-			-- build_parts..'DECORATION/TABLE2/LIGHTS1_MAT.MATERIAL.MBIN',
-			-- build_parts..'FOLIAGE/BEAMSTONE/LIGHTBEAM_MAT3.MATERIAL.MBIN',
-			-- build_parts..'FOLIAGE/STARJOINT/MSTRUCTURE_MAT.MATERIAL.MBIN',
-			-- build_parts..'FOLIAGE/WEIRDCUBE/CELLSCOLOURISABLE1.MATERIAL.MBIN',
-			-- build_parts..'FOLIAGE/WEIRDCUBE/CELLSCOLOURISABLE2.MATERIAL.MBIN',
-			-- 'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FARMLUSH/STARBULB_MAT.MATERIAL.MBIN',
-			-- 'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FARMRADIOACTIVE/FRUITGLOW_MAT.MATERIAL.MBIN',
-			-- 'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FARMSCORCHED/FRUITYELLOW_MAT.MATERIAL.MBIN',
-		-- },
-		-- MXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'MaterialFlag', '_F34_GLOW'},
-				-- REMOVE				= 'Section'
-			-- }
-		-- }
-	-- },
 	{
 		MBIN_FILE_SOURCE	= {
 			'MODELS/PLANETS/BIOMES/COMMON/INTERACTIVEFLORA/FARMRADIOACTIVE/FRUITGLOW_MAT.MATERIAL.MBIN',
@@ -124,7 +106,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	base door proximity open 1
 		MBIN_FILE_SOURCE = build_parts..'DOOR/ENTITIES/MAINDOOR.ENTITY.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE = {
@@ -329,7 +311,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
+	{--	base door proximity open 2
 		MBIN_FILE_SOURCE	= build_parts..'DOOR.SCENE.MBIN',
 		MXML_CHANGE_TABLE	= {
 			{
@@ -339,3 +321,43 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 }}}}
+
+	-- {--	|chair 3|
+		-- MBIN_FILE_SOURCE	= build_parts..'DECORATION/CHAIR3.SCENE.MBIN',
+		-- MXML_CHANGE_TABLE	= {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'ROOT'},
+				-- REMOVE				= 'Section'
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'ATTACHMENT'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Value', 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/ENTITIES/CHAIR.ENTITY.MBIN'}
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Type', 'COLLISION'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'ScaleX',		0.85},
+					-- {'ScaleY',		0.1},
+					-- {'ScaleZ',		0.85}
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'Chair9'},
+				-- PRECEDING_KEY_WORDS	= 'Children',
+				-- ADD 				= AddSceneNodes({
+					-- name	= 'anim_locators21',
+					-- ntype	= 'LOCATOR',
+					-- form	= {ry=180},
+					-- child	= {
+						-- {
+							-- name	= 'sit_into21',
+							-- ntype	= 'LOCATOR',
+							-- form	= {tz=1}
+						-- }
+					-- }
+				-- })
+			-- }
+		-- }
+	-- },

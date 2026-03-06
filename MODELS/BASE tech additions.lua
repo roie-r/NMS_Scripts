@@ -58,7 +58,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ MODEL base tech additions',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -213,11 +213,11 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS	= 'Children',
 				ADD 				= ToMxml({
 					ScNode({
-						name	= 'ShieldSphere',
+						name	= 'LocProtectSphere',
 						ntype	= 'LOCATOR',
 						attr	= {ATTACHMENT = buildparts..'TECH/BEACON/ENTITIES/HEATER.ENTITY.MBIN'},
 						child	= {
-							name	= 'HeaterCollision',
+							name	= 'ColProtectSphere',
 							ntype	= 'COLLISION',
 							attr	= {
 								TYPE	= 'Sphere',
@@ -225,7 +225,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							}
 						}
 					}),
-					ScLight({name='redlight', ty=1.8, i=20000, c='ffc73347', fr=3.8})
+					ScLight({name='redlight', ty=1.8, i=4, rd=2, c='ffc73347'})
 				})
 			}
 		}
@@ -300,7 +300,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ADD 				= AddSceneNodes({
 					name	= 'RefFishBottle',
 					ntype	= 'REFERENCE',
-					form	= {tx=-0.72, ty=0.785, tz=0.62, sx=0.8, sy=0.8, sz=0.8},
+					form	= {tx=-0.72, ty=0.785, tz=0.62, sl=0.8},
 					attr	= {SCENEGRAPH = buildparts..'DECORATION/BAZAAR/MILKBOTTLE.SCENE.MBIN'}
 				})
 			}
@@ -312,9 +312,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
-				VALUE_MATCH			= 1,
-				VALUE_MATCH_TYPE	= 'Number',
-				VALUE_MATCH_OPTIONS = '>',
+				SPECIAL_KEY_WORDS	= {'MaintenanceData', 'GcMaintenanceComponentData'},
+				VALUE_MATCH			= '1',
+				VALUE_MATCH_OPTIONS = '~=',
 				VALUE_CHANGE_TABLE 	= {
 					{'MaxCapacity',	10000}
 				}
@@ -327,20 +327,33 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|rotating foliage|
-		MBIN_FILE_SOURCE	= {
-			buildparts..'FOLIAGE/WEIRDCUBE.SCENE.MBIN',
-			buildparts..'FOLIAGE/BEAMSTONE.SCENE.MBIN',
-			buildparts..'FOLIAGE/ENGINEORB.SCENE.MBIN'
-		},
+	{--	|rotating foliage beamstone|
+		MBIN_FILE_SOURCE	= buildparts..'FOLIAGE/BEAMSTONE.SCENE.MBIN',
 		MXML_CHANGE_TABLE	= {
 			{
+				SPECIAL_KEY_WORDS	= {'Name', 'BeamStone'},
 				PRECEDING_KEY_WORDS	= 'Attributes',
-				ADD 				= ToMxml({
-					meta	= {name='value', value='TkSceneNodeAttributeData'},
-					Name	= 'ATTACHMENT',
-					Value	= 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'
-				})
+				ADD 				= ToMxml(ScAttribute('ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'))
+			}
+		}
+	},
+	{--	|rotating foliage weirdcube|
+		MBIN_FILE_SOURCE	= buildparts..'FOLIAGE/WEIRDCUBE.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'CuboidSmallLOD0'},
+				PRECEDING_KEY_WORDS	= 'Attributes',
+				ADD 				= ToMxml(ScAttribute('ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'))
+			}
+		}
+	},
+	{--	|rotating foliage engineorb|
+		MBIN_FILE_SOURCE	= buildparts..'FOLIAGE/ENGINEORB.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Orb_LOD0'},
+				PRECEDING_KEY_WORDS	= 'Attributes',
+				ADD 				= ToMxml(ScAttribute('ATTACHMENT', 'MODELS/COMMON/SHARED/ENTITIES/SPIN01.ENTITY.MBIN'))
 			}
 		}
 	},
@@ -368,10 +381,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						meta = {name='Components', value='TkRotationComponentData'},
 						TkRotationComponentData = {
 							meta = {name='TkRotationComponentData'},
-							Speed = 0.01,
+							Speed = 0.05,
 							Axis = {
 								meta = {name='Axis'},
-								Y = 1,
+								Y = 1
 							},
 							AlwaysUpdate = true,
 							SyncGroup = -1

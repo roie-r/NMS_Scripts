@@ -6,7 +6,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ MODEL dark warp tunnel',
 	LUA_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -43,21 +43,21 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', 'FALLOFF'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		'quadratic'}
+					{'Value',		2}
 				}
 			},
-			{
-				REPLACE_TYPE 		= 'All',
-				SPECIAL_KEY_WORDS	= {'Name', 'FALLOFF_RATE'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Value',		2.5}
-				}
-			},
+			-- {
+				-- REPLACE_TYPE 		= 'All',
+				-- SPECIAL_KEY_WORDS	= {'Name', 'FALLOFF_RATE'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Value',		2.5}
+				-- }
+			-- },
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		100}
+					{'Value',		0.1}
 				}
 			},
 			{

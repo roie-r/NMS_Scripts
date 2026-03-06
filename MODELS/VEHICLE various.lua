@@ -3,6 +3,7 @@ dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 ---------------------------------------------------------------------------
 local mod_desc = [[
+  - colossus brighter headlights, less volumetrics
   - Mech: Faster step anime (adjusted for faster speed in vehicle globals)
    Hardframe blue front 3part light
   - Bike: reduce turret scale for the Nomad exocraft
@@ -16,11 +17,54 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ MODEL vehicles various',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
-	{--	|submarine tweaks|
+	{--	|colossus lights|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/ROVER/ROVER.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {
+					{'Name', 'spotLight[13]_2_3'},
+					{'Name', 'spotLight[15]_2_1'},
+					{'Name', 'spotLight[13]_2_2_2'}
+				},
+				VALUE_CHANGE_TABLE 	= {
+					{'RotX',		-10}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {
+					{'Name', 'spotLight[13]_2_3',	'Name', 'INTENSITY'},
+					{'Name', 'spotLight[15]_2_1',	'Name', 'INTENSITY'},
+					{'Name', 'spotLight[13]_2_2_2',	'Name', 'INTENSITY'}
+				},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		120}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {
+					{'Name', 'spotLight[13]_2_3',	'Name', 'RADIUS'},
+					{'Name', 'spotLight[15]_2_1',	'Name', 'RADIUS'},
+					{'Name', 'spotLight[13]_2_2_2',	'Name', 'RADIUS'}
+				},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		105}
+				}
+			},
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS	= {'Name', 'VOLUMETRIC'},
+				VALUE_MATCH			= '1.000000',
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		0.001}
+				}
+			},
+		}
+	},
+	{--	|submarine lights|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/SUBMARINE/SUBMARINEPRES.SCENE.MBIN',
 		MXML_CHANGE_TABLE	= {
 			{
@@ -44,7 +88,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'spotLight[56]', 'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		40000}
+					{'Value',		8}
 				}
 			},
 			{
@@ -134,13 +178,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/VEHICLES/MECH_SUIT/MECH_SUIT/ENTITIES/MECH.ENTITY.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS	= {'Components', 'TkPhysicsComponentData'},
-				VALUE_CHANGE_TABLE 	= {
-					{'Mass',		40},	-- 10
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Components', 'TkPhysicsComponentData'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Mass',		40},	-- 10
 					-- {'Gravity',		20},	-- 20
-				}
-			},
+				-- }
+			-- },
 			{
 				SPECIAL_KEY_WORDS	= {'Components', 'GcCreatureFullBodyIKComponentData'},
 				VALUE_CHANGE_TABLE 	= {
@@ -184,9 +228,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				ADD 				= AddLightNodes({
 					name='turret_light',
 					tx=	0.25,	ty=	0.45,	tz=	0.4,
-					rx= 10.6,	ry=	180,
-					fov=58,		i = 120000,	c=	'FFF0F5FF',
-					f=	'l',	fr= 1.0
+					rx= 10.6,	ry=	180,	v = 0.0001,
+					fov=66,		i = 148,	c =	'FFF0F5FF',
+					f =	1,		rd= 136
 				})
 			}
 		}

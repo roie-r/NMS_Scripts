@@ -1,14 +1,15 @@
--------------------------------------------------------------
+--------------------------------------------------------------------
 dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
--------------------------------------------------------------
+--------------------------------------------------------------------
 local mod_desc = [[
   - Full system scan activated from the bridge terminal
   - Hangar room and landing pad lights changed to near-white
   - Hangar missing back floor crossing sections restored
   - Cranes moved to the back
   - Hangar and bridge loitering NPC repositioned
-]]-----------------------------------------------------------
+  - Corvette teleporter replaced with button outside teleporter room
+]]------------------------------------------------------------------
 
 local mx_ct = { {SKW={}, REMOVE='Section'} }
 for node, form in pairs({
@@ -29,11 +30,10 @@ for node, form in pairs({
 	RefLargeCrate6		= {tx=-52.35,	ty=-7.35,	tz=66.8,	rx=180,		sx=4.3,	sz=4.3},-- crossing gap R
 	RefPallet30			= {tx=7.79,		ty=-5.72,	tz=66.7,	rz=-58.5,	sx=2.6,	sy=2.4,	sz=2.8},
 	MidCeiling201		= {							tz=33.2,								sz=1.25},
-	RefBiggsTeleporter			= {	del=true},
-	RefBiggsTeleporter1			= {	del=true},
-	pointLight70				= {	del=true},
-	pointLight7501				= {	del=true},
-	REFFreighterHangerMistVFX	= {	del=true}
+	pointLight70				= {	del=true },
+	pointLight7501				= {	del=true },
+	['REFFreight.-MistVFX']		= {	del=true },
+	['REFFreight.-VolumeL.-']	= {	del=true }
 }) do
 	if form.del then
 		mx_ct[1].SKW[#mx_ct[1].SKW+1] = {'Name', node}
@@ -55,7 +55,7 @@ for node, form in pairs({
 	end
 end
 for atr, val in pairs({
-	INTENSITY	= 35000,
+	INTENSITY	= 10,
 	COL_R		= 0.3,
 	COL_G		= 0.5,
 	COL_B		= 0.6
@@ -125,7 +125,7 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefCrateTypeb1',
 				ntype	= 'REFERENCE',
-				form	= {tx=4.92, ty=-7.33, tz=66.7, ry=3, sx=0.9, sy=0.9, sz=0.9},
+				form	= {tx=4.92, ty=-7.33, tz=66.7, ry=3, s_=0.9},
 				attr	= {
 					SCENEGRAPH = 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'
 				}
@@ -133,7 +133,7 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefCrateTypeb2',
 				ntype	= 'REFERENCE',
-				form	= {tx=4.95, ty=-7.33, tz=68.2, ry=87, sx=0.9, sy=0.9, sz=0.9},
+				form	= {tx=4.95, ty=-7.33, tz=68.2, ry=87, s_=0.9},
 				attr	= {
 					SCENEGRAPH = 'MODELS/SPACE/NEXUS/PARTS/PROPS/CRATE.SCENE.MBIN'
 				}
@@ -157,7 +157,7 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefCoveredSilos',
 				ntype	= 'REFERENCE',
-				form	= {tx=-54, ty=-7.33, tz=66.8, ry=-90, sx=0.75, sy=0.75, sz=0.75},
+				form	= {tx=-54, ty=-7.33, tz=66.8, ry=-90, s_=0.75},
 				attr	= {
 					SCENEGRAPH = 'MODELS/SPACE/SPACESTATION/MODULARPARTS/DOCK/PIRATES/COVEREDSILOS.SCENE.MBIN'
 				}
@@ -181,7 +181,7 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefBuilderHand',
 				ntype	= 'REFERENCE',
-				form	= {tx=-39.85, ty=-7.64, tz=-22.3, rx=-2, ry=-65, rz=180, sx=1.4, sy=1.4, sz=1.4},
+				form	= {tx=-39.85, ty=-7.64, tz=-22.3, rx=-2, ry=-65, rz=180, s_=1.4},
 				attr	= {
 					SCENEGRAPH = 'MODELS/COMMON/ROBOTS/ROBOTHAND.SCENE.MBIN'
 				}
@@ -189,7 +189,7 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefBuilderHead',
 				ntype	= 'REFERENCE',
-				form	= {tx=-39.8, ty=-7.64, tz=-21.6, rx=50, ry=160, rz=0, sx=1.1, sy=1.1, sz=1.1},
+				form	= {tx=-39.8, ty=-7.64, tz=-21.6, rx=50, ry=160, rz=0, s_=1.1},
 				attr	= {
 					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BUILDERHEAD.SCENE.MBIN'
 				}
@@ -197,15 +197,15 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefGeometPlant01',
 				ntype	= 'REFERENCE',
-				form	= {tx=37, ty=-7.72, tz=68.3, ry=-20, rz=20, sx=0.24, sy=0.24, sz=0.24},
+				form	= {tx=37, ty=-7.6, tz=68.3, rx=45, ry=180, s_=0.12},
 				attr	= {
-					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN'
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/WEIRD/HEXAGON/MEDGEOMETRIC.SCENE.MBIN'
 				}
 			},
 			{
 				name	= '1RefMetalStruct01',
 				ntype	= 'REFERENCE',
-				form	= {tx=11.8, ty=9.5, tz=22.7, sx=0.3, sy=0.3, sz=0.3},
+				form	= {tx=11.8, ty=9.5, tz=22.7, s_=0.3},
 				attr	= {
 					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/WEIRD/FRACTALCUBE/SHAPE1FLOAT.SCENE.MBIN'
 				}
@@ -213,29 +213,30 @@ mx_ct[#mx_ct+1] = {
 			{
 				name	= '1RefWirecell01',
 				ntype	= 'REFERENCE',
-				form	= {tx=-67, ty=14, tz=-18.2, sx=0.6, sy=0.6, sz=0.6},
+				form	= {tx=-67, ty=13, tz=-21, rx=45, ry=45, rz=45, s_=0.6},
 				attr	= {
-					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WCUBE_NONE.SCENE.MBIN'
+					SCENEGRAPH = 'MODELS/PLANETS/BIOMES/WEIRD/WIRECELLS/WCUBE_NONE.SCENE.MBIN'
 				}
 			}
 		}),
 		ScLight({
+			{name='1HexPltLight',	c='FFEABF88',	tx=37,		ty=-7.6,	tz=68.3, i=0.16, v=0.002},
 			--	left stairs light (copied from Relight)
-			{name='pointLight125d',	c='FFFACFA8',	tx=-22.666,	ty=5.3848,	tz=-15,8617, g=0.851, b=0.745},
-			{name='pointLight125e',	c='FFFACFA8',	tx=-22.666,	ty=2.6848,	tz=-10,3617, g=0.851, b=0.745},
-			{name='pointLight125f',	c='FFFACFA8',	tx=-22.666,	ty=0.0,		tz=-4,36167, g=0.851, b=0.745},
-			{name='pointLight125z',	c='FFFACFA8',	tx=-16.666,	ty=14.0848,	tz=-30,8617},
-			{name='pointLight125b',	c='FFFACFA8',	tx=-22.666,	ty=11.0848,	tz=-25,8617, g=0.851, b=0.745, rx=-135, fov=180},
-			{name='pointLight125c',	c='FFFACFA8',	tx=-22.666,	ty=8.0848,	tz=-20,8617, g=0.851, b=0.745},
+			{name='pointLight125d',	c='FFFACFA8',	tx=-22.666,	ty=5.3848,	tz=-15.8617, g=0.851, b=0.745},
+			{name='pointLight125e',	c='FFFACFA8',	tx=-22.666,	ty=2.6848,	tz=-10.3617, g=0.851, b=0.745},
+			{name='pointLight125f',	c='FFFACFA8',	tx=-22.666,				tz=-4.3167,  g=0.851, b=0.745},
+			{name='pointLight125z',	c='FFFACFA8',	tx=-16.666,	ty=14.0848,	tz=-30.8617},
+			{name='pointLight125b',	c='FFFACFA8',	tx=-22.666,	ty=11.0848,	tz=-25.8617, g=0.851, b=0.745, rx=-135, fov=180},
+			{name='pointLight125c',	c='FFFACFA8',	tx=-22.666,	ty=8.0848,	tz=-20.8617, g=0.851, b=0.745},
 			--	right stairs light (copied from Relight)
-			{name='pointLight70d',	c='FFFACFA8',	tx=22.666,	ty=5.3848,	tz=-15,8617, g=0.851, b=0.745},
-			{name='pointLight70e',	c='FFFACFA8',	tx=22.666,	ty=2.6848,	tz=-10,3617, g=0.851, b=0.745},
-			{name='pointLight70f',	c='FFFACFA8',	tx=22.666,	ty=0.0,		tz=-4,36167, g=0.851, b=0.745},
-			{name='pointLight8b',	c='FFFACFA8',	tx=8.0,		ty=12.128,	tz=48.882,   g=0.59,  b=0.306, i=27000, r=0.947},
-			{name='pointLight8b',	c='FFFACFA8',	tx=0.0,		ty=12.128,	tz=48.882,   g=0.59,  b=0.306, i=27000, r=0.947},
-			{name='pointLight70z',	c='FFFACFA8',	tx=16.666,	ty=14.0848,	tz=-30,8617},
-			{name='pointLight70b',	c='FFFACFA8',	tx=22.666,	ty=11.0848,	tz=-25,8617, g=0.851, b=0.745, rx=-135, fov=180},
-			{name='pointLight70c',	c='FFFACFA8',	tx=22.666,	ty=8.0848,	tz=-20,8617, g=0.851, b=0.745}
+			{name='pointLight70d',	c='FFFACFA8',	tx=22.666,	ty=5.3848,	tz=-15.8617, g=0.851, b=0.745},
+			{name='pointLight70e',	c='FFFACFA8',	tx=22.666,	ty=2.6848,	tz=-10.3617, g=0.851, b=0.745},
+			{name='pointLight70f',	c='FFFACFA8',	tx=22.666,				tz=-4.36167, g=0.851, b=0.745},
+			{name='pointLight8b',	c='FFFACFA8',	tx=8.0,		ty=12.128,	tz=48.882,   g=0.59,  b=0.306, i=7.25, r=0.947},
+			{name='pointLight8b',	c='FFFACFA8',				ty=12.128,	tz=48.882,   g=0.59,  b=0.306, i=7.25, r=0.947},
+			{name='pointLight70z',	c='FFFACFA8',	tx=16.666,	ty=14.0848,	tz=-30.8617},
+			{name='pointLight70b',	c='FFFACFA8',	tx=22.666,	ty=11.0848,	tz=-25.8617, g=0.851, b=0.745, rx=-135, fov=180},
+			{name='pointLight70c',	c='FFFACFA8',	tx=22.666,	ty=8.0848,	tz=-20.8617, g=0.851, b=0.745}
 		})
 	})
 }
@@ -243,7 +244,7 @@ mx_ct[#mx_ct+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ MODEL ferighter interior',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	AMUMSS_SUPPRESS_MSG		= 'MULTIPLE_STATEMENTS,MIXED_TABLE',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
@@ -332,47 +333,47 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'Children',
 				ADD					= AddLightNodes({
 				--	(copied from Relight)
-					{name='pointLight59', tx=0.0,    ty=7.0,  tz=0.0,    i=80000, r=0.95, g=1.0,  b=1.0},
-					{name='pointLight60', tx=0.0,    ty=2.0,  tz=0.0,    i=30000, r=1.0,  g=0.67, b=0.361},
-					{name='pointLight61', tx=0.0,    ty=5.8,  tz=-11.22, i=32000, r=1.0,  g=0.9,  b=0.685, rx=-90, fov =180},
-					{name='pointLight62', tx=0.0,    ty=8.58, tz=14.08,  i=40000, r=0.6,  g=0.8,  b=1.0},
+					{name='pointLight59',				ty=7,					i=48,	rd=24,	r=0.95, g=1,  	b=1},
+					{name='pointLight60',				ty=2,					i=9,	rd=9,	r=1,  	g=0.67, b=0.361},
+					{name='pointLight61',				ty=5.8,  	tz=-11.22,	i=9.1,	rd=9,	r=1,  	g=0.9,  b=0.685, rx=-90, fov =180},
+					{name='pointLight62',				ty=8.58, 	tz=14.08,	i=16,	rd=9,	r=0.6,  g=0.8,  b=1},
 					-- Tractor beam blue light
-					{name='SpaceLight0',  tx=0.0,    ty=-1.0, tz=-21,    i=80000, r=0.3,  g=0.7,  b=1.0},
-					{name='SpaceLight1',  tx=-13.0,  ty=-1.0, tz=-18,    i=80000, r=0.3,  g=0.7,  b=1.0},
-					{name='SpaceLight2',  tx=13.0,   ty=-1.0, tz=-18,    i=80000, r=0.3,  g=0.7,  b=1.0},
-					{name='SpaceLight3',  tx=0.0,    ty=7.0,  tz=-21,    i=60000, r=0.3,  g=0.7,  b=1.0},
-					{name='SpaceLight4',  tx=-13.0,  ty=7.0,  tz=-18,    i=60000, r=0.3,  g=0.7,  b=1.0},
-					{name='SpaceLight5',  tx=13.0,   ty=7.0,  tz=-18,    i=60000, r=0.3,  g=0.7,  b=1.0},
+					{name='SpaceLight0',				ty=-1,		tz=-21,		i=48,	rd=24,	r=0.3,  g=0.7,  b=1},
+					{name='SpaceLight1',	tx=-13,		ty=-1,		tz=-18,		i=48,	rd=24,	r=0.3,  g=0.7,  b=1},
+					{name='SpaceLight2',	tx=13,		ty=-1,		tz=-18,		i=48,	rd=24,	r=0.3,  g=0.7,  b=1},
+					{name='SpaceLight3',				ty=7,		tz=-21,		i=28,	rd=16,	r=0.3,  g=0.7,  b=1},
+					{name='SpaceLight4',	tx=-13,		ty=7,		tz=-18,		i=28,	rd=16,	r=0.3,  g=0.7,  b=1},
+					{name='SpaceLight5',	tx=13,		ty=7,		tz=-18,		i=28,	rd=16,	r=0.3,  g=0.7,  b=1},
 					-- White roof0 neons - left side
-					{name='NeonLeft1',    tx=-5.0,   ty=4.5,  tz=-12.4,  i=15000},
-					{name='NeonLeft2',    tx=-12.7,  ty=4.5,  tz=-5.2,   i=15000},
-					{name='NeonLeft3',    tx=-12.7,  ty=4.5,  tz=5.2,    i=15000},
-					{name='NeonLeft4',    tx=-5.0,   ty=4.5,  tz=12.4,   i=15000},
+					{name='NeonLeft1',		tx=-5,		ty=4.5,		tz=-12.4,	i=2.25},
+					{name='NeonLeft2',		tx=-12.7,	ty=4.5,		tz=-5.2,	i=2.25},
+					{name='NeonLeft3',		tx=-12.7,	ty=4.5,		tz=5.2,		i=2.25},
+					{name='NeonLeft4',		tx=-5,		ty=4.5,		tz=12.4,	i=2.25},
 					-- White roof0 neons - right side
-					{name='NeonRight1',   tx=5.0,    ty=4.5,  tz=-12.4,  i=15000},
-					{name='NeonRight2',   tx=12.7,   ty=4.5,  tz=-5.2,   i=15000},
-					{name='NeonRight3',   tx=12.7,   ty=4.5,  tz=5.2,    i=15000},
-					{name='NeonRight4',   tx=5.0,    ty=4.5,  tz=12.4,   i=15000},
+					{name='NeonRight1',		tx=5,		ty=4.5,		tz=-12.4,	i=2.25},
+					{name='NeonRight2',		tx=12.7,	ty=4.5,		tz=-5.2,	i=2.25},
+					{name='NeonRight3',		tx=12.7,	ty=4.5,		tz=5.2,		i=2.25},
+					{name='NeonRight4',		tx=5,		ty=4.5,		tz=12.4,	i=2.25},
 					-- White Floor Lights - left side
-					{name='Floor0Left1',  tx=-5.42,  ty=1.97, tz=-13.06, i=4000},
-					{name='Floor0Left2',  tx=-13.06, ty=1.97, tz=-5.42,  i=4000},
-					{name='Floor0Left3',  tx=-13.06, ty=1.97, tz=5.42,   i=4000},
-					{name='Floor0Left4',  tx=-5.42,  ty=1.97, tz=13.06,  i=4000},
+					{name='Floor0Left1',	tx=-5.42,	ty=1.97,	tz=-13.06,	i=0.16},
+					{name='Floor0Left2',	tx=-13.06,	ty=1.97,	tz=-5.42,	i=0.16},
+					{name='Floor0Left3',	tx=-13.06,	ty=1.97,	tz=5.42,	i=0.16},
+					{name='Floor0Left4',	tx=-5.42,	ty=1.97,	tz=13.06,	i=0.16},
 					-- White Floor Lights - right side
-					{name='Floor0Right1', tx=5.42,   ty=1.97, tz=-13.06, i=4000},
-					{name='Floor0Right2', tx=13.06,  ty=1.97, tz=-5.42,  i=4000},
-					{name='Floor0Right3', tx=13.06,  ty=1.97, tz=5.42,   i=4000},
-					{name='Floor0Right4', tx=5.42,   ty=1.97, tz=13.06,  i=4000},
+					{name='Floor0Right1',	tx=5.42,	ty=1.97,	tz=-13.06,	i=0.16},
+					{name='Floor0Right2',	tx=13.06,	ty=1.97,	tz=-5.42,	i=0.16},
+					{name='Floor0Right3',	tx=13.06,	ty=1.97,	tz=5.42,	i=0.16},
+					{name='Floor0Right4',	tx=5.42,	ty=1.97,	tz=13.06,	i=0.16},
 					-- White Floor Lights - left side
-					{name='Floor1Left1',  tx=-6.42,  ty=5.97, tz=-15.5,  i=4000},
-					{name='Floor1Left2',  tx=-15.5,  ty=5.97, tz=-6.42,  i=4000},
-					{name='Floor1Left3',  tx=-15.5,  ty=5.97, tz=6.42,   i=4000},
-					{name='Floor1Left4',  tx=-6.42,  ty=5.97, tz=15.5,   i=4000},
+					{name='Floor1Left1',	tx=-6.42,	ty=5.97,	tz=-15.5,	i=0.16},
+					{name='Floor1Left2',	tx=-15.5,	ty=5.97,	tz=-6.42,	i=0.16},
+					{name='Floor1Left3',	tx=-15.5,	ty=5.97,	tz=6.42,	i=0.16},
+					{name='Floor1Left4',	tx=-6.42,	ty=5.97,	tz=15.5,	i=0.16},
 					-- White Floor Lights - right side
-					{name='Floor1Right1', tx=6.42,   ty=5.97, tz=-15.5,  i=4000},
-					{name='Floor1Right2', tx=15.5,   ty=5.97, tz=-6.42,  i=4000},
-					{name='Floor1Right3', tx=15.5,   ty=5.97, tz=6.42,   i=4000},
-					{name='Floor1Right4', tx=6.42,   ty=5.97, tz=15.5,   i=4000}
+					{name='Floor1Right1',	tx=6.42,	ty=5.97,	tz=-15.5,	i=0.16},
+					{name='Floor1Right2',	tx=15.5,	ty=5.97,	tz=-6.42,	i=0.16},
+					{name='Floor1Right3',	tx=15.5,	ty=5.97,	tz=6.42,	i=0.16},
+					{name='Floor1Right4',	tx=6.42,	ty=5.97,	tz=15.5,	i=0.16}
 				})
 			}
 		}
@@ -435,12 +436,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				SPECIAL_KEY_WORDS	= {'Name', 'OrangeLights'},
 				ADD_OPTION			= 'AddAfterSection',
 				ADD 				= AddLightNodes({
-					{name='left',  fov=100, tx=16,  ty=10, rx=-22, ry=90,  f='l', fr=1.2,		c='FFF5F7FA'},
-					{name='right', fov=100, tx=-16, ty=10, rx=-22, ry=-90, f='l', fr=1.2,		c='FFF5F7FA'},
-					{name='ne',	i=44000, fov=120, tx=4.8,	ty=0.25, tz=4.8,  rx=30, ry=45,		c='FFF5F7FA'},
-					{name='nw',	i=44000, fov=120, tx=-4.8,	ty=0.25, tz=4.8,  rx=30, ry=-45,	c='FFF5F7FA'},
-					{name='se',	i=44000, fov=120, tx=4.8,	ty=0.25, tz=-4.8, rx=30, ry=135,	c='FFF5F7FA'},
-					{name='sw',	i=44000, fov=120, tx=-4.8,	ty=0.25, tz=-4.8, rx=30, ry=-135,	c='FFF5F7FA'}
+					{name='left',  	i=22, rd=26,	fov=100, tx=16,  	ty=10, rx=-22, ry=90,  f=1,			c='FFF5F7FA'},
+					{name='right', 	i=22, rd=26,	fov=100, tx=-16, 	ty=10, rx=-22, ry=-90, f=1,			c='FFF5F7FA'},
+					{name='ne',		i=25, rd=18,	fov=120, tx=4.8,	ty=0.3,	tz=4.8,  rx=30, ry=45,		c='FFF5F7FA'},
+					{name='nw',		i=25, rd=18,	fov=120, tx=-4.8,	ty=0.3,	tz=4.8,  rx=30, ry=-45,		c='FFF5F7FA'},
+					{name='se',		i=25, rd=18,	fov=120, tx=4.8,	ty=0.3,	tz=-4.8, rx=30, ry=135,		c='FFF5F7FA'},
+					{name='sw',		i=25, rd=18,	fov=120, tx=-4.8,	ty=0.3,	tz=-4.8, rx=30, ry=-135,	c='FFF5F7FA'}
 				})
 			}
 		}
@@ -473,7 +474,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 								{
 									name	= 'RefMonitorShipSalvage',
 									ntype	= 'REFERENCE',
-									form	= {ty=-1.1, ry=135, rz=180, sx=0.55, sy=0.55, sz=0.55},
+									form	= {ty=-1.1, ry=135, rz=180, s_=0.55},
 									attr	= {
 										SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/ROOFMONITOR/ROOFMONITOR.SCENE.MBIN'
 									}
@@ -481,7 +482,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 								{
 									name	= 'RefBaseShipSalvage',
 									ntype	= 'REFERENCE',
-									form	= {ty=-1.8, sx=1.3, sy=1.3, sz=1.3},
+									form	= {ty=-1.8, s_=1.3},
 									attr	= {
 										SCENEGRAPH = 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/DECORATION/BAZAAR/CANISTER0.SCENE.MBIN'
 									}
@@ -509,7 +510,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 							{--	corvette beam button
 								name	= 'RefCorvButton',
 								ntype	= 'REFERENCE',
-								form	= {ry=180, sx=0.77, sy=0.77, sz=0.77},
+								form	= {ry=180, s_=0.77},
 								attr	= {
 									SCENEGRAPH = 'MODELS/COMMON/SPACECRAFT/BIGGS/TELECONTROL.SCENE.MBIN'
 								}
@@ -528,6 +529,15 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
+	{--	|hangar delete corvette teleporter|
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/BIGGS/BIGGSTELEPORTER_FREIGHTERS.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				PRECEDING_KEY_WORDS = 'Children',
+				REMOVE				= 'Section'
+			}
+		}
+	},
 	{--	|freighter extend buildable| area
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGAR.SCENE.MBIN',
 		MXML_CHANGE_TABLE	= {
@@ -537,6 +547,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'TransZ',		-28.6235},
 					{'ScaleX',		1.3},
 					{'ScaleZ',		1.3}
+				}
+			}
+		}
+	},
+	{--	|pallet LOD raise|
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PROPS/PALLET.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'LODDIST.-'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		'@ * 4'}
 				}
 			}
 		}
@@ -579,40 +600,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	geometric plant
-		MBIN_FILE_SOURCE	= {
-			{
-				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEOMETRIC.SCENE.MBIN',
-				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN',
-				'REMOVE'
-			}
-		}
-	},
-	{--	inactive geometric plant
-		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/MEDGEO_NONE.SCENE.MBIN',
-		MXML_CHANGE_TABLE	= {
-			{
-				SPECIAL_KEY_WORDS 	= {'Name', 'ATTACHMENT'},
-				REMOVE				= 'Section'
-			}
-		}
-	},
 	{--	wirecell cube
 		MBIN_FILE_SOURCE	= {
 			{
-				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WEIRDCUBE.SCENE.MBIN',
-				'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WCUBE_NONE.SCENE.MBIN',
+				'MODELS/PLANETS/BIOMES/WEIRD/WIRECELLS/WIRECELLFLOATCUBE.SCENE.MBIN',
+				'MODELS/PLANETS/BIOMES/WEIRD/WIRECELLS/WCUBE_NONE.SCENE.MBIN',
 				'REMOVE'
 			}
 		}
 	},
-	{--	inactive wirecell cube
-		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/COMMON/BUILDINGS/PARTS/BUILDABLEPARTS/FOLIAGE/WCUBE_NONE.SCENE.MBIN',
+	{--	wirecell cube add spin
+		MBIN_FILE_SOURCE	= 'MODELS/PLANETS/BIOMES/WEIRD/WIRECELLS/WCUBE_NONE.SCENE.MBIN',
 		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {'Name', 'CuboidSmallLOD0', 'Name', 'ATTACHMENT'},
+				SPECIAL_KEY_WORDS 	= {'Name', 'CuboidSmall_LOD0', 'Name', 'ATTACHMENT'},
 				VALUE_CHANGE_TABLE	= {
 					{'value', 'MODELS/PLANETS/BIOMES/WEIRD/FRACTALCUBE/SHAPE1FLOAT/ENTITIES/SHAPE1FLOAT.ENTITY.MBIN'}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS 	= {'Name', 'LODDIST.-'},
+				VALUE_CHANGE_TABLE	= {
+					{'value', '@*3'}
 				}
 			}
 		}

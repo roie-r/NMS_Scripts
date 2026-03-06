@@ -14,7 +14,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ MODEL various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_BATCHNAME		= '+MODELS ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
@@ -153,17 +153,17 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	-- {--	|better clouds|
-		-- MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
-		-- MXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE03.DDS'}
-				-- }
-			-- }
-		-- }
-	-- },
+	{--	|better clouds|
+		MBIN_FILE_SOURCE	= 'MATERIALS/ATMOSPHERE.MATERIAL.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'gCloudMap'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Map', 'TEXTURES/SPACE/ATMOSPHERE/ATMOSPHERE03.dds'}
+				}
+			}
+		}
+	},
 	{--	null anim for other mods
 		MBIN_FILE_SOURCE	= {
 			{
