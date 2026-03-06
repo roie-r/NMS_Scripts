@@ -16,7 +16,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				INTEGER_TO_FLOAT	= 'Force',
 				SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		10}
+					{'Value',		1}
 				}
 			},
 			{

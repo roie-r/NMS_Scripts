@@ -5,7 +5,7 @@ dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_lua_2_mxml.lua')
 
 --	Properties of [GcObjectSpawnData] being modified
 local spawn_data = {
-	numr = {
+	numeral = {
 		ns	= 'MinScale ',				-- [*] The space is NOT a bug!
 		xs	= 'MaxScale',				-- [*] multiplier modifier
 		an	= 'MaxAngle',				-- [+] additive modifier
@@ -23,78 +23,79 @@ local spawn_data = {
         cp	= 'CollideWithPlayer',
         cv	= 'CollideWithPlayerVehicle',
         dv	= 'DestroyedByPlayerVehicle',
-		ds	= 'DestroyedByPlayerShip'
+		ds	= 'DestroyedByPlayerShip',
+		fd	= 'IsFloatingIsland',		-- fix that helps to stabilize big props
 	}
 }
 
 local solar_modifiers = {
 	biomes = {
-		{
+		{--	lush
 			biotg = 'LUSH',
 			flora = {-- applied to all LUSH sources
 				TREE		= {ns=1.15,	xs=2.4,		cr=0.9,	ld=1.25},
 				BUBBLELUSH	= {ns=1.15,	xs=1.65,	fs=2.6}
 			}
 		},
-		{
+		{--	lushbigprops
 			biotg = 'LUSHBIGPROPS',
 			flora = {
 				TREE		= {ns=1.05,	xs=2.2,		cr=0.86},
 				CROSS		= {an=-5}
 			}
 		},
-		{
+		{--	lushbubble
 			biotg = 'LUSHBUBBLE',
 			flora = {
 				TREE		= {xs=2.25,	cr=0.86},
 				FERN		= {ns=1.4,	xs=2.6}
 			}
 		},
-		{
+		{--	lushobjectsfull
 			biotg = 'LUSHOBJECTSFULL',
 			flora = {
 				FERN		= {ns=1.3,	xs=1.9},
 				FLOWER		= {ns=1.4,	xs=1.8}
 			}
 		},
-		{
+		{--	lushhqtentacle
 			biotg = 'LUSHHQTENTACLE',
 			flora = {
 				TENTACLE	= {ns=1.2,	xs=1.78,	cr=0.94}
 			}
 		},
-		{
+		{--	lushroomb
 			biotg = 'LUSHROOMB',
 			flora = {
 				SHROOMSINGL	= {ns=1.8,	xs=2.85,	ov=true}
 			}
 		},
-		{
+		{--	frozen
 			biotg = 'FROZEN',
 			flora = {-- applied to all FROZEN sources
 				TREE 		= {ns=1.15,	xs=2.45,	cr=0.8,	ld=1.22},
 				LIVINGSHIP	= {rr=-1,	ld=1.02}
 			}
 		},
-		{
+		{--	radiobig
 			biotg = 'RADIOBIG',
 			flora = {
 				ROCK		= {ns=1.1,	xs=1.3,		cr=0.95}
 			}
 		},
-		{
+		{--	radiospikepotato
 			biotg = 'RADIOSPIKEPOTATO',
 			flora = {
 				WEIRD		= {xs=1.4,	cr=1.2} -- potato
 			}
 		},
-		{
+		{--	irradiate
 			biotg = 'IRRADIATE',
 			flora = {
-				HUGE		= {ns=0.75,	xs=3.6,		cr=0.8,		ld=2.2}
+				HUGETREE	= {ns=0.75,	xs=3.6,		cr=0.8,		ld=2.2}
 			}
 		},
-		{
+		{--	scorched
 			biotg = 'SCORCHED',
 			flora = {
 				HUGESPIRE	= {ns=0.9,	xs=1.02,	cr=0.9,		ov=true}
@@ -103,43 +104,42 @@ local solar_modifiers = {
 				MEDIUMSPIRE	= {dv=true}
 			}
 		},
-		{
+		{--	toxic
 			biotg = 'TOXIC',
 			flora = {
 				HUGETOXIC	= {ns=0.7,	xs=0.97,	cr=0.88,	ov=true}
 			}
 		},
-		{
+		{--	toxicobjectsfull
 			biotg = 'TOXICOBJECTSFULL',
 			flora = {
 				LARGEBLOB	= {ns=0.4,	xs=0.8},
 				FUNGALTREE	= {ns=1.15,	xs=1.75,	cr=0.86}
 			}
 		},
-		{
+		{--	rocky
 			biotg = 'ROCKY',
 			flora = {-- less -and smaller rocks on rocky biomes
 				FACEBLEND	= {ns=0.8,	xs=0.84,	cr=0.76,	ov=true},
 				TOXICGRASS	= {xs=1.9,				cr=1.05},
 			}
 		},
-		{
+		{--	swamp
 			biotg = 'SWAMP',
 			flora = {
-				GROVELARGEF	= {ns=1.05,	xs=1.55,	cr=1.02,	ul=true,	ov=true},
-				GROVELARGE	= {ns=0.8,	xs=-0.7, 	cr=0.82,	ul=true},
+				GROVELARGEF	= {ns=1.05,	xs=1.55,	cr=1.02,	ov=true},
+				GROVELARGE	= {ns=0.8,	xs=-0.7, 	cr=0.82},
 				HQTREE		= {ns=1.15,	xs=2.5,		cr=0.9},
 				FERN		= {ns=1.5,	xs=2.1},
 				FLOWER		= {ns=1.4,	xs=1.8, 	sw=0.94}
+			},
+			flags = {
+				GROVELARGEF	= {fd=true},
+				GROVELARGE	= {fd=true}
 			}
+
 		},
-		{
-			biotg = 'HUGERING',
-			flora = {
-				ROCKRING	= {cr=0.85,	ov=true}
-			}
-		},
-		{
+		{--	alien
 			biotg = 'ALIEN',
 			flora = {
 				LARGE		= {ns=0.95,	xs=1.02,	cr=0.92},
@@ -147,7 +147,13 @@ local solar_modifiers = {
 				SMALL		= {ns=0.95,	xs=1.05},
 			}
 		},
-		{
+		{--	island
+			biotg = 'ISLAND',
+			flora = {
+				ISLAND		= {cr=0.84}
+			}
+		},
+		{--	weird
 			biotg = 'WEIRD',
 			flora = {
 				WEIRD		= {ld=2.6,	rr=6,		ul=true},
@@ -159,7 +165,7 @@ local solar_modifiers = {
 				MSTRUCTURE	= {pr=7},
 			}
 		},
-		{
+		{--	levelone
 			biotg = 'LEVELONE',
 			flora = {
 				DEBRIS		= {cr=0, 	ov=true},
@@ -168,33 +174,52 @@ local solar_modifiers = {
 				WORDSTONE	= {cr=0.33}
 			}
 		},
-		{
+		{--	stormcrystal
 			biotg = 'STORMCRYSTAL',
 			flags = {
 				STORMCRYST	= {cv=true,	dv=false}
 			}
 		},
-		{
+		{--	fiendegg
 			biotg = 'FIENDEGG',
 			flora = {
 				FIENDEGG	= {cr=0.4}
 			}
 		},
-		{
-			biotg = 'PLANT',
+		{--	objects/plant
+			biotg = 'OBJECTS/PLANT',
 			flora = {
-				INTERACTIVE	= {ns=0.48,	xs=0.01,	cr=1.1},
-				TENTACLEP	= {cr=0.5,	df=0.75},
-				SPIKEY		= {cr=0.5,	df=0.75},
-				SPOREVENT	= {cr=0.5,	df=0.75},
-				FLYTRAP		= {cr=0.5,	df=0.75}
+				TENTACLE	= {xs=0.75,	df=0.5,		cr=0.2,	ov=true},
+				SPIKEY		= {xs=0.75,	df=0.5,		cr=0.2,	ov=true},
+				SPOREVENT	= {xs=0.75,	df=0.5,		cr=0.2,	ov=true},
+				FLYTRAP		= {xs=0.75,	df=0.5,		cr=0.2,	ov=true},
+				INTERACTIVE	= {ns=0.48,	xs=0.01,	cr=1.1}
 			}
 		},
-		{
+		{--	underwater
 			biotg = 'UNDERWATER',
 			flora = {
 				CRYSTAL		= {xs=0.95,	cr=0.5,	df=0.8, 	ov=true},
 				GASBAG		= {xs=0.85,	cr=0.5,	df=0.9}
+			}
+		},
+		{--	hugeprops
+			biotg = 'HUGEPROPS',
+			flora = {
+				ROCKRING	= {cr=0.85},
+				HUGEPROPS	= {ov=true},
+			},
+			flags = {
+				HUGEPROPS	= {fd=true}
+			}
+		},
+		{--	bigprops
+			biotg = 'BIGPROPS',
+			flora = {
+				HUGEPROPS	= {ov=true},
+			},
+			flags = {
+				HUGEPROPS	= {fd=true}
 			}
 		}
 	},
@@ -223,22 +248,20 @@ local solar_modifiers = {
 		SMALL		= {ns=0.95,	xs=0.8},
 
 	--- global lod multiplier
-		SCENE		= {ld=1.2},
+		SCENE		= {ld=1.25},
 
 	---	ignored
 		LAVA		= {ig=true},
 		FRAGMENT	= {ig=true},
 		GRAVEL		= {ig=true},
-		HUGEPROPS	= {ig=true},
 		FARM		= {ig=true}
 	},
-	global_flags = {}
+	global_flags = {
+		TREE		= {fd=true}
+	}
 }
 
 ---------------------------------------------------------------------------
----- CODING
----------------------------------------------------------------------------
-
 --	sum scale values and counters for averaging
 function spawn_data:addValues(tag)
 	for k, val in pairs(tag) do
@@ -269,7 +292,7 @@ function spawn_data:averageScales(spawn, worktags)
 	self.mods	= {}
 	self.res	= {} -- will store the calculated result
 	self.ultra	= nil
-	for k,_ in pairs(self.numr) do
+	for k,_ in pairs(self.numeral) do
 		self.mods[k] = {v=0, i=0}
 		self.res[k]  = -1 -- (-1 == empty)
 	end
@@ -324,15 +347,6 @@ function solar_modifiers:getModifiers(mbin)
 	return scales, flags
 end
 
---	debug
-local function valueDump(mbin, spn, key)
-	if mbin:find('FROZEN') then
-		if spn.Resource.Filename:find('TREE') then
-			print(mbin:sub(40)..'-->'..spn.Resource.Filename:sub(23)..'~> '..spn[key])
-		end
-	end
-end
-
 --	main work process (Receives the exml file from amumss)
 local function ProcessBiome(exml, mbin)
 	local function getHighVariant(qvars)
@@ -368,19 +382,15 @@ local function ProcessBiome(exml, mbin)
 	local solar_biome = ToLua(exml)
 	if not hasQVariant(solar_biome) then return 'IGNORE' end
 
-	local prp = spawn_data.numr -- shorter reference to GcObjectSpawnData property names
+	local prp = spawn_data.numeral -- shorter reference to GcObjectSpawnData property names
 	local biomeflora, biomeflags = solar_modifiers:getModifiers(mbin)
 	-- merged, biome-specific modifiers table
 	local workflora	= UnionTables({solar_modifiers.global_flora, biomeflora})
 	-- merged, biome-specific flags table
 	local workflags	= UnionTables({solar_modifiers.global_flags, biomeflags})
-	-- for key, objs in pairs(solar_biome[1].Objects) do
-	for key, objs in pairs(solar_biome[1]) do
+	for key, objs in pairs(solar_biome.Objects) do
 		if key ~= 'meta' and objs[1] and objs[1].meta.value == 'GcObjectSpawnData' then
 			for _, spn in ipairs(objs) do
-				---DEBUG---------------------------
-				-- valueDump(mbin, spn, 'MaxScale')
-				-----------------------------------
 				spawn_data:averageScales(spn.Resource.Filename, workflora)
 				if spawn_data:HasMod('ns') then spn[prp.ns] = spn[prp.ns] * spawn_data.res.ns end	-- MinScale
 				if spawn_data:HasMod('xs') then spn[prp.xs]	= spn[prp.xs] * spawn_data.res.xs end	-- MaxScale
@@ -393,7 +403,7 @@ local function ProcessBiome(exml, mbin)
 					qvr[prp.df] = qvr[prp.df] * spawn_data.res.df	-- FlatDensity
 					qvr[prp.ds] = qvr[prp.df] * 1.06				-- SlopeDensity
 				end
-				if spawn_data:HasMod('fs') and tonumber(qvr[prp.fs]) < 9000 then
+				if spawn_data:HasMod('fs') and qvr[prp.fs] < 9000 then
 					qvr[prp.fs] = qvr[prp.fs] * spawn_data.res.fs	-- FadeOutStartDistance
 					qvr[prp.fe] = qvr[prp.fs] + 20					-- FadeOutEndDistance
 				end
@@ -401,15 +411,15 @@ local function ProcessBiome(exml, mbin)
 
 				lod = spawn_data:HasMod('ld') and spawn_data.res.ld or 1.22 -- default overwritten by SCENE global
 				for i=2, #qvr[prp.ld] do
-					qvr[prp.ld][i] = qvr[prp.ld][i] * lod	-- LodDistances
+					qvr[prp.ld][i] = qvr[prp.ld][i] * lod			-- LodDistances
 				end
-				local rr = tonumber(qvr[prp.rr])
+				local rr = qvr[prp.rr]
 				if spawn_data:HasMod('rr') then
-					qvr[prp.rr] = math.floor(rr + spawn_data.res.rr)		-- MaxRegionRadius
+					qvr[prp.rr] = math.floor(rr + spawn_data.res.rr)-- MaxRegionRadius
 				elseif rr < 90 then
-					qvr[prp.rr] = rr + ((rr < 15 and rr > 6) and 1 or 4)
+					qvr[prp.rr] = rr + ((rr < 15 and rr > 6) and 1 or 3)
 				end
-				if spawn_data:HasMod('pr') and tonumber(qvr[prp.pr]) < 90 and rr < 90 then
+				if spawn_data:HasMod('pr') and qvr[prp.pr] < 90 and rr < 90 then
 					qvr[prp.pr] = math.floor(qvr[prp.pr] + spawn_data.res.pr * 10) -- MaxImposterRadius
 				end
 				--	loop through boolean flags
@@ -423,6 +433,16 @@ local function ProcessBiome(exml, mbin)
 	return ToMxmlFile(solar_biome)
 end
 
-local biome = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/BIOMES/SWAMP/SWAMPOBJECTSFULL.MBIN'
-local r_src  = io.open(biome:gsub('.MBIN$', '.MXML'), 'r')
-print( ProcessBiome(r_src:read('*a'), biome) )
+---------------------------------------------------------------------------------------
+local function GetFileName(f)
+	return f:match('([^\\/]+)%.')
+end
+
+local biome = 'D:/MODZ_stuff/NoMansSky/UNPACKED/METADATA/SIMULATION/SOLARSYSTEM/BIOMES/OBJECTS/PLANT/TENTACLEPLANT.MBIN'
+local r_src = io.open(biome:gsub('.MBIN$', '.MXML'), 'r')
+local w_src = io.open('d:/_dump/'..GetFileName(biome)..'.mxml', 'w')
+
+w_src:write(ProcessBiome(r_src:read('*a'), biome))
+print('saved processed '..GetFileName(biome)..'.mxml')
+r_src:close()
+w_src:close()

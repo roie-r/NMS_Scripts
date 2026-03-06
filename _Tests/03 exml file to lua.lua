@@ -1,6 +1,7 @@
 -----------------------------------------------------------------------------------------
 dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_lua_2_mxml.lua')
 dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_mxml_2_lua.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/scene_tools.lua')
 -----------------------------------------------------------------------------------------
 
 local function ConvertMbin(mbin)
@@ -27,14 +28,15 @@ local mbins = {
 	'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN',										-- 5
 	'METADATA/REALITY/TABLES/NMS_MODULARCUSTOMISATIONPRODUCTS.MBIN',								-- 6
 	'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN',									-- 7
-	'METADATA/REALITY/TABLES/UNLOCKABLEITEMTREES.MBIN',												-- 8
+	'METADATA/SIMULATION/SCENE/EXPERIENCESPAWNTABLE.MBIN',											-- 8
 	'METADATA/GAMESTATE/PLAYERDATA/MODULARCUSTOMISATIONDATATABLE.MBIN',								-- 9
-	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/SWAMP/SWAMPOBJECTSFULL.MBIN',							-- 10
+	'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/SCORCHED/SCORCHEDOBJECTSFULL.MBIN',						-- 10
 	'METADATA/REALITY/TABLES/BASEBUILDINGOBJECTSTABLE.MBIN',										-- 11
-	'GCGALAXYGLOBALS.GLOBAL.MBIN'																	-- 12
+	'MODELS/COMMON/SPACECRAFT/COMMONPARTS/HANGARINTERIORPARTS/HANGARINTERIOR.SCENE.MBIN',			-- 12
+	'GCCAMERAGLOBALS.GLOBAL.MBIN'
 }
 -----------------------------------------------------------------------------------------
-local inx = 4
+local inx = 13
 
 local mbin = mbins[inx]:lower()
 if mbin:sub(2, 2) ~= ':' then
@@ -47,10 +49,10 @@ local w_src = nil
 -----------------------------------------------------------------------------------------
 --- PrintMxmlAsLua ---
 w_src = io.open('d:/_dump/'..fname..'.lua', 'w')
-w_src:write( PrintMxmlAsLua({mxml=r_src:read('*a'), use_id=true, sq_k=false, intern=false}) )
+w_src:write( PrintMxmlAsLua({mxml=r_src:read('*a'), use_id=false, sq_k=false, intern=false}) )
 print('saved '..fname..' as PrintMxmlAsLua')
 w_src:close()
-
+-----------------------------------------------------------------------------------------
 --- write PrintMxmlAsLua back to mxml ---
 -- local l2m = dofile('d:/_dump/'..fname..'.lua')
 -- w_src = io.open('d:/_dump/'..fname..'.mxml', 'w')
@@ -61,6 +63,9 @@ w_src:close()
 --- ToLua convert and write back to mxml ---
 -- local m2l = ToLua(r_src:read('*a'))
 -- w_src = io.open('d:/_dump/'..fname..'.MXML', 'w')
+
+-- local nodes = ScNodeNameIndex(m2l)
+
 -- w_src:write(ToMxmlFile(m2l))
 -- print('saved '..fname..' using ToLua back to MXML')
 -- w_src:close()

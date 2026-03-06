@@ -174,7 +174,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+  TEST 14 ambient freighter spawn',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{

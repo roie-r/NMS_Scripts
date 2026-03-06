@@ -36,9 +36,11 @@ end
 -- local match3 = '(<!%-%-)[ \t]-<(.-)>'
 
 local src = {
-	e={i=5, dat='REC_20'},
-	v={i=4, dat='REC_24'},
-	g={i=3, dat='REC_23'},
-	f={i=2, dat='REC_22'},
-	r={i=1, dat='REC_21'},
+	a = {name='05', tex='REC_20'},
+	b = {name='04', tex='REC_24'},
+	c = {name='23', tex='REC_23'},
+	d = {name='20', tex='REC_22'},
+	e = {name='01', tex='REC_21'},
 }
+
+local names = {'20', '45', '16', }

@@ -1,5 +1,6 @@
 -------------------------------------------------------------------------------------------------------------------
 dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_mxml_2_lua.lua')
+dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/scene_tools.lua')
 -------------------------------------------------------------------------------------------------------------------
 local NMS = 'D:/MODZ_stuff/NoMansSky/UNPACKED/'
 
@@ -8,7 +9,7 @@ local function ConvertMbin(mbin)
 		local f = io.open(path, "r")
 		return f ~= nil and io.close(f)
 	end
-	if not fileExists(mbin:gsub('.MBIN$', '.EXML')) then
+	if not fileExists(mbin:gsub('.MBIN$', '.MXML')) then
 		os.execute(string.format(
 			'D:/MODZ_stuff/NoMansSky/Tools/AMUMSS/MODBUILDER/MBINCompiler.latest.exe convert -y -q --input-format=MBIN %s',
 			mbin
@@ -16,24 +17,46 @@ local function ConvertMbin(mbin)
 	end
 end
 
-local function ReadExml(mbin)
+local function ReadMxml(mbin, use_id)
 	ConvertMbin(mbin)
-	local rf = io.open(mbin:gsub('.MBIN$', '.EXML'), 'r')
-	local t  = ToLua(rf:read('*a'))
+	local rf = io.open(mbin:gsub('.MBIN$', '.MXML'), 'r')
+	local t  = ToLua(rf:read('*a'), use_id or false)
 	rf:close()
 	return t
 end
 
 local function PrintAsLua(mbin)
 	ConvertMbin(mbin)
-	local wf = io.open('d:/_dump/exml_source.lua', 'w')
-	wf:write(PrintMxmlAsLua(io.open(mbin:gsub('.MBIN$', '.EXML'), 'r'):read('*a')))
+	local wf = io.open('d:/_dump/mxml_source.lua', 'w')
+	wf:write(PrintMxmlAsLua(io.open(mbin:gsub('.MBIN$', '.MXML'), 'r'):read('*a')))
 	wf:close()
 end
 -------------------------------------------------------------------------------------------------------------------
+local mbin = 'MODELS/COMMON/PROJECTILES/DRONE_SHOTGUN.SCENE.MBIN'
+
+local source = ReadMxml(NMS..mbin, true)
+
+local nodes = ScNodeNameIndex(source)
+
+print(nodes['LaserBolt'].Transform.RotY)
+print(nodes['LaserBolt'].Attributes.VERTRENDGRAPHIC.Value)
+print(nodes['pointLight1'].Attributes.COL_G.Value)
+
+-------------------------------------------------------------------------------------------------------------------
+-- local mbin = 'METADATA/SIMULATION/SCENE/EXPERIENCESPAWNTABLE.MBIN'
+
+-- local source = ReadMxml(NMS..mbin, true)
+
+-- for id, pulse in pairs(source.PulseEncounters) do
+-- 	if id ~= 'meta' and pulse.Encounter.GcPulseEncounterSpawnObject then
+-- 		print(id..'\t'..pulse.Encounter.GcPulseEncounterSpawnObject.Object.Filename)
+-- 	end
+-- end
+
+-------------------------------------------------------------------------------------------------------------------
 -- local mbin = 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/RADIOACTIVE/RADIOACTIVEOBJECTSFULL.MBIN'
 
--- source = ReadExml(NMS..mbin)
+-- local source = ReadMxml(NMS..mbin)
 
 -- for _, obj in ipairs(source.template.Objects.Landmarks) do
 	-- print(obj.Resource.Filename)
@@ -44,7 +67,7 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- local mbin = 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN'
 
--- source = ReadExml(NMS..mbin)
+-- local source = ReadMxml(NMS..mbin)
 
 -- for _, prd in ipairs(source.template.Table) do
 	-- if prd.ID:find('FIGHT_') then
@@ -55,24 +78,24 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- local mbin = 'METADATA/REALITY/CATALOGUECRAFTING.MBIN'
 
--- source = ReadExml(NMS..mbin)
+-- local source = ReadMxml(NMS..mbin)
 -- -- PrintAsLua(path)
 
 -- for _, dat in ipairs(source.template.Categories[6].Items) do
 	-- print(dat.Value)
 -- end
 -------------------------------------------------------------------------------------------------------------------
-local mbin = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
+-- local mbin = 'METADATA/REALITY/TABLES/NMS_REALITY_GCTECHNOLOGYTABLE.MBIN'
 
-source = ReadExml(NMS..mbin)
+-- local source = ReadMxml(NMS..mbin)
 
-for _, dat in ipairs(source.template.Table) do
-	print(dat.ID..'\t:\t'..dat.ChargeAmount)
-end
+-- for _, dat in ipairs(source.template.Table) do
+	-- print(dat.ID..'\t:\t'..dat.ChargeAmount)
+-- end
 -------------------------------------------------------------------------------------------------------------------
 -- local mbin = 'GCSPACESHIPGLOBALS.GLOBAL.MBIN'
 
--- source = ReadExml(NMS..mbin)
+-- local source = ReadMxml(NMS..mbin)
 
 -- eng = source.template.ControlHeavyHover.AtmosCombatEngine
 

@@ -3,40 +3,31 @@ dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_lua_2_mxml.lua')
 dofile('D:/MODZ_stuff/NoMansSky/AMUMss_Scripts/LIB/_mxml_2_lua.lua')
 -----------------------------------------------------------------------------------------
 
-section_08 = [[<Property name="Events" value="GcScanEventData">
-			<Property name="Name" value="MONOLITH" />
-			<Property name="RequireInteractionRace" value="GcAlienRace">
-				<Property name="AlienRace" value="None" />
-			</Property>
-			<Property name="OverrideInteractionRace" value="GcAlienRace">
-				<Property name="AlienRace" value="None" />
-			</Property>
-			<Property name="ForceOverridesAll" value="true" />
-			<Property name="SurveyDiscoveryOSDMessage" value="UI_MISSIONMARKER_DISC_OSD" />
-			<Property name="SurveyHUDName" value="UI_MISSIONSURVEY_HUD_SUB" />
-			<Property name="EventStartType" value="ObjectScan" />
-			<Property name="EventEndType" value="Proximity" />
-			<Property name="DisableMultiplayerSync" value="true" />
-			<Property name="BuildingType" value="BuildingClass" />
-			<Property name="BuildingClass" value="GcBuildingClassification">
-				<Property name="BuildingClass" value="Monolith" />
-			</Property>
-			<Property name="AllowOverriddenBuildings" value="true" />
-			<Property name="ForceRestartInteraction" value="true" />
-			<Property name="TriggerActions" value="GcScanEventTriggers">
-				<Property name="Range" value="100" />
-			</Property>
-			<Property name="OSDMessage" value="SIGNAL_MONOLITH" />
-			<Property name="InterstellarOSDMessage" value="SCANEVENT_ANOTHER_SYSTEM" />
-			<Property name="MarkerIcon" value="TkTextureResource">
-				<Property name="Filename" value="" />
-			</Property>
-			<Property name="MessageDisplayTime" value="4" />
-			<Property name="IconTime" value="4" />
-			<Property name="TooltipTime" value="10" />
-			<Property name="ShowEndTooltip" value="true" />
-			<Property name="TooltipMessage" value="TIP_MONOLITH" />
-		</Property>]]
+section_08 = [[<Property name="Grass" value="GcPaletteData">
+	<Property name="NumColours" value="All"/>
+	<Property name="Colours">
+		<Property name="Colours" _index="0">
+			<Property name="R" value="0.678000"/>
+			<Property name="G" value="0.573000"/>
+			<Property name="B" value="0.518000"/>
+			<Property name="A" value="1.000000"/>
+		</Property>
+		<Property name="Colours" _index="1">
+			<Property name="R" value="0.464000"/>
+			<Property name="G" value="0.305000"/>
+			<Property name="B" value="0.219000"/>
+			<Property name="A" value="1.000000"/>
+		</Property>
+		<Property name="Colours" _index="63">
+			<Property name="R" value="0.337000"/>
+			<Property name="G" value="0.163000"/>
+			<Property name="B" value="0.404000"/>
+			<Property name="A" value="1.000000"/>
+		</Property>
+	</Property>
+</Property>
+
+]]
 
 -- local e2l = ToLua(section_08)
 -- print( TableToString(e2l) )
