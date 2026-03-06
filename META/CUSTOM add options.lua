@@ -226,7 +226,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ META add customization options',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 	{
@@ -304,3 +304,61 @@ local __locale_text_import__ = {
 ---	Existing text overwritten ---
 
 }--- __locale_text_import__ (do not delete)
+
+--[[>-<LocTable>-<
+--<< New texts >>--
+=UI_TIP_SHIP_TOPOMAP
+EN =Topography
+
+=UI_TIP_SHIP_PAINTSWIRL
+EN =Swirling Colours
+
+=UI_TIP_SHIP_MEZO
+EN =Mezo Central
+
+=UI_TIP_SHIP_MAYA_SNAKE
+EN =Mayan Stone Serpent
+
+=UI_TIP_SHIP_MAYA_WALL
+EN =Mayan Story
+
+=UI_TIP_SHIP_AZTEC_DRAGON
+EN =Aztec Dragon
+
+=UI_TIP_SHIP_AZTEC_FACE
+EN =Aztec Scream
+
+=UI_TIP_SHIP_CELTIC
+EN =Celt Knot
+
+=UI_TIP_SHIP_POLYNESIA
+EN =Polynesian Interlocks
+
+=UI_TIP_SHIP_POLYNESIA_SEA
+EN =One With The Sea
+
+=UI_TIP_SHIP_MAORI_FACE
+EN =Maori Marked
+
+=UI_TIP_SHIP_EASTERN
+EN =Eastern Wise
+
+=UI_TIP_SHIP_WOVEN
+EN =Woven Craft
+
+=UI_TIP_SHIP_WOVEN2
+EN =Woven Excellence
+
+=UI_TIP_SHIP_DEMON
+EN =Floral Demon
+
+=UI_TIP_SHIP_TARGET
+EN =Vertical Target
+
+=UI_TIP_SHIP_SKULLS
+EN =Crystal Skulls
+
+=UI_TIP_SHIP_THE_HARING
+EN =All Haring
+
+>-<LocTable>-<]]

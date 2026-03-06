@@ -1,21 +1,21 @@
---------------------------------------------
+------------------------------------------------
 local mod_desc = [[
   Greater and more varied storm hazards
   Decrease storms occurrence chance
+  Decrease snow whiteout
   Less damaging storms in lush biome
   Remove all fog and dust in airless biome
   Remove tornados until HG fixes them
-]]------------------------------------------
+]]----------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ META less storms_more hazards',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
-	{
-	--	|varied meteors|
+	{--	|varied meteors|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/WEATHEREFFECTS.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
@@ -28,8 +28,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|varied storm hazard|
+	{--	|varied storm hazard|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/WEATHERHAZARDS.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
@@ -73,29 +72,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
-	-- {
-	-- --	|spooky weather|
-		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/WEIRDWEATHER.MBIN',
-		-- EXML_CREATE			= false,
-		-- MXML_CHANGE_TABLE	= {
-			-- {
-				-- PRECEDING_KEY_WORDS = {'SpookLevel', 'Ambient'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Normal',		6},
-					-- {'Extreme',		9}
-				-- }
-			-- },
-			-- {
-				-- PRECEDING_KEY_WORDS = {'SpookLevel', 'Night'},
-				-- VALUE_CHANGE_TABLE 	= {
-					-- {'Normal',		12},
-					-- {'Extreme',		18}
-				-- }
-			-- }
-		-- }
-	-- },
-	{
-	--	|Decrease storms occurrence| chance
+	{--	|Decrease storms occurrence| chance
 		MBIN_FILE_SOURCE	= {
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/DUSTWEATHER.MBIN',
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
@@ -122,8 +99,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|Decrease storms occurrence| chance
+	{--	|Decrease snow whiteout|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/SNOWWEATHER.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
@@ -149,8 +125,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			},
 		}
 	},
-	{
-	--	|harmless lush weather|
+	{--	|harmless lush weather|
 		MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/HUMIDWEATHER.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
@@ -163,8 +138,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	|No dust & fog on airless biomes|
+	{--	|No dust & fog on airless biomes|
 		MBIN_FILE_SOURCE	= {
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARCOLD.MBIN',
 			'METADATA/SIMULATION/SOLARSYSTEM/WEATHER/CLEARWEATHER.MBIN'
@@ -186,5 +160,5 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		}
-	},
+	}
 }}}}

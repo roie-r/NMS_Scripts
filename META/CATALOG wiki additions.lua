@@ -100,14 +100,15 @@ local function ProcessCatalogRecipe(the_index, norm_path)
 	local recipe_categories	= mbin_recipe.Categories
 	local new_category 		= UnionTables({recipe_categories[1]})
 
-	for _,head in ipairs({
-		{f='FIGHT.-',	t='UI_SHIP_TAB_STARSHIP'},
-		{f='DROPS.-',	t='UI_SHIP_TAB_DROPSHIP'},
-		{f='SAIL.-',	t='UI_SHIP_TAB_SAILSHIP'},
-		{f='SCIEN.-',	t='UI_SHIP_TAB_SCIENTIFIC'},
+	for _,cat in ipairs({
+		{ic='.-PARTS%.FIGHT.-',	txt='UI_SHIP_TAB_STARSHIP'},
+		{ic='.-PARTS%.DROPS.-',	txt='UI_SHIP_TAB_DROPSHIP'},
+		{ic='.-PARTS%.SAIL.-',	txt='UI_SHIP_TAB_SAILSHIP'},
+		{ic='.-PARTS%.SCIEN.-',	txt='UI_SHIP_TAB_SCIENTIFIC'},
+		{ic='.-BIGGS/BIG_.-',	txt='UI_SEASON_19_NAME_U'},
 	}) do
-		new_category.CategoryID			= head.t
-		new_category.CategoryIDUpper	= head.t
+		new_category.CategoryID			= cat.txt
+		new_category.CategoryIDUpper	= cat.txt
 		new_category.IconOn.Filename	= 'TEXTURES/UI/FRONTEND/ICONS/WIKI/WIKI.TECH.SHIP.ON.DDS'
 		new_category.IconOff.Filename	= 'TEXTURES/UI/FRONTEND/ICONS/WIKI/WIKI.TECH.SHIP.OFF.DDS'
 		new_category.Type.WikiTopicType	= 'CustomItemList'
@@ -115,12 +116,20 @@ local function ProcessCatalogRecipe(the_index, norm_path)
 		new_category[2] = nil
 
 		-- search custom parts list
-		local parts = {}
+		local parts, names = {}, {}
 		for id, dat in pairs(DICTIONARY) do
-			if id:find(head.f) and dat.source == 'ModularCustomisationProducts' and dat.category == 'CustomisationPart' then
-				parts[#parts+1] = id
+			if dat.icon:find(cat.ic) then
+				local f = false
+				for _,n in ipairs(names) do
+					if dat.name == n then f = true end
+				end
+				if not f then
+					parts[#parts+1] = id
+					names[#names+1] = dat.name
+				end
 			end
 		end
+		table.sort(parts)
 		new_category.Items = StringArray(parts, 'Items')
 		recipe_categories[#recipe_categories+1] = UnionTables({new_category})
 	end
@@ -151,7 +160,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME		= '+ META wiki catalogs',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

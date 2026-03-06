@@ -63,7 +63,9 @@ local building_density_mod = { -- BuildingClassEnum
 	AncientGuardian				= 0,
 	Settlement_Hub_Builders		= 0,
 	Settlement_FishPond			= 0,
-	Settlement_Builders_RoboArm	= 0	
+	Settlement_Builders_RoboArm	= 0,
+	CargoDrop					= 0,
+	ScrapYard					= 0
 }
 local mx_ct = {}
 for build, mod in pairs(building_density_mod) do
@@ -91,7 +93,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ META biome continental buildings',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {

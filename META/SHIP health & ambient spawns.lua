@@ -91,7 +91,7 @@ for id, ai in pairs({
 	POLICE			= {hl=1.1,		eh=1,	rw='POLICELOOT'},
 	TRADER			= {hl=1.2,		eh=1},
 	TRADER_ESCORT	= {hl=1.1,		eh=0.9},
-	['RAID_.-'] 	= {hl=1.1,		eh=1,	rw='RAIDLOOT'},
+	-- ['RAID_.-'] 	= {hl=1.1,		eh=1,	rw='RAIDLOOT'},
 	PLANET_FLYBY	= {hl=1.2,		eh=2,	rw='PIRATELOOT_EASY'},
 	['SQUADRON_.-']	= {hl=1.2,		eh=1.1},
 	WEAK			= {hl=1600,				rd=9},
@@ -138,7 +138,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ META ambient spawns & ship health',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

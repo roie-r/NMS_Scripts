@@ -8,11 +8,11 @@ local mod_desc = [[
   * hex color is in ARGB format
 ]]--------------------------------------------------
 
-local base_colors = {
+local base_palettes = {
 	Undercoat = {-- colors enum
 		num_colors	= 'All',
 		transpose	= true,
-		palette		= {
+		colors		= {
 		--	GREY1		GREY2		GREY-GREEN	CYAN-GREEN	YELLOW3		BLUE2		BLUE1		GREY-BLUE
 			'FFA2A2A5',	'FFC3C5C5',	'FF98A39F',	'FFADB6B0',	'FFA6A79A',	'FFBABEC5',	'FFA2A3AE',	'FF989DA3',
 			'FF949497',	'FFB5B7B7',	'FF8D9994',	'FF9DA7A0',	'FF98998D',	'FFACB1B8',	'FF93949F',	'FF8D9299',
@@ -26,7 +26,7 @@ local base_colors = {
 	},
 	Paint = {
 		num_colors	= 'All',
-		palette		= {
+		colors		= {
 			'FFD6D6D6',	'FFFFFFFF',	'FF555555',	'FFC7C7C7',	'FFFFFFFF',	'FF676767',	'EBEBEBFF',			0,
 					0,	'FFB3B3B3',	'FF808080',	'FF4D4D4D',	'FF262626',			0,	'FF181818',	'FF060606',
 			'FF490910',	'FF5A0B12',	'FF7F1521',	'FF991924',	'FF4D0008',	'FF63000B',	'FF7F0B11',	'FF991919',
@@ -38,8 +38,8 @@ local base_colors = {
 		}
 	},
 	SpaceCloud = {-- grayscale for sentinel ship
-		num_colors	= '_4',
-		palette		= {
+		num_colors	= '_8',
+		colors		= {
 			'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',
 			'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',	'FFEAEAEA',	'FFA0A0A0',
 			'FF5A5A5A',			0,	'FF5A5A5A',			0,	'FF5A5A5A',			0,	'FF5A5A5A',			0,
@@ -52,7 +52,7 @@ local base_colors = {
 	},
 	SpaceBottom = {-- used for the royal ships
 		num_colors	= 'All',
-		palette		= {
+		colors		= {
 			'FF4356FF',	'FFC67608',	'FFB2AB00',	'FF9ADB05',	'FFD3B916',	'FF03FFC7',	'FF848E9A',	'FF06B4FF',
 			'FF16B9FF',	'FF08AAF6',	'FF961AFF',	'FF770348',	'FFAF0549',	'FF380202',	'FFAD5151',	'FFFF795C',
 			'FFA0B483',	'FF3C8690',	'FF264669',	'FF6171FF',	'FFC444AA',	'FF0B9648',	'FF3E5D7F',	'FF771D60',
@@ -65,7 +65,7 @@ local base_colors = {
 	},
 	SpaceStationLights = {
 		num_colors	= 'All',
-		palette		= {
+		colors		= {
 			'FFCC8482', 'FFC4C4C4', 'FFA37C62', 'FFB6B6B6', 'FFC29266', 'FFDDDDDD', 'FFEFDFC9', 'FFD5D5D5',
 			'FFD6A5A2', 'FFCE9895', 'FFBE9E88', 'FF86B6BE', 'FFC0A892', 'FFB8A18C', 'FFBDAF9C', 'FF7F9AC4',
 			'FFF27FBE', 'FFD6D6D6', 'FFF3B2D1', 'FFAFAFAF', 'FF8E87CE', 'FFC2C2C2', 'FFA881F1', 'FFB3B3B3',
@@ -79,7 +79,7 @@ local base_colors = {
 	BioShip_Body = {
 		active		= false,
 		num_colors	= '_16',
-		palette		= {
+		colors		= {
 			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',			0,			0,	'FF1D120D',	'FF1D120D',
 			'FFFFFFFF',	'FFFFFFFF',	'FF737373',	'FF737373',			0,			0,	'FF1D120D',	'FF1D120D',
 			'FF630005',	'FF630005',	'FFAD421B',	'FFAD421B',	'FFC16911',	'FFC16911',	'FFDAAE03',	'FFDAAE03',
@@ -93,7 +93,7 @@ local base_colors = {
 	BioShip_Underbelly = {
 		active		= false,
 		num_colors	= '_16',
-		palette		= {
+		colors		= {
 			'FFFFFFFF',	'F5FFF5F5',	'FFFFFFFF',	'F3FFEDF2',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
 			'FFFFFFFF',	'FFFFFFFF',	'FFFFFFFF',	'FFFFFFFF',	'FFC0A58F',	'FFC0A58F',	'FFA7886E',	'FFA7886E',
 			'FFDA837D',	'FFDA837D',	'FFF6A980',	'FFF6A980',	'FFFECE8B',	'FFFECE8B',	'FFFFEC8F',	'FFFFEC8F',
@@ -113,25 +113,25 @@ local function RebuildPaletteColors(gc_data)
 		end
 		return as
 	end
-	local function Convert2Rgb(color)
-		if type(color) == 'table' and (color[1] > 1 or color[2] > 1 or color[3] > 1) then
-			return asc2prc(color)
+	local function Convert2Rgb(rgb)
+		if type(rgb) == 'table' and (rgb[1] > 1 or rgb[2] > 1 or rgb[3] > 1) then
+			return asc2prc(rgb)
 		end
-		return color
+		return rgb
 	end
 	local T = { meta = {name='Colours'} }
 	if gc_data.transpose then
 		for i=1, 64, 8 do
 			for j=0, 7 do
-				T[#T+1] = ColorData(Convert2Rgb(gc_data.palette[i+j]), 'Colours')
+				T[#T+1] = ColorData(Convert2Rgb(gc_data.colors[i+j]), 'Colours')
 			end
 		end
 	else
-		for _,col in ipairs(gc_data.palette) do
+		for _,col in ipairs(gc_data.colors) do
 			T[#T+1] = ColorData(Convert2Rgb(col), 'Colours')
 		end
 	end
-	return ToMxml(T)
+	return T
 end
 
 -- base=true for BASECOLOURPALETTE
@@ -147,7 +147,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ META player biome main',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
@@ -156,29 +156,28 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= (
 			function()
-				local T = {
-					{
-						SKW		= {},
-						PKW		= 'Colours',
-						REMOVE	= 'Section'
-					}
-				}
+				local T = {{
+					SKW		= {},
+					PKW		= 'Colours',
+					REMOVE	= 'Section'
+				}}
 				for i=1, 57, 8 do
 					-- dim sailship gray sail
 					T[#T+1] = EditSingle('SailShip_Sails', i, 0, true)
 				end
-				for palette, gc_data in pairs(base_colors) do
+				for id, gc_data in pairs(base_palettes) do
 					if gc_data.active == nil or gc_data.active == true then
-						T[1].SKW[#T[1].SKW + 1] = {palette, 'GcPaletteData'}
+						-- delete existing before replacing
+						T[1].SKW[#T[1].SKW + 1] = {id, 'GcPaletteData'}
 						T[#T+1] = {
-							SPECIAL_KEY_WORDS 	= {palette, 'GcPaletteData'},
+							SPECIAL_KEY_WORDS 	= {id, 'GcPaletteData'},
 							VALUE_CHANGE_TABLE 	= {
 								{'NumColours',	gc_data.num_colors}
 							}
 						}
 						T[#T+1] = {
-							SPECIAL_KEY_WORDS 	= {palette, 'GcPaletteData'},
-							ADD 				= RebuildPaletteColors(gc_data)
+							SPECIAL_KEY_WORDS 	= {id, 'GcPaletteData'},
+							ADD 				= ToMxml(RebuildPaletteColors(gc_data))
 						}
 					end
 				end

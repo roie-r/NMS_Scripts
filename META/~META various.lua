@@ -1,28 +1,39 @@
 ------------------------------------------------------------------
 local mod_desc = [[
-  - restore fauna to abandoned systems
-  - Add back top fins to scientific cockpit parts
-  - Add vulture parts to dropship custom groups
+  - More hazard plant variaty
+  - Restore fauna to abandoned systems
   - Raise green cave crystals probability
   - Round up substances stack to 10000
   - Replace exploration mission log menu icon
   - Restore old creature-scanned icon; Remove selected HUD icons
-  - override corrupt biome filter
+  - Override corrupt biome filter
   - Add civilian and pirate sentinel ships
   - Remove tiny cargo pod frigates
   - Faster screen text
-  - hide inventory change tab marker (bulletpoint) and slashes
+  - Hide inventory change tab marker (bulletpoint) and slashes
   -! keep whale song mission active
 ]]----------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ META various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_BATCHNAME		= '+META ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|scrap + hazard plants|
+		MBIN_FILE_SOURCE = 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BIOMEFILENAMES.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE = {
+			{
+				SPECIAL_KEY_WORDS	= {'Id', 'HAZARD_PLANTS'},
+				VALUE_CHANGE_TABLE 	= {
+					{'MaxFilesToChoose', 4}, -- 2
+				}
+			}
+		}
+	},
 	{--	|abandoned fauna|
 		MBIN_FILE_SOURCE = 'METADATA/SIMULATION/ECOSYSTEM/CREATUREGENERATIONDATA.MBIN',
 		EXML_CREATE			= false,
@@ -31,43 +42,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				PRECEDING_KEY_WORDS = 'AbandonedSystemSpecific',
 				VALUE_CHANGE_TABLE 	= {
 					{'OverrideAllDomains', false}
-				}
-			}
-		}
-	},
-	{--	|customization desc| parts
-		MBIN_FILE_SOURCE = 'METADATA/GAMESTATE/PLAYERDATA/CHARACTERCUSTOMISATIONDESCRIPTORGROUPSDATA.MBIN',
-		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE = {
-			{
-				REPLACE_TYPE 		= 'All',
-				SPECIAL_KEY_WORDS	= {'Id', 'SCIEN_COCK'},
-				PRECEDING_KEY_WORDS = 'Descriptors',
-				ADD_OPTION			= 'AddEndSection',
-				ADD					= '<Property name="Descriptors" value="_BACKACC_1" />'
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'GroupID', 'DROPS_COCKS13'},
-				PRECEDING_KEY_WORDS = 'Descriptors',
-				REPLACE_TYPE		= 'OnceInside',
-				VALUE_CHANGE_TABLE	= {
-					{'Descriptors',	'_COCKPIT_S13'}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'GroupID', 'DROPS_ENGIS13'},
-				PRECEDING_KEY_WORDS = 'Descriptors',
-				REPLACE_TYPE		= 'OnceInside',
-				VALUE_CHANGE_TABLE	= {
-					{'Descriptors',	'_ENGINES_S13'}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'GroupID', 'DROPS_WINGS13'},
-				PRECEDING_KEY_WORDS = 'Descriptors',
-				REPLACE_TYPE		= 'OnceInside',
-				VALUE_CHANGE_TABLE	= {
-					{'Descriptors',	'_WINGS_S13'}
 				}
 			}
 		}
@@ -279,6 +253,32 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
+}}}}
+
+	-- {--	|scrap + hazard plants|
+		-- MBIN_FILE_SOURCE = 'METADATA/SIMULATION/SOLARSYSTEM/BIOMES/BIOMEFILENAMES.MBIN',
+		-- EXML_CREATE			= false,
+		-- MXML_CHANGE_TABLE = {
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Name', 'PROC_SALVAGE'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Probability', 0}, -- 1
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Id', 'NEW_SCRAP'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Probability', 0}, -- 1
+				-- }
+			-- },
+			-- {
+				-- SPECIAL_KEY_WORDS	= {'Id', 'HAZARD_PLANTS'},
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'MaxFilesToChoose', 4}, -- 2
+				-- }
+			-- }
+		-- }
+	-- },
 	-- {--	|keep whale song mission active|
 		-- MBIN_FILE_SOURCE	= 'METADATA/SIMULATION/MISSIONS/SPACEPOIMISSIONTABLE.MBIN',
 		-- EXML_CREATE			= false,
@@ -302,4 +302,3 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- }
 		-- }
 	-- },
-}}}}

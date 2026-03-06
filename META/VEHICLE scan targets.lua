@@ -32,7 +32,7 @@ local events_data = {
 		org		= true,
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.OUTPOST.DDS'
 	},
-		{-- shop
+	{-- shop
 		id		= 'SHOP',
 		org		= true,
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.SMALLBUILDING.DDS'
@@ -62,12 +62,12 @@ local events_data = {
 		org		= true,
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SCIENCEMISSIONS.MSHOP.DDS'
 	},
-		{-- sentinel depot
+	{-- sentinel depot
 		id		= 'DEPOT',
 		org		= true,
 		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.DEPOTRAID.MSHOP.DDS'
 	},
-		{-- ruin
+	{-- ruin
 		id		= 'RUIN',
 		org		= true,
 		osd		= 'UI_SIGNAL_TREASURERUIN',
@@ -78,6 +78,16 @@ local events_data = {
 		id		= 'DROPPOD',
 		org		= true,
 		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.POD.DDS'
+	},
+	{-- scrapyard
+		id		= 'SCRAPYARD',
+		org		= true,
+		icon	= 'TEXTURES/UI/FRONTEND/ICONS/MISSIONS/MISSION.SCRAPYARD.MSHOP.DDS' 
+	},
+	{-- cargo drop
+		id		= 'CARGODROP',
+		org		= true,
+		icon	= 'TEXTURES/UI/HUD/ICONS/BUILDINGS/BUILDING.LANDFILL.DDS'
 	},
 	{-- underwater crashed ship
 		id		= 'UW_SHIPCRASH',
@@ -299,6 +309,18 @@ local scan_menu_table = {
 			'SHOP'
 		}
 	},
+	{--	scrapyard
+		name  = 'UI_VEHICLE_BUILDING_SCRAPYARD',
+		tech  = {'VEHICLE_SCAN'},
+		vhcl  = 'Truck',
+		scan  = { 'SCRAPYARD' }
+	},
+	{--	cargo drop
+		name  = 'UI_VEHICLE_BUILDING_CARGODROP',
+		tech  = {'VEHICLE_SCAN1'},
+		vhcl  = 'Truck',
+		scan  = { 'CARGODROP' }
+	},
 	{--	sentinel depot / store terminal
 		name  = 'VEHICLE_BUILDING_DEPOT',
 		tech  = {'VEHICLE_SCAN', 'MECH_SCAN'},
@@ -420,21 +442,25 @@ local scan_menu_table = {
 	{--	submarine: underwater building
 		name  = 'SUB_RADAR_SCAN_ABANDON',
 		tech  = {'SUB_BINOCS'},
+		vhcl  = 'Submarine',
 		scan  = { 'UW_ABANDONED' }
 	},
 	{--	submarine: underwater ruin
 		name  = 'SUB_RADAR_SCAN_RUIN',
 		tech  = {'SUB_BINOCS'},
+		vhcl  = 'Submarine',
 		scan  = { 'UW_RUIN' }
 	},
 	{--	submarine: underwater crashed ship
 		name  = 'SUB_RADAR_SCAN_CRASH',
 		tech  = {'SUB_BINOCS'},
+		vhcl  = 'Submarine',
 		scan  = { 'UW_SHIPCRASH' }
 	},
 	{--	submarine: underwater crashed freighter
 		name  = 'SUB_RADAR_SCAN_FREIGHTER',
 		tech  = {'SUB_BINOCS'},
+		vhcl  = 'Submarine',
 		scan  = { 'UW_FREIGHTCRASH' }
 	}
 }
@@ -480,26 +506,31 @@ for _,evnt in ipairs(events_data) do
 	events_data[evnt.id] = evnt
 end
 
-local sqm_ct = {meta = {name='VehicleScanTable'}}
+local scan_menu = {meta = {name='VehicleScanTable'}}
 for _,entry in ipairs(scan_menu_table) do
 	for _,tech in ipairs(entry.tech) do
-		sqm_ct[#sqm_ct+1] = {
-			meta			= {name='VehicleScanTable', value='GcVehicleScanTableEntry'},
-			Name			= entry.name,
-			RequiredTech	= tech,
-			ScanList		= StringArray(entry.scan, 'ScanList'),
-			Icon			= {
+		scan_menu[#scan_menu+1] = {
+			meta				= {name='VehicleScanTable', value='GcVehicleScanTableEntry'},
+			Name				= entry.name,
+			ScanList			= StringArray(entry.scan, 'ScanList'),
+			RequiredTech		= tech,
+			Icon				= {
 				meta	= {name='Icon', value='TkTextureResource'},
 				Filename	= events_data[entry.scan[1]].icon
-			}
-		}
+			},
+			UseRequiredVehicle	= entry.vhcl ~= nil,
+			RequiredVehicle		= entry.vhcl and {
+				meta	= {name='RequiredVehicle', value='GcVehicleType'},
+				VehicleType	= entry.vhcl
+			} or nil
+		}	
 	end
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ META vehicle scan targets',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 		MBIN_CHANGE_TABLE	= {
@@ -513,28 +544,69 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	ADD_FILES			= {
 		{
 			FILE_DESTINATION 	= 'METADATA/SIMULATION/SCANNING/VEHICLESCANTABLE.MXML',
-			FILE_CONTENT	 	= ToMxmlFile(sqm_ct, 'cGcVehicleScanTable')
+			FILE_CONTENT	 	= ToMxmlFile(scan_menu, 'cGcVehicleScanTable')
 		}
 	}
 }
 
 local __locale_text_import__ = {
+---	New text ---
 	UI_SIGNAL_OLDGUARD = {
 		EN = [[Stone Guardian Detected]],
 	},
 	UI_SIGNAL_OLDGUARD_TIP = {
-		EN = [[<SPECIAL>Ancient Effigy Signal Detected<>|N|Reach the marked location and investigate the remains. Carefully!]],
+		EN = [[<SPECIAL>Ancient Effigy Signal Detected<>|NL|Reach the marked location and investigate the remains. Carefully!]],
 	},
 	UI_SIGNAL_DIGSITE_TIP = {
-		EN = [[<SPECIAL>Active Digsite Detected<>|N|Investigate the palaeontological fossil to find more about it and barter with the locals]],
+		EN = [[<SPECIAL>Active Digsite Detected<>|NL|Investigate the palaeontological fossil to find more about it and barter with the locals]],
 	},
 	UI_SIGNAL_GRAVE = {
 		EN = [[Traveler Grave Signal Detected]],
 	},
 	UI_SIGNAL_GRAVE_TIP = {
-		EN = [[<SPECIAL>Grave Signal Detected<>|N|Reach the marked location and investigate the late owner's fate.]],
+		EN = [[<SPECIAL>Grave Signal Detected<>|NL|Reach the marked location and investigate the late owner's fate.]],
 	},
 	UI_SIGNAL_RUIN_TIP = {
-		EN = [[<TITLE>Ancient ruined site detected<>|N|Investigate the marked location to find knowledge of the past.]],
+		EN = [[<TITLE>Ancient ruined site detected<>|NL|Investigate the marked location to find knowledge of the past.]],
 	},
+---	Existing text overwritten ---
+	MECH_SCAN_FACT = {
+		EN = [[Industrial Facilities]],
+	},
+	VEHICLE_BUILDING_NPC = {
+		EN = [[Racial Monuments]]
+	},
+	SIGNAL_PLAQUE = {
+		EN = [[Racial Artifact Detected]]
+	},
+	TIP_PLAQUE = {
+		EN = [[<TITLE>Racial Artifact signature detected<>|NL|Language of local alien species available]]
+	},
+	SIGNAL_MONOLITH = {
+		EN = [[Racial Monolith Detected]]
+	},
+	TIP_MONOLITH = {
+		EN = [[<TITLE>Racial Monolith marker detected<>|NL|Unidentified presence confirmed]]
+	},	
 }--- __locale_text_import__ (do not delete)
+
+--[[>-<LocTable>-<
+=UI_SIGNAL_OLDGUARD
+EN =Stone Guardian Detected
+
+=UI_SIGNAL_OLDGUARD_TIP
+EN =<SPECIAL>Ancient Effigy Signal Detected<>|NL|Reach the marked location and investigate the remains. Carefully!
+
+=UI_SIGNAL_DIGSITE_TIP
+EN =<SPECIAL>Active Digsite Detected<>|NL|Investigate the palaeontological fossil to find more about it and barter with the locals
+
+=UI_SIGNAL_GRAVE
+EN =Traveler Grave Signal Detected
+
+=UI_SIGNAL_GRAVE_TIP
+EN =<SPECIAL>Grave Signal Detected<>|NL|Reach the marked location and investigate the late owner's fate.
+
+=UI_SIGNAL_RUIN_TIP
+EN =<TITLE>Ancient ruined site detected<>|NL|Investigate the marked location to find knowledge of the past.
+
+>-<LocTable>-<]]
