@@ -1,91 +1,104 @@
 -----------------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
------------------------------------------------------------------------------------
 local mod_desc = [[
   dropship:
+  - Dsiable subwing_a faulty animation
+  - Dimmer cockpit red light
   - Add vulture parts to world common use
   - Vulture parts blue lights
-  - docking fix
-  - decal placements tweaks
-  - move guns below the cockpit (matches interior placement)
+  - Decal placements tweaks
+  - Move guns below the cockpit (matches interior placement)
   - No foggy headlights cone on cockpits
-  - subwing_F dim lights
+  - Subwing_F dim lights
   - LOD improvement
-  - metal (3rd palette color) instead of 2nd color for wings & engine parts.
-   * Only if the metal texture is active (determined by seed).
+  - Enable metallic option on tertiary sections - switch 3rd to 2nd proc-texture
+   for specific wings & engine parts.
+   * Works if the metal texture is active (determined by seed).
    * Using this method in some parts (cockpit/body mostly) can change how proc-gen
      interperts the seed - might change COATING/PANELS/PAINTED selection.
 ]]---------------------------------------------------------------------------------
 
 local dropship = {
-	desc =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.DESCRIPTOR.MBIN',						skip=true},
-	ship =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN',								skip=true},
-	inter_a = 	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA_INTERIOR.SCENE.MBIN',					skip=true},
-	inter_b = 	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB_INTERIOR.SCENE.MBIN',					skip=true},
+	ship	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.SCENE.MBIN', skip=true},
+	ship_desc =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/DROPSHIP_PROC.DESCRIPTOR.MBIN', skip=true},
+	inter_a   =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA_INTERIOR.SCENE.MBIN', skip=true},
+	inter_b   =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB_INTERIOR.SCENE.MBIN', skip=true},
 	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITA.SCENE.MBIN'},
 	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB.SCENE.MBIN'},
 	cockpit_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITC.SCENE.MBIN'},
-	box_l =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_L.SCENE.MBIN',	add=true,	lod1=true},
-	box_r =		{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_R.SCENE.MBIN',	add=true,	lod1=true},
-	ball_l =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_L.SCENE.MBIN',	add=true,	lod1=true},
-	ball_r =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_R.SCENE.MBIN',	add=true,	lod1=true},
-	neck_1 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_1.SCENE.MBIN',					add=true},
-	neck_2 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_2.SCENE.MBIN',					add=true},
-	neck_3 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_3.SCENE.MBIN'},
-	neck_4 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_4.SCENE.MBIN',					add=true},
-	neck_5 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_5.SCENE.MBIN',					add=true},
-	neck_6 =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_6.SCENE.MBIN',					add=true},
-	land_f =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/LANDINGGEAR/LANDINGGEARFRONT.SCENE.MBIN',	skip=true},
-	hull_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/HULL/HULLA.SCENE.MBIN'},
-	engine_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESA.SCENE.MBIN',							add=true},
-	engine_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESB.SCENE.MBIN',							add=true},
-	engine_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESC.SCENE.MBIN',							add=true},
-	engine_d =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESD.SCENE.MBIN',							add=true},
-	s_wing_bl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_LEFT.SCENE.MBIN',			add=true,	lod1=true},
-	s_wing_br =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_RIGHT.SCENE.MBIN',		add=true,	lod1=true},
-	s_wing_cl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSC/SUBWINGSC_LEFT.SCENE.MBIN',			add=true},
-	s_wing_cr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSC/SUBWINGSC_RIGHT.SCENE.MBIN',		add=true},
-	s_wing_dl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSD/SUBWINGSD_LEFT.SCENE.MBIN',			add=true},
-	s_wing_dr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSD/SUBWINGSD_RIGHT.SCENE.MBIN',		add=true},
-	s_wing_el =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_LEFT.SCENE.MBIN',			add=true},
-	s_wing_er =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_RIGHT.SCENE.MBIN',		add=true},
+	box_l	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_L.SCENE.MBIN'},
+	box_r	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BALLCONTAINER/BALLCONTAINER_R.SCENE.MBIN', skip=true}, -- lod 1
+	ball_l	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_L.SCENE.MBIN'},
+	ball_r	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/CONTAINERS/BOXCONTAINER/BOXCONTAINER_R.SCENE.MBIN', skip=true}, -- lod 1
+	neck_1	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_1.SCENE.MBIN'},
+	neck_2	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_2.SCENE.MBIN'},
+	neck_3	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_3.SCENE.MBIN'},
+	neck_4	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_4.SCENE.MBIN'},
+	neck_5	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_5.SCENE.MBIN'},
+	neck_6	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_6.SCENE.MBIN'},
+	land_f	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/LANDINGGEAR/LANDINGGEARFRONT.SCENE.MBIN', skip=true}, -- lod 1
+	hull_a	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/HULL/HULLA.SCENE.MBIN'},
+	engine_a  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESA.SCENE.MBIN'},
+	engine_b  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESB.SCENE.MBIN'},
+	engine_c  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESC.SCENE.MBIN'},
+	engine_d  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESD.SCENE.MBIN'},
+	s_wing_al =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSA/SUBWINGSA_LEFT.SCENE.MBIN', skip=true}, -- lod 1
+	s_wing_ar =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSA/SUBWINGSA_RIGHT.SCENE.MBIN', skip=true}, -- lod 1
+	s_wing_bl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_LEFT.SCENE.MBIN', skip=true}, -- lod 1
+	s_wing_br =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSB/SUBWINGSB_RIGHT.SCENE.MBIN', skip=true}, -- lod 1
+	s_wing_cl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSC/SUBWINGSC_LEFT.SCENE.MBIN'},
+	s_wing_cr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSC/SUBWINGSC_RIGHT.SCENE.MBIN'},
+	s_wing_dl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSD/SUBWINGSD_LEFT.SCENE.MBIN'},
+	s_wing_dr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSD/SUBWINGSD_RIGHT.SCENE.MBIN'},
+	s_wing_el =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_LEFT.SCENE.MBIN'},
+	s_wing_er =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSE/SUBWINGSE_RIGHT.SCENE.MBIN'},
 	s_wing_fl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_LEFT.SCENE.MBIN'},
 	s_wing_fr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSF/SUBWINGSF_RIGHT.SCENE.MBIN'},
-	s_wing_gl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSG/SUBWINGSG_LEFT.SCENE.MBIN',			add=true},
-	s_wing_gr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSG/SUBWINGSG_RIGHT.SCENE.MBIN',		add=true},
+	s_wing_gl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSG/SUBWINGSG_LEFT.SCENE.MBIN'},
+	s_wing_gr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSG/SUBWINGSG_RIGHT.SCENE.MBIN'},
 	s_wing_hl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSH/SUBWINGSH_LEFT.SCENE.MBIN'},
 	s_wing_hr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSH/SUBWINGSH_RIGHT.SCENE.MBIN'},
 	s_wing_il =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSI/SUBWINGSI_LEFT.SCENE.MBIN'},
 	s_wing_ir =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSI/SUBWINGSI_RIGHT.SCENE.MBIN'},
-	thrust_al =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_LEFT.SCENE.MBIN',		add=true},
-	thrust_ar =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_RIGHT.SCENE.MBIN',		add=true},
-	thrust_bl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSB/THRUSTERSB_LEFT.SCENE.MBIN',		add=true},
-	thrust_br =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSB/THRUSTERSB_RIGHT.SCENE.MBIN',		add=true},
-	thrust_cl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSC/THRUSTERSC_LEFT.SCENE.MBIN',		add=true},
-	thrust_cr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSC/THRUSTERSC_RIGHT.SCENE.MBIN',		add=true},
+	thrust_al =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_LEFT.SCENE.MBIN'},
+	thrust_ar =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_RIGHT.SCENE.MBIN'},
+	thrust_bl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSB/THRUSTERSB_LEFT.SCENE.MBIN'},
+	thrust_br =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSB/THRUSTERSB_RIGHT.SCENE.MBIN'},
+	thrust_cl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSC/THRUSTERSC_LEFT.SCENE.MBIN'},
+	thrust_cr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSC/THRUSTERSC_RIGHT.SCENE.MBIN'},
 	thrust_dl =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSD/THRUSTERSD_L.SCENE.MBIN'},
 	thrust_dr =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSD/THRUSTERSD_R.SCENE.MBIN'},
-	wing_a =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSA/WINGSA.SCENE.MBIN'},
-	wing_b =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSB/WINGSB.SCENE.MBIN'},
-	wing_c =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSC/WINGSC.SCENE.MBIN'},
-	wing_d =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSD/WINGSD.SCENE.MBIN'},
-	wing_s =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSS13/WINGSS13.SCENE.MBIN'}
+	wing_a	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSA/WINGSA.SCENE.MBIN'},
+	wing_b	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSB/WINGSB.SCENE.MBIN'},
+	wing_c	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSC/WINGSC.SCENE.MBIN'},
+	wing_d	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSD/WINGSD.SCENE.MBIN'},
+	wing_s	  =	{src='MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSS13/WINGSS13.SCENE.MBIN'},
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__SHIP dropship.pak',
+	MOD_FILENAME 			= '+ SHIP dropship',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
-		MBIN_CHANGE_TABLE		= {
+		MBIN_CHANGE_TABLE	= {
+		{-- |dropship remove swing_a animation|
+			MBIN_FILE_SOURCE	= {
+				dropship.s_wing_al.src,
+				dropship.s_wing_ar.src
+			},
+			MXML_CHANGE_TABLE	= {
+				{
+					SPECIAL_KEY_WORDS	= {'Name', 'SubWing.-', 'Type', 'LOCATOR'},
+					REMOVE			 	= 'Section'
+				}
+			}
+		},
 		{-- |dropship interior lights|
 			MBIN_FILE_SOURCE	= {
 				dropship.inter_a.src,
 				dropship.inter_b.src,
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					REPLACE_TYPE 		= 'All',
 					SPECIAL_KEY_WORDS	= {'Name', 'INTENSITY'},
@@ -110,8 +123,8 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		},
 		{-- |dropship add vulture desc| parts
-			MBIN_FILE_SOURCE	= dropship.desc.src,
-			EXML_CHANGE_TABLE	= {
+			MBIN_FILE_SOURCE	= dropship.ship_desc.src,
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Id', '_COCKPIT_S13XNEVER'},
 					VALUE_CHANGE_TABLE	= {
@@ -137,7 +150,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship add vulture scene| parts
 			MBIN_FILE_SOURCE	= dropship.ship.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Cockpit_S13xNEVER'},
 					VALUE_CHANGE_TABLE	= {
@@ -160,7 +173,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |vulture engineD dim blue light|
 			MBIN_FILE_SOURCE	= dropship.engine_d.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS 	= {
 						{'Name', 'DecalL'},
@@ -174,7 +187,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					REPLACE_TYPE 		= 'All',
 					SPECIAL_KEY_WORDS 	= {'Name', 'INTENSITY'},
 					VALUE_CHANGE_TABLE 	= {
-						{'Value',		10500}
+						{'Value',		1.1}
 					}
 				},
 				{
@@ -202,7 +215,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |vulture wing no lights|
 			MBIN_FILE_SOURCE	= dropship.wing_s.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					REPLACE_TYPE 		= 'All',
 					SPECIAL_KEY_WORDS 	= {'Type', 'LIGHT'},
@@ -212,7 +225,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |vulture cockpit no foggy headlights| cone
 			MBIN_FILE_SOURCE	= dropship.cockpit_c.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS 	= {
 						{'Name', 'spotLight1'},
@@ -228,7 +241,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				dropship.s_wing_fl.src,
 				dropship.s_wing_fr.src,
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', 'Glow'},
 					VALUE_CHANGE_TABLE 	= {
@@ -237,19 +250,16 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					}
 				},
 				{
-					SPECIAL_KEY_WORDS 	= {
-						{'Name', 'pointLight1', 'Name', 'INTENSITY'},
-						{'Name', 'pointLight2', 'Name', 'INTENSITY'}
-					},
+					SPECIAL_KEY_WORDS 	= {'Name', 'pointLight[12]', 'Name', 'INTENSITY'},
 					VALUE_CHANGE_TABLE 	= {
-						{'Value',		26000}
+						{'Value',		6.7}
 					}
 				}
 			}
 		},
 		{-- |dropship left subwing_F decal fix|
 			MBIN_FILE_SOURCE	= dropship.s_wing_fl.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Rectangle_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -271,7 +281,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				dropship.cockpit_a.src,
 				dropship.cockpit_b.src
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					REPLACE_TYPE 		= 'All',
 					SPECIAL_KEY_WORDS	= {'Type', 'LIGHT'},
@@ -281,12 +291,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship cockpit_A guns| placement
 			MBIN_FILE_SOURCE	= dropship.cockpit_a.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
-					SPECIAL_KEY_WORDS	= {
-						{'Name',	'Gun1Ref1'},
-						{'Name',	'Gun1Ref2'},
-					},
+					SPECIAL_KEY_WORDS	= {'Name',	'Gun1Ref[12]'},
 					VALUE_CHANGE_TABLE 	= {
 						{'TransX',		1.33},
 						{'TransY',		1.47},
@@ -305,10 +312,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					}
 				},
 				{
-					SPECIAL_KEY_WORDS	= {
-						{'Name',	'_logoL_A'},
-						{'Name',	'_logoR_A'},
-					},
+					SPECIAL_KEY_WORDS	= {'Name',	'_logo[LR]_A'},
 					VALUE_CHANGE_TABLE 	= {
 						{'TransY',		1.8}
 					}
@@ -317,12 +321,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship cockpit_B guns| placement
 			MBIN_FILE_SOURCE	= dropship.cockpit_b.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
-					SPECIAL_KEY_WORDS	= {
-						{'Name',	'Gun1Ref2'},
-						{'Name',	'Gun1Ref3'}
-					},
+					SPECIAL_KEY_WORDS	= {'Name',	'Gun1Ref[23]'},
 					VALUE_CHANGE_TABLE 	= {
 						{'TransX',		1.54},
 						{'TransY',		2.42},
@@ -344,12 +345,9 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship neck_5| decals
 			MBIN_FILE_SOURCE	= dropship.neck_5.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
-					SPECIAL_KEY_WORDS	= {
-						{'Name',	'_Letter1_A1'},
-						{'Name',	'_Letter2_A2'}
-					},
+					SPECIAL_KEY_WORDS	= {'Name', '_Letter[12]_A[12]'},
 					VALUE_CHANGE_TABLE 	= {
 						{'TransZ',		3.7},
 						{'RotY',		90},
@@ -360,7 +358,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship subwing_E_L letter| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_el.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -372,7 +370,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship subwing_E_R letter| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_er.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -384,7 +382,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship subwing_G_R rect| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_gr.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Rectangle_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -400,7 +398,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship subwing_G_L rect| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_gl.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				-- {
 					-- SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					-- VALUE_CHANGE_TABLE 	= {
@@ -426,7 +424,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				dropship.s_wing_hl.src,
 				dropship.s_wing_hr.src,
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -447,7 +445,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship subwing_H| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_hr.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -469,7 +467,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				dropship.s_wing_il.src,
 				dropship.s_wing_ir.src,
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -488,7 +486,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship subwing_I| decal
 			MBIN_FILE_SOURCE	= dropship.s_wing_ir.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', '_Letter_A'},
 					VALUE_CHANGE_TABLE 	= {
@@ -499,7 +497,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship landgear front| metal
 			MBIN_FILE_SOURCE	= dropship.land_f.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', 'SUB1LandingGear_F', 'Name', 'MATERIAL'},
 					VALUE_CHANGE_TABLE 	= {
@@ -510,7 +508,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		},
 		{-- |dropship hull| decal fixs
 			MBIN_FILE_SOURCE	= dropship.hull_a.src,
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS 	= {
 						{'Name', '_SideR_A'},
@@ -519,10 +517,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					REMOVE				= 'Section'
 				},
 				{
-					SPECIAL_KEY_WORDS	= {
-						{'Name', '_SideL_A'},
-						{'Name', '_SideL_A1'}
-					},
+					SPECIAL_KEY_WORDS	= {'Name', '_SideL_A[1]?'},
 					VALUE_CHANGE_TABLE 	= {
 						{'TransX',		0},
 						{'TransY',		2.65},
@@ -548,7 +543,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ENGINES/ENGINESD/INTERIORLIGHTS_MAT.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/WINGS/WINGSS13/WINGSS13/INTERIORLIGHTS_MAT5.MATERIAL.MBIN'
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 					VALUE_CHANGE_TABLE 	= {
@@ -557,7 +552,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				}
 			}
 		},
-		{--	|METAL instead 2nd paint|
+		{--	|2nd instead 3rd - METAL| allow metallic option on tertiary sections
 			MBIN_FILE_SOURCE	= {
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/COCKPIT/COCKPITB/TERTIARY1.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/ACCESSORIES/COCKPITNECK_5/TERTIARY.MATERIAL.MBIN',
@@ -568,7 +563,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_LEFT/TERTIARY1.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/THRUSTERS/THRUSTERSA/THRUSTERSA_RIGHT/TERTIARY2.MATERIAL.MBIN',
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 					VALUE_CHANGE_TABLE 	= {
@@ -605,58 +600,47 @@ NMS_MOD_DEFINITION_CONTAINER = {
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSI/SUBWINGSI_LEFT/GLOW_MAT.MATERIAL.MBIN',
 				'MODELS/COMMON/SPACECRAFT/DROPSHIPS/SUBWINGS/SUBWINGSI/SUBWINGSI_RIGHT/GLOW_MAT.MATERIAL.MBIN',
 			},
-			EXML_CHANGE_TABLE	= {
+			MXML_CHANGE_TABLE	= {
 				{
 					SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
 					VALUE_CHANGE_TABLE 	= {
-						{'x',			0.46},
-						{'y',			0.62},
-						{'z',			0.76}
+						{'X',			0.46},
+						{'Y',			0.62},
+						{'Z',			0.76}
 					}
 				}
 			}
 		}
 	}},
 	{
-		MBIN_CHANGE_TABLE		= (
+		MBIN_CHANGE_TABLE	= (
 			function()
-				T = {}
+				local T = {}
 				for _,part in pairs(dropship) do
 					if not part.skip then
-						local inx = #T+1
-						T[inx] = {
+						T[#T+1] = {
 							MBIN_FILE_SOURCE	= part.src,
-							EXML_CHANGE_TABLE	= {
+							MXML_CHANGE_TABLE	= {
 								{
-									SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+									SPECIAL_KEY_WORDS	= {'Name', 'LODDIST1'},
 									VALUE_CHANGE_TABLE 	= {
-										{'Value',		4}
+										{'Value',		180}
+									}
+								},
+								{
+									SPECIAL_KEY_WORDS	= {'Name', 'LODDIST2'},
+									VALUE_CHANGE_TABLE 	= {
+										{'Value',		360}
+									}
+								},
+								{
+									SPECIAL_KEY_WORDS	= {'Name', 'LODDIST3'},
+									VALUE_CHANGE_TABLE 	= {
+										{'Value',		480}
 									}
 								}
 							}
 						}
-						local ect = T[inx].EXML_CHANGE_TABLE
-						if not part.lod1 then
-							ect[#ect+1] = {
-								SPECIAL_KEY_WORDS 	= {
-									{'Name', 'LODDIST1'},
-									{'Name', 'LODDIST2'},
-									{'Name', 'LODDIST3'},
-								},
-								REMOVE				= 'Section'
-							}
-						end
-						if part.add then
-							ect[#ect+1] = {
-								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-								ADD_OPTION			= 'AddAfterSection',
-								ADD 				= ToExml({
-									meta	= {'value', 'TkSceneNodeAttributeData.xml'},
-									Name	= 'ATTACHMENT',
-									Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
-								})
-							}
-						end
 					end
 				end
 				return T

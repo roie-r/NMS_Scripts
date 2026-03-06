@@ -1,8 +1,11 @@
 -----------------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 -----------------------------------------------------------------------------------
 local mod_desc = [[
+  - Replace wing_k missing LOD sections
+  - Display all wing_k decals together
+  - Add tail fin to wing_k
   - Shorter overhead tail fin _Acc_A (clips with engines B & D)
   - Narrower _SubWings_D, so it doesn't clip the ground
   - Relocate bobble in cockpit so it doesn't obstruct the map
@@ -11,70 +14,148 @@ local mod_desc = [[
   - Add trails to wingF turbines
   - Cockpit_F front fin color fix
   - Increase LOD for the various ship parts
-  - metal (3rd palette color) instead of 2nd color for wings & engine parts.
-   * Only if the metal texture is active (determined by seed).
+  - 1st instead of 2nd color palette for specific parts
+  - Enable metallic option on tertiary sections - switch 3rd to 2nd proc-texture
+   for specific wings & engine parts.
+   * Works if the metal texture is active (determined by seed).
    * Using this method in some parts (cockpit/body mostly) can change how proc-gen
      interperts the seed - might change COATING/PANELS/PAINTED selection.
-  - primary instead of 2nd color palatte for selected parts
 ]]---------------------------------------------------------------------------------
 
 local fighter = {
-	ship =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/FIGHTER_PROC.SCENE.MBIN',         					skip=true},
-	turbine =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/TURBINEAA.SCENE.MBIN',         			add=true},
-	tail =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/ACCA.SCENE.MBIN',              			add=true},
-	lamp =		{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/HEADLAMP.SCENE.MBIN',					skip=true},
-	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_A/COCKPITA.SCENE.MBIN',    			add=true},
-	cockpit_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_A/GOLDCOCKPITA.SCENE.MBIN',			add=true},
-	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_B/COCKPITB.SCENE.MBIN',    			add=true},
-	cockpit_g =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_D/COCKPITD.SCENE.MBIN',    			add=true},
-	cockpit_e =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_E/COCKPIT_E.SCENE.MBIN',   			add=true},
-	cockpit_f =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_F/COCKPTF.SCENE.MBIN',     			add=true},
-	interior =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPITCOMMON_INTERIOR.SCENE.MBIN',			skip=true},
-	nose_a =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/COCKPITANOSEA.SCENE.MBIN'},
-	nose_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/GOLDCOCKPITANOSEA.SCENE.MBIN'},
-	nose_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEB/COCKPITANOSEB.SCENE.MBIN'},
-	nose_c =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEC/COCKPITANOSEC.SCENE.MBIN'},
-	nose_d =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSED/COCKPITANOSED.SCENE.MBIN'},
-	nose_e =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEE/COCKPITANOSEE.SCENE.MBIN'},
-	engine_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_B/ENGINEB.SCENE.MBIN',    			add=true},
-	engine_c =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_C/ENGINEC.SCENE.MBIN',    			add=true},
-	engine_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_C/GOLDENGINEC.SCENE.MBIN',			add=true},
-	engine_d =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_D/ENGINED.SCENE.MBIN',    			add=true},
-	wing_a =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_A/WINGS_A.SCENE.MBIN',      			add=true},
-	wing_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_A/GOLDWINGS_A.SCENE.MBIN',  			add=true},
-	wing_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_B/WINGSB.SCENE.MBIN',       			add=true},
-	wing_d =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_D/WINGSD.SCENE.MBIN',       			add=true},
-	wing_e =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_E/WINGSE.SCENE.MBIN',       			add=true},
-	wing_f =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_F/WINGS_F.SCENE.MBIN'},
-	wing_g =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_G/WINGSG.SCENE.MBIN'},
-	wing_h =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_H/WINGSH.SCENE.MBIN'},
-	wing_i =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_I/WINGSI.SCENE.MBIN'},
-	wing_j =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_J/WINGSJ.SCENE.MBIN',              		add=true},
-	s_wing_al =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_A/SUBWINGSALEFT.SCENE.MBIN', 		add=true},
-	s_wing_ar =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_A/SUBWINGSARIGHT.SCENE.MBIN',		add=true},
-	s_wing_bl =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_B/SUBWINGSBLEFT.SCENE.MBIN', 		add=true},
-	s_wing_br =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_B/SUBWINGSBRIGHT.SCENE.MBIN',		add=true},
-	s_wing_cl =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_C/SUBWINGSCLEFT.SCENE.MBIN', 		add=true},
-	s_wing_cr =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_C/SUBWINGSCRIGHT.SCENE.MBIN',		add=true},
-	s_wing_dl =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_D/SUBWINGSDLEFT.SCENE.MBIN', 		add=true},
-	s_wing_dr =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_D/SUBWINGSDRIGHT.SCENE.MBIN',		add=true}
+	ship	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/FIGHTER_PROC.SCENE.MBIN', skip=true},
+	ship_desc =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/FIGHTER_PROC.DESCRIPTOR.MBIN', skip=true},
+	turbine   =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/TURBINEAA.SCENE.MBIN'},
+	tail	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/ACCA.SCENE.MBIN'},
+	lamp	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/HEADLAMP.SCENE.MBIN', skip=true},
+	cockpit_a =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_A/COCKPITA.SCENE.MBIN'},
+	cockpit_x =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_A/GOLDCOCKPITA.SCENE.MBIN'},
+	cockpit_b =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_B/COCKPITB.SCENE.MBIN'},
+	cockpit_g =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_D/COCKPITD.SCENE.MBIN'},
+	cockpit_e =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_E/COCKPIT_E.SCENE.MBIN'},
+	cockpit_f =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_F/COCKPTF.SCENE.MBIN'},
+	interior  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPITCOMMON_INTERIOR.SCENE.MBIN', skip=true},
+	nose_a	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/COCKPITANOSEA.SCENE.MBIN'},
+	nose_x	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/GOLDCOCKPITANOSEA.SCENE.MBIN'},
+	nose_b	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEB/COCKPITANOSEB.SCENE.MBIN'},
+	nose_c	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEC/COCKPITANOSEC.SCENE.MBIN'},
+	nose_d	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSED/COCKPITANOSED.SCENE.MBIN'},
+	nose_e	  = {src='MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEE/COCKPITANOSEE.SCENE.MBIN'},
+	engine_b  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_B/ENGINEB.SCENE.MBIN'},
+	engine_c  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_C/ENGINEC.SCENE.MBIN'},
+	engine_x  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_C/GOLDENGINEC.SCENE.MBIN'},
+	engine_d  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_D/ENGINED.SCENE.MBIN'},
+	wing_a	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_A/WINGS_A.SCENE.MBIN'},
+	wing_x	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_A/GOLDWINGS_A.SCENE.MBIN'},
+	wing_b	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_B/WINGSB.SCENE.MBIN'},
+	wing_d	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_D/WINGSD.SCENE.MBIN'},
+	wing_e	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_E/WINGSE.SCENE.MBIN'},
+	wing_f	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_F/WINGS_F.SCENE.MBIN'},
+	wing_g	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_G/WINGSG.SCENE.MBIN'},
+	wing_h	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_H/WINGSH.SCENE.MBIN'},
+	wing_i	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_I/WINGSI.SCENE.MBIN'},
+	wing_j	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_J/WINGSJ.SCENE.MBIN'},
+	wing_k	  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_K/WINGSK.SCENE.MBIN'},
+	wing_k_d  =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_K/WINGSK.DESCRIPTOR.MBIN', skip=true},
+	s_wing_al =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_A/SUBWINGSALEFT.SCENE.MBIN'},
+	s_wing_ar =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_A/SUBWINGSARIGHT.SCENE.MBIN'},
+	s_wing_bl =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_B/SUBWINGSBLEFT.SCENE.MBIN'},
+	s_wing_br =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_B/SUBWINGSBRIGHT.SCENE.MBIN'},
+	s_wing_cl =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_C/SUBWINGSCLEFT.SCENE.MBIN'},
+	s_wing_cr =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_C/SUBWINGSCRIGHT.SCENE.MBIN'},
+	s_wing_dl =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_D/SUBWINGSDLEFT.SCENE.MBIN'},
+	s_wing_dr =	{src='MODELS/COMMON/SPACECRAFT/FIGHTERS/SUBWINGS/SUBWINGS_D/SUBWINGSDRIGHT.SCENE.MBIN'}
 }
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__SHIP fighter.pak',
-	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
-	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
-	MODIFICATIONS 			= {{
-	MBIN_CHANGE_TABLE		= {
+	MOD_FILENAME 		= '+ SHIP fighter',
+	MOD_AUTHOR			= 'lMonk',
+	NMS_VERSION			= '6.24',
+	MOD_DESCRIPTION		= mod_desc,
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
+	MODIFICATIONS 		= {{
+	MBIN_CHANGE_TABLE	= {
+	{-- |wingsK missing LOD fix|
+		MBIN_FILE_SOURCE	= fighter.wing_k.src,
+		MXML_CHANGE_TABLE	= (
+			function()
+				local T = {}
+				for _,node_att in ipairs({'WingsK_ALOD', 'SUB1WingsK_ALOD', 'SUB3WingsK_ALOD'}) do
+					T[#T+1] = {
+						SPECIAL_KEY_WORDS	= {'Name', node_att..0},
+						PRECEDING_KEY_WORDS = 'Attributes',
+						REMOVE				= 'Section'
+					}
+					T[#T+1] = {
+						SPECIAL_KEY_WORDS	= {'Name', node_att..1},
+						PRECEDING_KEY_WORDS = 'Attributes',
+						SEC_SAVE_TO			= 'scene_node_attributes'
+					}
+					T[#T+1] = {
+						SPECIAL_KEY_WORDS	= {'Name', node_att..0},
+						SEC_ADD_NAMED		= 'scene_node_attributes'
+					}
+					T[#T+1] = {
+						SPECIAL_KEY_WORDS	= {'Name', node_att..0, 'Name', 'LODLEVEL'},
+						VALUE_CHANGE_TABLE 	= { {'Value', 0} }
+					}
+					T[#T+1] = {
+						SPECIAL_KEY_WORDS	= {'Name', node_att..0},
+						VALUE_CHANGE_TABLE 	= { {'NameHash', GNH(node_att..1)} }
+					}
+				end
+				return T
+			end
+		)()
+	},
+	{--	display all wing_k decals together
+		MBIN_FILE_SOURCE	= fighter.wing_k_d.src,
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS 	= {
+					{'Id', '_RECTANGLERIGHT_ALOD1'},
+					{'Id', '_LOGORIGHT_ALOD1'},
+					{'Id', '_LETTERRIGHT_ALOD1'}
+				},
+				REMOVE = 'Section'
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', '_WINGSK_A'},
+				PRECEDING_KEY_WORDS = {'TkModelDescriptorList', 'List'},
+				ADD				 	= (
+					function()
+						local T = {}
+						for id, name in pairs({
+							_RECTANGLELEFT	= '_RectangleRight_ALOD1',
+							_LOGOLEFT_		= '_logoRight_ALOD1',
+							_LETTERLEFT_	= '_LetterRight_ALOD1',
+						}) do
+							T[#T+1] = {
+								meta	= {name='List', value='TkResourceDescriptorList'},
+								TypeId	= id,
+								Desc	= {
+									meta	= {name='Descriptors'},
+									Rsc		= {
+										meta = {name='Descriptors', value='TkResourceDescriptorData'},
+										Id	 = name:upper(),
+										Name = name
+									}
+								}
+							}
+						end
+						return ToMxml(T)
+					end
+				)()
+			}
+		}
+	},
 	{--	Slightly wider _SubWings_A
 		MBIN_FILE_SOURCE	= {
 			fighter.wing_b.src,
 			fighter.wing_e.src,
 			fighter.wing_h.src
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_SubWings_A'},
 				VALUE_CHANGE_TABLE 	= {
@@ -86,7 +167,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	adds trail for Wing_F turbines
 		MBIN_FILE_SOURCE	= fighter.wing_f.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Turbine'},
 				ADD_OPTION			= 'AddAfterSection',
@@ -102,7 +183,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			fighter.wing_f.src,
 			fighter.wing_h.src
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_SubWings_D'},
 				VALUE_CHANGE_TABLE 	= {
@@ -115,7 +196,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	Narower _SubWings_D
 		MBIN_FILE_SOURCE	= fighter.wing_b.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_SubWings_D'},
 				VALUE_CHANGE_TABLE 	= {
@@ -129,7 +210,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	Narower _SubWings_D
 		MBIN_FILE_SOURCE	= fighter.wing_e.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', '_SubWings_D'},
 				VALUE_CHANGE_TABLE 	= {
@@ -143,15 +224,10 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|cockpit_A decals fix|
 		MBIN_FILE_SOURCE	= fighter.cockpit_a.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				MATH_OPERATION 		= '+',
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', '_Number3_A3'},
-					{'Name', '_Number1_A2'},
-					{'Name', '_Number3_A4'},
-					{'Name', '_Number1_A3'},
-				},
+				SPECIAL_KEY_WORDS 	= {'Name', '_Number%d?_A%d?'},
 				VALUE_CHANGE_TABLE 	= {
 					{'TransZ',		-0.02}
 				}
@@ -160,7 +236,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|cockpit_B decals fix|
 		MBIN_FILE_SOURCE	= fighter.cockpit_b.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'Rectangle_A2'}, -- left side
 				VALUE_CHANGE_TABLE 	= {
@@ -200,7 +276,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	nose C front decal fix
 		MBIN_FILE_SOURCE	= fighter.nose_c.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', '_logoR_A'},
 				VALUE_CHANGE_TABLE 	= {
@@ -220,7 +296,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|cockpit_F fixs|
 		MBIN_FILE_SOURCE	= fighter.cockpit_f.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'logo_A1'},
@@ -269,7 +345,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			fighter.cockpit_e.src,
 			fighter.cockpit_f.src
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Type', 'LIGHT'},
@@ -279,7 +355,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	Shrink and |move bobble| locator in fighter cockpit so it doesn't obstruct the map
 		MBIN_FILE_SOURCE	= fighter.interior.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'BobbleHeadLocator'},
 				VALUE_CHANGE_TABLE 	= {
@@ -295,7 +371,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|Reduce ship lights|, remove volumetric cone
 		MBIN_FILE_SOURCE	= fighter.lamp.src,
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'StandingLight1', 'Name', 'FOV'},
 				VALUE_CHANGE_TABLE 	= {
@@ -305,7 +381,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'StandingLight1', 'Name', 'INTENSITY'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Value',		28000}
+					{'Value',		7.8}
 				}
 			},
 			{
@@ -316,41 +392,86 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|fighter ship fixes|
 		MBIN_FILE_SOURCE	= fighter.ship.src,
-		EXML_CHANGE_TABLE	= (
-			function()
-				local T = {
-					{
-						SKW					= {},
-						VALUE_CHANGE_TABLE 	= {
-							{'ScaleX',		0.88},
-							{'ScaleY',		0.68},
-							{'ScaleZ',		1.08}
-						}
-					},
-					{--	|fighter long wingB short NoseC|
-						SPECIAL_KEY_WORDS	= {'Name', '_ANose_C'},
-						VALUE_CHANGE_TABLE 	= {
-							{'ScaleZ',		0.94},	-- 1
-							{'TransZ',		0.12}	-- 0
-						}
-					},
-					{
-						SPECIAL_KEY_WORDS	= {'Name', '_Wings_B'},
-						VALUE_CHANGE_TABLE 	= {
-							{'ScaleZ',		1.1},	-- 1.09
-							{'TransZ',		0.2}	-- 0.18
-						}
-					}
+		MXML_CHANGE_TABLE	= {
+			{--	shorter tail fin
+				SKW					= {'Name', '_Acc_A.-'},
+				VALUE_CHANGE_TABLE 	= {
+					{'ScaleX',		0.88},
+					{'ScaleY',		0.68},
+					{'ScaleZ',		1.08}
 				}
-				for _,x in ipairs({'', 1, 2, 3, 4, 5, 6, 10}) do
-					T[1].SKW[#T[1].SKW+1] = {'Name', '_Acc_A'..x}
-				end
-				return T
-			end
-		)()
+			},
+			{--	fighter long wingB short NoseC
+				SPECIAL_KEY_WORDS	= {'Name', '_ANose_C'},
+				VALUE_CHANGE_TABLE 	= {
+					{'ScaleZ',		0.94},	-- 1
+					{'TransZ',		0.12}	-- 0
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', '_Wings_B'},
+				VALUE_CHANGE_TABLE 	= {
+					{'ScaleZ',		1.1},	-- 1.09
+					{'TransZ',		0.2}	-- 0.18
+				}
+			},
+			{--	add tail fin to wing K
+				SPECIAL_KEY_WORDS	= {'Name', '_Wings_K'},
+				PRECEDING_KEY_WORDS	= 'Children',
+				CREATE_HOS			= true,
+				ADD 				= AddSceneNodes({
+					name	= '_Acc_A7',
+					ntype	= 'REFERENCE',
+					form	= {ty=2.45, tz=-0.01, sx=0.88, sy=0.68, sz=1.08},
+					attr	= {SCENEGRAPH = fighter.tail.src}
+				})
+			}
+		}
 	},
-	{--	|METAL instead 2nd paint|
+	{--	|fighter descriptor wingK tail| addition
+		MBIN_FILE_SOURCE	= fighter.ship_desc.src,
+		MXML_CHANGE_TABLE	= {
+			{--	add tail fin to wing K
+				SPECIAL_KEY_WORDS	= {'TypeId', '_WINGS_', 'Children', 'TkModelDescriptorList'},
+				SEC_SAVE_TO			= 'model_desc_list'
+			},
+			{
+				SEC_EDIT 			= 'model_desc_list',
+				SPECIAL_KEY_WORDS	= {'Id', '_ACC_A'},
+				PRECEDING_KEY_WORDS	= 'ReferencePaths',
+				REPLACE_TYPE 		= 'OnceInside',
+				VALUE_CHANGE_TABLE 	= {
+					{'ReferencePaths', fighter.tail.src}
+				}
+			},
+			{
+				SEC_EDIT 			= 'model_desc_list',
+				SPECIAL_KEY_WORDS	= {'Id', '_ACC_A'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Id',			'_ACC_A7'},
+					{'Name',		'_Acc_A7'},
+				}
+			},
+			{
+				SEC_EDIT 			= 'model_desc_list',
+				SPECIAL_KEY_WORDS	= {'Id', '_ACC_NONE'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Id',			'_ACC_NONE7'},
+					{'Name',		'_Acc_None7'},
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Id', '_WINGS_K'},
+				PRECEDING_KEY_WORDS	= 'Children',
+				CREATE_HOS			= true,
+				SEC_ADD_NAMED		= 'model_desc_list'
+			}
+
+		}
+	},
+	{--	|2nd instead 3rd - METAL| allow metallic option on tertiary sections
 		MBIN_FILE_SOURCE	= {
+			'MODELS/COMMON/SPACECRAFT/FIGHTERS/COCKPIT/COCKPIT_E/COCKPIT_E/TERTIARY.MATERIAL.MBIN', -- this again
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/ACCESSORIES/ACCA/SUBWINGSC_TERTIARY.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_B/ENGINEB/TERTIARY1.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/ENGINE/ENGINE_C/ENGINEC/TERTIARY.MATERIAL.MBIN',
@@ -362,7 +483,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_E/WINGSE/TERTIARY.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_H/WINGSH/SUBWINGSCRIGHT_TERTIARY1.MATERIAL.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 				VALUE_CHANGE_TABLE 	= {
@@ -384,7 +505,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_K/WINGSK/SUBWINGSCRIGHT_TERTIARY2.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_K/WINGSK/TERTIARY1.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gDiffuseMap'},
 				VALUE_CHANGE_TABLE 	= {
@@ -412,13 +533,13 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEA/COCKPITANOSEA/GLOW_MAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/WINGS/WINGS_H/WINGSH/LIGHTS1.MATERIAL.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			0.46},
-					{'y',			0.62},
-					{'z',			0.76}
+					{'X',			0.46},
+					{'Y',			0.62},
+					{'Z',			0.76}
 				}
 			}
 		}
@@ -431,7 +552,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEC/COCKPITANOSEC/HQWHITELIGHT_MAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/FIGHTERS/NOSE/COCKPITA_NOSEE/COCKPITANOSEE/HQWHITELIGHT_MAT1.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Samplers',
 				REMOVE				= 'Section'
@@ -448,45 +569,34 @@ NMS_MOD_DEFINITION_CONTAINER = {
 		}
 	},
 }},{
-	MBIN_CHANGE_TABLE		= (
+	MBIN_CHANGE_TABLE	= (
 		function()
-			T = {}
+			local T = {}
 			for _,part in pairs(fighter) do
 				if not part.skip then
-					local inx = #T+1
-					T[inx] = {
+					T[#T+1] = {
 						MBIN_FILE_SOURCE	= part.src,
-						EXML_CHANGE_TABLE	= {
+						MXML_CHANGE_TABLE	= {
 							{
-								SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
+								SPECIAL_KEY_WORDS	= {'Name', 'LODDIST1'},
 								VALUE_CHANGE_TABLE 	= {
-									{'Value',		4}
+									{'Value',		180}
+								}
+							},
+							{
+								SPECIAL_KEY_WORDS	= {'Name', 'LODDIST2'},
+								VALUE_CHANGE_TABLE 	= {
+									{'Value',		360}
+								}
+							},
+							{
+								SPECIAL_KEY_WORDS	= {'Name', 'LODDIST3'},
+								VALUE_CHANGE_TABLE 	= {
+									{'Value',		480}
 								}
 							}
 						}
 					}
-					ect = T[inx].EXML_CHANGE_TABLE
-					if not part.lod1 then
-						ect[#ect+1] = {
-							SPECIAL_KEY_WORDS 	= {
-								{'Name', 'LODDIST1'},
-								{'Name', 'LODDIST2'},
-								{'Name', 'LODDIST3'}
-							},
-							REMOVE = 'Section'
-						}
-					end
-					if part.add then
-						ect[#ect+1] = {
-							SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-							ADD_OPTION			= 'AddAfterSection',
-							ADD 				= ToExml({
-								meta	= {'value', 'TkSceneNodeAttributeData.xml'},
-								Name	= 'ATTACHMENT',
-								Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
-							})
-						}
-					end
 				end
 			end
 			return T

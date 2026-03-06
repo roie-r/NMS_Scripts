@@ -1,42 +1,77 @@
 -------------------------------------------------------------------------
 local mod_desc = [[
-  - Leaves tex overlay for all HQFORNDs
   - removes orange and purple overlays - painted sentinels only
   - customization robot head lights alt3 instead of alt2 color
 ]]-----------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '__TEXTURE various.pak',
+	MOD_FILENAME 		= '+ TEXTURE various',
 	MOD_AUTHOR			= 'lMonk',
-	MOD_BATCHNAME		= '_TEXTURES ~@~collection.pak',
-	NMS_VERSION			= '5.29',
+	MOD_BATCHNAME		= '+TEXTURES ~@~collection',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
+	{--	|old station fix1|
+		MBIN_FILE_SOURCE	= {
+			'TEXTURES/SPACE/SPACESTATION/SHARED/PRIMARY.TEXTURE.MBIN',
+			'TEXTURES/SPACE/SPACESTATION/SHARED/SECONDARY.TEXTURE.MBIN',
+		},
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'DAMAGE', 'Name', 'PAINTED'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Palette',		'Paint'},
+					{'ColourAlt',	'Alternative2'}
+				}
+			}
+		}
+	},
+	{--	|old station fix2|
+		MBIN_FILE_SOURCE	= 'TEXTURES/SPACE/SPACESTATION/SHARED/TERTIARY.TEXTURE.MBIN',
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'DAMAGE', 'Name', 'PAINTED'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Palette',		'Paint'},
+					{'ColourAlt',	'Alternative1'}
+				}
+			}
+		}
+	},
 	{--	|painted sentinels| only (removes orange and purple)
 		MBIN_FILE_SOURCE	= 'TEXTURES/COMMON/ROBOTS/SENTINELPROC.TEXTURE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'OVERLAY', 'Name', '1'},
+				WISUBSEC_OPTION		= 'All',
+				WHERE_IN_SUBSECTION	= {
+					{'Palette', 'Paint'}
+				},
 				VALUE_CHANGE_TABLE 	= {
-					{'Diffuse',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.2.DDS'},
-					{'Normal',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.2.NORMAL.DDS'},
-					{'Mask',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.2.MASKS.DDS'}
+					{'Palette',	'SpaceCloud'},
 				}
 			},
-			{
+			{-- replace non-police orange
+				SPECIAL_KEY_WORDS	= {'Name', 'OVERLAY', 'Name', '1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TextureName',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.2.DDS'},
+				}
+			},
+			{-- replace purple overlay with proc-dark
 				SPECIAL_KEY_WORDS	= {'Name', 'OVERLAY', 'Name', '4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'Diffuse',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.3.DDS'},
-					{'Normal',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.3.NORMAL.DDS'},
-					{'Mask',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.3.MASKS.DDS'}
+					{'TextureName',	'TEXTURES/COMMON/ROBOTS/SENTINELPROC.OVERLAY.3.DDS'},
 				}
 			}
 		}
 	},
 	{--	|construct head lights3| alt3 instead of alt2 color
 		MBIN_FILE_SOURCE	= 'TEXTURES/COMMON/ROBOTS/BUILDERLIGHTS.TEXTURE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				VALUE_CHANGE_TABLE 	= {
@@ -45,44 +80,4 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	}
-	-- {--	overlay for all HQFORNDs
-		-- MBIN_FILE_SOURCE	= {'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/FRONDS/FROND.TEXTURE.MBIN'},
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'Name', 'OVERLAY'},
-				-- SEC_COPY			= 'proc_texture_layer'
-			-- },
-			-- {
-				-- SEC_EDIT			= 'proc_texture_layer',
-				-- INTEGER_TO_FLOAT	= 'FORCE',
-				-- VALUE_CHANGE_TABLE	= {
-					-- {'Probability',	0.6}
-				-- }
-			-- }
-		-- }
-	-- },
-	-- {--	overlay for all HQFORNDs
-		-- MBIN_FILE_SOURCE 	= {
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND1.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND3.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND4.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND5.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND6.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND7.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND8.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND9.TEXTURE.MBIN',
-			-- 'TEXTURES/PLANETS/BIOMES/COMMON/LEAVES/HQLEAVES/HQFROND10.TEXTURE.MBIN',
-		-- },
-		-- EXML_CHANGE_TABLE	= {
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'TkProceduralTextureLayer.xml',
-				-- SECTION_ACTIVE		= 'LAST',
-				-- REMOVE				= 'Section'
-			-- },
-			-- {
-				-- PRECEDING_KEY_WORDS	= 'Layers',
-				-- SEC_ADD_NAMED		= 'proc_texture_layer'
-			-- }
-		-- }
-	-- },
 }}}}

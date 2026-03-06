@@ -13,17 +13,56 @@ local mod_desc = [[
 ]]------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__SHIP various.pak',
+	MOD_FILENAME 			= '+ SHIP various',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
-	MOD_BATCHNAME			= '_SHIPS ~@~collection.pak',
+	NMS_VERSION				= '6.24',
+	MOD_BATCHNAME			= '+SHIPS ~@~collection',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
+	{--	|freighter normal desc| remove unwanted proc-parts
+	--	Each 2nd suffix replaces its preceding one
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/FREIGHTER_PROC.DESCRIPTOR.MBIN',
+		MXML_CHANGE_TABLE	= (
+			function()
+				T = {}
+				for id, sfx in pairs({
+					_SideAcc		= {-- cargo gantry side panels
+						'1_None1', '1_A1',
+						'2_None1', '2_A1',
+						'3_None1', '3_A1',
+						'4_None1', '4_A1'
+					}
+				}) do
+					for i=1, #sfx, 2 do
+						T[#T+1] = {
+							SPECIAL_KEY_WORDS	= {'Id', (id..sfx[i]):upper()},
+							VALUE_CHANGE_TABLE 	= {
+								{'Id',			(id..sfx[i+1]):upper()},
+								{'Name',		id..sfx[i+1]}
+							}
+						}
+					end
+				end
+				return T
+			end
+		)()
+	},
+	{--	|freighter gantry| light fix
+		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/GANTRY/GANTRYADOUBLEJOINT.SCENE.MBIN',
+		MXML_CHANGE_TABLE	= {
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'Light_Blue'},
+				VALUE_CHANGE_TABLE 	= {
+					{'TransZ',		3.5},
+					{'TransY',		54.2}
+				}
+			}
+		}
+	},
 	{--	|capital top fins|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/INDUSTRIAL/CAPITALFREIGHTER_PROC.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'S1_Fin1'},
 				VALUE_CHANGE_TABLE 	= {
@@ -64,7 +103,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|infraknife blue shot|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/PROJECTILES/SHIP_MINIGUN/SHIPMINIGUNPROJECTILEGRADIENT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'Map', 'TEXTURES/EFFECTS/TRAILS/HOT/INFRABLUE.DDS'}
@@ -72,16 +111,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	replace purple with |dark blue trail|
+	{--	|dark blue trail| replace purple stealth trail
 		MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/HOTDARKTRAIL.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
-					{'Map', 'TEXTURES/EFFECTS/TRAILS/HOT/BLUEDARKER1.DDS'}
+					{'Map', 'TEXTURES/EFFECTS/TRAILS/HOT/BLUEDARKER1.DDS'},
+					-- {'MaterialClass', 'Additive'},
 				}
 			}
 		}
 	},
+	-- {--	|plasma dark trail|
+		-- MBIN_FILE_SOURCE	= 'MODELS/EFFECTS/TRAILS/SPACECRAFT/HOT/PLASMATRAIL.MATERIAL.MBIN',
+		-- MXML_CHANGE_TABLE	= {
+			-- {
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'Map', 'TEXTURES/EFFECTS/TRAILS/HOT/TIMELOOP_DARK.DDS'}
+				-- }
+			-- }
+		-- }
+	-- },
 	{--	|swirl instead of gold| trail
 		MBIN_FILE_SOURCE	= {
 			{
@@ -96,7 +146,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/CANOPY/CANOPYA.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SHUTTLE/CANOPY/CANOPYB.SCENE.MBIN',
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				REPLACE_TYPE 		= 'All',
 				SPECIAL_KEY_WORDS	= {'Type', 'LIGHT'},
@@ -121,52 +171,18 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/INTERIOR/CANOPYA_INTERIOR/EJECTVFX3MAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SHARED/COCKPITINTERIORS/EJECTHANDLEL/EJECTVFX3MAT.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Samplers',
 				REMOVE				= 'Section'
 			}
 		}
 	},
-	{--	|clean ship system map|
-		MBIN_FILE_SOURCE	= 'MODELS/HUD/SPACEMAPHORIZON/HORZ_MAT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
-			{
-				VALUE_CHANGE_TABLE 	= {
-					{'CastShadow',	false}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS	= {'MaterialFlag', '_F48_WARPED_DIFFUSE_LIGHTING'},
-				VALUE_CHANGE_TABLE 	= {
-					{'MaterialFlag', '_F10_NORECEIVESHADOW'}
-				}
-			},
-			{
-				SPECIAL_KEY_WORDS 	= {
-					{'MaterialFlag', '_F49_DISABLE_AMBIENT'},
-					{'MaterialFlag', '_F50_DISABLE_POSTPROCESS'},
-					{'MaterialFlag', '_F60_ACUTE_ANGLE_FADE'},
-					{'MaterialFlag', '_F29_VBCOLOUR'},
-				},
-				REMOVE 				= 'Section'
-			},
-			{
-				PRECEDING_KEY_WORDS = {'Uniforms'},
-				ADD					= [[
-					<Property value="TkMaterialUniform.xml">
-						<Property name="Name" value="gCustomParams01Vec4"/>
-						<Property name="Values" value="Vector4f.xml">
-							<Property name="x" value="1"/>
-						</Property>
-					</Property>
-				]]
-			}
-		}
-	},
+}}}}
+
 	-- {--	|bioship interior| remove canopy top; canopy membrane
 		-- MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/S-CLASS/BIOPARTS/INTERIOR/CANOPYA_INTERIOR.SCENE.MBIN',
-		-- EXML_CHANGE_TABLE	= {
+		-- MXML_CHANGE_TABLE	= {
 			-- {
 				-- SPECIAL_KEY_WORDS 	= {
 					-- {'Name', 'LeftCeilingFront'},
@@ -178,4 +194,3 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			-- }
 		-- }
 	-- },
-}}}}

@@ -6,7 +6,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 			= '+ UI fade notifications',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '6.06',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -27,12 +27,19 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Is Hidden',	true}
 				}
 			},
+			-- {
+				-- SPECIAL_KEY_WORDS 	= {'ID', '.-LINE'},
+				-- VALUE_MATCH			= 1,
+				-- SECTION_UP			= 1,
+				-- VALUE_CHANGE_TABLE 	= {
+					-- {'A',			0.2}
+				-- }
+			-- },
 			{
 				SPECIAL_KEY_WORDS 	= {'ID', '.-LINE'},
-				VALUE_MATCH			= 1,
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE 	= {
-					{'A',			0.2}
+					{'Is Hidden',	true}
 				}
 			},
 			{

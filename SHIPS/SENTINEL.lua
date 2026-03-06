@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------
-dofile('LIB/_lua_2_exml.lua')
+dofile('LIB/_lua_2_mxml.lua')
 dofile('LIB/scene_tools.lua')
 -------------------------------------------------------------------------
 local mod_desc = [[
@@ -14,11 +14,10 @@ local mod_desc = [[
 ]]-----------------------------------------------------------------------
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 			= '__SHIP sentinel.pak',
+	MOD_FILENAME 			= '+ SHIP sentinel',
 	MOD_AUTHOR				= 'lMonk',
-	NMS_VERSION				= '5.29',
+	NMS_VERSION				= '6.24',
 	MOD_DESCRIPTION			= mod_desc,
-	GLOBAL_INTEGER_TO_FLOAT = 'Force',
 	MODIFICATIONS 			= {{
 	MBIN_CHANGE_TABLE		= {
 	{--	|sentinel increase LOD|
@@ -26,29 +25,30 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB.SCENE.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
-				SPECIAL_KEY_WORDS 	= {
-					{'Name', 'LODDIST1'},
-					{'Name', 'LODDIST2'},
-					{'Name', 'LODDIST3'}
-				},
-				REMOVE = 'Section'
+				SPECIAL_KEY_WORDS	= {'Name', 'LODDIST1'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		180}
+				}
 			},
 			{
-				SPECIAL_KEY_WORDS	= {'Name', 'NUMLODS'},
-				ADD_OPTION			= 'AddAfterSection',
-				ADD 				= ToExml({
-					meta	= {'value', 'TkSceneNodeAttributeData.xml'},
-					Name	= 'ATTACHMENT',
-					Value	= 'MODELS/COMMON/SPACECRAFT/SHARED/ENTITIES/SHAREDLODDISTANCES.ENTITY.MBIN'
-				})
+				SPECIAL_KEY_WORDS	= {'Name', 'LODDIST2'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		360}
+				}
+			},
+			{
+				SPECIAL_KEY_WORDS	= {'Name', 'LODDIST3'},
+				VALUE_CHANGE_TABLE 	= {
+					{'Value',		480}
+				}
 			}
 		}
 	},
 	{
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'LandingLight'},
 				REMOVE				= 'Section'
@@ -57,7 +57,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|sentinel trail fix|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENGINEFLAMESSMALL.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS 	= {'Name', 'Trail'},
 				VALUE_CHANGE_TABLE 	= {
@@ -73,13 +73,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENGINEFLAMEL/ENTITIES/DATA.ENTITY.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB/ENTITIES/ROOTJNT.ENTITY.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		EXML_CREATE			= false,
+		MXML_CHANGE_TABLE	= {
 			{
 				-- PRECEDING_FIRST		= true,
-				-- PRECEDING_KEY_WORDS = 'TkAnimationData.xml',
+				-- PRECEDING_KEY_WORDS = 'TkAnimationData',
 				SPECIAL_KEY_WORDS	= {
-					{'Template', 'TkAnimationComponentData.xml', 'Anim', 'LANDING'},
-					{'Template', 'TkAnimationComponentData.xml', 'Anim', 'TAKEOFF'}
+					{'Components', 'TkAnimationComponentData', 'Anim', 'LANDING'},
+					{'Components', 'TkAnimationComponentData', 'Anim', 'TAKEOFF'}
 				},
 				VALUE_CHANGE_TABLE 	= {
 					{'Speed',		0.624}
@@ -89,7 +90,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|sentinel cockpit|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELCOCKPIT.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 			--	move the bobble in the sentinel cockpit to a less intrusive location
 				SPECIAL_KEY_WORDS	= {'Name', 'BobbleHeadLocator'},
@@ -106,16 +107,12 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			{
 				SPECIAL_KEY_WORDS 	= {
 					{'Name', 'lightrim'},			-- high sidewall scroll glow
-					{'Name', 'WireLightsL'},		-- sidewires scrolling glow
-					{'Name', 'WireLightsR'},
+					{'Name', 'WireLights[LR]'},		-- sidewires scrolling glow
 					{'Name', 'polySurface8398'},	-- canopy lights
 					{'Name', 'Lightbase'},		 	-- map base center
-					{'Name', 'MonitorL1'},			-- monitors glow
-					{'Name', 'MonitorL2'},
-					{'Name', 'SentinelCableL'},		-- thick cables
-					{'Name', 'SentinelCableR'},
-					{'Name', 'CableSpinnerL'},		-- thick cables spinning section
-					{'Name', 'CableSpinnerR'},
+					{'Name', 'MonitorL[12]'},		-- monitors glow
+					{'Name', 'SentinelCable[LR]'},	-- thick cables
+					{'Name', 'CableSpinner[LR]'},	-- thick cables spinning section
 					-- {'Name', 'Red2'},				-- canopy scroll, Red1 ?
 				},
 				REMOVE = 'Section'
@@ -133,7 +130,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|sentinel side engine trails|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/ENFLAMESIDESANI.SCENE.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'RTbodyJNT'},
 				PRECEDING_KEY_WORDS	= 'Children',
@@ -157,7 +154,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELCOCKPIT/LIGHTSCROLLBMAT.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC/LIGHTSCROLLBMAT.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				VALUE_CHANGE_TABLE 	= {
 					{'Map', 'TEXTURES/COMMON/ROBOTS/SHARED/LIGHTDETAILBLUE.DDS'}
@@ -170,20 +167,20 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC/REDGLOW_MAT2.MATERIAL.MBIN',
 			'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB/REDGLOW_MAT2.MATERIAL.MBIN'
 		},
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Name', 'gMaterialColourVec4'},
 				VALUE_CHANGE_TABLE 	= {
-					{'x',			0.4},
-					{'y',			0.66},
-					{'z',			0.8}
+					{'X',			0.4},
+					{'Y',			0.66},
+					{'Z',			0.8}
 				}
 			}
 		}
 	},
 	{--	|sentinel cockpit eject handle glow|
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/EJECTHANDLEL/EJECTVFX3MAT.MATERIAL.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				PRECEDING_KEY_WORDS	= 'Samplers',
 				REMOVE				= 'Section'
@@ -193,17 +190,42 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	{--	|sentinel descriptor| remove shiny head and 3cross and non-used engines
 	--	Each 2nd suffix replaces its preceding one
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/SENTINELSHIP_PROC.DESCRIPTOR.MBIN',
-		EXML_CHANGE_TABLE	= (
+		MXML_CHANGE_TABLE	= (
 			function()
 				T = {}
 				for id, sfx in pairs({
-					_Lights_		= { 'C', 'E', 'J', 'D', 'C1', 'D1'},	-- front heads
-					_exWingsb_		= { '5sts3', 'NULL4'},					-- wing b top antenna
-					_axWingss_		= { '12', '11'},						-- wing s top antenna
-					_EngineFlame_	= {'3', '1', '3b', '1b', '4', '2', '4b', '2b', '6', '5', '6b', '5b'},
-					_sideEngines_	= {'A2', 'NULL', 'A3', 'NULL1'},					-- wing jets with cable
-					_Jets_			= {'A', 'NULL_A', 'B', 'NULL_B', 'C', 'NULL_C'},	-- back jets sides
-					-- _Jet			= {'Top_A', 'Top_NULL', 'Bots_A', 'Bots_NULL'},		-- back jets top & bottom
+					_Lights_		= {-- front heads
+						'C',	'E',
+						'J',	'D',
+						'C1',	'D1'
+					},
+					_exWingsb_		= {-- wing b top antenna
+						'5sts3','NULL4'
+					},
+					_axWingss_		= {-- wing s top antenna
+						'12',	'11'
+					},
+					_EngineFlame_	= {
+						'3',	'1',
+						'3b',	'1b',
+						'4',	'2',
+						'4b',	'2b',
+						'6',	'5',
+						'6b',	'5b'
+					},
+					-- _sideEngines_	= {-- wing jets with cable
+						-- 'A2',	'NULL',
+						-- 'A3',	'NULL1'
+					-- },
+					_Jets_			= {-- back jets sides
+						'A',	'NULL_A',
+						'B',	'NULL_B',
+						'C',	'NULL_C'
+					},
+					_Jet			= {-- back jets top & bottom
+						'Top_A', 'Top_NULL',
+						'Bots_A','Bots_NULL'
+					},
 				}) do
 					for i=1, #sfx, 2 do
 						T[#T+1] = {
@@ -221,7 +243,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	},
 	{--	|sentinel wings descriptor| remove the bugged non-animated antenna from top back tail wing
 		MBIN_FILE_SOURCE	= 'MODELS/COMMON/SPACECRAFT/SENTINELSHIP/PARTS/WINGSB.DESCRIPTOR.MBIN',
-		EXML_CHANGE_TABLE	= {
+		MXML_CHANGE_TABLE	= {
 			{
 				SPECIAL_KEY_WORDS	= {'Id', '_EXTENSIONSTOP_A1', 'Id', '_ANTS_14B1'}, -- { '14b1', '15b1'}
 				REMOVE				= 'Section'

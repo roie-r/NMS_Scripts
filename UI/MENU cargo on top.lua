@@ -8,7 +8,7 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ UI cargo on top',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -62,8 +62,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{
-	--	switch inventory window expansion icons placement
+	{--	switch inventory window expansion icons placement
 		MBIN_FILE_SOURCE	= 'UI/COMPONENTS/PAGESELECTBARSIDE.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {

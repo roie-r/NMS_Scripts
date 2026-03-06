@@ -15,10 +15,9 @@ local mod_desc = [[
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ UI various',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_BATCHNAME		= '+UI ~@~collection',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{--	|staff builder extra slot|
@@ -93,7 +92,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|inv_no border_smaller amount font|
+	{--	|inv_no border_small amount font|
 		MBIN_FILE_SOURCE	= 'UI/COMPONENTS/INVENTORY/SQU_SLOT_ITEM.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
@@ -107,6 +106,14 @@ NMS_MOD_DEFINITION_CONTAINER = {
 					{'Outline Size',		2} 		-- 4
 				}
 			},
+			{
+				REPLACE_TYPE 		= 'All',
+				SPECIAL_KEY_WORDS 	= {'Gradient', 'Vertical'},
+				PRECEDING_KEY_WORDS	= {'Gradient Colour'},
+				VALUE_CHANGE_TABLE 	= {
+					{'A',			0.35} -- 0.9
+				}
+			},
 			{-- remove slot background
 				SPECIAL_KEY_WORDS	= {'ID','BACKGROUND'},
 				VALUE_CHANGE_TABLE	= {
@@ -116,7 +123,7 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	},
-	{--	|all_no border_smaller amount font|
+	{--	|all_no border_small amount font|
 		MBIN_FILE_SOURCE	= 'UI/SLOTS/SLOT_ITEM.MBIN',
 		EXML_CREATE			= false,
 		MXML_CHANGE_TABLE	= {
@@ -225,29 +232,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 			}
 		}
 	}
-	-- {--	|bigger full tech box|
-		-- MBIN_FILE_SOURCE  	= 'UI/COMPONENTS/INVENTORY/SQU_INV_BOXTECH_LARGE.MBIN',
-		-- EXML_CREATE			= false,
-		-- MXML_CHANGE_TABLE 	= {
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'ID','SQU_TECH_BIG'},
-				-- VALUE_CHANGE_TABLE	= {
-					-- {'Height',		780}
-				-- }
-			-- },
-			-- {
-				-- SPECIAL_KEY_WORDS	= {'ID','OUTLINEBOX'},
-				-- VALUE_CHANGE_TABLE	= {
-					-- {'Height',		768}
-				-- }
-			-- },
-			-- -- {
-				-- -- PRECEDING_KEY_WORDS	= {'Children'},
-				-- -- SECTION_ACTIVE		= 0,
-				-- -- REMOVE				= 'Section'
-			-- -- },
-		-- }
-	-- },
 }}},
 	ADD_FILES	= {
 		{
@@ -257,31 +241,27 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	}
 }
 
---- locale texts will exported to a locTable mod
 local __locale_text_import__ = {
 ---	New text ---
 	UI_EMOTE_CHAT_FEED_CREATURE_ALT = {
-		EN = [[Offer %PRODUCT%]],
+		EN = [[Offer %PRODUCT%]]
 	},
 
 ---	Existing text overwritten ---
+	UI_SETTLEMENT_PROD_RATE_TIME = {
+		EN = [[<IMG>PRODUCTSMALL<>%NUM% ready in <IMG>CLOCK<>%TIME%]]
+	},
+	UI_BIGGS_QUICK_MENU_AUTO_STN = {
+		EN = [[%NAME%]]
+	},
+	UI_BIGGS_QUICK_MENU_AUTO_PLT = {
+		EN = [[%NAME%]]
+	},
 	INTRCT_EMPTY = {
-		EN = [[.]],
-	},
-	MECH_SCAN_FACT = {
-		EN = [[Industrial Facilities]],
-	},
-	VEHICLE_BUILDING_NPC = {
-		EN = [[Racial Monuments]],
-	},
-	SIGNAL_PLAQUE = {
-		EN = [[Racial Plaque Detected]],
-	},
-	SIGNAL_MONOLITH = {
-		EN = [[Racial Monolith Detected]],
+		EN = [[ ]]
 	},
 	QUICK_MENU_TIP_THIRDPERSONSHIP = {
-		EN = [[Toggle Camera View]],
+		EN = [[Toggle Camera View]]
 	},
 	NOTIFY_BINOCULARS			= { EN = ' ' },
 	NOTIFY_BOOST				= { EN = ' ' },
@@ -311,3 +291,121 @@ local __locale_text_import__ = {
 	UI_BIGGS_AUTOPILOT_MSG		= { EN = ' ' },
 
 }--- __locale_text_import__ (do not delete)
+
+--[[>-<LocTable>-<
+--<< New texts >>--
+=UI_EMOTE_CHAT_FEED_CREATURE_ALT
+EN =Offer %PRODUCT%
+
+--<< Existing texts >>--
+=UI_SETTLEMENT_PROD_RATE_TIME
+EN =<IMG>PRODUCTSMALL<>%NUM% ready in <IMG>CLOCK<>%TIME%
+
+=UI_BIGGS_QUICK_MENU_AUTO_STN
+EN =%NAME%
+--<<Autopilot request: %NAME%>>--
+
+=UI_BIGGS_QUICK_MENU_AUTO_PLT
+EN =%NAME%
+--<<Autopilot request: planet %NAME%>>--
+
+=PC_MENU_QUIT_TO_DESKTOP
+EN =Just Go Away
+
+=INTRCT_EMPTY
+EN = 
+
+=MECH_SCAN_FACT
+EN =Industrial Facilities
+
+=VEHICLE_BUILDING_NPC
+EN =Racial Monuments
+
+=SIGNAL_PLAQUE
+EN =Racial Plaque Detected
+
+=SIGNAL_MONOLITH
+EN =Racial Monolith Detected
+
+=QUICK_MENU_TIP_THIRDPERSONSHIP
+EN =Toggle Camera View
+
+=NOTIFY_BINOCULARS
+EN = 
+
+=NOTIFY_BOOST
+EN = 
+
+=NOTIFY_SHIPBOOST
+EN = 
+
+=NOTIFY_SHIPJUMP
+EN = 
+
+=NOTIFY_SCANNER
+EN = 
+
+=NOTIFY_JETPACK
+EN = 
+
+=NOTIFY_NOJETPACK
+EN = 
+
+=NOTIFY_SHIPJUMP_PC
+EN = 
+
+=NOTIFY_TORCH
+EN = 
+
+=NOTIFY_TAKEOFF
+EN = 
+
+=UI_CREATURE_MOUNT_TITLE
+EN = 
+
+=UI_CREATURE_MOUNT_MSG
+EN = 
+
+=UI_NEXUS_SALVAGE_TITLE
+EN = 
+
+=UI_NEXUS_TECHFRAG_TITLE
+EN = 
+
+=UI_NOTIFY_SHIP_SUMMON
+EN = 
+
+=UI_NOTIFY_TAKEOFF
+EN = 
+
+=UI_NOTIFY_LASER_SUB
+EN = 
+
+=UI_NOTIFY_LASER_MSG3
+EN = 
+
+=UI_NOTIFY_EXOCRAFT_TIP_TITLE
+EN = 
+
+=UI_NOTIFY_SHIP_TIP_TITLE
+EN = 
+
+=UI_NOTIFY_TIP_TITLE
+EN = 
+
+=UI_NOTIFY_LASER_OSD
+EN = 
+
+=UI_BIGGS_STORE_BOX_TITLE
+EN = 
+
+=UI_BIGGS_STORE_BOX_MSG
+EN = 
+
+=UI_BIGGS_AUTOPILOT_TITLE
+EN = 
+
+=UI_BIGGS_AUTOPILOT_MSG
+EN = 
+
+>-<LocTable>-<]]
