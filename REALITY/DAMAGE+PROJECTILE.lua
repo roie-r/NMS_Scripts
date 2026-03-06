@@ -3,8 +3,8 @@ local mod_desc = [[
   Increase hit damage all around - player, enemies & NPC
 ]]-------------------------------------------------------
 
-local mxc_pr = {}
-for id, dmg in pairs({
+local prj_ct = {}
+for prj, dmg in pairs({
 	SQUADGUN		= 8,	-- 40
 	AISHIPGUN		= 1.6,	-- 15
 	TRADERGUN		= 1.2,	-- 40
@@ -16,45 +16,42 @@ for id, dmg in pairs({
 	AI_SHIP			= 4,	-- 10
 	AI_FREIGHTER	= 4,	-- 15
 	COP_FREIGHTER	= 15,	-- 15
-	ROBOTGUN		= 10,	-- 1
-	ROBOTGUNWEAK	= 10,	-- 1
-	ROBOTBIGGUN		= 20,	-- 1
-	ROBOT_WALKER	= 20,	-- 1
-	MINIROBOTGUN	= 10,	-- 1
+	['.-ROBOTGUN.-']= 10,	-- 1
+	['ROBOT.-GUN']	= 20,	-- 1
+	ROBOT_WALKER	= 20	-- 1
 }) do
-	mxc_pr[#mxc_pr+1] = {
+	prj_ct[#prj_ct+1] = {
 		MATH_OPERATION 		= '*',
 		INTEGER_TO_FLOAT	= 'Preserve',
-		SPECIAL_KEY_WORDS	= {'Id', id},
+		SPECIAL_KEY_WORDS	= {'Id', prj},
 		VALUE_CHANGE_TABLE	= {
 			{'DefaultDamage', dmg}
 		}
 	}
 end
 
-local mxc_dm = {}
+local dmg_ct = {}
 for id, dmg in pairs({
-	BASICDAMAGE		= {ml=2},		-- 1
-	LASERDAMAGE		= {ml=2},		-- 3
-	AISHIPGUN		= {ml=1.5},		-- 14
-	POLICEGUN		= {ml=1.5},		-- 16
-	POLICELASER		= {ml=1.3},		-- 16
-	['BOUNTYGU.-']	= {ml=1.5},		-- 16
-	['BOUNTYL.-']	= {ml=1.1},		-- 20
-	FREIGHTERGUN	= {ml=2},		-- 20
-	FREIGHTERLASER	= {ml=2},		-- 20
-	SHIPLASER		= {ml=2},		-- 15
-	ROBOTGUNDMG		= {ml=2},		-- 2
-	ROBOTBIGGUN		= {ml=1.5},		-- 6
-	WALKERLASER		= {ml=1.4},		-- 5
-	MINIDRONE_DMG	= {ml=1.5},		-- 6
-	-- ['MP.-']		= {ml=0.001},
+	BASICDAMAGE		= 2,	-- 1
+	LASERDAMAGE		= 2,	-- 3
+	AISHIPGUN		= 1.5,	-- 14
+	POLICEGUN		= 1.5,	-- 16
+	POLICELASER		= 1.3,	-- 16
+	['BOUNTYGU.-']	= 1.5,	-- 16
+	['BOUNTYL.-']	= 1.1,	-- 20
+	FREIGHTERGUN	= 2,	-- 20
+	FREIGHTERLASER	= 2,	-- 20
+	SHIPLASER		= 2,	-- 15
+	ROBOTGUNDMG		= 2,	-- 2
+	ROBOTBIGGUN		= 1.5,	-- 6
+	WALKERLASER		= 1.4,	-- 5
+	MINIDRONE_DMG	= 1.5,	-- 6
 }) do
-	mxc_dm[#mxc_dm+1] = {
+	dmg_ct[#dmg_ct+1] = {
 		MATH_OPERATION 		= '*',
 		SPECIAL_KEY_WORDS	= {'Id', id},
 		VALUE_CHANGE_TABLE	= {
-			{'Damage',		dmg.ml}
+			{'Damage',		dmg}
 		}
 	}
 end
@@ -62,18 +59,18 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY damage-projectile',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/PROJECTILES/PROJECTILETABLE.MBIN',
 		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= mxc_pr
+		MXML_CHANGE_TABLE	= prj_ct
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/DAMAGETABLE.MBIN',
 		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= mxc_dm
+		MXML_CHANGE_TABLE	= dmg_ct
 	}
 }}}}

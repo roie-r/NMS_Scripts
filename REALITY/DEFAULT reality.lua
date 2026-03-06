@@ -41,6 +41,13 @@ local mx_ct = {
 		SEC_ADD_NAMED		= 'gc_damage_multiplier'
 	},
 	{
+		SPECIAL_KEY_WORDS	= {'ID', 'UI_BUGS_HINT'},
+		PRECEDING_KEY_WORDS = 'Icon',
+		VALUE_CHANGE_TABLE 	= {
+			{'Filename',	'TEXTURES/UI/HUD/ICONS/PICKUPS/PICKUP.GRUB.DDS'}
+		}
+	},
+	{
 		REPLACE_TYPE 		= 'All',
 		SPECIAL_KEY_WORDS	= {'Filename', 'TEXTURES/UI/HUD/ICONS/PICKUPS/PICKUP.TERRAIN.DDS'},
 		SECTION_UP			= 1,
@@ -262,7 +269,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY default',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 	{

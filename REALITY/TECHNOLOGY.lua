@@ -4,8 +4,9 @@ dofile('LIB/table_entry.lua')
 -------------------------------------------------------------------------------
 local mod_desc = [[
   - Edit / add / remove stats
-  * The game determines an upgrade's class by the level property of the first
+   * The game determines an upgrade's class by the level property of the first
    stat in StatBonuses array, so adding a new stat can change the class.
+   levels: 0=_, 1=C, 2=B, 3=A, 4=S, 5=X, 6=?, 7=!
   - Increase Charge Amounts for selected items
   - Enable / share tech between vehicles & mech
   - changes to weapon upgrades projectile color
@@ -24,45 +25,45 @@ local function Add_Edit_Remove_Stats(T)
 
 	for id, stats in pairs({
 	---	suit
-		SUIT_REFINER2	= {
+		SUIT_REFINER2	= {-- personal refiner 2
 			{st='Suit_Refiner',							bn=1,		op='+'}			-- 2
 		},
-		UT_WATER		= {
+		UT_WATER		= {-- add deep water protection to aeration membrane
 			{st='Suit_Protection_WaterDrain',			bn=0.17,	op='+'},		-- 1.33
-			{st='Suit_UnderwaterLifeSupport',			bn=1,		lv=3}
+			{st='Suit_UnderwaterLifeSupport',			bn=1,		lv=2}
 		},
-		UT_JUMP			= {
+		UT_JUMP			= {-- rocket boots
 			{st='Suit_Jetpack_WaterEfficiency',			bn=1}
 		},
-		SUMMON_SUIT		= {
-			{st='Suit_FishPlatform',					bn=1,		lv=3}
+		SUMMON_SUIT		= {-- add fishing platform to exocraft summoner
+			{st='Suit_FishPlatform',					bn=1}
 		},
 	---	multitool
 		BOLT			= {
 			{st='Weapon_Projectile_Recoil',				bn=-20,		op='+'}			-- 200
 		},
-		UT_BOLT			= {
+		UT_BOLT			= {-- barrel ioniser
 			{st='Weapon_Projectile_Recoil',				bn=-0.05,	op='+'}			-- 0.7
 		},
-		UT_SURVEY		= {
+		UT_SURVEY		= {-- survey device remove class
 			{st='Weapon_Scan_Surveying',				bn=1,		op='*',	lv=0}	-- 0.7
 		},
 		RAILGUN			= {
 			{st='Weapon_Laser_ChargeTime',				bn=-1,		op='+'}			-- 3
 		},
-		UT_SHOT			= {
+		UT_SHOT			= {-- shell greaser add burn damage over time
 			{st='Weapon_FireDOT_DPS',					bn=120,		lv=1},
 			{st='Weapon_FireDOT_Duration',				bn=2,		lv=1},
-			{st='Weapon_FireDOT',						bn=1,		lv=4}
+			{st='Weapon_FireDOT',						bn=1,		lv=3}
 		},
 		UT_MINER		= {
 			{st='Weapon_Laser_Damage',					bn=1,		lv=4}
 		},
-		STRONGLASER		= {
+		STRONGLASER		= {-- advanced mining add damage
 			{st='Weapon_Laser_Damage',					bn=3,		lv=3}
 		},
-		LASER_XO		= {
-			{st='Weapon_Laser_Damage',					bn=3}
+		LASER_XO		= {-- plasma resonator add damage
+			{st='Weapon_Laser_Damage',					bn=3,		lv=2}
 		},
 		UT_RAIL			= {
 			{st='Weapon_Laser_ChargeTime',				bn=0.85}
@@ -74,21 +75,28 @@ local function Add_Edit_Remove_Stats(T)
 			{st='Weapon_Scan_Recharge_Time',			bn=0.75,	lv=3}
 		},
 	---	vehicle
+		EXO_RECHARGE	= {-- Icarus fuel system, add synergy
+			{st='Vehicle_EngineFuelUse',				bn=0.01,	lv=1},
+		},
 		VEHICLE_GRIP1	= {
-			{st='Vehicle_Grip',							bn=-0.5,	op='+'},		-- 3
+			{st='Vehicle_Grip',							bn=-1,		op='+',	lv=5},	-- 3
 			{st='Vehicle_SkidGrip',						bn=0.2,		op='+'}			-- 0.66
+		},
+		VEHICLE_GRIP2	= {
+			{st='Vehicle_Grip',							bn=1.4,		op='=',	lv=7},	-- 0.5
+			{st='Vehicle_SkidGrip',						bn=1.3,		op='='}			-- 2.1
 		},
 		VEHICLE_GUN		= {
 			{st='Vehicle_GunDamage',					bn=80,		op='+'},		-- 320
-			{st='Vehicle_GunRate',						bn=0.35,	op='+'}			-- 0.5
+			{st='Vehicle_GunRate',						bn=0.25,	op='+'}			-- 0.5
 		},
 		SUB_GUN			= {
 			{st='Vehicle_GunDamage',					bn=80,		op='+'},		-- 320
-			{st='Vehicle_GunRate',						bn=0.35,	op='+'}			-- 0.5
+			{st='Vehicle_GunRate',						bn=0.25,	op='+'}			-- 0.5
 		},
 		MECH_GUN		= {
 			{st='Vehicle_GunDamage',					bn=100,		op='+'},		-- 420
-			{st='Vehicle_GunRate',						bn=0.55,	op='+'}			-- 0.35
+			{st='Vehicle_GunRate',						bn=0.45,	op='+'}			-- 0.35
 		},
 		MECH_ENGINE		= {
 			{st='Vehicle_EngineFuelUse',				bn=0.2,		op='+'}			-- 0.5
@@ -96,11 +104,14 @@ local function Add_Edit_Remove_Stats(T)
 		SUB_RECHARGE	= {
 			{st='Vehicle_EngineFuelUse',				bn=-0.3,	op='+'}			-- 0.8
 		},
-		MECH_SENT_L_ARM	= {
+		MECH_SENT_L_ARM	= {-- hardframe left arm
 			{st='Vehicle_LaserDamage',					bn=40,		op='+'},		-- 50
 			{st='Vehicle_LaserStrongLaser',				bn=1},
 		},
-		EXO_PROT_RAD	= {
+		MECH_SENT_R_ARM	= {-- hardframe right arm
+			{st='Weapon_Stun_Duration',					bn=4,	lv=1}
+		},
+		EXO_PROT_RAD	= {-- upgrade rad shield to general protection
 			{st='Suit_Protection_Radiation'},
 			{st='Suit_DamageReduce_Radiation',			bn=3,		lv=1},
 			{st='Suit_DamageReduce_Toxic',				bn=3,		lv=1},
@@ -117,25 +128,34 @@ local function Add_Edit_Remove_Stats(T)
 			{st='Ship_Weapons_Guns_CoolTime',			bn=-2,		op='+'},		-- 10
 			{st='Ship_Weapons_Guns_HeatTime',			bn=1,		op='+'}			-- 0
 		},
-		UT_ROCKETS		= {
+		UT_ROCKETS		= {-- ship rocket upgrade
 			{st='Ship_Weapons_Guns_CoolTime',			bn=-0.3,	op='+'},		-- 0.8
-			{st='Ship_Weapons_Guns_HeatTime',			bn=1.2},
+			{st='Ship_Weapons_Guns_Damage',				bn=3200},
 			{st='Ship_Weapons_Guns_Range',				bn=1.1,		lv=1},
-			{st='Ship_Weapons_Guns_Damage',				bn=3200,	lv=2}
+			{st='Ship_Weapons_Guns_HeatTime',			bn=1.2,		lv=2}
 		},
-		UT_SHIPSHOT		= {
+		UT_SHIPSHOT		= {-- positron ejector upgrade
 			{st='Ship_Weapons_Guns_Dispersion',			bn=-0.2,	op='+'},		-- 0.8
 			{st='Ship_Weapons_Guns_HeatTime',			bn=1.3,		lv=2}
+		},
+		UT_SHIPLAS		= {-- phase beam upgrade (ship laser)
+			{st='Ship_Weapons_ShieldLeech',				bn=0.05,	op='+',	lv=2}	-- 1.2
+		},
+		SHIPGUN1		= {-- photon cannon - add shield leech
+			{st='Ship_Weapons_ShieldLeech',				bn=0.1,		lv=1}
 		},
 		UT_SHIPGUN		= {
 			{st='Ship_Weapons_Guns_HeatTime',			bn=0.1,		op='+'},		-- 1.2
 			{st='Ship_Weapons_ShieldLeech',				bn=0.1,		lv=3}
 		},
 		SHIP_TELEPORT	= {
-			{st='Ship_Teleport',						bn=32,		op='*'}			-- 100
+			{st='Ship_Teleport',						bn=40,		op='*'}			-- 100
 		},
-		SHIPMINIGUN		= {
+		SHIPMINIGUN		= {-- infra-knife
 			{st='Ship_Weapons_Guns_Damage_Radius',		bn=1,		op='+'}			-- 3
+		},
+		UT_SHIPMINI		= {
+			{st='Ship_Weapons_Guns_HeatTime',			bn=1.3,		lv=2}
 		},
 		LAUNCHER_SPEC	= {
 			{st='Ship_WaterLandingJet',					bn=1,		lv=3}
@@ -146,17 +166,10 @@ local function Add_Edit_Remove_Stats(T)
 			{st='Ship_Boost',							bn=-10,		op='+'},		-- 120
 			{st='Ship_PulseDrive_MiniJumpSpeed',		bn=0.24,	op='+'}			-- 1
 		},
-		SHIPJUMP_ROBO	= {
-			{st='Ship_BoostManeuverability',			bn=-0.15,	op='+'},		-- 1.5
-			{st='Ship_Maneuverability',					bn=0.005,	op='+'}			-- 1.0
-		},
 		SOLAR_SAIL		= {
 			{st='Ship_PulseDrive_MiniJumpFuelSpending',	bn=0.2,		op='+'},		-- 0.2
 			{st='Ship_PulseDrive_MiniJumpSpeed',		bn=1.22},
 			{st='Ship_Maneuverability',					bn=1.005}
-		},
-		SHIPJUMP_ALIEN	= {
-			{st='Ship_Drift',							bn=1,		lv=1}
 		},
 		PHOTONIX_CORE	= {
 			{st='Ship_Launcher_AutoCharge',				bn=1,		lv=1},
@@ -165,30 +178,33 @@ local function Add_Edit_Remove_Stats(T)
 		SHIPSCAN_ECON	= {
 			{st='Ship_Scan_ConflictFilter',				bn=1,		lv=1}
 		},
-		SHIPGUN1		= {
+	---	sentienl
+		SHIPGUN_ROBO	= {-- sentienl photon cannon - add shield leech
 			{st='Ship_Weapons_ShieldLeech',				bn=0.1,		lv=1}
 		},
-		SHIPGUN_ROBO	= {
+		SHIPJUMP_ROBO	= {
+			{st='Ship_BoostManeuverability',			bn=-0.15,	op='+'},		-- 1.5
+			{st='Ship_Maneuverability',					bn=0.005,	op='+'}			-- 1.0
+		},
+	---	bioship
+		SHIPGUN_ALIEN	= {-- bioship photon cannon - add shield leech
 			{st='Ship_Weapons_ShieldLeech',				bn=0.1,		lv=1}
 		},
-		SHIPGUN_ALIEN	= {
-			{st='Ship_Weapons_ShieldLeech',				bn=0.1,		lv=1}
-		},
-		UT_SHIPMINI		= {
-			{st='Ship_Weapons_Guns_HeatTime',			bn=1.3,		lv=2}
+		SHIPJUMP_ALIEN	= {
+			{st='Ship_Drift',							bn=1,		lv=1}
 		},
 	---	freighter
 		F_HYPERDRIVE	= {
-			{st='Freighter_Hyperdrive_JumpDistance',	bn=10,		op='*'}			-- 100
+			{st='Freighter_Hyperdrive_JumpDistance',	bn=50,		op='*'}			-- 100
 		},
 		F_HDRIVEBOOST1	= {
-			{st='Freighter_Hyperdrive_JumpDistance',	bn=8,		op='*'}			-- 200
+			{st='Freighter_Hyperdrive_JumpDistance',	bn=40,		op='*'}			-- 200
 		},
 		F_HDRIVEBOOST2	= {
-			{st='Freighter_Hyperdrive_JumpDistance',	bn=6,		op='*'}			-- 300
+			{st='Freighter_Hyperdrive_JumpDistance',	bn=30,		op='*'}			-- 300
 		},
 		F_HDRIVEBOOST3	= {
-			{st='Freighter_Hyperdrive_JumpDistance',	bn=4,		op='*'}			-- 800
+			{st='Freighter_Hyperdrive_JumpDistance',	bn=20,		op='*'}			-- 800
 		},
 		F_MEGAWARP		= {
 			{st='Freighter_Hyperdrive',					bn=1,		lv=1},
@@ -203,7 +219,7 @@ local function Add_Edit_Remove_Stats(T)
 					SPECIAL_KEY_WORDS	= skw,
 					SECTION_UP			= 1,
 					VALUE_CHANGE_TABLE 	= {
-						{'Bonus', '@'..stat.op..stat.bn},
+						{'Bonus', (stat.op ~= '=' and '@'..stat.op or '')..stat.bn},
 						{'Level', stat.lv or 'IGNORE'}
 					}
 				}
@@ -281,6 +297,7 @@ local function Include_In_Category(T)
 		SHIP_TELEPORT	= {o='AllShipsExceptAlien',	n='AllShips'},
 		VEHICLE_SCAN1	= {o='Exocraft',			n='AllVehicles'},
 		VEHICLE_SCAN2	= {o='Exocraft',			n='AllVehicles'},
+		VEHICLE_FLAME	= {o='Exocraft',			n='AllVehicles'},
 	}) do
 		T[#T+1] = {
 			SPECIAL_KEY_WORDS	= {'ID', id, 'TechnologyCategory', cat.o},
@@ -291,29 +308,44 @@ end
 
 local function Edit_Rgb(T)
 	for id, rgb in pairs({
-		UT_BOLT			= {u='FFEDE434'},
-		UT_RAIL			= {u='FFBD1A29'},
-		UT_SHIPLAS		= {u='FF1F1A9E'},
-		UT_SHIPGUN		= {u='FF03E01A'},
-		UT_SMG			= {u='FFEB1FD1'},
-		['.-_SPEC']		= {c='FF095C77', a=true},
-		['T_BOBBLE_.-']	= {c='FF095C77', a=true},
-		['T_SHIP_.-']	= {c='FF095C77', a=true},
+		UT_BOLT					= {up='FFEDE434'},
+		UT_RAIL					= {up='FFBD1A29'},
+		UT_SHIPLAS				= {up='FF1F1A9E'},
+		UT_SHIPGUN				= {up='FF03E01A'},
+		UT_SMG					= {up='FFEB1FD1'},
+		['[%w_]-_SPEC']			= {cr='FF095C77', a=true},
+		['T_BOBBLE_[%w_]-']		= {cr='FF095C77', a=true},
+		['T_SHIP_[%w_]-']		= {cr='FF095C77', a=true},
+		['[%w_]-_BOOST']		= {lk='FFC27D4F'}, -- vehicle boost
+		['[%w_]-ICLE_SC[%w_]-']	= {lk='FF40CCDD'}, -- vehicle scan
+		['[%w_]-SUB[%w_]-GUN']	= {lk='FF44FFA0'},
+		VEHICLE_GUN				= {lk='FF44FFA0'},
+		T_EXGUN					= {lk='FF44FFA0'}, -- vehicle gun
+		MECH_GUN				= {lk='FF44FFA0'},
+		T_MCGUN					= {lk='FF44FFA0'}, -- mech gun
 	}) do
-		if rgb.u then
+		if rgb.up then
 			T[#T+1] = {
 				REPLACE_TYPE 		= rgb.a and 'All' or nil,
 				SPECIAL_KEY_WORDS	= {'ID', id},
 				PRECEDING_KEY_WORDS	= 'UpgradeColour',
-				VALUE_CHANGE_TABLE 	= Hex2VCT(rgb.u)
+				VALUE_CHANGE_TABLE 	= Hex2VCT(rgb.up)
 			}
 		end
-		if rgb.c then
+		if rgb.lk then
+			T[#T+1] = {
+				REPLACE_TYPE 		= rgb.a and 'All' or nil,
+				SPECIAL_KEY_WORDS	= {'ID', id},
+				PRECEDING_KEY_WORDS	= 'LinkColour',
+				VALUE_CHANGE_TABLE 	= Hex2VCT(rgb.lk)
+			}
+		end
+		if rgb.cr then
 			T[#T+1] = {
 				REPLACE_TYPE 		= rgb.a and 'All' or nil,
 				SPECIAL_KEY_WORDS	= {'ID', id},
 				PRECEDING_KEY_WORDS	= 'Colour',
-				VALUE_CHANGE_TABLE 	= Hex2VCT(rgb.c)
+				VALUE_CHANGE_TABLE 	= Hex2VCT(rgb.cr)
 			}
 		end
 	end
@@ -367,16 +399,18 @@ local function Custom_Icons(T)
 		UT_LAUNCHCHARGE	= 'TECHNOLOGY/RENDER.LANDING.GREEN.DDS',
 		UT_SHIPLAS		= 'TECHNOLOGY/RENDER.PHASEBEAM.BLUE.DDS',
 		UT_SHIPSHOT		= 'TECHNOLOGY/RENDER.SHIPSHOT.GREEN.DDS',
-		UT_SHIPBLOB		= 'TECHNOLOGY/RENDER.IONBLAST.PINK.DDS',
+		UT_SHIPBLOB		= 'TECHNOLOGY/RENDER.IONBLAST.YELLOW.DDS',
 		UT_SHIPGUN		= 'TECHNOLOGY/RENDER.SHIPGUN.GRAY.DDS',
-		UT_SHIPMINI		= 'TECHNOLOGY/RENDER.PHOTONACCEL.BLUE1.DDS',
+		UT_SHIPMINI		= 'TECHNOLOGY/RENDER.PHOTONACCEL.BLUE.DDS',
 		T_SHIPSHLD		= 'TECHNOLOGY/RENDER.SHIELDMOD.DDS',
 		UT_SHIPSHIELD	= 'TECHNOLOGY/RENDER.SHIELD.RED2.DDS',
 		SHIP_LIFESUP	= 'TECHNOLOGY/RENDER.LIFESUP.DDS',
 		SHIP_TELEPORT	= 'TECHNOLOGY/RENDER.FREIGHTERSCANNER.DDS',
-		WATER_LANDER	= 'TECHNOLOGY/RENDER.LANDINGWATER.DDS',
+		WATER_LANDER	= 'TECHNOLOGY/RENDER.LANDING.WATER.DDS',
 	---	vehicle
-		EXO_RECHARGE	= 'TECHNOLOGY/VEHICLE/RENDER.ENGINE.ICARUS.DDS',
+		VEHICLE_LASER1	= 'TECHNOLOGY/VEHICLE/RENDER.VEHICLE_LASER.PINK.DDS',
+		MECH_LASER1		= 'TECHNOLOGY/VEHICLE/RENDER.VEHICLE_LASER.PINK.DDS',
+		EXO_RECHARGE	= 'TECHNOLOGY/VEHICLE/RENDER.ENGINE.SOLAR.DDS',
 		MECH_BOOST		= 'TECHNOLOGY/VEHICLE/RENDER.MECH.BOOST.DDS',
 		MECH_FUEL		= 'TECHNOLOGY/VEHICLE/RENDER.MECH.FUEL.DDS',
 		MECH_MINER		= 'TECHNOLOGY/VEHICLE/RENDER.MECH.MINER.DDS',
@@ -385,6 +419,9 @@ local function Custom_Icons(T)
 		SUB_BINOCS		= 'TECHNOLOGY/VEHICLE/RENDER.SCAN.DDS',
 		EXO_PROT_RAD	= 'TECHNOLOGY/VEHICLE/RENDER.EXO.PROT.DDS',
 		SUB_MINER		= 'TECHNOLOGY/VEHICLE/RENDER.SUB.MINER.DDS',
+		VEHICLE_FLAME	= 'TECHNOLOGY/VEHICLE/RENDER.VEHICLE_FLAME.DDS',
+		T_EXLAS			= 'TECHNOLOGY/VEHICLE/RENDER.VEHICLE_LASERMOD.DDS',
+		T_MCLAS			= 'TECHNOLOGY/VEHICLE/RENDER.VEHICLE_LASERMOD.DDS',
 	---	weapon
 		GROUND_SHIELD	= 'TECHNOLOGY/RENDER.SHIELD.BLUE3.DDS',
 		LASER_XO		= 'TECHNOLOGY/RENDER.LASER.RED.DDS',
@@ -393,7 +430,7 @@ local function Custom_Icons(T)
 		BOLT_SM			= 'TECHNOLOGY/RENDER.PROJECTILE.BLUE.DDS',
 		UT_BOLT			= 'TECHNOLOGY/RENDER.PROJECTILE.BLUE.DDS',
 		UT_BOLTBOUNCE	= 'TECHNOLOGY/RENDER.RICOCHET.DDS',
-		UT_SURVEY		= 'TECHNOLOGY/RENDER.BINOCULARS2.DDS',
+		UT_SURVEY		= 'TECHNOLOGY/RENDER.SCAN.SURVEY.DDS',
 		UT_SHOT			= 'TECHNOLOGY/RENDER.SCATTER.GREEN.DDS',
 		UT_SMG			= 'TECHNOLOGY/RENDER.SPITTER.GREEN.DDS',
 		UT_SMGBOUNCE	= 'TECHNOLOGY/RENDER.SPITTER.GREEN.DDS',
@@ -453,11 +490,17 @@ local function Edit_Charge_Bys(T)
 		T_HOTPROT		= {prd='POWERCELL'},
 		T_UNW			= {prd='PRODFUEL2'},
 		SHIPSHIELD		= {prd='SHIPCHARGE'},
-		SUIT_ROCKET		= {prd='LAUNCHFUEL',   add=true},						-- add new
-		F_MEGAWARP		= {prd={'HYPERFUEL2'}, rpc=true, new=true, ctp='Fuel'},	-- add all new
+		SUIT_ROCKET		= {prd='LAUNCHFUEL',   add=true},						-- add new prod
+		F_MEGAWARP		= {prd={'HYPERFUEL2'}, ctp='Fuel', new=true},			-- add all new
 		SHIPSHIELD_ROBO	= {prd='DRONE_SHARD'},
 		HYPERDRIVE_ROBO	= {prd='DRONE_SHARD'},
 		MECH_MINER		= {ctp='Metal'},
+		VEHICLE_LASER   = {prd={'FUEL1', 'FUEL2', 'RADIO1'}, new=true},
+		VEHICLE_ENGINE	= {prd={'FUEL1', 'FUEL2', 'RADIO1'}, new=true},
+		VEHICLE_GUN     = {prd={'FUEL1', 'FUEL2', 'RADIO1'}, new=true},
+		VEHICLE_FLAME   = {prd={'FUEL1', 'FUEL2', 'RADIO1'}, new=true},
+		SUB_GUN			= {prd={'FUEL1', 'FUEL2', 'RADIO1'}, new=true},
+		SUB_LASER		= {prd={'FUEL1', 'FUEL2', 'RADIO1'}, new=true},
 		SUB_MINER		= {ctp='Metal'},
 		SUN_LASER		= {ctp='Metal'},
 	}) do
@@ -471,7 +514,7 @@ local function Edit_Charge_Bys(T)
 			}
 		end
 		-- if rpc then replace the existing list
-		if crg.rpc then
+		if crg.rpc or crg.new then
 			T[#T+1] = {
 				SPECIAL_KEY_WORDS	= {'ID', id},
 				PRECEDING_KEY_WORDS = 'ChargeBy',
@@ -549,49 +592,27 @@ end
 local mx_ct = {}
 ---	un-core
 mx_ct[#mx_ct+1] = {
-	SPECIAL_KEY_WORDS 	= (
-		function()
-			local T = {}
-			for _,id in ipairs({
-				'PROTECT',
-				'ENERGY',
-				'JET1',
-				'SHIPJUMP1',
-				'LAUNCHER',
-				'HYPERDRIVE',
-				'SHIPSHIELD',
-				'LASER',
-				'VEHICLE_ENGINE',
-				'SUB_ENGINE',
-				'.-_ALIEN',
-				'.-_SPEC',
-				'SHIP_LIFESUP',
-				'MECH_ENGINE',
-				'SOLAR_SAIL',
-				'.-_ROBO',
-				'SENT_LASER',
-				'ATLAS_LASER',
-				'F_HYPERDRIVE',
-				'F_LIFESUPP',
-				'SPOOK_PACK',
-			}) do
-				T[#T+1] = {'ID', id}
-			end
-			return T
-		end
-	)(),
+	SPECIAL_KEY_WORDS 	= {
+		{'ID', 'PROTECT'},
+		{'ID', 'ENERGY'},
+		{'ID', 'JET1'},
+		{'ID', 'SPOOK_PACK'},
+		{'ID', 'SHIPJUMP1'},
+		{'ID', 'LAUNCHER'},
+		{'ID', 'HYPERDRIVE'},
+		{'ID', 'SHIPSHIELD'},
+		{'ID', 'F_HYPERDRIVE'},
+		{'ID', 'F_LIFESUPP'},
+		{'ID', 'SHIP_LIFESUP'},
+		{'ID', 'SOLAR_SAIL'},
+		{'ID', '.-LASER'},
+		{'ID', '.-_ENGINE'},
+		{'ID', '.-_ALIEN'},
+		{'ID', '.-_SPEC'},
+		{'ID', '.-_ROBO'}
+	},
 	VALUE_CHANGE_TABLE 	= {
 		{'Core',		false}
-	}
-}
-mx_ct[#mx_ct+1] = {
-	SPECIAL_KEY_WORDS 	= {
-		{'ID',			'WATER_LANDER'},
-		{'ID',			'WATERLAND_ALIEN'},
-	},
-	PRECEDING_KEY_WORDS	= 'BaseStat',
-	VALUE_CHANGE_TABLE 	= {
-		{'StatsType',	'Ship_Launcher'}
 	}
 }
 mx_ct[#mx_ct+1] = {
@@ -599,6 +620,22 @@ mx_ct[#mx_ct+1] = {
 	PRECEDING_KEY_WORDS	= 'BaseStat',
 	VALUE_CHANGE_TABLE 	= {
 		{'StatsType',	'Suit_Protection'}
+	}
+}
+-- fix corvette flight control system (cockpit tech) template to pulse instead of weapons
+mx_ct[#mx_ct+1] = {
+	SPECIAL_KEY_WORDS 	= {'ID', 'T_CR_FIGHT'},
+	PRECEDING_KEY_WORDS	= 'BaseStat',
+	VALUE_CHANGE_TABLE 	= {
+		{'StatsType',	'Ship_PulseDrive'}
+	}
+}
+-- fix corvette defensive system (shield tech) template to armor
+mx_ct[#mx_ct+1] = {
+	SPECIAL_KEY_WORDS 	= {'ID', 'T_CR_TRADE'},
+	PRECEDING_KEY_WORDS	= 'BaseStat',
+	VALUE_CHANGE_TABLE 	= {
+		{'StatsType',	'Ship_Armour_Shield'}
 	}
 }
 
@@ -616,13 +653,41 @@ Edit_Charge_Bys(mx_ct)
 mx_ct[#mx_ct+1] = {
 	PRECEDING_KEY_WORDS	= 'Table',
 	ADD					= ToMxml(TechnologyEntry({
+		{-- vehicle laser upgrade (instead of mech left arm)
+			id				= 'MECHLEFTARM',
+			name			= 'UI_MECH_SENT_L_ARM_NAME',
+			namelower		= 'UI_MECH_SENT_L_ARM_NAME_L',
+			subtitle		= 'UI_MECH_SENT_SUB',
+			description		= 'UI_MECH_SENT_L_ARM_DESC',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/RENDER.SUBMARINECANNONMOD.DDS',
+			color			= 'ff2177c8',
+			linkcolor		= 'ff3399ff',
+			upgrade			= true,
+			category		= 'Mech',
+			rarity			= 'Rare',
+			value			= 2,
+			fragmentcost	= 180,
+			requirements	= {
+				{id='STELLAR2',			n=50,	tp=IT_.SBT},
+				{id='ROBOT1',			n=50,	tp=IT_.SBT},
+				{id='HYDRALIC',			n=1,	tp=IT_.PRD}
+			},
+			basestat		= 'Vehicle_Laser',
+			statbonuses		= {
+				{st='Weapon_Stun_Damage_Multiplier',		bn=7,	lv=6},
+				{st='Vehicle_LaserDamage',					bn=65,	lv=3},
+				{st='Weapon_FireDOT',						bn=2,	lv=3},
+				{st='Weapon_FireDOT_Duration',				bn=3.5,	lv=1},
+				{st='Weapon_FireDOT_DPS',					bn=85,	lv=1}
+			}
+		},
 		{-- vehicle stun cannon
 			id				= 'VEHICLESTUN',
 			name			= 'VEHICLESTUN_NAME',
 			namelower		= 'VEHICLESTUN_NAME_L',
 			subtitle		= 'VEHICLESTUN_SUB',
 			description		= 'VEHICLESTUN_DESC',
-			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/VEHICLE/_MYTECH.STUNGUN.DDS',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/MYTECH/VEHICLE.STUNGUN.DDS',
 			color			= 'FF095C77',
 			chargeable		= true,
 			chargeamount	= 40,
@@ -630,7 +695,7 @@ mx_ct[#mx_ct+1] = {
 			chargeby		= {'GRENFUEL1'},
 			chargemultiply	= 2,
 			primaryitem		= true,
-			category		= 'Exocraft',
+			category		= 'AllVehicles',
 			rarity			= 'Rare',
 			value			= 5,
 			fragmentcost	= 580,
@@ -643,7 +708,8 @@ mx_ct[#mx_ct+1] = {
 			statbonuses		= {
 				{st='Vehicle_GunDamage',					bn=20,	lv=3},
 				{st='Vehicle_GunHeatTime',					bn=1,	lv=1},
-				{st='Vehicle_GunRate',						bn=0.5,	lv=1}
+				{st='Vehicle_GunRate',						bn=0.5,	lv=1},
+				{st='Weapon_Stun_Duration',					bn=4,	lv=1}
 			}
 		},
 		{-- bioship rocket launcher
@@ -652,7 +718,7 @@ mx_ct[#mx_ct+1] = {
 			namelower		= 'ROCEKT_ALIEN_NAME_L',
 			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
 			description		= 'ROCEKT_ALIEN_DESC',
-			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/_MYTECH.ROCKET0.DDS',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/MYTECH/BIO.ROCKET0.DDS',
 			color			= 'FF0A2E42',
 			primaryitem		= true,
 			category		= 'AlienShip',
@@ -678,13 +744,13 @@ mx_ct[#mx_ct+1] = {
 			},
 			focuslocator	= 'SHOOT'
 		},
-		{-- bioship rocket launcher
+		{-- bioship rocket launcher upgrade
 			id				= 'ROCEKT_U_ALIEN',
 			name			= 'ROCEKT_U_ALIEN_NAME',
 			namelower		= 'ROCEKT_U_ALIEN_NAME_L',
 			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
 			description		= 'ROCEKT_U_ALIEN_DESC',
-			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/_MYTECH.ROCKET1.DDS',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/MYTECH/BIO.ROCKET1.DDS',
 			color			= 'FF0A2E42',
 			upgrade			= true,
 			category		= 'AlienShip',
@@ -698,7 +764,7 @@ mx_ct[#mx_ct+1] = {
 			},
 			basestat		= 'Ship_Weapons_Rockets',
 			statbonuses		= {
-				{st='Ship_Weapons_Guns_CoolTime',			bn=0.8,		lv=3},
+				{st='Ship_Weapons_Guns_CoolTime',			bn=0.8,		lv=6},
 				{st='Ship_Weapons_Guns_HeatTime',			bn=1.2,		lv=1},
 				{st='Ship_Weapons_Guns_Range',				bn=1.1,		lv=1},
 				{st='Ship_Weapons_Guns_Damage',				bn=3200,	lv=1}
@@ -710,7 +776,7 @@ mx_ct[#mx_ct+1] = {
 			namelower		= 'JUMP_U_ALIEN_NAME_L',
 			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
 			description		= 'JUMP_U_ALIEN_DESC',
-			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/_MYTECH.HEART.U.DDS',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/MYTECH/BIO.HEART.U.DDS',
 			color			= 'FF0A2E42',
 			upgrade			= true,
 			category		= 'AlienShip',
@@ -724,7 +790,7 @@ mx_ct[#mx_ct+1] = {
 			},
 			basestat		= 'Ship_PulseDrive',
 			statbonuses		= {
-				{st='Ship_PulseDrive_MiniJumpSpeed',		bn=1.2,		lv=4},
+				{st='Ship_PulseDrive_MiniJumpSpeed',		bn=1.2,		lv=6},
 				{st='Ship_Boost',							bn=1.16,	lv=1},
 				{st='Ship_BoostManeuverability',			bn=1.16,	lv=1},
 				{st='Ship_Maneuverability',					bn=1.006,	lv=1},
@@ -738,7 +804,7 @@ mx_ct[#mx_ct+1] = {
 			namelower		= 'SHIELD_U_ALIEN_NAME_L',
 			subtitle		= 'UI_ALIENSHIP_TECH_SUB',
 			description		= 'SHIELD_U_ALIEN_DESC',
-			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/BIO/_MYTECH.SCALES.U.DDS',
+			icon			= 'TEXTURES/UI/FRONTEND/ICONS/TECHNOLOGY/MYTECH/BIO.SCALES.U.DDS',
 			color			= 'FF0A2E42',
 			upgrade			= true,
 			category		= 'AlienShip',
@@ -752,7 +818,7 @@ mx_ct[#mx_ct+1] = {
 			},
 			basestat		= 'Ship_Armour_Shield',
 			statbonuses		= {
-				{st='Ship_Armour_Shield_Strength',			bn=0.06, lv=3}
+				{st='Ship_Armour_Shield_Strength',			bn=0.06, lv=6}
 			}
 		}
 	}))
@@ -761,9 +827,8 @@ mx_ct[#mx_ct+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY technology',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'MULTIPLE_STATEMENTS,UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
@@ -773,7 +838,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	}
 }}}}
 
---- locale texts will exported to a locTable mod
 local __locale_text_import__ = {
 ---	New text ---
 	VEHICLESTUN_NAME = {
@@ -783,7 +847,7 @@ local __locale_text_import__ = {
 		EN = [[Paralysis Gun]]
 	},
 	VEHICLESTUN_DESC = {
-		EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.|N|Charged with <FUEL>Unstable Plasma<>.]]
+		EN = [[Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.|NL|Charged with <FUEL>Unstable Plasma<>.]]
 	},
 	VEHICLESTUN_SUB = {
 		EN = [[Stun Weapons]]
@@ -795,7 +859,7 @@ local __locale_text_import__ = {
 		EN = [[Emissive Seeds Pod]]
 	},
 	ROCEKT_ALIEN_DESC = {
-		EN = [[A <TECHNOLOGY>long range<> starship weapon, capable of delivering a targeted seed across great distances.|N|Note: explosive damage is <STELLAR>highly effective<> against <STELLAR>unshielded<> targets, but <TITLE>ineffective<> against <TITLE>shielded<> targets.|N|Use <IMG>CYCLEWEAPON<> to change weapon mode. Press <IMG>SHIPFIRE<> to fire.]]
+		EN = [[A <TECHNOLOGY>long range<> starship weapon, capable of delivering a targeted seed across great distances.|NL|Note: explosive damage is <STELLAR>highly effective<> against <STELLAR>unshielded<> targets, but <TITLE>ineffective<> against <TITLE>shielded<> targets.|NL|Use <IMG>CYCLEWEAPON<> to change weapon mode. Press <IMG>SHIPFIRE<> to fire.]]
 	},
 	ROCEKT_U_ALIEN_NAME = {
 		EN = [[EXTENDED SEEDS POD]]
@@ -833,7 +897,7 @@ local __locale_text_import__ = {
 		EN = [[Environmental Shield]]
 	},
 	UI_EXOHAZ_RAD_DESC = {
-		EN = [[This environmental neutralising protection is plugged directly into the pilot as they enter the cockpit. The system is powered via the main engine and requires no additional input. Some minor pain may be noticed around the insertion site.|N|Bolsters the pilot's resistence to <STELLAR>all environmental hazards<>.]]
+		EN = [[This environmental neutralising protection is plugged directly into the pilot as they enter the cockpit. The system is powered via the main engine and requires no additional input. Some minor pain may be noticed around the insertion site.|NL|Bolsters the pilot's resistence to <STELLAR>all environmental hazards<>.]]
 	},
 	UT_SHOT_NAME = {
 		EN = [[SHELL IGNITER]]
@@ -842,7 +906,7 @@ local __locale_text_import__ = {
 		EN = [[Shell Igniter]]
 	},
 	UT_SHOT_DESC = {
-		EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.|N||N|Causes targets to <RED>burn<> for a short while, causing additional damage]]
+		EN = [[A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.|NL||NL|Causes targets to <RED>burn<> for a short while, causing additional damage]]
 	},
 	UI_SENT_LASER_NAME = {
 		EN = [[MULTIPLEX LASER]]
@@ -878,3 +942,107 @@ local __locale_text_import__ = {
 		EN = [[Pilot Interface]]
 	},
 }--- __locale_text_import__ (do not delete)
+
+--[[>-<LocTable>-<
+--<< New texts >>--
+=VEHICLESTUN_NAME
+EN =PARALYSIS GUN
+
+=VEHICLESTUN_NAME_L
+EN =Paralysis Gun
+
+=VEHICLESTUN_DESC
+EN =Non-violent projectile weapon. Launched projectiles will incapacitate nearby targets with a burst of electrical energy. Effective against both biological and electronic entities.|NL|Charged with <FUEL>Unstable Plasma<>.
+
+=VEHICLESTUN_SUB
+EN =Stun Weapons
+
+=ROCEKT_ALIEN_NAME
+EN =EMISSIVE SEEDS POD
+
+=ROCEKT_ALIEN_NAME_L
+EN =Emissive Seeds Pod
+
+=ROCEKT_ALIEN_DESC
+EN =A <TECHNOLOGY>long range<> starship weapon, capable of delivering a targeted seed across great distances.|NL|Note: explosive damage is <STELLAR>highly effective<> against <STELLAR>unshielded<> targets, but <TITLE>ineffective<> against <TITLE>shielded<> targets.|NL|Use <IMG>CYCLEWEAPON<> to change weapon mode. Press <IMG>SHIPFIRE<> to fire.
+
+=ROCEKT_U_ALIEN_NAME
+EN =EXTENDED SEEDS POD
+
+=ROCEKT_U_ALIEN_NAME_L
+EN =Extended Seeds Pod
+
+=ROCEKT_U_ALIEN_DESC
+EN =A significant extension to emissive seeds pod's capacity, enabling enduring performance, improving exhaust performance and allowing for significantly faster <STELLAR>heat recovery<>.
+
+=JUMP_U_ALIEN_NAME
+EN =ENLARGED HEART
+
+=JUMP_U_ALIEN_NAME_L
+EN =Enlarged Heart
+
+=JUMP_U_ALIEN_DESC
+EN =A significant reinforcement to the vital organ's fibrous metallic superstructure, allowing greater performance and more subtle movement control.
+
+=SHIELD_U_ALIEN_NAME
+EN =HORROR NULLIFIER
+
+=SHIELD_U_ALIEN_NAME_L
+EN =Horror Nullifier
+
+=SHIELD_U_ALIEN_DESC
+EN =Envelops the neurological array and erects a barrier around it against all emotional trauma.
+
+--<< Existing texts >>--
+=UI_EXOHAZ_RAD_NAME
+EN =ENVIRONMENTAL SHIELD
+
+=UI_EXOHAZ_RAD_NAME_L
+EN =Environmental Shield
+
+=UI_EXOHAZ_RAD_DESC
+EN =This environmental neutralising protection is plugged directly into the pilot as they enter the cockpit. The system is powered via the main engine and requires no additional input. Some minor pain may be noticed around the insertion site.|NL|Bolsters the pilot's resistence to <STELLAR>all environmental hazards<>.
+
+=UT_SHOT_NAME
+EN =SHELL IGNITER
+
+=UT_SHOT_NAME_L
+EN =Shell Igniter
+
+=UT_SHOT_DESC
+EN =A combat upgrade for the <TECHNOLOGY>Scatter Blaster<>. This module installs series of delicately calibrated fuel-injection nozzles within the firing chamber, which are used to initiate a controlled burn within its shells, while still offering improved <STELLAR>reload times<>.|NL||NL|Causes targets to <RED>burn<> for a short while, causing additional damage.
+
+=UI_SENT_LASER_NAME
+EN =MULTIPLEX LASER
+
+=UI_SENT_LASER_NAME_L
+EN =Multiplex Laser
+
+=UI_SHIPGUN_ROBO_NAME
+EN =PREVALENCE GUN
+
+=UI_SHIPGUN_ROBO_NAME_L
+EN =Prevalence Gun
+
+=UI_SHIPJUMP_ROBO_NAME
+EN =OSCILLATION GENERATOR
+
+=UI_SHIPJUMP_ROBO_NAME_L
+EN =Oscillation Generator
+
+=UI_HYPERDRIVE_ROBO_NAME
+EN =SANGUINE CORE
+
+=UI_HYPERDRIVE_ROBO_NAME_L
+EN =Sanguine Core
+
+=UI_LIFESUP_ROBO_NAME
+EN =GLASS/BOUNDARY TERMINAL
+
+=UI_LIFESUP_ROBO_NAME_L
+EN =Glass/Boundary Terminal
+
+=UI_LIFESUP_ROBO_SUB
+EN =Pilot Interface
+
+>-<LocTable>-<]]

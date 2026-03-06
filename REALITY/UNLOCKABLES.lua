@@ -2,11 +2,7 @@
 dofile('LIB/_lua_2_mxml.lua')
 --------------------------------------------------------------------------------------
 local mod_desc = [[
-  Rebuild and add to unlockable items tree
-  - A replacement for a full tree needs the ItemTrees title & the tree's own title
-   as 1st & 2nd parents.
-  - A new tree is inserted as 1st in its ItemTrees by default. Inserting [after] work
-   only on existing trees, not newly-added, and needs the 'after' Title.
+  Add / replace full trees or single items.
 ]]------------------------------------------------------------------------------------
 
 local unlockable_items = {
@@ -101,40 +97,25 @@ local unlockable_items = {
 		rmnode	= 'EXO_PROT_TOX',
 		tree	= { 'EXO_PROT_TOX' } -- air filtration unit
 	},
-	{--	vehicle tech: (add tree) miontaur body
+	{--	vehicle mech: left arm replacer (custom tech)
 		root	= 'ExocraftTech',
-		parent	= 'UI_EXOCRAFT_TECH_TREE',
-		title   = 'UI_TECH_TREE_SUB',
-		isfull	= true,
-		cost	= 'NANITES',
+		parent	= 'MECH_LASER1',
+		tree	= { 'MECHLEFTARM' } -- liquidator body
+	},
+	{--	vehicle mech: add miontaur liquidator body
+		root	= 'ExocraftTech',
+		parent	= 'MECH_PILOT',
 		toend	= true,
 		tree	= {
-			'MECH_PILOT',{ -- minotaur ai pilot
+			'MECH_ARMY_HEAD',{ -- liquidator body
 				{
-					'MECH_SENT_HEAD',{ -- hardframe body
-						{
-							'MECH_SENT_LEGS' -- hardframe legs
-						},
-						{
-							'MECH_SENT_R_ARM' -- hardframe right arm
-						},
-						{
-							'MECH_SENT_L_ARM' -- hardframe left arm
-						}
-					}
+					'MECH_ARMY_LEGS' -- liquidator legs
 				},
 				{
-					'MECH_ARMY_HEAD',{ -- liquidator body
-						{
-							'MECH_ARMY_LEGS' -- liquidator legs
-						},
-						{
-							'MECH_ARMY_R_ARM' -- liquidator right arm
-						},
-						{
-							'MECH_ARMY_L_ARM' -- liquidator left arm
-						}
-					}
+					'MECH_ARMY_R_ARM' -- liquidator right arm
+				},
+				{
+					'MECH_ARMY_L_ARM' -- liquidator left arm
 				}
 			}
 		}
@@ -363,8 +344,8 @@ local unlockable_items = {
 		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		rmtree	= 'UI_BASETECH_TREE',
-		after	= 'UI_CUBEROOM_TREE',
 		isfull	= true,
+		after	= 'UI_CUBEROOM_TREE',
 		tree	= {
 			'BUILDSAVE',{ -- save point
 				{
@@ -495,8 +476,8 @@ local unlockable_items = {
 		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_CONCRETE_SUB',
-		after	= 'UI_BASIC_FIBREGLASS_ROOFS_SUB',
 		isfull	= true,
+		after	= 'UI_BASIC_BUILDERS_ROOFS_SUB',
 		tree	= {
 			'C_WALL',{ -- concrete wall
 				{
@@ -586,8 +567,8 @@ local unlockable_items = {
 		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_METAL_SUB',
-		after	= 'UI_BASIC_FIBREGLASS_ROOFS_SUB',
 		isfull	= true,
+		after	= 'UI_BASIC_BUILDERS_ROOFS_SUB',
 		tree	= {
 			'M_WALL',{ -- metal wall
 				{
@@ -677,8 +658,8 @@ local unlockable_items = {
 		root	= 'BaseParts',
 		parent	= 'UI_PURCHASABLE_BASEPARTS_TREE',
 		title   = 'UI_BASIC_WOOD_SUB',
-		after	= 'UI_BASIC_FIBREGLASS_ROOFS_SUB',
 		isfull	= true,
+		after	= 'UI_BASIC_BUILDERS_ROOFS_SUB',
 		tree	= {
 			'W_WALL',{ -- wooden wall
 				{
@@ -767,9 +748,9 @@ local unlockable_items = {
 	{--	multitool: (replace tree) offensive
 		root	= 'WeapTech',
 		parent	= 'UI_WEAP_TECH_TREE',
-		rmtree	= 'UI_TECH_TREE_SUB',
 		title   = 'UI_TECH_OFFENSE_SUB',
 		isfull	= true,
+		rmtree	= 'UI_TECH_TREE_SUB',
 		cost	= 'NANITES',
 		tree	= {
 			'BOLT',{ -- boltcaster
@@ -857,6 +838,9 @@ local unlockable_items = {
 				},
 				{
 					'TERRAINEDITOR',{ -- terrain manipulator
+						{
+							'GRAVITYGUN' -- gravitino coil
+						},
 						{
 							'TERRAIN_GREN' -- geology cannon
 						}
@@ -1143,8 +1127,8 @@ local unlockable_items = {
 		root	= 'BasicTechParts',
 		parent	= 'UI_PURCHASABLE_BASICTECH_TREE',
 		rmtree	= 'UI_BASIC_TIMBER_SUB',
-		toend	= true,
 		isfull	= true,
+		toend	= true,
 		tree	= {
 			'T_WALL',{ -- timber wall
 				{
@@ -1799,6 +1783,8 @@ local function AddTreeToChangeTable(node)
 	end
 end
 
+local mx_ct = {}
+
 local nexus_trees = {
 	{
 		root	= 'BaseParts',
@@ -1829,14 +1815,6 @@ local nexus_trees = {
 		}
 	},
 	{
-		root	= 'FreighterTech',
-		title	= 'UI_FREIGHTER_TREE',
-		subs	= {
-			'UI_TECH_TREE_SUB',
-			'UI_FRE_BASE_TREE'
-		}
-	},
-	{
 		root	= 'SuitTech',
 		title	= 'UI_SUIT_TECH_TREE',
 		subs	= {
@@ -1861,14 +1839,17 @@ local nexus_trees = {
 		root	= 'FreighterTech',
 		title	= 'UI_FREIGHTER_TREE',
 		subs	= {
-			'UI_TECH_TREE_SUB'
+			'UI_TECH_TREE_SUB',
+			'UI_FRE_BASE_TREE'
 		}
 	},
 	{
 		root	= 'ExocraftTech',
 		title	= 'UI_EXOCRAFT_TECH_TREE',
 		subs	= {
-			'UI_TECH_TREE_SUB'
+			'UI_VEHICLE_TECH_TREE',
+			'UI_EXOSUB_TECH_TREE',
+			'UI_EXOMECH_TECH_TREE'
 		}
 	},
 	{
@@ -1895,9 +1876,7 @@ local nexus_trees = {
 	-- }
 }
 
-local mx_ct = {}
-
----- duplicate all nexus trees to basic parts tree
+-- duplicate all nexus trees to basic parts tree
 -- mx_ct[#mx_ct+1] = {
 	-- SKW		= {'Title', 'UI_PURCHASABLE_BASICPARTS_TREE', 'Title', 'UI_BASIC_.-'},
 	-- REMOVE	= 'Section'
@@ -1938,8 +1917,8 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY unlockable item tree',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
-	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE,UNUSED_VARIABLE',
+	NMS_VERSION			= '6.24',
+	AMUMSS_SUPPRESS_MSG	= 'MIXED_TABLE',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -1950,7 +1929,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 	}
 }}}}
 
---- locale texts will exported to a locTable mod
 local __locale_text_import__ = {
 ---	New text ---
 	UI_TECH_EXPLORE_SUB = {
@@ -1964,3 +1942,16 @@ local __locale_text_import__ = {
 	}
 
 }--- __locale_text_import__ (do not delete)
+
+--[[>-<LocTable>-<
+--<< New texts >>--
+=UI_TECH_EXPLORE_SUB
+EN =Craftable Exploratory Blueprints
+
+=UI_TECH_OFFENSE_SUB
+EN =Craftable Offensive Blueprints
+
+=UI_TECH_ALIEN_SUB
+EN =Craftable Sentient Vessel Blueprints
+
+>-<LocTable>-<]]

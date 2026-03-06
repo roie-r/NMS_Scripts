@@ -8,12 +8,12 @@ local mod_desc = [[
   Add and edit crafting requirements
   Lower ship parts prices
   Add new products
-  Remove corvete inventory tech addon
+  Remove corvette inventory tech addon
 ]]--------------------------------------
 
 local PRP_ = { NM='Name', ID='ID', SB='Subtitle', DS='Description' }
 --    			product	  custom	basepart
-local mx_vct = { prd = {}, cmt = {}, bsp = {} }
+local mx_ct = { prd = {}, cmt = {}, bsp = {} }
 
 -- custom icons
 for id, prd in pairs({
@@ -53,33 +53,20 @@ for id, prd in pairs({
 	FOOD_V_ROBOT	= {ic='COOKINGPRODUCTS/PRODUCT.ROBOT.WIRE.DDS',			tb='prd'},
 	FOOD_V_STRIDER	= {ic='COOKINGPRODUCTS/PRODUCT.EGG.TALL.DDS',			tb='prd'},
 	FOOD_W_CASE		= {ic='COOKINGPRODUCTS/PRODUCT.MEAT.DDS',				tb='prd'},
-	FOOD_MEAT_STEW	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_ORGAN_STEW	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_BONE	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_DRILL	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_BEET	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_DIG	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_BALL	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_BUG	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_EVIL	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_O_CH	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_M_CH	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_O_CR	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_M_CR	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_O_HOT	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_M_HOT	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_O_VEG	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_STEW_M_VEG	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
-	FOOD_R_EYESTEW	= {ic='COOKINGPRODUCTS/PRODUCT.REFINED.EVILSTEW.DDS',	tb='prd'},
+	FOOD_R_EYESTEW	= {ic='COOKINGPRODUCTS/PRODUCT.R.EYEBALLS.DDS',			tb='prd'},
 	GEODE_CAVE		= {ic='U4PRODUCTS/PRODUCT.GEODECAVE.DDS',				tb='prd'},
 	SHIPCHARGE		= {ic='U4PRODUCTS/PRODUCT.SHIPCHARGE.DDS',				tb='prd'},
 ---	personal
-	ACCESS1			= {ic='PRODUCTS/PRODUCT.ATLASPASS1.DDS',				tb='prd'},
-	ACCESS2			= {ic='PRODUCTS/PRODUCT.ATLASPASS2.DDS',				tb='prd'},
+	DROPS_ENGIAA	= {ic='SHIPICONS/SHIPPARTS.DROPSHIPENGINE.AA.DDS',		tb='cmt'},
+	DROPS_ENGIAB	= {ic='SHIPICONS/SHIPPARTS.DROPSHIPENGINE.AB.DDS',		tb='cmt'},
+	DROPS_ENGIBA	= {ic='SHIPICONS/SHIPPARTS.DROPSHIPENGINE.BA.DDS',		tb='cmt'},
+	DROPS_ENGIBB	= {ic='SHIPICONS/SHIPPARTS.DROPSHIPENGINE.BB.DDS',		tb='cmt'},
+	ACCESS1			= {ic='PRODUCTS/MYPROD/ATLASPASS1.DDS',					tb='prd'},
+	ACCESS2			= {ic='PRODUCTS/MYPROD/ATLASPASS2.DDS',					tb='prd'},
 	PRODFUEL2		= {ic='U4PRODUCTS/PRODUCT.OXYGENGEL2.DDS',				tb='prd'},
 	SIGNALCHARGE	= {ic='U4PRODUCTS/PRODUCT.POWERSURGE.DDS',				tb='prd'},
 }) do
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		SPECIAL_KEY_WORDS	= {'ID', id},
 		PRECEDING_KEY_WORDS = 'Icon',
 		VALUE_CHANGE_TABLE 	= { {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/'..prd.ic} }
@@ -108,7 +95,7 @@ for key, prd in pairs({
 	UI_STATION_KEY_NAME			= {op='+ ',	sm=1,	pr=PRP_.NM,	tb='prd'},
 	UI_STAFF_PART_SUB			= {op='+',	sm=1,	pr=PRP_.SB,	tb='prd'}
 }) do
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		REPLACE_TYPE 		= prd.pr == PRP_.NM and nil or 'All',
 		SPECIAL_KEY_WORDS	= {prd.pr, key},
 		VALUE_CHANGE_TABLE 	= { {'StackMultiplier', '@'..prd.op..prd.sm} }
@@ -129,7 +116,7 @@ for key, prd in pairs({
 	UI_GEODE_CRYSTAL_NAME	= {bm=3,	tb='prd'}, -- crystal fragment
 	UI_GEODE_RARE_NAME		= {bm=3,	tb='prd'}, -- glowing mineral
 }) do
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		SPECIAL_KEY_WORDS	= {'Name', key},
 		VALUE_CHANGE_TABLE 	= { {'BuyBaseMarkup', prd.bm} }
 	})
@@ -151,7 +138,7 @@ for key, prd in pairs({
 	UI_VENTGEM_NAME				= {col='FFCCCCCC', pr=PRP_.NM, tb='prd'}, -- Crystal Sulphide
 	UI_STORMCRYSTAL_NAME		= {col='FF4D2957', pr=PRP_.NM, tb='prd'}, -- Storm Crystal
 	FUELGEL3_NAME				= {col='FFC61230', pr=PRP_.NM, tb='prd'}, -- life support gel
-	GRENFUEL1_NAME				= {col='FFC61230', pr=PRP_.NM, tb='prd'}, -- gernade fuel
+	GRENFUEL1_NAME				= {col='FFC61230', pr=PRP_.NM, tb='prd'}, -- grenade fuel
 	['HYPERFUEL[12]_SUBTITLE']	= {col='FFC61230', pr=PRP_.SB, tb='prd'}, -- warp fuel
 	UI_SUBFUEL_NAME				= {col='FFC61230', pr=PRP_.NM, tb='prd'}, -- sub fuel
 	LAUNCHFUEL_SUB				= {col='FFC61230', pr=PRP_.SB, tb='prd'}, -- ship+frigate fuel
@@ -163,7 +150,7 @@ for key, prd in pairs({
 	UI_NAV_DATA_NAME			= {col='FF1A2733', pr=PRP_.NM, tb='prd'}, -- navigation data
 	['SHIP_CORE_.-']			= {col='FF48A1B0', pr=PRP_.ID, tb='cmt'}, -- ship core
 }) do
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		REPLACE_TYPE 		= prd.pr == PRP_.NM and nil or 'All',
 		SPECIAL_KEY_WORDS	= {prd.pr, key},
 		VALUE_CHANGE_TABLE 	= Hex2VCT(prd.col)
@@ -312,77 +299,78 @@ local requirements = {
 		}
 }
 for id, prd in pairs(requirements) do
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		SPECIAL_KEY_WORDS	= {'ID', id},
 		VALUE_CHANGE_TABLE 	= {
 			{'RecipeCost',	prd.cost or 1},
 			{'IsCraftable',	true}
 		}
 	})
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		SPECIAL_KEY_WORDS	= {'ID', id},
 		PRECEDING_KEY_WORDS	= 'Requirements',
 		REMOVE				= prd.subs and 'Section' or 'Line'
 	})
-	table.insert(mx_vct[prd.tb], {
+	table.insert(mx_ct[prd.tb], {
 		SPECIAL_KEY_WORDS	= {'ID', id},
 		ADD					= ToMxml(GetRequirements(prd.req))
 	})
 end
 
-mx_vct.prd[#mx_vct.prd+1] = {--ion battery
+mx_ct.prd[#mx_ct.prd+1] = {--ion battery
 	SPECIAL_KEY_WORDS	= {'Name', 'POWERCELL_NAME'},
 	VALUE_CHANGE_TABLE 	= {
 		{'DefaultCraftAmount',		5},
 		{'CraftAmountStepSize',		5}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--life support gel
+mx_ct.prd[#mx_ct.prd+1] = {--life support gel
 	SPECIAL_KEY_WORDS	= {'Name', 'FUELGEL3_NAME'},
 	VALUE_CHANGE_TABLE 	= {
 		{'DefaultCraftAmount',		2},
 		{'CraftAmountStepSize',		2}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--radiant shard
+mx_ct.prd[#mx_ct.prd+1] = {--radiant shard
 	SPECIAL_KEY_WORDS	= {'Name', 'UI_DRONE_SHARD_NAME'},
 	VALUE_CHANGE_TABLE 	= {
 		{'ChargeValue',	40}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--di-hydrogen jelly
+mx_ct.prd[#mx_ct.prd+1] = {--di-hydrogen jelly
 	SPECIAL_KEY_WORDS	= {'Name', 'FUEL_JELLY_NAME'},
 	VALUE_CHANGE_TABLE 	= {
 		{'Subtitle',	'CRAFTPROD_SUB'}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--wiring loom
+mx_ct.prd[#mx_ct.prd+1] = {--wiring loom
 	SPECIAL_KEY_WORDS	= {'Name', 'UI_TECHMOD_NAME'},
 	VALUE_CHANGE_TABLE 	= {
 		{'ProductCategory', 'Component'}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--pilgrimberry
+mx_ct.prd[#mx_ct.prd+1] = {--pilgrimberry
 	SPECIAL_KEY_WORDS	= {'Name', 'FOOD_PLANT_LUSH_FARM_NAME'},
 	VALUE_CHANGE_TABLE 	= {
-		{'StatsType',	'Suit_Jetpack_Tank'}
+		{'StatsType',	'Suit_Jetpack_Tank'},
+		{'FoodBonusStatAmount',	1.4}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--silicon egg
+mx_ct.prd[#mx_ct.prd+1] = {--silicon egg
 	SPECIAL_KEY_WORDS	= {'Name', 'FOOD_MISC_STELLAR_NAME'},
 	VALUE_CHANGE_TABLE 	= {
-		{'StatsType',	'Suit_Stamina_Strength'}
+		{'StatsType',	'Weapon_Laser_MiningBonus'},
+		{'FoodBonusStatAmount',	1.5}
 	}
 }
-mx_vct.prd[#mx_vct.prd+1] = {--geode
+mx_ct.prd[#mx_ct.prd+1] = {--geode
 	SPECIAL_KEY_WORDS	= {'ID', 'GEODE_CAVE'},
 	VALUE_CHANGE_TABLE 	= {
 		{'Name',		'UI_GEODE_NAME_CAVE'},
 		{'NameLower',	'UI_GEODE_NAME_CAVE_L'}
 	}
 }
-mx_vct.cmt[#mx_vct.cmt+1] = {--lower ship parts price
-	REPLACE_TYPE		= 'All',
+mx_ct.cmt[#mx_ct.cmt+1] = {--lower ship parts price
 	SPECIAL_KEY_WORDS	= {'Filename', 'TEXTURES/UI/FRONTEND/ICONS/SHIPICONS/SHIPPARTS.-DDS'},
 	SECTION_UP			= 1,
 	INTEGER_TO_FLOAT	= 'Preserve',
@@ -390,11 +378,10 @@ mx_vct.cmt[#mx_vct.cmt+1] = {--lower ship parts price
 		{'BaseValue',  '@ * 0.01'}
 	}
 }
-mx_vct.bsp[#mx_vct.bsp+1] = {--remove corvete tech addons
+mx_ct.bsp[#mx_ct.bsp+1] = {--remove corvette tech addons
 	SPECIAL_KEY_WORDS	= {
 		{'BuildableShipTechID', 'CV_INV.-'}, -- inventory
 		{'BuildableShipTechID', 'CV_LAUN.-'}, -- landing gear
-		-- {'BuildableShipTechID', 'CV_SGUN.-'}, -- photon cannon
 	},
 	VALUE_CHANGE_TABLE	= {
 		{'BuildableShipTechID', ''}
@@ -402,7 +389,7 @@ mx_vct.bsp[#mx_vct.bsp+1] = {--remove corvete tech addons
 }
 
 --- add new products ---
-mx_vct.prd[#mx_vct.prd+1] = {
+mx_ct.prd[#mx_ct.prd+1] = {
 	PRECEDING_KEY_WORDS	= 'Table',
 	ADD					= ToMxml(ProductEntry({
 		{
@@ -423,7 +410,7 @@ mx_vct.prd[#mx_vct.prd+1] = {
 				{id='SPACEGUNK2', 		n=10000,	tp=IT_.SBT}
 			},
 			stackmultiplier		= 12,
-			icon				= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/_MYPROD.RAMMOLD.DDS'
+			icon				= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/MYPROD/RAMMOLD.DDS'
 		},
 		{
 			id					= 'ULTRAPRODX40',
@@ -443,7 +430,7 @@ mx_vct.prd[#mx_vct.prd+1] = {
 				{id='ULTRAPROD2', 		n=20,	tp=IT_.PRD}
 			},
 			stackmultiplier		= 16,
-			icon				= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/_MYPROD.ULTRAPRODX4.DDS'
+			icon				= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/MYPROD/ULTRAPRODX4.DDS'
 		},
 		{
 			id					= 'SUPERFOOD',
@@ -467,7 +454,7 @@ mx_vct.prd[#mx_vct.prd+1] = {
 			stackmultiplier		= 20,
 			foodbonusstat		= 'Suit_Jetpack_Tank',
 			foodbonusstatamount = 0.8,
-			icon				= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/_MYPROD.GLOWPELLET.DDS'
+			icon				= 'TEXTURES/UI/FRONTEND/ICONS/PRODUCTS/MYPROD/GLOWPELLET.DDS'
 		}
 	}))
 }
@@ -475,39 +462,37 @@ mx_vct.prd[#mx_vct.prd+1] = {
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY product',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
-	AMUMSS_SUPPRESS_MSG	= 'UNUSED_VARIABLE',
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_REALITY_GCPRODUCTTABLE.MBIN',
 		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= mx_vct.prd
+		MXML_CHANGE_TABLE	= mx_ct.prd
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_MODULARCUSTOMISATIONPRODUCTS.MBIN',
 		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= mx_vct.cmt
+		MXML_CHANGE_TABLE	= mx_ct.cmt
 	},
 	{
 		MBIN_FILE_SOURCE	= 'METADATA/REALITY/TABLES/NMS_BASEPARTPRODUCTS.MBIN',
 		EXML_CREATE			= false,
-		MXML_CHANGE_TABLE	= mx_vct.bsp
+		MXML_CHANGE_TABLE	= mx_ct.bsp
 	}
 }}}}
 
---- locale texts will exported to a locTable mod
 local __locale_text_import__ = {
 ---	New text ---
 	SUPERFOOD_NAME = {
-		EN = [[GLOWING PELLETS]],
+		EN = [[GLOWING PELLETS]]
 	},
 	SUPERFOOD_NAME_L = {
-		EN = [[Glowing Pellets]],
+		EN = [[Glowing Pellets]]
 	},
 	SUPERFOOD_DESC = {
-		EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|N|Consuming a sample seems to be a good for you.]],
+		EN = [[This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|NL|Consuming a sample seems to be a good for you.]]
 	},
 	RAMMOULD_NAME = {
 		EN = [[RAMPANT MOLD]]
@@ -519,69 +504,152 @@ local __locale_text_import__ = {
 		EN = [[A highly <>EARTH<> concentrated form, up to 1:5 ratio, of the runaway mold. Extremely volatile outside of its seal container! Use of <TECHNOLOGY>power gloves<> recommended.]]
 	},
 	PRODX40_NAME = {
-		EN = [[FUSED STASIS ENABLER]],
-		FR = [[ACTIVATEUR DE STASE FUSIBLE]],
+		EN = [[FUSED POWER KETTLE]],
+		FR = [[BOUILLOIRE ÉLECTRIQUE À FUSIBLE]]
 	},
 	PRODX40_NAME_L = {
-		EN = [[Fused Stasis Enabler]],
-		FR = [[Activateur De Stase Fusible]],
+		EN = [[Fused Power Kettle]],
+		FR = [[Bouilloire électrique à fusible]]
 	},
 	PRODX40_DESC = {
 		EN = [[This plain-looking custom-made device is so vanishingly rare as to be practically extinct. It's <IMG>UNITSMALL<><RED>value<>, for the right collector, is so outrageous the technology itself is considered worthless.]],
 		FR = [[Cet appareil sur mesure d'apparence simple est si rare qu'il est pratiquement éteint. Sa <IMG>UNITSMALL<><RED>valeur<>, pour le bon collectionneur, est si scandaleuse que la technologie elle-même est considérée comme sans valeur.]]
 	},
 	UI_STARCHART_BUILDER_NAME = {
-		EN = [[ROAMING BUILDER LOCATOR]],
+		EN = [[ROAMING BUILDER LOCATOR]]
 	},
 	UI_STARCHART_BUILDER_NAME_L = {
-		EN = [[Roaming Builder Locator]],
+		EN = [[Roaming Builder Locator]]
 	},
 	UI_STARCHART_BUILDER_DESC = {
-		EN = [[A curious mesh of old and new technology, a hybrid between two entirely separate methods of creation. Nonetheless, this <STELLAR>location tracing device<> appears fully functional.]],
+		EN = [[A curious mesh of old and new technology, a hybrid between two entirely separate methods of creation. Nonetheless, this <STELLAR>location tracing device<> appears fully functional.]]
 	},
 	UI_STARCHART_BUILDER_SUB = {
-		EN = [[Harmonious Synthetics Tracker]],
+		EN = [[Harmonious Synthetics Tracker]]
 	},
 
 ---	Existing text overwritten ---
 	UI_GEODE_NAME_CAVE = {
-		EN = [[CAVE GEODE]],
+		EN = [[CAVE GEODE]]
 	},
 	UI_GEODE_NAME_CAVE_L = {
-		EN = [[Cave Geode]],
+		EN = [[Cave Geode]]
 	},
 	UI_GREEN_CRYSTAL_NAME = {
-		EN = [[Ionised Cobalt Crystals]],
-		FR = [[Cristaux de cobalt ionisés]],
+		EN = [[Ionized Cobalt Crystals]],
+		FR = [[Cristaux de cobalt ionisés]]
 	},
 	UI_FREIGHTER_FUEL_1_NAME = {
-		EN = [[FRIGATE FUEL]],
+		EN = [[FRIGATE FUEL]]
 	},
 	UI_FREIGHTER_FUEL_1_NAME_L = {
-		EN = [[Frigate Fuel]],
+		EN = [[Frigate Fuel]]
 	},
 	UI_FREIGHTER_FUEL_2_NAME = {
-		EN = [[FRIGATE FUEL x2]],
+		EN = [[FRIGATE FUEL x2]]
 	},
 	UI_FREIGHTER_FUEL_2_NAME_L = {
-		EN = [[Frigate Fuel x2]],
+		EN = [[Frigate Fuel x2]]
 	},
 	UI_FREIGHTER_FUEL_3_NAME = {
-		EN = [[FRIGATE FUEL x4]],
+		EN = [[FRIGATE FUEL x4]]
 	},
 	UI_FREIGHTER_FUEL_3_NAME_L = {
-		EN = [[Frigate Fuel x4]],
+		EN = [[Frigate Fuel x4]]
 	},
 	UI_SALVAGE_TECH_10_NAME = {
-		EN = [[STARSHIP AI KERNEL]],
+		EN = [[STARSHIP AI KERNEL]]
 	},
 	UI_SALVAGE_TECH_10_NAME_L = {
-		EN = [[starship AI Kernel]],
+		EN = [[starship AI Kernel]]
 	},
 	UI_GEODE_NAME = {
-		EN = [[ROCK GEODE]],
+		EN = [[ROCK GEODE]]
 	},
 	UI_GEODE_NAME_L = {
-		EN = [[Rock Geode]],
+		EN = [[Rock Geode]]
 	},
 }--- __locale_text_import__ (do not delete)
+
+--[[>-<LocTable>-<
+--<< New texts >>--
+=SUPERFOOD_NAME
+EN =GLOWING PELLETS
+
+=SUPERFOOD_NAME_L
+EN =Glowing Pellets
+
+=SUPERFOOD_DESC
+EN =This odd collection of pellets pulses with a faint, curiously organic phosphorescence. It seems to remember the whole from which it was parted...|NL|Consuming a sample seems to be a good for you.
+
+=RAMMOULD_NAME
+EN =RAMPANT MOLD
+
+=RAMMOULD_NAME_L
+EN =Rampant Mold
+
+=RAMMOULD_DESC
+EN =A highly <>EARTH<> concentrated form, up to 1:5 ratio, of the runaway mold. Extremely volatile outside of its seal container! Use of <TECHNOLOGY>power gloves<> recommended.
+
+=PRODX40_NAME
+EN =FUSED STASIS ENABLER
+
+=PRODX40_NAME_L
+EN =Fused Stasis Enabler
+
+=PRODX40_DESC
+EN =This plain-looking custom-made device is so vanishingly rare as to be practically extinct. It's <IMG>UNITSMALL<><RED>value<>, for the right collector, is so outrageous the technology itself is considered worthless.
+
+=UI_STARCHART_BUILDER_NAME
+EN =ROAMING BUILDER LOCATOR
+
+=UI_STARCHART_BUILDER_NAME_L
+EN =Roaming Builder Locator
+
+=UI_STARCHART_BUILDER_DESC
+EN =A curious mesh of old and new technology, a hybrid between two entirely separate methods of creation. Nonetheless, this <STELLAR>location tracing device<> appears fully functional.
+
+=UI_STARCHART_BUILDER_SUB
+EN =Harmonious Synthetics Tracker
+
+--<< Existing texts >>--
+=UI_GEODE_NAME_CAVE
+EN =CAVE GEODE
+
+=UI_GEODE_NAME_CAVE_L
+EN =Cave Geode
+
+=UI_GREEN_CRYSTAL_NAME
+EN =Ionised Cobalt Crystals
+
+=UI_FREIGHTER_FUEL_1_NAME
+EN =FRIGATE FUEL
+
+=UI_FREIGHTER_FUEL_1_NAME_L
+EN =Frigate Fuel
+
+=UI_FREIGHTER_FUEL_2_NAME
+EN =FRIGATE FUEL x2
+
+=UI_FREIGHTER_FUEL_2_NAME_L
+EN =Frigate Fuel x2
+
+=UI_FREIGHTER_FUEL_3_NAME
+EN =FRIGATE FUEL x4
+
+=UI_FREIGHTER_FUEL_3_NAME_L
+EN =Frigate Fuel x4
+
+=UI_SALVAGE_TECH_10_NAME
+EN =STARSHIP AI KERNEL
+
+=UI_SALVAGE_TECH_10_NAME_L
+EN =starship AI Kernel
+
+=UI_GEODE_NAME
+EN =ROCK GEODE
+
+=UI_GEODE_NAME_L
+EN =Rock Geode
+
+>-<LocTable>-<]]

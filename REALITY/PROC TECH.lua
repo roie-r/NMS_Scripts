@@ -17,7 +17,7 @@ local edit_stats = {
 		{st='Suit_Jetpack_Tank',				op='*',					mx=1.8},
 		{st='Suit_Jetpack_Drain',				op='+',		mn=-0.25,	mx=-0.3},
 		{st='Suit_Jetpack_Refill',				op='+',		mn=0.5,		mx=0.55},
-		{st='Suit_Jetpack_Ignition',			op='+',					mx=0.03}
+		{st='Suit_Jetpack_Ignition',			op='+',					mx=0.04}
 	},
 	UP_UNW			= {
 		{st='Suit_Protection_WaterDrain',		mn=0.1,		mx=0.2,		wc='MaxIsUncommon',	ac=true},
@@ -74,7 +74,7 @@ local edit_stats = {
 	},
 ---	freighter
 	UT_FR_HYP_NAME	= {
-		{st='Freighter_Hyperdrive_JumpDistance',op='*',		mn=9,		mx=10},
+		{st='Freighter_Hyperdrive_JumpDistance',op='*',		mn=16,		mx=20},
 		{st='Freighter_Hyperdrive_JumpsPerCell',op='*',		mn=0.35,	mx=0.4}
 	},
 }
@@ -88,13 +88,14 @@ for id, stats in pairs(edit_stats) do
 	for _,stat in ipairs(stats) do
 		if stat.op then
 			--- edit ---
+			if not stat.mn then stat.mn = stat.mx end
 			mx_ct[#mx_ct+1] = {
 				REPLACE_TYPE		= 'All',
 				SPECIAL_KEY_WORDS	= {'Name', id, 'StatsType', stat.st},
 				SECTION_UP			= 1,
 				VALUE_CHANGE_TABLE	= {
-					{'ValueMin', '@'..stat.op..(stat.mn and stat.mn or stat.mx)},
-					{'ValueMax', '@'..stat.op..stat.mx}
+					{'ValueMin', (stat.op ~= '=' and '@'..stat.op or '')..stat.mn},
+					{'ValueMax', (stat.op ~= '=' and '@'..stat.op or '')..stat.mx}
 				}
 			}
 		elseif stat.mx then
@@ -115,7 +116,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY proc-tech',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {

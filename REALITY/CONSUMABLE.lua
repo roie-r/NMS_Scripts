@@ -21,6 +21,8 @@ local consumable_items = {
 	},
 	ACCESS3 = {
 		reward	= 'R_S19_STATION',
+		btn		= 'UI_S19_TP_LABEL',
+		btnsub	= 'UI_S19_TP_LABEL_SUB',
 		closed	= true,
 		destroy	= false
 	},
@@ -37,20 +39,28 @@ local mx_ct = {
 	},
 	{
 	--	heptaploid wheat - remove wanted
+		SPECIAL_KEY_WORDS	= {'ID', 'FOOD_MEAT_STEW'},
+		VALUE_CHANGE_TABLE 	= {
+			{'RewardID',				'HEALTHY_MEAT'}, -- (custom: health + stamina)
+			{'CloseInventoryWhenUsed',	true}
+		}
+	},
+	{
+	--	heptaploid wheat - remove wanted
 		SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_ALL1'},
 		VALUE_CHANGE_TABLE 	= {
 			{'RewardID',				'R_CLEAR_WANTED'}, -- DE_FOOD_HAZ1
 			{'CloseInventoryWhenUsed',	true}
 		}
 	},
-	-- {
-	-- --	glass grains (cooked frost crystal)
-		-- SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_COLDFARM'},
-		-- VALUE_CHANGE_TABLE 	= {
-			-- {'RewardID',				'R_OPEN_TREE_0'},
-			-- {'CloseInventoryWhenUsed',	true}
-		-- }
-	-- },
+	{
+	--	glass grains (cooked frost crystal)
+		SPECIAL_KEY_WORDS	= {'ID', 'FOOD_P_COLDFARM'},
+		VALUE_CHANGE_TABLE 	= {
+			{'RewardID',				'STORM'},
+			{'CloseInventoryWhenUsed',	true}
+		}
+	},
 	{
 		SPECIAL_KEY_WORDS	= {'ID', 'ALIEN_TECHBOX'},
 		SEC_SAVE_TO			= 'gc_consumable_item'
@@ -62,8 +72,8 @@ for id, item in pairs(consumable_items) do
 		VALUE_CHANGE_TABLE 	= {
 			{'ID',						id},
 			{'RewardID',				item.reward},
-			{'ButtonLocID',				item.button	or 'UI_CONSUME'},
-			{'ButtonSubLocID',			''},
+			{'ButtonLocID',				item.btn or 'UI_CONSUME'},
+			{'ButtonSubLocID',			item.btnsub or ''},
 			{'CloseInventoryWhenUsed',	item.closed},
 			{'DestroyItemWhenConsumed',	item.destroy}
 		}
@@ -77,7 +87,7 @@ end
 NMS_MOD_DEFINITION_CONTAINER = {
 	MOD_FILENAME 		= '+ REALITY consumable',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {
 		{

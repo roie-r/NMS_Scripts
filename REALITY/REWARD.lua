@@ -15,6 +15,25 @@ local mod_desc = [[
 ]]---------------------------------------------------------------------
 
 local new_rewards = {
+	DE_GEODE_RARE = {	--- glowing mineral
+		active		= true,
+		choice		= RC_.ONE,
+		overwrite	= true,
+		itemlist	= {
+			--id					Min		Max			%		function
+			{id='ALLOY1',    				mx=1,		c=10,	f=R_Product},
+			{id='ALLOY3',    				mx=1,		c=10,	f=R_Product},
+			{id='ALLOY2',    				mx=1,		c=10,	f=R_Product},
+			{id='ALLOY5',    				mx=1,		c=10,	f=R_Product},
+			{id='ALLOY4',    				mx=1,		c=10,	f=R_Product},
+			{id='ALLOY6',    				mx=1,		c=10,	f=R_Product},
+			{id='ALLOY7',    				mx=1,		c=5,	f=R_Product},
+			{id='ALLOY8',    				mx=1,		c=5,	f=R_Product},
+			{id='GEODE_SPACE',    			mx=1,		c=8,	f=R_Product},
+			{id='GEODE_ASTEROID',   		mx=1,		c=8,	f=R_Product},
+			{id='DEEPSEA_PROD',   			mx=1,		c=8,	f=R_Product}
+		}
+	},
 	DE_RARE_GOLD = {	--- "metal fingers" rare resource
 		active		= true,
 		choice		= RC_.ONE,
@@ -24,7 +43,7 @@ local new_rewards = {
 			{id='ASTEROID2',		mn=100,	mx=200,		c=90,	f=R_Substance,	bb=true},
 			{id='RADIO1',			mn=200,	mx=250,		c=80,	f=R_Substance,	bb=true},
 			{id='DUSTY1',			mn=120,	mx=240,		c=40,	f=R_Substance,	bb=true},
-			{id='YELLOW2',			mn=210,	mx=260,		c=40,	f=R_Substance,	bb=true},
+			{id='YELLOW2',			mn=210,	mx=260,		c=40,	f=R_Substance,	bb=true}
 		}
 	},
 	DE_PLANT_HUGE = {	--- huge flora prop
@@ -33,7 +52,7 @@ local new_rewards = {
 		itemlist	= {
 			--id					Min		Max			%		function
 			{id='FUEL2',			mn=50,	mx=150,		c=100,	f=R_Substance},
-			{id='SPACEGUNK5',		mn=15,	mx=45,		c=100,	f=R_Substance},
+			{id='SPACEGUNK5',		mn=15,	mx=45,		c=100,	f=R_Substance}
 		}
 	},
 	DE_ROCK_HUGE = {	--- huge rock prop
@@ -42,7 +61,7 @@ local new_rewards = {
 		itemlist	= {
 			--id					Min		Max			%		function
 			{id='LAND2',			mn=50,	mx=150,		c=100,	f=R_Substance},
-			{id='GEODE_LAND', 		mn=1,	mx=2,		c=10,	f=R_DisguisedProduct,	display='LAND2'}
+			{id='GEODE_LAND', 		mn=1,	mx=2,		c=10,	f=R_DisguisedProduct,	idd='LAND2'}
 		}
 	},
 	DE_SENT_LOOT = {	--- sentinel salvaged glass shard
@@ -63,13 +82,13 @@ local new_rewards = {
 			{id='MECH_PROD',    	mn=1,	mx=2,		c=6,	f=R_Product},
 			{id='WALKER_PROD',  	mn=1,	mx=2,		c=6,	f=R_Product},
 			{id='ALLOY1',    				mx=1,		c=4,	f=R_Product},
-			{id='ALLOY2',    				mx=1,		c=4,	f=R_Product},
 			{id='ALLOY3',    				mx=1,		c=4,	f=R_Product},
-			{id='ALLOY4',    				mx=1,		c=4,	f=R_Product},
+			{id='ALLOY2',    				mx=1,		c=4,	f=R_Product},
 			{id='ALLOY5',    				mx=1,		c=4,	f=R_Product},
+			{id='ALLOY4',    				mx=1,		c=4,	f=R_Product},
 			{id='ALLOY6',    				mx=1,		c=4,	f=R_Product},
-			{id='ALLOY7',    				mx=1,		c=1,	f=R_Product},
-			{id='ALLOY8',    				mx=1,		c=1,	f=R_Product},
+			{id='ALLOY7',    				mx=1,		c=2,	f=R_Product},
+			{id='ALLOY8',    				mx=1,		c=2,	f=R_Product},
 			{id=CU_.HG,				mn=100,	mx=160,		c=10,	f=R_Money}
 		}
 	},
@@ -370,6 +389,7 @@ local new_rewards = {
 				}
 			},
 			{id=CU_.HG,	mn=50,		mx=60,		c=100,	f=R_Money},
+			{id='good',	mn=2,		mx=3,		c=100,	f=R_Standing}
 		}
 	},
 	FREIGHTERSAVE_T = {	--- freighter defense :: trader
@@ -388,6 +408,7 @@ local new_rewards = {
 				}
 			},
 			{id=CU_.UT,	mn=35100,	mx=50200,	c=100,	f=R_Money},
+			{id='good',	mn=2,		mx=3,		c=100,	f=R_Standing}
 		}
 	},
 	FREIGHTERSAVE_W = {	--- freighter defense :: warior
@@ -406,6 +427,7 @@ local new_rewards = {
 				}
 			},
 			{id=CU_.NN,	mn=190,		mx=270,		c=100,	f=R_Money},
+			{id='good',	mn=2,		mx=3,		c=100,	f=R_Standing}
 		}
 	},
 	R_PIR_TRIBUTE = {	--- pirate freighter defeat tribute
@@ -597,11 +619,18 @@ local new_rewards = {
 			{id='jetboost',			tm=3,	pw=1.15,	c=100,	f=R_Jetboost}
 		}
 	},
+	HEALTHY_MEAT = {	--- health + stamina
+		active		= true,
+		choice		= RC_.ALL_S,
+		itemlist	= {
+			{id='health',			mn=4,	mx=8,		c=98,	f=R_Health},
+			{id='stamina',			tm=3,				c=98,	f=R_Stamina},
+		}
+	},
 	HEALTH_MAJOR = {	--- health + shield + stamina + hazard + jetboost = balatant cheat!
 		active		= true,
 		choice		= RC_.ALL_S,
 		itemlist	= {
-			{id='wanted_level',		lvl=0,				c=98,	f=R_Wanted},
 			{id='no_sentinels',		tm=20,				c=98,	f=R_NoSentinels},
 			{id='health',			mn=3,	mx=5,		c=98,	f=R_Health},
 			{id='shield',			mn=70,	mx=100,		c=98,	f=R_Shield},
@@ -625,7 +654,8 @@ local new_rewards = {
 			{id='hazard',	bl='UI_RESTORE_HAZARD',	am=-100,	c=100,	f=R_Hazard},
 			{
 				id={'STRONGLASER', 'VEHICLESTUN'},
-				nm='tech list',					c=100,	f=R_TechnologyList},
+				nm='tech list',					c=100,	f=R_TechnologyList
+			},
 			{
 				id={'SUPERFOOD', 'RAMMOULD5'},
 				nm='prod recipe list',			c=100,	f=R_ProductRecipeList
@@ -676,7 +706,8 @@ local new_rewards = {
 			{id='STEALTH',			sl=true,				c=10,	f=R_Technology},
 			{id='ACCESS1',			sl=true,				c=10,	f=R_ProductRecipe},
 			{id={'ALLOY4','ALLOY5'},						c=2,	f=R_ProductAllList},
-			{id=CU_.NN,				mn=101,		mx=202,		c=100,	f=R_Money}
+			{id=CU_.NN,				mn=101,		mx=202,		c=100,	f=R_Money},
+			{id={'B_COK_B','B_TRU_F'},			mx=1,		c=2,	f=R_ProductFromList, igs='BIGGS_PART_GOT'},
 		}
 	}
 }
@@ -743,7 +774,7 @@ local function LearnMoreWords(T)
 		TEACHWORD_TRA	= {ar=AR_.TRD,	n=3},
 		TEACHWORD_WAR	= {ar=AR_.WAR,	n=3},
 		TEACHWORD_ATLAS	= {ar=AR_.ATL,	n=3},
-		TEACHWORD_BUI	= {ar=AR_.BLD,	n=3},
+		TEACHWORD_BUI	= {ar=AR_.BLD,	n=3}
 	}) do
 		for _=1, (word.n - 1) do
 			T[#T+1] = {
@@ -756,9 +787,9 @@ local function LearnMoreWords(T)
 end
 
 NMS_MOD_DEFINITION_CONTAINER = {
-	MOD_FILENAME 		= '+ REALITY reward',
+	MOD_FILENAME 		= '+ REALITY rewards',
 	MOD_AUTHOR			= 'lMonk',
-	NMS_VERSION			= '6.06',
+	NMS_VERSION			= '6.24',
 	MOD_DESCRIPTION		= mod_desc,
 	MODIFICATIONS 		= {{
 	MBIN_CHANGE_TABLE	= {
@@ -778,16 +809,6 @@ NMS_MOD_DEFINITION_CONTAINER = {
 						{'DoAerialScan', false}
 					}
 				}
-				-- mx_ct[#mx_ct+1] = {
-					-- REPLACE_TYPE 		= 'All',
-					-- MATH_OPERATION 		= '*',
-					-- SPECIAL_KEY_WORDS	= {'Currency', 'Specials'},
-					-- SECTION_UP			= 1,
-					-- VALUE_CHANGE_TABLE 	= {
-						-- {'AmountMin',	2},
-						-- {'AmountMax',	2}
-					-- }
-				-- }
 				return mx_ct
 			end
 		)()
